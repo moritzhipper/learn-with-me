@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
+  <h2 class="fly-in-y-0">add to collection</h2>
+  <div class="collections fly-in-y-0">
+    @for (collection of collections(); track collection.id) {
+      <label class="radio">
+        <input type="radio" [value]="collection.id" formControlName="addToId" />
+
+        <span>{{ collection.name }}</span>
+      </label>
+    }
+  </div>
+  <label class="fly-in-y-0">
+    <span>create new</span>
+    <input
+      type="text"
+      class="create"
+      formControlName="createName"
+      [class.selected]="form.value.createName && !form.value.addToId"
+      (input)="resetCollectionSelection()"
+      (click)="resetCollectionSelection()"
+    />
+  </label>
+  <button class="big fly-in-y-1" type="button" (click)="cancel()">
+    cancel
+  </button>
+  <button
+    type="submit"
+    [disabled]="!form.value.createName && !form.value.addToId"
+    class="fly-in-y-2"
+  >
+    confirm
+  </button>
+</form>

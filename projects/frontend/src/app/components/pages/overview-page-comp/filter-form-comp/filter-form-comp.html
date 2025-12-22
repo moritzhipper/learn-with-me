@@ -1,0 +1,78 @@
+@if (showFilter()) {
+  <form [formGroup]="form" animate.enter="enter" animate.leave="leave">
+    <div class="wrapper">
+      <label class="search">
+        <span>search</span>
+        <input type="text" formControlName="search" />
+      </label>
+
+      <app-radio-comp
+        [config]="[
+          { value: null, label: 'all' },
+          { value: 'word' },
+          { value: 'phrase' }
+        ]"
+        formControlName="type"
+        label="type"
+      />
+      <app-radio-comp
+        class="confidence"
+        [config]="[
+          { value: null, label: 'all' },
+          { value: 'low' },
+          { value: 'medium' }
+        ]"
+        formControlName="confidence"
+        label="max confidence"
+      />
+
+      <app-radio-comp
+        [config]="[
+          { value: null, label: 'all' },
+          { value: 'newest' },
+          { value: 3, label: '< 3 days' }
+        ]"
+        formControlName="age"
+        label="age"
+      />
+
+      <app-radio-comp
+        [config]="[
+          { value: 'created' },
+          { value: 'lexeme' },
+          { value: 'confidence' }
+        ]"
+        formControlName="orderBy"
+        label="order by"
+      />
+
+      <app-radio-comp
+        [config]="[{ value: 'asc' }, { value: 'desc' }]"
+        formControlName="order"
+        label="order"
+      />
+    </div>
+  </form>
+}
+
+<div class="toggle-wrapper">
+  <button class="toggle silent" type="button" (click)="toggleExpanded()">
+    @if (!isInitialValue()) {
+      <app-icon-comp type="warn" [size]="16" class="icon warn" />
+    }
+    <span>filter</span>
+
+    <app-icon-comp
+      type="chevron"
+      [size]="30"
+      class="icon chevron"
+      [class.rotated]="showFilter()"
+    />
+  </button>
+  @if (!isInitialValue()) {
+    <button class="silent reset" (click)="reset()">reset filter</button>
+    <button class="silent select" (click)="onSelectVisible()">
+      select visible
+    </button>
+  }
+</div>

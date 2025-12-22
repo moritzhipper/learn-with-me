@@ -1,0 +1,16 @@
+:host {
+  display: grid;
+  place-items: center;
+
+  height: var(--dimension);
+  width: var(--dimension);
+
+  &.inline {
+    display: inline-flex;
+    translate: 0 3px;
+  }
+}
+svg {
+  display: block;
+  color: inherit;
+}

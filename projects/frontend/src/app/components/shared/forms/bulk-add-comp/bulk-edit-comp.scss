@@ -1,0 +1,133 @@
+@use '../../../../../style/mixins.scss' as *;
+
+:host {
+  overflow: hidden;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+
+  overflow: hidden;
+
+  .learnables {
+    display: grid;
+    grid-auto-rows: min-content;
+    place-items: start stretch;
+    border-radius: var(--radius-1);
+    scrollbar-color: var(--col-primary) transparent;
+
+    gap: var(--distance-4);
+    overflow-y: scroll;
+
+    .empty {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+  }
+
+  .wide {
+    grid-column: span 2;
+  }
+
+  .navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--distance-4);
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: span 2;
+      opacity: var(--opacity-1);
+    }
+
+    .submit {
+      grid-column: span 2;
+    }
+
+    .add {
+      display: flex;
+      justify-content: center;
+      padding: var(--distance-3) var(--distance-4) var(--distance-3)
+        var(--distance-5);
+      gap: var(--distance-2);
+      border-radius: var(--radius-3) var(--radius-1) var(--radius-1)
+        var(--radius-1);
+      place-self: end;
+    }
+  }
+}
+
+.learnable {
+  display: grid;
+  gap: var(--distance-2);
+  grid-template-columns: 2fr 1fr;
+
+  .remove {
+    padding: var(--distance-2);
+    border-radius: var(--radius-1);
+    place-self: end;
+  }
+
+  .fake-card {
+    display: grid;
+    grid-column: span 2;
+    background-color: var(--col-accent);
+    border-radius: var(--radius-1);
+    overflow: hidden;
+    border-top: 1px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .lexeme {
+      padding: var(--distance-4);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .translation {
+      padding: var(--distance-4);
+      border-radius: 0;
+      font-style: italic;
+    }
+
+    .notes {
+      padding: var(--distance-4);
+    }
+  }
+}
+
+@include isDesktop() {
+  form {
+    --big: 90px;
+    height: 100vh;
+    width: 100vw;
+    padding: var(--big) var(--big) var(--distance-5) var(--big);
+
+    .learnables {
+      height: 100%;
+      width: 100%;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+    .navigation {
+      width: 600px;
+      place-self: center;
+    }
+  }
+}
+
+@include isPhone() {
+  .learnables {
+    grid-template-columns: 1fr;
+  }
+  .navigation {
+    width: 100%;
+    place-self: end;
+  }
+}

@@ -1,0 +1,35 @@
+<app-page-icon-comp type="settings" />
+<app-page-header-comp title="Settings" />
+
+<div class="stats">
+  You created <strong>{{ stats().banks }} </strong> holding
+  <strong>{{ stats().collections }} </strong> having a total of
+  <strong>{{ stats().learnables }}</strong
+  >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating
+  cards.
+</div>
+<div class="banks">
+  @for (bank of banks(); track bank.id) {
+    <app-bank-settings-card
+      [bank]="bank"
+      [isActive]="activeBankId() === bank.id"
+      (setActive)="setActiveBank(bank.id)"
+      (delete)="deleteBank(bank.id)"
+      (download)="downloadBank(bank)"
+      (edit)="editBank(bank)"
+      (share)="shareBank(bank)"
+    />
+  }
+  <button class="add-bank" (click)="createNewBank()">
+    <span>add bank</span>
+    <app-icon-comp type="add" size="auto" />
+  </button>
+</div>
+
+<div class="data-interact">
+  <label>
+    <span> OpenAI API-key </span>
+    <input type="password" [value]="apiKey()" (input)="updateKey($event)" />
+  </label>
+  <button class="primary big delete" (click)="reset()">reset all data</button>
+</div>

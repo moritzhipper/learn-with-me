@@ -1,0 +1,35 @@
+@use '../../../../../style/mixins' as *;
+
+:host {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--distance-4);
+
+  app-counter-comp {
+    place-self: center;
+    margin: var(--distance-5) 0;
+  }
+
+  form {
+    display: grid;
+    gap: var(--distance-4);
+    align-self: end;
+    button {
+      transition: all var(--duration-1) var(--soft-ease);
+      margin-top: var(--distance-4);
+    }
+  }
+}
+
+@include isDesktop() {
+  :host {
+    place-self: center;
+    width: 400px;
+
+    button:hover:not([disabled]),
+    button:focus-visible:not([disabled]) {
+      transform: scale(1.1) rotate(1deg);
+      box-shadow: var(--shadow-big);
+    }
+  }
+}

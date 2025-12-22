@@ -1,0 +1,59 @@
+@use '../../../../../style/mixins.scss' as *;
+
+:host {
+  position: absolute;
+}
+
+.wrapper {
+  z-index: 30;
+  position: fixed;
+  height: 100dvh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: grid;
+}
+
+.backdrop,
+.fake-dialog {
+  grid-area: 1 / 1;
+}
+
+.fake-dialog {
+  display: grid;
+  box-sizing: border-box;
+  overflow: hidden;
+  place-self: center;
+  z-index: 1;
+}
+
+.backdrop {
+  position: fixed;
+  height: 100dvh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 29;
+  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  backdrop-filter: blur(30px);
+
+  &.enter {
+    animation: bd-appear var(--duration-1) ease;
+  }
+
+  &.leave {
+    animation: bd-appear var(--duration-1) ease reverse;
+  }
+}
+
+@include isPhone() {
+  .fake-dialog {
+    place-self: stretch;
+  }
+}
+@include isDesktop() {
+  .fake-dialog {
+    min-height: 300px;
+    min-width: 450px;
+  }
+}

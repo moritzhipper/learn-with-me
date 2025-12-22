@@ -1,0 +1,36 @@
+@let _c = counter();
+
+<div class="header">
+  <div class="name">{{ bank().name }}</div>
+
+  @if (!ttl().isExpired) {
+    <button class="silent copy" (click)="copyId.emit()">
+      <app-icon-comp type="copy" />
+    </button>
+
+    @if (allowImport()) {
+      <button class="silent import" (click)="importBank.emit()">
+        <app-icon-comp type="add" />
+      </button>
+    }
+  }
+</div>
+
+@if (isCommunityBank()) {
+  <div class="info">
+    @if (hasMultipleCollections()) {
+      <span class="word-list-item"> {{ _c.collections }} </span>
+    }
+    <span class="word-list-item"> {{ _c.words }} </span>
+    <span class="word-list-item"> {{ _c.phrases }} </span>
+  </div>
+}
+
+<div class="shared">{{ bank().created | date: 'mediumDate' }}</div>
+<div class="ttl">{{ ttl().label }}</div>
+@if (isCommunityBank()) {
+  <div class="counter">
+    {{ _c.cards }}
+    <div class="wrapper"></div>
+  </div>
+}

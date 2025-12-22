@@ -1,1 +1,170 @@
-/* You can add global styles to this file, and also import other style files */
+@use './style/theme';
+@use './style/reusable';
+@use './style/animations';
+@use './style/page-sizes';
+
+html {
+  background-color: var(--col-bg);
+}
+body,
+html {
+  margin: 0;
+  position: relative;
+}
+
+* {
+  scrollbar-color: rgb(from var(--col-accent) r g b / var(--opacity-1))
+    transparent;
+
+  scrollbar-width: thin;
+}
+
+body,
+input,
+button,
+a,
+h1,
+h2,
+h3,
+textarea {
+  font-family: 'Trebuchet MS', sans-serif;
+  color: var(--col-text);
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: var(--distance-6) 0 var(--distance-4) 0;
+
+  &.first {
+    margin: 0 0 var(--distance-4) 0;
+  }
+}
+
+textarea {
+  padding: var(--distance-4);
+  line-height: 24px;
+  resize: none;
+}
+
+p {
+  line-height: 26px;
+  margin: var(--distance-3) 0;
+}
+
+button,
+a {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+textarea,
+input,
+select {
+  font-size: var(--font-size-1);
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--col-primary);
+}
+
+button {
+  transition-property:
+    background-color, opacity, outline, color, box-shadow, padding, rotate;
+  transition-duration: var(--duration-0);
+  transition-timing-function: ease-out;
+
+  &.small {
+    border-radius: var(--radius-0);
+
+    padding: var(--distance-1) var(--distance-5);
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &.big {
+    border-radius: var(--radius-1);
+
+    background-color: var(--col-accent);
+    font-size: var(--font-size-1);
+    padding: var(--distance-3) var(--distance-5);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &[type='submit'] {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-1);
+    padding: var(--distance-3) var(--distance-5);
+    background-color: var(--col-primary);
+    color: var(--col-bg);
+    border-radius: var(--radius-1);
+    box-shadow: var(--shadow-small);
+  }
+
+  &[disabled] {
+    opacity: var(--opacity-1);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+a[download] {
+  text-align: center;
+  padding: var(--distance-3) var(--distance-5);
+}
+
+input,
+textarea,
+select {
+  background-color: var(--col-accent);
+  color: var(--col-text);
+  border-radius: var(--radius-1);
+  border: none;
+  &::placeholder {
+    color: rgb(from var(--col-text) r g b / var(--opacity-1));
+  }
+}
+
+button,
+select {
+  &.silent {
+    border-radius: var(--radius-1);
+    font-size: inherit;
+    text-align: inherit;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+* {
+  outline: 0px solid transparent;
+  transition: outline var(--duration-0);
+
+  &:focus-visible {
+    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+  }
+}
+
+label {
+  display: grid;
+  grid-template-columns: 1fr;
+  span {
+    opacity: var(--opacity-1);
+    padding: 0 0 var(--distance-1) var(--distance-2);
+    font-size: var(--font-size-0);
+  }
+}
+
+input,
+select {
+  padding: var(--distance-3) var(--distance-4);
+}
+
+a {
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+}

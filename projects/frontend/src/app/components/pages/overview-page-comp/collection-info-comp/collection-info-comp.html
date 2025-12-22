@@ -1,0 +1,9 @@
+@let conf = config();
+
+<span class="word-list-item"> {{ conf.averageConfidence }}% confidence </span>
+<span class="word-list-item"> {{ conf.cardCount }} cards </span>
+@if (conf.date) {
+  <span class="word-list-item">
+    {{ conf.date | date: 'mediumDate' }}
+  </span>
+}

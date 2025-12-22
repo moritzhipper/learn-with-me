@@ -1,0 +1,45 @@
+@use '../../../../../style/mixins.scss' as *;
+
+form {
+  grid-template-rows: 1fr auto;
+
+  .content {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: var(--distance-4);
+    grid-column: span 2;
+  }
+
+  textarea.converting {
+    background: linear-gradient(
+      -45deg,
+      var(--col-accent) 30%,
+      var(--col-primary) 50%,
+      var(--col-accent) 80%
+    );
+    background-size: 400% 400%;
+    animation: converting 3s infinite;
+  }
+}
+
+@include isDesktop() {
+  form {
+    height: 600px;
+  }
+}
+
+@include isPhone() {
+  form {
+    height: 100%;
+  }
+}
+
+@keyframes converting {
+  from {
+    background-position: 0% 0%;
+  }
+  80%,
+  100% {
+    background-position: 100% 100%;
+  }
+}
