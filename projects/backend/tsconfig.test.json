@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/test-be",
+    "outDir": "../../out-dist/test-backend",
     "types": ["vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.test.ts"]

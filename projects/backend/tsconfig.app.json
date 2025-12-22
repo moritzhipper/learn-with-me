@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/backend",
+    "outDir": "../../dist/backend",
     "sourceMap": true,
     "types": ["node"],
     "module": "CommonJS",

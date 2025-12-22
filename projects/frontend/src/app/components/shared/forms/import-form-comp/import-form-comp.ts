@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core'
 import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { BankShare } from '../../../../types_and_schemas/types'
+import { BankShare } from '@shared/types'
 import { BaseModalDirective } from '../base-modal-directive'
 
 type CollectionPreview = {

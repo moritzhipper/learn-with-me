@@ -5,7 +5,11 @@ import { join } from 'node:path'
 
 export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPluginOptions> {}
 // Pass --options via CLI arguments in command to enable these options.
-const options: AppOptions = {}
+const options: AppOptions = {
+  logger: {
+    level: 'trace'
+  }
+}
 
 const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void> => {
   // Place here your custom code!

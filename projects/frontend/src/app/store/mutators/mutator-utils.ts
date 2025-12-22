@@ -1,9 +1,5 @@
-import {
-  BankUser,
-  LearnableBase,
-  LearnablesStoreType,
-  UserLearnable
-} from '../../types_and_schemas/types'
+import { BankUser, LearnableBase, UserLearnable } from '@shared/types'
+import { LearnablesStoreType } from '../../types_and_schemas/types'
 import { initialGuesses } from '../initialStates'
 
 /** Helper to update the active bank in state */
@@ -32,11 +28,7 @@ export const mapBaseToUserLearnable = (
   guesses: { ...initialGuesses }
 })
 
-export const mapBaseToFullToLearnables = (
-  learnableBase: LearnableBase[]
-): UserLearnable[] => {
+export const mapBaseToFullToLearnables = (learnableBase: LearnableBase[]): UserLearnable[] => {
   const now = new Date()
-  return learnableBase.map((l) =>
-    mapBaseToUserLearnable(l, crypto.randomUUID(), now)
-  )
+  return learnableBase.map((l) => mapBaseToUserLearnable(l, crypto.randomUUID(), now))
 }

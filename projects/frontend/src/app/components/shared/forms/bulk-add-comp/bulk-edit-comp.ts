@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common'
-import {
-  Component,
-  effect,
-  inject,
-  input,
-  signal,
-  untracked
-} from '@angular/core'
+import { Component, effect, inject, input, signal, untracked } from '@angular/core'
 import {
   AbstractControl,
   FormArray,
@@ -15,11 +8,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
-import {
-  LearnableBase,
-  UserLearnable,
-  UserLearnablePartial
-} from '../../../../types_and_schemas/types'
+import { LearnableBase, UserLearnable, UserLearnablePartial } from '@shared/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -60,9 +49,7 @@ export class BulkEditComp extends BaseModalDirective {
   }
 
   get learnablesFormArray(): FormArray {
-    return this.learnablesForm.get('learnables') as FormArray<
-      AbstractControl<LearnableBase>
-    >
+    return this.learnablesForm.get('learnables') as FormArray<AbstractControl<LearnableBase>>
   }
 
   addLearnable(): void {

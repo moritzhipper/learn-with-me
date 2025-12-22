@@ -1,15 +1,10 @@
 import { inject, Injectable } from '@angular/core'
+import { BankUser, CollectionUser, LanguageConfig, LearnableBase } from '@shared/types'
 import { ApiService } from '../../../services/api-service'
 import { BlobService } from '../../../services/blob-service'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import {
-  BankUser,
-  CollectionUser,
-  LanguageConfig,
-  LearnableBase
-} from '../../../types_and_schemas/types'
 import { mapToBankExport } from '../../../utils/import-export-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
@@ -54,9 +49,7 @@ export class OverviewPageFacade {
     selectedLearnableIds: string[],
     selectedCollection: CollectionUser | null
   ): Promise<void> {
-    const learnables = this.store
-      .learnables()
-      .filter((l) => selectedLearnableIds.includes(l.id))
+    const learnables = this.store.learnables().filter((l) => selectedLearnableIds.includes(l.id))
 
     const result = await this.modalService.open<ConfirmationType>('bulk-edit', {
       learnables
@@ -92,29 +85,19 @@ export class OverviewPageFacade {
   // ─────────────────────────────────────────────────────────────────────────────
 
   async openAddToCollectionModal(learnableIds: string[]): Promise<void> {
-    const result = await this.modalService.open<ConfirmCollectionAddType>(
-      'collection-add',
-      { collections: this.store.collections() }
-    )
+    const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
+      collections: this.store.collections()
+    })
 
     if (!this.isConfirmed(result)) return
 
     const { createName, addToId } = result.value
-    const collectionName = this.addLearnablesToCollection(
-      learnableIds,
-      createName,
-      addToId
-    )
+    const collectionName = this.addLearnablesToCollection(learnableIds, createName, addToId)
 
-    this.showInfoToast(
-      `Added ${learnableIds.length} cards to ${collectionName}`
-    )
+    this.showInfoToast(`Added ${learnableIds.length} cards to ${collectionName}`)
   }
 
-  removeLearnablesFromCollection(
-    collectionId: string,
-    learnableIds: string[]
-  ): void {
+  removeLearnablesFromCollection(collectionId: string, learnableIds: string[]): void {
     this.store.editCollectionLearnables(collectionId, [], learnableIds)
     this.showInfoToast(`Removed ${learnableIds.length} cards from collection`)
   }
@@ -130,10 +113,7 @@ export class OverviewPageFacade {
   }
 
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {
-    const result =
-      await this.modalService.open<ConfirmCollectionDeletionType>(
-        'collection-delete'
-      )
+    const result = await this.modalService.open<ConfirmCollectionDeletionType>('collection-delete')
 
     if (!this.isConfirmed(result)) return
 
@@ -146,14 +126,8 @@ export class OverviewPageFacade {
   // Sharing & Export Operations
   // ─────────────────────────────────────────────────────────────────────────────
 
-  async openShareCollectionModal(
-    bank: BankUser,
-    collectionId: string
-  ): Promise<void> {
-    const result = await this.modalService.open<ShareFormResponse>(
-      'bank-share',
-      { bank }
-    )
+  async openShareCollectionModal(bank: BankUser, collectionId: string): Promise<void> {
+    const result = await this.modalService.open<ShareFormResponse>('bank-share', { bank })
 
     if (!this.isConfirmed(result)) return
 
@@ -171,9 +145,7 @@ export class OverviewPageFacade {
   // Private Helpers
   // ─────────────────────────────────────────────────────────────────────────────
 
-  private isConfirmed<T>(
-    result: ModalResult<T>
-  ): result is ModalResult<T> & { type: 'confirm' } {
+  private isConfirmed<T>(result: ModalResult<T>): result is ModalResult<T> & { type: 'confirm' } {
     return result.type === 'confirm'
   }
 
@@ -206,9 +178,7 @@ export class OverviewPageFacade {
 
     if (selectedCollection) {
       this.store.editCollectionLearnables(selectedCollection.id, newIds, [])
-      this.showInfoToast(
-        `Created ${addedCount} cards and added them to ${selectedCollection.name}`
-      )
+      this.showInfoToast(`Created ${addedCount} cards and added them to ${selectedCollection.name}`)
     } else {
       this.showInfoToast(`Created ${addedCount} cards`)
     }
@@ -228,10 +198,7 @@ export class OverviewPageFacade {
 
     if (addToId) {
       this.store.editCollectionLearnables(addToId, learnableIds, [])
-      return (
-        this.store.collections().find((c) => c.id === addToId)?.name ??
-        'collection'
-      )
+      return this.store.collections().find((c) => c.id === addToId)?.name ?? 'collection'
     }
 
     return 'collection'

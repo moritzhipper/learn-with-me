@@ -1,10 +1,6 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
-import { LearnableBase } from '../../../../types_and_schemas/types'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { LearnableBase } from '@shared/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 

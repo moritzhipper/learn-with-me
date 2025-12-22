@@ -1,9 +1,5 @@
-import {
-  BankUser,
-  GuessHistory,
-  LearnablesStoreType,
-  SettingsStoreType
-} from '../types_and_schemas/types'
+import { BankUser, GuessHistory } from '@shared/types'
+import { LearnablesStoreType, SettingsStoreType } from '../types_and_schemas/types'
 
 const defaultBank: BankUser = {
   id: crypto.randomUUID(),

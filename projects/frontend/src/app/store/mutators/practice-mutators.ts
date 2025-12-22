@@ -1,9 +1,5 @@
-import {
-  Guess,
-  Guessable,
-  LearnablesStoreType,
-  UserLearnable
-} from '../../types_and_schemas/types'
+import { UserLearnable } from '@shared/types'
+import { Guess, Guessable, LearnablesStoreType } from '../../types_and_schemas/types'
 import { updateActiveBank } from './mutator-utils'
 
 export const addGuessToLearnable = (
@@ -79,11 +75,7 @@ export const setGuess =
       ...b,
       learnables: b.learnables.map((l) => {
         if (l.id !== currentGuessable.id || guess === 'unanswered') return l
-        return addGuessToLearnable(
-          l,
-          guess === 'right',
-          practice.reverseDirection
-        )
+        return addGuessToLearnable(l, guess === 'right', practice.reverseDirection)
       })
     }))
 
@@ -92,11 +84,7 @@ export const setGuess =
       currentPractice: {
         ...practice,
         index: practice.index + 1,
-        guessables: updateGuessables(
-          practice.guessables,
-          currentGuessable.id,
-          guess
-        )
+        guessables: updateGuessables(practice.guessables, currentGuessable.id, guess)
       }
     }
   }

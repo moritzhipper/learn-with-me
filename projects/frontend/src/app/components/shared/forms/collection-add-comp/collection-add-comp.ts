@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { CollectionUser } from '../../../../types_and_schemas/types'
+import { CollectionUser } from '@shared/types'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type ConfirmCollectionAddType = {

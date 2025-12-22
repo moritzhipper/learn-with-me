@@ -7,11 +7,11 @@
     "build:fe": "ng build",
     "watch:fe": "ng build --watch --configuration development",
     "test:fe": "ng test",
-    "build:be": "tsc -p projects/backend/tsconfig.app.json",
-    "watch:be": "tsc -w -p projects/backend/tsconfig.app.json",
-    "start:be": "npm run build:be && fastify start -l info out-tsc/backend/app.js",
+    "build:be": "tsc -p projects/backend/tsconfig.app.json && tsc-alias -p projects/backend/tsconfig.app.json",
+    "watch:be": "concurrently \"tsc -w -p projects/backend/tsconfig.app.json\" \"tsc-alias -w -p projects/backend/tsconfig.app.json\"",
+    "start:be": "npm run build:be && fastify start -l info dist/backend/backend/src/app.js",
     "dev:be": "npm run build:be && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:watch:be\" \"npm:dev:start:be\"",
-    "dev:start:be": "fastify start --ignore-watch=.ts$ -w -l info -P out-tsc/backend/app.js",
+    "dev:start:be": "fastify start --ignore-watch=.ts$ -w -l info -P dist/backend/backend/src/app.js",
     "test:be": "npm run build:be && tsc -p projects/backend/tsconfig.test.json && cd projects/backend && c8 node --test -r ts-node/register \"test/**/*.ts\""
   },
   "prettier": {

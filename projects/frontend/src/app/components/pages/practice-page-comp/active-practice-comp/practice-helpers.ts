@@ -1,4 +1,5 @@
-import { Practice, UserLearnable } from '../../../../types_and_schemas/types'
+import { UserLearnable } from '@shared/types'
+import { Practice } from '../../../../types_and_schemas/types'
 import {
   ActivePracticeSummary,
   PracticeRating
@@ -13,14 +14,9 @@ export type CardViewModel = {
   viewIndex: number
 }
 
-export const getCardsViewModel = (
-  practice: Practice,
-  cards: UserLearnable[]
-): CardViewModel[] => {
+export const getCardsViewModel = (practice: Practice, cards: UserLearnable[]): CardViewModel[] => {
   const currentIndex = practice.index
-  const lastGuessIndex = practice.guessables.findLastIndex(
-    (g) => g.guessed !== 'unanswered'
-  )
+  const lastGuessIndex = practice.guessables.findLastIndex((g) => g.guessed !== 'unanswered')
 
   // assumes finished early because current index is not last guess index + 1
   if (currentIndex !== lastGuessIndex + 1) {
@@ -36,11 +32,7 @@ export const getCardsViewModel = (
  *
  * When no next cards are available, summary card is added to the guess queue
  */
-const getVM = (
-  focusIndex: number,
-  cards: UserLearnable[],
-  practice: Practice
-): CardViewModel[] => {
+const getVM = (focusIndex: number, cards: UserLearnable[], practice: Practice): CardViewModel[] => {
   const indexes = [-1, 0, 1, 2]
   return indexes.reduce<CardViewModel[]>((vms, relIndex) => {
     const cardIndex = focusIndex + relIndex
@@ -85,21 +77,13 @@ const getVMforFinishedEarly = (
 }
 
 const createSummary = (practice: Practice): ActivePracticeSummary => {
-  const correctGuesses = practice.guessables.filter(
-    (g) => g.guessed === 'right'
-  ).length
-  const wrongGuesses = practice.guessables.filter(
-    (g) => g.guessed === 'wrong'
-  ).length
-  const unansweredGuesses = practice.guessables.filter(
-    (g) => g.guessed === 'unanswered'
-  ).length
+  const correctGuesses = practice.guessables.filter((g) => g.guessed === 'right').length
+  const wrongGuesses = practice.guessables.filter((g) => g.guessed === 'wrong').length
+  const unansweredGuesses = practice.guessables.filter((g) => g.guessed === 'unanswered').length
 
   const guessesDone = correctGuesses + wrongGuesses
   const guessedRightPercent =
-    guessesDone === 0
-      ? 0
-      : Math.round((correctGuesses / practice.guessables.length) * 100)
+    guessesDone === 0 ? 0 : Math.round((correctGuesses / practice.guessables.length) * 100)
 
   return {
     correctGuesses,

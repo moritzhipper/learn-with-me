@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core'
+import { BankShare } from '@shared/types'
 import { config } from '../../config'
-import { BankShare } from '../types_and_schemas/types'
-import {
-  parseFileImportString,
-  verifiyImportedFileValidity
-} from '../utils/import-export-utils'
+import { parseFileImportString, verifiyImportedFileValidity } from '../utils/import-export-utils'
 
 export type Downloadable = {
   blobUrl: string
@@ -27,7 +24,9 @@ export class BlobService {
     const blob = new Blob([jsonString], { type: 'application/octet-stream' })
     const blobUrl = URL.createObjectURL(blob)
 
-    const fileName = `${config.fileExportName} - ${bank.name} - ${new Date().toDateString()}.${config.fileExportSuffix}`
+    const fileName = `${config.fileExportName} - ${bank.name} - ${new Date().toDateString()}.${
+      config.fileExportSuffix
+    }`
 
     this._blobUrl = blobUrl
 
@@ -48,8 +47,7 @@ export class BlobService {
         try {
           const content = e.target?.result as string
           const imported = parseFileImportString(content)
-          if (imported.learnables.length === 0)
-            throw new Error('File contains no learnables')
+          if (imported.learnables.length === 0) throw new Error('File contains no learnables')
 
           resolve(imported)
         } catch (error) {

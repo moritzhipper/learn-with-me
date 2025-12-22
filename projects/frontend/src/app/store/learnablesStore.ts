@@ -1,19 +1,8 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit'
 import { computed } from '@angular/core'
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withMethods,
-  withState
-} from '@ngrx/signals'
-import {
-  BankBase,
-  BankShare,
-  Guess,
-  LearnableBase,
-  UserLearnablePartial
-} from '../types_and_schemas/types'
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
+import { BankBase, BankShare, LearnableBase, UserLearnablePartial } from '@shared/types'
+import { Guess } from '../types_and_schemas/types'
 import { initialState } from './initialStates'
 import {
   createBank,
@@ -23,10 +12,7 @@ import {
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
-import {
-  saveNewlyCreatedLearnables,
-  updateLearnables
-} from './mutators/card-mutators'
+import { saveNewlyCreatedLearnables, updateLearnables } from './mutators/card-mutators'
 import {
   createCollection,
   deleteCollection,
@@ -52,16 +38,10 @@ export const LearnablesStore = signalStore(
       return state.banks().find((b) => b.id === state.activeBankId())!
     }),
     collections: computed(() => {
-      return (
-        state.banks().find((b) => b.id === state.activeBankId())?.collections ||
-        []
-      )
+      return state.banks().find((b) => b.id === state.activeBankId())?.collections || []
     }),
     learnables: computed(() => {
-      return (
-        state.banks().find((b) => b.id === state.activeBankId())?.learnables ||
-        []
-      )
+      return state.banks().find((b) => b.id === state.activeBankId())?.learnables || []
     })
   })),
   withMethods((state) => {
@@ -81,11 +61,7 @@ export const LearnablesStore = signalStore(
       createCollection(name: string, ids: string[]) {
         patchState(state, createCollection(name, ids))
       },
-      editCollectionLearnables(
-        collectionID: string,
-        addIDs: string[],
-        deleteIDs: string[]
-      ) {
+      editCollectionLearnables(collectionID: string, addIDs: string[], deleteIDs: string[]) {
         patchState(state, editCollection(collectionID, addIDs, deleteIDs))
       },
       importBankExport(importStore: BankShare) {

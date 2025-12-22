@@ -1,8 +1,5 @@
-import {
-  LearnableBase,
-  LearnablesStoreType,
-  UserLearnablePartial
-} from '../../types_and_schemas/types'
+import { LearnableBase, UserLearnablePartial } from '@shared/types'
+import { LearnablesStoreType } from '../../types_and_schemas/types'
 import { mapBaseToFullToLearnables, updateActiveBank } from './mutator-utils'
 
 export const saveNewlyCreatedLearnables =
@@ -13,12 +10,9 @@ export const saveNewlyCreatedLearnables =
       const newLearnables = learnablesBase.filter(
         (lb, index, self) =>
           self.findIndex(
-            (other) =>
-              other.lexeme === lb.lexeme && other.translation === lb.translation
+            (other) => other.lexeme === lb.lexeme && other.translation === lb.translation
           ) === index &&
-          !b.learnables.some(
-            (l) => lb.lexeme === l.lexeme && lb.translation === l.translation
-          )
+          !b.learnables.some((l) => lb.lexeme === l.lexeme && lb.translation === l.translation)
       )
 
       const fullNew = mapBaseToFullToLearnables(newLearnables)

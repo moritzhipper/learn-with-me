@@ -1,5 +1,4 @@
-import { config } from '../../config'
-import { BankShareSchema } from '../types_and_schemas/schemas'
+import { BankShareSchema } from '@shared/schemas'
 import {
   BankShare,
   BankUser,
@@ -7,32 +6,26 @@ import {
   LearnableBase,
   LearnableWithId,
   UserLearnable
-} from '../types_and_schemas/types'
+} from '@shared/types'
+import { config } from '../../config'
 
 // #region Export Functions
 
 /**
  * Maps the learnables and collections to a format suitable to put into a file for export.
  */
-export const mapToBankExport = (
-  bank: BankUser,
-  onlyCollectionIDs?: string[]
-): BankShare => {
+export const mapToBankExport = (bank: BankUser, onlyCollectionIDs?: string[]): BankShare => {
   // Get collections to export
   const collectionsToExport = bank.collections.filter((c) =>
     onlyCollectionIDs ? onlyCollectionIDs.includes(c.id) : true
   )
 
   // Get all card IDs that belong to the collections being exported
-  const cardIdsInExportedCollections = new Set(
-    collectionsToExport.flatMap((c) => c.cardIds)
-  )
+  const cardIdsInExportedCollections = new Set(collectionsToExport.flatMap((c) => c.cardIds))
 
   // Filter learnables: if exporting specific collections, only include cards in those collections
   const learnables: LearnableWithId[] = bank.learnables
-    .filter((l) =>
-      onlyCollectionIDs ? cardIdsInExportedCollections.has(l.id) : true
-    )
+    .filter((l) => (onlyCollectionIDs ? cardIdsInExportedCollections.has(l.id) : true))
     .map((l) => ({
       lexeme: l.lexeme,
       translation: l.translation,
@@ -76,8 +69,7 @@ export const parseFileImportString = (fileAsString: string): BankShare => {
 }
 
 export const verifiyImportedFileValidity = (file: File): void => {
-  const fileSuffixIsCorrect =
-    file.name.split('.').pop()?.toLowerCase() === config.fileExportSuffix
+  const fileSuffixIsCorrect = file.name.split('.').pop()?.toLowerCase() === config.fileExportSuffix
 
   if (!fileSuffixIsCorrect) {
     throw new Error('Wrong file extension.')
@@ -102,8 +94,7 @@ export const filterDoubleEntries = (
     (newL) =>
       !existingLearnables.some(
         (existingL) =>
-          existingL.lexeme === newL.lexeme &&
-          existingL.translation === newL.translation
+          existingL.lexeme === newL.lexeme && existingL.translation === newL.translation
       )
   )
 

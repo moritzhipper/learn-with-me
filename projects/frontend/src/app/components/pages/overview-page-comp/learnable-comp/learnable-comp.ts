@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, input } from '@angular/core'
-import { UserLearnable } from '../../../../types_and_schemas/types'
+import { UserLearnable } from '@shared/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({

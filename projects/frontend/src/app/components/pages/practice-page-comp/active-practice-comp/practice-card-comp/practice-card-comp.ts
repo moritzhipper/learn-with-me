@@ -1,13 +1,6 @@
-import {
-  Component,
-  effect,
-  ElementRef,
-  input,
-  output,
-  viewChild
-} from '@angular/core'
+import { Component, effect, ElementRef, input, output, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { UserLearnable } from '../../../../../types_and_schemas/types'
+import { UserLearnable } from '@shared/types'
 
 @Component({
   selector: 'app-practice-card-comp',
@@ -23,8 +16,7 @@ export class PracticeCardComp {
   learnable = input.required<UserLearnable>()
   reverseDirection = input.required<boolean>()
   allowEdit = input<boolean>(false)
-  private readonly textArea =
-    viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
+  private readonly textArea = viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
 
   updateNotes = output<{ id: string; newNotes: string }>()
 

@@ -1,4 +1,4 @@
-import { LanguageConfig } from '../../types_and_schemas/types'
+import { LanguageConfig } from '@shared/types'
 
 const getSystemPrompt = ({ learning, speaking }: LanguageConfig) => `
   You are a language tutor creating vocabulary cards.  

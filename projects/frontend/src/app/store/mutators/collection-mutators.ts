@@ -1,14 +1,9 @@
-import {
-  CollectionUser,
-  LearnablesStoreType
-} from '../../types_and_schemas/types'
+import { CollectionUser } from '@shared/types'
+import { LearnablesStoreType } from '../../types_and_schemas/types'
 import { removeLearnables } from './bank-mutators'
 import { updateActiveBank } from './mutator-utils'
 
-const createNewCollection = (
-  name: string,
-  cardIds: string[]
-): CollectionUser => ({
+const createNewCollection = (name: string, cardIds: string[]): CollectionUser => ({
   id: crypto.randomUUID(),
   created: new Date(),
   name,
@@ -41,8 +36,7 @@ export const deleteCollection =
   (id: string, removeCards: boolean) =>
   (state: LearnablesStoreType): LearnablesStoreType => {
     const activeBank = state.banks.find((b) => b.id === state.activeBankId)
-    const cardIds =
-      activeBank?.collections.find((c) => c.id === id)?.cardIds ?? []
+    const cardIds = activeBank?.collections.find((c) => c.id === id)?.cardIds ?? []
 
     // Remove the collection
     const stateWithoutCollection = updateActiveBank(state, (b) => ({

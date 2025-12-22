@@ -1,7 +1,5 @@
-import {
-  LearnablesFilterConfig,
-  UserLearnable
-} from '../types_and_schemas/types'
+import { UserLearnable } from '@shared/types'
+import { LearnablesFilterConfig } from '../types_and_schemas/types'
 
 export const filterLearnables = (
   learnables: UserLearnable[],
@@ -93,9 +91,7 @@ const filterByIDs = (
   learnables: UserLearnable[]
 ): UserLearnable[] => {
   if (!filterConfig.ids) return learnables
-  return learnables.filter((learnable) =>
-    filterConfig.ids!.includes(learnable.id)
-  )
+  return learnables.filter((learnable) => filterConfig.ids!.includes(learnable.id))
 }
 
 const filterByAge = (
@@ -105,15 +101,11 @@ const filterByAge = (
   if (!filter.age) return learnables
   if (filter.age === 'newest') {
     // Find the newest creation date
-    const dates = learnables.map((learnable) =>
-      new Date(learnable.created).getTime()
-    )
+    const dates = learnables.map((learnable) => new Date(learnable.created).getTime())
     const newestDate = Math.max(...dates)
 
     // Return all learnables with that newest date
-    return learnables.filter(
-      (learnable) => new Date(learnable.created).getTime() === newestDate
-    )
+    return learnables.filter((learnable) => new Date(learnable.created).getTime() === newestDate)
   }
 
   const now = Date.now()
@@ -121,8 +113,7 @@ const filterByAge = (
   const maxAgeInDaysAsMs = (filter.age as number) * oneDayInMs
 
   return learnables.filter(
-    (learnable) =>
-      new Date(learnable.created).getTime() > now - maxAgeInDaysAsMs
+    (learnable) => new Date(learnable.created).getTime() > now - maxAgeInDaysAsMs
   )
 }
 
@@ -148,7 +139,5 @@ const orderByRandom = (a: UserLearnable, b: UserLearnable): number => {
 }
 
 const getWrongGuesses = (learnable: UserLearnable): number => {
-  return [...learnable.guesses.lexeme, ...learnable.guesses.translation].filter(
-    (g) => !g
-  ).length
+  return [...learnable.guesses.lexeme, ...learnable.guesses.translation].filter((g) => !g).length
 }

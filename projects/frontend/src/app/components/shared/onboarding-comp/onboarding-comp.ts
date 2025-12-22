@@ -5,9 +5,9 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
+import { BankBase, LanguageConfig } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { SettingsStore } from '../../../store/settingsStore'
-import { BankBase, LanguageConfig } from '../../../types_and_schemas/types'
 import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({

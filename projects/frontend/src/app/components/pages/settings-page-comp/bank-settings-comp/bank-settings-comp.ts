@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
 import { Component, input, output } from '@angular/core'
-import { BankUser } from '../../../../types_and_schemas/types'
+import { BankUser } from '@shared/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({

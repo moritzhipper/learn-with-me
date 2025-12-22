@@ -1,9 +1,12 @@
 @base = http://localhost:3000
+@speakinng = english
+@learning = dutch
 
 
 
 ### Get New Banks
-GET {{base}}/banks/new
+GET {{base}}/banks/new?speaking={{speakinng}}&learning={{learning}}
+
 
 ### Get Popular Banks
-GET {{base}}/banks/popular
+GET {{base}}/banks/popular?speaking={{speakinng}}&learning={{learning}}

@@ -3,14 +3,11 @@ import OpenAI from 'openai'
 // reimport when zod v4 + openai compatibility bug is fixed
 // until then use helper function zodTextFormat from utils/genaral-utils
 // import { zodTextFormat } from 'openai/helpers/zod'
+import { LearnablesFromAiSchema } from '@shared/schemas'
+import { LearnableBase, LearnableFromAI } from '@shared/types'
 import { ChatModel } from 'openai/resources/shared.mjs'
 import { SettingsStore } from '../../store/settingsStore'
-import { LearnablesFromAiSchema } from '../../types_and_schemas/schemas'
-import {
-  LearnableBase,
-  LearnableCreationConfig,
-  LearnableFromAI
-} from '../../types_and_schemas/types'
+import { LearnableCreationConfig } from '../../types_and_schemas/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
 import { getPhrasesPrompt, getWordsPrompt } from './prompt'
@@ -30,9 +27,7 @@ export class AiService {
       })
   )
 
-  async createLearnablesFromString(
-    config: LearnableCreationConfig
-  ): Promise<LearnableBase[]> {
+  async createLearnablesFromString(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const cardPromises: Promise<LearnableBase[]>[] = []
 
     // when both, do call phrase and cards, if one of them, call one of them
@@ -50,18 +45,14 @@ export class AiService {
     return cards
   }
 
-  private async _createPhrases(
-    config: LearnableCreationConfig
-  ): Promise<LearnableBase[]> {
+  private async _createPhrases(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     // this is a workaround for gpt-4o missing a lot of phrases when given to long input
     // increasing batchsize may improve speed, but reduce accuracy
     // reducing it increases accuracy, but reduces speed and increases token usage
     const maxChunkSize = 1000
     const chunks = mapPhrasesFromInputToChunks(config.input, maxChunkSize)
     const prompt = getPhrasesPrompt(config.language)
-    const chunkPromises = chunks.map((chunk) =>
-      this._extractCards(chunk, prompt)
-    )
+    const chunkPromises = chunks.map((chunk) => this._extractCards(chunk, prompt))
 
     const cardsLists = await Promise.all(chunkPromises)
 
@@ -72,9 +63,7 @@ export class AiService {
     }))
   }
 
-  private async _createWords(
-    config: LearnableCreationConfig
-  ): Promise<LearnableBase[]> {
+  private async _createWords(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     // this is a workaround for gpt-4o missing a lot of words when given a longer input
     // splitting the input into batches of smaller words improves input adherence
     // increasing batchsize may improve speed, but reduce accuracy
@@ -82,9 +71,7 @@ export class AiService {
     const chunkSize = 300
     const batches = mapPhrasesFromInputToChunks(config.input, chunkSize)
     const prompt = getWordsPrompt(config.language)
-    const cardPromises = batches.map((chunk) =>
-      this._extractCards(chunk, prompt)
-    )
+    const cardPromises = batches.map((chunk) => this._extractCards(chunk, prompt))
 
     const cardsLists = await Promise.all(cardPromises)
 
@@ -95,10 +82,7 @@ export class AiService {
     }))
   }
 
-  private async _extractCards(
-    input: string,
-    prompt: string
-  ): Promise<LearnableFromAI[]> {
+  private async _extractCards(input: string, prompt: string): Promise<LearnableFromAI[]> {
     const response = await this.oAi().responses.parse({
       model: this.model,
       text: {

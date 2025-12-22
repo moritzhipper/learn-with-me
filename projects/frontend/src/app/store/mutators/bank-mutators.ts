@@ -1,23 +1,10 @@
-import {
-  BankBase,
-  BankShare,
-  BankUser,
-  LearnablesStoreType,
-  UserLearnable
-} from '../../types_and_schemas/types'
-import {
-  learnablesMatch,
-  mapBaseToUserLearnable,
-  updateActiveBank
-} from './mutator-utils'
+import { BankBase, BankShare, BankUser, UserLearnable } from '@shared/types'
+import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { learnablesMatch, mapBaseToUserLearnable, updateActiveBank } from './mutator-utils'
 
 // Helper to check if practice should be reset when cards are deleted
-const shouldResetPractice = (
-  state: LearnablesStoreType,
-  idsToDelete: string[]
-): boolean =>
-  state.currentPractice?.guessables.some((g) => idsToDelete.includes(g.id)) ??
-  false
+const shouldResetPractice = (state: LearnablesStoreType, idsToDelete: string[]): boolean =>
+  state.currentPractice?.guessables.some((g) => idsToDelete.includes(g.id)) ?? false
 
 // Remove learnables from the active bank
 const removeLearnablesFromBank = (
@@ -35,9 +22,7 @@ const removeLearnablesFromBank = (
 
   return {
     ...updatedState,
-    currentPractice: shouldResetPractice(state, idsToDelete)
-      ? null
-      : state.currentPractice
+    currentPractice: shouldResetPractice(state, idsToDelete) ? null : state.currentPractice
   }
 }
 
@@ -74,8 +59,7 @@ export const deleteBank =
     const banks = state.banks.filter((b) => b.id !== id)
 
     // set id of active bank to existing bank if the active bank is deleted
-    const activeBankId =
-      state.activeBankId !== id ? state.activeBankId : banks[0].id
+    const activeBankId = state.activeBankId !== id ? state.activeBankId : banks[0].id
 
     return {
       ...state,
@@ -117,9 +101,7 @@ export const saveImportedBank =
       const newLearnables: UserLearnable[] = []
 
       for (const imported of learnables) {
-        const existingMatch = b.learnables.find((existing) =>
-          learnablesMatch(existing, imported)
-        )
+        const existingMatch = b.learnables.find((existing) => learnablesMatch(existing, imported))
         if (existingMatch) {
           // Duplicate: map imported id to existing id
           importedIdToExistingId.set(imported.id, existingMatch.id)
@@ -140,14 +122,10 @@ export const saveImportedBank =
           .map((id) => importedIdToExistingId.get(id))
           .filter((id) => id !== undefined)
 
-        const existingCol = updatedCollections.find(
-          (c) => c.name === importedCol.name
-        )
+        const existingCol = updatedCollections.find((c) => c.name === importedCol.name)
         if (existingCol) {
           // Merge cardIds into existing collection
-          existingCol.cardIds = [
-            ...new Set([...existingCol.cardIds, ...remappedCardIds])
-          ]
+          existingCol.cardIds = [...new Set([...existingCol.cardIds, ...remappedCardIds])]
         } else {
           // Create new collection with remapped cardIds
           updatedCollections.push({

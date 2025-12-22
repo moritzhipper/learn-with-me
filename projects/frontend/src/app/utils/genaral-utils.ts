@@ -1,10 +1,7 @@
-import {
-  AutoParseableTextFormat,
-  makeParseableTextFormat
-} from 'openai/lib/parser.mjs'
+import { UserLearnable } from '@shared/types'
+import { AutoParseableTextFormat, makeParseableTextFormat } from 'openai/lib/parser.mjs'
 import { ResponseFormatTextJSONSchemaConfig } from 'openai/resources/responses/responses.mjs'
 import z from 'zod'
-import { UserLearnable } from '../types_and_schemas/types'
 
 /**
  *
@@ -14,10 +11,7 @@ import { UserLearnable } from '../types_and_schemas/types'
 export function zodTextFormat<ZodInput extends z.ZodType>(
   zodObject: ZodInput,
   name: string,
-  props?: Omit<
-    ResponseFormatTextJSONSchemaConfig,
-    'schema' | 'type' | 'strict' | 'name'
-  >
+  props?: Omit<ResponseFormatTextJSONSchemaConfig, 'schema' | 'type' | 'strict' | 'name'>
 ): AutoParseableTextFormat<z.infer<ZodInput>> {
   return makeParseableTextFormat(
     {
@@ -31,13 +25,8 @@ export function zodTextFormat<ZodInput extends z.ZodType>(
   )
 }
 
-export const calculateAverageConfidencePercent = (
-  learnables: UserLearnable[]
-): number => {
-  const allGuesses = learnables.flatMap((l) => [
-    ...l.guesses.lexeme,
-    ...l.guesses.translation
-  ])
+export const calculateAverageConfidencePercent = (learnables: UserLearnable[]): number => {
+  const allGuesses = learnables.flatMap((l) => [...l.guesses.lexeme, ...l.guesses.translation])
 
   if (allGuesses.length === 0) return 0
 

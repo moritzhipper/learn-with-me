@@ -1,4 +1,4 @@
-import { BankShare, LearnableWithId } from '../../../types_and_schemas/types'
+import { BankShare, LearnableWithId } from '@shared/types'
 
 // Helper function to create a learnable
 const createLearnable = (
@@ -89,11 +89,7 @@ const bankTemplates = [
   },
   {
     name: 'Selling Stuff Online',
-    collectionNames: [
-      'Transaction Terms',
-      'Product Inquiries',
-      'Complete E-commerce'
-    ],
+    collectionNames: ['Transaction Terms', 'Product Inquiries', 'Complete E-commerce'],
     learnables: [
       { lexeme: 'shipping', translation: 'Versand', type: 'word' as const },
       {
@@ -218,15 +214,11 @@ const createBankShareFromTemplate = (
     createLearnable(l.lexeme, l.translation, l.type, l.notes ?? '')
   )
   const learnableIds = learnables.map((l) => l.id)
-  const collections = template.collectionNames.map((name) =>
-    createCollection(name, learnableIds)
-  )
+  const collections = template.collectionNames.map((name) => createCollection(name, learnableIds))
 
   // Generate dates based on index for variety
   const baseDate = new Date('2024-01-01')
-  const created = new Date(
-    baseDate.getTime() + index * 30 * 24 * 60 * 60 * 1000
-  )
+  const created = new Date(baseDate.getTime() + index * 30 * 24 * 60 * 60 * 1000)
   const expires = new Date(created.getTime() + 2 * 365 * 24 * 60 * 60 * 1000)
 
   return {
@@ -247,14 +239,8 @@ const createBankShareFromTemplate = (
 export const mockUserBanks = (amount = 2): BankShare[] => {
   return Array.from({ length: amount }, (_, i) => {
     const template = bankTemplates[i % bankTemplates.length]
-    const suffix =
-      i >= bankTemplates.length
-        ? ` (${Math.floor(i / bankTemplates.length) + 1})`
-        : ''
-    return createBankShareFromTemplate(
-      { ...template, name: template.name + suffix },
-      i
-    )
+    const suffix = i >= bankTemplates.length ? ` (${Math.floor(i / bankTemplates.length) + 1})` : ''
+    return createBankShareFromTemplate({ ...template, name: template.name + suffix }, i)
   })
 }
 
@@ -267,10 +253,7 @@ export const mockOnlineBanks = (amount = 3): BankShare[] => {
   return Array.from({ length: amount }, (_, i) => {
     const offset = 3 // Start from template index 3
     const template = bankTemplates[(i + offset) % bankTemplates.length]
-    const suffix =
-      i >= bankTemplates.length
-        ? ` (${Math.floor(i / bankTemplates.length) + 1})`
-        : ''
+    const suffix = i >= bankTemplates.length ? ` (${Math.floor(i / bankTemplates.length) + 1})` : ''
     return createBankShareFromTemplate(
       { ...template, name: template.name + suffix },
       i + 100 // Different base index for different dates

@@ -1,15 +1,9 @@
 import { Component, inject, input, signal } from '@angular/core'
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { LanguageConfig } from '@shared/types'
 import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
-import {
-  LanguageConfig,
-  LearnableCreationConfig
-} from '../../../../types_and_schemas/types'
+import { LearnableCreationConfig } from '../../../../types_and_schemas/types'
 import { IconComp } from '../../icon-comp/icon-comp'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -45,8 +39,7 @@ export class MagicAddComp extends BaseModalDirective {
 
     try {
       this.isConverting.set(true)
-      const baseLearnables =
-        await this._aiS.createLearnablesFromString(creationConf)
+      const baseLearnables = await this._aiS.createLearnablesFromString(creationConf)
       console.log(baseLearnables)
 
       this.confirm(baseLearnables)

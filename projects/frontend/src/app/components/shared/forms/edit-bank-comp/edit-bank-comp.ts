@@ -1,10 +1,6 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
-import { BankBase } from '../../../../types_and_schemas/types'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { BankBase } from '@shared/types'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({

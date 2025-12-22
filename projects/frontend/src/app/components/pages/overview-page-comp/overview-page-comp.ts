@@ -1,20 +1,9 @@
-import {
-  Component,
-  computed,
-  inject,
-  linkedSignal,
-  signal
-} from '@angular/core'
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import {
-  CollectionUser,
-  LearnablesFilterConfig
-} from '../../../types_and_schemas/types'
-import {
-  calculateAverageConfidencePercent,
-  removeDuplicates
-} from '../../../utils/genaral-utils'
+import { LearnablesFilterConfig } from '../../../types_and_schemas/types'
+import { calculateAverageConfidencePercent, removeDuplicates } from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -22,10 +11,7 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { CollectionInteractComp } from './collection-interact-comp/collection-interact-comp'
 import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
-import {
-  FilterFormComp,
-  LearnablesFilterFormType
-} from './filter-form-comp/filter-form-comp'
+import { FilterFormComp, LearnablesFilterFormType } from './filter-form-comp/filter-form-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 import { OverviewPageFacade } from './overview-page-facade'
 
@@ -61,36 +47,28 @@ export class OverviewComp {
   readonly learnables = computed(() => this.bank().learnables)
   private readonly _filter = signal<LearnablesFilterConfig | null>(null)
 
-  readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>(
-    {
-      source: this.collections,
-      computation: (collections, previous) => {
-        const previousId = previous?.value
-        if (!previousId) return null
-        const stillExists = collections.some((c) => c.id === previousId)
-        return stillExists ? previousId : null
-      }
+  readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>({
+    source: this.collections,
+    computation: (collections, previous) => {
+      const previousId = previous?.value
+      if (!previousId) return null
+      const stillExists = collections.some((c) => c.id === previousId)
+      return stillExists ? previousId : null
     }
-  )
+  })
 
   readonly selectedCollection = computed<CollectionUser | null>(
-    () =>
-      this.collections().find((c) => c.id === this.selectedCollectionId()) ??
-      null
+    () => this.collections().find((c) => c.id === this.selectedCollectionId()) ?? null
   )
 
   // resets selectedLearnableSelection when selected collectionID changes
-  readonly selectedLearnableIds = linkedSignal<CollectionUser | null, string[]>(
-    {
-      source: this.selectedCollection,
-      computation: () => []
-    }
-  )
+  readonly selectedLearnableIds = linkedSignal<CollectionUser | null, string[]>({
+    source: this.selectedCollection,
+    computation: () => []
+  })
 
   readonly unsortedCards = computed(() => {
-    const allCollectionCardIds = new Set(
-      this.collections().flatMap((c) => c.cardIds)
-    )
+    const allCollectionCardIds = new Set(this.collections().flatMap((c) => c.cardIds))
     return this.learnables().filter((l) => !allCollectionCardIds.has(l.id))
   })
 
@@ -121,9 +99,7 @@ export class OverviewComp {
       return {
         header: coll.name,
         cardCount: this._collectionLearnables().length,
-        averageConfidence: calculateAverageConfidencePercent(
-          this._collectionLearnables()
-        ),
+        averageConfidence: calculateAverageConfidencePercent(this._collectionLearnables()),
         date: 'created' in coll ? coll.created : undefined
       }
     }
@@ -134,17 +110,12 @@ export class OverviewComp {
     }
   })
 
-  readonly collectionIsEmpty = computed(
-    () => this._collectionLearnables().length === 0
-  )
+  readonly collectionIsEmpty = computed(() => this._collectionLearnables().length === 0)
 
   readonly userHasCards = computed(() => this._lStore.learnables().length !== 0)
 
   readonly collectionDownload = computed(() =>
-    this._facade.createDownloadableExport(
-      this.bank(),
-      this.selectedCollection()?.id
-    )
+    this._facade.createDownloadableExport(this.bank(), this.selectedCollection()?.id)
   )
 
   // View event handlers - delegate to facade
@@ -161,10 +132,7 @@ export class OverviewComp {
   }
 
   async bulkEdit() {
-    await this._facade.openBulkEditModal(
-      this.selectedLearnableIds(),
-      this.selectedCollection()
-    )
+    await this._facade.openBulkEditModal(this.selectedLearnableIds(), this.selectedCollection())
   }
 
   updateFilter(filter: LearnablesFilterFormType) {
@@ -215,10 +183,7 @@ export class OverviewComp {
     const collectionId = this.selectedCollection()?.id
     if (!collectionId) return
 
-    this._facade.removeLearnablesFromCollection(
-      collectionId,
-      this.selectedLearnableIds()
-    )
+    this._facade.removeLearnablesFromCollection(collectionId, this.selectedLearnableIds())
     this.selectedLearnableIds.set([])
   }
 

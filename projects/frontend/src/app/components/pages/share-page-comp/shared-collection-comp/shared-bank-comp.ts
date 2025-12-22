@@ -1,13 +1,6 @@
 import { DatePipe } from '@angular/common'
-import {
-  Component,
-  computed,
-  input,
-  OnDestroy,
-  output,
-  signal
-} from '@angular/core'
-import { BankShare } from '../../../../types_and_schemas/types'
+import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
+import { BankShare } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
@@ -48,14 +41,8 @@ export class SharedBankComp implements OnDestroy {
 
     return {
       cards: collections.length,
-      words: pluralize(
-        learnables.filter((l) => l.type === 'word').length,
-        'word'
-      ),
-      phrases: pluralize(
-        learnables.filter((l) => l.type === 'phrase').length,
-        'phrase'
-      ),
+      words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
+      phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
       collections: pluralize(collections.length, 'collection')
     }
   })
