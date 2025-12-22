@@ -5,11 +5,28 @@
 /tmp
 /out-tsc
 /bazel-out
+build/Release
 
 # Node
-/node_modules
+node_modules
+jspm_packages
 npm-debug.log
+npm-debug.log*
 yarn-error.log
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage
+coverage
+.nyc_output
+lib-cov
 
 # IDEs and editors
 .idea/
@@ -27,16 +44,39 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+*code-workspace
 
 # Miscellaneous
 /.angular/cache
 .sass-cache/
 /connect.lock
-/coverage
 /libpeerconnection.log
 testem.log
 /typings
-__screenshots__/
+__screenshots__
+
+# Grunt intermediate storage
+.grunt
+
+# node-waf configuration
+.lock-wscript
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# 0x profiling
+profile-*
+profile*
+
+# clinic
+*clinic*
+*flamegraph*
+
+# vim swap files
+*.swp
 
 # System files
 .DS_Store

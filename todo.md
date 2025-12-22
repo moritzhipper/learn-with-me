@@ -1,10 +1,15 @@
 # ToDo
 
-<<<<<<< HEAD
-=======
+## Backend
+
+- add zod as tpye provider for backend
+- add shared lib with shared types and schemas
+
+## Frontend
+
 - do angular workspace setup
->>>>>>> connect_api
 - community shares
+
   - section trending: all languages
   - section for you: shares having your language
   - add see more for each section
@@ -14,9 +19,11 @@
 - swipes count in stats
 - add html lang call to ai service, save it as option in language config.
 - change blobcreation and download to happen on click, not in a reactive manner -> faster
+
   - implement in overview, share and settings
 
 - unifiy type setup:
+
   - clean up overview page and facade thoroughly
   - store, export and import are wordbanks (types and stuff)
   - collection can have collections

@@ -3,10 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start:fe": "ng serve",
+    "build:fe": "ng build",
+    "watch:fe": "ng build --watch --configuration development",
+    "test:fe": "ng test",
+    "build:be": "tsc -p projects/backend/tsconfig.app.json",
+    "watch:be": "tsc -w -p projects/backend/tsconfig.app.json",
+    "start:be": "npm run build:be && fastify start -l info out-tsc/backend/app.js",
+    "dev:be": "npm run build:be && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:watch:be\" \"npm:dev:start:be\"",
+    "dev:start:be": "fastify start --ignore-watch=.ts$ -w -l info -P out-tsc/backend/app.js",
+    "test:be": "npm run build:be && tsc -p projects/backend/tsconfig.test.json && cd projects/backend && c8 node --test -r ts-node/register \"test/**/*.ts\""
   },
   "prettier": {
     "printWidth": 100,
@@ -32,7 +38,12 @@
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.0.0",
+    "@fastify/autoload": "^6.0.0",
+    "@fastify/sensible": "^6.0.0",
     "@ngrx/signals": "^21.0.1",
+    "fastify": "^5.6.2",
+    "fastify-plugin": "^5.0.0",
+    "fastify-type-provider-zod": "^6.1.0",
     "openai": "^6.15.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -42,7 +53,13 @@
     "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
+    "@types/node": "^25.0.3",
+    "c8": "^10.1.2",
+    "concurrently": "^9.0.0",
+    "fastify-cli": "^7.4.1",
+    "fastify-tsconfig": "^3.0.0",
     "jsdom": "^27.1.0",
+    "ts-node": "^10.4.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }
