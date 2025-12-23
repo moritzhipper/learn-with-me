@@ -1,11 +1,18 @@
 # ToDo
 
+## shared
+
+- setup CI
+- buy domain lol
+
 ## Backend
 
 - add zod as tpye provider for backend
 - add shared lib with shared types and schemas
 - add build prod for backend -> new tsc without sorucemaps and optimization and stuff
 - use some cheap openai model to srip shared banks from obscene language and stuff
+- move routes to shared folder
+- remove schemas folder from frontend, clean up tyoes folder in forntend
 
 ## Frontend
 
