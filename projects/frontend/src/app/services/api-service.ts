@@ -12,18 +12,16 @@ export class ApiService {
 
   private readonly _client = inject(HttpClient)
 
-  async getNewBanks(conf: LanguageConfigRequest): Promise<BankShare[]> {
-    const response = this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.NEW}`, {
+  getNewBanks(conf: LanguageConfigRequest): Observable<BankShare[]> {
+    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.NEW}`, {
       params: conf
     })
-    return this._toPromise(response)
   }
 
-  async getPopularBanks(conf: LanguageConfigRequest): Promise<BankShare[]> {
-    const response = this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.POPULAR}`, {
+  getPopularBanks(conf: LanguageConfigRequest): Observable<BankShare[]> {
+    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.POPULAR}`, {
       params: conf
     })
-    return this._toPromise(response)
   }
 
   async shareBank(bankExport: Omit<BankShare, 'expires'>, ttlMinutes: number) {

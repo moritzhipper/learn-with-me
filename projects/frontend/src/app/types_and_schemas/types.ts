@@ -1,15 +1,19 @@
-import type { BankUser, LanguageConfig } from '@shared/types'
-
-export type Practice = {
-  index: number
-  guessables: Guessable[]
-  reverseDirection: boolean
-}
+import type { BankShare, BankUser, LanguageConfig } from '@shared/types'
 
 export type LearnablesStoreType = {
   banks: BankUser[]
   activeBankId: string | null
   currentPractice: Practice | null
+  sharedBanks: {
+    new: BankShare[]
+    popular: BankShare[]
+  }
+}
+
+export type Practice = {
+  index: number
+  guessables: Guessable[]
+  reverseDirection: boolean
 }
 
 export type LearnableCreationConfig = {

@@ -1,5 +1,10 @@
 # ToDo
 
+## Right Now
+
+- initiate successfull get new entries call on app init
+- add shared banks store in session storage with cacheables and refresh subjects
+
 ## shared
 
 - setup CI
@@ -15,7 +20,6 @@
 
 ## Frontend
 
-- do angular workspace setup
 - community shares
 
   - section trending: all languages
