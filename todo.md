@@ -7,8 +7,7 @@
 
 ## Backend
 
-- add zod as tpye provider for backend
-- add shared lib with shared types and schemas
+- make bank request languages optional -> return for all languages for left out language
 - add build prod for backend -> new tsc without sorucemaps and optimization and stuff
 - use some cheap openai model to srip shared banks from obscene language and stuff
 - move routes to shared folder

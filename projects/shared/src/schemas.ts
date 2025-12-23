@@ -41,6 +41,8 @@ export const LanguageConfigSchema = z.object({
   learning: z.string()
 })
 
+export const LanguageConfigRequestSchema = LanguageConfigSchema.partial()
+
 export const BankBaseSchema = z.object({
   language: LanguageConfigSchema,
   id: z.string(),
