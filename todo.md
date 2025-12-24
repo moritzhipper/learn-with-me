@@ -1,15 +1,30 @@
 # ToDo
 
+## Right Now
+
+- initiate successfull get new entries call on app init
+- add shared banks store in session storage with cacheables and refresh subjects
+- add 'investigate' route wiht filiter options at top and pagination
+  - opens when you click on arrow thingy
+- add pagination to banks -> add init app call on app start calling top five for categories -> now viewlogic in fe
+- make new and top filter options, not route params
+- rename shared to community
+
+## shared
+
+- setup CI
+- buy domain lol
+
 ## Backend
 
-- add zod as tpye provider for backend
-- add shared lib with shared types and schemas
+- make bank request languages optional -> return for all languages for left out language
 - add build prod for backend -> new tsc without sorucemaps and optimization and stuff
 - use some cheap openai model to srip shared banks from obscene language and stuff
+- move routes to shared folder
+- remove schemas folder from frontend, clean up tyoes folder in forntend
 
 ## Frontend
 
-- do angular workspace setup
 - community shares
 
   - section trending: all languages

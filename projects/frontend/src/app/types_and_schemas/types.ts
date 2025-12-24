@@ -1,15 +1,15 @@
 import type { BankUser, LanguageConfig } from '@shared/types'
 
-export type Practice = {
-  index: number
-  guessables: Guessable[]
-  reverseDirection: boolean
-}
-
 export type LearnablesStoreType = {
   banks: BankUser[]
   activeBankId: string | null
   currentPractice: Practice | null
+}
+
+export type Practice = {
+  index: number
+  guessables: Guessable[]
+  reverseDirection: boolean
 }
 
 export type LearnableCreationConfig = {
@@ -19,6 +19,7 @@ export type LearnableCreationConfig = {
 }
 
 export type Guess = 'right' | 'wrong' | 'unanswered'
+
 export type Guessable = {
   id: string
   guessed: Guess

@@ -10,3 +10,8 @@ GET {{base}}/banks/new?speaking={{speakinng}}&learning={{learning}}
 
 ### Get Popular Banks
 GET {{base}}/banks/popular?speaking={{speakinng}}&learning={{learning}}
+
+
+### Share Bank
+POST {{base}}/banks/share
+Content-Type: application/json
