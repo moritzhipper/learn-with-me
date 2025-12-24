@@ -18,8 +18,8 @@ export const routes: Routes = [
   },
   {
     component: SharePageComp,
-    path: 'share',
-    title: 'LWM | Share'
+    path: 'community',
+    title: 'LWM | Community'
   },
   {
     component: AboutPageComp,

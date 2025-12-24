@@ -2,7 +2,8 @@
 
 :host {
   display: grid;
-  width: min-content;
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 
   transform-origin: top left;
@@ -10,6 +11,7 @@
   h1 {
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--distance-1);
+    word-break: break-word;
   }
 }
 

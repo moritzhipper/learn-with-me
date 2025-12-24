@@ -2,13 +2,22 @@
 
 ## Right Now
 
+### Add API Routes returning []
+
 - initiate successfull get new entries call on app init
-- add shared banks store in session storage with cacheables and refresh subjects
 - add 'investigate' route wiht filiter options at top and pagination
   - opens when you click on arrow thingy
-- add pagination to banks -> add init app call on app start calling top five for categories -> now viewlogic in fe
+- add overview store thingy
+- add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
 - make new and top filter options, not route params
 - rename shared to community
+
+### Connect DB
+
+- add PSQL DB
+- create tables having columns
+  - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
+- fetch entries on api call
 
 ## shared
 
