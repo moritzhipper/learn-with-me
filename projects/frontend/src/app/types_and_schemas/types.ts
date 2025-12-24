@@ -1,13 +1,9 @@
-import type { BankShare, BankUser, LanguageConfig } from '@shared/types'
+import type { BankUser, LanguageConfig } from '@shared/types'
 
 export type LearnablesStoreType = {
   banks: BankUser[]
   activeBankId: string | null
   currentPractice: Practice | null
-  sharedBanks: {
-    new: BankShare[]
-    popular: BankShare[]
-  }
 }
 
 export type Practice = {
@@ -23,6 +19,7 @@ export type LearnableCreationConfig = {
 }
 
 export type Guess = 'right' | 'wrong' | 'unanswered'
+
 export type Guessable = {
   id: string
   guessed: Guess

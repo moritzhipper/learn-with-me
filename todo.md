@@ -4,6 +4,11 @@
 
 - initiate successfull get new entries call on app init
 - add shared banks store in session storage with cacheables and refresh subjects
+- add 'investigate' route wiht filiter options at top and pagination
+  - opens when you click on arrow thingy
+- add pagination to banks -> add init app call on app start calling top five for categories -> now viewlogic in fe
+- make new and top filter options, not route params
+- rename shared to community
 
 ## shared
 
