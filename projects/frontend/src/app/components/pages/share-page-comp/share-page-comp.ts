@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core'
+import { RouterLink } from '@angular/router'
 import { BankShare } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
@@ -11,7 +12,7 @@ import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
 @Component({
   selector: 'app-share-page-comp',
-  imports: [PageHeaderComp, PageIconComp, SharedBankComp, IconComp],
+  imports: [PageHeaderComp, PageIconComp, SharedBankComp, IconComp, RouterLink],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss',
   host: {

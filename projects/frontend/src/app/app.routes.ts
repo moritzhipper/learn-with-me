@@ -17,9 +17,9 @@ export const routes: Routes = [
     title: 'LWM | Practice'
   },
   {
-    component: SharePageComp,
     path: 'community',
-    title: 'LWM | Community'
+    title: 'LWM | Community',
+    component: SharePageComp
   },
   {
     component: AboutPageComp,
