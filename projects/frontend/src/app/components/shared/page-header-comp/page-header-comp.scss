@@ -31,6 +31,8 @@
       font-size: var(--font-size-4);
     }
 
+    transform-origin: top left;
+
     margin: var(--distance-4) 0 var(--distance-6) 0;
     white-space: nowrap;
     transform: rotate(-6deg) translateX(calc(-1 * var(--distance-5)));

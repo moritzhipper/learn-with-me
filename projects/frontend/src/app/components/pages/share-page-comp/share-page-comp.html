@@ -1,5 +1,6 @@
 <app-page-icon-comp type="share-network-fill" />
-<app-page-header-comp title="Community" />
+<app-page-header-comp title="Community"> </app-page-header-comp>
+
 <h2 class="first user">Your recent shares</h2>
 <div class="collections user">
   @for (bank of userBanks; track bank.name) {
@@ -8,10 +9,10 @@
 </div>
 
 @for (section of sections; track section.title) {
-<button class="header silent">
+<a class="header silent" routerLink="/community/explore">
   <h2>{{ section.title }}</h2>
   <app-icon-comp type="chevron" [size]="24" />
-</button>
+</a>
 <div class="collections community">
   @for (bank of section.banks; track bank.name) {
   <app-shared-bank-comp
@@ -21,7 +22,7 @@
     [isCommunityBank]="true"
   />
   }
-  <a class="silent see-more" routerLink="/community/banks">
+  <a class="silent see-more" routerLink="/community/explore">
     <span> explore more </span>
     <app-icon-comp type="chevron" size="auto" />
   </a>
