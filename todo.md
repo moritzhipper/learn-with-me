@@ -4,13 +4,12 @@
 
 ### Add API Routes returning []
 
+- add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
+- make new and top filter options, not route params
+- add overview store thingy
 - initiate successfull get new entries call on app init
 - add 'investigate' route wiht filiter options at top and pagination
   - opens when you click on arrow thingy
-- add overview store thingy
-- add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
-- make new and top filter options, not route params
-- rename shared to community
 
 ### Connect DB
 

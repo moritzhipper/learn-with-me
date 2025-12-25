@@ -41,8 +41,6 @@ export const LanguageConfigSchema = z.object({
   learning: z.string()
 })
 
-export const LanguageConfigRequestSchema = LanguageConfigSchema.partial()
-
 export const BankBaseSchema = z.object({
   language: LanguageConfigSchema,
   id: z.string(),
@@ -60,3 +58,16 @@ export const BankShareSchema = BankBaseSchema.extend({
   collections: z.array(CollectionBaseSchema),
   expires: z.date()
 })
+
+export const PaginationSchema = z.object({
+  limit: z.number().min(1).max(30),
+  offset: z.number().min(1).max(100)
+})
+
+export const BanksRequestFilterSchema = LanguageConfigSchema.partial().extend({
+  category: z.enum(['new', 'popular'])
+})
+
+export const BanksRequestSchema = BanksRequestFilterSchema.partial().extend(
+  PaginationSchema.partial()
+)

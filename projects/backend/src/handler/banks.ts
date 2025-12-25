@@ -1,8 +1,8 @@
-import { BankShare, LanguageConfig } from '@shared/types'
+import { BankShare, BanksRequest, LanguageConfig } from '@shared/types'
 import { FastifyRequest } from 'fastify'
 
 export const fetchNewBanks = async (
-  req: FastifyRequest<{ Querystring: LanguageConfig }>
+  req: FastifyRequest<{ Querystring: BanksRequest }>
 ): Promise<BankShare[]> => {
   console.log(req.query)
   return []
