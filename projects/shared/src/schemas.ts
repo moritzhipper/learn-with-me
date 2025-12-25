@@ -61,13 +61,14 @@ export const BankShareSchema = BankBaseSchema.extend({
 
 export const PaginationSchema = z.object({
   limit: z.number().min(1).max(30),
-  offset: z.number().min(1).max(100)
+  offset: z.number().min(0).max(100).optional()
 })
 
-export const BanksRequestFilterSchema = LanguageConfigSchema.partial().extend({
+export const BanksRequestFilterSchema = z.object({
   category: z.enum(['new', 'popular'])
 })
 
-export const BanksRequestSchema = BanksRequestFilterSchema.partial().extend(
-  PaginationSchema.partial()
-)
+export const BanksRequestSchema = z.object({
+  ...BanksRequestFilterSchema.shape,
+  ...PaginationSchema.shape
+})

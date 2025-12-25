@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { API_ROUTES } from '@shared/api-routes'
-import { BankShare, LanguageConfigRequest } from '@shared/types'
+import { BankShare, BanksRequest } from '@shared/types'
 import { lastValueFrom, Observable, take } from 'rxjs'
 
 @Injectable({
@@ -12,14 +12,8 @@ export class ApiService {
 
   private readonly _client = inject(HttpClient)
 
-  getNewBanks(conf: LanguageConfigRequest): Observable<BankShare[]> {
-    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.NEW}`, {
-      params: conf
-    })
-  }
-
-  getPopularBanks(conf: LanguageConfigRequest): Observable<BankShare[]> {
-    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.POPULAR}`, {
+  getBanks(conf: BanksRequest): Observable<BankShare[]> {
+    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.ROOT}`, {
       params: conf
     })
   }

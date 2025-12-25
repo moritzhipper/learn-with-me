@@ -1,10 +1,10 @@
 import z from 'zod'
 import {
   BankShareSchema,
+  BanksRequestSchema,
   BankUserSchema,
   CollectionBaseSchema,
   CollectionUserSchema,
-  LanguageConfigRequestSchema,
   LanguageConfigSchema,
   LearnableBaseSchema,
   LearnableFromAiSchema,
@@ -18,7 +18,7 @@ export type Collection = z.infer<typeof CollectionBaseSchema>
 export type CollectionUser = z.infer<typeof CollectionUserSchema>
 
 export type LanguageConfig = z.infer<typeof LanguageConfigSchema>
-export type LanguageConfigRequest = z.infer<typeof LanguageConfigRequestSchema>
+export type BanksRequest = z.infer<typeof BanksRequestSchema>
 export type BankUser = z.infer<typeof BankUserSchema>
 export type BankShare = z.infer<typeof BankShareSchema>
 export type BankBase = Pick<BankShare, 'name' | 'language'>
