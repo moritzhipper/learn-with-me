@@ -61,11 +61,11 @@ h2 {
   }
 }
 
-.see-more {
+a.see-more {
   display: grid;
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
   border-radius: var(--radius-2);
-  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  background-color: var(--col-bg);
   place-items: center;
   overflow: hidden;
   position: relative;

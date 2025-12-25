@@ -16,7 +16,7 @@ import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss',
   host: {
-    class: 'page mid'
+    class: 'page wide'
   }
 })
 export class SharePageComp {
@@ -24,7 +24,7 @@ export class SharePageComp {
   private readonly _modalService = inject(ModalService)
   private readonly _lStore = inject(LearnablesStore)
 
-  protected readonly MAX_PREVIEW_BANKS = 5
+  protected readonly MAX_PREVIEW_BANKS = 7
 
   userBanks: BankShare[] = mockUserBanks(3)
 
