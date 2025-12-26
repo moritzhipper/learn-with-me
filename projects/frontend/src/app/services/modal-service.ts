@@ -1,9 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core'
-import {
-  ModalResult,
-  ModalType,
-  OpenModalConfig
-} from '../components/shared/forms/modal-config'
+import { ModalResult, ModalType, OpenModalConfig } from '../components/shared/forms/modal-config'
 
 @Injectable({
   providedIn: 'root'
