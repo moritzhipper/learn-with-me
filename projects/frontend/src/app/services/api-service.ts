@@ -13,13 +13,13 @@ export class ApiService {
   private readonly _client = inject(HttpClient)
 
   getBanks(conf: BanksRequest): Observable<BankShare[]> {
-    return this._client.get<BankShare[]>(`${this.BASE_URL}/${API_ROUTES.BANKS.ROOT}`, {
+    return this._client.get<BankShare[]>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}`, {
       params: conf
     })
   }
 
   async shareBank(bankExport: Omit<BankShare, 'expires'>, ttlMinutes: number) {
-    const response = this._client.post<BankShare>(`${this.BASE_URL}/${API_ROUTES.BANKS.SHARE}`, {
+    const response = this._client.post<BankShare>(`${this.BASE_URL}${API_ROUTES.BANKS.SHARE}`, {
       bankExport,
       ttlMinutes
     })

@@ -9,7 +9,7 @@ import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-com
 import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
-type PageFetchState = 'loading' | 'idle' | 'error'
+type PageFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'
 
 @Component({
   selector: 'app-explore-page-comp',
@@ -67,7 +67,13 @@ export class ExplorePageComp {
 
   // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
   async loadNextPage() {
-    if (!this.shouldLoadMore() || this.fetchState() === 'loading') return
+    if (
+      !this.shouldLoadMore() ||
+      this.fetchState() === 'loading' ||
+      this.fetchState() === 'all-loaded'
+    ) {
+      return
+    }
 
     this.fetchState.set('loading')
     try {
@@ -81,10 +87,15 @@ export class ExplorePageComp {
       )
       this.visibleBanks.set([...this.visibleBanks(), ...banks])
       this.PAGE_OFFSET = this.PAGE_OFFSET + this.PAGE_LIMIT
-      this.fetchState.set('idle')
+
+      if (banks.length === 0) {
+        this.fetchState.set('all-loaded')
+      } else {
+        this.loadNextPage()
+        this.fetchState.set('idle')
+      }
 
       // make sure that always more banks are loaded than fit on the screen
-      this.loadNextPage()
     } catch {
       this.fetchState.set('error')
       // send toast?
