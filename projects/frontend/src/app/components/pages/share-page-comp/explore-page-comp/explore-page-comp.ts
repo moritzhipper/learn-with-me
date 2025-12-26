@@ -1,14 +1,19 @@
-import { Component, effect, inject, signal } from '@angular/core'
+import { Component, effect, HostListener, inject, signal } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LanguageConfigSchema } from '@shared/schemas'
 import { BankShare, LanguageConfig } from '@shared/types'
+import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
+import { lastValueFrom } from 'rxjs'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
+import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
+
+type PageFetchState = 'loading' | 'idle' | 'error'
 
 @Component({
   selector: 'app-explore-page-comp',
-  imports: [PageIconComp, PageHeaderComp],
+  imports: [PageIconComp, PageHeaderComp, SharedBankComp],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss',
   host: {
@@ -19,13 +24,20 @@ export class ExplorePageComp {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly lStore = inject(LearnablesStore)
+  private readonly apiS = inject(ApiService)
+
+  private fetchState = signal<PageFetchState>('idle')
 
   private readonly PAGE_LIMIT = 20
-  private readonly activeOffset = 0
+  private PAGE_OFFSET = 0
 
-  private readonly visibleBanks = signal<BankShare[]>([])
-
+  protected readonly visibleBanks = signal<BankShare[]>([])
   params = signal<LanguageConfig>(this.initParams())
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    this.loadNextPage()
+  }
 
   constructor() {
     // sync URL params with component state
@@ -48,5 +60,44 @@ export class ExplorePageComp {
     } catch {
       return this.lStore.activeBank().language
     }
+  }
+
+  // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
+  async loadNextPage() {
+    if (!this.isThresholdHit() || this.fetchState() === 'loading') return
+
+    this.fetchState.set('loading')
+
+    try {
+      const banks = await lastValueFrom(
+        this.apiS.getBanks({
+          category: 'new',
+          ...this.params(),
+          offset: this.PAGE_OFFSET,
+          limit: this.PAGE_LIMIT
+        })
+      )
+      this.visibleBanks.set([...this.visibleBanks(), ...banks])
+      this.PAGE_OFFSET = this.PAGE_OFFSET + this.PAGE_LIMIT
+      this.fetchState.set('idle')
+
+      // make sure that always more banks are loaded than fit on the screen
+      this.loadNextPage()
+    } catch {
+      this.fetchState.set('error')
+      // send toast?
+      // show retry button in gui?
+    }
+  }
+
+  // setze page auf 0, leere visiblebanks,
+  updateLanguage() {
+    this.PAGE_OFFSET = 0
+    this.visibleBanks.set([])
+    this.fetchState.set('idle')
+  }
+
+  private isThresholdHit(): boolean {
+    return true
   }
 }

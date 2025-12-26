@@ -1,3 +1,5 @@
 <app-page-icon-comp type="compass" />
-<app-page-header-comp title="Explore"> </app-page-header-comp>
-<h2></h2>
+<app-page-header-comp title="Explore" />
+@for (bank of visibleBanks(); track bank.id) {
+  <app-shared-bank-comp [bank]="bank" [isCommunityBank]="true" />
+}
