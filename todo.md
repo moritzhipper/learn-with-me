@@ -33,6 +33,7 @@
 
 ## Frontend
 
+- get rid of angular-architects helper
 - move shared-bank outputs to shared service
 - community shares
   - section trending: all languages

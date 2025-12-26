@@ -50,6 +50,7 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
+    "tsc-alias": "1.8.16",
     "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
@@ -59,8 +60,8 @@
     "fastify-cli": "^7.4.1",
     "fastify-tsconfig": "^3.0.0",
     "jsdom": "^27.1.0",
-    "prettier": "^3.7.4",
     "ts-node": "^10.4.0",
+    "prettier": "^3.7.4",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }

@@ -42,6 +42,7 @@ export class ExplorePageComp {
   }
 
   constructor() {
+    this.loadNextPage()
     // sync URL params with component state
     effect(() => {
       this.router.navigate([], {
