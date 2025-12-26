@@ -4,12 +4,11 @@
   <app-shared-bank-comp [bank]="bank" [isCommunityBank]="true" />
 }
 @switch (fetchState()) {
-  @case ('all-loaded') {
-    all items loaded
-  }
-
   @case ('loading') {
     loading...
+  }
+  @case ('all-loaded') {
+    all items loaded
   }
   @case ('error') {
     error loading items

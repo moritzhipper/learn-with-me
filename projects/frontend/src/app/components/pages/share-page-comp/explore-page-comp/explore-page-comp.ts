@@ -67,13 +67,7 @@ export class ExplorePageComp {
 
   // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
   async loadNextPage() {
-    if (
-      !this.overLoadingThreshold() ||
-      this.fetchState() === 'loading' ||
-      this.fetchState() === 'all-loaded'
-    ) {
-      return
-    }
+    if (!this.overLoadingThreshold() || this.fetchState() !== 'idle') return
 
     this.fetchState.set('loading')
     try {
