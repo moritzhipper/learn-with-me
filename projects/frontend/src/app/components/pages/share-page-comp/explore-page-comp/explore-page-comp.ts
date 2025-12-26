@@ -1,4 +1,4 @@
-import { Component, effect, HostListener, inject, signal } from '@angular/core'
+import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LanguageConfigSchema } from '@shared/schemas'
 import { BankShare, LanguageConfig } from '@shared/types'
@@ -34,7 +34,9 @@ export class ExplorePageComp {
   protected readonly visibleBanks = signal<BankShare[]>([])
   params = signal<LanguageConfig>(this.initParams())
 
-  @HostListener('window:scroll', ['$event'])
+  document = inject(DOCUMENT)
+
+  @HostListener('window:scroll')
   onScroll() {
     this.loadNextPage()
   }
@@ -64,10 +66,9 @@ export class ExplorePageComp {
 
   // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
   async loadNextPage() {
-    if (!this.isThresholdHit() || this.fetchState() === 'loading') return
+    if (!this.shouldLoadMore() || this.fetchState() === 'loading') return
 
     this.fetchState.set('loading')
-
     try {
       const banks = await lastValueFrom(
         this.apiS.getBanks({
@@ -97,7 +98,25 @@ export class ExplorePageComp {
     this.fetchState.set('idle')
   }
 
-  private isThresholdHit(): boolean {
-    return true
+  private shouldLoadMore(): boolean {
+    // scroll, when distance of documentheight to bottom of window < threshold
+
+    const THRESHOLD = 500
+
+    // browser window height
+    const windowHeight = window.innerHeight
+
+    // document height
+    const documentHeight = this.document.documentElement.scrollHeight
+
+    // scroll progress
+    const scrollProg = window.scrollY
+
+    const distanceDocEndWindowEnd = documentHeight - (scrollProg + windowHeight)
+
+    const shouldLoad = distanceDocEndWindowEnd < THRESHOLD
+    console.log({ documentHeight, windowHeight, scrollProg, distanceDocEndWindowEnd, shouldLoad })
+
+    return shouldLoad
   }
 }
