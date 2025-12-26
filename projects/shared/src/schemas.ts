@@ -60,8 +60,8 @@ export const BankShareSchema = BankBaseSchema.extend({
 })
 
 export const PaginationSchema = z.object({
-  limit: z.number().min(1).max(30),
-  offset: z.number().min(0).max(100).optional()
+  limit: z.coerce.number().min(1).max(30),
+  offset: z.coerce.number().min(0).max(100).optional()
 })
 
 export const BanksRequestFilterSchema = z.object({
