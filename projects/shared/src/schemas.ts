@@ -69,6 +69,7 @@ export const BanksRequestFilterSchema = z.object({
 })
 
 export const BanksRequestSchema = z.object({
+  ...LanguageConfigSchema.partial().shape,
   ...BanksRequestFilterSchema.shape,
   ...PaginationSchema.shape
 })

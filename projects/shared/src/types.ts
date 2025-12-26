@@ -9,7 +9,8 @@ import {
   LearnableBaseSchema,
   LearnableFromAiSchema,
   LearnableUserSchema,
-  LearnableWithIdSchema
+  LearnableWithIdSchema,
+  PaginationSchema
 } from './schemas'
 
 export type LearnableBase = z.infer<typeof LearnableBaseSchema>
@@ -26,6 +27,8 @@ export type BankBase = Pick<BankShare, 'name' | 'language'>
 export type LearnableWithId = z.infer<typeof LearnableWithIdSchema>
 export type LearnableFromAI = z.infer<typeof LearnableFromAiSchema>
 export type UserLearnable = z.infer<typeof LearnableUserSchema>
+
+export type PaginationConfig = z.infer<typeof PaginationSchema>
 
 export type UserLearnablePartial = Partial<UserLearnable> & Pick<UserLearnable, 'id'>
 

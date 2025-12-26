@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import { Component, computed, inject } from '@angular/core'
+import { Params, RouterLink } from '@angular/router'
 import { BankShare } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
@@ -23,29 +23,34 @@ export class SharePageComp {
   private readonly _toastS = inject(ToastService)
   private readonly _modalService = inject(ModalService)
   private readonly _lStore = inject(LearnablesStore)
+  private readonly bankLanguage = computed(() => this._lStore.activeBank().language)
 
   protected readonly MAX_PREVIEW_BANKS = 7
 
   userBanks: BankShare[] = mockUserBanks(3)
 
-  sections: { title: string; banks: BankShare[] }[] = [
+  sections = computed<{ title: string; banks: BankShare[]; params: Params }[]>(() => [
     {
       title: 'Popular for your language match',
-      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS)
+      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS),
+      params: this.bankLanguage()
     },
     {
       title: 'New for your language match',
-      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS)
+      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS),
+      params: this.bankLanguage()
     },
     {
       title: 'Popular for other matches',
-      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS)
+      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS),
+      params: {}
     },
     {
       title: 'New for other matches',
-      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS)
+      banks: mockOnlineBanks(this.MAX_PREVIEW_BANKS),
+      params: {}
     }
-  ]
+  ])
 
   protected async copyLink(bank: BankShare) {
     try {

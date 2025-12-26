@@ -3,6 +3,7 @@ import { AboutPageComp } from './components/pages/about-page-comp/about-page-com
 import { OverviewComp } from './components/pages/overview-page-comp/overview-page-comp'
 import { PracticeComp } from './components/pages/practice-page-comp/practice-page-comp'
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
+import { ExplorePageComp } from './components/pages/share-page-comp/explore-page-comp/explore-page-comp'
 import { SharePageComp } from './components/pages/share-page-comp/share-page-comp'
 
 export const routes: Routes = [
@@ -19,7 +20,10 @@ export const routes: Routes = [
   {
     path: 'community',
     title: 'LWM | Community',
-    component: SharePageComp
+    children: [
+      { path: '', component: SharePageComp },
+      { path: 'explore', component: ExplorePageComp }
+    ]
   },
   {
     component: AboutPageComp,
