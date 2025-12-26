@@ -26,7 +26,7 @@ export class ExplorePageComp {
   private readonly lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
 
-  private fetchState = signal<PageFetchState>('idle')
+  protected readonly fetchState = signal<PageFetchState>('idle')
 
   private readonly PAGE_LIMIT = 20
   private PAGE_OFFSET = 0
@@ -68,7 +68,7 @@ export class ExplorePageComp {
   // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
   async loadNextPage() {
     if (
-      !this.shouldLoadMore() ||
+      !this.overLoadingThreshold() ||
       this.fetchState() === 'loading' ||
       this.fetchState() === 'all-loaded'
     ) {
@@ -85,17 +85,15 @@ export class ExplorePageComp {
           limit: this.PAGE_LIMIT
         })
       )
-      this.visibleBanks.set([...this.visibleBanks(), ...banks])
-      this.PAGE_OFFSET = this.PAGE_OFFSET + this.PAGE_LIMIT
 
-      if (banks.length === 0) {
+      if (banks.length < this.PAGE_LIMIT) {
         this.fetchState.set('all-loaded')
       } else {
-        this.loadNextPage()
+        this.visibleBanks.set([...this.visibleBanks(), ...banks])
+        this.PAGE_OFFSET = this.PAGE_OFFSET + this.PAGE_LIMIT
         this.fetchState.set('idle')
+        this.loadNextPage()
       }
-
-      // make sure that always more banks are loaded than fit on the screen
     } catch {
       this.fetchState.set('error')
       // send toast?
@@ -110,7 +108,7 @@ export class ExplorePageComp {
     this.fetchState.set('idle')
   }
 
-  private shouldLoadMore(): boolean {
+  private overLoadingThreshold(): boolean {
     // scroll, when distance of documentheight to bottom of window < threshold
 
     const THRESHOLD = 500

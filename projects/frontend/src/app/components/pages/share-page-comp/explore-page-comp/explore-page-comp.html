@@ -3,3 +3,16 @@
 @for (bank of visibleBanks(); track bank.id) {
   <app-shared-bank-comp [bank]="bank" [isCommunityBank]="true" />
 }
+@switch (fetchState()) {
+  @case ('all-loaded') {
+    all items loaded
+  }
+
+  @case ('loading') {
+    loading...
+  }
+  @case ('error') {
+    error loading items
+    <button>retry</button>
+  }
+}
