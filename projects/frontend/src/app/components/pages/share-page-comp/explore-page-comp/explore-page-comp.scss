@@ -6,6 +6,12 @@
 
 .state-indicator {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: var(--distance-7) 0;
+  gap: var(--distance-4);
+
+  p {
+    margin: 0;
+  }
 }

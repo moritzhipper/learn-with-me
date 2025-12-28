@@ -28,7 +28,9 @@ export class ExplorePageComp {
   private readonly lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
 
-  protected readonly fetchState = signal<PageFetchState>('idle')
+  private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 500
+
+  protected readonly fetchState = signal<PageFetchState>('loading')
 
   private readonly PAGE_LIMIT = 10
   private PAGE_OFFSET = 0
@@ -111,8 +113,6 @@ export class ExplorePageComp {
   private overLoadingThreshold(): boolean {
     // scroll, when distance of documentheight to bottom of window < threshold
 
-    const THRESHOLD = 500
-
     // browser window height
     const windowHeight = window.innerHeight
 
@@ -124,9 +124,6 @@ export class ExplorePageComp {
 
     const distanceDocEndWindowEnd = documentHeight - (scrollProg + windowHeight)
 
-    const shouldLoad = distanceDocEndWindowEnd < THRESHOLD
-    console.log({ documentHeight, windowHeight, scrollProg, distanceDocEndWindowEnd, shouldLoad })
-
-    return shouldLoad
+    return distanceDocEndWindowEnd < this.LOAD_MORE_SCROLL_THRESHOLD_PX
   }
 }

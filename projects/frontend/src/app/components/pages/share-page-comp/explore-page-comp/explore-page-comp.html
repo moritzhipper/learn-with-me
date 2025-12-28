@@ -13,11 +13,15 @@
       <app-loading-spinner />
     }
     @case ('all-loaded') {
-      all items loaded
+      <p class="all-there">
+        <strong> all items loaded </strong>
+      </p>
     }
     @case ('error') {
-      error loading items
-      <button>retry</button>
+      <p class="error">
+        <strong> error loading items </strong>
+      </p>
+      <button class="big">retry</button>
     }
   }
 </div>
