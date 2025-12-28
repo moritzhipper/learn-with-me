@@ -18,7 +18,7 @@ type PageConfig = LanguageConfig & BankRequestFilter
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss',
   host: {
-    class: 'page wide'
+    class: 'page mid'
   }
 })
 export class ExplorePageComp {
@@ -29,7 +29,7 @@ export class ExplorePageComp {
 
   protected readonly fetchState = signal<PageFetchState>('idle')
 
-  private readonly PAGE_LIMIT = 20
+  private readonly PAGE_LIMIT = 10
   private PAGE_OFFSET = 0
 
   protected readonly visibleBanks = signal<BankShare[]>([])

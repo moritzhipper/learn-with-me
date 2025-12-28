@@ -4,7 +4,8 @@
 
 ### Add API Routes returning []
 
-- move mocks to backend
+- move mocks to shared
+  - use in backend api
 - make fetch overview on shared page and generally backend calls use rxMethod
 - add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
 - make new and top filter options, not route params

@@ -1,8 +1,10 @@
 <app-page-icon-comp type="compass" />
 <app-page-header-comp title="Explore" />
-@for (bank of visibleBanks(); track bank.id) {
-  <app-shared-bank-comp [bank]="bank" [isCommunityBank]="true" />
-}
+<div class="banks">
+  @for (bank of visibleBanks(); track bank.id) {
+    <app-shared-bank-comp class="stacked-shadow" [bank]="bank" [isCommunityBank]="true" />
+  }
+</div>
 @switch (fetchState()) {
   @case ('loading') {
     loading...

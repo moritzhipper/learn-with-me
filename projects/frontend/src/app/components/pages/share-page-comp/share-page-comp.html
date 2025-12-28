@@ -3,7 +3,7 @@
 <h2 class="first user">Your recent shares</h2>
 <div class="collections user">
   @for (bank of userBanks; track bank.name) {
-    <app-shared-bank-comp [bank]="bank" (copyId)="copyLink(bank)" [allowImport]="false" />
+    <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
   }
 </div>
 
@@ -15,13 +15,18 @@
   <div class="collections community">
     @for (bank of section.banks; track bank.name) {
       <app-shared-bank-comp
+        class="stacked-shadow"
         [bank]="bank"
         (copyId)="copyLink(bank)"
         (importBank)="importBank(bank)"
         [isCommunityBank]="true"
       />
     }
-    <a class="silent see-more" routerLink="/community/explore" [queryParams]="section.params">
+    <a
+      class="silent see-more stacked-shadow"
+      routerLink="/community/explore"
+      [queryParams]="section.params"
+    >
       <span> explore more </span>
       <app-icon-comp type="chevron" size="auto" />
     </a>

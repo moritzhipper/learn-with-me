@@ -37,13 +37,6 @@ h2 {
 
 .collections {
   gap: var(--distance-4);
-
-  app-shared-bank-comp,
-  .see-more {
-    --color: rgb(from var(--col-text) r g b / 0.02);
-
-    box-shadow: 3px 3px var(--color), 6px 6px var(--color);
-  }
 }
 
 a.see-more {
