@@ -5,6 +5,7 @@ import { BankRequestFilter, BankShare, LanguageConfig } from '@shared/types'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { lastValueFrom } from 'rxjs'
+import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
@@ -14,7 +15,7 @@ type PageConfig = LanguageConfig & BankRequestFilter
 
 @Component({
   selector: 'app-explore-page-comp',
-  imports: [PageIconComp, PageHeaderComp, SharedBankComp],
+  imports: [PageIconComp, PageHeaderComp, SharedBankComp, LoadingSpinner],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss',
   host: {
