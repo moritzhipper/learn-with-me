@@ -1,21 +1,23 @@
 <app-page-icon-comp type="compass" />
 <app-page-header-comp title="Explore" backLink="/community" backLinkText="community" />
 
-<app-loading-spinner />
 <div class="banks">
   @for (bank of visibleBanks(); track bank.id) {
     <app-shared-bank-comp class="stacked-shadow" [bank]="bank" [isCommunityBank]="true" />
   }
 </div>
-@switch (fetchState()) {
-  @case ('loading') {
-    loading...
+
+<div class="state-indicator">
+  @switch (fetchState()) {
+    @case ('loading') {
+      <app-loading-spinner />
+    }
+    @case ('all-loaded') {
+      all items loaded
+    }
+    @case ('error') {
+      error loading items
+      <button>retry</button>
+    }
   }
-  @case ('all-loaded') {
-    all items loaded
-  }
-  @case ('error') {
-    error loading items
-    <button>retry</button>
-  }
-}
+</div>

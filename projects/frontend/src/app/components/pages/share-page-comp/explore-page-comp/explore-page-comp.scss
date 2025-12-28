@@ -3,3 +3,9 @@
   grid-template-columns: var(--grid-auto-columns);
   gap: var(--distance-4);
 }
+
+.state-indicator {
+  display: flex;
+  justify-content: center;
+  padding: var(--distance-7) 0;
+}
