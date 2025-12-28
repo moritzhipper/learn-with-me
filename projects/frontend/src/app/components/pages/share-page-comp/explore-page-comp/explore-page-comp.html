@@ -1,5 +1,5 @@
 <app-page-icon-comp type="compass" />
-<app-page-header-comp title="Explore" />
+<app-page-header-comp title="Explore" backLink="/community" />
 <div class="banks">
   @for (bank of visibleBanks(); track bank.id) {
     <app-shared-bank-comp class="stacked-shadow" [bank]="bank" [isCommunityBank]="true" />
