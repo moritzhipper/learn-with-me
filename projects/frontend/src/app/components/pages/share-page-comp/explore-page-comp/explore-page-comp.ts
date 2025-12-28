@@ -1,7 +1,7 @@
 import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { LanguageConfigSchema } from '@shared/schemas'
-import { BankShare, LanguageConfig } from '@shared/types'
+import { BanksRequestFilterSchema, LanguageConfigSchema } from '@shared/schemas'
+import { BankRequestFilter, BankShare, LanguageConfig } from '@shared/types'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { lastValueFrom } from 'rxjs'
@@ -10,6 +10,7 @@ import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
 type PageFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'
+type PageConfig = LanguageConfig & BankRequestFilter
 
 @Component({
   selector: 'app-explore-page-comp',
@@ -32,7 +33,7 @@ export class ExplorePageComp {
   private PAGE_OFFSET = 0
 
   protected readonly visibleBanks = signal<BankShare[]>([])
-  params = signal<LanguageConfig>(this.initParams())
+  params = signal<PageConfig>(this.initParams())
 
   document = inject(DOCUMENT)
 
@@ -53,15 +54,20 @@ export class ExplorePageComp {
   }
 
   // TODO: handle null param for random language
-  initParams(): LanguageConfig {
+  initParams(): PageConfig {
     try {
       const queryParams = this.route.snapshot.queryParams
-      return LanguageConfigSchema.parse({
+      const language = LanguageConfigSchema.parse({
         speaking: queryParams['speaking'],
         learning: queryParams['learning']
       })
+      const category = BanksRequestFilterSchema.parse({
+        category: queryParams['category']
+      })
+
+      return { ...language, ...category }
     } catch {
-      return this.lStore.activeBank().language
+      return { ...this.lStore.activeBank().language, category: 'popular' }
     }
   }
 
@@ -73,7 +79,6 @@ export class ExplorePageComp {
     try {
       const banks = await lastValueFrom(
         this.apiS.getBanks({
-          category: 'new',
           ...this.params(),
           offset: this.PAGE_OFFSET,
           limit: this.PAGE_LIMIT

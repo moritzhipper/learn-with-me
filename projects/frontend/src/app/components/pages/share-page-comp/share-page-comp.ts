@@ -24,7 +24,6 @@ export class SharePageComp {
   private readonly _modalService = inject(ModalService)
   private readonly _lStore = inject(LearnablesStore)
   private readonly bankLanguage = computed(() => this._lStore.activeBank().language)
-
   protected readonly MAX_PREVIEW_BANKS = 7
 
   userBanks: BankShare[] = mockUserBanks(3)
@@ -82,4 +81,6 @@ export class SharePageComp {
     url.searchParams.set('id', id)
     return url.toString()
   }
+
+  private fetchOverviewBanks() {}
 }
