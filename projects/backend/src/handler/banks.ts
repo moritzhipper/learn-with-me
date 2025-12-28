@@ -10,7 +10,7 @@ export const fetchNewBanks = async (
   console.log(req.query)
 
   // pause briefly for debugging / rate-limiting simulation
-  await wait(5000)
+  await wait(200)
 
   //
   if (!req.query.offset || req.query.offset <= 200) {

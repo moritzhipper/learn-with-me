@@ -30,7 +30,7 @@ export class ExplorePageComp {
 
   private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 500
 
-  protected readonly fetchState = signal<PageFetchState>('loading')
+  protected readonly fetchState = signal<PageFetchState>('idle')
 
   private readonly PAGE_LIMIT = 10
   private PAGE_OFFSET = 0

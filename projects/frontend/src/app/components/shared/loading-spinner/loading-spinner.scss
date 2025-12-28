@@ -17,18 +17,19 @@
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
-
   animation-duration: 1s;
   box-sizing: border-box;
 }
 
 .a {
+  // show after one idle second
+  animation-delay: 1s;
   animation-name: anim-a;
 }
 
 .b {
+  animation-delay: 1.5s;
   animation-name: anim-b;
-  animation-delay: 0.5s;
 }
 
 @keyframes anim-a {
