@@ -1,7 +1,9 @@
 @if (backLink(); as link) {
   <a class="back-link" [routerLink]="link">
     <app-icon-comp type="chevron" class="icon" />
-    {{ backLinkText() || 'back' }}
+    <span>
+      {{ backLinkText() || 'back' }}
+    </span>
   </a>
 }
 <h1>{{ title() }}</h1>
