@@ -16,3 +16,14 @@
     margin: 0;
   }
 }
+
+app-shared-bank-comp {
+  animation: appear var(--duration-2) var(--soft-ease) both;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    translate: 0 100px;
+  }
+}

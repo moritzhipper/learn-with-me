@@ -12,6 +12,7 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
 type PageFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'
 type PageConfig = LanguageConfig & BankRequestFilter
+type BankViewModel = { bank: BankShare; animDelay: number }
 
 @Component({
   selector: 'app-explore-page-comp',
@@ -28,14 +29,14 @@ export class ExplorePageComp {
   private readonly lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
 
-  private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 500
+  private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 800
 
   protected readonly fetchState = signal<PageFetchState>('idle')
 
-  private readonly PAGE_LIMIT = 10
+  private readonly PAGE_LIMIT = 15
   private PAGE_OFFSET = 0
 
-  protected readonly visibleBanks = signal<BankShare[]>([])
+  protected readonly visibleBanksVM = signal<BankViewModel[]>([])
   params = signal<PageConfig>(this.initParams())
 
   document = inject(DOCUMENT)
@@ -88,25 +89,30 @@ export class ExplorePageComp {
         })
       )
 
+      // makes the last banks animation appear after 0.2s
+      const timeSpread = 0.3
+      const bankVM: BankViewModel[] = banks.map((bank, index) => ({
+        bank,
+        animDelay: (index / banks.length) * timeSpread
+      }))
+      this.visibleBanksVM.set([...this.visibleBanksVM(), ...bankVM])
+
       if (banks.length < this.PAGE_LIMIT) {
         this.fetchState.set('all-loaded')
       } else {
-        this.visibleBanks.set([...this.visibleBanks(), ...banks])
-        this.PAGE_OFFSET = this.PAGE_OFFSET + this.PAGE_LIMIT
+        this.PAGE_OFFSET = this.PAGE_OFFSET + banks.length
         this.fetchState.set('idle')
         this.loadNextPage()
       }
     } catch {
       this.fetchState.set('error')
-      // send toast?
-      // show retry button in gui?
     }
   }
 
   // setze page auf 0, leere visiblebanks,
   updateLanguage() {
     this.PAGE_OFFSET = 0
-    this.visibleBanks.set([])
+    this.visibleBanksVM.set([])
     this.fetchState.set('idle')
   }
 

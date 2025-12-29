@@ -2,8 +2,13 @@
 <app-page-header-comp title="Explore" backLink="/community" backLinkText="community" />
 
 <div class="banks">
-  @for (bank of visibleBanks(); track bank.id) {
-    <app-shared-bank-comp class="stacked-shadow" [bank]="bank" [isCommunityBank]="true" />
+  @for (bankVM of visibleBanksVM(); track bankVM.bank.id) {
+    <app-shared-bank-comp
+      class="stacked-shadow"
+      [bank]="bankVM.bank"
+      [isCommunityBank]="true"
+      [style.animationDelay.s]="bankVM.animDelay"
+    />
   }
 </div>
 
