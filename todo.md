@@ -6,6 +6,8 @@
 
 - move mocks to shared
   - use in backend api
+
+- use rmMethod per preview
 - make fetch overview on shared page and generally backend calls use rxMethod
 - add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
 - make new and top filter options, not route params
@@ -36,6 +38,8 @@
 
 ## Frontend
 
+- add loading type like in explore verywhere so i can smoothly handle api calls and error display everywhere
+- in overview for every langague in users banks a category
 - get rid of angular-architects helper
 - move shared-bank outputs to shared service
 - community shares

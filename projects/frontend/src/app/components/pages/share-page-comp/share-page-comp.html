@@ -7,7 +7,7 @@
   }
 </div>
 
-@for (section of sections(); track section.title) {
+@for (section of previewBanks(); track section.title) {
   <a class="header silent" routerLink="/community/explore" [queryParams]="section.params">
     <h2>{{ section.title }}</h2>
     <app-icon-comp type="chevron" [size]="24" />
