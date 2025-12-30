@@ -1,0 +1,18 @@
+.banks {
+  display: grid;
+  grid-template-columns: var(--grid-auto-columns);
+  gap: var(--distance-4);
+}
+
+.state-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--distance-7) 0;
+  gap: var(--distance-4);
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
+}

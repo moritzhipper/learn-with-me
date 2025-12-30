@@ -1,34 +1,22 @@
 import { API_ROUTES } from '@shared/api-routes'
-import { BankShareSchema, LanguageConfigRequestSchema } from '@shared/schemas'
+import { BankShareSchema, BanksRequestSchema } from '@shared/schemas'
 import { FastifyPluginAsync } from 'fastify'
 import { z } from 'zod'
-import { fetchNewBanks, fetchPopularBanks, shareBank } from '../handler/banks'
+import { fetchNewBanks, shareBank } from '../handler/banks'
 
 const options = {}
 
 const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.route({
     method: 'GET',
-    url: API_ROUTES.BANKS.NEW,
+    url: API_ROUTES.BANKS.ROOT,
     schema: {
-      querystring: LanguageConfigRequestSchema,
+      querystring: BanksRequestSchema,
       response: {
         200: z.array(BankShareSchema)
       }
     },
     handler: fetchNewBanks
-  })
-
-  fastify.route({
-    method: 'GET',
-    url: API_ROUTES.BANKS.POPULAR,
-    schema: {
-      querystring: LanguageConfigRequestSchema,
-      response: {
-        200: z.array(BankShareSchema)
-      }
-    },
-    handler: fetchPopularBanks
   })
 
   fastify.route({

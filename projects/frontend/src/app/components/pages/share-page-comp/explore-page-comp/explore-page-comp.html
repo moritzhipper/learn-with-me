@@ -1,0 +1,32 @@
+<app-page-icon-comp type="compass" />
+<app-page-header-comp title="Explore" backLink="/community" backLinkText="community" />
+
+<div class="banks">
+  @for (bankVM of visibleBanksVM(); track bankVM.item.id) {
+    <app-shared-bank-comp
+      class="stacked-shadow fly-in-y-wide"
+      [bank]="bankVM.item"
+      [isCommunityBank]="true"
+      [style.animationDelay.s]="bankVM.animDelay"
+    />
+  }
+</div>
+
+<div class="state-indicator">
+  @switch (fetchState()) {
+    @case ('loading') {
+      <app-loading-spinner />
+    }
+    @case ('all-loaded') {
+      <p class="all-there">
+        <strong> you looked at all of the banks</strong>
+      </p>
+    }
+    @case ('error') {
+      <p class="error">
+        <strong> error loading items </strong>
+      </p>
+      <button class="big">retry</button>
+    }
+  }
+</div>

@@ -102,6 +102,17 @@
   animation: fly-out-x var(--duration-1) ease-out;
 }
 
+.fly-in-y-wide {
+  animation: fly-in-y-wide var(--duration-2) var(--soft-ease) both;
+}
+
+@keyframes fly-in-y-wide {
+  from {
+    opacity: 0;
+    translate: 0 100px;
+  }
+}
+
 @keyframes bd-appear {
   from {
     opacity: 0;

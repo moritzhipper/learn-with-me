@@ -60,3 +60,18 @@ export const BankShareSchema = BankBaseSchema.extend({
   collections: z.array(CollectionBaseSchema),
   expires: z.date()
 })
+
+export const PaginationSchema = z.object({
+  limit: z.coerce.number().min(1).max(30),
+  offset: z.coerce.number().min(0).max(1000).optional()
+})
+
+export const BanksRequestFilterSchema = z.object({
+  category: z.enum(['new', 'popular'])
+})
+
+export const BanksRequestSchema = z.object({
+  ...LanguageConfigRequestSchema.shape,
+  ...BanksRequestFilterSchema.shape,
+  ...PaginationSchema.shape
+})

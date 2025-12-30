@@ -2,8 +2,6 @@
 
 h2 {
   margin: 0 0 0 var(--distance-2);
-
-  font-size: var(--font-size-2);
 }
 
 .header {
@@ -32,7 +30,7 @@ h2 {
       translate: var(--distance-2);
     }
     h2 {
-      translate: calc(var(--distance-1));
+      translate: var(--distance-1);
     }
   }
 }
@@ -41,24 +39,11 @@ h2 {
   gap: var(--distance-4);
 }
 
-.tabs {
-  padding: var(--distance-3) 0 var(--distance-1) 0;
-  display: flex;
-  gap: var(--distance-2);
-  .tab {
-    h2 {
-      font-size: var(--font-size-2);
-      margin: 0;
-      padding: var(--distance-3) 0;
-    }
-  }
-}
-
-.see-more {
+a.see-more {
   display: grid;
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
   border-radius: var(--radius-2);
-  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  background-color: var(--col-bg);
   place-items: center;
   overflow: hidden;
   position: relative;
@@ -94,6 +79,19 @@ h2 {
     }
   }
 }
+.state-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--distance-7) 0;
+  gap: var(--distance-4);
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
+}
+
 @include isDesktop() {
   .collections {
     display: grid;

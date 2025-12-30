@@ -22,7 +22,6 @@ type Counter = {
 })
 export class SharedBankComp implements OnDestroy {
   bank = input.required<BankShare>()
-  allowImport = input<boolean>(true)
   copyId = output<void>()
   importBank = output<void>()
 
@@ -48,7 +47,7 @@ export class SharedBankComp implements OnDestroy {
   })
 
   protected readonly ttl = computed(() => {
-    const expires = this.bank().expires
+    const expires = new Date(this.bank().expires)
     const diffMs = expires.getTime() - this.currentTime()
     // If already expired
     if (diffMs <= 0) {

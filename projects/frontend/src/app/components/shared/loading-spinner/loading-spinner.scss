@@ -1,0 +1,66 @@
+:host {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.a,
+.b {
+  position: absolute;
+  border: 3px solid var(--col-text);
+  border-radius: var(--radius-1);
+  aspect-ratio: 1 / 1;
+  width: 70%;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  box-sizing: border-box;
+}
+
+.a {
+  // show after one idle second
+  animation-delay: 0.3s;
+  animation-name: anim-a;
+}
+
+.b {
+  animation-delay: 0.7s;
+  animation-name: anim-b;
+}
+
+@keyframes anim-a {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+
+  50% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(50%, -20%) rotate(20deg);
+  }
+}
+
+@keyframes anim-b {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+
+  50% {
+    transform: translateY(0%);
+
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -20%) rotate(-20deg);
+  }
+}

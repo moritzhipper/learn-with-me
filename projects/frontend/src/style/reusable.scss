@@ -42,3 +42,9 @@ a.icon {
   opacity: var(--opacity-1);
   content: ' • ';
 }
+
+.stacked-shadow {
+  box-shadow:
+    3px 3px rgb(from var(--col-text) r g b / 0.02),
+    6px 6px rgb(from var(--col-text) r g b / 0.02);
+}

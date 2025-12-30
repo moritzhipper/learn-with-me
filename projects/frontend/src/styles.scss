@@ -13,8 +13,7 @@ html {
 }
 
 * {
-  scrollbar-color: rgb(from var(--col-accent) r g b / var(--opacity-1))
-    transparent;
+  scrollbar-color: rgb(from var(--col-accent) r g b / var(--opacity-1)) transparent;
 
   scrollbar-width: thin;
 }
@@ -37,6 +36,7 @@ h1 {
 
 h2 {
   margin: var(--distance-6) 0 var(--distance-4) 0;
+  font-size: var(--font-size-2);
 
   &.first {
     margin: 0 0 var(--distance-4) 0;
@@ -73,17 +73,16 @@ strong {
 }
 
 button {
-  transition-property:
-    background-color, opacity, outline, color, box-shadow, padding, rotate;
+  transition-property: background-color, opacity, outline, color, box-shadow, padding, rotate;
   transition-duration: var(--duration-0);
   transition-timing-function: ease-out;
 
   &.small {
     border-radius: var(--radius-0);
-
     padding: var(--distance-1) var(--distance-5);
     font-size: var(--font-size-0);
     font-weight: var(--font-weight-bold);
+    background-color: var(--col-accent);
   }
 
   &.big {

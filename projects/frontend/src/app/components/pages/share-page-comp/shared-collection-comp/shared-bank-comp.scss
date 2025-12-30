@@ -13,14 +13,6 @@
 
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
 
-  --stackd: 3px;
-  --stackd2: 6px;
-  --color: rgb(from var(--col-text) r g b / 0.02);
-
-  box-shadow:
-    var(--stackd) var(--stackd) var(--color),
-    var(--stackd2) var(--stackd2) var(--color);
-
   .header {
     grid-column: span 2;
     display: flex;

@@ -29,9 +29,7 @@
                 "input": "projects/frontend/public"
               }
             ],
-            "styles": [
-              "projects/frontend/src/styles.scss"
-            ]
+            "styles": ["projects/frontend/src/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -64,7 +62,8 @@
               "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "frontend:build:development",
+              "proxyConfig": "projects/frontend/src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

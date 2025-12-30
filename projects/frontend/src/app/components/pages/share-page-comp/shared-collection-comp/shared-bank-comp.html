@@ -2,13 +2,12 @@
 
 <div class="header">
   <div class="name">{{ bank().name }}</div>
-
   @if (!ttl().isExpired) {
     <button class="silent copy" (click)="copyId.emit()">
       <app-icon-comp type="copy" />
     </button>
 
-    @if (allowImport()) {
+    @if (isCommunityBank()) {
       <button class="silent import" (click)="importBank.emit()">
         <app-icon-comp type="add" />
       </button>

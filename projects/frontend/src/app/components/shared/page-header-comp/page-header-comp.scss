@@ -2,14 +2,39 @@
 
 :host {
   display: grid;
-  width: min-content;
+  max-width: 100%;
   box-sizing: border-box;
-
   transform-origin: top left;
+  padding-bottom: var(--distance-4);
 
   h1 {
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--distance-1);
+    word-break: break-word;
+    font-size: var(--font-size-4);
+  }
+  a {
+    display: flex;
+    align-items: center;
+
+    span,
+    .icon {
+      transition: translate var(--duration-1);
+    }
+
+    .icon {
+      rotate: -90deg;
+    }
+
+    &:hover,
+    &:focus-visible {
+      span {
+        translate: calc(-1 * var(--distance-1));
+      }
+      .icon {
+        translate: calc(-1 * var(--distance-2));
+      }
+    }
   }
 }
 
@@ -17,17 +42,14 @@
   :host {
     width: 100%;
     place-items: center;
-    text-align: center;
     margin: var(--distance-7) 0;
-    font-size: var(--font-size-3);
+    text-align: center;
   }
 }
 
 @include isDesktop() {
   :host {
-    h1 {
-      font-size: var(--font-size-4);
-    }
+    transform-origin: top left;
 
     margin: var(--distance-4) 0 var(--distance-6) 0;
     white-space: nowrap;

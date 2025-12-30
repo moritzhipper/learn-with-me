@@ -1,4 +1,9 @@
-import type { BankUser, LanguageConfig } from '@shared/types'
+import type {
+  BankRequestFilter,
+  BankUser,
+  LanguageConfig,
+  LanguageConfigRequest
+} from '@shared/types'
 
 export type LearnablesStoreType = {
   banks: BankUser[]
@@ -53,3 +58,7 @@ export type BankShareResponse = {
   id: string
   expires: Date
 }
+
+export type ExplorePageCategoryConfig = LanguageConfigRequest & BankRequestFilter
+
+export type ApiFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'

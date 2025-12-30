@@ -44,3 +44,19 @@ export const pluralize = (count: number, unit: string): string => {
   const pluralS = count !== 1 ? 's' : ''
   return `${count} ${unit}${pluralS}`
 }
+
+export const lerpListAppear = (i: number, totalItems: number, timeSpread: number): number => {
+  return (i / totalItems) * timeSpread
+}
+
+export type StaggerVM<T> = Array<{
+  item: T
+  animDelay: number
+}>
+
+export const mapToStaggerVM = <T>(items: T[], timeSpread: number): StaggerVM<T> => {
+  return items.map((item, i) => ({
+    item,
+    animDelay: lerpListAppear(i, items.length, timeSpread)
+  }))
+}

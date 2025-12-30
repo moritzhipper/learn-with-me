@@ -34,6 +34,7 @@ export type IconType =
   | 'wrong-guess'
   | 'right-guess'
   | 'chevron-right'
+  | 'compass'
 
 @Component({
   selector: 'app-icon-comp',
