@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core'
 import { BankUser, CollectionUser, LanguageConfig, LearnableBase } from '@shared/types'
 import { ApiService } from '../../../services/api-service'
-import { BlobService } from '../../../services/blob-service'
 import { ModalService } from '../../../services/modal-service'
+import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { mapToBankExport } from '../../../utils/import-export-utils'
@@ -26,7 +26,7 @@ export class OverviewPageFacade {
   private readonly apiService = inject(ApiService)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)
-  private readonly blobService = inject(BlobService)
+  private readonly shareBanksS = inject(ShareBanksService)
 
   // ─────────────────────────────────────────────────────────────────────────────
   // Learnable Operations
@@ -137,8 +137,7 @@ export class OverviewPageFacade {
 
   createDownloadableExport(bank: BankUser, collectionId?: string) {
     const collectionIds = collectionId ? [collectionId] : undefined
-    const bankExport = mapToBankExport(bank, collectionIds)
-    return this.blobService.createDownloadableFromLearnables(bankExport)
+    return this.shareBanksS.createDownloadable(bank, collectionIds)
   }
 
   // ─────────────────────────────────────────────────────────────────────────────

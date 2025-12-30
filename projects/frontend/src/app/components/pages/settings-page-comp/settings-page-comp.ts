@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BankBase, BankUser } from '@shared/types'
-import { BlobService } from '../../../services/blob-service'
 import { ModalService } from '../../../services/modal-service'
+import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { SettingsStore } from '../../../store/settingsStore'
@@ -24,7 +24,7 @@ export class SettingsComp {
   private readonly _languageS = inject(LearnablesStore)
   private readonly _modalService = inject(ModalService)
   private readonly _toastS = inject(ToastService)
-  private readonly _blobS = inject(BlobService)
+  private readonly _blobS = inject(ShareBanksService)
 
   protected tokensUsed = this._settingsS.tokensUsed
   protected apiKey = this._settingsS.apiKey

@@ -16,38 +16,23 @@
   word-break: break-all;
   overflow: hidden;
   margin-bottom: var(--distance-4);
+  padding: var(--distance-2) var(--distance-4);
+  box-shadow: var(--shadow-big);
+  border-radius: var(--radius-2);
+  color: var(--col-bg);
 
-  &.guess {
-    text-align: center;
-    grid-area: 1/1;
-    font-size: var(--font-size-4);
-    opacity: 0;
-  }
-
-  &.error,
-  &.info {
-    box-shadow: var(--shadow-big);
-    padding: var(--distance-3) var(--distance-4);
-    border-radius: var(--radius-2);
+  .header {
+    font-weight: var(--font-weight-bold);
+    padding-bottom: var(--distance-1);
   }
 
   &.error {
     background-color: var(--col-warning);
-    color: var(--col-bg);
   }
 
   &.info {
-    color: var(--col-bg);
     background-color: var(--col-primary);
   }
-}
-
-.guess-in {
-  animation: guess-in var(--duration-3) ease-out;
-}
-
-.guess-out {
-  animation: guess-out var(--duration-0);
 }
 
 .toast-in {
@@ -63,25 +48,6 @@
 
 .toast-out {
   animation: toast-out var(--duration-2);
-}
-
-@keyframes guess-in {
-  from {
-    scale: 0.7;
-  }
-  60% {
-    opacity: 1;
-  }
-  to {
-    translate: 0 -80px;
-    opacity: 0;
-  }
-}
-
-@keyframes guess-out {
-  to {
-    opacity: 0;
-  }
 }
 
 @keyframes toast-out {

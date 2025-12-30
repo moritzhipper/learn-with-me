@@ -7,6 +7,7 @@ import { BankShare } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { ApiService } from '../../../services/api-service'
 import { ModalService } from '../../../services/modal-service'
+import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types_and_schemas/types'
@@ -37,6 +38,7 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 })
 export class SharePageComp {
   private readonly _toastS = inject(ToastService)
+  private readonly _shareBanksS = inject(ShareBanksService)
   private readonly _modalService = inject(ModalService)
   private readonly _lStore = inject(LearnablesStore)
   private readonly _apiS = inject(ApiService)
@@ -78,19 +80,7 @@ export class SharePageComp {
   }
 
   protected async copyLink(bank: BankShare) {
-    try {
-      await navigator.clipboard.writeText(this.generateLink(bank.id))
-
-      this._toastS.showToast({
-        type: 'info',
-        message: `Link to ${bank.name} copied to clipboard`
-      })
-    } catch {
-      this._toastS.showToast({
-        type: 'error',
-        message: `Failed to copy link. Do you have the clipboard permissions enabled?`
-      })
-    }
+    this._shareBanksS.copyLinkToClipboard(bank)
   }
 
   protected async importBank(bank: BankShare) {

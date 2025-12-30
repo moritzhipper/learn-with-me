@@ -2,21 +2,12 @@
 
 ## Right Now
 
-- add anim to communoty per section
-
-### Add API Routes returning []
-
-- use rmMethod per preview
 - use sharedBankService to:
   - create xport from userBank on demand
   - copy bankId to clipboard
-- make fetch overview on shared page and generally backend calls use rxMethod
-- add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
-- make new and top filter options, not route params
-- add overview store thingy
-- initiate successfull get new entries call on app init
-- add 'investigate' route wiht filiter options at top and pagination
-  - opens when you click on arrow thingy
+- show selected filter to explore and make customizable
+
+### Add API Routes returning []
 
 ### Connect DB
 
@@ -40,6 +31,7 @@
 
 ## Frontend
 
+- create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template
 - add loading type like in explore verywhere so i can smoothly handle api calls and error display everywhere
 - in overview for every langague in users banks a category

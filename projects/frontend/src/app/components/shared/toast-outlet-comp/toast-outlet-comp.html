@@ -1,12 +1,14 @@
 @for (toast of toasts(); track toast) {
-  <div
-    class="toast"
-    [class]="toast.type"
-    [animate.enter]="getEnterAnimName(toast)"
-    [animate.leave]="getLeaveAnimName(toast)"
-  >
+  <div class="toast" [class]="toast.type" animate.enter="toast-in" animate.leave="toast-out">
     <div class="wrapper">
-      {{ toast.message }}
+      @if (toast.header) {
+        <div class="header ellipsis">
+          {{ toast.header }}
+        </div>
+      }
+      <div>
+        {{ toast.message }}
+      </div>
     </div>
   </div>
 }

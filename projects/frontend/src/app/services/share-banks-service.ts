@@ -1,7 +1,12 @@
-import { Injectable } from '@angular/core'
-import { BankShare } from '@shared/types'
+import { inject, Injectable } from '@angular/core'
+import { BankShare, BankUser } from '@shared/types'
 import { config } from '../../config'
-import { parseFileImportString, verifiyImportedFileValidity } from '../utils/import-export-utils'
+import {
+  mapToBankExport,
+  parseFileImportString,
+  verifiyImportedFileValidity
+} from '../utils/import-export-utils'
+import { ToastService } from './toast-service'
 
 export type Downloadable = {
   blobUrl: string
@@ -11,14 +16,17 @@ export type Downloadable = {
 @Injectable({
   providedIn: 'root'
 })
-export class BlobService {
+export class ShareBanksService {
+  private readonly toastService = inject(ToastService)
   private _blobUrl = ''
 
   // use service for this to handle revoking last blob for better memory management
-  createDownloadableFromLearnables(bank: BankShare): Downloadable {
+  createDownloadable(bank: BankUser, onlyForCollectionIds?: string[]): Downloadable {
+    const bankExport = mapToBankExport(bank, onlyForCollectionIds)
+
     URL.revokeObjectURL(this._blobUrl)
 
-    const jsonString = JSON.stringify(bank)
+    const jsonString = JSON.stringify(bankExport)
 
     // use application/octet-stream to force download as *.suffix and not as *.suffix.json in browsers
     const blob = new Blob([jsonString], { type: 'application/octet-stream' })
@@ -61,5 +69,18 @@ export class BlobService {
 
       fileReader.readAsText(file)
     })
+  }
+
+  async copyLinkToClipboard({ id, name }: BankShare): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(id)
+      this.toastService.showToast({
+        header: name,
+        message: `Link copied to clipboard`,
+        type: 'info'
+      })
+    } catch {
+      this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+    }
   }
 }

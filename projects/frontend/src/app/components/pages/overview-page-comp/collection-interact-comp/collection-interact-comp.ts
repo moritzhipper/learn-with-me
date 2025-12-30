@@ -1,7 +1,7 @@
 import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
-import { Downloadable } from '../../../../services/blob-service'
+import { Downloadable } from '../../../../services/share-banks-service'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing'
 import { ApiService } from '../../../services/api-service'
-import { BlobService } from '../../../services/blob-service'
 import { ModalService } from '../../../services/modal-service'
+import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { OverviewPageFacade } from './overview-page-facade'
@@ -12,7 +12,7 @@ describe('OverviewPageFacade', () => {
   let mockModalService: jasmine.SpyObj<ModalService>
   let mockToastService: jasmine.SpyObj<ToastService>
   let mockApiService: jasmine.SpyObj<ApiService>
-  let mockBlobService: jasmine.SpyObj<BlobService>
+  let mockBlobService: jasmine.SpyObj<ShareBanksService>
 
   beforeEach(() => {
     // Create mock services
@@ -29,9 +29,7 @@ describe('OverviewPageFacade', () => {
     mockModalService = jasmine.createSpyObj('ModalService', ['open'])
     mockToastService = jasmine.createSpyObj('ToastService', ['showToast'])
     mockApiService = jasmine.createSpyObj('ApiService', ['shareBank'])
-    mockBlobService = jasmine.createSpyObj('BlobService', [
-      'createDownloadableFromLearnables'
-    ])
+    mockBlobService = jasmine.createSpyObj('BlobService', ['createDownloadableFromLearnables'])
 
     TestBed.configureTestingModule({
       providers: [
@@ -40,7 +38,7 @@ describe('OverviewPageFacade', () => {
         { provide: ModalService, useValue: mockModalService },
         { provide: ToastService, useValue: mockToastService },
         { provide: ApiService, useValue: mockApiService },
-        { provide: BlobService, useValue: mockBlobService }
+        { provide: ShareBanksService, useValue: mockBlobService }
       ]
     })
 

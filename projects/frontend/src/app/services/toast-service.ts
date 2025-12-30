@@ -1,8 +1,9 @@
 import { computed, Injectable, signal } from '@angular/core'
 
 export type ToastOptions = {
+  header?: string
   message: string
-  type: 'info' | 'error' | 'guess'
+  type: 'info' | 'error'
 }
 
 @Injectable({
@@ -10,15 +11,18 @@ export type ToastOptions = {
 })
 export class ToastService {
   private _toasts = signal<ToastOptions[]>([])
+  private readonly TOAST_TTL = 6000
 
   toasts = computed(() => this._toasts())
 
-  showToast(config: ToastOptions) {
+  showToast(config: ToastOptions | string) {
+    if (typeof config === 'string') {
+      config = { message: config, type: 'info' }
+    }
     this._toasts.update((toasts) => [...toasts, config])
-    const time = config.type === 'guess' ? 1000 : 6000
 
     setTimeout(() => {
       this._toasts.update((t) => t.slice(1))
-    }, time)
+    }, this.TOAST_TTL)
   }
 }
