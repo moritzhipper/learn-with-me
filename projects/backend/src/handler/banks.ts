@@ -10,7 +10,7 @@ export const fetchNewBanks = async (
   console.log(req.query)
 
   // pause briefly for debugging / rate-limiting simulation
-  await wait(300)
+  await wait(3000)
 
   // return maximum of 200 bank mocks
   if (!req.query.offset || req.query.offset <= 200) {

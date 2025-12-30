@@ -17,7 +17,7 @@ export class ShareBanksService {
   private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  createDownloadable(bank: BankUser, onlyForCollectionIds?: string[]): void {
+  downloadBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
     const bankExport = mapToBankExport(bank, onlyForCollectionIds)
 
     URL.revokeObjectURL(this._blobUrl)
@@ -37,8 +37,8 @@ export class ShareBanksService {
     const anchor = this.document.createElement('a')
     anchor.href = blobUrl
     anchor.download = fileName
-
     anchor.click()
+    anchor.remove()
   }
 
   async readFile(file: File): Promise<BankShare> {

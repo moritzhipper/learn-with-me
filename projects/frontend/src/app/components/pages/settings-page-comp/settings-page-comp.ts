@@ -24,7 +24,7 @@ export class SettingsComp {
   private readonly _languageS = inject(LearnablesStore)
   private readonly _modalService = inject(ModalService)
   private readonly _toastS = inject(ToastService)
-  private readonly _blobS = inject(ShareBanksService)
+  private readonly _sharedBankS = inject(ShareBanksService)
 
   protected tokensUsed = this._settingsS.tokensUsed
   protected apiKey = this._settingsS.apiKey
@@ -102,7 +102,9 @@ export class SettingsComp {
     this._languageS.deleteBank(id)
   }
 
-  downloadBank(bank: BankUser) {}
+  downloadBank(bank: BankUser) {
+    this._sharedBankS.downloadBank(bank)
+  }
 
   protected updateKey(event: Event) {
     const input = event.target as HTMLInputElement
