@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core'
+import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShare, BankUser } from '@shared/types'
 import { config } from '../../config'
 import {
@@ -8,20 +8,16 @@ import {
 } from '../utils/import-export-utils'
 import { ToastService } from './toast-service'
 
-export type Downloadable = {
-  blobUrl: string
-  fileName: string
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class ShareBanksService {
   private readonly toastService = inject(ToastService)
   private _blobUrl = ''
+  private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  createDownloadable(bank: BankUser, onlyForCollectionIds?: string[]): Downloadable {
+  createDownloadable(bank: BankUser, onlyForCollectionIds?: string[]): void {
     const bankExport = mapToBankExport(bank, onlyForCollectionIds)
 
     URL.revokeObjectURL(this._blobUrl)
@@ -38,10 +34,11 @@ export class ShareBanksService {
 
     this._blobUrl = blobUrl
 
-    return {
-      blobUrl,
-      fileName
-    }
+    const anchor = this.document.createElement('a')
+    anchor.href = blobUrl
+    anchor.download = fileName
+
+    anchor.click()
   }
 
   async readFile(file: File): Promise<BankShare> {

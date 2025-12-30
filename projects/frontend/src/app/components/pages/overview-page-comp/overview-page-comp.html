@@ -18,7 +18,7 @@
     <app-collection-interact-comp
       [(selectedCollectionId)]="selectedCollectionId"
       [selectableCollections]="collections()"
-      [downloadable]="collectionDownload()"
+      (download)="downloadCollection()"
       (edit)="renameCollection()"
       (delete)="deleteCollection()"
       (share)="shareCollection()"
@@ -38,10 +38,7 @@
           (click)="toggleLearnableSelection(learnable.id)"
           [class.selected]="isSelected(learnable.id)"
         >
-          <app-learnable-comp
-            [learnable]="learnable"
-            [showNewBadge]="isLastAdded(learnable.id)"
-          />
+          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
         </button>
       }
     </div>
@@ -55,10 +52,7 @@
           (click)="toggleLearnableSelection(learnable.id)"
           [class.selected]="isSelected(learnable.id)"
         >
-          <app-learnable-comp
-            [learnable]="learnable"
-            [showNewBadge]="isLastAdded(learnable.id)"
-          />
+          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
         </button>
       }
     </div>
@@ -67,8 +61,8 @@
   <h2>Add cards to start learning</h2>
   <p>
     Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
-    to magically extract them from your notes, articles, single sentences or
-    words you want to learn.
+    to magically extract them from your notes, articles, single sentences or words you want to
+    learn.
   </p>
   <p>
     Click

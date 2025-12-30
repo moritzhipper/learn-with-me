@@ -135,9 +135,8 @@ export class OverviewPageFacade {
     await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
   }
 
-  createDownloadableExport(bank: BankUser, collectionId?: string) {
-    const collectionIds = collectionId ? [collectionId] : undefined
-    return this.shareBanksS.createDownloadable(bank, collectionIds)
+  downloadCollection(collectionId: string) {
+    this.shareBanksS.createDownloadable(this.store.activeBank(), [collectionId])
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
