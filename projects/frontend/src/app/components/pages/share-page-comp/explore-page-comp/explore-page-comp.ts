@@ -1,6 +1,6 @@
 import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { BanksRequestFilterSchema, LanguageConfigSchema } from '@shared/schemas'
+import { BanksRequestSchema } from '@shared/schemas'
 import { BankShare } from '@shared/types'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
@@ -61,18 +61,14 @@ export class ExplorePageComp {
   // TODO: handle null param for random language
   initParams(): ExplorePageCategoryConfig {
     try {
-      const queryParams = this.route.snapshot.queryParams
-      const language = LanguageConfigSchema.parse({
-        speaking: queryParams['speaking'],
-        learning: queryParams['learning']
-      })
-      const category = BanksRequestFilterSchema.parse({
-        category: queryParams['category']
-      })
+      const parsedParams = BanksRequestSchema.omit({ limit: true, offset: true }).parse(
+        this.route.snapshot.queryParams
+      )
 
-      return { ...language, ...category }
+      return parsedParams
     } catch {
-      return { ...this.lStore.activeBank().language, category: 'popular' }
+      const activeBankLang = this.lStore.activeBank().language
+      return { ...activeBankLang, category: 'popular' }
     }
   }
 
@@ -91,8 +87,7 @@ export class ExplorePageComp {
       )
 
       // makes the last banks animation appear after 0.2s
-      const timeSpread = 0.3
-      const bankVM = mapToStaggerVM(banks, timeSpread)
+      const bankVM = mapToStaggerVM(banks)
       this.visibleBanksVM.set([...this.visibleBanksVM(), ...bankVM])
 
       if (banks.length < this.PAGE_LIMIT) {

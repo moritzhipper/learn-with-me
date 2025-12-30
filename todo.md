@@ -2,21 +2,12 @@
 
 ## Right Now
 
-- add anim to communoty per section
+- use sharedBankService to:
+  - implement on: overview, shared, explore
+- show selected filter to explore and make customizable
+- add PWA
 
 ### Add API Routes returning []
-
-- use rmMethod per preview
-- use sharedBankService to:
-  - create xport from userBank on demand
-  - copy bankId to clipboard
-- make fetch overview on shared page and generally backend calls use rxMethod
-- add pagination to bank endpoints -> add init app call on app start calling top five for categories -> now viewlogic in fe
-- make new and top filter options, not route params
-- add overview store thingy
-- initiate successfull get new entries call on app init
-- add 'investigate' route wiht filiter options at top and pagination
-  - opens when you click on arrow thingy
 
 ### Connect DB
 
@@ -32,6 +23,9 @@
 
 ## Backend
 
+- add inbetween layer to backend
+  - maps adds baseLanguage to banks (byrisch -> german)
+  - allows better matching and recommendation system
 - make bank request languages optional -> return for all languages for left out language
 - add build prod for backend -> new tsc without sorucemaps and optimization and stuff
 - use some cheap openai model to srip shared banks from obscene language and stuff
@@ -40,10 +34,12 @@
 
 ## Frontend
 
+- setup PWA
+- create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template
-- add loading type like in explore verywhere so i can smoothly handle api calls and error display everywhere
-- in overview for every langague in users banks a category
 - get rid of angular-architects helper
+  - remove -f from ci build
+- in overview for every langague in users banks a category
 - move shared-bank outputs to shared service
 - community shares
   - section trending: all languages

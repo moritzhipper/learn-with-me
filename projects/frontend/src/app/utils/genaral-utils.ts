@@ -54,7 +54,7 @@ export type StaggerVM<T> = Array<{
   animDelay: number
 }>
 
-export const mapToStaggerVM = <T>(items: T[], timeSpread: number): StaggerVM<T> => {
+export const mapToStaggerVM = <T>(items: T[], timeSpread: number = 0.3): StaggerVM<T> => {
   return items.map((item, i) => ({
     item,
     animDelay: lerpListAppear(i, items.length, timeSpread)

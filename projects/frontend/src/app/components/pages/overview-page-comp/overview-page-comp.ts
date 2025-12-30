@@ -114,11 +114,14 @@ export class OverviewComp {
 
   readonly userHasCards = computed(() => this._lStore.learnables().length !== 0)
 
-  readonly collectionDownload = computed(() =>
-    this._facade.createDownloadableExport(this.bank(), this.selectedCollection()?.id)
-  )
-
   // View event handlers - delegate to facade
+
+  downloadCollection() {
+    const collection = this.selectedCollection()
+    if (!collection) return
+
+    this._facade.downloadCollection(collection.id)
+  }
 
   async addNew() {
     const cardsAdded = await this._facade.openAddLearnablesModal(

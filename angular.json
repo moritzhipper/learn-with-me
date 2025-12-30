@@ -51,6 +51,10 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "static": {
+              "baseHref": "https://moritzhipper.me/learn-with-me/",
+              "outputMode": "static"
             }
           },
           "defaultConfiguration": "production"

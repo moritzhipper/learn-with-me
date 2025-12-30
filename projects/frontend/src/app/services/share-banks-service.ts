@@ -1,24 +1,28 @@
-import { Injectable } from '@angular/core'
-import { BankShare } from '@shared/types'
+import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { BankShare, BankUser } from '@shared/types'
 import { config } from '../../config'
-import { parseFileImportString, verifiyImportedFileValidity } from '../utils/import-export-utils'
-
-export type Downloadable = {
-  blobUrl: string
-  fileName: string
-}
+import {
+  mapToBankExport,
+  parseFileImportString,
+  verifiyImportedFileValidity
+} from '../utils/import-export-utils'
+import { ToastService } from './toast-service'
 
 @Injectable({
   providedIn: 'root'
 })
-export class BlobService {
+export class ShareBanksService {
+  private readonly toastService = inject(ToastService)
   private _blobUrl = ''
+  private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  createDownloadableFromLearnables(bank: BankShare): Downloadable {
+  downloadBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
+    const bankExport = mapToBankExport(bank, onlyForCollectionIds)
+
     URL.revokeObjectURL(this._blobUrl)
 
-    const jsonString = JSON.stringify(bank)
+    const jsonString = JSON.stringify(bankExport)
 
     // use application/octet-stream to force download as *.suffix and not as *.suffix.json in browsers
     const blob = new Blob([jsonString], { type: 'application/octet-stream' })
@@ -30,10 +34,12 @@ export class BlobService {
 
     this._blobUrl = blobUrl
 
-    return {
-      blobUrl,
-      fileName
-    }
+    // create click and remove download link element
+    const anchor = this.document.createElement('a')
+    anchor.href = blobUrl
+    anchor.download = fileName
+    anchor.click()
+    anchor.remove()
   }
 
   async readFile(file: File): Promise<BankShare> {
@@ -61,5 +67,21 @@ export class BlobService {
 
       fileReader.readAsText(file)
     })
+  }
+
+  async copyLinkToClipboard({ id, name }: BankShare): Promise<void> {
+    try {
+      const url = new URL(this.document.location.origin)
+      url.searchParams.set('id', id)
+
+      await navigator.clipboard.writeText(url.toString())
+      this.toastService.showToast({
+        header: name,
+        message: `Link copied to clipboard`,
+        type: 'info'
+      })
+    } catch {
+      this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+    }
   }
 }

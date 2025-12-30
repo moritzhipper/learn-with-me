@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core'
 import { BankUser, CollectionUser, LanguageConfig, LearnableBase } from '@shared/types'
 import { ApiService } from '../../../services/api-service'
-import { BlobService } from '../../../services/blob-service'
 import { ModalService } from '../../../services/modal-service'
+import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { mapToBankExport } from '../../../utils/import-export-utils'
@@ -10,7 +10,6 @@ import { filterLearnables } from '../../../utils/learnables-filter'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
-import { ModalResult } from '../../shared/forms/modal-config'
 import { ShareFormResponse } from '../../shared/forms/share-form-comp/share-form-comp'
 
 /**
@@ -26,7 +25,7 @@ export class OverviewPageFacade {
   private readonly apiService = inject(ApiService)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)
-  private readonly blobService = inject(BlobService)
+  private readonly shareBanksS = inject(ShareBanksService)
 
   // ─────────────────────────────────────────────────────────────────────────────
   // Learnable Operations
@@ -40,7 +39,7 @@ export class OverviewPageFacade {
       language
     })
 
-    if (!this.isConfirmed(result)) return false
+    if (result.type !== 'confirm') return false
 
     return this.addLearnablesToStore(result.value, selectedCollection)
   }
@@ -55,7 +54,7 @@ export class OverviewPageFacade {
       learnables
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const { update, deleteIDs, add } = result.value
     this.store.updateLearnables(update)
@@ -74,10 +73,10 @@ export class OverviewPageFacade {
       message
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     this.store.removeLearnables(learnableIds)
-    this.showInfoToast(`Removed ${count} cards`)
+    this.toastService.showToast(`Removed ${count} cards`)
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -89,17 +88,17 @@ export class OverviewPageFacade {
       collections: this.store.collections()
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const { createName, addToId } = result.value
     const collectionName = this.addLearnablesToCollection(learnableIds, createName, addToId)
 
-    this.showInfoToast(`Added ${learnableIds.length} cards to ${collectionName}`)
+    this.toastService.showToast(`Added ${learnableIds.length} cards to ${collectionName}`)
   }
 
   removeLearnablesFromCollection(collectionId: string, learnableIds: string[]): void {
     this.store.editCollectionLearnables(collectionId, [], learnableIds)
-    this.showInfoToast(`Removed ${learnableIds.length} cards from collection`)
+    this.toastService.showToast(`Removed ${learnableIds.length} cards from collection`)
   }
 
   async openRenameCollectionModal(collection: CollectionUser): Promise<void> {
@@ -107,7 +106,7 @@ export class OverviewPageFacade {
       name: collection.name
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     this.store.editCollection(collection.id, result.value)
   }
@@ -115,11 +114,11 @@ export class OverviewPageFacade {
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionDeletionType>('collection-delete')
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const removeCardsCompletely = result.value.deletionType === 'remove'
     this.store.deleteCollection(collection.id, removeCardsCompletely)
-    this.showInfoToast(`Collection ${collection.name} deleted`)
+    this.toastService.showToast(`Collection ${collection.name} deleted`)
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -129,29 +128,19 @@ export class OverviewPageFacade {
   async openShareCollectionModal(bank: BankUser, collectionId: string): Promise<void> {
     const result = await this.modalService.open<ShareFormResponse>('bank-share', { bank })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const bankExport = mapToBankExport(bank, [collectionId])
     await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
   }
 
-  createDownloadableExport(bank: BankUser, collectionId?: string) {
-    const collectionIds = collectionId ? [collectionId] : undefined
-    const bankExport = mapToBankExport(bank, collectionIds)
-    return this.blobService.createDownloadableFromLearnables(bankExport)
+  downloadCollection(collectionId: string) {
+    this.shareBanksS.downloadBank(this.store.activeBank(), [collectionId])
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
   // Private Helpers
   // ─────────────────────────────────────────────────────────────────────────────
-
-  private isConfirmed<T>(result: ModalResult<T>): result is ModalResult<T> & { type: 'confirm' } {
-    return result.type === 'confirm'
-  }
-
-  private showInfoToast(message: string): void {
-    this.toastService.showToast({ message, type: 'info' })
-  }
 
   private addLearnablesToStore(
     learnables: LearnableBase[],
@@ -178,9 +167,11 @@ export class OverviewPageFacade {
 
     if (selectedCollection) {
       this.store.editCollectionLearnables(selectedCollection.id, newIds, [])
-      this.showInfoToast(`Created ${addedCount} cards and added them to ${selectedCollection.name}`)
+      this.toastService.showToast(
+        `Created ${addedCount} cards and added them to ${selectedCollection.name}`
+      )
     } else {
-      this.showInfoToast(`Created ${addedCount} cards`)
+      this.toastService.showToast(`Created ${addedCount} cards`)
     }
 
     return true

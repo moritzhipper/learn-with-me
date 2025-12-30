@@ -5,6 +5,7 @@
     "ng": "ng",
     "start:fe": "ng serve",
     "build:fe": "ng build",
+    "build:fe:static": "ng build --configuration static",
     "watch:fe": "ng build --watch --configuration development",
     "test:fe": "ng test",
     "build:be": "tsc -p projects/backend/tsconfig.app.json && tsc-alias -p projects/backend/tsconfig.app.json",
