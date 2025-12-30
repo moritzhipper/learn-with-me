@@ -10,7 +10,6 @@ import { filterLearnables } from '../../../utils/learnables-filter'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
-import { ModalResult } from '../../shared/forms/modal-config'
 import { ShareFormResponse } from '../../shared/forms/share-form-comp/share-form-comp'
 
 /**
@@ -40,7 +39,7 @@ export class OverviewPageFacade {
       language
     })
 
-    if (!this.isConfirmed(result)) return false
+    if (result.type !== 'confirm') return false
 
     return this.addLearnablesToStore(result.value, selectedCollection)
   }
@@ -55,7 +54,7 @@ export class OverviewPageFacade {
       learnables
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const { update, deleteIDs, add } = result.value
     this.store.updateLearnables(update)
@@ -74,7 +73,7 @@ export class OverviewPageFacade {
       message
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     this.store.removeLearnables(learnableIds)
     this.showInfoToast(`Removed ${count} cards`)
@@ -89,7 +88,7 @@ export class OverviewPageFacade {
       collections: this.store.collections()
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const { createName, addToId } = result.value
     const collectionName = this.addLearnablesToCollection(learnableIds, createName, addToId)
@@ -107,7 +106,7 @@ export class OverviewPageFacade {
       name: collection.name
     })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     this.store.editCollection(collection.id, result.value)
   }
@@ -115,7 +114,7 @@ export class OverviewPageFacade {
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionDeletionType>('collection-delete')
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const removeCardsCompletely = result.value.deletionType === 'remove'
     this.store.deleteCollection(collection.id, removeCardsCompletely)
@@ -129,7 +128,7 @@ export class OverviewPageFacade {
   async openShareCollectionModal(bank: BankUser, collectionId: string): Promise<void> {
     const result = await this.modalService.open<ShareFormResponse>('bank-share', { bank })
 
-    if (!this.isConfirmed(result)) return
+    if (result.type !== 'confirm') return
 
     const bankExport = mapToBankExport(bank, [collectionId])
     await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
@@ -142,10 +141,6 @@ export class OverviewPageFacade {
   // ─────────────────────────────────────────────────────────────────────────────
   // Private Helpers
   // ─────────────────────────────────────────────────────────────────────────────
-
-  private isConfirmed<T>(result: ModalResult<T>): result is ModalResult<T> & { type: 'confirm' } {
-    return result.type === 'confirm'
-  }
 
   private showInfoToast(message: string): void {
     this.toastService.showToast({ message, type: 'info' })
