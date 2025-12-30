@@ -34,6 +34,7 @@ export class ShareBanksService {
 
     this._blobUrl = blobUrl
 
+    // create click and remove download link element
     const anchor = this.document.createElement('a')
     anchor.href = blobUrl
     anchor.download = fileName
@@ -70,7 +71,10 @@ export class ShareBanksService {
 
   async copyLinkToClipboard({ id, name }: BankShare): Promise<void> {
     try {
-      await navigator.clipboard.writeText(id)
+      const url = new URL(this.document.location.origin)
+      url.searchParams.set('id', id)
+
+      await navigator.clipboard.writeText(url.toString())
       this.toastService.showToast({
         header: name,
         message: `Link copied to clipboard`,

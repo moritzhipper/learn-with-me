@@ -3,8 +3,6 @@
 ## Right Now
 
 - use sharedBankService to:
-  - create xport from userBank on demand
-  - copy bankId to clipboard
   - implement on: overview, shared, explore
 - show selected filter to explore and make customizable
 
