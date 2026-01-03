@@ -6,6 +6,7 @@ import {
   parseFileImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
+import { ModalService } from './modal-service'
 import { ToastService } from './toast-service'
 
 @Injectable({
@@ -13,6 +14,7 @@ import { ToastService } from './toast-service'
 })
 export class ShareBanksService {
   private readonly toastService = inject(ToastService)
+  private readonly modalService = inject(ModalService)
   private _blobUrl = ''
   private readonly document = inject(DOCUMENT)
 

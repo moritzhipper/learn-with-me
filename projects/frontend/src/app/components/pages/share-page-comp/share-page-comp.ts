@@ -52,11 +52,14 @@ export class SharePageComp {
   fetchBankPreviews = rxMethod<void>(
     pipe(
       tap(() => this.fetchState.set('loading')),
-      switchMap(() => this.getFetchBankPreviesObs()),
-      tapResponse({
-        next: this.resolveApiResponses.bind(this),
-        error: this.resolveApiError.bind(this)
-      })
+      switchMap(() =>
+        this.getFetchBankPreviesObs().pipe(
+          tapResponse({
+            next: this.resolveApiResponses.bind(this),
+            error: this.resolveApiError.bind(this)
+          })
+        )
+      )
     )
   )
 
@@ -93,6 +96,7 @@ export class SharePageComp {
   }
 
   private getFetchBankPreviesObs(): Observable<BankShare[][]> {
+    console.log('Fetching bank previews...')
     const sections = this.prefetchSectionsConfig().map((section) => {
       return this._apiS.getBanks({
         ...section.params,
@@ -119,7 +123,6 @@ export class SharePageComp {
   }
 
   private resolveApiError(error: any): void {
-    console.error('Error fetching bank previews:', error)
     this.fetchState.set('error')
   }
 }

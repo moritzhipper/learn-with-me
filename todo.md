@@ -2,10 +2,8 @@
 
 ## Right Now
 
-- use sharedBankService to:
-  - implement on: overview, shared, explore
-- show selected filter to explore and make customizable
 - add PWA
+- allow random in select language match form thing
 
 ### Add API Routes returning []
 
@@ -20,6 +18,8 @@
 
 - setup CI
 - buy domain lol
+- add matches endpoint, returning existing matches
+  - use existing matches as recommendations on shared page (bottom) and explore page select match popover
 
 ## Backend
 
@@ -34,6 +34,10 @@
 
 ## Frontend
 
+- migrate to signal forms, migrate selector thingy to signal input
+- add no cards found when filter doesnt find cards
+- add header to select practice page
+- unify big approvable form layout for: practice selector, bank import -> make it soo it looks like intro comp
 - setup PWA
 - create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template

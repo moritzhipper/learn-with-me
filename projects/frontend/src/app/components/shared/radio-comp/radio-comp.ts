@@ -18,11 +18,15 @@ export type RadioCompInputConfig = {
       useExisting: forwardRef(() => RadioComp),
       multi: true
     }
-  ]
+  ],
+  host: {
+    '[class.dark-mode]': 'darkMode()'
+  }
 })
 export class RadioComp implements ControlValueAccessor {
   config = input.required<RadioCompInputConfig>()
   label = input<string>()
+  darkMode = input<boolean>(false)
 
   value: RadioCompValueType = null
 

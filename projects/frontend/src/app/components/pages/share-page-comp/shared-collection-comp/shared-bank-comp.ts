@@ -27,7 +27,7 @@ export class SharedBankComp implements OnDestroy {
 
   isCommunityBank = input<boolean>(false)
 
-  hasMultipleCollections = computed(() => this.bank().collections.length > 1)
+  protected readonly hasMultipleCollections = computed(() => this.bank().collections.length > 1)
 
   private readonly currentTime = signal(Date.now())
 

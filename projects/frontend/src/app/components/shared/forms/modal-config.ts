@@ -7,6 +7,7 @@ import { EditBankComp } from './edit-bank-comp/edit-bank-comp'
 import { EditCollectionComp } from './edit-collection-comp/edit-collection-comp'
 import { ImportFormComp } from './import-form-comp/import-form-comp'
 import { MagicAddComp } from './magic-add-comp/magic-add-comp'
+import { SelectLanguageMatchComp } from './select-language-match-comp/select-language-match-comp'
 import { ShareFormComp } from './share-form-comp/share-form-comp'
 import { SingleEditComp } from './single-edit-comp/single-edit-comp'
 
@@ -21,6 +22,7 @@ export type ModalType =
   | 'bank-import'
   | 'bank-share'
   | 'edit-bank'
+  | 'change-language-match'
 
 export type OpenModalConfig = {
   type: ModalType
@@ -39,12 +41,12 @@ export const modalConfig: Record<ModalType, Type<unknown>> = {
   'collection-delete': DeleteCollectionComp,
   'bank-import': ImportFormComp,
   'bank-share': ShareFormComp,
-  'edit-bank': EditBankComp
+  'edit-bank': EditBankComp,
+  'change-language-match': SelectLanguageMatchComp
 }
 
 export const getModalComponent = (type: ModalType): Type<unknown> => {
-  if (!modalConfig[type])
-    throw new Error(`Modal type "${type}" is not defined in modalConfig`)
+  if (!modalConfig[type]) throw new Error(`Modal type "${type}" is not defined in modalConfig`)
 
   return modalConfig[type]
 }

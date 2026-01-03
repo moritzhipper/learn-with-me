@@ -5,6 +5,8 @@
   height: var(--dimension);
   width: var(--dimension);
 
+  flex: none;
+
   &.inline {
     display: inline-flex;
     translate: 0 3px;

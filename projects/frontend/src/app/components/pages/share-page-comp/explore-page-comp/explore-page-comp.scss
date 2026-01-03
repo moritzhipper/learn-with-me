@@ -1,3 +1,25 @@
+@use '../../../../../style/mixins.scss' as *;
+
+h2.language {
+  display: flex;
+  gap: var(--distance-2);
+  align-items: center;
+  margin: var(--distance-2) 0 0 0;
+  font-weight: var(--font-weight-bold);
+}
+.params-config {
+  display: flex;
+  .change {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--distance-2);
+    padding: var(--distance-2) var(--distance-2) var(--distance-2) var(--distance-3);
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    border-radius: var(--radius-1);
+  }
+}
+
 .banks {
   display: grid;
   grid-template-columns: var(--grid-auto-columns);
@@ -14,5 +36,28 @@
 
   p {
     margin: 0;
+  }
+}
+
+@include isPhone() {
+  .params-config {
+    display: flex;
+    gap: var(--distance-4);
+    margin-bottom: var(--distance-4);
+    grid-template-columns: 1fr auto;
+    .change {
+      flex: 1;
+    }
+  }
+}
+@include isDesktop() {
+  .params-config {
+    display: flex;
+    gap: var(--distance-2);
+    margin-bottom: var(--distance-2);
+
+    .change {
+      margin-left: auto;
+    }
   }
 }

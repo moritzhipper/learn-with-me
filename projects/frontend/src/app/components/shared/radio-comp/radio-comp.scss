@@ -6,15 +6,12 @@
 
 .values {
   --col-selected: var(--col-primary);
-  --col-weak: rgb(from var(--col-accent) r g b / var(--opacity-1));
-
-  background-color: var(--col-weak);
+  --col-background: rgb(from var(--col-accent) r g b / var(--opacity-1));
 
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   gap: var(--distance-1);
-  padding: var(--distance-1);
   border-radius: var(--radius-1);
 
   span {
@@ -36,7 +33,7 @@
     }
 
     input:focus + span {
-      background-color: rgb(from var(--col-primary) r g b / var(--opacity-0));
+      background-color: rgb(from var(--col-selected) r g b / var(--opacity-0));
     }
 
     input:checked + span {
@@ -49,6 +46,22 @@
 
       border-radius: var(--radius-0);
       display: block;
+    }
+  }
+}
+
+:host {
+  &.dark-mode {
+    .values {
+      background-color: rgb(from var(--col-background) r g b / var(--opacity-0));
+      padding: var(--distance-1);
+    }
+  }
+
+  &:not(.dark-mode) {
+    .values {
+      background-color: var(--col-background);
+      padding: var(--distance-1);
     }
   }
 }

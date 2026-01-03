@@ -1,5 +1,25 @@
 <app-page-icon-comp type="compass" />
-<app-page-header-comp title="Explore" backLink="/community" backLinkText="community" />
+<app-page-header-comp title="Explore" backLink="/community" backLinkText="community">
+  <h2 class="language">
+    <div class="speaking ellipsis">{{ params().speaking ?? 'All languages' }}</div>
+    <app-icon-comp class="icon arrows" type="left-right" [size]="20" />
+    <div class="learning ellipsis">{{ params().learning ?? 'All languages' }}</div>
+  </h2>
+</app-page-header-comp>
+
+<div class="params-config">
+  <button class="small change" (click)="changeLanguageMatch()">
+    <span> change match </span>
+    <app-icon-comp class="icon pen" type="pen" [size]="16" />
+  </button>
+  <app-radio-comp
+    class="category"
+    [config]="[{ value: 'popular' }, { value: 'new' }]"
+    [darkMode]="true"
+    [ngModel]="params().category"
+    (ngModelChange)="updateCategory($event)"
+  />
+</div>
 
 <div class="banks">
   @for (bankVM of visibleBanksVM(); track bankVM.item.id) {
@@ -7,6 +27,8 @@
       class="stacked-shadow fly-in-y-wide"
       [bank]="bankVM.item"
       [isCommunityBank]="true"
+      (copyId)="copyBankId(bankVM.item)"
+      (importBank)="importBank(bankVM.item)"
       [style.animationDelay.s]="bankVM.animDelay"
     />
   }

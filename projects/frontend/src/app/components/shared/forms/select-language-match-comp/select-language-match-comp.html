@@ -1,0 +1,17 @@
+<form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
+  <h2 class="fly-in-y-0">Select Language Match</h2>
+
+  <div class="inputs full fly-in-y-0">
+    <label>
+      <span>Base language</span>
+      <input type="text" formControlName="speaking" placeholder="Include all" />
+    </label>
+
+    <label>
+      <span>Translated language</span>
+      <input type="text" formControlName="learning" placeholder="include all" />
+    </label>
+  </div>
+  <button type="button" (click)="cancel()" class="big fly-in-y-1">cancel</button>
+  <button type="submit" [disabled]="form.invalid" class="big fly-in-y-2">confirm</button>
+</form>

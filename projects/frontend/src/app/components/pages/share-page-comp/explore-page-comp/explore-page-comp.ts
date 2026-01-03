@@ -1,8 +1,11 @@
 import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
-import { BankShare } from '@shared/types'
+import { BankRequestFilter, BankShare, LanguageConfig } from '@shared/types'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
+import { ModalService } from 'projects/frontend/src/app/services/modal-service'
+import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import {
   ApiFetchState,
@@ -10,14 +13,24 @@ import {
 } from 'projects/frontend/src/app/types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
 import { lastValueFrom } from 'rxjs'
+import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
+import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
 @Component({
   selector: 'app-explore-page-comp',
-  imports: [PageIconComp, PageHeaderComp, SharedBankComp, LoadingSpinner],
+  imports: [
+    PageIconComp,
+    PageHeaderComp,
+    SharedBankComp,
+    LoadingSpinner,
+    IconComp,
+    RadioComp,
+    FormsModule
+  ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss',
   host: {
@@ -29,6 +42,8 @@ export class ExplorePageComp {
   private readonly router = inject(Router)
   private readonly lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
+  private readonly shareBanksS = inject(ShareBanksService)
+  private readonly _modalService = inject(ModalService)
 
   private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 800
 
@@ -44,7 +59,9 @@ export class ExplorePageComp {
 
   @HostListener('window:scroll')
   onScroll() {
-    this.loadNextPage()
+    if (this.overLoadingThreshold()) {
+      this.loadNextPage()
+    }
   }
 
   constructor() {
@@ -74,7 +91,7 @@ export class ExplorePageComp {
 
   // lade page, warte bis erfolg, speicher antwort in visiblebanks, setze page++
   async loadNextPage() {
-    if (!this.overLoadingThreshold() || this.fetchState() !== 'idle') return
+    if (this.fetchState() !== 'idle') return
 
     this.fetchState.set('loading')
     try {
@@ -95,18 +112,26 @@ export class ExplorePageComp {
       } else {
         this.PAGE_OFFSET = this.PAGE_OFFSET + banks.length
         this.fetchState.set('idle')
-        this.loadNextPage()
+        if (this.overLoadingThreshold()) {
+          this.loadNextPage()
+        }
       }
     } catch {
       this.fetchState.set('error')
     }
   }
 
+  updateCategory(category: BankRequestFilter['category']) {
+    this.updateParams({ category })
+  }
+
   // setze page auf 0, leere visiblebanks,
-  updateLanguage() {
+  updateParams(p: Partial<ExplorePageCategoryConfig>) {
     this.PAGE_OFFSET = 0
-    this.visibleBanksVM.set([])
     this.fetchState.set('idle')
+    this.visibleBanksVM.set([])
+    this.params.update((old) => ({ ...old, ...p }))
+    this.loadNextPage()
   }
 
   private overLoadingThreshold(): boolean {
@@ -124,5 +149,30 @@ export class ExplorePageComp {
     const distanceDocEndWindowEnd = documentHeight - (scrollProg + windowHeight)
 
     return distanceDocEndWindowEnd < this.LOAD_MORE_SCROLL_THRESHOLD_PX
+  }
+
+  copyBankId(bank: BankShare) {
+    this.shareBanksS.copyLinkToClipboard(bank)
+  }
+
+  protected async importBank(bank: BankShare) {
+    const result = await this._modalService.open<BankShare>('bank-import', {
+      bank
+    })
+
+    if (result.type !== 'confirm') return
+    this.lStore.importBankExport(result.value)
+  }
+
+  async changeLanguageMatch() {
+    const result = await this._modalService.open<LanguageConfig>('change-language-match', {
+      preset: {
+        learning: this.params().learning,
+        speaking: this.params().speaking
+      }
+    })
+    if (result.type !== 'confirm') return
+
+    this.updateParams({ ...result.value, category: 'popular' })
   }
 }
