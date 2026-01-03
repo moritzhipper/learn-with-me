@@ -96,7 +96,6 @@ export class SharePageComp {
   }
 
   private getFetchBankPreviesObs(): Observable<BankShare[][]> {
-    console.log('Fetching bank previews...')
     const sections = this.prefetchSectionsConfig().map((section) => {
       return this._apiS.getBanks({
         ...section.params,
