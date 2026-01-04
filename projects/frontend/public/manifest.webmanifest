@@ -1,7 +1,10 @@
 {
   "name": "Learn With Me",
   "short_name": "LWM",
-  "display": "fullscreen",
+  "theme_color": "#dd93e5",
+  "background_color": "#191a1c",
+  "display": "standalone",
+
   "scope": "./",
   "start_url": "./",
   "icons": [
