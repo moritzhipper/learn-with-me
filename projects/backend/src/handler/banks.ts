@@ -1,27 +1,22 @@
-import { wait } from '@shared/testing/helper'
-import { mockOnlineBanks } from '@shared/testing/mockBanks'
-import { BankShare, BanksRequest, LanguageConfig } from '@shared/types'
+import { BankShare, BanksRequest } from '@shared/types'
 
+import { desc } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
+import { db } from '../db/db'
+import { banks } from '../db/schema'
 
 export const fetchNewBanks = async (
   req: FastifyRequest<{ Querystring: BanksRequest }>
 ): Promise<BankShare[]> => {
-  console.log(req.query)
+  const result = await db
+    .select()
+    .from(banks)
+    .orderBy(desc(banks.createdAt))
+    .limit(req.query.limit)
+    .offset(req.query.offset || 0)
 
-  // pause briefly for debugging / rate-limiting simulation
-  await wait(300)
-
-  // return maximum of 200 bank mocks
-  if (!req.query.offset || req.query.offset <= 200) {
-    return mockOnlineBanks(req.query.limit)
-  }
-  return mockOnlineBanks(req.query.limit - 3)
-}
-
-export const fetchPopularBanks = async (
-  req: FastifyRequest<{ Querystring: LanguageConfig }>
-): Promise<BankShare[]> => {
+  // add filter and sort by  category and language here
+  // map tp BankShare type
   return []
 }
 

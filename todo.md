@@ -3,6 +3,13 @@
 ## Right Now
 
 - add PSQL DB: https://dev.to/vladimirvovk/fastify-api-with-postgres-and-drizzle-orm-a7j
+  -> install psql via docker
+  -> continue anleitung from run migration step
+  -> add seeding script to packag json for testing and local dev
+  -> rename category to sortBy?
+- read env file using zod
+  -> read db config
+  -> read backend url and port
 - create tables having columns
   - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
 - connect db in handler methods
