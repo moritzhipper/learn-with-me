@@ -1,14 +1,17 @@
 <app-page-icon-comp type="share-network-fill" />
 <app-page-header-comp title="Community"> </app-page-header-comp>
-<h2 class="first user">Your recent shares</h2>
-<div class="collections user">
-  @for (bank of userBanks; track bank.name) {
-    <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
-  }
+
+<div class="preview-section fly-in-y-wide">
+  <h2 class="first user">Your recent shares</h2>
+  <div class="collections user">
+    @for (bank of userBanks; track bank.name) {
+      <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
+    }
+  </div>
 </div>
 
 @for (section of previewBanks(); track section.item.title) {
-  <div class="preview-sections fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
+  <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
     <a class="header silent" routerLink="/community/explore" [queryParams]="section.item.params">
       <h2>{{ section.item.title }}</h2>
       <app-icon-comp type="chevron" [size]="24" />
