@@ -7,14 +7,14 @@
   </h2>
 </app-page-header-comp>
 
-<div class="params-config">
+<div class="params-config fly-in-y-wide">
   <button class="small change" (click)="changeLanguageMatch()">
     <span> change match </span>
     <app-icon-comp class="icon pen" type="pen" [size]="16" />
   </button>
   <app-radio-comp
     class="category"
-    [config]="[{ value: 'popular' }, { value: 'new' }]"
+    [config]="[{ value: 'top' }, { value: 'new' }]"
     [darkMode]="true"
     [ngModel]="params().category"
     (ngModelChange)="updateCategory($event)"

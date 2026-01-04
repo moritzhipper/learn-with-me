@@ -1,0 +1,15 @@
+{
+  "name": "Learn With Me",
+  "short_name": "LWM",
+  "display": "fullscreen",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "icons/appicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ]
+}

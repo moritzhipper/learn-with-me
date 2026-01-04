@@ -52,11 +52,9 @@ form {
     .add {
       display: flex;
       justify-content: center;
-      padding: var(--distance-3) var(--distance-4) var(--distance-3)
-        var(--distance-5);
+      padding: var(--distance-3) var(--distance-4) var(--distance-3) var(--distance-5);
       gap: var(--distance-2);
-      border-radius: var(--radius-3) var(--radius-1) var(--radius-1)
-        var(--radius-1);
+      border-radius: var(--radius-3) var(--radius-1) var(--radius-1) var(--radius-1);
       place-self: end;
     }
   }
@@ -79,7 +77,8 @@ form {
     background-color: var(--col-accent);
     border-radius: var(--radius-1);
     overflow: hidden;
-    border-top: 1px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+    // looks cool, but has to be integrated everywhere to fit in
+    // border-top: 1px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
     input {
       width: 100%;
       box-sizing: border-box;

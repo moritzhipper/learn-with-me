@@ -85,7 +85,7 @@ export class ExplorePageComp {
       return parsedParams
     } catch {
       const activeBankLang = this.lStore.activeBank().language
-      return { ...activeBankLang, category: 'popular' }
+      return { ...activeBankLang, category: 'top' }
     }
   }
 
@@ -173,6 +173,6 @@ export class ExplorePageComp {
     })
     if (result.type !== 'confirm') return
 
-    this.updateParams({ ...result.value, category: 'popular' })
+    this.updateParams({ ...result.value, category: 'top' })
   }
 }

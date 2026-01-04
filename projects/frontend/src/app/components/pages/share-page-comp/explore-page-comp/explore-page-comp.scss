@@ -45,6 +45,7 @@ h2.language {
     gap: var(--distance-4);
     margin-bottom: var(--distance-4);
     grid-template-columns: 1fr auto;
+
     .change {
       flex: 1;
     }

@@ -10,7 +10,7 @@ import { ConfigurePracticeComp } from './configure-practice-comp/configure-pract
   imports: [ActivePracticeComp, ConfigurePracticeComp, PageIconComp],
   templateUrl: './practice-page-comp.html',
   styleUrl: './practice-page-comp.scss',
-  host: { class: 'page ' }
+  host: { class: 'page full' }
 })
 export class PracticeComp {
   protected readonly currentPractice = inject(LearnablesStore).currentPractice

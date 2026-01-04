@@ -1,5 +1,17 @@
 # Language Helper
 
+## Deployment
+
+### Frontend
+
+- production builds PWA csr app
+- static builds frontend ssg app
+- development builds frontend with sm and stuff
+
+### Backend
+
+- coming soon
+
 ## Store
 
 - has array of learnables

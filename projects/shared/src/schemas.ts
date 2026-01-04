@@ -67,7 +67,7 @@ export const PaginationSchema = z.object({
 })
 
 export const BanksRequestFilterSchema = z.object({
-  category: z.enum(['new', 'popular'])
+  category: z.enum(['new', 'top'])
 })
 
 export const BanksRequestSchema = z.object({

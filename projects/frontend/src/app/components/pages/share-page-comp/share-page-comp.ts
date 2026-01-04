@@ -70,9 +70,9 @@ export class SharePageComp {
     },
     {
       title: 'New for your language match',
-      params: { ...this.bankLanguage(), category: 'popular' }
+      params: { ...this.bankLanguage(), category: 'top' }
     },
-    { title: 'Popular for other matches', params: { category: 'popular' } },
+    { title: 'Popular for other matches', params: { category: 'top' } },
     { title: 'New for other matches', params: { category: 'new' } }
   ])
 
@@ -96,7 +96,6 @@ export class SharePageComp {
   }
 
   private getFetchBankPreviesObs(): Observable<BankShare[][]> {
-    console.log('Fetching bank previews...')
     const sections = this.prefetchSectionsConfig().map((section) => {
       return this._apiS.getBanks({
         ...section.params,
