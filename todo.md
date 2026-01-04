@@ -2,16 +2,15 @@
 
 ## Right Now
 
-- add PWA
-- allow random in select language match form thing
+- add PSQL DB: https://dev.to/vladimirvovk/fastify-api-with-postgres-and-drizzle-orm-a7j
+- create tables having columns
+  - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
+- connect db in handler methods
 
 ### Add API Routes returning []
 
 ### Connect DB
 
-- add PSQL DB
-- create tables having columns
-  - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
 - fetch entries on api call
 
 ## shared
@@ -35,6 +34,7 @@
 ## Frontend
 
 - migrate to signal forms, migrate selector thingy to signal input
+- check chrome web manifest warnings -> fix
 - add no cards found when filter doesnt find cards
 - add header to select practice page
 - unify big approvable form layout for: practice selector, bank import -> make it soo it looks like intro comp
