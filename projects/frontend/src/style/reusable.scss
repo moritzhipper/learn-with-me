@@ -5,7 +5,7 @@ form.modal {
   box-sizing: border-box;
   gap: var(--distance-6) var(--distance-4);
   height: 100%;
-  max-height: 100dvh;
+  max-height: var(--app-height);
   overflow: hidden;
 
   h2 {

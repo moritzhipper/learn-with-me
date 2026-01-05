@@ -1,4 +1,4 @@
-import { BankBase, BankShare, BankUser, UserLearnable } from '@shared/types'
+import { BankBase, BankShareBase, BankUser, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types_and_schemas/types'
 import { learnablesMatch, mapBaseToUserLearnable, updateActiveBank } from './mutator-utils'
 
@@ -75,7 +75,7 @@ export const createBank =
     const newBank: BankUser = {
       id: crypto.randomUUID(),
       name: base.name,
-      created: new Date(),
+      createdAt: new Date(),
       language: base.language,
       collections: [],
       learnables: []
@@ -90,7 +90,7 @@ export const createBank =
   }
 
 export const saveImportedBank =
-  ({ learnables, collections }: BankShare) =>
+  ({ learnables, collections }: BankShareBase) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       const now = new Date()
@@ -132,7 +132,7 @@ export const saveImportedBank =
             id: crypto.randomUUID(),
             name: importedCol.name,
             cardIds: remappedCardIds,
-            created: now
+            createdAt: now
           })
         }
       }

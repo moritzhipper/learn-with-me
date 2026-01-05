@@ -50,6 +50,7 @@ app-bank-settings-card {
   padding: 0 var(--distance-6);
   overflow: clip;
   min-width: 200px;
+  font-size: var(--font-size-1);
 
   span {
     font-weight: bold;
@@ -59,9 +60,9 @@ app-bank-settings-card {
 
   app-icon-comp {
     position: absolute;
-    width: 200px;
-    height: 200px;
-    right: -80px;
+    width: 150px;
+    height: 150px;
+    right: -40px;
     opacity: var(--opacity-0);
   }
 }

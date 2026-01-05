@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
-import { BankShare } from '@shared/types'
+import { BankShareViaDB } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
@@ -21,7 +21,7 @@ type Counter = {
   }
 })
 export class SharedBankComp implements OnDestroy {
-  bank = input.required<BankShare>()
+  bank = input.required<BankShareViaDB>()
   copyId = output<void>()
   importBank = output<void>()
 
@@ -47,7 +47,16 @@ export class SharedBankComp implements OnDestroy {
   })
 
   protected readonly ttl = computed(() => {
-    const expires = new Date(this.bank().expires)
+    const expiry = this.bank().expires
+
+    if (!expiry) {
+      return {
+        label: 'never expires',
+        isExpired: false
+      }
+    }
+
+    const expires = new Date(expiry)
     const diffMs = expires.getTime() - this.currentTime()
     // If already expired
     if (diffMs <= 0) {

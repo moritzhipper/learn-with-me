@@ -5,6 +5,8 @@
 
 html {
   background-color: var(--col-bg);
+  transition: height var(--duration-1);
+  overscroll-behavior: none;
 }
 
 body,

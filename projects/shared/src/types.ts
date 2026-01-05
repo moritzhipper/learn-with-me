@@ -1,7 +1,8 @@
 import z from 'zod'
 import {
-  BankShareSchema,
-  BanksRequestFilterSchema,
+  BankShareBaseSchema,
+  BankShareViaDBSchema,
+  BanksRequestConfigSchema,
   BanksRequestSchema,
   BankUserSchema,
   CollectionBaseSchema,
@@ -24,15 +25,16 @@ export type LanguageConfig = z.infer<typeof LanguageConfigSchema>
 export type LanguageConfigRequest = z.infer<typeof LanguageConfigRequestSchema>
 export type BanksRequest = z.infer<typeof BanksRequestSchema>
 export type BankUser = z.infer<typeof BankUserSchema>
-export type BankShare = z.infer<typeof BankShareSchema>
-export type BankBase = Pick<BankShare, 'name' | 'language'>
+export type BankShareBase = z.infer<typeof BankShareBaseSchema>
+export type BankShareViaDB = z.infer<typeof BankShareViaDBSchema>
+export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 
 export type LearnableWithId = z.infer<typeof LearnableWithIdSchema>
 export type LearnableFromAI = z.infer<typeof LearnableFromAiSchema>
 export type UserLearnable = z.infer<typeof LearnableUserSchema>
 
 export type PaginationConfig = z.infer<typeof PaginationSchema>
-export type BankRequestFilter = z.infer<typeof BanksRequestFilterSchema>
+export type BankRequestConfig = z.infer<typeof BanksRequestConfigSchema>
 export type UserLearnablePartial = Partial<UserLearnable> & Pick<UserLearnable, 'id'>
 
 /** A tuple of 5 booleans representing the last 5 guess results */

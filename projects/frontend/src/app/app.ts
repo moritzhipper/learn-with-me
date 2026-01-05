@@ -1,4 +1,12 @@
-import { Component, computed, effect, inject, untracked } from '@angular/core'
+import {
+  Component,
+  computed,
+  DOCUMENT,
+  effect,
+  HostListener,
+  inject,
+  untracked
+} from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, Params, RouterOutlet } from '@angular/router'
 import z from 'zod'
@@ -22,13 +30,7 @@ const DEFAULT_PAGE_CONFIG: PageConfig = {
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    ToastOutletComp,
-    ModalWrapperComp,
-    NavbarNewComp,
-    OnboardingComp
-  ],
+  imports: [RouterOutlet, ToastOutletComp, ModalWrapperComp, NavbarNewComp, OnboardingComp],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -38,6 +40,18 @@ export class App {
   private readonly _lStore = inject(LearnablesStore)
 
   protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
+
+  private document = inject(DOCUMENT)
+
+  @HostListener('window:resize')
+  onResize() {
+    this.setBodyHeight()
+  }
+
+  @HostListener('window:load')
+  onLoad() {
+    this.setBodyHeight()
+  }
 
   constructor() {
     // Log URL parameter 'id' whenever it changes
@@ -50,6 +64,8 @@ export class App {
         this.resolveIdFromUrl(params)
       })
     })
+
+    setTimeout(() => this.setBodyHeight(), 1000)
   }
 
   private resolveIdFromUrl(params: Params) {
@@ -60,5 +76,9 @@ export class App {
     // todo: try to fetch shared bank with id from db here
 
     alert('implement')
+  }
+
+  setBodyHeight() {
+    this.document.body.style.setProperty('--app-height', `${window.innerHeight}px`)
   }
 }

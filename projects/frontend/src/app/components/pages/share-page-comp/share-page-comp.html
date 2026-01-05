@@ -17,7 +17,7 @@
       <app-icon-comp type="chevron" [size]="24" />
     </a>
     <div class="collections community">
-      @for (bank of section.item.banks; track bank.name) {
+      @for (bank of section.item.banks; track bank.id) {
         <app-shared-bank-comp
           class="stacked-shadow"
           [bank]="bank"
@@ -36,18 +36,25 @@
       </a>
     </div>
   </div>
-}
+} @empty {}
 
-<div class="state-indicator fly-in-y-wide">
+<div class="state-indicator">
   @switch (fetchState()) {
     @case ('loading') {
-      <app-loading-spinner />
+      <app-loading-spinner class="fly-in-y-wide" />
+    }
+    @case ('all-loaded') {
+      <p class="fly-in-y-wide">
+        As soon as you or other users start sharing banks, they will appear here.
+      </p>
     }
     @case ('error') {
-      <p class="error">
-        <strong> error loading previews </strong>
-      </p>
-      <button class="big" (click)="fetchBankPreviews()">retry</button>
+      <div class="error-wrapper fly-in-y-wide">
+        <p class="error">
+          <strong> error loading previews </strong>
+        </p>
+        <button class="big" (click)="fetchBankPreviews()">retry</button>
+      </div>
     }
   }
 </div>

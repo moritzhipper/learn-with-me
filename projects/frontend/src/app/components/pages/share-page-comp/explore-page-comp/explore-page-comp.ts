@@ -2,10 +2,11 @@ import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angu
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
-import { BankRequestFilter, BankShare, LanguageConfig } from '@shared/types'
+import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
+import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import {
   ApiFetchState,
@@ -40,6 +41,7 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 export class ExplorePageComp {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
+  private readonly toastS = inject(ToastService)
   private readonly lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
   private readonly shareBanksS = inject(ShareBanksService)
@@ -52,7 +54,7 @@ export class ExplorePageComp {
   private readonly PAGE_LIMIT = 15
   private PAGE_OFFSET = 0
 
-  protected readonly visibleBanksVM = signal<StaggerVM<BankShare>>([])
+  protected readonly visibleBanksVM = signal<StaggerVM<BankShareViaDB>>([])
   params = signal<ExplorePageCategoryConfig>(this.initParams())
 
   document = inject(DOCUMENT)
@@ -85,7 +87,7 @@ export class ExplorePageComp {
       return parsedParams
     } catch {
       const activeBankLang = this.lStore.activeBank().language
-      return { ...activeBankLang, category: 'top' }
+      return { ...activeBankLang, sortBy: 'top' }
     }
   }
 
@@ -118,11 +120,16 @@ export class ExplorePageComp {
       }
     } catch {
       this.fetchState.set('error')
+      this.toastS.showToast({
+        header: 'Error',
+        message: 'Failed to load more banks',
+        type: 'error'
+      })
     }
   }
 
-  updateCategory(category: BankRequestFilter['category']) {
-    this.updateParams({ category })
+  updateCategory(category: BankRequestConfig['sortBy']) {
+    this.updateParams({ sortBy: category })
   }
 
   // setze page auf 0, leere visiblebanks,
@@ -151,12 +158,12 @@ export class ExplorePageComp {
     return distanceDocEndWindowEnd < this.LOAD_MORE_SCROLL_THRESHOLD_PX
   }
 
-  copyBankId(bank: BankShare) {
+  copyBankId(bank: BankShareViaDB) {
     this.shareBanksS.copyLinkToClipboard(bank)
   }
 
-  protected async importBank(bank: BankShare) {
-    const result = await this._modalService.open<BankShare>('bank-import', {
+  protected async importBank(bank: BankShareViaDB) {
+    const result = await this._modalService.open<BankShareViaDB>('bank-import', {
       bank
     })
 
@@ -173,6 +180,6 @@ export class ExplorePageComp {
     })
     if (result.type !== 'confirm') return
 
-    this.updateParams({ ...result.value, category: 'top' })
+    this.updateParams({ ...result.value, sortBy: 'top' })
   }
 }

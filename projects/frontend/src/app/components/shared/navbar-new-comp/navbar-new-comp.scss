@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 12;
+  z-index: 20;
   display: block;
   background-color: var(--col-accent);
   border-radius: var(--radius-3);
@@ -30,7 +30,7 @@
 
 .navigation {
   position: fixed;
-  z-index: 11;
+  z-index: 19;
   right: 0;
   top: 0;
   box-sizing: border-box;
@@ -38,7 +38,7 @@
   align-items: stretch;
   flex-direction: column;
   backdrop-filter: blur(30px);
-  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  background-color: rgb(from var(--col-bg) r g b / 0.9);
 }
 
 .entry {

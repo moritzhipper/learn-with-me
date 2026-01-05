@@ -1,0 +1,248 @@
+{
+  "id": "416d5fc2-7009-455c-9f74-dbc35a69e94a",
+  "name": "My First Language Bank",
+  "createdAt": "2026-01-05T19:07:10.634Z",
+  "language": { "learning": "dutch", "speaking": "english" },
+  "learnables": [
+    {
+      "lexeme": "...listed according to their overall length (LOA)...",
+      "translation": "...उनकी कुल लंबाई (LOA) के अनुसार सूचीबद्ध हैं...",
+      "type": "phrase",
+      "id": "a8cad611-dc78-4b20-8373-94339e88f3db",
+      "notes": ""
+    },
+    {
+      "lexeme": "...the maximum length of the vessel measured between the extreme points in fore and aft",
+      "translation": "...जहाज़ की अधिकतम लंबाई जो आगे और पीछे के चरम सिरों के बीच मापी जाती है",
+      "type": "phrase",
+      "id": "bfc220e7-c886-4da5-96e0-b86aae4a6a3b",
+      "notes": ""
+    },
+    {
+      "lexeme": "In addition, the ships' deadweight tonnage (DWT) and/or gross tonnage (GT) are presented...",
+      "translation": "इसके अतिरिक्त, जहाज़ों का डेडवेट टनेज (DWT) और/या ग्रॉस टनेज (GT) भी प्रस्तुत किया जाता है...",
+      "type": "phrase",
+      "id": "16d08d27-e555-4f1d-acfe-32cb50c6c2d7",
+      "notes": ""
+    },
+    {
+      "lexeme": "...as they are often used to describe the size of a vessel",
+      "translation": "...क्योंकि इन्हें अक्सर किसी जहाज़ के आकार का वर्णन करने के लिए उपयोग किया जाता है",
+      "type": "phrase",
+      "id": "691e0aad-0b04-4036-81d1-a0bf8403c14c",
+      "notes": ""
+    },
+    {
+      "lexeme": "dzɯdzɯ",
+      "translation": "विश्व",
+      "type": "word",
+      "id": "c40204f9-1fc2-4410-bd8d-269310c44822",
+      "notes": ""
+    },
+    {
+      "lexeme": "ɕi³³",
+      "translation": "का",
+      "type": "word",
+      "id": "de6b794f-8d5e-47dc-9576-e7c83f59e7d8",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʑi³¹",
+      "translation": "सबसे",
+      "type": "word",
+      "id": "de9bf705-76b0-4c82-8c9b-6b8d02f6e7d7",
+      "notes": ""
+    },
+    {
+      "lexeme": "hɯ̃³³",
+      "translation": "लंबा",
+      "type": "word",
+      "id": "7d478f16-6335-4646-b4f5-6f226a815751",
+      "notes": ""
+    },
+    {
+      "lexeme": "mv̀",
+      "translation": "जहाज़",
+      "type": "word",
+      "id": "1f0d2aa7-b377-412c-9954-b2983e0df11d",
+      "notes": ""
+    },
+    {
+      "lexeme": "hĩ³³",
+      "translation": "सूचीबद्ध",
+      "type": "word",
+      "id": "f4f79f0d-755f-434d-b3f0-7b03273dc744",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʈʂʰɯ³³",
+      "translation": "किया गया",
+      "type": "word",
+      "id": "393d3115-5e45-4394-bc85-7075a12ef466",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʁv̩³³",
+      "translation": "अनुसार",
+      "type": "word",
+      "id": "1b3dcd81-4f33-4803-b430-aa03351041e3",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʈʂæ³³",
+      "translation": "उनका",
+      "type": "word",
+      "id": "9e776269-1a2d-4518-b58d-4e4d960f3af4",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʈʂʰɯ³¹",
+      "translation": "कुल",
+      "type": "word",
+      "id": "f6c36d05-d459-4724-bd52-63cfda27bfc6",
+      "notes": ""
+    },
+    {
+      "lexeme": "lo³³",
+      "translation": "लंबाई",
+      "type": "word",
+      "id": "22c9aca6-81fe-4df1-b531-ebf4bd4b546a",
+      "notes": ""
+    },
+    {
+      "lexeme": "hĩ³³lo³³",
+      "translation": "जो लंबाई",
+      "type": "word",
+      "id": "f3fe37c5-eb07-445d-98b3-26191883da8d",
+      "notes": ""
+    },
+    {
+      "lexeme": "ɲi³³",
+      "translation": "है",
+      "type": "word",
+      "id": "2d9149f6-516c-439b-ab57-581320514735",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʈʂʰɯ³³zo³³",
+      "translation": "अधिकतम",
+      "type": "word",
+      "id": "abc77ab6-9cd0-40b1-896e-7aa52696e559",
+      "notes": ""
+    },
+    {
+      "lexeme": "hĩ³³",
+      "translation": "का",
+      "type": "word",
+      "id": "724a2088-8a59-4804-acf6-1f41bebddb6c",
+      "notes": ""
+    },
+    {
+      "lexeme": "ɣæ³³",
+      "translation": "मापा गया",
+      "type": "word",
+      "id": "56d82986-4689-439a-b6de-6107a0896197",
+      "notes": ""
+    },
+    {
+      "lexeme": "mv̩³³",
+      "translation": "बिंदु",
+      "type": "word",
+      "id": "6afb049d-a43e-4839-80be-9cc2ccba0d2e",
+      "notes": ""
+    },
+    {
+      "lexeme": "ʈʂʰɯ³³dzi³³",
+      "translation": "आगे",
+      "type": "word",
+      "id": "62ec1d41-ea56-4ba9-bdce-305e15324889",
+      "notes": ""
+    },
+    {
+      "lexeme": "ɣæ³³dzi³³",
+      "translation": "पीछे",
+      "type": "word",
+      "id": "f6034afa-907a-4dc9-8b93-083e4ba35313",
+      "notes": ""
+    },
+    {
+      "lexeme": "hĩ³³",
+      "translation": "के बीच",
+      "type": "word",
+      "id": "6b03b038-bcdf-4619-af1a-80b719901f3c",
+      "notes": ""
+    },
+    {
+      "lexeme": "ship",
+      "translation": "जहाज़",
+      "type": "word",
+      "id": "4bfe339c-09a6-429e-9b04-2d78793f401c",
+      "notes": ""
+    },
+    {
+      "lexeme": "deadweight",
+      "translation": "वहन-क्षमता",
+      "type": "word",
+      "id": "be7fb990-09cd-4d75-a4c6-0c62f0ff2c44",
+      "notes": ""
+    },
+    {
+      "lexeme": "tonnage",
+      "translation": "टन भार",
+      "type": "word",
+      "id": "3c2eaa05-6cfe-4ff2-9181-4af81cb35b46",
+      "notes": ""
+    },
+    {
+      "lexeme": "gross",
+      "translation": "सकल",
+      "type": "word",
+      "id": "adb5b213-5fde-44d7-a78b-af8b654d84fa",
+      "notes": ""
+    },
+    {
+      "lexeme": "vessel",
+      "translation": "जलयान",
+      "type": "word",
+      "id": "3a22c20b-4864-49cc-9d89-e133faf39c04",
+      "notes": ""
+    }
+  ],
+  "collections": [
+    {
+      "name": "What",
+      "id": "1a130e7d-1ad3-4557-8e0e-028a8d03a70d",
+      "cardIds": [
+        "a8cad611-dc78-4b20-8373-94339e88f3db",
+        "bfc220e7-c886-4da5-96e0-b86aae4a6a3b",
+        "16d08d27-e555-4f1d-acfe-32cb50c6c2d7",
+        "691e0aad-0b04-4036-81d1-a0bf8403c14c",
+        "c40204f9-1fc2-4410-bd8d-269310c44822",
+        "de6b794f-8d5e-47dc-9576-e7c83f59e7d8",
+        "de9bf705-76b0-4c82-8c9b-6b8d02f6e7d7",
+        "7d478f16-6335-4646-b4f5-6f226a815751",
+        "1f0d2aa7-b377-412c-9954-b2983e0df11d",
+        "f4f79f0d-755f-434d-b3f0-7b03273dc744",
+        "393d3115-5e45-4394-bc85-7075a12ef466",
+        "1b3dcd81-4f33-4803-b430-aa03351041e3",
+        "9e776269-1a2d-4518-b58d-4e4d960f3af4",
+        "f6c36d05-d459-4724-bd52-63cfda27bfc6",
+        "22c9aca6-81fe-4df1-b531-ebf4bd4b546a",
+        "f3fe37c5-eb07-445d-98b3-26191883da8d",
+        "2d9149f6-516c-439b-ab57-581320514735",
+        "abc77ab6-9cd0-40b1-896e-7aa52696e559",
+        "724a2088-8a59-4804-acf6-1f41bebddb6c",
+        "56d82986-4689-439a-b6de-6107a0896197",
+        "6afb049d-a43e-4839-80be-9cc2ccba0d2e",
+        "62ec1d41-ea56-4ba9-bdce-305e15324889",
+        "f6034afa-907a-4dc9-8b93-083e4ba35313",
+        "6b03b038-bcdf-4619-af1a-80b719901f3c",
+        "4bfe339c-09a6-429e-9b04-2d78793f401c",
+        "be7fb990-09cd-4d75-a4c6-0c62f0ff2c44",
+        "3c2eaa05-6cfe-4ff2-9181-4af81cb35b46",
+        "adb5b213-5fde-44d7-a78b-af8b654d84fa",
+        "3a22c20b-4864-49cc-9d89-e133faf39c04"
+      ]
+    }
+  ]
+}

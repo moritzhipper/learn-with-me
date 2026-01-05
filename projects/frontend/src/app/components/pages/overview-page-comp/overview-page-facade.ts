@@ -5,7 +5,7 @@ import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { mapToBankExport } from '../../../utils/import-export-utils'
+import { mapBankToShareable } from '../../../utils/import-export-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
@@ -130,7 +130,7 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    const bankExport = mapToBankExport(bank, [collectionId])
+    const bankExport = mapBankToShareable(bank, [collectionId])
     await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
   }
 

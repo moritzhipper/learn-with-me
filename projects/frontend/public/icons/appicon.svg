@@ -21,15 +21,24 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="5.5893961"
-     inkscape:cx="35.782041"
-     inkscape:cy="53.583606"
+     inkscape:zoom="14.789537"
+     inkscape:cx="6.2544216"
+     inkscape:cy="21.60311"
      inkscape:window-width="1696"
      inkscape:window-height="1030"
      inkscape:window-x="8"
-     inkscape:window-y="46"
+     inkscape:window-y="38"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg1" />
+  <rect
+     style="opacity:1;fill:#191a1c;fill-opacity:1;stroke-width:16.6299;stroke-linecap:round;stroke-linejoin:round"
+     id="rect1"
+     width="24"
+     height="24"
+     x="0"
+     y="0"
+     rx="0"
+     ry="0" />
   <path
      d="m 12,5.33335 -8,4.666667 8,4.666667 6.666668,-3.888868 v 4.888868 H 20 v -5.666667 z m -5.3339868,7.660334 v 3.0064 c 1.21628,1.619266 3.1527336,2.666666 5.3338548,2.666666 2.181064,0 4.117532,-1.0474 5.3338,-2.666666 l -2.68e-4,-3.005868 -5.3332,3.111068 z"
      id="path1"

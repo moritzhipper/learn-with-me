@@ -12,6 +12,10 @@
 
 - coming soon
 
+### DB
+
+-
+
 ## Store
 
 - has array of learnables
@@ -30,3 +34,5 @@
   - via user id
 - Format / Type of shared cards is 'Bank'
 - A 'Bank' can contain 0 to n Collections and Cards
+
+## Local

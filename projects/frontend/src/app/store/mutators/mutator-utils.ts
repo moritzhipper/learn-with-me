@@ -20,7 +20,7 @@ export const mapBaseToUserLearnable = (
   created: Date = new Date()
 ): UserLearnable => ({
   id,
-  created,
+  createdAt: created,
   type: base.type,
   lexeme: base.lexeme,
   translation: base.translation,

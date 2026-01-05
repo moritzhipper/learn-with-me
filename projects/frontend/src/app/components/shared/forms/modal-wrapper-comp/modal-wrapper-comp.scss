@@ -4,11 +4,14 @@
   position: absolute;
 }
 
+.wrapper,
+.backdrop {
+  height: var(--app-height);
+  width: 100vw;
+}
 .wrapper {
   z-index: 30;
   position: fixed;
-  height: 100dvh;
-  width: 100vw;
   top: 0;
   left: 0;
   display: grid;
@@ -29,8 +32,6 @@
 
 .backdrop {
   position: fixed;
-  height: 100dvh;
-  width: 100vw;
   top: 0;
   left: 0;
   z-index: 29;

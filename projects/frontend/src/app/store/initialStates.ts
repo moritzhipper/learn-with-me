@@ -4,7 +4,7 @@ import { LearnablesStoreType, SettingsStoreType } from '../types_and_schemas/typ
 const defaultBank: BankUser = {
   id: crypto.randomUUID(),
   name: 'Default Bank',
-  created: new Date(),
+  createdAt: new Date(),
   language: {
     speaking: 'german',
     learning: 'dutch'

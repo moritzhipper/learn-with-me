@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core'
 import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { BankShare } from '@shared/types'
+import { BankShareBase } from '@shared/types'
 import { BaseModalDirective } from '../base-modal-directive'
 
 type CollectionPreview = {
@@ -15,6 +15,6 @@ type CollectionPreview = {
   styleUrl: './import-form-comp.scss'
 })
 export class ImportFormComp extends BaseModalDirective {
-  bank = input.required<BankShare>()
+  bank = input.required<BankShareBase>()
   form = new FormGroup({})
 }

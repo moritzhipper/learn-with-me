@@ -54,6 +54,11 @@
     opacity: var(--opacity-1);
   }
 
+  .copy,
+  .import {
+    align-self: start;
+  }
+
   .shared,
   .ttl,
   .info {

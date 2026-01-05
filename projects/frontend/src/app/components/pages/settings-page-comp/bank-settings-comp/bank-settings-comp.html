@@ -17,17 +17,13 @@
     <app-icon-comp type="left-right" [size]="12" />
     {{ b.language.speaking }}
   </div>
-  <div class="created">{{ b.created | date: 'mediumDate' }}</div>
+  <div class="created">{{ b.createdAt | date: 'mediumDate' }}</div>
 </div>
 
 <button class="small delete" (click)="delete.emit()">delete</button>
 <button class="small download" (click)="download.emit()">download</button>
 <button class="small edit" (click)="edit.emit()">edit</button>
-<button
-  class="small activate"
-  [class.active]="isActive()"
-  (click)="setActive.emit()"
->
+<button class="small activate" [class.active]="isActive()" (click)="setActive.emit()">
   @if (isActive()) {
     this bank is active
   } @else {

@@ -5,7 +5,7 @@ import { updateActiveBank } from './mutator-utils'
 
 const createNewCollection = (name: string, cardIds: string[]): CollectionUser => ({
   id: crypto.randomUUID(),
-  created: new Date(),
+  createdAt: new Date(),
   name,
   cardIds
 })

@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { mockUserBanks } from '@shared/testing/mockBanks'
-import { BankShare } from '@shared/types'
+import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { ApiService } from '../../../services/api-service'
 import { ModalService } from '../../../services/modal-service'
@@ -24,7 +24,7 @@ type PrefetchSectionProxy = {
 }
 
 type BanksPreviewSection = PrefetchSectionProxy & {
-  banks: BankShare[]
+  banks: BankShareViaDB[]
 }
 
 @Component({
@@ -45,7 +45,7 @@ export class SharePageComp {
   private readonly bankLanguage = computed(() => this._lStore.activeBank().language)
   protected readonly MAX_PREVIEW_BANKS = 5
 
-  protected userBanks: BankShare[] = mockUserBanks(3)
+  protected userBanks: BankShareViaDB[] = mockUserBanks(3)
 
   protected fetchState = signal<ApiFetchState>('idle')
 
@@ -66,14 +66,14 @@ export class SharePageComp {
   private readonly prefetchSectionsConfig = computed<PrefetchSectionProxy[]>(() => [
     {
       title: 'Popular for your language match',
-      params: { ...this.bankLanguage(), category: 'new' }
+      params: { ...this.bankLanguage(), sortBy: 'new' }
     },
     {
       title: 'New for your language match',
-      params: { ...this.bankLanguage(), category: 'top' }
+      params: { ...this.bankLanguage(), sortBy: 'top' }
     },
-    { title: 'Popular for other matches', params: { category: 'top' } },
-    { title: 'New for other matches', params: { category: 'new' } }
+    { title: 'Popular for other matches', params: { sortBy: 'top' } },
+    { title: 'New for other matches', params: { sortBy: 'new' } }
   ])
 
   protected readonly previewBanks = signal<StaggerVM<BanksPreviewSection> | null>(null)
@@ -82,12 +82,12 @@ export class SharePageComp {
     this.fetchBankPreviews()
   }
 
-  protected async copyLink(bank: BankShare) {
+  protected async copyLink(bank: BankShareViaDB) {
     this._shareBanksS.copyLinkToClipboard(bank)
   }
 
-  protected async importBank(bank: BankShare) {
-    const result = await this._modalService.open<BankShare>('bank-import', {
+  protected async importBank(bank: BankShareViaDB) {
+    const result = await this._modalService.open<BankShareViaDB>('bank-import', {
       bank
     })
 
@@ -95,7 +95,7 @@ export class SharePageComp {
     this._lStore.importBankExport(result.value)
   }
 
-  private getFetchBankPreviesObs(): Observable<BankShare[][]> {
+  private getFetchBankPreviesObs(): Observable<BankShareViaDB[][]> {
     const sections = this.prefetchSectionsConfig().map((section) => {
       return this._apiS.getBanks({
         ...section.params,
@@ -106,15 +106,15 @@ export class SharePageComp {
     return forkJoin(sections)
   }
 
-  private resolveApiResponses(bankShareLists: BankShare[][]): void {
+  private resolveApiResponses(bankShareLists: BankShareViaDB[][]): void {
     // map response back to sections by index
-    const mappedResponse = this.prefetchSectionsConfig().map((section, index) => {
-      return {
+    const mappedResponse = this.prefetchSectionsConfig()
+      .map((section, index) => ({
         title: section.title,
         banks: bankShareLists[index],
         params: section.params
-      }
-    })
+      }))
+      .filter((section) => section.banks.length > 0)
 
     const sectionVM = mapToStaggerVM(mappedResponse)
     this.fetchState.set('idle')
@@ -123,5 +123,10 @@ export class SharePageComp {
 
   private resolveApiError(error: any): void {
     this.fetchState.set('error')
+    this._toastS.showToast({
+      header: 'Error',
+      message: 'Failed to load preview banks',
+      type: 'error'
+    })
   }
 }

@@ -1,5 +1,5 @@
 import type {
-  BankRequestFilter,
+  BankRequestConfig,
   BankUser,
   LanguageConfig,
   LanguageConfigRequest
@@ -59,6 +59,6 @@ export type BankShareResponse = {
   expires: Date
 }
 
-export type ExplorePageCategoryConfig = LanguageConfigRequest & BankRequestFilter
+export type ExplorePageCategoryConfig = LanguageConfigRequest & BankRequestConfig
 
 export type ApiFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'

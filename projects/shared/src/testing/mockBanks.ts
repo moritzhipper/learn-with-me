@@ -1,4 +1,4 @@
-import { BankShare, LearnableWithId } from '@shared/types'
+import { BankShareBase, BankShareViaDB, LearnableWithId } from '@shared/types'
 
 // Helper function to create a learnable
 const createLearnable = (
@@ -209,7 +209,7 @@ const enDe = { speaking: 'English', learning: 'German' }
 const createBankShareFromTemplate = (
   template: (typeof bankTemplates)[number],
   index: number
-): BankShare => {
+): BankShareViaDB => {
   const learnables = template.learnables.map((l) =>
     createLearnable(l.lexeme, l.translation, l.type, l.notes ?? '')
   )
@@ -223,8 +223,9 @@ const createBankShareFromTemplate = (
 
   return {
     id: crypto.randomUUID(),
-    created,
     expires,
+    createdAt: created,
+    downloads: 0,
     name: template.name,
     language: enDe,
     learnables,
@@ -236,7 +237,7 @@ const createBankShareFromTemplate = (
  * Generate mock user banks
  * @param amount Number of banks to generate (cycles through templates if amount > templates)
  */
-export const mockUserBanks = (amount = 2): BankShare[] => {
+export const mockUserBanks = (amount = 2): BankShareViaDB[] => {
   return Array.from({ length: amount }, (_, i) => {
     const template = bankTemplates[i % bankTemplates.length]
     const suffix = i >= bankTemplates.length ? ` (${Math.floor(i / bankTemplates.length) + 1})` : ''
@@ -248,7 +249,7 @@ export const mockUserBanks = (amount = 2): BankShare[] => {
  * Generate mock online banks
  * @param amount Number of banks to generate (cycles through templates if amount > templates)
  */
-export const mockOnlineBanks = (amount = 3): BankShare[] => {
+export const mockOnlineBanks = (amount = 3): BankShareBase[] => {
   // Start from a different offset to get different banks than userBanks by default
   return Array.from({ length: amount }, (_, i) => {
     const offset = 3 // Start from template index 3

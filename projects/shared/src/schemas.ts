@@ -19,7 +19,7 @@ export const LearnableWithIdSchema = LearnableBaseSchema.extend({
 })
 
 export const LearnableUserSchema = LearnableWithIdSchema.extend({
-  created: z.date(),
+  createdAt: z.coerce.date(),
   guesses: z.object({
     lexeme: z.array(z.boolean()).length(5),
     translation: z.array(z.boolean()).length(5)
@@ -33,7 +33,7 @@ export const CollectionBaseSchema = z.object({
 })
 
 export const CollectionUserSchema = CollectionBaseSchema.extend({
-  created: z.date()
+  createdAt: z.coerce.date()
 })
 
 export const LanguageConfigSchema = z.object({
@@ -45,20 +45,26 @@ export const LanguageConfigRequestSchema = LanguageConfigSchema.partial()
 
 export const BankBaseSchema = z.object({
   language: LanguageConfigSchema,
-  id: z.string(),
-  created: z.date(),
   name: z.string()
 })
 
 export const BankUserSchema = BankBaseSchema.extend({
+  id: z.string(),
+  createdAt: z.coerce.date(),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema)
 })
 
-export const BankShareSchema = BankBaseSchema.extend({
+export const BankShareBaseSchema = BankBaseSchema.extend({
   learnables: z.array(LearnableWithIdSchema),
-  collections: z.array(CollectionBaseSchema),
-  expires: z.date()
+  collections: z.array(CollectionBaseSchema)
+})
+
+export const BankShareViaDBSchema = BankShareBaseSchema.extend({
+  id: z.string(),
+  createdAt: z.coerce.date(),
+  expires: z.coerce.date().nullable(),
+  downloads: z.number()
 })
 
 export const PaginationSchema = z.object({
@@ -66,12 +72,12 @@ export const PaginationSchema = z.object({
   offset: z.coerce.number().min(0).max(1000).optional()
 })
 
-export const BanksRequestFilterSchema = z.object({
-  category: z.enum(['new', 'top'])
+export const BanksRequestConfigSchema = z.object({
+  sortBy: z.enum(['new', 'top'])
 })
 
 export const BanksRequestSchema = z.object({
   ...LanguageConfigRequestSchema.shape,
-  ...BanksRequestFilterSchema.shape,
+  ...BanksRequestConfigSchema.shape,
   ...PaginationSchema.shape
 })

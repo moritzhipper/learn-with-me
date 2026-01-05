@@ -101,11 +101,11 @@ const filterByAge = (
   if (!filter.age) return learnables
   if (filter.age === 'newest') {
     // Find the newest creation date
-    const dates = learnables.map((learnable) => new Date(learnable.created).getTime())
+    const dates = learnables.map((learnable) => new Date(learnable.createdAt).getTime())
     const newestDate = Math.max(...dates)
 
     // Return all learnables with that newest date
-    return learnables.filter((learnable) => new Date(learnable.created).getTime() === newestDate)
+    return learnables.filter((learnable) => new Date(learnable.createdAt).getTime() === newestDate)
   }
 
   const now = Date.now()
@@ -113,15 +113,15 @@ const filterByAge = (
   const maxAgeInDaysAsMs = (filter.age as number) * oneDayInMs
 
   return learnables.filter(
-    (learnable) => new Date(learnable.created).getTime() > now - maxAgeInDaysAsMs
+    (learnable) => new Date(learnable.createdAt).getTime() > now - maxAgeInDaysAsMs
   )
 }
 
 // #region Sort Functions
 
 const orderByDate = (a: UserLearnable, b: UserLearnable): number => {
-  const dateA = new Date(a.created).getTime()
-  const dateB = new Date(b.created).getTime()
+  const dateA = new Date(a.createdAt).getTime()
+  const dateB = new Date(b.createdAt).getTime()
 
   return dateB - dateA
 }

@@ -1,0 +1,16 @@
+@base = http://localhost:3000
+@speakinng = english
+@learning = dutch
+@category = top
+
+
+
+### Get New Banks
+GET {{base}}/banks?speaking={{speakinng}}&learning={{learning}}&sortBy={{category}}&limit=2
+
+
+### Share Bank
+POST {{base}}/banks/share
+Content-Type: application/json
+
+< ./bank-share-body.json

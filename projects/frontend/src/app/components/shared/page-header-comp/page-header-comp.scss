@@ -49,10 +49,8 @@
 
 @include isDesktop() {
   :host {
-    transform-origin: top left;
-
-    margin: var(--distance-4) 0 var(--distance-6) 0;
+    margin: var(--distance-7) 0 var(--distance-6) 0;
     white-space: nowrap;
-    transform: rotate(-6deg) translateX(calc(-1 * var(--distance-5)));
+    transform: rotate(-6deg);
   }
 }

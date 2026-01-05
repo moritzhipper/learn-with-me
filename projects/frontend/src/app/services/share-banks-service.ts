@@ -1,8 +1,8 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
-import { BankShare, BankUser } from '@shared/types'
+import { BankShareBase, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
 import {
-  mapToBankExport,
+  mapBankToShareable,
   parseFileImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
@@ -20,7 +20,7 @@ export class ShareBanksService {
 
   // use service for this to handle revoking last blob for better memory management
   downloadBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
-    const bankExport = mapToBankExport(bank, onlyForCollectionIds)
+    const bankExport = mapBankToShareable(bank, onlyForCollectionIds)
 
     URL.revokeObjectURL(this._blobUrl)
 
@@ -44,7 +44,7 @@ export class ShareBanksService {
     anchor.remove()
   }
 
-  async readFile(file: File): Promise<BankShare> {
+  async readFile(file: File): Promise<BankShareBase> {
     // Verify file validity first
     verifiyImportedFileValidity(file)
 
@@ -71,7 +71,7 @@ export class ShareBanksService {
     })
   }
 
-  async copyLinkToClipboard({ id, name }: BankShare): Promise<void> {
+  async copyLinkToClipboard({ id, name }: BankShareViaDB): Promise<void> {
     try {
       const url = new URL(this.document.location.origin)
       url.searchParams.set('id', id)
