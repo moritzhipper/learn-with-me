@@ -1,11 +1,11 @@
 import { BankShareBase, BankShareViaDB, BanksRequest } from '@shared/types'
 
-import { and, desc, ilike } from 'drizzle-orm'
+import { and, desc, eq, ilike } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
 import { db } from '../db/db'
 import { banks } from '../db/schema'
 
-export const fetchNewBanks = async (
+export const fetchBanks = async (
   req: FastifyRequest<{ Querystring: BanksRequest }>
 ): Promise<BankShareViaDB[]> => {
   const result = await db
@@ -13,6 +13,7 @@ export const fetchNewBanks = async (
     .from(banks)
     .where(
       and(
+        eq(banks.shareWithCommunity, true),
         req.query.speaking ? ilike(banks.speaking, req.query.speaking) : undefined,
         req.query.learning ? ilike(banks.learning, req.query.learning) : undefined
       )
@@ -33,6 +34,23 @@ export const fetchNewBanks = async (
   }))
 
   return mapped
+}
+
+export const fetchBankById = async (
+  req: FastifyRequest<{ Params: { id: string } }>
+): Promise<BankShareViaDB | null> => {
+  const result = await db.select().from(banks).where(eq(banks.id, req.params.id)).limit(1)
+
+  const row = result[0]
+  if (!row) return null
+
+  return {
+    id: row.id,
+    downloads: row.downloadCount,
+    createdAt: row.createdAt,
+    expires: row.ttl || null,
+    ...row.bankJson
+  }
 }
 
 export const shareBank = async (

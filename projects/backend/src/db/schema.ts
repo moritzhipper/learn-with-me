@@ -1,5 +1,5 @@
 import { BankShareBase } from '@shared/types'
-import { integer, jsonb, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
+import { boolean, integer, jsonb, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 
 // manage some json values as separate columns for indexing and easy querying
 export const banks = pgTable('banks', {
@@ -8,6 +8,7 @@ export const banks = pgTable('banks', {
   ttl: timestamp(),
   downloadCount: integer().notNull().default(0),
   lastDownloadAt: timestamp(),
+  shareWithCommunity: boolean().notNull().default(false),
   speaking: varchar({ length: 256 }).notNull(),
   learning: varchar({ length: 256 }).notNull(),
   bankJson: jsonb().notNull().$type<BankShareBase>()

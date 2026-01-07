@@ -18,6 +18,10 @@ export class ApiService {
     })
   }
 
+  getBankByID(id: string): Observable<BankShareViaDB> {
+    return this._client.get<BankShareViaDB>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}/${id}`)
+  }
+
   async shareBank(bankExport: Omit<BankShareBase, 'expires'>, ttlMinutes: number) {
     const response = this._client.post<BankShareBase>(`${this.BASE_URL}${API_ROUTES.BANKS.SHARE}`, {
       bankExport,
