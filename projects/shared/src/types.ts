@@ -1,6 +1,7 @@
 import z from 'zod'
 import {
   BankShareBaseSchema,
+  BankShareConfigParamsSchema,
   BankShareViaDBSchema,
   BanksRequestConfigSchema,
   BanksRequestSchema,
@@ -26,6 +27,7 @@ export type LanguageConfigRequest = z.infer<typeof LanguageConfigRequestSchema>
 export type BanksRequest = z.infer<typeof BanksRequestSchema>
 export type BankUser = z.infer<typeof BankUserSchema>
 export type BankShareBase = z.infer<typeof BankShareBaseSchema>
+export type BankShareConfigParams = z.infer<typeof BankShareConfigParamsSchema>
 export type BankShareViaDB = z.infer<typeof BankShareViaDBSchema>
 export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 

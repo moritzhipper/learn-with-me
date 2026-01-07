@@ -225,6 +225,7 @@ const createBankShareFromTemplate = (
     id: crypto.randomUUID(),
     expires,
     createdAt: created,
+    isCommunityBank: true,
     downloads: 0,
     name: template.name,
     language: enDe,

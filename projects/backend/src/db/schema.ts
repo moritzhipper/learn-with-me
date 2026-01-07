@@ -5,10 +5,10 @@ import { boolean, integer, jsonb, pgTable, timestamp, uuid, varchar } from 'driz
 export const banks = pgTable('banks', {
   id: uuid().primaryKey().defaultRandom(),
   createdAt: timestamp().notNull().defaultNow(),
-  ttl: timestamp(),
+  expires: timestamp(),
   downloadCount: integer().notNull().default(0),
   lastDownloadAt: timestamp(),
-  shareWithCommunity: boolean().notNull().default(false),
+  isCommunityBank: boolean().notNull().default(false),
   speaking: varchar({ length: 256 }).notNull(),
   learning: varchar({ length: 256 }).notNull(),
   bankJson: jsonb().notNull().$type<BankShareBase>()

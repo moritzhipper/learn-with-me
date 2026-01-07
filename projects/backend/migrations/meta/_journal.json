@@ -15,6 +15,13 @@
       "when": 1767814443814,
       "tag": "0001_lush_rockslide",
       "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1767816479746,
+      "tag": "0002_talented_stature",
+      "breakpoints": false
     }
   ]
 }

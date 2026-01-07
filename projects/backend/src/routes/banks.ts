@@ -1,5 +1,10 @@
 import { API_ROUTES } from '@shared/api-routes'
-import { BankShareBaseSchema, BankShareViaDBSchema, BanksRequestSchema } from '@shared/schemas'
+import {
+  BankShareBaseSchema,
+  BankShareConfigParamsSchema,
+  BankShareViaDBSchema,
+  BanksRequestSchema
+} from '@shared/schemas'
 import { FastifyPluginAsync } from 'fastify'
 import { z } from 'zod'
 import { fetchBankById, fetchBanks as fetchSharedBanks, shareBank } from '../handler/banks'
@@ -37,6 +42,7 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     method: 'POST',
     url: API_ROUTES.BANKS.SHARE,
     schema: {
+      params: BankShareConfigParamsSchema,
       body: BankShareBaseSchema,
       response: {
         200: BankShareViaDBSchema

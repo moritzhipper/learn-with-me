@@ -2,32 +2,20 @@
 
 ## Right Now
 
-- add PSQL DB: https://dev.to/vladimirvovk/fastify-api-with-postgres-and-drizzle-orm-a7j
-  -> add seeding script to packag json for testing and local dev
-- read env file using zod
-  -> read db config
-  -> read backend url and port
-- create tables having columns
-  - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
-- connect db in handler methods
+- connect share with backend
 
 ### Add API Routes returning []
 
-### Connect DB
-
-- fetch entries on api call
-
 ## shared
 
-- increase download only for userid
+- increase download only for userid?
 - prevent users from resharing same unchanged bank
-- setup CI
-- buy domain lol
 - add matches endpoint, returning existing matches
   - use existing matches as recommendations on shared page (bottom) and explore page select match popover
 
 ## Backend
 
+- add ratelimiting?
 - add inbetween layer to backend
   - maps adds baseLanguage to banks (byrisch -> german)
   - allows better matching and recommendation system
@@ -39,7 +27,6 @@
 
 ## Frontend
 
-- use stagger animation for explore pages to also apply to the loading indicator animation
 - add states to explore pages:
   - api works, but no categories filled
   - api absent -> backend absent :(

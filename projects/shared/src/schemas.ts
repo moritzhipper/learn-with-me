@@ -55,6 +55,11 @@ export const BankUserSchema = BankBaseSchema.extend({
   collections: z.array(CollectionUserSchema)
 })
 
+export const BankShareConfigParamsSchema = z.object({
+  ttlMinutes: z.number().nullable().default(null),
+  isCommunityBank: z.boolean().default(true)
+})
+
 export const BankShareBaseSchema = BankBaseSchema.extend({
   learnables: z.array(LearnableWithIdSchema),
   collections: z.array(CollectionBaseSchema)
@@ -64,6 +69,7 @@ export const BankShareViaDBSchema = BankShareBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
   expires: z.coerce.date().nullable(),
+  isCommunityBank: z.boolean(),
   downloads: z.number()
 })
 
