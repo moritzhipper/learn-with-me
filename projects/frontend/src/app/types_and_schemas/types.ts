@@ -33,6 +33,7 @@ export type Guessable = {
 export type SettingsStoreType = {
   apiKey: string
   tokensUsed: number
+  userID: string
 }
 
 type Optional<T> = { [K in keyof T]?: T[K] | null }
