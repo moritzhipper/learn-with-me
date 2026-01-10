@@ -3,8 +3,18 @@
 ## Right Now
 
 - connect share with backend
+  - read userID from request
+  - put db bank schema in db
+  - red user shared from db on shared page
 
-### Add API Routes returning []
+## Idea
+
+- style everything like real cards
+- wide page: cards
+- mid page: a4 sheet
+- header: small note
+- light: desk
+- dark: desk with light cards
 
 ## shared
 
@@ -27,6 +37,7 @@
 
 ## Frontend
 
+- check if i can live without the height hack but with overscroll css˜
 - add states to explore pages:
   - api works, but no categories filled
   - api absent -> backend absent :(

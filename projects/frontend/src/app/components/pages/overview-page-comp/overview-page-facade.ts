@@ -127,11 +127,19 @@ export class OverviewPageFacade {
 
   async openShareCollectionModal(bank: BankUser, collectionId: string): Promise<void> {
     const result = await this.modalService.open<ShareFormResponse>('bank-share', { bank })
-
     if (result.type !== 'confirm') return
-
     const bankExport = mapBankToShareable(bank, [collectionId])
-    await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
+
+    try {
+      const response = await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
+      // save to store
+    } catch (error) {
+      this.toastService.showToast({
+        header: 'Error',
+        message: 'Failed to share collection. Please try again.',
+        type: 'error'
+      })
+    }
   }
 
   downloadCollection(collectionId: string) {

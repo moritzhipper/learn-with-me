@@ -1,15 +1,25 @@
-import { BankShareBase } from '@shared/types'
-import { boolean, integer, jsonb, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
+import { boolean, jsonb, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
+import { BankFromDatabase } from '../types'
 
 // manage some json values as separate columns for indexing and easy querying
 export const banks = pgTable('banks', {
   id: uuid().primaryKey().defaultRandom(),
-  createdAt: timestamp().notNull().defaultNow(),
-  expires: timestamp(),
-  downloadCount: integer().notNull().default(0),
-  lastDownloadAt: timestamp(),
-  isCommunityBank: boolean().notNull().default(false),
+  user_id: uuid().notNull(),
+  name: varchar({ length: 512 }).notNull(),
   speaking: varchar({ length: 256 }).notNull(),
   learning: varchar({ length: 256 }).notNull(),
-  bankJson: jsonb().notNull().$type<BankShareBase>()
+  created_at: timestamp().notNull().defaultNow(),
+  expires: timestamp(),
+  is_community_bank: boolean().notNull().default(false),
+  bank_json: jsonb().notNull().$type<BankFromDatabase>()
+})
+
+export const downloadCounts = pgTable('download_counts', {
+  bank_id: uuid()
+    .references(() => banks.id)
+    .primaryKey(),
+  user_id: uuid()
+    .references(() => banks.user_id)
+    .primaryKey(),
+  timestamp: timestamp().notNull().defaultNow()
 })

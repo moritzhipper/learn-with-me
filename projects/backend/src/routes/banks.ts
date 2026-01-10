@@ -39,6 +39,17 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   })
 
   fastify.route({
+    method: 'GET',
+    url: API_ROUTES.BANKS.USER,
+    schema: {
+      response: {
+        200: z.array(BankShareViaDBSchema)
+      }
+    },
+    handler: fetchSharedBanks
+  })
+
+  fastify.route({
     method: 'POST',
     url: API_ROUTES.BANKS.SHARE,
     schema: {

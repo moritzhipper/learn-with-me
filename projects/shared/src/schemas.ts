@@ -79,11 +79,16 @@ export const PaginationSchema = z.object({
 })
 
 export const BanksRequestConfigSchema = z.object({
-  sortBy: z.enum(['new', 'top'])
+  sortBy: z.enum(['new', 'top']),
+  userId: z.uuid().optional()
 })
 
 export const BanksRequestSchema = z.object({
   ...LanguageConfigRequestSchema.shape,
   ...BanksRequestConfigSchema.shape,
   ...PaginationSchema.shape
+})
+
+export const RequestHeaderSchema = z.object({
+  'x-user-id': z.uuid()
 })

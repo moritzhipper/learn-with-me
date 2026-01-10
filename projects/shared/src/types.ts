@@ -14,7 +14,8 @@ import {
   LearnableFromAiSchema,
   LearnableUserSchema,
   LearnableWithIdSchema,
-  PaginationSchema
+  PaginationSchema,
+  RequestHeaderSchema
 } from './schemas'
 
 export type LearnableBase = z.infer<typeof LearnableBaseSchema>
@@ -38,6 +39,8 @@ export type UserLearnable = z.infer<typeof LearnableUserSchema>
 export type PaginationConfig = z.infer<typeof PaginationSchema>
 export type BankRequestConfig = z.infer<typeof BanksRequestConfigSchema>
 export type UserLearnablePartial = Partial<UserLearnable> & Pick<UserLearnable, 'id'>
+
+export type RequestHeader = z.infer<typeof RequestHeaderSchema>
 
 /** A tuple of 5 booleans representing the last 5 guess results */
 export type GuessHistory = [boolean, boolean, boolean, boolean, boolean]
