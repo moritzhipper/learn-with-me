@@ -18,10 +18,16 @@ import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
-type PrefetchSectionProxy = {
-  title: string
-  params: ExplorePageCategoryConfig
-}
+type PrefetchSectionProxy =
+  | {
+      type: 'community'
+      title: string
+      params: ExplorePageCategoryConfig
+    }
+  | {
+      type: 'user'
+      title: string
+    }
 
 type BanksPreviewSection = PrefetchSectionProxy & {
   banks: BankShareViaDB[]
@@ -64,16 +70,19 @@ export class SharePageComp {
   )
 
   private readonly prefetchSectionsConfig = computed<PrefetchSectionProxy[]>(() => [
+    { title: 'You shared', type: 'user' },
     {
       title: 'Popular for your language match',
-      params: { ...this.bankLanguage(), sortBy: 'new' }
+      params: { ...this.bankLanguage(), sortBy: 'new' },
+      type: 'community'
     },
     {
       title: 'New for your language match',
-      params: { ...this.bankLanguage(), sortBy: 'top' }
+      params: { ...this.bankLanguage(), sortBy: 'top' },
+      type: 'community'
     },
-    { title: 'Popular for other matches', params: { sortBy: 'top' } },
-    { title: 'New for other matches', params: { sortBy: 'new' } }
+    { title: 'Popular for other matches', params: { sortBy: 'top' }, type: 'community' },
+    { title: 'New for other matches', params: { sortBy: 'new' }, type: 'community' }
   ])
 
   protected readonly previewBanks = signal<StaggerVM<BanksPreviewSection> | null>(null)
@@ -97,10 +106,14 @@ export class SharePageComp {
 
   private getFetchBankPreviesObs(): Observable<BankShareViaDB[][]> {
     const sections = this.prefetchSectionsConfig().map((section) => {
-      return this._apiS.getBanks({
-        ...section.params,
-        limit: this.MAX_PREVIEW_BANKS
-      })
+      if (section.type === 'community') {
+        return this._apiS.getCommunityBanks({
+          ...section.params,
+          limit: this.MAX_PREVIEW_BANKS
+        })
+      } else {
+        return this._apiS.getUserBanks()
+      }
     })
 
     return forkJoin(sections)
@@ -110,9 +123,8 @@ export class SharePageComp {
     // map response back to sections by index
     const mappedResponse = this.prefetchSectionsConfig()
       .map((section, index) => ({
-        title: section.title,
-        banks: bankShareLists[index],
-        params: section.params
+        ...section,
+        banks: bankShareLists[index]
       }))
       .filter((section) => section.banks.length > 0)
 

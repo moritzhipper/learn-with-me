@@ -57,7 +57,7 @@ export const BankUserSchema = BankBaseSchema.extend({
 
 export const BankShareConfigParamsSchema = z.object({
   ttlMinutes: z.number().nullable().default(null),
-  isCommunityBank: z.boolean().default(true)
+  isCommunityBank: z.boolean().default(false)
 })
 
 export const BankShareBaseSchema = BankBaseSchema.extend({

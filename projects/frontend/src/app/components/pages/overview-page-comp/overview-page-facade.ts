@@ -5,12 +5,10 @@ import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { mapBankToShareable } from '../../../utils/import-export-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
-import { ShareFormResponse } from '../../shared/forms/share-form-comp/share-form-comp'
 
 /**
  * Facade service for the overview page component.
@@ -126,20 +124,7 @@ export class OverviewPageFacade {
   // ─────────────────────────────────────────────────────────────────────────────
 
   async openShareCollectionModal(bank: BankUser, collectionId: string): Promise<void> {
-    const result = await this.modalService.open<ShareFormResponse>('bank-share', { bank })
-    if (result.type !== 'confirm') return
-    const bankExport = mapBankToShareable(bank, [collectionId])
-
-    try {
-      const response = await this.apiService.shareBank(bankExport, result.value.ttlMinutes)
-      // save to store
-    } catch (error) {
-      this.toastService.showToast({
-        header: 'Error',
-        message: 'Failed to share collection. Please try again.',
-        type: 'error'
-      })
-    }
+    this.shareBanksS.shareBank(bank, [collectionId])
   }
 
   downloadCollection(collectionId: string) {

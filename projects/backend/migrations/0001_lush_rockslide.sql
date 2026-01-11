@@ -1,1 +1,0 @@
-ALTER TABLE "banks" ADD COLUMN "shareWithCommunity" boolean DEFAULT false NOT NULL;

@@ -37,6 +37,7 @@
 
 ## Frontend
 
+- add state: no shared db and no in database response
 - check if i can live without the height hack but with overscroll css˜
 - add states to explore pages:
   - api works, but no categories filled

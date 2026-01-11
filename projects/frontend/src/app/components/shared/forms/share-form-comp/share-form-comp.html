@@ -20,8 +20,21 @@
       }
     ]"
   />
-  <button type="button" (click)="cancel()" class="big fly-in-y-1">
-    cancel
-  </button>
+  <app-radio-comp
+    class="full fly-in-y-0"
+    label="make community bank"
+    formControlName="isCommunityBank"
+    [config]="[
+      {
+        value: true,
+        label: 'Yes :)'
+      },
+      {
+        value: false,
+        label: 'No :('
+      }
+    ]"
+  />
+  <button type="button" (click)="cancel()" class="big fly-in-y-1">cancel</button>
   <button type="submit" class="fly-in-y-2">Share</button>
 </form>

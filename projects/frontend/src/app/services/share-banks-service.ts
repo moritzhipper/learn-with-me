@@ -1,11 +1,13 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
-import { BankShareBase, BankShareViaDB, BankUser } from '@shared/types'
+import { BankShareBase, BankShareConfigParams, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
 import {
   mapBankToShareable,
   parseFileImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
+import { ApiService } from './api-service'
+import { ModalService } from './modal-service'
 import { ToastService } from './toast-service'
 
 @Injectable({
@@ -13,6 +15,8 @@ import { ToastService } from './toast-service'
 })
 export class ShareBanksService {
   private readonly toastService = inject(ToastService)
+  private readonly modalService = inject(ModalService)
+  private apiService = inject(ApiService)
   private _blobUrl = ''
   private readonly document = inject(DOCUMENT)
 
@@ -82,6 +86,28 @@ export class ShareBanksService {
       })
     } catch {
       this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+    }
+  }
+
+  async shareBank(bank: BankUser, onlyForCollectionIds?: string[]): Promise<void> {
+    const result = await this.modalService.open<BankShareConfigParams>('bank-share', { bank })
+    if (result.type !== 'confirm') return
+    const mapped = mapBankToShareable(bank, onlyForCollectionIds)
+
+    debugger
+    try {
+      const shareID = await this.apiService.shareBank(mapped, result.value)
+      this.toastService.showToast({
+        header: 'Success',
+        message: `Check Community page to see.`,
+        type: 'info'
+      })
+    } catch {
+      this.toastService.showToast({
+        header: 'Error',
+        message: 'Failed to share bank.',
+        type: 'error'
+      })
     }
   }
 }

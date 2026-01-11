@@ -98,7 +98,7 @@ export class ExplorePageComp {
     this.fetchState.set('loading')
     try {
       const banks = await lastValueFrom(
-        this.apiS.getBanks({
+        this.apiS.getCommunityBanks({
           ...this.params(),
           offset: this.PAGE_OFFSET,
           limit: this.PAGE_LIMIT
