@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core'
+import { Component, input, model, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import {
@@ -20,5 +20,7 @@ export class FilterComp {
     transform: mapToStaggerVM
   })
 
-  protected delays = createAppearRange(1, 4)
+  protected readonly delays = createAppearRange(1, 4)
+
+  filterOpen = signal(false)
 }
