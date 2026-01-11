@@ -45,8 +45,22 @@ export const pluralize = (count: number, unit: string): string => {
   return `${count} ${unit}${pluralS}`
 }
 
-export const lerpListAppear = (i: number, totalItems: number, timeSpread: number): number => {
+// staggered animation helpers
+
+export const lerpListAppear = (i: number, totalItems: number, timeSpread: number = 0.3): number => {
   return (i / totalItems) * timeSpread
+}
+
+export const createAppearRange = (
+  start: number,
+  end: number,
+  timeSpread: number = 0.3
+): number[] => {
+  const range: number[] = []
+  for (let i = start; i <= end; i++) {
+    range.push(lerpListAppear(i, end, timeSpread))
+  }
+  return range
 }
 
 export type StaggerVM<T> = Array<{

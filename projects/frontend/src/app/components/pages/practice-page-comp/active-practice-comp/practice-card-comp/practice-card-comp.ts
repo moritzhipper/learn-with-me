@@ -15,10 +15,11 @@ export class PracticeCardComp {
   concealed = input<boolean>(true)
   learnable = input.required<UserLearnable>()
   reverseDirection = input.required<boolean>()
-  allowEdit = input<boolean>(false)
-  private readonly textArea = viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
-
   updateNotes = output<{ id: string; newNotes: string }>()
+  allowEdit = input<boolean>(false)
+  finishEditing = output<void>()
+
+  private readonly textArea = viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
 
   setUpdatedNotes(newNotes: string) {
     this.updateNotes.emit({ id: this.learnable().id, newNotes })

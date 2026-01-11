@@ -17,7 +17,7 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
   styleUrls: ['./active-practice-comp.scss', './card-animations.scss'],
   host: {
     '[style.--swipe-prog]': 'swipeProg().xDelta',
-    '[style.--swipe-x-norm]': 'swipeProg().xNorm',
+    '[style.--swipe-norm]': 'swipeProg().xNorm',
     '[class]': 'stateClasses()'
   }
 })
@@ -104,6 +104,11 @@ export class ActivePracticeComp {
     } else if (focusedState === 'editing') {
       this.cardState.set('revealed')
     }
+  }
+
+  protected finishEditing() {
+    this.statsOpen.set(false)
+    this.cardState.set('revealed')
   }
 
   private getRandomElementFromArray(arr: string[]): string {

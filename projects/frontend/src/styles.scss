@@ -82,20 +82,28 @@ button {
   transition-timing-function: ease-out;
 
   &.small {
-    border-radius: var(--radius-0);
-    padding: var(--distance-1) var(--distance-5);
+    border-radius: var(--radius-1);
+    padding: var(--distance-1) var(--distance-4);
     font-size: var(--font-size-0);
     font-weight: var(--font-weight-bold);
-    background-color: var(--col-accent);
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
   }
 
   &.big {
     border-radius: var(--radius-1);
-
     background-color: var(--col-accent);
     font-size: var(--font-size-1);
     padding: var(--distance-3) var(--distance-5);
     font-weight: var(--font-weight-bold);
+  }
+
+  &.has-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: var(--distance-2);
+
+    gap: var(--distance-2);
   }
 
   &[type='submit'] {

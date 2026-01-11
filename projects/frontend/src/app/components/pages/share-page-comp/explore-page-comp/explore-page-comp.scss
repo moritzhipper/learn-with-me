@@ -9,14 +9,11 @@ h2.language {
 }
 .params-config {
   display: flex;
+  gap: var(--distance-4);
+  margin-bottom: var(--distance-4);
+
   .change {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--distance-2);
     padding: var(--distance-2) var(--distance-2) var(--distance-2) var(--distance-3);
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-    border-radius: var(--radius-1);
   }
 }
 
@@ -42,8 +39,6 @@ h2.language {
 @include isPhone() {
   .params-config {
     display: flex;
-    gap: var(--distance-4);
-    margin-bottom: var(--distance-4);
     grid-template-columns: 1fr auto;
 
     .change {
@@ -54,8 +49,6 @@ h2.language {
 @include isDesktop() {
   .params-config {
     display: flex;
-    gap: var(--distance-2);
-    margin-bottom: var(--distance-2);
 
     .change {
       margin-left: auto;

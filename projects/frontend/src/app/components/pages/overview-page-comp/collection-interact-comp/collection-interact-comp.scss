@@ -64,15 +64,6 @@
     transition: all var(--duration-3) var(--overshot);
   }
 
-  &.user-selected {
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-
-    app-icon-comp {
-      top: 0px;
-      rotate: -90deg;
-    }
-  }
-
   select {
     width: var(--distance-6);
     color: transparent;

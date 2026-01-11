@@ -2,7 +2,8 @@
 
 ## Right Now
 
-- make cards filter on overview look likeshared filter (way better)
+- make header always 33vh high, center content withou y padding -> put always leftest
+- add 'create fixtures' script
 
 ## Idea
 
@@ -30,11 +31,13 @@
 
 ## Frontend
 
-- make header always 33vh high, center content withou y padding -> put always leftest
+- use stlyes.scss button:has icon everywhere
+- remove height hack?
 - add state indicator component:
   - handles loading, no-data, error, etc
 - add state: no shared db and no in database response
 - check if i can live without the height hack but with overscroll css˜
+- remove or reimplement cardsfilter logic in frontend
 - add states to explore pages:
   - api works, but no categories filled
   - api absent -> backend absent :(

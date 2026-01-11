@@ -1,0 +1,82 @@
+@use '../../../../../style/mixins.scss' as *;
+
+:host {
+  display: flex;
+  gap: var(--distance-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+button.small {
+  white-space: nowrap;
+}
+
+.pseudo-select,
+.close {
+  position: sticky;
+  left: 0;
+  backdrop-filter: blur(20px);
+  z-index: 2;
+}
+
+.pseudo-select,
+select,
+button.icon-only {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-1);
+  padding: 0;
+}
+
+// collection selected
+
+.chip {
+  display: grid;
+  place-items: center;
+  background-color: var(--col-accent);
+  &.delete {
+    background-color: var(--col-warning);
+  }
+}
+
+.pseudo-select {
+  background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+
+  app-icon-comp,
+  select {
+    grid-area: 1 / 1;
+  }
+
+  app-icon-comp {
+    rotate: -180deg;
+  }
+
+  select {
+    z-index: 2;
+    padding: 0;
+    color: transparent;
+    background-color: transparent;
+  }
+}
+
+@include isPhone() {
+  :host {
+    margin: calc(-1 * var(--distance-4));
+    margin-bottom: 0;
+    padding: var(--distance-4);
+  }
+  .chip {
+    flex: 1;
+  }
+}
+
+@include isDesktop() {
+  :host {
+    margin-bottom: var(--distance-4);
+  }
+  .chip {
+    padding: 0 var(--distance-5);
+  }
+}

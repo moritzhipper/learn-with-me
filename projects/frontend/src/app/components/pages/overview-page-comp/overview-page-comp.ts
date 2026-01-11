@@ -9,9 +9,9 @@ import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
-import { CollectionInteractComp } from './collection-interact-comp/collection-interact-comp'
 import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
-import { FilterFormComp, LearnablesFilterFormType } from './filter-form-comp/filter-form-comp'
+import { FilterAction, FilterComp } from './filter-comp/filter-comp'
+import { LearnablesFilterFormType } from './filter-form-comp/filter-form-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 import { OverviewPageFacade } from './overview-page-facade'
 
@@ -28,12 +28,11 @@ import { OverviewPageFacade } from './overview-page-facade'
     ReactiveFormsModule,
     LearnableComp,
     IconComp,
-    FilterFormComp,
     FormsModule,
     EditBubblesComp,
-    CollectionInteractComp,
     PageHeaderComp,
-    PageIconComp
+    PageIconComp,
+    FilterComp
   ],
   host: { class: 'page wide' }
 })
@@ -110,18 +109,26 @@ export class OverviewComp {
     }
   })
 
+  async handleFilterAction(action: FilterAction) {
+    const collection = this.selectedCollection()
+    if (!collection) return
+
+    if (action === 'edit') {
+      await this._facade.openRenameCollectionModal(collection)
+    } else if (action === 'share') {
+      await this._facade.openShareCollectionModal(this.bank(), collection.id)
+    } else if (action === 'download') {
+      this._facade.downloadCollection(collection.id)
+    } else if (action === 'delete') {
+      await this._facade.openDeleteCollectionModal(collection)
+    }
+  }
+
   readonly collectionIsEmpty = computed(() => this._collectionLearnables().length === 0)
 
   readonly userHasCards = computed(() => this._lStore.learnables().length !== 0)
 
   // View event handlers - delegate to facade
-
-  downloadCollection() {
-    const collection = this.selectedCollection()
-    if (!collection) return
-
-    this._facade.downloadCollection(collection.id)
-  }
 
   async addNew() {
     const cardsAdded = await this._facade.openAddLearnablesModal(
@@ -193,26 +200,5 @@ export class OverviewComp {
   async deleteSelection() {
     await this._facade.confirmAndDeleteLearnables(this.selectedLearnableIds())
     this.selectedLearnableIds.set([])
-  }
-
-  async renameCollection() {
-    const collection = this.selectedCollection()
-    if (!collection) return
-
-    await this._facade.openRenameCollectionModal(collection)
-  }
-
-  async deleteCollection() {
-    const collection = this.selectedCollection()
-    if (!collection) return
-
-    await this._facade.openDeleteCollectionModal(collection)
-  }
-
-  async shareCollection() {
-    const collectionId = this.selectedCollection()?.id
-    if (!collectionId) return
-
-    await this._facade.openShareCollectionModal(this.bank(), collectionId)
   }
 }
