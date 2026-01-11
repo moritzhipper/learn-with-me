@@ -10,34 +10,45 @@
     </select>
     <app-icon-comp type="chevron" [size]="30" />
   </div>
-  <div class="collections">
-    @for (coll of collections(); track coll.item.id) {
-      <button
-        (click)="selectedCollectionId.set(coll.item.id)"
-        class="small fly-in-x-wide"
-        [style.animationDelay.s]="coll.animDelay"
-      >
-        {{ coll.item.name }}
-      </button>
-    }
-  </div>
-  <button class="small icon-only filter">
-    <app-icon-comp type="filter" class="icon" [size]="20" />
-  </button>
+  @for (coll of collections(); track coll.item.id) {
+    <button
+      (click)="selectedCollectionId.set(coll.item.id)"
+      class="small fly-in-x-wide"
+      [style.animationDelay.s]="coll.animDelay"
+    >
+      {{ coll.item.name }}
+    </button>
+  }
 } @else {
-  <button (click)="selectedCollectionId.set(null)" class="small icon-only interact">
-    <app-icon-comp class="icon" type="close" [size]="30" />
+  <button (click)="selectedCollectionId.set(null)" class="small icon-only close">
+    <app-icon-comp class="icon" type="close" [size]="28" />
   </button>
-  <button class="small icon-only chip fly-in-x-wide" [style.animationDelay.s]="delays[0]">
+  <button
+    class="small chip fly-in-x-wide"
+    [style.animationDelay.s]="delays[0]"
+    (click)="onAction.emit('edit')"
+  >
     <app-icon-comp type="edit" class="icon" />
   </button>
-  <button class="small icon-only chip fly-in-x-wide" [style.animationDelay.s]="delays[1]">
+  <button
+    class="small chip fly-in-x-wide"
+    [style.animationDelay.s]="delays[1]"
+    (click)="onAction.emit('share')"
+  >
     <app-icon-comp type="share-network" class="icon" />
   </button>
-  <button class="small icon-only chip fly-in-x-wide" [style.animationDelay.s]="delays[2]">
+  <button
+    class="small chip fly-in-x-wide"
+    [style.animationDelay.s]="delays[2]"
+    (click)="onAction.emit('download')"
+  >
     <app-icon-comp type="share" class="icon" />
   </button>
-  <button class="small icon-only chip delete fly-in-x-wide" [style.animationDelay.s]="delays[3]">
+  <button
+    class="small chip delete fly-in-x-wide"
+    [style.animationDelay.s]="delays[3]"
+    (click)="onAction.emit('delete')"
+  >
     <app-icon-comp type="trash" class="icon" />
   </button>
 }

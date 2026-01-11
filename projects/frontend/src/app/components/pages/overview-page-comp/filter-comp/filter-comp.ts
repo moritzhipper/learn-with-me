@@ -1,4 +1,4 @@
-import { Component, input, model, signal } from '@angular/core'
+import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import {
@@ -7,6 +7,8 @@ import {
   StaggerVM
 } from 'projects/frontend/src/app/utils/genaral-utils'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+
+export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
 
 @Component({
   selector: 'app-filter-comp',
@@ -22,5 +24,5 @@ export class FilterComp {
 
   protected readonly delays = createAppearRange(1, 4)
 
-  filterOpen = signal(false)
+  onAction = output<FilterAction>()
 }

@@ -18,24 +18,12 @@
     <app-filter-comp
       [collections]="collections()"
       [(selectedCollectionId)]="selectedCollectionId"
+      (onAction)="handleFilterAction($event)"
     />
-
-    <!-- <app-collection-interact-comp
-      [(selectedCollectionId)]="selectedCollectionId"
-      [selectableCollections]="collections()"
-      (download)="downloadCollection()"
-      (edit)="renameCollection()"
-      (delete)="deleteCollection()"
-      (share)="shareCollection()"
-    /> -->
   }
   @if (collectionIsEmpty()) {
     <p>collection is empty</p>
   } @else {
-    <!-- <app-filter-form-comp
-      (filter)="updateFilter($event)"
-      (selectVisible)="addVisibleToSelection()"
-    /> -->
     <div class="learnables">
       @for (learnable of visibleLearnables(); track learnable.id) {
         <button

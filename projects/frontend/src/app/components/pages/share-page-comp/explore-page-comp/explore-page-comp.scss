@@ -9,6 +9,8 @@ h2.language {
 }
 .params-config {
   display: flex;
+  gap: var(--distance-4);
+
   .change {
     padding: var(--distance-2) var(--distance-2) var(--distance-2) var(--distance-3);
   }
@@ -36,7 +38,6 @@ h2.language {
 @include isPhone() {
   .params-config {
     display: flex;
-    gap: var(--distance-4);
     margin-bottom: var(--distance-4);
     grid-template-columns: 1fr auto;
 
@@ -48,7 +49,6 @@ h2.language {
 @include isDesktop() {
   .params-config {
     display: flex;
-    gap: var(--distance-2);
     margin-bottom: var(--distance-2);
 
     .change {

@@ -1,7 +1,12 @@
+@use '../../../../../style/mixins.scss' as *;
+
 :host {
   display: flex;
-  gap: var(--distance-3);
+  gap: var(--distance-4);
   margin-bottom: var(--distance-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: var(--distance-1);
 }
 
 button.small {
@@ -9,9 +14,16 @@ button.small {
 }
 
 .pseudo-select,
+.close {
+  position: sticky;
+  left: 0;
+  backdrop-filter: blur(20px);
+  z-index: 2;
+}
+
+.pseudo-select,
 select,
-button.icon-only,
-button.chip {
+button.icon-only {
   display: grid;
   place-items: center;
   width: 32px;
@@ -23,26 +35,12 @@ button.chip {
 // collection selected
 
 .chip {
-  flex: 0 1 80px;
+  display: grid;
+  place-items: center;
   background-color: var(--col-accent);
   &.delete {
     background-color: var(--col-warning);
   }
-}
-
-// no collection selected
-.collections {
-  display: flex;
-  flex: 1;
-  overflow-x: auto;
-  scrollbar-width: none;
-  gap: var(--distance-3);
-  border-radius: var(--radius-1);
-  margin-right: var(--distance-1);
-}
-
-button.icon-only.filter {
-  margin-left: auto;
 }
 
 .pseudo-select {
@@ -62,5 +60,22 @@ button.icon-only.filter {
     padding: 0;
     color: transparent;
     background-color: transparent;
+  }
+}
+
+@include isPhone() {
+  :host {
+    margin: calc(-1 * var(--distance-4));
+    margin-bottom: 0;
+    padding: var(--distance-4);
+  }
+  .chip {
+    flex: 1;
+  }
+}
+
+@include isDesktop() {
+  .chip {
+    padding: 0 var(--distance-5);
   }
 }

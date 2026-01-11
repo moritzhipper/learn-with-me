@@ -4,15 +4,12 @@
   <app-radio-comp
     class="fly-in-y-0 full"
     formControlName="deletionType"
-    label="keep or remove cards?"
     [config]="[
       { value: 'dissolve', label: 'keep cards' },
       { value: 'remove', label: 'remove cards' }
     ]"
   />
 
-  <button type="button" class="big fly-in-y-1" (click)="cancel()">
-    cancel
-  </button>
+  <button type="button" class="big fly-in-y-1" (click)="cancel()">cancel</button>
   <button type="submit" class="fly-in-y-2">confirm</button>
 </form>
