@@ -1,49 +1,49 @@
 <app-page-icon-comp type="share-network-fill" />
 <app-page-header-comp title="Community"> </app-page-header-comp>
 
-<div class="preview-section fly-in-y-wide">
-  <h2 class="first user">Your recent shares</h2>
-  <div class="collections user">
-    @for (bank of userBanks; track bank.name) {
-      <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
-    }
-  </div>
-</div>
-
 @for (section of previewBanks(); track section.item.title) {
   <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
-    <a class="header silent" routerLink="/community/explore" [queryParams]="section.item.params">
-      <h2>{{ section.item.title }}</h2>
-      <app-icon-comp type="chevron" [size]="24" />
-    </a>
-    <div class="collections community">
-      @for (bank of section.item.banks; track bank.id) {
-        <app-shared-bank-comp
-          class="stacked-shadow"
-          [bank]="bank"
-          (copyId)="copyLink(bank)"
-          (importBank)="importBank(bank)"
-          [isCommunityBank]="true"
-        />
-      }
-      <a
-        class="silent see-more stacked-shadow"
-        routerLink="/community/explore"
-        [queryParams]="section.item.params"
-      >
-        <span> explore more </span>
-        <app-icon-comp type="chevron" size="auto" />
+    @if (section.item.type === 'community') {
+      <a class="header silent" routerLink="/community/explore" [queryParams]="section.item.params">
+        <h2>{{ section.item.title }}</h2>
+        <app-icon-comp type="chevron" [size]="24" />
       </a>
-    </div>
+      <div class="collections community">
+        @for (bank of section.item.banks; track bank.id) {
+          <app-shared-bank-comp
+            class="stacked-shadow"
+            [bank]="bank"
+            (copyId)="copyLink(bank)"
+            (importBank)="importBank(bank)"
+            [isCommunityBank]="true"
+          />
+        }
+        <a
+          class="silent see-more stacked-shadow"
+          routerLink="/community/explore"
+          [queryParams]="section.item.params"
+        >
+          <span> explore more </span>
+          <app-icon-comp type="chevron" size="auto" />
+        </a>
+      </div>
+    } @else {
+      <h2 class="first user">Your recent shares</h2>
+      <div class="collections user">
+        @for (bank of section.item.banks; track bank.id) {
+          <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
+        }
+      </div>
+    }
   </div>
-} @empty {}
+}
 
 <div class="state-indicator">
   @switch (fetchState()) {
     @case ('loading') {
       <app-loading-spinner class="fly-in-y-wide" />
     }
-    @case ('all-loaded') {
+    @case ('no-data') {
       <p class="fly-in-y-wide">
         As soon as you or other users start sharing banks, they will appear here.
       </p>

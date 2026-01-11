@@ -1,6 +1,7 @@
 export const API_ROUTES = {
   BANKS: {
     ROOT: '/banks',
-    SHARE: '/banks/share'
+    SHARE: '/banks/share',
+    USER: '/banks/user'
   }
 }

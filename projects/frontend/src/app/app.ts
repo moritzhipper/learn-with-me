@@ -1,19 +1,18 @@
-import {
-  Component,
-  computed,
-  DOCUMENT,
-  effect,
-  HostListener,
-  inject,
-  untracked
-} from '@angular/core'
-import { toSignal } from '@angular/core/rxjs-interop'
-import { ActivatedRoute, Params, RouterOutlet } from '@angular/router'
+import { Component, computed, DOCUMENT, HostListener, inject } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { ActivatedRoute, RouterOutlet } from '@angular/router'
+import { tapResponse } from '@ngrx/operators'
+import { BankShareViaDB } from '@shared/types'
+import { filter, map, switchMap } from 'rxjs'
 import z from 'zod'
+import { config } from '../config'
 import { ModalWrapperComp } from './components/shared/forms/modal-wrapper-comp/modal-wrapper-comp'
 import { NavbarNewComp } from './components/shared/navbar-new-comp/navbar-new-comp'
 import { OnboardingComp } from './components/shared/onboarding-comp/onboarding-comp'
 import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-outlet-comp'
+import { ApiService } from './services/api-service'
+import { ModalService } from './services/modal-service'
+import { ToastService } from './services/toast-service'
 import { LearnablesStore } from './store/learnablesStore'
 
 type PageConfig = {
@@ -36,12 +35,29 @@ const DEFAULT_PAGE_CONFIG: PageConfig = {
 })
 export class App {
   private route = inject(ActivatedRoute)
-  private queryParams = toSignal(this.route.queryParams)
+
   private readonly _lStore = inject(LearnablesStore)
+  private readonly apiS = inject(ApiService)
+  private readonly modalService = inject(ModalService)
+  private readonly toastS = inject(ToastService)
 
   protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
 
   private document = inject(DOCUMENT)
+
+  private params = this.route.queryParams.pipe(
+    takeUntilDestroyed(),
+    map((params) => params[config.bankIDParamName]),
+    filter((id) => z.uuid().safeParse(id).success),
+    switchMap((id) =>
+      this.apiS.getBankByID(id).pipe(
+        tapResponse({
+          next: this.resolveBankSuccess.bind(this),
+          error: this.resolveBankError.bind(this)
+        })
+      )
+    )
+  )
 
   @HostListener('window:resize')
   onResize() {
@@ -54,31 +70,25 @@ export class App {
   }
 
   constructor() {
-    // Log URL parameter 'id' whenever it changes
-    effect(() => {
-      const params = this.queryParams()
-
-      if (!params) return
-
-      untracked(() => {
-        this.resolveIdFromUrl(params)
-      })
-    })
-
+    this.params.subscribe()
     setTimeout(() => this.setBodyHeight(), 1000)
-  }
-
-  private resolveIdFromUrl(params: Params) {
-    const id = params['id'] as string
-    const parsedIdResult = z.uuid().safeParse(id)
-    if (!parsedIdResult.success) return
-
-    // todo: try to fetch shared bank with id from db here
-
-    alert('implement')
   }
 
   setBodyHeight() {
     this.document.body.style.setProperty('--app-height', `${window.innerHeight}px`)
+  }
+
+  async resolveBankSuccess(bank: BankShareViaDB) {
+    const answer = await this.modalService.open('bank-import', { bank })
+    if (answer.type !== 'confirm') return
+    this._lStore.importBankExport(bank)
+  }
+
+  resolveBankError() {
+    this.toastS.showToast({
+      header: 'Error',
+      message: 'The shared bank could not be found',
+      type: 'error'
+    })
   }
 }

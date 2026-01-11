@@ -38,5 +38,9 @@
     app-icon-comp {
       grid-area: 1 /1;
     }
+
+    &.trash {
+      background-color: var(--col-warning);
+    }
   }
 }

@@ -79,9 +79,7 @@ export class SettingsComp {
   }
 
   async shareBank(bank: BankUser) {
-    const result = await this._modalService.open('bank-share', { bank })
-    // put shared bank into shared banks storage
-    // got to share page to copy the link
+    const result = await this._sharedBankS.shareBank(bank)
   }
 
   async deleteBank(id: string) {

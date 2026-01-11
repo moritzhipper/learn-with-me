@@ -2,44 +2,39 @@
 
 ## Right Now
 
-- add PSQL DB: https://dev.to/vladimirvovk/fastify-api-with-postgres-and-drizzle-orm-a7j
-  -> add seeding script to packag json for testing and local dev
-- read env file using zod
-  -> read db config
-  -> read backend url and port
-- create tables having columns
-  - id UUID PKEY, speaking STRING, learning STRING, hits LONG, created DATE, banks JSONB (having collections and cards)
-- connect db in handler methods
+- make cards filter on overview look likeshared filter (way better)
 
-### Add API Routes returning []
+## Idea
 
-### Connect DB
-
-- fetch entries on api call
+- style everything like real cards
+- wide page: cards
+- mid page: a4 sheet
+- header: small note
+- light: desk
+- dark: desk with light cards
 
 ## shared
 
-- increase download only for userid
-- prevent users from resharing same unchanged bank
-- setup CI
-- buy domain lol
+- increase download only for userid?
 - add matches endpoint, returning existing matches
   - use existing matches as recommendations on shared page (bottom) and explore page select match popover
 
 ## Backend
 
+- add ratelimiting?
 - add inbetween layer to backend
   - maps adds baseLanguage to banks (byrisch -> german)
   - allows better matching and recommendation system
-- make bank request languages optional -> return for all languages for left out language
 - add build prod for backend -> new tsc without sorucemaps and optimization and stuff
 - use some cheap openai model to srip shared banks from obscene language and stuff
-- move routes to shared folder
-- remove schemas folder from frontend, clean up tyoes folder in forntend
 
 ## Frontend
 
-- use stagger animation for explore pages to also apply to the loading indicator animation
+- make header always 33vh high, center content withou y padding -> put always leftest
+- add state indicator component:
+  - handles loading, no-data, error, etc
+- add state: no shared db and no in database response
+- check if i can live without the height hack but with overscroll css˜
 - add states to explore pages:
   - api works, but no categories filled
   - api absent -> backend absent :(

@@ -1,12 +1,4 @@
-import {
-  Component,
-  computed,
-  HostListener,
-  inject,
-  input,
-  signal
-} from '@angular/core'
-import { config } from '../../../../../config'
+import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
 import { LearnablesStore } from '../../../../store/learnablesStore'
 import { Guess, Practice } from '../../../../types_and_schemas/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
@@ -20,12 +12,7 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
 
 @Component({
   selector: 'app-active-practice-comp',
-  imports: [
-    PracticeStatsBarComp,
-    PracticeCardComp,
-    PracticeSummaryCard,
-    IconComp
-  ],
+  imports: [PracticeStatsBarComp, PracticeCardComp, PracticeSummaryCard, IconComp],
   templateUrl: './active-practice-comp.html',
   styleUrls: ['./active-practice-comp.scss', './card-animations.scss'],
   host: {
@@ -35,9 +22,7 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
   }
 })
 export class ActivePracticeComp {
-  @HostListener('window:keydown', ['$event']) handleKeyDown(
-    event: KeyboardEvent
-  ) {
+  @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
     if (this.cardState() === 'hidden' && event.key === 'ArrowUp') {
       this.reveal()
     } else if (this.cardState() === 'revealed') {
@@ -66,10 +51,7 @@ export class ActivePracticeComp {
   currentPractice = input.required<Practice>()
 
   cardViewModel = computed<CardViewModel[]>(() =>
-    getCardsViewModel(
-      this.currentPractice(),
-      this._lStore.activeBank().learnables
-    )
+    getCardsViewModel(this.currentPractice(), this._lStore.activeBank().learnables)
   )
 
   stateClasses = computed(() => {
@@ -122,11 +104,6 @@ export class ActivePracticeComp {
     } else if (focusedState === 'editing') {
       this.cardState.set('revealed')
     }
-  }
-
-  private getRandomExp(isHappy: boolean): string {
-    if (isHappy) return this.getRandomElementFromArray(config.happyExpressions)
-    return this.getRandomElementFromArray(config.sadExpressions)
   }
 
   private getRandomElementFromArray(arr: string[]): string {

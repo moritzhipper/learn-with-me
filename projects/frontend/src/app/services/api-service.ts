@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { API_ROUTES } from '@shared/api-routes'
-import { BankShareBase, BankShareViaDB, BanksRequest } from '@shared/types'
+import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
 import { lastValueFrom, Observable, take } from 'rxjs'
 
 @Injectable({
@@ -12,17 +12,25 @@ export class ApiService {
 
   private readonly _client = inject(HttpClient)
 
-  getBanks(conf: BanksRequest): Observable<BankShareViaDB[]> {
+  getCommunityBanks(conf: BanksRequest): Observable<BankShareViaDB[]> {
     return this._client.get<BankShareViaDB[]>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}`, {
       params: conf
     })
   }
 
-  async shareBank(bankExport: Omit<BankShareBase, 'expires'>, ttlMinutes: number) {
-    const response = this._client.post<BankShareBase>(`${this.BASE_URL}${API_ROUTES.BANKS.SHARE}`, {
-      bankExport,
-      ttlMinutes
-    })
+  getUserBanks() {
+    return this._client.get<BankShareViaDB[]>(`${this.BASE_URL}${API_ROUTES.BANKS.USER}`)
+  }
+
+  getBankByID(id: string): Observable<BankShareViaDB> {
+    return this._client.get<BankShareViaDB>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}/${id}`)
+  }
+
+  async shareBank(shareConfig: BankShareRequest): Promise<ObjectWithId> {
+    const response = this._client.post<ObjectWithId>(
+      `${this.BASE_URL}${API_ROUTES.BANKS.SHARE}`,
+      shareConfig
+    )
 
     return this._toPromise(response)
   }

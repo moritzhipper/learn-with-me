@@ -40,12 +40,9 @@ export class MagicAddComp extends BaseModalDirective {
     try {
       this.isConverting.set(true)
       const baseLearnables = await this._aiS.createLearnablesFromString(creationConf)
-      console.log(baseLearnables)
-
       this.confirm(baseLearnables)
     } catch (error) {
       this.isConverting.set(false)
-
       const message = error instanceof Error ? error.message : 'Unknown error'
       this.toastService.showToast({
         message,

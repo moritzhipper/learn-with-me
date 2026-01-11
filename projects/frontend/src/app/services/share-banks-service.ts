@@ -1,11 +1,12 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
-import { BankShareBase, BankShareViaDB, BankUser } from '@shared/types'
+import { BankShareBase, BankShareConfig, BankUser } from '@shared/types'
 import { config } from '../../config'
 import {
   mapBankToShareable,
   parseFileImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
+import { ApiService } from './api-service'
 import { ModalService } from './modal-service'
 import { ToastService } from './toast-service'
 
@@ -15,6 +16,7 @@ import { ToastService } from './toast-service'
 export class ShareBanksService {
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
+  private apiService = inject(ApiService)
   private _blobUrl = ''
   private readonly document = inject(DOCUMENT)
 
@@ -71,19 +73,41 @@ export class ShareBanksService {
     })
   }
 
-  async copyLinkToClipboard({ id, name }: BankShareViaDB): Promise<void> {
+  async copyLinkToClipboard(bankId: string, bankName: string): Promise<void> {
     try {
       const url = new URL(this.document.location.origin)
-      url.searchParams.set('id', id)
+      url.searchParams.set(config.bankIDParamName, bankId)
 
       await navigator.clipboard.writeText(url.toString())
       this.toastService.showToast({
-        header: name,
+        header: bankName,
         message: `Link copied to clipboard`,
         type: 'info'
       })
     } catch {
       this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+    }
+  }
+
+  async shareBank(bank: BankUser, onlyForCollectionIds?: string[]): Promise<void> {
+    const result = await this.modalService.open<BankShareConfig>('bank-share', { bank })
+    if (result.type !== 'confirm') return
+    const mappedBank = mapBankToShareable(bank, onlyForCollectionIds)
+
+    try {
+      const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })
+      this.toastService.showToast({
+        header: 'Success',
+        message: `Check Community page to see.`,
+        type: 'info'
+      })
+      await this.copyLinkToClipboard(response.id, bank.name)
+    } catch {
+      this.toastService.showToast({
+        header: 'Error',
+        message: 'Failed to share bank.',
+        type: 'error'
+      })
     }
   }
 }

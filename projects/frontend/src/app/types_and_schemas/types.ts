@@ -33,6 +33,7 @@ export type Guessable = {
 export type SettingsStoreType = {
   apiKey: string
   tokensUsed: number
+  userID: string
 }
 
 type Optional<T> = { [K in keyof T]?: T[K] | null }
@@ -50,8 +51,7 @@ export type LearnablesFilterConfig = Optional<{
 export type AppConfig = {
   fileExportName: string
   fileExportSuffix: string
-  happyExpressions: string[]
-  sadExpressions: string[]
+  bankIDParamName: string
 }
 
 export type BankShareResponse = {
@@ -61,4 +61,4 @@ export type BankShareResponse = {
 
 export type ExplorePageCategoryConfig = LanguageConfigRequest & BankRequestConfig
 
-export type ApiFetchState = 'loading' | 'idle' | 'error' | 'all-loaded'
+export type ApiFetchState = 'loading' | 'idle' | 'error' | 'all-loaded' | 'no-data'

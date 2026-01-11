@@ -1,12 +1,8 @@
 import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { BankUser } from '@shared/types'
+import { BankShareConfig, BankUser } from '@shared/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
-
-export type ShareFormResponse = {
-  ttlMinutes: number
-}
 
 @Component({
   selector: 'app-share-form-comp',
@@ -16,8 +12,9 @@ export type ShareFormResponse = {
 })
 export class ShareFormComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)
-  form = this._fb.group<ShareFormResponse>({
-    ttlMinutes: 5
+  form = this._fb.group<BankShareConfig>({
+    ttlMinutes: 5,
+    isCommunityBank: true
   })
 
   bank = input.required<BankUser>()
