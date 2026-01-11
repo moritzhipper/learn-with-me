@@ -1,6 +1,6 @@
 :host {
   display: flex;
-  gap: var(--distance-4);
+  gap: var(--distance-3);
   margin-bottom: var(--distance-4);
 }
 
@@ -36,8 +36,9 @@ button.chip {
   flex: 1;
   overflow-x: auto;
   scrollbar-width: none;
-  gap: var(--distance-4);
+  gap: var(--distance-3);
   border-radius: var(--radius-1);
+  margin-right: var(--distance-1);
 }
 
 button.icon-only.filter {

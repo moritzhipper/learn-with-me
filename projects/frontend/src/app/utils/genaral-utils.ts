@@ -58,7 +58,7 @@ export const createAppearRange = (
 ): number[] => {
   const range: number[] = []
   for (let i = start; i <= end; i++) {
-    range.push(lerpListAppear(i - start, end - start + 1, timeSpread))
+    range.push(lerpListAppear(i, end, timeSpread))
   }
   return range
 }
