@@ -11,6 +11,7 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { CollectionInteractComp } from './collection-interact-comp/collection-interact-comp'
 import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
+import { FilterComp } from './filter-comp/filter-comp'
 import { FilterFormComp, LearnablesFilterFormType } from './filter-form-comp/filter-form-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 import { OverviewPageFacade } from './overview-page-facade'
@@ -33,7 +34,8 @@ import { OverviewPageFacade } from './overview-page-facade'
     EditBubblesComp,
     CollectionInteractComp,
     PageHeaderComp,
-    PageIconComp
+    PageIconComp,
+    FilterComp
   ],
   host: { class: 'page wide' }
 })

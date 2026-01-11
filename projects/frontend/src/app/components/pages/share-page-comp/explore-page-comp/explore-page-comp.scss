@@ -10,13 +10,7 @@ h2.language {
 .params-config {
   display: flex;
   .change {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--distance-2);
     padding: var(--distance-2) var(--distance-2) var(--distance-2) var(--distance-3);
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-    border-radius: var(--radius-1);
   }
 }
 

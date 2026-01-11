@@ -15,22 +15,27 @@
 </app-page-header-comp>
 @if (userHasCards()) {
   @if (collections().length !== 0) {
-    <app-collection-interact-comp
+    <app-filter-comp
+      [collections]="collections()"
+      [(selectedCollectionId)]="selectedCollectionId"
+    />
+
+    <!-- <app-collection-interact-comp
       [(selectedCollectionId)]="selectedCollectionId"
       [selectableCollections]="collections()"
       (download)="downloadCollection()"
       (edit)="renameCollection()"
       (delete)="deleteCollection()"
       (share)="shareCollection()"
-    />
+    /> -->
   }
   @if (collectionIsEmpty()) {
     <p>collection is empty</p>
   } @else {
-    <app-filter-form-comp
+    <!-- <app-filter-form-comp
       (filter)="updateFilter($event)"
       (selectVisible)="addVisibleToSelection()"
-    />
+    /> -->
     <div class="learnables">
       @for (learnable of visibleLearnables(); track learnable.id) {
         <button

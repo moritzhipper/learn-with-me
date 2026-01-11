@@ -106,10 +106,21 @@
   animation: fly-in-y-wide var(--duration-2) var(--soft-ease) both;
 }
 
+.fly-in-x-wide {
+  animation: fly-in-x-wide var(--duration-2) var(--overshot) both;
+}
+
 @keyframes fly-in-y-wide {
   from {
     opacity: 0;
     translate: 0 100px;
+  }
+}
+
+@keyframes fly-in-x-wide {
+  from {
+    opacity: 0;
+    translate: -20px;
   }
 }
 
