@@ -1,10 +1,19 @@
 import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
 
-import { and, desc, eq, gt, ilike, isNull, or } from 'drizzle-orm'
+import { and, desc, eq, gt, ilike, InferSelectModel, isNull, or } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
 import { db } from '../db/db'
-import { banks } from '../db/schema'
+import { banks, downloadCounts } from '../db/schema'
 import { BankFromDatabase } from '../types'
+
+// 1. Define the type for the relation
+type BankRow = InferSelectModel<typeof banks>
+type DownloadCountRow = InferSelectModel<typeof downloadCounts>
+
+// 2. Create a composite type that matches the output of your "with" query
+type BankWithRelations = BankRow & {
+  downloadCounts: DownloadCountRow[]
+}
 
 export const fetchBanks = async (
   req: FastifyRequest<{ Querystring: BanksRequest }>
@@ -24,26 +33,11 @@ export const fetchBanks = async (
     offset: req.query.offset || 0
   })
 
-  // add filter and sort by  category and language here
-  // map tp BankShare type
-
-  return result.map((row) => ({
-    id: row.id,
-    downloads: row.downloadCounts.length,
-    createdAt: row.created_at,
-    expires: row.expires,
-    isCommunityBank: row.is_community_bank,
-    language: {
-      speaking: row.speaking,
-      learning: row.learning
-    },
-    name: row.name,
-    ...row.bank_json
-  }))
+  return result.map(mapResultToBankShareViaDB)
 }
 
 export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaDB[]> => {
-  const test = await db.query.banks.findMany({
+  const result = await db.query.banks.findMany({
     where: and(
       eq(banks.user_id, req.userID),
       or(gt(banks.expires, new Date()), isNull(banks.expires))
@@ -54,19 +48,7 @@ export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaD
     orderBy: desc(banks.created_at)
   })
 
-  return test.map((row) => ({
-    id: row.id,
-    createdAt: row.created_at,
-    expires: row.expires,
-    isCommunityBank: row.is_community_bank,
-    downloads: row.downloadCounts.length,
-    language: {
-      speaking: row.speaking,
-      learning: row.learning
-    },
-    name: row.name,
-    ...row.bank_json
-  }))
+  return result.map(mapResultToBankShareViaDB)
 }
 
 export const fetchBankById = async (
@@ -81,19 +63,7 @@ export const fetchBankById = async (
 
   if (!result) return null
 
-  return {
-    id: result.id,
-    createdAt: result.created_at,
-    expires: result.expires,
-    isCommunityBank: result.is_community_bank,
-    language: {
-      speaking: result.speaking,
-      learning: result.learning
-    },
-    name: result.name,
-    downloads: result.downloadCounts.length,
-    ...result.bank_json
-  }
+  return mapResultToBankShareViaDB(result)
 }
 
 export const shareBank = async (
@@ -136,3 +106,17 @@ export const shareBank = async (
 
   return row
 }
+
+const mapResultToBankShareViaDB = (row: BankWithRelations): BankShareViaDB => ({
+  id: row.id,
+  createdAt: row.created_at,
+  expires: row.expires,
+  isCommunityBank: row.is_community_bank,
+  downloads: row.downloadCounts.length,
+  language: {
+    speaking: row.speaking,
+    learning: row.learning
+  },
+  name: row.name,
+  ...row.bank_json
+})
