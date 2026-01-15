@@ -11,18 +11,12 @@
       label="types"
     />
   </div>
-  <button class="big cancel fly-in-y-1" type="button" (click)="cancel()">
-    cancel
-  </button>
-  <button
-    type="submit"
-    class="icon fly-in-y-2"
-    [disabled]="!convertForm.valid || isConverting()"
-  >
+  <button class="big cancel fly-in-y-1" type="button" (click)="cancel()">Cancel</button>
+  <button type="submit" class="icon fly-in-y-2" [disabled]="!convertForm.valid || isConverting()">
     @if (isConverting()) {
-      <span>converting...</span>
+      <span>Converting...</span>
     } @else {
-      <span>convert</span>
+      <span>Convert</span>
     }
     <app-icon-comp type="magic" />
   </button>

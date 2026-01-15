@@ -1,5 +1,5 @@
 <app-page-icon-comp type="share-network-fill" />
-<app-page-header-comp title="Community"> </app-page-header-comp>
+<app-page-header-comp title="Community" />
 
 @for (section of previewBanks(); track section.item.title) {
   <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
@@ -53,7 +53,7 @@
         <p class="error">
           <strong> error loading previews </strong>
         </p>
-        <button class="big" (click)="fetchBankPreviews()">retry</button>
+        <button class="big" (click)="fetchBankPreviews()">Retry</button>
       </div>
     }
   }

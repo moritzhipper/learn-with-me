@@ -4,20 +4,12 @@
 
 <form [formGroup]="form" (ngSubmit)="start()">
   <app-radio-comp
-    [config]="[
-      { label: 'all', value: null },
-      { value: 'word' },
-      { value: 'phrase' }
-    ]"
+    [config]="[{ label: 'all', value: null }, { value: 'word' }, { value: 'phrase' }]"
     formControlName="type"
     label="type"
   />
   <app-radio-comp
-    [config]="[
-      { value: null, label: 'all' },
-      { value: 'low' },
-      { value: 'medium' }
-    ]"
+    [config]="[{ value: null, label: 'all' }, { value: 'low' }, { value: 'medium' }]"
     formControlName="confidence"
     label="max confidence"
   />
@@ -40,11 +32,5 @@
       }
     </select>
   </label>
-  <button
-    type="submit"
-    class="icon"
-    [disabled]="selectedLearnableIds().length === 0"
-  >
-    start
-  </button>
+  <button type="submit" class="icon" [disabled]="selectedLearnableIds().length === 0">Start</button>
 </form>

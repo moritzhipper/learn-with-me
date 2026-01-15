@@ -20,14 +20,12 @@
       (click)="resetCollectionSelection()"
     />
   </label>
-  <button class="big fly-in-y-1" type="button" (click)="cancel()">
-    cancel
-  </button>
+  <button class="big fly-in-y-1" type="button" (click)="cancel()">Cancel</button>
   <button
     type="submit"
     [disabled]="!form.value.createName && !form.value.addToId"
     class="fly-in-y-2"
   >
-    confirm
+    Confirm
   </button>
 </form>

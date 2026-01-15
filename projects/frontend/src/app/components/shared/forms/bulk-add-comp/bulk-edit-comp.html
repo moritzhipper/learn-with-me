@@ -1,10 +1,6 @@
 <form [formGroup]="learnablesForm" (ngSubmit)="confirmForm()" class="modal">
   <div formArrayName="learnables" class="learnables fly-in-y-0">
-    @for (
-      learnable of learnablesFormArray.controls;
-      track learnable.value;
-      let i = $index
-    ) {
+    @for (learnable of learnablesFormArray.controls; track learnable.value; let i = $index) {
       <div class="learnable" [formGroupName]="i">
         <app-radio-comp
           id="type-{{ i }}"
@@ -42,8 +38,7 @@
       </div>
     } @empty {
       <div class="empty">
-        press the plus button to add one or select one in the overview and then
-        open this to edit
+        press the plus button to add one or select one in the overview and then open this to edit
       </div>
     }
   </div>
@@ -63,22 +58,19 @@
       [disabled]="!learnablesForm.valid"
       class="add big fly-in-y-3"
     >
-      add
+      Add
       <app-icon-comp type="add" [size]="20" />
     </button>
-    <button type="button" class="cancel big fly-in-y-1" (click)="cancel()">
-      cancel
-    </button>
+    <button type="button" class="cancel big fly-in-y-1" (click)="cancel()">Cancel</button>
     <button
       type="submit"
       class="submit fly-in-y-2"
       [disabled]="
         !learnablesForm.valid ||
-        (learnablesFormArray.controls.length === 0 &&
-          deletedLIDs().length === 0)
+        (learnablesFormArray.controls.length === 0 && deletedLIDs().length === 0)
       "
     >
-      submit
+      Submit
     </button>
   </div>
 </form>

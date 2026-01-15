@@ -7,21 +7,13 @@
       </label>
 
       <app-radio-comp
-        [config]="[
-          { value: null, label: 'all' },
-          { value: 'word' },
-          { value: 'phrase' }
-        ]"
+        [config]="[{ value: null, label: 'all' }, { value: 'word' }, { value: 'phrase' }]"
         formControlName="type"
         label="type"
       />
       <app-radio-comp
         class="confidence"
-        [config]="[
-          { value: null, label: 'all' },
-          { value: 'low' },
-          { value: 'medium' }
-        ]"
+        [config]="[{ value: null, label: 'all' }, { value: 'low' }, { value: 'medium' }]"
         formControlName="confidence"
         label="max confidence"
       />
@@ -37,11 +29,7 @@
       />
 
       <app-radio-comp
-        [config]="[
-          { value: 'created' },
-          { value: 'lexeme' },
-          { value: 'confidence' }
-        ]"
+        [config]="[{ value: 'created' }, { value: 'lexeme' }, { value: 'confidence' }]"
         formControlName="orderBy"
         label="order by"
       />
@@ -62,17 +50,10 @@
     }
     <span>filter</span>
 
-    <app-icon-comp
-      type="chevron"
-      [size]="30"
-      class="icon chevron"
-      [class.rotated]="showFilter()"
-    />
+    <app-icon-comp type="chevron" [size]="30" class="icon chevron" [class.rotated]="showFilter()" />
   </button>
   @if (!isInitialValue()) {
-    <button class="silent reset" (click)="reset()">reset filter</button>
-    <button class="silent select" (click)="onSelectVisible()">
-      select visible
-    </button>
+    <button class="silent reset" (click)="reset()">Reset filter</button>
+    <button class="silent select" (click)="onSelectVisible()">Select visible</button>
   }
 </div>
