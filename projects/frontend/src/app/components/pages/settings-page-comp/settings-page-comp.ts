@@ -101,7 +101,7 @@ export class SettingsComp {
   }
 
   downloadBank(bank: BankUser) {
-    this._sharedBankS.downloadBank(bank)
+    this._sharedBankS.exportBank(bank)
   }
 
   protected updateKey(event: Event) {

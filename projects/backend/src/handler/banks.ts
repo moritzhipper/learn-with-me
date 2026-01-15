@@ -66,6 +66,22 @@ export const fetchBankById = async (
   return mapResultToBankShareViaDB(result)
 }
 
+export const increaseDownloadCount = async (
+  req: FastifyRequest<{ Params: { id: string } }>
+): Promise<void> => {
+  // fail silently
+  try {
+    await db.insert(downloadCounts).values({
+      bank_id: req.params.id,
+      user_id: req.userID
+    })
+  } catch (e) {
+    req.log.error(e)
+  } finally {
+    return
+  }
+}
+
 export const shareBank = async (
   req: FastifyRequest<{ Body: BankShareRequest }>
 ): Promise<ObjectWithId> => {

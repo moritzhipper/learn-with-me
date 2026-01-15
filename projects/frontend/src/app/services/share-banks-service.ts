@@ -1,6 +1,7 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
-import { BankShareBase, BankShareConfig, BankUser } from '@shared/types'
+import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
+import { LearnablesStore } from '../store/learnablesStore'
 import {
   mapBankToShareable,
   parseFileImportString,
@@ -17,11 +18,12 @@ export class ShareBanksService {
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
   private apiService = inject(ApiService)
+  private store = inject(LearnablesStore)
   private _blobUrl = ''
   private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  downloadBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
+  exportBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
     const bankExport = mapBankToShareable(bank, onlyForCollectionIds)
 
     URL.revokeObjectURL(this._blobUrl)
@@ -46,7 +48,7 @@ export class ShareBanksService {
     anchor.remove()
   }
 
-  async readFile(file: File): Promise<BankShareBase> {
+  private async readFile(file: File): Promise<BankShareBase> {
     // Verify file validity first
     verifiyImportedFileValidity(file)
 
@@ -106,6 +108,36 @@ export class ShareBanksService {
       this.toastService.showToast({
         header: 'Error',
         message: 'Failed to share bank.',
+        type: 'error'
+      })
+    }
+  }
+
+  async importOnlineBank(bank: BankShareViaDB): Promise<void> {
+    const result = await this.modalService.open('bank-import', {
+      bank
+    })
+
+    if (result.type !== 'confirm') return
+    // dont await
+    this.apiService.increaseBankDownloadCount(bank.id)
+
+    this.store.importBankExport(bank)
+  }
+
+  async importBankFromFile(file: File): Promise<void> {
+    try {
+      const importedBank = await this.readFile(file)
+      const result = await this.modalService.open('bank-import', {
+        bank: importedBank
+      })
+
+      if (result.type !== 'confirm') return
+      this.store.importBankExport(importedBank)
+    } catch (error) {
+      this.toastService.showToast({
+        header: 'Error',
+        message: (error as Error).message || 'Failed to import bank from file',
         type: 'error'
       })
     }
