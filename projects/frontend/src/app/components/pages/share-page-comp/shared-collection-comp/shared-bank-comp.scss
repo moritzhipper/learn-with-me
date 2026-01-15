@@ -20,9 +20,11 @@
     gap: var(--distance-4);
     font-size: var(--font-size-2);
     font-weight: var(--font-weight-bold);
-    line-height: var(--font-size-2);
 
     .name {
+      translate: 0 -2px;
+
+      line-height: var(--line-height-2);
       margin-right: auto;
     }
   }

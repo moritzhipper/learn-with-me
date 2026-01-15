@@ -1,7 +1,8 @@
 @use './../../../../style/mixins.scss' as *;
 
 :host {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   max-width: 100%;
   box-sizing: border-box;
   transform-origin: top left;
@@ -42,7 +43,8 @@
   :host {
     width: 100%;
     place-items: center;
-    margin: var(--distance-7) 0;
+    justify-content: center;
+    height: 30vh;
     text-align: center;
   }
 }
