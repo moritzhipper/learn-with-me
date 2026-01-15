@@ -1,48 +1,35 @@
 import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
 
-import { and, count, desc, eq, gt, ilike, isNull, or } from 'drizzle-orm'
+import { and, desc, eq, gt, ilike, isNull, or } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
 import { db } from '../db/db'
-import { banks, downloadCounts } from '../db/schema'
+import { banks } from '../db/schema'
 import { BankFromDatabase } from '../types'
 
 export const fetchBanks = async (
   req: FastifyRequest<{ Querystring: BanksRequest }>
 ): Promise<BankShareViaDB[]> => {
-  const result = await db
-    .select({
-      id: banks.id,
-      user_id: banks.user_id,
-      name: banks.name,
-      speaking: banks.speaking,
-      learning: banks.learning,
-      created_at: banks.created_at,
-      expires: banks.expires,
-      is_community_bank: banks.is_community_bank,
-      bank_json: banks.bank_json,
-      downloads: count(downloadCounts.bank_id)
-    })
-    .from(banks)
-    .leftJoin(downloadCounts, eq(banks.id, downloadCounts.bank_id))
-    .where(
-      and(
-        eq(banks.is_community_bank, true),
-        or(gt(banks.expires, new Date()), isNull(banks.expires)),
-        req.query.speaking ? ilike(banks.speaking, req.query.speaking) : undefined,
-        req.query.learning ? ilike(banks.learning, req.query.learning) : undefined
-      )
-    )
-    .groupBy(banks.id)
-    .orderBy(desc(banks.created_at))
-    .limit(req.query.limit)
-    .offset(req.query.offset || 0)
+  const result = await db.query.banks.findMany({
+    where: and(
+      eq(banks.is_community_bank, true),
+      or(gt(banks.expires, new Date()), isNull(banks.expires)),
+      req.query.speaking ? ilike(banks.speaking, req.query.speaking) : undefined,
+      req.query.learning ? ilike(banks.learning, req.query.learning) : undefined
+    ),
+    with: {
+      downloadCounts: true
+    },
+    orderBy: desc(banks.created_at),
+    limit: req.query.limit,
+    offset: req.query.offset || 0
+  })
 
   // add filter and sort by  category and language here
   // map tp BankShare type
 
   return result.map((row) => ({
     id: row.id,
-    downloads: row.downloads,
+    downloads: row.downloadCounts.length,
     createdAt: row.created_at,
     expires: row.expires,
     isCommunityBank: row.is_community_bank,
@@ -56,33 +43,23 @@ export const fetchBanks = async (
 }
 
 export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaDB[]> => {
-  const result = await db
-    .select({
-      id: banks.id,
-      user_id: banks.user_id,
-      name: banks.name,
-      speaking: banks.speaking,
-      learning: banks.learning,
-      created_at: banks.created_at,
-      expires: banks.expires,
-      is_community_bank: banks.is_community_bank,
-      bank_json: banks.bank_json,
-      downloads: count(downloadCounts.bank_id)
-    })
-    .from(banks)
-    .leftJoin(downloadCounts, eq(banks.id, downloadCounts.bank_id))
-    .where(
-      and(eq(banks.user_id, req.userID), or(gt(banks.expires, new Date()), isNull(banks.expires)))
-    )
-    .groupBy(banks.id)
-    .orderBy(desc(banks.created_at))
+  const test = await db.query.banks.findMany({
+    where: and(
+      eq(banks.user_id, req.userID),
+      or(gt(banks.expires, new Date()), isNull(banks.expires))
+    ),
+    with: {
+      downloadCounts: true
+    },
+    orderBy: desc(banks.created_at)
+  })
 
-  return result.map((row) => ({
+  return test.map((row) => ({
     id: row.id,
     createdAt: row.created_at,
     expires: row.expires,
     isCommunityBank: row.is_community_bank,
-    downloads: row.downloads,
+    downloads: row.downloadCounts.length,
     language: {
       speaking: row.speaking,
       learning: row.learning
@@ -95,40 +72,27 @@ export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaD
 export const fetchBankById = async (
   req: FastifyRequest<{ Params: { id: string } }>
 ): Promise<BankShareViaDB | null> => {
-  const result = await db
-    .select({
-      id: banks.id,
-      user_id: banks.user_id,
-      name: banks.name,
-      speaking: banks.speaking,
-      learning: banks.learning,
-      created_at: banks.created_at,
-      expires: banks.expires,
-      is_community_bank: banks.is_community_bank,
-      bank_json: banks.bank_json,
-      downloads: count(downloadCounts.bank_id)
-    })
-    .from(banks)
-    .leftJoin(downloadCounts, eq(banks.id, downloadCounts.bank_id))
-    .where(eq(banks.id, req.params.id))
-    .groupBy(banks.id)
-    .limit(1)
+  const result = await db.query.banks.findFirst({
+    where: eq(banks.id, req.params.id),
+    with: {
+      downloadCounts: true
+    }
+  })
 
-  const row = result[0]
-  if (!row) return null
+  if (!result) return null
 
   return {
-    id: row.id,
-    createdAt: row.created_at,
-    expires: row.expires,
-    isCommunityBank: row.is_community_bank,
+    id: result.id,
+    createdAt: result.created_at,
+    expires: result.expires,
+    isCommunityBank: result.is_community_bank,
     language: {
-      speaking: row.speaking,
-      learning: row.learning
+      speaking: result.speaking,
+      learning: result.learning
     },
-    name: row.name,
-    downloads: row.downloads,
-    ...row.bank_json
+    name: result.name,
+    downloads: result.downloadCounts.length,
+    ...result.bank_json
   }
 }
 

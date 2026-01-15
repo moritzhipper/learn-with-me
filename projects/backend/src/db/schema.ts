@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm'
 import { boolean, jsonb, pgTable, primaryKey, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 import { BankFromDatabase } from '../types'
 
@@ -25,3 +26,14 @@ export const downloadCounts = pgTable(
   },
   (table) => [primaryKey({ columns: [table.bank_id, table.user_id] })]
 )
+
+export const banksRelations = relations(banks, ({ many }) => ({
+  downloadCounts: many(downloadCounts)
+}))
+
+export const downloads = relations(downloadCounts, ({ one }) => ({
+  bank: one(banks, {
+    fields: [downloadCounts.bank_id],
+    references: [banks.id]
+  })
+}))
