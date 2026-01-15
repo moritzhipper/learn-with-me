@@ -17,8 +17,10 @@
   padding: var(--distance-1) var(--distance-4);
   scrollbar-width: none;
   box-sizing: border-box;
-  app-bank-settings-card {
-    min-width: 320px;
+  app-bank-settings-card,
+  .add-bank {
+    min-width: 370px;
+    min-height: 200px;
   }
 }
 
@@ -43,26 +45,32 @@ app-bank-settings-card {
 .add-bank {
   box-sizing: border-box;
   position: relative;
-  display: flex;
+  display: grid;
+  place-items: center;
   align-items: center;
   justify-content: center;
   gap: var(--distance-2);
   padding: 0 var(--distance-6);
   overflow: clip;
-  min-width: 200px;
   font-size: var(--font-size-1);
+
+  span,
+  app-icon-comp {
+    grid-area: 1 / 1;
+  }
 
   span {
     font-weight: bold;
     white-space: nowrap;
-    translate: -20px;
+    translate: -30px;
   }
 
   app-icon-comp {
+    translate: 50px;
     position: absolute;
-    width: 150px;
-    height: 150px;
-    right: -40px;
+
+    width: 300px;
+    height: 300px;
     opacity: var(--opacity-0);
   }
 }

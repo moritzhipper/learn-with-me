@@ -5,8 +5,7 @@
   You created <strong>{{ stats().banks }} </strong> holding
   <strong>{{ stats().collections }} </strong> having a total of
   <strong>{{ stats().learnables }}</strong
-  >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating
-  cards.
+  >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
 </div>
 <div class="banks">
   @for (bank of banks(); track bank.id) {
@@ -21,7 +20,7 @@
     />
   }
   <button class="add-bank" (click)="createNewBank()">
-    <span>add bank</span>
+    <span>Add Bank</span>
     <app-icon-comp type="add" size="auto" />
   </button>
 </div>
