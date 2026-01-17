@@ -2,7 +2,7 @@
 
 ## Right Now
 
-- make header always 33vh high, center content withou y padding -> put always leftest
+- fix center thing styles for practice and hello
 - add 'create fixtures' script
 
 ## Idea
