@@ -22,10 +22,13 @@
 
 @include isDesktop() {
   :host {
-    place-self: center;
-
+    justify-self: center;
+    align-self: start;
+    margin-top: 10vh;
+    min-height: 500px;
     .counter {
       translate: -60px;
+      align-self: end;
       .count {
         font-size: 150px;
         line-height: 150px;
@@ -49,7 +52,7 @@
 
         &:hover:not([disabled]),
         &:focus-visible:not([disabled]) {
-          transform: scale(1.1) rotate(-1deg);
+          transform: scale(1.05) rotate(-0.5deg);
           box-shadow: var(--shadow-big);
         }
       }
