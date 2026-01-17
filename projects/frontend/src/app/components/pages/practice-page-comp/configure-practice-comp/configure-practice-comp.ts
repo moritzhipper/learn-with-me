@@ -5,7 +5,6 @@ import { LearnablesStore } from '../../../../store/learnablesStore'
 import { LearnablesFilterConfig } from '../../../../types_and_schemas/types'
 import { calculateAverageConfidencePercent } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
-import { CounterComp } from '../../../shared/counter-comp/counter-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
 type SelectOption = {
@@ -16,7 +15,7 @@ type SelectOption = {
 
 @Component({
   selector: 'app-configure-practice-comp',
-  imports: [CounterComp, RadioComp, ReactiveFormsModule],
+  imports: [RadioComp, ReactiveFormsModule],
   templateUrl: './configure-practice-comp.html',
   styleUrl: './configure-practice-comp.scss'
 })
@@ -55,9 +54,7 @@ export class ConfigurePracticeComp {
     )
     if (!collection) return filteredLearnables.map((l) => l.id)
 
-    return filteredLearnables
-      .filter((l) => collection.cardIds.includes(l.id))
-      .map((l) => l.id)
+    return filteredLearnables.filter((l) => collection.cardIds.includes(l.id)).map((l) => l.id)
   })
 
   start() {
@@ -85,9 +82,7 @@ export class ConfigurePracticeComp {
   })
 
   calculateAverageConfidence(learnableIds: string[]): number {
-    const learnables = this._lStore
-      .learnables()
-      .filter((l) => learnableIds.includes(l.id))
+    const learnables = this._lStore.learnables().filter((l) => learnableIds.includes(l.id))
 
     return calculateAverageConfidencePercent(learnables)
   }
