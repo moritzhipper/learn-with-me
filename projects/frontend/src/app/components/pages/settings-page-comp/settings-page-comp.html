@@ -7,6 +7,7 @@
   <strong>{{ stats().learnables }}</strong
   >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
 </div>
+<h2>Banks</h2>
 <div class="banks">
   @for (bank of banks(); track bank.id) {
     <app-bank-settings-card
@@ -24,11 +25,23 @@
     <app-icon-comp type="add" size="auto" />
   </button>
 </div>
+<h2>Application Settings</h2>
+<div class="items">
+  <app-settings-item-comp header="AI Provider">
+    <p class="description">
+      Add your OpenAI API key here to use AI based features such as automatic creation of
+      learnables.
+    </p>
+    <label class="input">
+      <span> OpenAI API-key </span>
+      <input type="password" [value]="apiKey()" (input)="updateKey($event)" />
+    </label>
+  </app-settings-item-comp>
 
-<div class="data-interact">
-  <label>
-    <span> OpenAI API-key </span>
-    <input type="password" [value]="apiKey()" (input)="updateKey($event)" />
-  </label>
-  <button class="primary big delete" (click)="reset()">Reset all data</button>
+  <app-settings-item-comp header="Reset">
+    <p class="description">
+      Delete all of your data from this device. Data you shared with the community will remain.
+    </p>
+    <button class="primary big delete input" (click)="reset()">Reset all data</button>
+  </app-settings-item-comp>
 </div>

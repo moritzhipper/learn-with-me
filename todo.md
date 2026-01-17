@@ -31,6 +31,9 @@
 
 ## Frontend
 
+- unify styles for:
+  - h2 on explore and settings
+  - tutorial and practice config
 - use stlyes.scss button:has icon everywhere
 - remove height hack?
 - add state indicator component:
