@@ -21,12 +21,12 @@
 </div>
 
 <button class="small delete" (click)="delete.emit()">delete</button>
-<button class="small download" (click)="download.emit()">download</button>
-<button class="small edit" (click)="edit.emit()">edit</button>
+<button class="small download" (click)="download.emit()">Download</button>
+<button class="small edit" (click)="edit.emit()">Edit</button>
 <button class="small activate" [class.active]="isActive()" (click)="setActive.emit()">
   @if (isActive()) {
-    this bank is active
+    This Bank is active
   } @else {
-    set as active
+    Set as active
   }
 </button>

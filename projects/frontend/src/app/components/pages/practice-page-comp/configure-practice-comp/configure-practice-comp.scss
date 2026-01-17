@@ -2,34 +2,79 @@
 
 :host {
   display: grid;
-  grid-template-rows: 1fr auto;
   gap: var(--distance-4);
+  grid-template-rows: 1fr auto;
 
-  app-counter-comp {
-    place-self: center;
-    margin: var(--distance-5) 0;
+  .counter {
+    .count {
+      font-weight: var(--font-weight-bold);
+    }
   }
 
   form {
     display: grid;
     gap: var(--distance-4);
-    align-self: end;
     button {
       transition: all var(--duration-1) var(--soft-ease);
-      margin-top: var(--distance-4);
     }
   }
 }
 
 @include isDesktop() {
   :host {
-    place-self: center;
-    width: 400px;
+    justify-self: center;
+    align-self: start;
+    margin-top: 10vh;
+    min-height: 500px;
+    .counter {
+      translate: -60px;
+      align-self: end;
+      .count {
+        font-size: 150px;
+        line-height: 150px;
+        display: inline-block;
+        margin-right: var(--distance-5);
+      }
 
-    button:hover:not([disabled]),
-    button:focus-visible:not([disabled]) {
-      transform: scale(1.1) rotate(1deg);
-      box-shadow: var(--shadow-big);
+      .label {
+        font-size: var(--font-size-4);
+        opacity: var(--opacity-1);
+      }
     }
+
+    form {
+      width: 700px;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: end;
+
+      button {
+        grid-column: span 2;
+
+        &:hover:not([disabled]),
+        &:focus-visible:not([disabled]) {
+          transform: scale(1.05) rotate(-0.5deg);
+          box-shadow: var(--shadow-big);
+        }
+      }
+    }
+  }
+}
+
+@include isPhone() {
+  .counter {
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .count {
+      font-size: 100px;
+    }
+    .label {
+      font-size: var(--font-size-3);
+      opacity: var(--opacity-1);
+    }
+  }
+  button {
+    margin-top: var(--distance-4);
   }
 }

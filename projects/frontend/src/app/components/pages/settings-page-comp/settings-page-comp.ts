@@ -11,10 +11,18 @@ import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { BankSettingsComp } from './bank-settings-comp/bank-settings-comp'
+import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
 
 @Component({
   selector: 'app-settings.comp',
-  imports: [ReactiveFormsModule, BankSettingsComp, IconComp, PageHeaderComp, PageIconComp],
+  imports: [
+    ReactiveFormsModule,
+    BankSettingsComp,
+    IconComp,
+    PageHeaderComp,
+    PageIconComp,
+    SettingsItemComp
+  ],
   templateUrl: './settings-page-comp.html',
   styleUrl: './settings-page-comp.scss',
   host: { class: 'page mid' }
@@ -101,7 +109,7 @@ export class SettingsComp {
   }
 
   downloadBank(bank: BankUser) {
-    this._sharedBankS.downloadBank(bank)
+    this._sharedBankS.exportBank(bank)
   }
 
   protected updateKey(event: Event) {

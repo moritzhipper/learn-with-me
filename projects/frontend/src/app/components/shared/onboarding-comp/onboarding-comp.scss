@@ -64,6 +64,10 @@ p {
   display: grid;
 }
 
+.first-icon-delay {
+  animation-delay: 0.7s;
+}
+
 input {
   border: 2px solid var(--col-accent);
   background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
@@ -101,7 +105,7 @@ input {
       display: flex;
       flex-direction: column;
       justify-content: end;
-      width: 600px;
+      width: 700px;
       height: 500px;
 
       .icon-big {

@@ -128,7 +128,7 @@ export class OverviewPageFacade {
   }
 
   downloadCollection(collectionId: string) {
-    this.shareBanksS.downloadBank(this.store.activeBank(), [collectionId])
+    this.shareBanksS.exportBank(this.store.activeBank(), [collectionId])
   }
 
   // ─────────────────────────────────────────────────────────────────────────────

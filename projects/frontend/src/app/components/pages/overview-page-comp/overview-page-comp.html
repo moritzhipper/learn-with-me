@@ -10,7 +10,7 @@
 />
 
 <app-page-icon-comp type="card" />
-<app-page-header-comp [title]="selectedCollection()?.name || 'All Cards'">
+<app-page-header-comp [title]="selectedCollection()?.name || 'All Cards'" icon="card">
   <app-collection-info-comp [config]="headerConfig()" />
 </app-page-header-comp>
 @if (userHasCards()) {

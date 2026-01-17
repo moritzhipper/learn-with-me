@@ -1,36 +1,31 @@
-<app-counter-comp label="cards in set" size="l">
-  {{ selectedLearnableIds().length }}
-</app-counter-comp>
+<div class="counter">
+  <span class="count">
+    {{ selectedLearnableIds().length }}
+  </span>
+  <span class="label">cards in set</span>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="start()">
   <app-radio-comp
-    [config]="[
-      { label: 'all', value: null },
-      { value: 'word' },
-      { value: 'phrase' }
-    ]"
+    [config]="[{ label: 'all', value: null }, { value: 'word' }, { value: 'phrase' }]"
     formControlName="type"
-    label="type"
+    label="Type"
   />
   <app-radio-comp
-    [config]="[
-      { value: null, label: 'all' },
-      { value: 'low' },
-      { value: 'medium' }
-    ]"
+    [config]="[{ value: null, label: 'all' }, { value: 'low' }, { value: 'medium' }]"
     formControlName="confidence"
-    label="max confidence"
+    label="Confidence"
   />
   <app-radio-comp
     [config]="[
       { value: false, label: bank().language.speaking },
       { value: true, label: bank().language.learning }
     ]"
-    label="guess language"
+    label="Guess Language"
     formControlName="reverseDirection"
   />
-  <label>
-    <span> collection </span>
+  <label class="collection">
+    <span> Collection </span>
     <select formControlName="collectionIdentifier">
       @for (option of selectOptions(); track option) {
         <option [ngValue]="option.id">
@@ -40,11 +35,7 @@
       }
     </select>
   </label>
-  <button
-    type="submit"
-    class="icon"
-    [disabled]="selectedLearnableIds().length === 0"
-  >
-    start
+  <button type="submit" class="icon" [disabled]="selectedLearnableIds().length === 0">
+    Start Practice
   </button>
 </form>

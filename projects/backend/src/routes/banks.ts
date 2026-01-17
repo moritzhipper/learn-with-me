@@ -7,7 +7,12 @@ import {
 } from '@shared/schemas'
 import { FastifyPluginAsync } from 'fastify'
 import { z } from 'zod'
-import { fetchBankById, fetchBanks as fetchSharedBanks, shareBank } from '../handler/banks'
+import {
+  fetchBankById,
+  fetchBanks as fetchSharedBanks,
+  increaseDownloadCount,
+  shareBank
+} from '../handler/banks'
 
 const options = {}
 
@@ -45,6 +50,18 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       }
     },
     handler: fetchSharedBanks
+  })
+
+  fastify.route({
+    method: 'POST',
+    url: `${API_ROUTES.BANKS.SHARE}/:id`,
+    schema: {
+      params: ObjectWithIdSchema,
+      response: {
+        200: z.void()
+      }
+    },
+    handler: increaseDownloadCount
   })
 
   fastify.route({

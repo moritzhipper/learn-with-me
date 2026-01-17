@@ -1,10 +1,16 @@
 @use './../../../../style/mixins.scss' as *;
 
 :host {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 250px;
+
   max-width: 100%;
   box-sizing: border-box;
   transform-origin: top left;
+
+  // accomondates for page-padding
   padding-bottom: var(--distance-4);
 
   h1 {
@@ -42,14 +48,12 @@
   :host {
     width: 100%;
     place-items: center;
-    margin: var(--distance-7) 0;
     text-align: center;
   }
 }
 
 @include isDesktop() {
   :host {
-    margin: var(--distance-7) 0 var(--distance-6) 0;
     white-space: nowrap;
     transform: rotate(-6deg);
   }

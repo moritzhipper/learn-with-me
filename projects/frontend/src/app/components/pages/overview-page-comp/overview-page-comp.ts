@@ -34,7 +34,7 @@ import { OverviewPageFacade } from './overview-page-facade'
     PageIconComp,
     FilterComp
   ],
-  host: { class: 'page wide' }
+  host: { class: 'page mid' }
 })
 export class OverviewComp {
   private readonly _lStore = inject(LearnablesStore)

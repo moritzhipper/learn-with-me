@@ -26,6 +26,19 @@ export class ApiService {
     return this._client.get<BankShareViaDB>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}/${id}`)
   }
 
+  async increaseBankDownloadCount(id: string): Promise<void> {
+    const response = this._client.post<void>(`${this.BASE_URL}${API_ROUTES.BANKS.SHARE}/${id}`, {})
+
+    // dont await, but wrap in promise
+    try {
+      await this._toPromise(response)
+    } catch (e) {
+      console.error('Failed to increase bank download count', e)
+    }
+
+    return
+  }
+
   async shareBank(shareConfig: BankShareRequest): Promise<ObjectWithId> {
     const response = this._client.post<ObjectWithId>(
       `${this.BASE_URL}${API_ROUTES.BANKS.SHARE}`,

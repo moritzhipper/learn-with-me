@@ -163,12 +163,7 @@ export class ExplorePageComp {
   }
 
   protected async importBank(bank: BankShareViaDB) {
-    const result = await this._modalService.open<BankShareViaDB>('bank-import', {
-      bank
-    })
-
-    if (result.type !== 'confirm') return
-    this.lStore.importBankExport(result.value)
+    await this.shareBanksS.importOnlineBank(bank)
   }
 
   async changeLanguageMatch() {

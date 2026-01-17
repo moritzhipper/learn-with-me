@@ -2,7 +2,7 @@
 
 ## Right Now
 
-- make header always 33vh high, center content withou y padding -> put always leftest
+- fix center thing styles for practice and hello
 - add 'create fixtures' script
 
 ## Idea
@@ -31,6 +31,9 @@
 
 ## Frontend
 
+- unify styles for:
+  - h2 on explore and settings
+  - tutorial and practice config
 - use stlyes.scss button:has icon everywhere
 - remove height hack?
 - add state indicator component:

@@ -19,6 +19,10 @@
         {{ language().speaking }}
       </span>
     </div>
+    <a routerLink="cards" class="entry big" routerLinkActive="active">
+      <app-icon-comp type="card" />
+      <span>Cards</span>
+    </a>
     <a class="entry big practice" routerLink="practice" routerLinkActive="active">
       <app-icon-comp type="learn" />
       <span>
@@ -28,10 +32,7 @@
         }
       </span>
     </a>
-    <a routerLink="cards" class="entry big" routerLinkActive="active">
-      <app-icon-comp type="card" />
-      <span>Cards</span>
-    </a>
+
     <a routerLink="community" class="entry big share" routerLinkActive="active">
       <app-icon-comp type="share-network-fill" />
       <span>Community</span>

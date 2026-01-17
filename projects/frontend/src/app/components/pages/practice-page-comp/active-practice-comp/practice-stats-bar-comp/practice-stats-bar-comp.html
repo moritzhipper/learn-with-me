@@ -11,18 +11,16 @@
   <div class="stats" animate.enter="enter" animate.leave="leave">
     <div class="wrapper">
       @if (!isFinished()) {
-        <button class="big quit" (click)="quit.emit()">quit</button>
+        <button class="big quit" (click)="quit.emit()">Quit</button>
         <button class="big edit" (click)="edit.emit()">
           @if (cardState() !== 'editing') {
-            edit notes
+            Edit notes
           } @else {
-            finish editing
+            Finish editing
           }
         </button>
       } @else {
-        <button class="big finalize wide" (click)="quit.emit()">
-          finalize
-        </button>
+        <button class="big finalize wide" (click)="quit.emit()">Finalize</button>
       }
     </div>
   </div>

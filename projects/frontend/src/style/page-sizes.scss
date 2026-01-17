@@ -12,13 +12,10 @@
   @include mixins.isDesktop() {
     padding: var(--distance-5);
 
-    &.mid,
-    &.wide {
-      width: 100%;
+    &.mid {
       align-self: start;
       justify-self: center;
-    }
-    &.mid {
+      width: 100%;
       max-width: var(--max-width);
     }
     &.full {

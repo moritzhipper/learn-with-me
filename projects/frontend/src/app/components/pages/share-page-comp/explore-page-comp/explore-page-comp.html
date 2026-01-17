@@ -1,5 +1,5 @@
 <app-page-icon-comp type="compass" />
-<app-page-header-comp title="Explore" backLink="/community" backLinkText="community">
+<app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
   <h2 class="language">
     <div class="speaking ellipsis">{{ params().speaking ?? 'All languages' }}</div>
     <app-icon-comp class="icon arrows" type="left-right" [size]="20" />
@@ -9,12 +9,15 @@
 
 <div class="params-config fly-in-y-wide">
   <button class="small change has-icon" (click)="changeLanguageMatch()">
-    <span> change match </span>
+    <span> Change Match </span>
     <app-icon-comp class="icon pen" type="pen" [size]="16" />
   </button>
   <app-radio-comp
     class="category"
-    [config]="[{ value: 'top' }, { value: 'new' }]"
+    [config]="[
+      { value: 'top', label: 'Top' },
+      { value: 'new', label: 'New' }
+    ]"
     [darkMode]="true"
     [ngModel]="params().sortBy"
     (ngModelChange)="updateCategory($event)"
@@ -41,14 +44,14 @@
     }
     @case ('all-loaded') {
       <p class="all-there">
-        <strong> you looked at all of the banks</strong>
+        <strong> You looked at all of the banks</strong>
       </p>
     }
     @case ('error') {
       <p class="error">
-        <strong> error loading items </strong>
+        <strong> Error loading items </strong>
       </p>
-      <button class="big">retry</button>
+      <button class="big">Retry</button>
     }
   }
 </div>

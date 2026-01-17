@@ -96,12 +96,7 @@ export class SharePageComp {
   }
 
   protected async importBank(bank: BankShareViaDB) {
-    const result = await this._modalService.open<BankShareViaDB>('bank-import', {
-      bank
-    })
-
-    if (result.type !== 'confirm') return
-    this._lStore.importBankExport(result.value)
+    await this._shareBanksS.importOnlineBank(bank)
   }
 
   private getFetchBankPreviesObs(): Observable<BankShareViaDB[][]> {
