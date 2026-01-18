@@ -4,7 +4,11 @@
 @for (section of previewBanks(); track section.item.title) {
   <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
     @if (section.item.type === 'community') {
-      <a class="header silent" routerLink="/community/explore" [queryParams]="section.item.params">
+      <a
+        class="h2 indent header silent"
+        routerLink="/community/explore"
+        [queryParams]="section.item.params"
+      >
         <h2>{{ section.item.title }}</h2>
         <app-icon-comp type="chevron" [size]="24" />
       </a>
@@ -28,7 +32,7 @@
         </a>
       </div>
     } @else {
-      <h2 class="first user">Your recent shares</h2>
+      <h2 class="first indent">Your recent shares</h2>
       <div class="collections user">
         @for (bank of section.item.banks; track bank.id) {
           <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
@@ -52,7 +56,7 @@
     @case ('error') {
       <div class="error-wrapper fly-in-y-wide">
         <p class="error">
-          <strong> error loading previews </strong>
+          <strong> Error loading Previews </strong>
         </p>
         <button class="big" (click)="fetchBankPreviews()">Retry</button>
       </div>

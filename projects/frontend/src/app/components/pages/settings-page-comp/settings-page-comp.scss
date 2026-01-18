@@ -62,10 +62,6 @@ p {
   background-color: var(--col-warning);
 }
 
-h2 {
-  margin: var(--distance-6) 0 var(--distance-3) var(--distance-3);
-}
-
 .items {
   display: grid;
   grid-template-columns: var(--grid-auto-columns-wide);

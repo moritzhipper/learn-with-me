@@ -2,9 +2,6 @@
 
 ## Right Now
 
-- fix center thing styles for practice and hello
-- add 'create fixtures' script
-
 ## Idea
 
 - style everything like real cards
@@ -16,7 +13,6 @@
 
 ## shared
 
-- increase download only for userid?
 - add matches endpoint, returning existing matches
   - use existing matches as recommendations on shared page (bottom) and explore page select match popover
 
@@ -32,12 +28,16 @@
 
 ## Frontend
 
+- handle import when other language is selected
+  - create new bank, when this match does not exist, show toast
+  - add to bank, when existing, but not selected -> toast
+  - add tp active bank, when existing and active
 - unify styles for:
   - h2 on explore and settings
   - tutorial and practice config
-- use stlyes.scss button:has icon everywhere
+- show in which collections card is in form
 - remove height hack?
-- add state indicator component:
+- add state indicator component?
   - handles loading, no-data, error, etc
 - add state: no shared db and no in database response
 - check if i can live without the height hack but with overscroll css˜
