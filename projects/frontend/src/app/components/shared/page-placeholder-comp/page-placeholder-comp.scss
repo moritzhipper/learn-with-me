@@ -1,1 +1,16 @@
+@use '../../../../style/mixins' as *;
 
+@include isPhone {
+}
+
+@include isDesktop {
+  :host {
+    display: flex;
+    justify-content: center;
+
+    .wrapper {
+      margin-top: 5vh;
+      width: var(--medium-width);
+    }
+  }
+}

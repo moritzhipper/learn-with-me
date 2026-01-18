@@ -8,6 +8,7 @@
         class="h2 indent header silent"
         routerLink="/community/explore"
         [queryParams]="section.item.params"
+        [class.first]="$index === 0"
       >
         <h2>{{ section.item.title }}</h2>
         <app-icon-comp type="chevron" [size]="24" />
@@ -32,7 +33,7 @@
         </a>
       </div>
     } @else {
-      <h2 class="first indent">Your recent shares</h2>
+      <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
       <div class="collections user">
         @for (bank of section.item.banks; track bank.id) {
           <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
