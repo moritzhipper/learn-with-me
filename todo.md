@@ -2,17 +2,21 @@
 
 ## Right Now
 
-## Idea
+# do before deployment
 
-- style everything like real cards
-- wide page: cards
-- mid page: a4 sheet
-- header: small note
-- light: desk
-- dark: desk with light cards
+- handle import when other language is selected
+  - create new bank, when this match does not exist, show toast
+  - add to bank, when existing, but not selected -> toast
+  - add tp active bank, when existing and active
+- add merge learnables function to mutoators: when a lexeme exists, but the words dont match: update the translation to trans1 / trans2
 
 ## shared
 
+- about page:
+  - short what is lingo lizard
+  - longer: tutorial
+    - usecases (with real live examples)
+    - per page explanations
 - add matches endpoint, returning existing matches
   - use existing matches as recommendations on shared page (bottom) and explore page select match popover
 
@@ -28,40 +32,22 @@
 
 ## Frontend
 
-- handle import when other language is selected
-  - create new bank, when this match does not exist, show toast
-  - add to bank, when existing, but not selected -> toast
-  - add tp active bank, when existing and active
 - unify styles for:
-  - h2 on explore and settings
   - tutorial and practice config
 - show in which collections card is in form
 - remove height hack?
 - add state indicator component?
   - handles loading, no-data, error, etc
-- add state: no shared db and no in database response
 - check if i can live without the height hack but with overscroll css˜
 - remove or reimplement cardsfilter logic in frontend
-- add states to explore pages:
-  - api works, but no categories filled
-  - api absent -> backend absent :(
 - migrate to signal forms, migrate selector thingy to signal input
 - check chrome web manifest warnings -> fix
-- add no cards found when filter doesnt find cards
-- add header to select practice page
 - unify big approvable form layout for: practice selector, bank import -> make it soo it looks like intro comp
-- setup PWA
 - create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template
 - get rid of angular-architects helper
   - remove -f from ci build
 - in overview for every langague in users banks a category
-- move shared-bank outputs to shared service
-- community shares
-  - section trending: all languages
-  - section for you: shares having your language
-  - add see more for each section
-  - show five top per section, then link to new page for more
 
 - show 'wiggle' and info toast every x seconds when user doesnt interact for y seconds,
 - swipes count in stats
@@ -75,7 +61,6 @@
   - collection can have collections
   - collections can be stacked
 
-- add merge learnables function to mutoators: when a lexeme exists, but the words dont match: update the translation to trans1 / trans2
 - refactor bulkEdit mit add altest ids and mark them in overview facede and overview
 
 - deploy via cloudflare pages, worker and upstash redis
@@ -88,7 +73,6 @@ make settinggsstore simple service with update function and effect that writes t
 
 ## Later
 
-- link similar cards (multiple translations)
 - how to handle sharing multiple selection
 - stats page with collections, top and worst, most ppracticed, hardest words, progressgraph
 - enter leave directive
@@ -98,6 +82,15 @@ make settinggsstore simple service with update function and effect that writes t
 - fix openai + zod issue: remove helper function from utils
 - print view
 - implement protected and private corrrectly throughout
+
+## Idea
+
+- style everything like real cards
+- wide page: cards
+- mid page: a4 sheet
+- header: small note
+- light: desk
+- dark: desk with light cards
 
 # sources
 
