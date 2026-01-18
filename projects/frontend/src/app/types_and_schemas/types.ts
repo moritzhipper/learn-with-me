@@ -49,6 +49,8 @@ export type LearnablesFilterConfig = Optional<{
 }>
 
 export type AppConfig = {
+  appNameLong: string
+  appNameShort: string
   fileExportName: string
   fileExportSuffix: string
   bankIDParamName: string

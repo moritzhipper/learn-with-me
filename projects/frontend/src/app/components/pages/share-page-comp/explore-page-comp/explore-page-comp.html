@@ -37,6 +37,14 @@
   }
 </div>
 
+@if (fetchState() === 'no-data') {
+  <app-page-placeholder-comp title="No shared banks available for this match">
+    <p>
+      Your search may be too exotic. Try variations or be the change and create a bank for this!
+    </p>
+  </app-page-placeholder-comp>
+}
+
 <div class="state-indicator fly-in-y-wide">
   @switch (fetchState()) {
     @case ('loading') {

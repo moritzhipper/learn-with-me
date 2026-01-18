@@ -1,18 +1,7 @@
-import {
-  Component,
-  computed,
-  DOCUMENT,
-  HostListener,
-  inject,
-  signal
-} from '@angular/core'
+import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import {
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive
-} from '@angular/router'
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { config } from 'projects/frontend/src/config'
 import { filter } from 'rxjs'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { IconComp } from '../icon-comp/icon-comp'
@@ -25,6 +14,8 @@ import { IconComp } from '../icon-comp/icon-comp'
 })
 export class NavbarNewComp {
   private body = inject(DOCUMENT).body
+
+  appName = config.appNameLong
 
   @HostListener('mouseleave', [])
   onleave() {
@@ -40,9 +31,7 @@ export class NavbarNewComp {
   )
 
   protected readonly lstore = inject(LearnablesStore)
-  protected readonly language = computed(
-    () => this.lstore.activeBank().language
-  )
+  protected readonly language = computed(() => this.lstore.activeBank().language)
   protected readonly isOpen = signal(false)
   protected readonly isOnPracticePage = signal(false)
   protected readonly hasActivePractice = this.lstore.currentPractice

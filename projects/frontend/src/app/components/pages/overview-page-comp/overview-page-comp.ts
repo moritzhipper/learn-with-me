@@ -8,6 +8,7 @@ import { filterLearnables } from '../../../utils/learnables-filter'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
+import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
@@ -32,7 +33,8 @@ import { OverviewPageFacade } from './overview-page-facade'
     EditBubblesComp,
     PageHeaderComp,
     PageIconComp,
-    FilterComp
+    FilterComp,
+    PagePlaceholderComp
   ],
   host: { class: 'page mid' }
 })

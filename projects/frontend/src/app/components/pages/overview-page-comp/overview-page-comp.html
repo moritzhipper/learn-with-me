@@ -51,15 +51,16 @@
     </div>
   }
 } @else {
-  <h2>Add cards to start learning</h2>
-  <p>
-    Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
-    to magically extract them from your notes, articles, single sentences or words you want to
-    learn.
-  </p>
-  <p>
-    Click
-    <app-icon-comp type="pen" [inline]="true" [size]="20" />
-    to create them manually or edit them after creation.
-  </p>
+  <app-page-placeholder-comp title="Add cards to start learning">
+    <p>
+      Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
+      to magically extract them from your notes, articles, single sentences or words you want to
+      learn.
+    </p>
+    <p>
+      Click
+      <app-icon-comp type="pen" [inline]="true" [size]="20" />
+      to create them manually or edit them after creation.
+    </p>
+  </app-page-placeholder-comp>
 }

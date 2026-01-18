@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { config } from 'projects/frontend/src/config'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 
@@ -11,4 +12,6 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
     class: 'page mid'
   }
 })
-export class AboutPageComp {}
+export class AboutPageComp {
+  appName = config.appNameLong
+}

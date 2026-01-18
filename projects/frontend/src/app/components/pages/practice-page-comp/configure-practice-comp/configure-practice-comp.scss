@@ -43,7 +43,7 @@
     }
 
     form {
-      width: 700px;
+      width: var(--medium-width);
       grid-template-columns: 1fr 1fr 1fr;
       align-items: end;
 

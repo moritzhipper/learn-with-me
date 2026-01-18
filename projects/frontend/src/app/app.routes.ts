@@ -10,16 +10,16 @@ export const routes: Routes = [
   {
     component: OverviewComp,
     path: 'cards',
-    title: 'LWM | Cards'
+    title: 'LingoLizard | Cards'
   },
   {
     component: PracticeComp,
     path: 'practice',
-    title: 'LWM | Practice'
+    title: 'lingolizard | Practice'
   },
   {
     path: 'community',
-    title: 'LWM | Community',
+    title: 'lingolizard | Community',
     children: [
       { path: '', component: SharePageComp },
       { path: 'explore', component: ExplorePageComp }
@@ -28,12 +28,12 @@ export const routes: Routes = [
   {
     component: AboutPageComp,
     path: 'about',
-    title: 'LWM | About'
+    title: 'lingolizard | About'
   },
   {
     component: SettingsComp,
     path: 'settings',
-    title: 'LWM | Settings'
+    title: 'lingolizard | Settings'
   },
   {
     path: '**',

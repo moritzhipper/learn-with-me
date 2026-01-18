@@ -16,6 +16,7 @@ import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
+import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
 import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
 type PrefetchSectionProxy =
@@ -35,7 +36,15 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 
 @Component({
   selector: 'app-share-page-comp',
-  imports: [PageHeaderComp, PageIconComp, SharedBankComp, IconComp, RouterLink, LoadingSpinner],
+  imports: [
+    PageHeaderComp,
+    PageIconComp,
+    SharedBankComp,
+    IconComp,
+    RouterLink,
+    LoadingSpinner,
+    PagePlaceholderComp
+  ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss',
   host: {

@@ -38,15 +38,16 @@
   </div>
 }
 
+@if (fetchState() === 'no-data') {
+  <app-page-placeholder-comp title="No shared banks available">
+    <p>As soon as you or other users share banks, they will appear here.</p>
+  </app-page-placeholder-comp>
+}
+
 <div class="state-indicator">
   @switch (fetchState()) {
     @case ('loading') {
       <app-loading-spinner class="fly-in-y-wide" />
-    }
-    @case ('no-data') {
-      <p class="fly-in-y-wide">
-        As soon as you or other users start sharing banks, they will appear here.
-      </p>
     }
     @case ('error') {
       <div class="error-wrapper fly-in-y-wide">

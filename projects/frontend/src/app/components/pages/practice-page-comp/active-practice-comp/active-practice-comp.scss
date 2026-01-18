@@ -60,7 +60,7 @@
       grid-area: 1 / 1;
       place-self: center;
       aspect-ratio: 3 / 2;
-      width: 700px;
+      width: var(--medium-width);
     }
 
     app-practice-stats-bar-comp {

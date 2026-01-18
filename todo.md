@@ -22,6 +22,7 @@
 
 ## Backend
 
+- search in both directions
 - add ratelimiting?
 - add inbetween layer to backend
   - maps adds baseLanguage to banks (byrisch -> german)

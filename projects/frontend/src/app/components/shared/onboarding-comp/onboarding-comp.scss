@@ -105,7 +105,8 @@ input {
       display: flex;
       flex-direction: column;
       justify-content: end;
-      width: 700px;
+      width: var(--medium-width);
+
       height: 500px;
 
       .icon-big {
