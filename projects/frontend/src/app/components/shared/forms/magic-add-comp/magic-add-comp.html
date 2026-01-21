@@ -1,18 +1,51 @@
 <form [formGroup]="convertForm" (ngSubmit)="convert()" class="modal">
   <div class="content fly-in-y-0">
-    <textarea
-      [class.converting]="isConverting()"
-      formControlName="input"
-      placeholder="paste notes, articles or any other text here"
-    ></textarea>
+    @if (imagePreview(); as img) {
+      <div class="image-preview" [class.converting]="isConverting()">
+        <img [src]="img" alt="Preview" />
+      </div>
+      <button
+        type="button"
+        class="small delete"
+        [disabled]="isConverting()"
+        (click)="removeImage()"
+      >
+        Delete Image
+      </button>
+    } @else {
+      <textarea
+        [class.converting]="isConverting()"
+        formControlName="text"
+        placeholder="Paste notes, articles or any other text here"
+      ></textarea>
+      <div class="image-input">
+        <input
+          id="image"
+          type="file"
+          accept="image/*;capture=camera"
+          (change)="onFileChange($event)"
+        />
+        <label for="image">
+          <app-icon-comp type="image" />
+        </label>
+      </div>
+    }
     <app-radio-comp
-      [config]="[{ value: 'words' }, { value: 'phrases' }, { value: 'both' }]"
+      [config]="[
+        { value: 'words', label: 'Words' },
+        { value: 'phrases', label: 'Phrases' },
+        { value: 'both', label: 'Both' }
+      ]"
       formControlName="type"
       label="types"
     />
   </div>
   <button class="big cancel fly-in-y-1" type="button" (click)="cancel()">Cancel</button>
-  <button type="submit" class="icon fly-in-y-2" [disabled]="!convertForm.valid || isConverting()">
+  <button
+    type="submit"
+    class="icon fly-in-y-2"
+    [disabled]="(!convertForm.value.text && !imagePreview()) || isConverting()"
+  >
     @if (isConverting()) {
       <span>Converting...</span>
     } @else {

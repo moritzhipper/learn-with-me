@@ -7,7 +7,7 @@
   <strong>{{ stats().learnables }}</strong
   >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
 </div>
-<h2>Banks</h2>
+<h2 class="indent">Banks</h2>
 <div class="banks">
   @for (bank of banks(); track bank.id) {
     <app-bank-settings-card
@@ -25,7 +25,7 @@
     <app-icon-comp type="add" size="auto" />
   </button>
 </div>
-<h2>Application Settings</h2>
+<h2 class="indent">Application Settings</h2>
 <div class="items">
   <app-settings-item-comp header="AI Provider">
     <p class="description">

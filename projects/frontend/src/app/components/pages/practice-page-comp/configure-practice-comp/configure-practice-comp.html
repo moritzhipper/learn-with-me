@@ -2,17 +2,25 @@
   <span class="count">
     {{ selectedLearnableIds().length }}
   </span>
-  <span class="label">cards in set</span>
+  <span class="label">Cards in Set</span>
 </div>
 
 <form [formGroup]="form" (ngSubmit)="start()">
   <app-radio-comp
-    [config]="[{ label: 'all', value: null }, { value: 'word' }, { value: 'phrase' }]"
+    [config]="[
+      { label: 'All', value: null },
+      { value: 'word', label: 'Word' },
+      { value: 'phrase', label: 'Phrase' }
+    ]"
     formControlName="type"
     label="Type"
   />
   <app-radio-comp
-    [config]="[{ value: null, label: 'all' }, { value: 'low' }, { value: 'medium' }]"
+    [config]="[
+      { value: null, label: 'All' },
+      { value: 'low', label: 'Low' },
+      { value: 'medium', label: 'Medium' }
+    ]"
     formControlName="confidence"
     label="Confidence"
   />

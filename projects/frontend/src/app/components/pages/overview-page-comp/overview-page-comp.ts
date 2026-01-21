@@ -1,8 +1,7 @@
-import { Component, computed, inject, linkedSignal, signal } from '@angular/core'
+import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { LearnablesFilterConfig } from '../../../types_and_schemas/types'
 import { calculateAverageConfidencePercent, removeDuplicates } from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
@@ -12,7 +11,6 @@ import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-pla
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
-import { LearnablesFilterFormType } from './filter-form-comp/filter-form-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 import { OverviewPageFacade } from './overview-page-facade'
 
@@ -46,7 +44,6 @@ export class OverviewComp {
   protected readonly bank = this._lStore.activeBank
   readonly collections = computed(() => this.bank().collections)
   readonly learnables = computed(() => this.bank().learnables)
-  private readonly _filter = signal<LearnablesFilterConfig | null>(null)
 
   readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>({
     source: this.collections,
@@ -84,14 +81,9 @@ export class OverviewComp {
     return this.learnables().filter((l) => collection.cardIds.includes(l.id))
   })
 
-  readonly visibleLearnables = computed(() => {
-    const filter = this._filter()
-    const learnables = this._collectionLearnables()
-
-    if (!filter) return learnables
-
-    return filterLearnables(learnables, filter)
-  })
+  readonly visibleLearnables = computed(() =>
+    filterLearnables(this._collectionLearnables(), { orderBy: 'created' })
+  )
 
   readonly headerConfig = computed(() => {
     const coll = this.selectedCollection()
@@ -137,18 +129,19 @@ export class OverviewComp {
       this.selectedCollection(),
       this.bank().language
     )
-
-    if (cardsAdded) {
-      this.selectNewest()
-    }
+    this.selectNewestIfAdded(cardsAdded)
   }
 
   async bulkEdit() {
-    await this._facade.openBulkEditModal(this.selectedLearnableIds(), this.selectedCollection())
+    const cardsAdded = await this._facade.openBulkEditModal(
+      this.selectedLearnableIds(),
+      this.selectedCollection()
+    )
+    this.selectNewestIfAdded(cardsAdded)
   }
 
-  updateFilter(filter: LearnablesFilterFormType) {
-    this._filter.set(filter)
+  private selectNewestIfAdded(cardsAdded: boolean) {
+    if (cardsAdded) this.selectNewest()
   }
 
   addVisibleToSelection() {

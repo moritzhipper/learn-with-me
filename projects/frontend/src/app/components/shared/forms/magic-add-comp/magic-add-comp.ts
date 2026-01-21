@@ -3,7 +3,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { LanguageConfig } from '@shared/types'
 import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
-import { LearnableCreationConfig } from '../../../../types_and_schemas/types'
+import { BaseLearnableCreationConfig } from '../../../../types_and_schemas/types'
 import { IconComp } from '../../icon-comp/icon-comp'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -22,25 +22,51 @@ export class MagicAddComp extends BaseModalDirective {
   language = input.required<LanguageConfig>()
 
   isConverting = signal(false)
+  imagePreview = signal<string | null>(null)
 
   convertForm = this._fb.group({
-    input: ['', Validators.required],
+    text: ['', Validators.required],
     type: 'words'
   })
 
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      this.imagePreview.set(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+  }
+
   async convert() {
     const formValue = this.convertForm.value
+    const imagePreview = this.imagePreview()
+    const text = formValue.text
+    if (!imagePreview && !text) return
 
     const creationConf = {
-      input: formValue.input,
       type: formValue.type,
       language: this.language()
-    } as LearnableCreationConfig
+    } as BaseLearnableCreationConfig
 
     try {
       this.isConverting.set(true)
-      const baseLearnables = await this._aiS.createLearnablesFromString(creationConf)
-      this.confirm(baseLearnables)
+      if (text) {
+        const baseLearnables = await this._aiS.createLearnablesFromString({
+          ...creationConf,
+          text
+        })
+        this.confirm(baseLearnables)
+      } else if (imagePreview) {
+        const baseLearnables = await this._aiS.createLearnablesFromImage({
+          ...creationConf,
+          image: imagePreview
+        })
+        this.confirm(baseLearnables)
+      }
     } catch (error) {
       this.isConverting.set(false)
       const message = error instanceof Error ? error.message : 'Unknown error'
@@ -51,5 +77,9 @@ export class MagicAddComp extends BaseModalDirective {
 
       console.error('Error creating learnables:', error)
     }
+  }
+
+  removeImage() {
+    this.imagePreview.set(null)
   }
 }

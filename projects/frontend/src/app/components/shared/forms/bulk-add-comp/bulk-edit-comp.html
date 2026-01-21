@@ -5,7 +5,10 @@
         <app-radio-comp
           id="type-{{ i }}"
           formControlName="type"
-          [config]="[{ value: 'word' }, { value: 'phrase' }]"
+          [config]="[
+            { value: 'word', label: 'Word' },
+            { value: 'phrase', label: 'Phrase' }
+          ]"
           label="type"
           class="type-picker"
         />

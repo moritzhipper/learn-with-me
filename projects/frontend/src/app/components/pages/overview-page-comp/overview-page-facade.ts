@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core'
 import { BankUser, CollectionUser, LanguageConfig, LearnableBase } from '@shared/types'
-import { ApiService } from '../../../services/api-service'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -20,7 +19,6 @@ import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collect
 })
 export class OverviewPageFacade {
   private readonly store = inject(LearnablesStore)
-  private readonly apiService = inject(ApiService)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)
   private readonly shareBanksS = inject(ShareBanksService)
@@ -45,19 +43,19 @@ export class OverviewPageFacade {
   async openBulkEditModal(
     selectedLearnableIds: string[],
     selectedCollection: CollectionUser | null
-  ): Promise<void> {
+  ): Promise<boolean> {
     const learnables = this.store.learnables().filter((l) => selectedLearnableIds.includes(l.id))
 
     const result = await this.modalService.open<ConfirmationType>('bulk-edit', {
       learnables
     })
 
-    if (result.type !== 'confirm') return
+    if (result.type !== 'confirm') return false
 
     const { update, deleteIDs, add } = result.value
     this.store.updateLearnables(update)
     this.store.removeLearnables(deleteIDs)
-    this.addLearnablesToStore(add, selectedCollection)
+    return this.addLearnablesToStore(add, selectedCollection)
   }
 
   async confirmAndDeleteLearnables(learnableIds: string[]): Promise<void> {

@@ -1,15 +1,9 @@
 @use '../../../../style/mixins.scss' as *;
 
-h2 {
-  margin: 0 0 0 var(--distance-2);
-}
-
 .header {
   display: flex;
   align-items: center;
   gap: var(--distance-1);
-  margin: var(--distance-6) 0 0 var(--distance-2);
-  padding: 0 var(--distance-1);
 
   h2,
   app-icon-comp {
@@ -102,7 +96,6 @@ a.see-more {
     display: grid;
     grid-template-columns: var(--grid-auto-columns);
     grid-auto-rows: 1fr;
-    padding: var(--distance-3) 0;
   }
 }
 

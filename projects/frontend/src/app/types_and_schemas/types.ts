@@ -17,10 +17,17 @@ export type Practice = {
   reverseDirection: boolean
 }
 
-export type LearnableCreationConfig = {
-  input: string
-  type: 'phrases' | 'words' | 'both'
+export type BaseLearnableCreationConfig = {
   language: LanguageConfig
+  type: 'phrases' | 'words' | 'both'
+}
+
+export type LearnableFromTextConfig = BaseLearnableCreationConfig & {
+  text: string
+}
+
+export type LearnableFromImageConfig = BaseLearnableCreationConfig & {
+  image: string
 }
 
 export type Guess = 'right' | 'wrong' | 'unanswered'

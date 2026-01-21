@@ -38,13 +38,18 @@ h1 {
   margin: 0;
 }
 
-h2 {
+h2,
+.h2 {
   margin: var(--distance-6) 0 var(--distance-4) 0;
   line-height: var(--font-size-3);
   font-size: var(--font-size-2);
 
+  &.indent {
+    margin: var(--distance-6) 0 var(--distance-3) var(--distance-3);
+  }
+
   &.first {
-    margin: 0 0 var(--distance-4) 0;
+    margin-top: 0;
   }
 }
 

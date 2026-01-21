@@ -7,7 +7,7 @@
   </h2>
 </app-page-header-comp>
 
-<div class="params-config fly-in-y-wide">
+<div class="params-config">
   <button class="small change has-icon" (click)="changeLanguageMatch()">
     <span> Change Match </span>
     <app-icon-comp class="icon pen" type="pen" [size]="16" />
@@ -38,10 +38,8 @@
 </div>
 
 @if (fetchState() === 'no-data') {
-  <app-page-placeholder-comp title="No shared banks available for this match">
-    <p>
-      Your search may be too exotic. Try variations or be the change and create a bank for this!
-    </p>
+  <app-page-placeholder-comp title="No shared Banks available for this Match">
+    <p>Your search may be too exotic. Try variations or create and share some banks!</p>
   </app-page-placeholder-comp>
 }
 
@@ -52,12 +50,12 @@
     }
     @case ('all-loaded') {
       <p class="all-there">
-        <strong> You looked at all of the banks</strong>
+        <strong> You looked at all of the Banks</strong>
       </p>
     }
     @case ('error') {
       <p class="error">
-        <strong> Error loading items </strong>
+        <strong> Error loading Previews </strong>
       </p>
       <button class="big">Retry</button>
     }

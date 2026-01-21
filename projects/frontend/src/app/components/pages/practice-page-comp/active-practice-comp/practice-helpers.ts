@@ -35,13 +35,17 @@ export const getCardsViewModel = (practice: Practice, cards: UserLearnable[]): C
 const getVM = (focusIndex: number, cards: UserLearnable[], practice: Practice): CardViewModel[] => {
   const indexes = [-1, 0, 1, 2]
   return indexes.reduce<CardViewModel[]>((vms, relIndex) => {
-    const cardIndex = focusIndex + relIndex
-    if (cardIndex >= 0 && cardIndex < practice.guessables.length) {
-      vms.push({
-        content: cards[cardIndex],
-        viewIndex: relIndex
-      })
-    } else if (cardIndex === practice.guessables.length) {
+    const guessableIndex = focusIndex + relIndex
+    if (guessableIndex >= 0 && guessableIndex < practice.guessables.length) {
+      const guessable = practice.guessables[guessableIndex]
+      const card = cards.find((c) => c.id === guessable.id)
+      if (card) {
+        vms.push({
+          content: card,
+          viewIndex: relIndex
+        })
+      }
+    } else if (guessableIndex === practice.guessables.length) {
       // finished card
       vms.push({ content: createSummary(practice), viewIndex: relIndex })
     }
@@ -63,13 +67,19 @@ const getVMforFinishedEarly = (
 ): CardViewModel[] => {
   // when no guess was done, focusindex can be -1, so ensure at least 0
   const index = Math.max(0, focusIndex)
-  const currentCard = cards[index]
-  const nextCard = cards[index + 1]
 
-  const viewModel: CardViewModel[] = [
-    { content: currentCard, viewIndex: -1 },
-    { content: createSummary(practice), viewIndex: 0 }
-  ]
+  const currentGuessable = practice.guessables[index]
+  const currentCard = cards.find((c) => c.id === currentGuessable.id)
+
+  const nextGuessable = practice.guessables[index + 1]
+  const nextCard = cards.find((c) => c.id === nextGuessable?.id)
+
+  const viewModel: CardViewModel[] = []
+
+  if (currentCard) {
+    viewModel.push({ content: currentCard, viewIndex: -1 })
+  }
+  viewModel.push({ content: createSummary(practice), viewIndex: 0 })
 
   // when practice was started with only one card, there is no next card to put away
   if (!nextCard) return viewModel

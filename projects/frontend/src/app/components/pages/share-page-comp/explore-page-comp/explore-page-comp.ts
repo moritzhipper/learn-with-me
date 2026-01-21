@@ -134,7 +134,7 @@ export class ExplorePageComp {
     this.updateParams({ sortBy: category })
   }
 
-  // setze page auf 0, leere visiblebanks,
+  // set page to 0, empty visiblebanks
   updateParams(p: Partial<ExplorePageCategoryConfig>) {
     this.PAGE_OFFSET = 0
     this.fetchState.set('idle')

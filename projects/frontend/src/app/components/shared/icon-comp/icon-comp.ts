@@ -37,6 +37,7 @@ export type IconType =
   | 'compass'
   | 'filter'
   | 'close'
+  | 'image'
 
 @Component({
   selector: 'app-icon-comp',

@@ -10,7 +10,8 @@ form {
     grid-column: span 2;
   }
 
-  textarea.converting {
+  textarea.converting,
+  .image-preview.converting {
     background: linear-gradient(
       -45deg,
       var(--col-accent) 30%,
@@ -20,11 +21,48 @@ form {
     background-size: 400% 400%;
     animation: converting 3s infinite;
   }
+
+  .image-input {
+    display: grid;
+    input,
+    label {
+      grid-area: 1 / 1;
+    }
+
+    input {
+      padding: var(--distance-1);
+    }
+    label {
+      border-radius: var(--radius-1);
+      background-color: var(--col-accent);
+      display: grid;
+      place-items: center;
+    }
+  }
+
+  .image-preview {
+    overflow: hidden;
+    height: 100%;
+    border-radius: var(--radius-1);
+
+    img {
+      transition: opacity var(--duration-2);
+      opacity: 1;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    &.converting img {
+      opacity: var(--opacity-1);
+    }
+  }
 }
 
 @include isDesktop() {
   form {
-    height: 600px;
+    min-height: 700px;
+    width: 500px;
   }
 }
 

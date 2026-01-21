@@ -111,11 +111,6 @@ export class ActivePracticeComp {
     this.cardState.set('revealed')
   }
 
-  private getRandomElementFromArray(arr: string[]): string {
-    const randomIndex = Math.floor(Math.random() * arr.length)
-    return arr[randomIndex]
-  }
-
   pointerDown(e: PointerEvent) {
     if (this.cardState() !== 'revealed' || this.isFinished()) return
 

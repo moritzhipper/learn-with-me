@@ -35,25 +35,22 @@ export const updateGuessables = (
   guessables: Guessable[],
   id: string,
   guessed: Guess
-): Guessable[] => {
-  return guessables.map((g) => (g.id === id ? { ...g, guessed } : g))
-}
+): Guessable[] => guessables.map((g) => (g.id === id ? { ...g, guessed } : g))
 
 export const startPractice =
   (ids: string[], reverseDirection: boolean) =>
   (state: LearnablesStoreType): LearnablesStoreType => {
     // randomize order of ids to prevent memorization of order
-    const randomizedGuessables: Guessable[] = [...ids]
-      .sort(() => Math.random() - 0.5)
-      .map((id) => ({
-        id,
-        guessed: 'unanswered'
-      }))
+    const shuffledIds = schwarzianShuffle(ids)
+    const guessables: Guessable[] = shuffledIds.map((id) => ({
+      id,
+      guessed: 'unanswered'
+    }))
 
     return {
       ...state,
       currentPractice: {
-        guessables: randomizedGuessables,
+        guessables: guessables,
         index: 0,
         reverseDirection
       }
@@ -110,3 +107,10 @@ export const removePractice =
     ...state,
     currentPractice: null
   })
+
+const schwarzianShuffle = <T>(array: T[]): T[] => {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+}
