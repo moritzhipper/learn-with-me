@@ -125,7 +125,6 @@ type ImportMatch =
 export type BankMergeSummary = {
   newCount: number
   mergedCount: number
-  affectedIds: string[]
 }
 
 const findImportMatch = (
@@ -229,8 +228,7 @@ export const saveImportToActiveBankNew = (
     },
     summary: {
       newCount,
-      mergedCount,
-      affectedIds: [...matchingCardIds.values()]
+      mergedCount
     }
   }
 }

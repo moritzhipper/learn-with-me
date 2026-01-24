@@ -68,7 +68,6 @@ export const LearnablesStore = signalStore(
         patchState(state, editCollection(collectionID, addIDs, deleteIDs))
       },
       mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
-        // do merge here, return result to caller
         const result = saveImportToActiveBankNew(state.activeBank(), importBank)
         patchState(state, applyBankUpdates(result.updatedBank))
         return result.summary
