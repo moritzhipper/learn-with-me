@@ -89,7 +89,27 @@ export const createBank =
     }
   }
 
-export const saveImportedBank =
+export const saveImportToNewBank =
+  (bank: BankShareBase) =>
+  (state: LearnablesStoreType): LearnablesStoreType => {
+    const now = new Date()
+    const newBank: BankUser = {
+      ...bank,
+      id: crypto.randomUUID(),
+      language: bank.language,
+      createdAt: now,
+      learnables: bank.learnables.map((l) => mapBaseToUserLearnable(l)),
+      collections: bank.collections.map((c) => ({
+        ...c,
+        createdAt: now
+      }))
+    }
+    return {
+      ...state,
+      banks: [...state.banks, newBank]
+    }
+  }
+export const saveImportToActiveBank =
   ({ learnables, collections }: BankShareBase) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {

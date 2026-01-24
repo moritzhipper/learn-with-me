@@ -81,7 +81,7 @@ export class App {
   async resolveBankSuccess(bank: BankShareViaDB) {
     const answer = await this.modalService.open('bank-import', { bank })
     if (answer.type !== 'confirm') return
-    this._lStore.importBankExport(bank)
+    this._lStore.mergeBankIntoActiveBank(bank)
   }
 
   resolveBankError() {

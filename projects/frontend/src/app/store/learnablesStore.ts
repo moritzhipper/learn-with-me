@@ -7,8 +7,9 @@ import { initialState } from './initialStates'
 import {
   createBank,
   deleteBank,
+  saveImportToActiveBank as mergeImportToActiveBank,
   removeLearnables,
-  saveImportedBank,
+  saveImportToNewBank as saveImportAsNewBank,
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
@@ -64,8 +65,11 @@ export const LearnablesStore = signalStore(
       editCollectionLearnables(collectionID: string, addIDs: string[], deleteIDs: string[]) {
         patchState(state, editCollection(collectionID, addIDs, deleteIDs))
       },
-      importBankExport(importStore: BankShareBase) {
-        patchState(state, saveImportedBank(importStore))
+      mergeBankIntoActiveBank(importBank: BankShareBase) {
+        patchState(state, mergeImportToActiveBank(importBank))
+      },
+      saveBankAsNewBank(importBank: BankShareBase) {
+        patchState(state, saveImportAsNewBank(importBank))
       },
       editCollection(name: string, id: string) {
         patchState(state, renameCollection(name, id))

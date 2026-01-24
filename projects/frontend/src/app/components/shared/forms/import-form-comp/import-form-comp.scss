@@ -10,7 +10,8 @@ form {
 
   .preview {
     position: relative;
-    width: var(--medium-width);
+    max-width: var(--medium-width);
+    width: 100%;
 
     h3 {
       margin: 0 0 var(--distance-2) 0;
@@ -19,5 +20,9 @@ form {
       font-weight: var(--font-weight-bold);
       width: 100%;
     }
+  }
+
+  p {
+    margin: 0;
   }
 }

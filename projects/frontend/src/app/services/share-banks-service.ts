@@ -1,6 +1,7 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
+import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnablesStore'
 import {
   mapBankToShareable,
@@ -114,26 +115,38 @@ export class ShareBanksService {
   }
 
   async importOnlineBank(bank: BankShareViaDB): Promise<void> {
-    const result = await this.modalService.open('bank-import', {
+    const activeBankLanguage = this.store.activeBank().language
+    const result = await this.modalService.open<ImportFormResult>('bank-import', {
+      activeBankLanguage,
       bank
     })
 
     if (result.type !== 'confirm') return
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-
-    this.store.importBankExport(bank)
+    debugger
+    if (result.value.importStrategy === 'new') {
+      this.store.saveBankAsNewBank(bank)
+    } else {
+      this.store.mergeBankIntoActiveBank(bank)
+    }
   }
 
   async importBankFromFile(file: File): Promise<void> {
     try {
-      const importedBank = await this.readFile(file)
-      const result = await this.modalService.open('bank-import', {
-        bank: importedBank
+      const bank = await this.readFile(file)
+      const activeBankLanguage = this.store.activeBank().language
+      const result = await this.modalService.open<ImportFormResult>('bank-import', {
+        activeBankLanguage,
+        bank
       })
 
       if (result.type !== 'confirm') return
-      this.store.importBankExport(importedBank)
+      if (result.value.importStrategy === 'new') {
+        this.store.saveBankAsNewBank(bank)
+      } else {
+        this.store.mergeBankIntoActiveBank(bank)
+      }
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',

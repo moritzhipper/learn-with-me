@@ -1,4 +1,4 @@
-<form (ngSubmit)="confirm(this.bank())" class="modal" [formGroup]="form">
+<form (ngSubmit)="onSubmit()" class="modal" [formGroup]="form">
   <h2 class="full fly-in-y-0">Import {{ bank().name }}?</h2>
   @if (bank().collections.length > 0) {
     <div class="preview full fly-in-y-0">
@@ -17,6 +17,22 @@
       <span class="word-list-item">{{ learnable.translation }}</span>
     }
   </div>
+  @if (differentLanguages()) {
+    <div class="section full">
+      <p class="warning full fly-in-y-0">
+        <strong>Warning:</strong> This Bank uses different languages than your current banks.
+      </p>
+      <p>Would you like to import the cards into your active Bank or into a new Bank?</p>
+      <app-radio-comp
+        class="fly-in-y-0 full"
+        formControlName="importStrategy"
+        [config]="[
+          { value: 'merge', label: 'Just import' },
+          { value: 'new', label: 'Create new Bank' }
+        ]"
+      />
+    </div>
+  }
   <button type="button" class="big fly-in-y-1" (click)="cancel()">Cancel</button>
   <button type="submit" class="fly-in-y-2">Import</button>
 </form>

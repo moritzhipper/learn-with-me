@@ -1,20 +1,38 @@
-import { Component, input } from '@angular/core'
-import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { BankShareBase } from '@shared/types'
+import { Component, computed, input } from '@angular/core'
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { BankShareBase, LanguageConfig } from '@shared/types'
+import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
-type CollectionPreview = {
-  name: string
-  learnablesCount: number
+export type ImportFormResult = {
+  importStrategy: 'new' | 'merge'
 }
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RadioComp],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })
 export class ImportFormComp extends BaseModalDirective {
   bank = input.required<BankShareBase>()
-  form = new FormGroup({})
+  activeBankLanguage = input.required<LanguageConfig>()
+
+  differentLanguages = computed(() => {
+    const bankL = this.bank().language
+    const activeL = this.activeBankLanguage()
+
+    return (
+      bankL.learning.toLowerCase() !== activeL.learning.toLowerCase() ||
+      bankL.speaking.toLowerCase() !== activeL.speaking.toLowerCase()
+    )
+  })
+
+  form = new FormGroup({
+    importStrategy: new FormControl<'merge' | 'new'>('merge')
+  })
+
+  onSubmit() {
+    this.confirm(this.form.value)
+  }
 }
