@@ -72,7 +72,7 @@ export class OverviewPageFacade {
     if (result.type !== 'confirm') return
 
     this.store.removeLearnables(learnableIds)
-    this.toastService.showToast(`Removed ${count} cards`)
+    this.toastService.showToast(`Removed ${count} cards.`)
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -89,12 +89,12 @@ export class OverviewPageFacade {
     const { createName, addToId } = result.value
     const collectionName = this.addLearnablesToCollection(learnableIds, createName, addToId)
 
-    this.toastService.showToast(`Added ${learnableIds.length} cards to ${collectionName}`)
+    this.toastService.showToast(`Added ${learnableIds.length} cards to ${collectionName}.`)
   }
 
   removeLearnablesFromCollection(collectionId: string, learnableIds: string[]): void {
     this.store.editCollectionLearnables(collectionId, [], learnableIds)
-    this.toastService.showToast(`Removed ${learnableIds.length} cards from collection`)
+    this.toastService.showToast(`Removed ${learnableIds.length} cards from collection.`)
   }
 
   async openRenameCollectionModal(collection: CollectionUser): Promise<void> {
@@ -114,7 +114,7 @@ export class OverviewPageFacade {
 
     const removeCardsCompletely = result.value.deletionType === 'remove'
     this.store.deleteCollection(collection.id, removeCardsCompletely)
-    this.toastService.showToast(`Collection ${collection.name} deleted`)
+    this.toastService.showToast(`Collection ${collection.name} deleted.`)
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ export class OverviewPageFacade {
 
     if (addedCount === 0) {
       this.toastService.showToast({
-        message: 'No cards added — all were duplicates',
+        message: 'No cards added — all were duplicates.',
         type: 'error'
       })
       return false
@@ -159,10 +159,10 @@ export class OverviewPageFacade {
     if (selectedCollection) {
       this.store.editCollectionLearnables(selectedCollection.id, newIds, [])
       this.toastService.showToast(
-        `Created ${addedCount} cards and added them to ${selectedCollection.name}`
+        `Created ${addedCount} cards and added them to ${selectedCollection.name}.`
       )
     } else {
-      this.toastService.showToast(`Created ${addedCount} cards`)
+      this.toastService.showToast(`Created ${addedCount} cards.`)
     }
 
     return true

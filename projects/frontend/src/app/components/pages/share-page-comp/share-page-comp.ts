@@ -145,7 +145,7 @@ export class SharePageComp {
     this.fetchState.set('error')
     this._toastS.showToast({
       header: 'Error',
-      message: 'Failed to load preview banks',
+      message: 'Failed to load preview Banks.',
       type: 'error'
     })
   }

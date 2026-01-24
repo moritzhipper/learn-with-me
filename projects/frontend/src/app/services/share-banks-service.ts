@@ -85,11 +85,11 @@ export class ShareBanksService {
       await navigator.clipboard.writeText(url.toString())
       this.toastService.showToast({
         header: bankName,
-        message: `Link copied to clipboard`,
+        message: `Link copied to clipboard.`,
         type: 'info'
       })
     } catch {
-      this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+      this.toastService.showToast({ message: 'Failed to copy Bank ID to clipboard.', type: 'error' })
     }
   }
 
@@ -102,14 +102,14 @@ export class ShareBanksService {
       const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })
       this.toastService.showToast({
         header: 'Success',
-        message: `Check Community page to see.`,
+        message: `Check community page to see.`,
         type: 'info'
       })
       await this.copyLinkToClipboard(response.id, bank.name)
     } catch {
       this.toastService.showToast({
         header: 'Error',
-        message: 'Failed to share bank.',
+        message: 'Failed to share Bank.',
         type: 'error'
       })
     }
@@ -142,7 +142,7 @@ export class ShareBanksService {
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
-        message: (error as Error).message || 'Failed to import bank from file',
+        message: (error as Error).message || 'Failed to import Bank from file.',
         type: 'error'
       })
     }
@@ -153,7 +153,7 @@ export class ShareBanksService {
       this.store.saveBankAsNewBank(bank)
       this.toastService.showToast({
         header: 'Imported Bank',
-        message: `Select it from your settings to start learning`,
+        message: `Select it from your settings to start learning.`,
         type: 'info'
       })
     } else {

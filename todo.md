@@ -2,24 +2,12 @@
 
 ## Right Now
 
+- add gecko on back of cards
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
 
 # do before deployment
-
-- move from list to set for learnables
-- add gecko on back of cards
-- handle import when other language is selected
-  - create new bank, when this match does not exist, show toast
-  - add to bank, when existing, but not selected -> toast
-  - add tp active bank, when existing and active
-  - check why import not works
-  - verifify that collections from bank exist after import
-- add merge learnables function to mutoators: when a lexeme exists, but the words dont match: update the translation to trans1 / trans2
-  - summary:
-    - added, merged, skipped, affected IDs
-    - select affected ids
 
 ## shared
 

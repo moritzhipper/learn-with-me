@@ -87,7 +87,7 @@ export class App {
   resolveBankError() {
     this.toastS.showToast({
       header: 'Error',
-      message: 'The shared bank could not be found',
+      message: 'The shared Bank could not be found.',
       type: 'error'
     })
   }
