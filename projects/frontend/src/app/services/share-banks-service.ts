@@ -89,7 +89,10 @@ export class ShareBanksService {
         type: 'info'
       })
     } catch {
-      this.toastService.showToast({ message: 'Failed to copy Bank ID to clipboard.', type: 'error' })
+      this.toastService.showToast({
+        message: 'Failed to copy Bank ID to clipboard.',
+        type: 'error'
+      })
     }
   }
 
