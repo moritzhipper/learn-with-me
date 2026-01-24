@@ -1,4 +1,4 @@
-<form [formGroup]="convertForm" (ngSubmit)="convert()" class="modal">
+<form [formGroup]="convertForm" (ngSubmit)="onSubmit()" class="modal">
   <div class="content fly-in-y-0">
     <div class="user-input">
       @if (imagePreview(); as img) {

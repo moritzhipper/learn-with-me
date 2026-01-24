@@ -1,9 +1,9 @@
 import { Component, inject, input, signal } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { LanguageConfig } from '@shared/types'
+import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
 import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
-import { BaseLearnableCreationConfig } from '../../../../types_and_schemas/types'
 import { IconComp } from '../../icon-comp/icon-comp'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -41,32 +41,11 @@ export class MagicAddComp extends BaseModalDirective {
     reader.readAsDataURL(file)
   }
 
-  async convert() {
-    const formValue = this.convertForm.value
-    const imagePreview = this.imagePreview()
-    const text = formValue.text
-    if (!imagePreview && !text) return
-
-    const creationConf = {
-      type: formValue.type,
-      language: this.language()
-    } as BaseLearnableCreationConfig
-
+  async convert(config: LearnableCreationConfig) {
     try {
       this.isConverting.set(true)
-      if (text) {
-        const baseLearnables = await this._aiS.createLearnablesFromString({
-          ...creationConf,
-          text
-        })
-        this.confirm(baseLearnables)
-      } else if (imagePreview) {
-        const baseLearnables = await this._aiS.createLearnablesFromImage({
-          ...creationConf,
-          image: imagePreview
-        })
-        this.confirm(baseLearnables)
-      }
+      const baseLearnables = await this._aiS.createLearnables(config)
+      this.confirm(baseLearnables)
     } catch (error) {
       this.isConverting.set(false)
       const message = error instanceof Error ? error.message : 'Unknown error'
@@ -76,6 +55,31 @@ export class MagicAddComp extends BaseModalDirective {
       })
 
       console.error('Error creating learnables:', error)
+    }
+  }
+
+  async onSubmit() {
+    const formValue = this.convertForm.value
+    const image = this.imagePreview()
+    const text = formValue.text
+    const type = formValue.type as LearnableCreationConfig['type']
+    const language = this.language()
+    if (!image && !text && !type) return
+
+    if (text) {
+      this.convert({
+        type,
+        language,
+        source: 'text',
+        text
+      })
+    } else if (image) {
+      this.convert({
+        type,
+        language,
+        source: 'image',
+        image
+      })
     }
   }
 

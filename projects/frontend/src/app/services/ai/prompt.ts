@@ -53,6 +53,59 @@ const phrasesPrompt = ({ learning, speaking }: LanguageConfig) => `
         -> you put translation to ${speaking} on card  
 `
 
+export const getImagePrompt = (type: 'words' | 'phrases') => {
+  const baseImagePrompt = `
+    There are two modes you can be in when extracting words from an image:
+      - Text mode: when the image contains a lot of text, like a page from a book, article, or notes
+        -> only extract the text. Ignore everything else. Make shure to extract from every single word, sentence and text structure there is.
+      - Scene mode: When the image contains a scene, like a photo of an Object, a place or a situation
+        -> You describe the scene in detail, including objects, actions, settings, and any other relevant aspects.
+        -> You also extract Text that is visible in the image, such as signs, labels, or any written content.
+
+
+    Determine which mode is best suited for the image provided. 
+    You can only be in one mode at a time. After you selected one, you can not switch modes.
+    Do not make assumptions about the context of the scene. Example: If you see a photo of a dog playing in a park, do not assume it is the user's dog or that the user likes dogs.
+  `
+
+  if (type === 'words') {
+    return baseImagePrompt + getWordsFromImagePrompt()
+  } else {
+    return baseImagePrompt + getPhrasesForImagePrompt()
+  }
+}
+
+const getPhrasesForImagePrompt = () => `
+  It is important you extract phrases which describe the actions displayed in the image.
+
+  Examples
+  Input: A photo of two dogs playing in a park. You can see a cloudy sky and a bird sitting on a tree branch. In the background, a person is calling a friend using their phone.
+  Possible Phrases:
+  - the dogs are playing
+  - the sky is cloudy
+  - the bird is sitting on a tree branch
+  - the person is calling a friend
+
+  Examples
+  Input: An image of a busy city street with people walking on the sidewalks. There are several cars and buses on the road. A street vendor is selling food from a cart, and tall buildings line both sides of the street.
+  Possible Phrases:
+  - people are walking on the sidewalks
+  - cars and buses are on the road
+  - a street vendor is selling food
+  - tall buildings line both sides of the street
+`
+
+const getWordsFromImagePrompt = () => `
+  It is important you extract words of things displayed in the imaged.
+
+  Examples
+  Input: A photo of two dogs playing in a park. You can see a cloudy sky and a bird sitting on a tree branch. In the background, a person is calling a friend using their phone.
+  Possible Words: dog, dogs, park, sky, bird, tree, branch, person, phone, grass, playing, calling
+
+  Input: An image of a busy city street with people walking on the sidewalks. There are several cars and buses on the road. A street vendor is selling food from a cart, and tall buildings line both sides of the street.
+  Possible Words: street, sidewalks, cars, buses, road, street vendor, food, cart, buildings, city, people, selling, walking, busy, traffic, traffic jam
+`
+
 export const getWordsPrompt = (conf: LanguageConfig) => `
 ${getSystemPrompt(conf)}
 ${wordsPrompt(conf)}
