@@ -1,4 +1,5 @@
 import { LanguageConfig } from '@shared/types'
+import { LearnableCreationConfig } from '../../types_and_schemas/types'
 
 const getSystemPrompt = ({ learning, speaking }: LanguageConfig) => `
   You are a language tutor creating vocabulary cards.  
@@ -19,7 +20,7 @@ const getSystemPrompt = ({ learning, speaking }: LanguageConfig) => `
   - **Translation (always in ${speaking})**  
 `
 
-const wordsPrompt = ({ learning, speaking }: LanguageConfig) => `
+const getWordsPrompt = ({ learning, speaking }: LanguageConfig) => `
   The user only and exclusively learns **individual words**, never phrases.  
 
   Rules:  
@@ -30,7 +31,7 @@ const wordsPrompt = ({ learning, speaking }: LanguageConfig) => `
   - if the word is a noun and the language has the grammatical construct of articles, add the corresponding article in front of the lexeme and translation  
 `
 
-const phrasesPrompt = ({ learning, speaking }: LanguageConfig) => `
+const getPhrasesPrompt = ({ learning, speaking }: LanguageConfig) => `
   The user only and exclusively learns **sayings, idioms, expressions, or short set phrases**.  
 
   Rules:  
@@ -53,27 +54,19 @@ const phrasesPrompt = ({ learning, speaking }: LanguageConfig) => `
         -> you put translation to ${speaking} on card  
 `
 
-export const getImagePrompt = (type: 'words' | 'phrases') => {
-  const baseImagePrompt = `
-    There are two modes you can be in when extracting words from an image:
-      - Text mode: when the image contains a lot of text, like a page from a book, article, or notes
-        -> only extract the text. Ignore everything else. Make shure to extract from every single word, sentence and text structure there is.
-      - Scene mode: When the image contains a scene, like a photo of an Object, a place or a situation
-        -> You describe the scene in detail, including objects, actions, settings, and any other relevant aspects.
-        -> You also extract Text that is visible in the image, such as signs, labels, or any written content.
+export const getImageBasePrompt = () => `
+  There are two modes you can be in when extracting words from an image:
+    - Text mode: when the image contains a lot of text, like a page from a book, article, or notes
+      -> only extract the text. Ignore everything else. Make shure to extract from every single word, sentence and text structure there is.
+    - Scene mode: When the image contains a scene, like a photo of an Object, a place or a situation
+      -> You describe the scene in detail, including objects, actions, settings, and any other relevant aspects.
+      -> You also extract Text that is visible in the image, such as signs, labels, or any written content.
 
 
-    Determine which mode is best suited for the image provided. 
-    You can only be in one mode at a time. After you selected one, you can not switch modes.
-    Do not make assumptions about the context of the scene. Example: If you see a photo of a dog playing in a park, do not assume it is the user's dog or that the user likes dogs.
-  `
-
-  if (type === 'words') {
-    return baseImagePrompt + getWordsFromImagePrompt()
-  } else {
-    return baseImagePrompt + getPhrasesForImagePrompt()
-  }
-}
+  Determine which mode is best suited for the image provided. 
+  You can only be in one mode at a time. After you selected one, you can not switch modes.
+  Do not make assumptions about the context of the scene. Example: If you see a photo of a dog playing in a park, do not assume it is the user's dog or that the user likes dogs.
+`
 
 const getPhrasesForImagePrompt = () => `
   It is important you extract phrases which describe the actions displayed in the image.
@@ -106,12 +99,25 @@ const getWordsFromImagePrompt = () => `
   Possible Words: street, sidewalks, cars, buses, road, street vendor, food, cart, buildings, city, people, selling, walking, busy, traffic, traffic jam
 `
 
-export const getWordsPrompt = (conf: LanguageConfig) => `
-${getSystemPrompt(conf)}
-${wordsPrompt(conf)}
-`
+export const getPrompt = (conf: LearnableCreationConfig) => {
+  const language = conf.language
+  const typePrompt = conf.type === 'words' ? getWordsPrompt(language) : getPhrasesPrompt(language)
 
-export const getPhrasesPrompt = (conf: LanguageConfig) => `
-${getSystemPrompt(conf)}
-${phrasesPrompt(conf)}
-`
+  const basePrompt = `
+  ${getSystemPrompt(language)}
+  ${typePrompt}
+  `
+
+  if (conf.source === 'text') return basePrompt
+
+  // request prompt for images here
+
+  const imageTypePrompt =
+    conf.type === 'words' ? getWordsFromImagePrompt() : getPhrasesForImagePrompt()
+
+  return `
+      ${basePrompt}
+      ${getImageBasePrompt()}
+      ${imageTypePrompt}
+    `
+}

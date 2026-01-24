@@ -18,7 +18,7 @@ import {
 } from '../../types_and_schemas/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
-import { getImagePrompt, getPhrasesPrompt, getWordsPrompt } from './prompt'
+import { getImageBasePrompt, getPhrasesPrompt, getWordsPrompt } from './prompt'
 
 @Injectable({
   providedIn: 'root'
@@ -79,12 +79,12 @@ export class AiService {
     const cardPromises: Promise<LearnableBase[]>[] = []
 
     if (config.type === 'phrases' || config.type === 'both') {
-      const prompt = getPhrasesPrompt(config.language) + getImagePrompt('phrases')
+      const prompt = getPhrasesPrompt(config.language) + getImageBasePrompt('phrases')
       cardPromises.push(this._createCardsFromImage(userMessageContent, prompt, 'phrase'))
     }
 
     if (config.type === 'words' || config.type === 'both') {
-      const prompt = getWordsPrompt(config.language) + getImagePrompt('words')
+      const prompt = getWordsPrompt(config.language) + getImageBasePrompt('words')
       cardPromises.push(this._createCardsFromImage(userMessageContent, prompt, 'word'))
     }
     const cardLists = await Promise.all(cardPromises)
