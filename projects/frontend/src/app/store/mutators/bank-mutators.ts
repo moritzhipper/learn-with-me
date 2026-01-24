@@ -106,7 +106,7 @@ export const saveImportToNewBank =
     }
     return {
       ...state,
-      banks: [...state.banks, newBank]
+      banks: [newBank, ...state.banks]
     }
   }
 export const saveImportToActiveBank =
