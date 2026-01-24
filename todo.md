@@ -2,6 +2,10 @@
 
 ## Right Now
 
+- fix download preview view form
+  - return only overview for most bank endpoints
+  - return full bank for download endpoint, increase download count
+
 # do before deployment
 
 - move from list to set for learnables
