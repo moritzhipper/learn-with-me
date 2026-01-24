@@ -19,7 +19,7 @@ export type Practice = {
 
 type LearnableCreationConfigBase = {
   language: LanguageConfig
-  type: 'phrases' | 'words' | 'both'
+  type: 'phrase' | 'word' | 'both'
 }
 
 export type LearnableFromTextCreationConfig = LearnableCreationConfigBase & {
