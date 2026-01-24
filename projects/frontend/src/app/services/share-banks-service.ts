@@ -157,10 +157,10 @@ export class ShareBanksService {
         type: 'info'
       })
     } else {
-      this.store.mergeBankIntoActiveBank(bank)
+      const summary = this.store.mergeBankIntoActiveBank(bank)
       this.toastService.showToast({
         header: 'Imported Bank',
-        message: `${bank.name} was merged into your active Bank`,
+        message: `${summary.newCount} new learnables added, ${summary.mergedCount} learnables merged.`,
         type: 'info'
       })
     }

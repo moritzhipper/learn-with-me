@@ -116,67 +116,17 @@ export const saveImportToNewBank =
     }
   }
 
-export const saveImportToActiveBank =
-  ({ learnables, collections }: BankShareBase) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (b) => {
-      const now = new Date()
-
-      // Build a map from imported card id -> existing card id (for duplicates)
-      // and identify which cards are truly new
-      const importedIdToExistingId = new Map<string, string>()
-
-      const newLearnables: UserLearnable[] = []
-
-      for (const imported of learnables) {
-        const existingMatch = b.learnables.find((existing) => lMatch(existing, imported))
-        if (existingMatch) {
-          // Duplicate: map imported id to existing id
-          importedIdToExistingId.set(imported.id, existingMatch.id)
-        } else {
-          // New card: create full UserLearnable
-          const newId = crypto.randomUUID()
-          importedIdToExistingId.set(imported.id, newId)
-          newLearnables.push(mapBaseToUserLearnable(imported, newId, now))
-        }
-      }
-
-      // Process collections: merge into existing or create new
-      const updatedCollections = [...b.collections]
-      for (const importedCol of collections) {
-        // Remap cardIds from imported ids to actual ids (existing or new)
-        // Filter out any cardIds that don't have a corresponding learnable
-        const remappedCardIds = importedCol.cardIds
-          .map((id) => importedIdToExistingId.get(id))
-          .filter((id) => id !== undefined)
-
-        const existingCol = updatedCollections.find((c) => c.name === importedCol.name)
-        if (existingCol) {
-          // Merge cardIds into existing collection
-          existingCol.cardIds = [...new Set([...existingCol.cardIds, ...remappedCardIds])]
-        } else {
-          // Create new collection with remapped cardIds
-          updatedCollections.push({
-            id: crypto.randomUUID(),
-            name: importedCol.name,
-            cardIds: remappedCardIds,
-            createdAt: now
-          })
-        }
-      }
-
-      return {
-        ...b,
-        learnables: [...b.learnables, ...newLearnables],
-        collections: updatedCollections
-      }
-    })
-
 type ImportMatch =
   | { type: 'duplicate'; existingId: string }
   | { type: 'lexeme-match'; existing: UserLearnable }
   | { type: 'translation-match'; existing: UserLearnable }
   | { type: 'new' }
+
+export type BankMergeSummary = {
+  newCount: number
+  mergedCount: number
+  affectedIds: string[]
+}
 
 const findImportMatch = (
   imported: LearnableBase,
@@ -207,66 +157,87 @@ const findImportMatch = (
  *    - Card IDs in new Collections will be remapped using matchingCardIds
  * 3. For lexeme/translation matches, merge the differing field and map imported ID to existing ID
  *
- * @param param0
- * @returns
+ * Results:
+ *    - for duplicates and merges, the mergeCounter is incremented, as those cards are merged with existing items
+ *    - for new cards, the newCounter is incremented
+ *
+ * @returns Updated Bank and summary of the merge
  */
-export const saveImportToActiveBankNew =
-  ({ learnables, collections }: BankShareBase) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (bank) => {
-      const now = new Date()
-      const matchingCardIds = new Map<string, string>()
-      const mergedLearnables = new Map<string, UserLearnable>()
+export const saveImportToActiveBankNew = (
+  activeBank: BankUser,
+  newBank: BankShareBase
+): {
+  updatedBank: BankUser
+  summary: BankMergeSummary
+} => {
+  const now = new Date()
+  const matchingCardIds = new Map<string, string>()
+  const mergedLearnables = new Map<string, UserLearnable>()
 
-      // Initialize with existing learnables
-      for (const existing of bank.learnables) {
-        mergedLearnables.set(existing.id, existing)
-      }
+  let newCount = 0
+  let mergedCount = 0
 
-      // Process each imported learnable
-      for (const imported of learnables) {
-        const match = findImportMatch(imported, bank.learnables)
+  // Initialize with existing learnables
+  for (const existing of activeBank.learnables) {
+    mergedLearnables.set(existing.id, existing)
+  }
 
-        if (match.type === 'duplicate') {
-          // Exact match exists - just map the ID, no changes needed
-          matchingCardIds.set(imported.id, match.existingId)
-        } else if (match.type === 'lexeme-match') {
-          // Same lexeme, different translation - merge translations
-          const existingId = match.existing.id
-          matchingCardIds.set(imported.id, existingId)
-          mergedLearnables.set(existingId, {
-            ...match.existing,
-            lexeme: `${match.existing.lexeme} / ${imported.lexeme}`
-          })
-        } else if (match.type === 'translation-match') {
-          // Same translation, different lexeme - merge lexemes
-          const existingId = match.existing.id
-          matchingCardIds.set(imported.id, existingId)
-          mergedLearnables.set(existingId, {
-            ...match.existing,
-            translation: `${match.existing.translation} / ${imported.translation}`
-          })
-        } else if (match.type === 'new') {
-          // No match found - create new learnable
-          const newId = crypto.randomUUID()
-          matchingCardIds.set(imported.id, newId)
-          mergedLearnables.set(newId, mapBaseToUserLearnable(imported, newId, now))
-        }
-      }
+  // Process each imported learnable
+  for (const imported of newBank.learnables) {
+    const match = findImportMatch(imported, activeBank.learnables)
 
-      // Process collections: remap IDs and create new collections
-      const newCollections = collections.map((importedCollection) => ({
-        id: crypto.randomUUID(),
-        name: importedCollection.name,
-        cardIds: importedCollection.cardIds
-          .map((id) => matchingCardIds.get(id))
-          .filter((id) => id !== undefined),
-        createdAt: now
-      }))
+    if (match.type === 'duplicate') {
+      mergedCount = mergedCount + 1
+      matchingCardIds.set(imported.id, match.existingId)
+    } else if (match.type === 'lexeme-match') {
+      mergedCount = mergedCount + 1
+      matchingCardIds.set(imported.id, match.existing.id)
+      mergedLearnables.set(match.existing.id, {
+        ...match.existing,
+        lexeme: `${match.existing.lexeme} / ${imported.lexeme}`
+      })
+    } else if (match.type === 'translation-match') {
+      mergedCount = mergedCount + 1
+      matchingCardIds.set(imported.id, match.existing.id)
+      mergedLearnables.set(match.existing.id, {
+        ...match.existing,
+        translation: `${match.existing.translation} / ${imported.translation}`
+      })
+    } else if (match.type === 'new') {
+      newCount = newCount + 1
+      const newId = crypto.randomUUID()
+      matchingCardIds.set(imported.id, newId)
+      mergedLearnables.set(newId, mapBaseToUserLearnable(imported, newId, now))
+    }
+  }
 
-      return {
-        ...bank,
-        learnables: [...mergedLearnables.values()],
-        collections: [...bank.collections, ...newCollections]
-      }
-    })
+  // Process collections: remap IDs and create new collections
+  const newCollections = newBank.collections.map((importedCollection) => ({
+    id: crypto.randomUUID(),
+    name: importedCollection.name,
+    cardIds: importedCollection.cardIds
+      .map((id) => matchingCardIds.get(id))
+      .filter((id) => id !== undefined),
+    createdAt: now
+  }))
+
+  return {
+    updatedBank: {
+      ...activeBank,
+      learnables: [...mergedLearnables.values()],
+      collections: [...activeBank.collections, ...newCollections]
+    },
+    summary: {
+      newCount,
+      mergedCount,
+      affectedIds: [...matchingCardIds.values()]
+    }
+  }
+}
+
+export const applyBankUpdates =
+  (newBank: BankUser) =>
+  (state: LearnablesStoreType): LearnablesStoreType => ({
+    ...state,
+    banks: state.banks.map((b) => (b.id === newBank.id ? newBank : b))
+  })
