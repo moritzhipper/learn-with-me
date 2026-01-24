@@ -1,11 +1,12 @@
 import { Component, computed, input } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
+import { ImportStrategy } from 'projects/frontend/src/app/types_and_schemas/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type ImportFormResult = {
-  importStrategy: 'new' | 'merge'
+  importStrategy: ImportStrategy
 }
 
 @Component({
@@ -29,7 +30,7 @@ export class ImportFormComp extends BaseModalDirective {
   })
 
   form = new FormGroup({
-    importStrategy: new FormControl<'merge' | 'new'>('merge')
+    importStrategy: new FormControl<ImportStrategy>('merge')
   })
 
   onSubmit() {

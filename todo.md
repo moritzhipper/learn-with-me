@@ -9,6 +9,8 @@
   - create new bank, when this match does not exist, show toast
   - add to bank, when existing, but not selected -> toast
   - add tp active bank, when existing and active
+  - check why import not works
+  - verifify that collections from bank exist after import
 - add merge learnables function to mutoators: when a lexeme exists, but the words dont match: update the translation to trans1 / trans2
   - summary:
     - added, merged, skipped, affected IDs
@@ -36,6 +38,9 @@
 
 ## Frontend
 
+- greadeziehen:
+  - Bank gross schrieben
+  - punkt nach toasts
 - unify styles for:
   - tutorial and practice config
 - show in which collections card is in form

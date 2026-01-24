@@ -49,6 +49,8 @@ export type SettingsStoreType = {
   userID: string
 }
 
+export type ImportStrategy = 'merge' | 'new'
+
 type Optional<T> = { [K in keyof T]?: T[K] | null }
 
 export type LearnablesFilterConfig = Optional<{

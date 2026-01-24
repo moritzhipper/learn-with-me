@@ -3,6 +3,7 @@ import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@share
 import { config } from '../../config'
 import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnablesStore'
+import { ImportStrategy } from '../types_and_schemas/types'
 import {
   mapBankToShareable,
   parseFileImportString,
@@ -124,12 +125,7 @@ export class ShareBanksService {
     if (result.type !== 'confirm') return
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-    debugger
-    if (result.value.importStrategy === 'new') {
-      this.store.saveBankAsNewBank(bank)
-    } else {
-      this.store.mergeBankIntoActiveBank(bank)
-    }
+    this.finalizeImport(bank, result.value.importStrategy)
   }
 
   async importBankFromFile(file: File): Promise<void> {
@@ -142,16 +138,30 @@ export class ShareBanksService {
       })
 
       if (result.type !== 'confirm') return
-      if (result.value.importStrategy === 'new') {
-        this.store.saveBankAsNewBank(bank)
-      } else {
-        this.store.mergeBankIntoActiveBank(bank)
-      }
+      this.finalizeImport(bank, result.value.importStrategy)
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
         message: (error as Error).message || 'Failed to import bank from file',
         type: 'error'
+      })
+    }
+  }
+
+  async finalizeImport(bank: BankShareBase, importStrategy: ImportStrategy): Promise<void> {
+    if (importStrategy === 'new') {
+      this.store.saveBankAsNewBank(bank)
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `Select it from your settings to start learning`,
+        type: 'info'
+      })
+    } else {
+      this.store.mergeBankIntoActiveBank(bank)
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `${bank.name} was merged into your active Bank`,
+        type: 'info'
       })
     }
   }
