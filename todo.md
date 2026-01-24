@@ -4,6 +4,7 @@
 
 # do before deployment
 
+- move from list to set for learnables
 - add gecko on back of cards
 - handle import when other language is selected
   - create new bank, when this match does not exist, show toast
