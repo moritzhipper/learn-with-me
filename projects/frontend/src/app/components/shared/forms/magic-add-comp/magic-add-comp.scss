@@ -10,51 +10,72 @@ form {
     grid-column: span 2;
   }
 
-  textarea.converting,
-  .image-preview.converting {
-    background: linear-gradient(
-      -45deg,
-      var(--col-accent) 30%,
-      var(--col-primary) 50%,
-      var(--col-accent) 80%
-    );
-    background-size: 400% 400%;
-    animation: converting 3s infinite;
-  }
-
-  .image-input {
+  .user-input {
     display: grid;
-    input,
-    label {
-      grid-area: 1 / 1;
+    grid-template: 1fr 40px / 1fr;
+    gap: var(--distance-2);
+
+    textarea,
+    .image-preview {
+      &.converting {
+        background: linear-gradient(
+          -45deg,
+          var(--col-accent) 30%,
+          var(--col-primary) 50%,
+          var(--col-accent) 80%
+        );
+        background-size: 400% 400%;
+        animation: converting 3s infinite;
+
+        img {
+          opacity: var(--opacity-1);
+        }
+      }
     }
 
-    input {
-      padding: var(--distance-1);
+    textarea,
+    .image-preview {
+      border-radius: var(--radius-2) var(--radius-2) var(--radius-0) var(--radius-0);
     }
-    label {
-      border-radius: var(--radius-1);
-      background-color: var(--col-accent);
+    button.delete,
+    .image-input input,
+    .image-input label {
+      border-radius: var(--radius-0) var(--radius-0) var(--radius-2) var(--radius-2);
+    }
+
+    .image-input {
+      display: grid;
+      input,
+      label {
+        grid-area: 1 / 1;
+      }
+
+      input {
+        padding: var(--distance-1);
+      }
+      label {
+        background-color: var(--col-accent);
+        display: grid;
+        place-items: center;
+      }
+    }
+
+    .image-preview {
+      overflow: hidden;
+      height: 100%;
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
       display: grid;
       place-items: center;
-    }
-  }
+      position: relative;
 
-  .image-preview {
-    overflow: hidden;
-    height: 100%;
-    border-radius: var(--radius-1);
-
-    img {
-      transition: opacity var(--duration-2);
-      opacity: 1;
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-    }
-
-    &.converting img {
-      opacity: var(--opacity-1);
+      img {
+        position: absolute;
+        transition: opacity var(--duration-2);
+        opacity: 1;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 }

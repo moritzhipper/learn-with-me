@@ -1,35 +1,37 @@
 <form [formGroup]="convertForm" (ngSubmit)="convert()" class="modal">
   <div class="content fly-in-y-0">
-    @if (imagePreview(); as img) {
-      <div class="image-preview" [class.converting]="isConverting()">
-        <img [src]="img" alt="Preview" />
-      </div>
-      <button
-        type="button"
-        class="small delete"
-        [disabled]="isConverting()"
-        (click)="removeImage()"
-      >
-        Delete Image
-      </button>
-    } @else {
-      <textarea
-        [class.converting]="isConverting()"
-        formControlName="text"
-        placeholder="Paste notes, articles or any other text here"
-      ></textarea>
-      <div class="image-input">
-        <input
-          id="image"
-          type="file"
-          accept="image/*;capture=camera"
-          (change)="onFileChange($event)"
-        />
-        <label for="image">
-          <app-icon-comp type="image" />
-        </label>
-      </div>
-    }
+    <div class="user-input">
+      @if (imagePreview(); as img) {
+        <div class="image-preview" [class.converting]="isConverting()">
+          <img [src]="img" alt="Preview" />
+        </div>
+        <button
+          type="button"
+          class="small delete"
+          [disabled]="isConverting()"
+          (click)="removeImage()"
+        >
+          Remove Image
+        </button>
+      } @else {
+        <textarea
+          [class.converting]="isConverting()"
+          formControlName="text"
+          placeholder="Paste notes, articles or any other text here"
+        ></textarea>
+        <div class="image-input">
+          <input
+            id="image"
+            type="file"
+            accept="image/*;capture=camera"
+            (change)="onFileChange($event)"
+          />
+          <label for="image">
+            <app-icon-comp type="image" />
+          </label>
+        </div>
+      }
+    </div>
     <app-radio-comp
       [config]="[
         { value: 'words', label: 'Words' },
