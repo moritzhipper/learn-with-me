@@ -60,7 +60,7 @@ p {
 }
 
 .larry {
-  animation-delay: 0.8s;
+  animation-delay: 0.6s;
   opacity: var(--opacity-1);
   z-index: -1;
 }
@@ -88,13 +88,15 @@ input {
       opacity: var(--opacity-1);
     }
     .larry {
+      align-items: start;
       box-sizing: border-box;
       padding: var(--distance-5);
-      width: 100%;
-      rotate: -30deg;
+      width: 130%;
+      rotate: -10deg;
       transform-origin: top center;
       top: 0;
-      left: -20%;
+      left: 0%;
+      position: absolute;
     }
     .languages {
       gap: var(--distance-3);
@@ -128,9 +130,16 @@ input {
       }
 
       .larry {
-        width: 300px;
-        height: 300px;
-        rotate: -75deg;
+        position: absolute;
+        top: 0px;
+        left: -250px;
+        width: 800px;
+        aspect-ratio: 1 / 1;
+        align-self: center;
+        rotate: -35deg;
+        transform-origin: top left;
+        opacity: 0.1;
+
         transform-origin: center;
       }
 
