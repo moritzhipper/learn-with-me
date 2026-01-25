@@ -2,7 +2,6 @@
 
 ## Right Now
 
-- add gecko on back of cards
 - write tests for store
   - import
   - merge

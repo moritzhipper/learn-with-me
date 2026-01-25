@@ -8,7 +8,7 @@
   "start_url": "./",
   "icons": [
     {
-      "src": "icons/appicon.svg",
+      "src": "icons/larry_logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable any"
