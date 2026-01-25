@@ -81,13 +81,13 @@ export class App {
   async resolveBankSuccess(bank: BankShareViaDB) {
     const answer = await this.modalService.open('bank-import', { bank })
     if (answer.type !== 'confirm') return
-    this._lStore.importBankExport(bank)
+    this._lStore.mergeBankIntoActiveBank(bank)
   }
 
   resolveBankError() {
     this.toastS.showToast({
       header: 'Error',
-      message: 'The shared bank could not be found',
+      message: 'The shared Bank could not be found.',
       type: 'error'
     })
   }

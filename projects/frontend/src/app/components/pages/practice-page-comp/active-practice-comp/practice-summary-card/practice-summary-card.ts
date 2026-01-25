@@ -1,12 +1,8 @@
 import { Component, computed, input } from '@angular/core'
+import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
 import { PracticeRatingComp } from '../practice-rating-comp/practice-rating-comp'
 
-export type PracticeRating =
-  | 'noteven'
-  | 'atleast'
-  | 'okay'
-  | 'good'
-  | 'excellent'
+export type PracticeRating = 'noteven' | 'atleast' | 'okay' | 'good' | 'excellent'
 
 export type ActivePracticeSummary = {
   correctGuesses: number
@@ -18,7 +14,7 @@ export type ActivePracticeSummary = {
 
 @Component({
   selector: 'app-practice-summary-card',
-  imports: [PracticeRatingComp],
+  imports: [PracticeRatingComp, LarryBig],
   templateUrl: './practice-summary-card.html',
   styleUrl: './practice-summary-card.scss',
   host: {

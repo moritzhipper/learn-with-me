@@ -124,7 +124,7 @@ export class ExplorePageComp {
       this.fetchState.set('error')
       this.toastS.showToast({
         header: 'Error',
-        message: 'Failed to load more banks',
+        message: 'Failed to load more Banks.',
         type: 'error'
       })
     }

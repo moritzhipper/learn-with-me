@@ -1,7 +1,9 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
+import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnablesStore'
+import { ImportStrategy } from '../types_and_schemas/types'
 import {
   mapBankToShareable,
   parseFileImportString,
@@ -83,11 +85,14 @@ export class ShareBanksService {
       await navigator.clipboard.writeText(url.toString())
       this.toastService.showToast({
         header: bankName,
-        message: `Link copied to clipboard`,
+        message: `Link copied to clipboard.`,
         type: 'info'
       })
     } catch {
-      this.toastService.showToast({ message: 'Failed to copy bank ID to clipboard', type: 'error' })
+      this.toastService.showToast({
+        message: 'Failed to copy Bank ID to clipboard.',
+        type: 'error'
+      })
     }
   }
 
@@ -100,45 +105,66 @@ export class ShareBanksService {
       const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })
       this.toastService.showToast({
         header: 'Success',
-        message: `Check Community page to see.`,
+        message: `Check community page to see.`,
         type: 'info'
       })
-      await this.copyLinkToClipboard(response.id, bank.name)
+      await this.copyLinkToClipboard(response.id, mappedBank.name)
     } catch {
       this.toastService.showToast({
         header: 'Error',
-        message: 'Failed to share bank.',
+        message: 'Failed to share Bank.',
         type: 'error'
       })
     }
   }
 
   async importOnlineBank(bank: BankShareViaDB): Promise<void> {
-    const result = await this.modalService.open('bank-import', {
+    const activeBankLanguage = this.store.activeBank().language
+    const result = await this.modalService.open<ImportFormResult>('bank-import', {
+      activeBankLanguage,
       bank
     })
 
     if (result.type !== 'confirm') return
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-
-    this.store.importBankExport(bank)
+    this.finalizeImport(bank, result.value.importStrategy)
   }
 
   async importBankFromFile(file: File): Promise<void> {
     try {
-      const importedBank = await this.readFile(file)
-      const result = await this.modalService.open('bank-import', {
-        bank: importedBank
+      const bank = await this.readFile(file)
+      const activeBankLanguage = this.store.activeBank().language
+      const result = await this.modalService.open<ImportFormResult>('bank-import', {
+        activeBankLanguage,
+        bank
       })
 
       if (result.type !== 'confirm') return
-      this.store.importBankExport(importedBank)
+      this.finalizeImport(bank, result.value.importStrategy)
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
-        message: (error as Error).message || 'Failed to import bank from file',
+        message: (error as Error).message || 'Failed to import Bank from file.',
         type: 'error'
+      })
+    }
+  }
+
+  async finalizeImport(bank: BankShareBase, importStrategy: ImportStrategy): Promise<void> {
+    if (importStrategy === 'new') {
+      this.store.saveBankAsNewBank(bank)
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `Select it from your settings to start learning.`,
+        type: 'info'
+      })
+    } else {
+      const summary = this.store.mergeBankIntoActiveBank(bank)
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `${summary.newCount} new learnables added, ${summary.mergedCount} learnables merged.`,
+        type: 'info'
       })
     }
   }

@@ -17,18 +17,24 @@ export type Practice = {
   reverseDirection: boolean
 }
 
-export type BaseLearnableCreationConfig = {
+type LearnableCreationConfigBase = {
   language: LanguageConfig
-  type: 'phrases' | 'words' | 'both'
+  type: 'phrase' | 'word' | 'both'
 }
 
-export type LearnableFromTextConfig = BaseLearnableCreationConfig & {
+export type LearnableFromTextCreationConfig = LearnableCreationConfigBase & {
+  source: 'text'
   text: string
 }
 
-export type LearnableFromImageConfig = BaseLearnableCreationConfig & {
+export type LearnableFromImageCreationConfig = LearnableCreationConfigBase & {
+  source: 'image'
   image: string
 }
+
+export type LearnableCreationConfig =
+  | LearnableFromTextCreationConfig
+  | LearnableFromImageCreationConfig
 
 export type Guess = 'right' | 'wrong' | 'unanswered'
 
@@ -42,6 +48,8 @@ export type SettingsStoreType = {
   tokensUsed: number
   userID: string
 }
+
+export type ImportStrategy = 'merge' | 'new'
 
 type Optional<T> = { [K in keyof T]?: T[K] | null }
 

@@ -2,17 +2,15 @@
 
 ## Right Now
 
-# do before deployment
+- write tests for store
+  - import
+  - merge
+  - practice
+- fix download preview view form
+  - return only overview for most bank endpoints
+  - return full bank for download endpoint, increase download count
 
-- add image prompt:
-  - when txt or book main focus of image: only use text as base for vocab
-  - when text not main focus: use szene and what you see as base
-- add gecko on back of cards
-- handle import when other language is selected
-  - create new bank, when this match does not exist, show toast
-  - add to bank, when existing, but not selected -> toast
-  - add tp active bank, when existing and active
-- add merge learnables function to mutoators: when a lexeme exists, but the words dont match: update the translation to trans1 / trans2
+# do before deployment
 
 ## shared
 
@@ -36,6 +34,9 @@
 
 ## Frontend
 
+- greadeziehen:
+  - Bank gross schrieben
+  - punkt nach toasts
 - unify styles for:
   - tutorial and practice config
 - show in which collections card is in form

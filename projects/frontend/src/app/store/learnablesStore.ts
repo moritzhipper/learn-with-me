@@ -5,10 +5,13 @@ import { BankBase, BankShareBase, LearnableBase, UserLearnablePartial } from '@s
 import { Guess } from '../types_and_schemas/types'
 import { initialState } from './initialStates'
 import {
+  applyBankUpdates,
+  BankMergeSummary,
   createBank,
   deleteBank,
   removeLearnables,
-  saveImportedBank,
+  saveImportToNewBank as saveImportAsNewBank,
+  saveImportToActiveBankNew,
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
@@ -64,8 +67,13 @@ export const LearnablesStore = signalStore(
       editCollectionLearnables(collectionID: string, addIDs: string[], deleteIDs: string[]) {
         patchState(state, editCollection(collectionID, addIDs, deleteIDs))
       },
-      importBankExport(importStore: BankShareBase) {
-        patchState(state, saveImportedBank(importStore))
+      mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
+        const result = saveImportToActiveBankNew(state.activeBank(), importBank)
+        patchState(state, applyBankUpdates(result.updatedBank))
+        return result.summary
+      },
+      saveBankAsNewBank(importBank: BankShareBase) {
+        patchState(state, saveImportAsNewBank(importBank))
       },
       editCollection(name: string, id: string) {
         patchState(state, renameCollection(name, id))

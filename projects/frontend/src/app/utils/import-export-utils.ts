@@ -42,8 +42,10 @@ export const mapBankToShareable = (bank: BankUser, onlyCollectionIDs?: string[])
     cardIds: c.cardIds.filter((cardId) => exportedLearnableIds.has(cardId))
   }))
 
+  const name = bank.collections.length === 1 ? bank.collections[0].name : bank.name
+
   return {
-    name: bank.name,
+    name,
     language: bank.language,
     learnables,
     collections

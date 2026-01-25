@@ -9,10 +9,11 @@ import { BankBase, LanguageConfig } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { SettingsStore } from '../../../store/settingsStore'
 import { IconComp } from '../icon-comp/icon-comp'
+import { LarryBig } from '../larries/larry-big/larry-big'
 
 @Component({
   selector: 'app-onboarding-comp',
-  imports: [IconComp, FormsModule, ReactiveFormsModule],
+  imports: [IconComp, FormsModule, ReactiveFormsModule, LarryBig],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })

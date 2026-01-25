@@ -57,7 +57,7 @@ export class SettingsComp {
   async reset() {
     const { banks, collections, learnables } = this.stats()
     const result = await this._modalService.open('confirm', {
-      message: `Delete alle banks, collections, cards and reset this app to default?`,
+      message: `Delete alle Banks, collections, cards and reset this app to default?`,
       label: 'yup, do it!'
     })
 
@@ -94,13 +94,13 @@ export class SettingsComp {
     if (this._languageS.banks().length === 1) {
       this._toastS.showToast({
         type: 'error',
-        message: `You can not delete the only bank.`
+        message: `You can not delete the only Bank.`
       })
       return
     }
 
     const result = await this._modalService.open('confirm', {
-      message: `Are you sure you want to delete this bank?`
+      message: `Are you sure you want to delete this Bank?`
     })
 
     if (result.type !== 'confirm') return

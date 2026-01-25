@@ -11,10 +11,14 @@ import {
 } from 'openai/resources/responses/responses.mjs'
 import { ChatModel } from 'openai/resources/shared.mjs'
 import { SettingsStore } from '../../store/settingsStore'
-import { LearnableFromImageConfig, LearnableFromTextConfig } from '../../types_and_schemas/types'
+import {
+  LearnableCreationConfig,
+  LearnableFromImageCreationConfig,
+  LearnableFromTextCreationConfig
+} from '../../types_and_schemas/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
-import { getPhrasesPrompt, getWordsPrompt } from './prompt'
+import { getPrompt } from './prompt'
 
 @Injectable({
   providedIn: 'root'
@@ -31,18 +35,29 @@ export class AiService {
       })
   )
 
-  async createLearnablesFromString(config: LearnableFromTextConfig): Promise<LearnableBase[]> {
+  async createLearnables(config: LearnableCreationConfig): Promise<LearnableBase[]> {
+    if (config.source === 'image') {
+      return this.createLearnablesFromImage(config)
+    } else {
+      return this.createLearnablesFromString(config)
+    }
+  }
+
+  async createLearnablesFromString(
+    config: LearnableFromTextCreationConfig
+  ): Promise<LearnableBase[]> {
     const cardPromises: Promise<LearnableBase[]>[] = []
+    const text = config.text
 
     // when both, do call phrase and cards, if one of them, call one of them
     // chatgpt skips a lot of input when doing both at once
-    if (config.type === 'phrases' || config.type === 'both') {
-      const prompt = getPhrasesPrompt(config.language)
-      cardPromises.push(this._createPhrasesFromText(config.text, prompt))
+    if (config.type === 'phrase' || config.type === 'both') {
+      const prompt = getPrompt(config.language, 'phrase', config.source)
+      cardPromises.push(this._createCardsFromText(text, prompt, 'phrase'))
     }
-    if (config.type === 'words' || config.type === 'both') {
-      const prompt = getWordsPrompt(config.language)
-      cardPromises.push(this._createWordsFromText(config.text, prompt))
+    if (config.type === 'word' || config.type === 'both') {
+      const prompt = getPrompt(config.language, 'word', config.source)
+      cardPromises.push(this._createCardsFromText(text, prompt, 'word', 300))
     }
 
     const cardLists = await Promise.all(cardPromises)
@@ -51,39 +66,38 @@ export class AiService {
     return cards
   }
 
-  async createLearnablesFromImage(config: LearnableFromImageConfig): Promise<LearnableBase[]> {
-    const userMessageContent: ResponseInputMessageContentList = [
-      {
-        type: 'input_image',
-        detail: 'high',
-        image_url: config.image
-      }
-    ]
-
+  async createLearnablesFromImage(
+    config: LearnableFromImageCreationConfig
+  ): Promise<LearnableBase[]> {
     const cardPromises: Promise<LearnableBase[]>[] = []
+    const image = config.image
 
-    if (config.type === 'phrases' || config.type === 'both') {
-      const prompt = getPhrasesPrompt(config.language)
-      cardPromises.push(this._createPhrasesFromImage(userMessageContent, prompt))
+    if (config.type === 'phrase' || config.type === 'both') {
+      const prompt = getPrompt(config.language, 'phrase', 'image')
+      cardPromises.push(this._createCardsFromImage(image, prompt, 'phrase'))
     }
 
-    if (config.type === 'words' || config.type === 'both') {
-      const prompt = getWordsPrompt(config.language)
-      cardPromises.push(this._createWordsFromImage(userMessageContent, prompt))
+    if (config.type === 'word' || config.type === 'both') {
+      const prompt = getPrompt(config.language, 'word', 'image')
+      cardPromises.push(this._createCardsFromImage(image, prompt, 'word'))
     }
-
     const cardLists = await Promise.all(cardPromises)
     const cards = cardLists.flat(1)
 
     return cards
   }
 
-  private async _createPhrasesFromText(text: string, prompt: string): Promise<LearnableBase[]> {
-    // this is a workaround for gpt-4o missing a lot of phrases when given to long input
-    // increasing batchsize may improve speed, but reduce accuracy
-    // reducing it increases accuracy, but reduces speed and increases token usage
-    const maxChunkSize = 1000
-    const chunks = mapPhrasesFromInputToChunks(text, maxChunkSize)
+  private async _createCardsFromText(
+    text: string,
+    prompt: string,
+    type: 'word' | 'phrase',
+    chunkSize = 1000
+  ): Promise<LearnableBase[]> {
+    // the chunking reduces input length per request
+    // bacause ai models become less accurate with longer inputs
+    // increasing batchsize improves speed, but reduce accuracy
+    // reducing it increases accuracy, but reduces speed  through the system prompts beeing sent per every request
+    const chunks = mapPhrasesFromInputToChunks(text, chunkSize)
     const chunkPromises = chunks.map((chunk) => this._extractCards(chunk, prompt))
 
     const cardsLists = await Promise.all(chunkPromises)
@@ -91,51 +105,28 @@ export class AiService {
     return cardsLists.flat(1).map((c) => ({
       ...c,
       notes: '',
-      type: 'phrase'
+      type
     }))
   }
 
-  private async _createWordsFromText(text: string, prompt: string): Promise<LearnableBase[]> {
-    // this is a workaround for gpt-4o missing a lot of words when given a longer input
-    // splitting the input into batches of smaller words improves input adherence
-    // increasing batchsize may improve speed, but reduce accuracy
-    // reducing it increases accuracy, but reduces speed and increases token usage
-    const chunkSize = 300
-    const batches = mapPhrasesFromInputToChunks(text, chunkSize)
-    const cardPromises = batches.map((chunk) => this._extractCards(chunk, prompt))
-
-    const cardsLists = await Promise.all(cardPromises)
-
-    return cardsLists.flat(1).map((c) => ({
-      ...c,
-      notes: '',
-      type: 'word'
-    }))
-  }
-
-  private async _createWordsFromImage(
-    imageContent: ResponseInputMessageContentList,
-    prompt: string
+  private async _createCardsFromImage(
+    image: string,
+    prompt: string,
+    type: 'word' | 'phrase'
   ): Promise<LearnableBase[]> {
-    const cards = await this._extractCards(imageContent, prompt)
+    const userMessageContent: ResponseInputMessageContentList = [
+      {
+        type: 'input_image',
+        detail: 'high',
+        image_url: image
+      }
+    ]
+    const cards = await this._extractCards(userMessageContent, prompt)
 
     return cards.map((c) => ({
       ...c,
       notes: '',
-      type: 'word'
-    }))
-  }
-
-  private async _createPhrasesFromImage(
-    imageContent: ResponseInputMessageContentList,
-    prompt: string
-  ): Promise<LearnableBase[]> {
-    const cards = await this._extractCards(imageContent, prompt)
-
-    return cards.map((c) => ({
-      ...c,
-      notes: '',
-      type: 'phrase'
+      type
     }))
   }
 

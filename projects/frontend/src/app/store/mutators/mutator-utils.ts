@@ -12,7 +12,13 @@ export const updateActiveBank = (
 })
 
 export const learnablesMatch = (l1: LearnableBase, l2: LearnableBase) =>
-  l1.lexeme === l2.lexeme && l1.translation === l2.translation
+  l1.lexeme === l2.lexeme && l1.translation === l2.translation && l1.type === l2.type
+
+export const learnablesTranslationMatch = (l1: LearnableBase, l2: LearnableBase) =>
+  l1.translation === l2.translation && l1.lexeme !== l2.lexeme
+
+export const learnablesLexemeMatch = (l1: LearnableBase, l2: LearnableBase) =>
+  l1.lexeme === l2.lexeme && l1.translation !== l2.translation
 
 export const mapBaseToUserLearnable = (
   base: LearnableBase,

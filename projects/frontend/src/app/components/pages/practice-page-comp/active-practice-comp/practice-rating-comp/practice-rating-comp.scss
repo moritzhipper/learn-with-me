@@ -1,10 +1,10 @@
 :host {
-  background-color: var(--col-bg);
-  color: var(--col-primary);
-  box-shadow: var(--shadow-big);
   border-radius: var(--radius-3);
   box-sizing: border-box;
-
+  .icon {
+    color: var(--col-bg);
+    filter: drop-shadow(8px 10px 10px rgb(from var(--col-bg) r g b / 0.6));
+  }
   &.noteven,
   &.excellent {
     padding: var(--distance-4);
