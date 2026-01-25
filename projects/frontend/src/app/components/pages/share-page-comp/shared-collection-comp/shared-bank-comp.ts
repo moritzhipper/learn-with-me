@@ -39,7 +39,7 @@ export class SharedBankComp implements OnDestroy {
     const { collections, learnables } = this.bank()
 
     return {
-      cards: collections.length,
+      cards: learnables.length,
       words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
       phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
       collections: pluralize(collections.length, 'collection')

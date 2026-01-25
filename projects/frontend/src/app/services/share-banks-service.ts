@@ -108,7 +108,7 @@ export class ShareBanksService {
         message: `Check community page to see.`,
         type: 'info'
       })
-      await this.copyLinkToClipboard(response.id, bank.name)
+      await this.copyLinkToClipboard(response.id, mappedBank.name)
     } catch {
       this.toastService.showToast({
         header: 'Error',

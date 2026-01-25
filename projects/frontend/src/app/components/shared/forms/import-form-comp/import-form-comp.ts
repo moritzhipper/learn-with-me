@@ -19,6 +19,29 @@ export class ImportFormComp extends BaseModalDirective {
   bank = input.required<BankShareBase>()
   activeBankLanguage = input.required<LanguageConfig>()
 
+  summary = computed(() => {
+    const b = this.bank()
+    const maxPreviewCards = 10
+    const maxPreviewCollections = 20
+
+    const cardsCount = b.learnables.length
+    const previewCards = b.learnables.slice(0, maxPreviewCards)
+    const cardsCountHidden = cardsCount - previewCards.length
+
+    const collectionsCount = b.collections.length
+    const previewCollections = b.collections.slice(0, maxPreviewCollections)
+    const collectionsCountHidden = collectionsCount - previewCollections.length
+
+    return {
+      cardsCount,
+      previewCards,
+      cardsCountHidden,
+      collectionsCount,
+      previewCollections,
+      collectionsCountHidden
+    }
+  })
+
   differentLanguages = computed(() => {
     const bankL = this.bank().language
     const activeL = this.activeBankLanguage()

@@ -26,7 +26,7 @@ export class MagicAddComp extends BaseModalDirective {
 
   convertForm = this._fb.group({
     text: ['', Validators.required],
-    type: 'words'
+    type: 'word'
   })
 
   onFileChange(event: Event) {
@@ -66,19 +66,19 @@ export class MagicAddComp extends BaseModalDirective {
     const language = this.language()
     if (!image && !text && !type) return
 
-    if (text) {
-      this.convert({
-        type,
-        language,
-        source: 'text',
-        text
-      })
-    } else if (image) {
+    if (image) {
       this.convert({
         type,
         language,
         source: 'image',
         image
+      })
+    } else if (text) {
+      this.convert({
+        type,
+        language,
+        source: 'text',
+        text
       })
     }
   }
