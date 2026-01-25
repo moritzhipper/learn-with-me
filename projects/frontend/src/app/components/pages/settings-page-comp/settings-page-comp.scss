@@ -1,3 +1,5 @@
+@use '../../../../style/mixins.scss' as *;
+
 .stats {
   font-size: var(--font-size-2);
   line-height: var(--font-size-3);
@@ -64,6 +66,17 @@ p {
 
 .items {
   display: grid;
-  grid-template-columns: var(--grid-auto-columns-wide);
   gap: var(--distance-4);
+}
+
+@include isDesktop() {
+  .items {
+    grid-template-columns: var(--grid-auto-columns-wide);
+  }
+}
+
+@include isPhone() {
+  .items {
+    grid-template-columns: 1fr;
+  }
 }
