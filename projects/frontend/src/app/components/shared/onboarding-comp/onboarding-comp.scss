@@ -19,7 +19,6 @@
   top: 0;
   color: var(--col-primary);
   z-index: -1;
-  opacity: var(--opacity-0);
 }
 
 h1,
@@ -60,12 +59,14 @@ p {
   }
 }
 
-.languages {
-  display: grid;
+.larry {
+  animation-delay: 0.8s;
+  opacity: var(--opacity-1);
+  z-index: -1;
 }
 
-.first-icon-delay {
-  animation-delay: 0.7s;
+.languages {
+  display: grid;
 }
 
 input {
@@ -84,6 +85,16 @@ input {
     .icon-big {
       width: 150%;
       left: -60%;
+      opacity: var(--opacity-1);
+    }
+    .larry {
+      box-sizing: border-box;
+      padding: var(--distance-5);
+      width: 100%;
+      rotate: -30deg;
+      transform-origin: top center;
+      top: 0;
+      left: -20%;
     }
     .languages {
       gap: var(--distance-3);
@@ -113,6 +124,14 @@ input {
         width: 400px;
         height: 400px;
         left: -250px;
+        opacity: var(--opacity-0);
+      }
+
+      .larry {
+        width: 300px;
+        height: 300px;
+        rotate: -75deg;
+        transform-origin: center;
       }
 
       .languages {

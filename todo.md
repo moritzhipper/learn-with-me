@@ -3,6 +3,10 @@
 ## Right Now
 
 - add gecko on back of cards
+- write tests for store
+  - import
+  - merge
+  - practice
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count

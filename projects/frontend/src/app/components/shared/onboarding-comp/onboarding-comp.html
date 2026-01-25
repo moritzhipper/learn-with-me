@@ -1,17 +1,14 @@
 <div class="wrapper">
   @switch (activeIndex()) {
     @case (0) {
-      <app-icon-comp type="learn" class="icon-big fly-in-y-wide first-icon-delay" />
+      <app-larry-big class="larry fly-in-y-wide" />
+      <!-- <app-icon-comp type="learn" class="icon-big fly-in-y-wide" /> -->
       <div class="header">
         <p class="fly-in-xy-0">Welcome to</p>
-        <h1>
-          <span class="fly-in-xy-1">learn </span>
-          <span class="fly-in-xy-2"> with </span>
-          <span class="fly-in-xy-3"> me </span>
-        </h1>
+        <h1 class="fly-in-xy-1">lingolizard</h1>
       </div>
-      <p class="fly-in-xy-4">Create, practice and share learning cards and collections.</p>
-      <p class="pb-4 fly-in-xy-5">
+      <p class="fly-in-xy-2">Create, practice and share learning cards and collections.</p>
+      <p class="pb-4 fly-in-xy-3">
         Prepare for conversations in other languages, slang, dialects or situations. Your
         imagination is the limit!
       </p>
@@ -60,11 +57,11 @@
     }
   }
   <div class="buttons">
-    <button class="silent back fly-in-xy-10" [disabled]="activeIndex() === 0" (click)="back()">
+    <button class="silent back fly-in-xy-4" [disabled]="activeIndex() === 0" (click)="back()">
       <app-icon-comp type="chevron" />
     </button>
     <button
-      class="big next fly-in-xy-10"
+      class="big next fly-in-xy-5"
       [disabled]="activeIndex() === 3 && languageForm.invalid"
       (click)="next()"
     >
