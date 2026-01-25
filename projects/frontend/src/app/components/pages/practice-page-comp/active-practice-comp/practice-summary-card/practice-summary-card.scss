@@ -1,53 +1,63 @@
 @use '../../../../../../style/mixins.scss' as *;
-
-.wrapper {
-  height: 100%;
-  width: 100%;
-  display: grid;
+:host {
+  position: relative;
   overflow: hidden;
 
-  box-sizing: border-box;
-  position: relative;
-  color: var(--col-bg);
-
-  app-practice-rating-comp {
-    width: 250px;
-    height: 250px;
-    place-self: center;
-    rotate: 4deg;
-  }
-
-  .stats {
-    place-self: stretch;
-    display: flex;
-    flex-direction: column;
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    overflow: hidden;
 
     box-sizing: border-box;
-    padding: var(--distance-6);
+    position: relative;
+    color: var(--col-bg);
 
-    h2 {
-      color: var(--col-bg);
-      grid-column: span 2;
-      margin: 0;
+    app-practice-rating-comp {
+      width: 250px;
+      height: 250px;
+      place-self: center;
+      rotate: 4deg;
     }
 
-    .subtitle {
-      font-weight: bold;
-      padding: var(--distance-3) 0 var(--distance-6) 0;
-      margin-bottom: auto;
-    }
+    .stats {
+      place-self: stretch;
+      display: flex;
+      flex-direction: column;
 
-    .stat {
-      display: grid;
-      grid-template-columns: 1fr auto;
+      box-sizing: border-box;
+      padding: var(--distance-6);
 
-      &:not(:last-of-type) {
-        border-bottom: 1px solid
-          rgb(from var(--col-bg) r g b / var(--opacity-0));
-        padding-bottom: var(--distance-2);
-        margin-bottom: var(--distance-2);
+      h2 {
+        color: var(--col-bg);
+        grid-column: span 2;
+        margin: 0;
+      }
+
+      .subtitle {
+        font-weight: bold;
+        padding: var(--distance-3) 0 var(--distance-6) 0;
+        margin-bottom: auto;
+      }
+
+      .stat {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        &:not(:last-of-type) {
+          border-bottom: 1px solid rgb(from var(--col-bg) r g b / var(--opacity-0));
+          padding-bottom: var(--distance-2);
+          margin-bottom: var(--distance-2);
+        }
       }
     }
+  }
+
+  app-larry-big {
+    padding: var(--distance-5);
+    box-sizing: border-box;
+    color: var(--col-primary);
+    position: absolute;
   }
 }
 
@@ -59,6 +69,12 @@
     .subtitle {
       text-align: center;
     }
+  }
+  app-larry-big {
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 100%;
   }
 }
 
@@ -72,12 +88,19 @@
       grid-area: 1 / 1;
     }
   }
+  app-larry-big {
+    width: 100%;
+    height: 200%;
+    left: 25%;
+    top: -15%;
+    rotate: -40deg;
+  }
 }
 
 :host {
   background-color: var(--col-primary);
   box-shadow: var(--shadow-bigger);
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-2);
   border: 2px solid var(--col-primary);
   box-sizing: border-box;
 
@@ -88,12 +111,24 @@
     opacity: 1;
   }
 
+  app-larry-big {
+    opacity: 0.05;
+    z-index: -1;
+    color: var(--col-bg);
+    transition: opacity var(--duration-3);
+    position: absolute;
+  }
+
   &.concealed {
     background-color: var(--col-bg);
     border: 2px solid rgb(from var(--col-primary) r g b / var(--opacity-0));
 
     .wrapper {
       opacity: 0;
+    }
+    app-larry-big {
+      color: var(--col-primary);
+      opacity: var(--opacity-0);
     }
   }
 }
