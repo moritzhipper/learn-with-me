@@ -1,7 +1,7 @@
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr;
   gap: var(--distance-2) 0;
   background-color: var(--col-bg);
 
@@ -31,6 +31,11 @@
 
   .info {
     grid-column: span 2;
+  }
+
+  .info.languages {
+    display: flex;
+    gap: var(--distance-1);
   }
 
   .counter {

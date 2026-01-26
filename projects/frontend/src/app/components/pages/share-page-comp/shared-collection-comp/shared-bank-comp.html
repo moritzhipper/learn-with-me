@@ -25,6 +25,15 @@
   </div>
 }
 
+<div class="info languages">
+  <span>
+    {{ bank().language.learning }}
+  </span>
+  <app-icon-comp type="left-right" [size]="16" />
+
+  <span> {{ bank().language.speaking }} </span>
+</div>
+
 <div class="shared">{{ bank().createdAt | date: 'mediumDate' }}</div>
 <div class="ttl">{{ ttl().label }}</div>
 @if (isCommunityBank()) {
