@@ -5,7 +5,15 @@
 - write tests for store
   - import
   - merge
-  - practice
+  - practice\
+
+  season 2 episode 7
+
+only put hat on big larry, remove from logo
+
+- show always on bank preview
+  - languages
+  - base + dialect
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count

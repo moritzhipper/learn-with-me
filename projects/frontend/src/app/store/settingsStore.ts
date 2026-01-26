@@ -20,7 +20,7 @@ export const SettingsStore = signalStore(
       })
     },
     reset() {
-      patchState(store, initialSettings)
+      patchState(store, { ...initialSettings, userID: crypto.randomUUID() })
     }
   }))
 )

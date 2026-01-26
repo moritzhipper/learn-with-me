@@ -37,6 +37,7 @@ export const fetchBanks = async (
 }
 
 export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaDB[]> => {
+  req.log.error(`Fetching banks for user ${req.userID}`)
   const result = await db.query.banks.findMany({
     where: and(
       eq(banks.user_id, req.userID),

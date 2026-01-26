@@ -57,11 +57,9 @@
     }
   }
   <div class="buttons">
-    @if (activeIndex() > 0) {
-      <button class="silent back fly-in-xy-0" [disabled]="activeIndex() === 0" (click)="back()">
-        <app-icon-comp type="chevron" />
-      </button>
-    }
+    <button class="silent back" [disabled]="activeIndex() === 0" (click)="back()">
+      <app-icon-comp type="chevron" />
+    </button>
     <button
       class="big next fly-in-xy-12"
       [disabled]="activeIndex() === 3 && languageForm.invalid"
