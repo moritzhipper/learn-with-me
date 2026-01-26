@@ -2,7 +2,6 @@ import { Component, computed, DOCUMENT, HostListener, inject } from '@angular/co
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, RouterOutlet } from '@angular/router'
 import { tapResponse } from '@ngrx/operators'
-import { BankShareViaDB } from '@shared/types'
 import { filter, map, switchMap } from 'rxjs'
 import z from 'zod'
 import { config } from '../config'
@@ -11,7 +10,7 @@ import { NavbarNewComp } from './components/shared/navbar-new-comp/navbar-new-co
 import { OnboardingComp } from './components/shared/onboarding-comp/onboarding-comp'
 import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-outlet-comp'
 import { ApiService } from './services/api-service'
-import { ModalService } from './services/modal-service'
+import { ShareBanksService } from './services/share-banks-service'
 import { ToastService } from './services/toast-service'
 import { LearnablesStore } from './store/learnablesStore'
 
@@ -38,8 +37,8 @@ export class App {
 
   private readonly _lStore = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
-  private readonly modalService = inject(ModalService)
   private readonly toastS = inject(ToastService)
+  private readonly bankService = inject(ShareBanksService)
 
   protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
 
@@ -52,7 +51,7 @@ export class App {
     switchMap((id) =>
       this.apiS.getBankByID(id).pipe(
         tapResponse({
-          next: this.resolveBankSuccess.bind(this),
+          next: this.bankService.importOnlineBank.bind(this.bankService),
           error: this.resolveBankError.bind(this)
         })
       )
@@ -76,12 +75,6 @@ export class App {
 
   setBodyHeight() {
     this.document.body.style.setProperty('--app-height', `${window.innerHeight}px`)
-  }
-
-  async resolveBankSuccess(bank: BankShareViaDB) {
-    const answer = await this.modalService.open('bank-import', { bank })
-    if (answer.type !== 'confirm') return
-    this._lStore.mergeBankIntoActiveBank(bank)
   }
 
   resolveBankError() {
