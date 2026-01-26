@@ -20,6 +20,17 @@ only put hat on big larry, remove from logo
 
 # do before deployment
 
+# write tests
+
+## Backend
+
+- create two users -> shared banks only displayed for correct user
+
+## frontend
+
+- check practice process
+- import merge correct
+
 ## shared
 
 - about page:
