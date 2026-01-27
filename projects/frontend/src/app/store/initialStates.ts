@@ -1,17 +1,5 @@
-import { BankUser, GuessHistory } from '@shared/types'
+import { GuessHistory } from '@shared/types'
 import { LearnablesStoreType, SettingsStoreType } from '../types_and_schemas/types'
-
-const defaultBank: BankUser = {
-  id: crypto.randomUUID(),
-  name: 'Default Bank',
-  createdAt: new Date(),
-  language: {
-    speaking: 'german',
-    learning: 'dutch'
-  },
-  collections: [],
-  learnables: []
-}
 
 export const initialState: LearnablesStoreType = {
   banks: [],
@@ -25,7 +13,6 @@ export const initialSettings: SettingsStoreType = {
   userID: crypto.randomUUID()
 }
 
-/** Initial guesses for a new learnable */
 export const initialGuesses: {
   lexeme: GuessHistory
   translation: GuessHistory

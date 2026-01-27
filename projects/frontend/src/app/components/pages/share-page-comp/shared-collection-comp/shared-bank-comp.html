@@ -15,7 +15,7 @@
   }
 </div>
 
-@if (isCommunityBank()) {
+<!-- @if (isCommunityBank()) {
   <div class="info">
     @if (hasMultipleCollections()) {
       <span class="word-list-item"> {{ _c.collections }} </span>
@@ -23,7 +23,16 @@
     <span class="word-list-item"> {{ _c.words }} </span>
     <span class="word-list-item"> {{ _c.phrases }} </span>
   </div>
-}
+} -->
+
+<div class="info languages">
+  <span>
+    {{ bank().language.learning }}
+  </span>
+  <app-icon-comp type="left-right" [size]="16" />
+
+  <span> {{ bank().language.speaking }} </span>
+</div>
 
 <div class="shared">{{ bank().createdAt | date: 'mediumDate' }}</div>
 <div class="ttl">{{ ttl().label }}</div>

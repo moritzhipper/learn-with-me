@@ -33,6 +33,11 @@
     grid-column: span 2;
   }
 
+  .info.languages {
+    display: flex;
+    gap: var(--distance-1);
+  }
+
   .counter {
     --displace: calc(var(--distance-4) * -1);
     --height: 140px;
@@ -73,6 +78,6 @@
   }
 
   &.community {
-    height: 150px;
+    height: 140px;
   }
 }

@@ -10,6 +10,7 @@ import { z } from 'zod'
 import {
   fetchBankById,
   fetchBanks as fetchSharedBanks,
+  fetchUserBanks,
   increaseDownloadCount,
   shareBank
 } from '../handler/banks'
@@ -49,7 +50,7 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         200: z.array(BankShareViaDBSchema)
       }
     },
-    handler: fetchSharedBanks
+    handler: fetchUserBanks
   })
 
   fastify.route({

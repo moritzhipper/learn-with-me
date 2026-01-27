@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SharedCollectionComp } from './shared-collection-comp';
+import { SharedCollectionComp } from './shared-collection-comp'
 
 describe('SharedCollectionComp', () => {
-  let component: SharedCollectionComp;
-  let fixture: ComponentFixture<SharedCollectionComp>;
+  let component: SharedCollectionComp
+  let fixture: ComponentFixture<SharedCollectionComp>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SharedCollectionComp]
-    })
-    .compileComponents();
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(SharedCollectionComp);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(SharedCollectionComp)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

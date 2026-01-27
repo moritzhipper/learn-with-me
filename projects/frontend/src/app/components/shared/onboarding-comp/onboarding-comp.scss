@@ -104,6 +104,12 @@ input {
     .buttons {
       display: grid;
       grid-template-columns: auto 1fr;
+      .next {
+        grid-column: 2;
+      }
+      .back[disabled] {
+        opacity: 0;
+      }
     }
   }
 }

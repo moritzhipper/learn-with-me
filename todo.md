@@ -1,16 +1,42 @@
 # ToDo
 
+# Infra
+
+- add ssl verification for ingoing
+- add outbound and inbound firewall for server
+- add rate limiting for
+
 ## Right Now
 
 - write tests for store
   - import
   - merge
-  - practice
+  - practice\
+
+  season 2 episode 7
+
+only put hat on big larry, remove from logo
+
+- show always on bank preview
+  - languages
+  - base + dialect
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
 
-# do before deployment
+# write tests
+
+- create two users -> shared banks only displayed for correct user
+- filter by languages works
+  - correct dir
+  - reverse dir
+  - one empty correct dir
+  - one empty reverse dir
+
+## frontend
+
+- check practice process
+- import merge correct
 
 ## shared
 
@@ -34,6 +60,7 @@
 
 ## Frontend
 
+- How to handle reverse matches in fe on import?
 - greadeziehen:
   - Bank gross schrieben
   - punkt nach toasts

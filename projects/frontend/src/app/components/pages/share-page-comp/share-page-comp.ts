@@ -6,7 +6,6 @@ import { mockUserBanks } from '@shared/testing/mockBanks'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { ApiService } from '../../../services/api-service'
-import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -54,14 +53,12 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 export class SharePageComp {
   private readonly _toastS = inject(ToastService)
   private readonly _shareBanksS = inject(ShareBanksService)
-  private readonly _modalService = inject(ModalService)
   private readonly _lStore = inject(LearnablesStore)
   private readonly _apiS = inject(ApiService)
   private readonly bankLanguage = computed(() => this._lStore.activeBank().language)
-  protected readonly MAX_PREVIEW_BANKS = 5
+  protected readonly MAX_PREVIEW_BANKS = 8
 
   protected userBanks: BankShareViaDB[] = mockUserBanks(3)
-
   protected fetchState = signal<ApiFetchState>('idle')
 
   fetchBankPreviews = rxMethod<void>(
@@ -81,17 +78,17 @@ export class SharePageComp {
   private readonly prefetchSectionsConfig = computed<PrefetchSectionProxy[]>(() => [
     { title: 'You shared', type: 'user' },
     {
-      title: 'Popular for your language match',
+      title: 'Popular for your active match',
       params: { ...this.bankLanguage(), sortBy: 'new' },
       type: 'community'
     },
     {
-      title: 'New for your language match',
+      title: 'New for your active match',
       params: { ...this.bankLanguage(), sortBy: 'top' },
       type: 'community'
     },
-    { title: 'Popular for other matches', params: { sortBy: 'top' }, type: 'community' },
-    { title: 'New for other matches', params: { sortBy: 'new' }, type: 'community' }
+    { title: 'Popular on lingolizard', params: { sortBy: 'top' }, type: 'community' },
+    { title: 'New on lingolizard', params: { sortBy: 'new' }, type: 'community' }
   ])
 
   protected readonly previewBanks = signal<StaggerVM<BanksPreviewSection> | null>(null)
