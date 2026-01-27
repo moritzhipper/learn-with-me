@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:fe": "ng serve",
-    "build:fe": "ng build",
+    "build:fe:prod": "ng build",
     "build:fe:static": "ng build --configuration static",
     "watch:fe": "ng build --watch --configuration development",
     "test:fe": "ng test",
@@ -16,7 +16,7 @@
     "test:be": "npm run build:be && tsc -p projects/backend/tsconfig.test.json && cd projects/backend && c8 node --test -r ts-node/register \"test/**/*.ts\"",
     "db:generate": "drizzle-kit generate --config=projects/backend/drizzle.config.ts",
     "db:migrate": "drizzle-kit migrate --config=projects/backend/drizzle.config.ts",
-    "db:local": "docker "
+    "build:be:prod": "tsc -p projects/backend/tsconfig.prod.json && tsc-alias -p projects/backend/tsconfig.prod.json"
   },
   "prettier": {
     "printWidth": 100,
