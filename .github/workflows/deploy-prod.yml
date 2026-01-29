@@ -29,6 +29,8 @@ jobs:
           ARGS: '-rlgoDzvc -i --delete'
           SOURCE: 'dist/'
           SCRIPT_AFTER: |
+            # sync docker compose
+            # apply nginx config
             # use docker compose -d to start the services in detached mode
-      
-
+            # add health check to backend docker compose service
+            # switch old deploy to new deploy
