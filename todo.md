@@ -3,6 +3,7 @@
 # Infra
 
 - add ssl verification for ingoing
+
 - add outbound and inbound firewall for server
 - add rate limiting for
 
