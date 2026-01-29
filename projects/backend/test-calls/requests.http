@@ -4,7 +4,6 @@
 @category = top
 
 
-
 ### Get New Banks
 GET {{base}}/banks?speaking={{speakinng}}&learning={{learning}}&sortBy={{category}}&limit=2
 
@@ -14,3 +13,7 @@ POST {{base}}/banks/share
 Content-Type: application/json
 
 < ./bank-share-body.json
+
+
+### Health Check
+GET {{base}}/health
