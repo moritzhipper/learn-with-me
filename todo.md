@@ -2,10 +2,9 @@
 
 # Infra
 
-- add ssl verification for ingoing
-
+- deploy
 - add outbound and inbound firewall for server
-- add rate limiting for
+- add rate limiting using nginx
 
 ## Right Now
 
