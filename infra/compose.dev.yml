@@ -1,8 +1,3 @@
-# Use postgres/example user/password credentials
-
-env_file:
-  - ./../.env
-
 services:
   db:
     image: postgres
@@ -10,8 +5,8 @@ services:
     ports:
       - 5432:5432
     shm_size: 128mb
-    environment:
-      POSTGRES_PASSWORD: example
+    env_file:
+      - ../.env
 
   adminer:
     image: adminer
