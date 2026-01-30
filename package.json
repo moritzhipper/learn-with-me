@@ -5,8 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start:fe": "ng serve",
-    "start:be": "tsx watch --env-file=.env projects/backend/src/app.ts",
-    "start:be:prod": "node dist/backend/app.js",
+    "start:be": "tsx watch projects/backend/src/app.ts",
     "test:fe": "ng test",
     "test:be": "npm run build:be && tsc -p projects/backend/tsconfig.test.json && cd projects/backend && c8 node --test -r ts-node/register \"test/**/*.ts\"",
     "build:be:prod": "node projects/backend/build-prod.cjs",
@@ -32,7 +31,7 @@
   "private": true,
   "packageManager": "npm@11.6.1",
   "dependencies": {
-    "@angular-architects/ngrx-toolkit": "^20.5.0",
+    "@angular-architects/ngrx-toolkit": "^21.0.1",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
@@ -63,7 +62,7 @@
     "@types/node": "^25.1.0",
     "@types/pg": "^8.16.0",
     "c8": "^10.1.2",
-    "esbuild": "^0.27.2",
+    "esbuild": "^0.25.0",
     "esbuild-plugin-pino": "^2.3.3",
     "fastify-cli": "^7.4.1",
     "fastify-tsconfig": "^3.0.0",
