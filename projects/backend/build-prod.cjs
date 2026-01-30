@@ -16,6 +16,7 @@ esbuild
     tsconfig: './projects/backend/tsconfig.prod.json',
 
     // Necessary for Node to handle __dirname and require() inside ESM files
+    // as we bundle pino as separate files, this is necessary
     banner: {
       js: `import { createRequire } from 'module';const require = createRequire(import.meta.url);`
     },
