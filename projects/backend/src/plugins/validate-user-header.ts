@@ -3,7 +3,7 @@ import { RequestHeader } from '@shared/types'
 import { FastifyInstance, FastifyRequest } from 'fastify'
 import fp from 'fastify-plugin'
 
-export default fp(async (fastify: FastifyInstance) => {
+export const validateUserheader = fp(async (fastify: FastifyInstance) => {
   fastify.addHook('preHandler', async (req: FastifyRequest<{ Headers: RequestHeader }>) => {
     try {
       const headers = RequestHeaderSchema.parse(req.headers)

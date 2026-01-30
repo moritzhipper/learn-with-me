@@ -1,8 +1,7 @@
-import { FastifyRequest } from 'fastify'
 import { db } from '../db/db'
 
-export const checkHealth = async (req: FastifyRequest): Promise<void> => {
-  // verify db connection
+export const checkHealth = async (): Promise<void> => {
   await db.execute('SELECT 1')
+
   return
 }

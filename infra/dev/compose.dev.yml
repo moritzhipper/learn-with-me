@@ -6,7 +6,7 @@ services:
       - 5432:5432
     shm_size: 128mb
     env_file:
-      - ../.env
+      - ../../.env
 
   adminer:
     image: adminer

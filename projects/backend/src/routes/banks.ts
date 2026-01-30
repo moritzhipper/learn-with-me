@@ -5,7 +5,7 @@ import {
   BanksRequestSchema,
   ObjectWithIdSchema
 } from '@shared/schemas'
-import { FastifyPluginAsync } from 'fastify'
+import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import {
   fetchBankById,
@@ -17,7 +17,7 @@ import {
 
 const options = {}
 
-const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+const root: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
   fastify.route({
     method: 'GET',
     url: API_ROUTES.BANKS.ROOT,

@@ -1,12 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/backend",
-    "sourceMap": true,
-    "types": ["node"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "esModuleInterop": true
+    "outDir": "../../dist/out-tsc",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["node"]
   },
   "include": ["src/**/*.ts", "drizzle.config.ts"],
   "exclude": ["src/**/*.test.ts"]

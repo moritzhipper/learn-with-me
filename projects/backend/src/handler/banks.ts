@@ -1,5 +1,6 @@
 import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
 
+import { httpErrors } from '@fastify/sensible'
 import { and, count, desc, eq, gt, ilike, InferSelectModel, isNull, or, SQL } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
 import { db } from '../db/db'
@@ -34,10 +35,10 @@ export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaD
 
 export const fetchBankById = async (
   req: FastifyRequest<{ Params: { id: string } }>
-): Promise<BankShareViaDB | null> => {
+): Promise<BankShareViaDB> => {
   const result = await getBanksQuery().where(eq(banks.id, req.params.id))
 
-  if (!result || result.length === 0) return null
+  if (!result || result.length === 0) throw httpErrors.notFound
 
   return mapResultToBankShareViaDB(result[0])
 }
