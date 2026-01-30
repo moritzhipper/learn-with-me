@@ -53,6 +53,7 @@ only put hat on big larry, remove from logo
 
 ## Backend
 
+- hide server errors from fe
 - search in both directions
 - add ratelimiting?
 - add inbetween layer to backend

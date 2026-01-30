@@ -1,6 +1,5 @@
 {
-  "extends": "./tsconfig.app.json",
-  "compilerOptions": {
-    "sourceMap": false
-  }
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.ts", "drizzle.config.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }
