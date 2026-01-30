@@ -2,7 +2,7 @@ name: Deploy to Prod
 
 on:
   push:
-    branches: [main]
+    branches: ['main']
 
 jobs:
   deploy:
@@ -27,7 +27,7 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
           ARGS: '-rlgoDzvc -i --delete'
-          SOURCE: 'dist/'
+          SOURCE: 'dist/ infra/prod/'
           SCRIPT_AFTER: |
             # sync docker compose
             # apply nginx config
