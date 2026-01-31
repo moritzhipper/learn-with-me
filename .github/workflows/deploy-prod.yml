@@ -29,7 +29,10 @@ jobs:
           ARGS: '-rlgoDzvc -i --delete'
           SOURCE: 'dist/ infra/prod/'
           SCRIPT_AFTER: |
-            # sync docker compose
+            # copy files to target dir
+            # start nginx container holding backend and frontend
+            nginx -s
+            docker-compose -f docker-compose.prod.yml 
             # apply nginx config
             # use docker compose -d to start the services in detached mode
             # add health check to backend docker compose service

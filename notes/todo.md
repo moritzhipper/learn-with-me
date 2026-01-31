@@ -3,6 +3,7 @@
 # Infra
 
 - deploy
+- finish githib CD Action
 - add outbound and inbound firewall for server
 - add rate limiting using nginx
 - add apply migration script

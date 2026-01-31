@@ -11,11 +11,19 @@ services:
       - frontend
       - backend
   frontend:
-    build: ./dist/frontend
+    image: node:24-alpine
+    working_dir: /usr/src/app
+    command: node app.js
+    volumes:
+      - ./dist/frontend:/usr/src/app:ro
+    command: node
     depends_on:
       - backend
   backend:
-    build: ./dist/backend
+    iamge: node:24-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - ./dist/backend:/usr/src/app:ro
     depends_on:
       - db
   db:
