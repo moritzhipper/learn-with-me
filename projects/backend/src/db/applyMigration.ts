@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
+import { env } from '../environment'
 import { db } from './db'
 
 type DrizzleVersion = {
@@ -10,12 +11,14 @@ type DrizzleVersion = {
 
 export const applyMigration = async () => {
   const versionBefore = await getDrizzleVersion()
-  await migrate(db, { migrationsFolder: './projects/backend/migrations' })
+  await migrate(db, { migrationsFolder: env.MIGRATIONS_PATH })
   const versionAfter = await getDrizzleVersion()
   if (versionBefore?.hash === versionAfter?.hash) {
-    console.log(`No DB migrations to apply, using`, versionBefore)
+    console.log(
+      `No DB migrations to apply, using ${versionBefore?.hash} from ${versionBefore?.created_at.toISOString()}`
+    )
   } else {
-    console.log(`Migrated from db version`, versionBefore, `to`, versionAfter)
+    console.log(`Migrated from db version ${versionBefore?.hash} to ${versionAfter?.hash}`)
   }
 }
 

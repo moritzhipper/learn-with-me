@@ -6,7 +6,8 @@ const EnvironmentSchema = z.object({
   PORT: z.coerce.number(),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
-  POSTGRES_PASSWORD: z.string()
+  POSTGRES_PASSWORD: z.string(),
+  MIGRATIONS_PATH: z.string()
 })
 
 export const env = EnvironmentSchema.parse(process.env)

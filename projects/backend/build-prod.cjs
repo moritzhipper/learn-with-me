@@ -1,7 +1,16 @@
 const esbuild = require('esbuild')
 const esbuildPluginPino = require('esbuild-plugin-pino')
+const fs = require('fs')
+const path = require('path')
 
 console.log('Building Backend')
+
+// Copy migrations folder to dist, so they can be applied at startup
+const migrationsSource = path.join(__dirname, 'migrations')
+const migrationsDest = path.join(__dirname, '../../dist/backend/migrations')
+
+fs.cpSync(migrationsSource, migrationsDest, { recursive: true })
+console.log('✓ Copied migrations folder to dist/backend/migrations')
 
 esbuild
   .build({
