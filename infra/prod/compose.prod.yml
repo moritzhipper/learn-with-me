@@ -2,7 +2,7 @@ services:
   nginx:
     image: jonasal/nginx-certbot:latest
     ports:
-      - '80:80' # certbot challenge
+      - '80:80'
       - '443:443'
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
@@ -15,15 +15,15 @@ services:
     working_dir: /usr/src/app
     command: node app.js
     volumes:
-      - ./dist/frontend:/usr/src/app:ro
-    command: node
+      - ../../dist/frontend:/usr/src/app:ro
     depends_on:
       - backend
   backend:
-    iamge: node:24-alpine
+    image: node:24-alpine
     working_dir: /usr/src/app
+    command: node app.js
     volumes:
-      - ./dist/backend:/usr/src/app:ro
+      - ../../dist/backend:/usr/src/app:ro
     depends_on:
       - db
   db:

@@ -25,15 +25,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
           ARGS: '-rlgoDzvc -i --delete'
           SOURCE: 'dist/ infra/prod/'
-          SCRIPT_AFTER: |
-            # copy files to target dir
-            # start nginx container holding backend and frontend
-            nginx -s
-            docker-compose -f docker-compose.prod.yml 
-            # apply nginx config
-            # use docker compose -d to start the services in detached mode
-            # add health check to backend docker compose service
-            # switch old deploy to new deploy
+          TARGET: /usr/src/app/
+          SCRIPT_AFTER: bash /usr/src/app/infra/prod/apply-compose.sh
