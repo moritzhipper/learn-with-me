@@ -11,6 +11,8 @@ Nginx as reverse proxy and rate limiter
 - syncs docker.compose and nginx server
 - syncs build output via rsync with server
 - check for new db migration on backend startup, applies it if exists
+- when migration fails -> rollback
+- create db backup on db migration?
 
 ## rsync options
 

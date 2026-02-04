@@ -1,8 +1,9 @@
 import sensible from '@fastify/sensible'
 import Fastify from 'fastify'
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
+import { applyMigration as applyDBMigration } from './db/applyMigration'
 import { env } from './environment'
-import { checkHealth } from './handler/health'
+import { checkHealth as checkDBHealth } from './handler/health'
 import { validateUserheader } from './plugins/validate-user-header'
 import bankRoutes from './routes/banks'
 import health from './routes/health'
@@ -27,9 +28,9 @@ app.register(bankRoutes)
 
 const start = async () => {
   try {
-    await checkHealth()
-    const address = await app.listen({ port: env.PORT, host: '0.0.0.0' })
-    console.log(`Server listening at ${address}`)
+    await checkDBHealth()
+    await applyDBMigration()
+    await app.listen({ port: env.PORT, host: '0.0.0.0' })
   } catch (err) {
     app.log.error(err)
     process.exit(1)
