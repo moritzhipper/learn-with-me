@@ -5,7 +5,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./infra/prod/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - certs:/etc/letsencrypt
     depends_on:
       - frontend
@@ -15,7 +15,7 @@ services:
     working_dir: /usr/src/app
     command: node app.js
     volumes:
-      - ../../dist/frontend:/usr/src/app:ro
+      - ./dist/frontend:/usr/src/app:ro
     depends_on:
       - backend
   backend:
@@ -23,7 +23,7 @@ services:
     working_dir: /usr/src/app
     command: node app.js
     volumes:
-      - ../../dist/backend:/usr/src/app:ro
+      - ./dist/backend:/usr/src/app:ro
     depends_on:
       - db
   db:
