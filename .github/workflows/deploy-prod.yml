@@ -22,6 +22,8 @@ jobs:
         run: npm run build:fe:prod
       - name: Build Backend
         run: npm run build:be:prod
+      - name: Generate .env file
+        run: echo "${{ secrets.ENV }}" > infra/prod/.env
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh

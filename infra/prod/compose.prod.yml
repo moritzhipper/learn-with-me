@@ -23,6 +23,7 @@ services:
     image: node:24-alpine
     working_dir: /usr/src/app
     command: node app.js
+    env_file: .env
     volumes:
       - ./dist/backend:/usr/src/app:ro
     depends_on:
@@ -30,6 +31,7 @@ services:
 
   db:
     image: postgres:latest
+    env_file: .env
     volumes:
       - pgdata:/var/lib/postgresql/data
 
