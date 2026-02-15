@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+cd /home/deployer/lingolizard
+
 COMPOSE_FILE="compose.prod.yml"
 
 docker compose -f "$COMPOSE_FILE" config > /tmp/compose-backup.yml 2>/dev/null || true
