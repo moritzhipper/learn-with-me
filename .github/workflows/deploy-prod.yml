@@ -2,7 +2,7 @@ name: Deploy to Prod
 
 on:
   push:
-    branches: ['main']
+    branches: ['add_prod_build']
 
 jobs:
   deploy:
@@ -25,6 +25,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           ARGS: '-rlgoDzvc -i --delete'
           SOURCE: 'dist/ infra/prod/'
           TARGET: /usr/src/app/
