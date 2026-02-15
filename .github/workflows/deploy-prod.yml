@@ -27,6 +27,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           ARGS: '-rlgoDzvc -i --delete'
-          SOURCE: 'dist/ infra/prod/'
+          SOURCE: 'dist infra/prod/'
           TARGET: /home/deployer/lingolizard
-          SCRIPT_AFTER: bash /home/deployer/lingolizard/infra/prod/apply-compose.sh
+          SCRIPT_AFTER: bash /home/deployer/lingolizard/apply-compose.sh

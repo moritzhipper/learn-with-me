@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-COMPOSE_FILE="infra/prod/compose.prod.yml"
+COMPOSE_FILE="compose.prod.yml"
 
 docker compose -f "$COMPOSE_FILE" config > /tmp/compose-backup.yml 2>/dev/null || true
 
