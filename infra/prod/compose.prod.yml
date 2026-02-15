@@ -1,5 +1,4 @@
 services:
-  # 1. THE GATEKEEPER (Handles SSL, Rate Limiting, and Routing)
   nginx:
     image: jonasal/nginx-certbot:latest
     ports:
@@ -12,7 +11,6 @@ services:
       - frontend
       - backend
 
-  # 2. THE FRONTEND (Internal Web Server for Angular static files)
   frontend:
     image: nginx:alpine
     volumes:
@@ -21,7 +19,6 @@ services:
     depends_on:
       - backend
 
-  # 3. THE BACKEND (Your Node.js API)
   backend:
     image: node:24-alpine
     working_dir: /usr/src/app
@@ -31,7 +28,6 @@ services:
     depends_on:
       - db
 
-  # 4. THE DATABASE
   db:
     image: postgres:latest
     volumes:
