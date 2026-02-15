@@ -28,5 +28,5 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           ARGS: '-rlgoDzvc -i --delete'
           SOURCE: 'dist/ infra/prod/'
-          TARGET: /usr/src/app/
-          SCRIPT_AFTER: bash /usr/src/app/infra/prod/apply-compose.sh
+          TARGET: /home/deployer/lingolizard
+          SCRIPT_AFTER: bash /home/deployer/lingolizard/infra/prod/apply-compose.sh
