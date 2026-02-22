@@ -33,13 +33,17 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
-      - name: Backup And Prepare Remote
-        run: $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/infra/backup-and-prepare.sh"
+      - name: Backup Current State
+        run: |
+          $SSH_CMD $SSH_CONN "
+            rm -rf $REMOTE_DIR.bak
+            [ -d $REMOTE_DIR ] && cp -a $REMOTE_DIR $REMOTE_DIR.bak || echo 'No existing deployment, skipping backup'
+          "
       - name: Deploy Files
         run: |
-          rsync -rlgoDzvc -i --delete -e "$SSH_CMD" \
+          rsync -rlgoDzvc -i --delete --mkpath -e "$SSH_CMD" \
             dist/ $SSH_CONN:$REMOTE_DIR/dist/
-          rsync -rlgoDzvc -i --delete -e "$SSH_CMD" \
+          rsync -rlgoDzvc -i --delete --mkpath -e "$SSH_CMD" \
             infra/prod/ $SSH_CONN:$REMOTE_DIR/infra/
       - name: Apply Compose
         id: compose
