@@ -7,6 +7,10 @@ export default defineConfig({
   breakpoints: false,
   dialect: 'postgresql',
   dbCredentials: {
-    url: env.DB_URL
+    database: env.POSTGRES_DB,
+    host: env.DB_HOST,
+    port: env.DB_PORT,
+    user: env.DB_USER_MIGRATOR,
+    password: env.DB_PASSWORD_MIGRATOR
   }
 })

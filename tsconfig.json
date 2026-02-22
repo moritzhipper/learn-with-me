@@ -35,7 +35,7 @@
       "path": "./projects/frontend/tsconfig.spec.json"
     },
     {
-      "path": "./projects/backend/tsconfig.app.json"
+      "path": "./projects/backend/tsconfig.prod.json"
     }
   ]
 }

@@ -54,7 +54,8 @@
 
 @include isDesktop() {
   :host {
+    padding-left: var(--distance-5);
     white-space: nowrap;
-    transform: rotate(-6deg);
+    transform: rotate(-4deg);
   }
 }

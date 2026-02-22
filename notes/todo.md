@@ -2,9 +2,16 @@
 
 # Infra
 
-- add ssl verification for ingoing
+- document setup
+- configure automatic updates on ubuntu
+- deploy
+- finish github CD Action
 - add outbound and inbound firewall for server
-- add rate limiting for
+- add rate limiting using nginx
+- add apply migration script
+- use health check for deployment on backend -> shell script in github action
+- use interactie drizzle command so all questions are answered in migration
+- remove pino pretty from prod built -> update cjs, remove the pino pretty stuff
 
 ## Right Now
 
@@ -50,6 +57,7 @@ only put hat on big larry, remove from logo
 
 ## Backend
 
+- hide server errors from fe
 - search in both directions
 - add ratelimiting?
 - add inbetween layer to backend

@@ -3,5 +3,6 @@ export const API_ROUTES = {
     ROOT: '/banks',
     SHARE: '/banks/share',
     USER: '/banks/user'
-  }
+  },
+  HEALTH: '/health'
 }

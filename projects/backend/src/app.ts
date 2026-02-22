@@ -1,42 +1,42 @@
-import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
-import { FastifyPluginAsync, FastifyServerOptions } from 'fastify'
+import sensible from '@fastify/sensible'
+import Fastify from 'fastify'
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
-import { join } from 'node:path'
+import { applyMigration as applyDBMigration } from './db/applyMigration'
+import { env } from './environment'
+import { errorHandler } from './handler/errors'
+import { validateUserheader } from './plugins/validate-user-header'
+import { banksHandler } from './routes/banks'
+import { healthHandler } from './routes/health'
 
-export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPluginOptions> {}
-// Pass --options via CLI arguments in command to enable these options.
-const options: AppOptions = {
+const app = Fastify({
   logger: {
-    level: 'trace'
+    level: env.LOG_LEVEL,
+    ...(env.NODE_ENV !== 'production' && {
+      transport: {
+        target: 'pino-pretty'
+      }
+    })
+  }
+})
+
+app.setValidatorCompiler(validatorCompiler)
+app.setSerializerCompiler(serializerCompiler)
+app.withTypeProvider<ZodTypeProvider>()
+
+app.register(sensible)
+app.register(healthHandler)
+app.register(validateUserheader)
+app.register(banksHandler)
+app.setErrorHandler(errorHandler)
+
+const start = async () => {
+  try {
+    await applyDBMigration(app.log)
+    await app.listen({ port: env.BACKEND_PORT, host: '0.0.0.0' })
+  } catch (err) {
+    app.log.error(err)
+    process.exit(1)
   }
 }
 
-const app: FastifyPluginAsync<AppOptions> = async (fastify, opts): Promise<void> => {
-  // Place here your custom code!
-
-  fastify.setValidatorCompiler(validatorCompiler)
-  fastify.setSerializerCompiler(serializerCompiler)
-  fastify.withTypeProvider<ZodTypeProvider>()
-
-  // Do not touch the following lines
-
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  // eslint-disable-next-line no-void
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, 'plugins'),
-    options: opts
-  })
-
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  // eslint-disable-next-line no-void
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, 'routes'),
-    options: opts
-  })
-}
-
-export default app
-export { app, options }
+start()

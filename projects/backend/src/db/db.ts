@@ -3,9 +3,22 @@ import { Pool } from 'pg'
 import { env } from '../environment'
 import * as schema from './schema'
 
-const pool = new Pool({
-  connectionString: env.DB_URL,
-  ssl: env.NODE_ENV === 'production'
+const poolApp = new Pool({
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  database: env.POSTGRES_DB,
+  user: env.DB_USER_APP,
+  password: env.DB_PASSWORD_APP
 })
 
-export const db = drizzle(pool, { schema })
+const poolMigrator = new Pool({
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  database: env.POSTGRES_DB,
+  user: env.DB_USER_MIGRATOR,
+  password: env.DB_PASSWORD_MIGRATOR,
+  max: 1
+})
+
+export const dbApp = drizzle(poolApp, { schema })
+export const dbMigrator = drizzle(poolMigrator, { schema })

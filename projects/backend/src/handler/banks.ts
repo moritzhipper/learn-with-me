@@ -1,8 +1,9 @@
 import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
 
+import { httpErrors } from '@fastify/sensible'
 import { and, count, desc, eq, gt, ilike, InferSelectModel, isNull, or, SQL } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
-import { db } from '../db/db'
+import { dbApp } from '../db/db'
 import { banks, downloadCounts } from '../db/schema'
 import { BankFromDatabase } from '../types'
 
@@ -34,10 +35,10 @@ export const fetchUserBanks = async (req: FastifyRequest): Promise<BankShareViaD
 
 export const fetchBankById = async (
   req: FastifyRequest<{ Params: { id: string } }>
-): Promise<BankShareViaDB | null> => {
+): Promise<BankShareViaDB> => {
   const result = await getBanksQuery().where(eq(banks.id, req.params.id))
 
-  if (!result || result.length === 0) return null
+  if (!result || result.length === 0) throw httpErrors.notFound
 
   return mapResultToBankShareViaDB(result[0])
 }
@@ -47,7 +48,7 @@ export const increaseDownloadCount = async (
 ): Promise<void> => {
   // fail silently, as it is not critical
   try {
-    await db.insert(downloadCounts).values({
+    await dbApp.insert(downloadCounts).values({
       bank_id: req.params.id,
       user_id: req.userID
     })
@@ -76,7 +77,7 @@ export const shareBank = async (
     learnables: bank.learnables
   }
 
-  const rows = await db
+  const rows = await dbApp
     .insert(banks)
     .values({
       user_id: req.userID,
@@ -117,7 +118,7 @@ const mapResultToBankShareViaDB = ({
 })
 
 const getBanksQuery = () =>
-  db
+  dbApp
     .select({
       bank: banks,
       downloadCount: count(downloadCounts.bank_id)
