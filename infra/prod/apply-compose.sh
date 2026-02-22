@@ -10,15 +10,19 @@ fi
 
 COMPOSE_FILE="compose.prod.yml"
 
-docker compose -f "$COMPOSE_FILE" config > /tmp/compose-backup.yml 2>/dev/null || true
-
-if docker compose -f "$COMPOSE_FILE" up -d --wait --force-recreate; then
+# Recreate services one-by-one to avoid port conflicts and minimize downtime.
+# Non-port-bound services first, then nginx last (sub-second swap).
+# Volumes (pgdata, certs) are always preserved.
+if docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps db && \
+   docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps backend && \
+   docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps frontend && \
+   docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps nginx && \
+   docker compose -f "$COMPOSE_FILE" up -d --wait; then
   docker system prune -f
   docker image prune -af
 else
-  echo "Deployment failed — rolling back to previous version"
-  docker compose -f "$COMPOSE_FILE" logs --tail=50
-  [ -f /tmp/compose-backup.yml ] && docker compose -f /tmp/compose-backup.yml up -d --wait
+  echo "Deployment failed — dumping logs"
+  docker compose -f "$COMPOSE_FILE" logs --tail=80
   exit 1
 fi
 
