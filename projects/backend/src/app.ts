@@ -10,9 +10,9 @@ import health from './routes/health'
 
 const app = Fastify({
   logger: {
-    level: 'trace',
+    level: env.LOG_LEVEL,
     transport: {
-      target: 'pino-pretty' // Built-in pretty logs for dev
+      target: 'pino-pretty'
     }
   }
 })

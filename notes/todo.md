@@ -9,6 +9,7 @@
 - add apply migration script
 - use health check for deployment on backend -> shell script in github action
 - use interactie drizzle command so all questions are answered in migration
+- remove pino pretty from prod built -> update cjs, remove the pino pretty stuff
 
 ## Right Now
 
