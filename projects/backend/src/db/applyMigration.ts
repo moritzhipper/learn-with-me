@@ -1,7 +1,9 @@
 import { sql } from 'drizzle-orm'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
 import { env } from '../environment'
-import { db } from './db'
+
+import { FastifyBaseLogger } from 'fastify'
+import { dbMigrator } from './db'
 
 type DrizzleVersion = {
   id: number
@@ -9,21 +11,22 @@ type DrizzleVersion = {
   created_at: Date
 }
 
-export const applyMigration = async () => {
+export const applyMigration = async (log: FastifyBaseLogger) => {
   const versionBefore = await getDrizzleVersion()
-  await migrate(db, { migrationsFolder: env.MIGRATIONS_PATH })
+  await migrate(dbMigrator, { migrationsFolder: env.MIGRATIONS_PATH })
   const versionAfter = await getDrizzleVersion()
   if (versionBefore?.hash === versionAfter?.hash) {
-    console.log(
+    log.info(
       `No DB migrations to apply, using ${versionBefore?.hash} from ${versionBefore?.created_at.toISOString()}`
     )
   } else {
-    console.log(`Migrated from db version ${versionBefore?.hash} to ${versionAfter?.hash}`)
+    log.info(`Migrated from db version ${versionBefore?.hash} to ${versionAfter?.hash}`)
   }
+  await dbMigrator.$client.end()
 }
 
 const getDrizzleVersion = async (): Promise<null | DrizzleVersion> => {
-  const result = await db.execute<DrizzleVersion>(sql`
+  const result = await dbMigrator.execute<DrizzleVersion>(sql`
     SELECT id, hash, created_at 
     FROM drizzle.__drizzle_migrations 
     ORDER BY created_at DESC 

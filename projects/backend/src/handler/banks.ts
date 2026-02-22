@@ -3,7 +3,7 @@ import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@s
 import { httpErrors } from '@fastify/sensible'
 import { and, count, desc, eq, gt, ilike, InferSelectModel, isNull, or, SQL } from 'drizzle-orm'
 import { FastifyRequest } from 'fastify'
-import { db } from '../db/db'
+import { dbApp } from '../db/db'
 import { banks, downloadCounts } from '../db/schema'
 import { BankFromDatabase } from '../types'
 
@@ -48,7 +48,7 @@ export const increaseDownloadCount = async (
 ): Promise<void> => {
   // fail silently, as it is not critical
   try {
-    await db.insert(downloadCounts).values({
+    await dbApp.insert(downloadCounts).values({
       bank_id: req.params.id,
       user_id: req.userID
     })
@@ -77,7 +77,7 @@ export const shareBank = async (
     learnables: bank.learnables
   }
 
-  const rows = await db
+  const rows = await dbApp
     .insert(banks)
     .values({
       user_id: req.userID,
@@ -118,7 +118,7 @@ const mapResultToBankShareViaDB = ({
 })
 
 const getBanksQuery = () =>
-  db
+  dbApp
     .select({
       bank: banks,
       downloadCount: count(downloadCounts.bank_id)

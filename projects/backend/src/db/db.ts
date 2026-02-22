@@ -3,8 +3,18 @@ import { Pool } from 'pg'
 import { env } from '../environment'
 import * as schema from './schema'
 
-const pool = new Pool({
-  connectionString: env.DB_URL
+const poolApp = new Pool({
+  connectionString: env.DB_URL,
+  user: env.POSTGRES_USER_APP,
+  password: env.POSTGRES_PASSWORD_APP
 })
 
-export const db = drizzle(pool, { schema })
+const poolMigrator = new Pool({
+  connectionString: env.DB_URL,
+  user: env.POSTGRES_USER_MIGRATOR,
+  password: env.POSTGRES_PASSWORD_MIGRATOR,
+  max: 1
+})
+
+export const dbApp = drizzle(poolApp, { schema })
+export const dbMigrator = drizzle(poolMigrator, { schema })

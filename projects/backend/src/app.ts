@@ -28,8 +28,8 @@ app.register(bankRoutes)
 
 const start = async () => {
   try {
-    await checkDBHealth()
-    await applyDBMigration()
+    await checkDBHealth(app.log)
+    await applyDBMigration(app.log)
     await app.listen({ port: env.BACKEND_PORT, host: '0.0.0.0' })
   } catch (err) {
     app.log.error(err)
