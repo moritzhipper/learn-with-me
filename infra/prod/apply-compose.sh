@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd /home/${REMOTE_USER}/lingolizard
+cd "$HOME/lingolizard"
 
 if [ ! -f "../.env" ]; then
     echo "ERROR: .env file not found! Add one please thanks :)"
