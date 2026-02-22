@@ -17,7 +17,7 @@ mv "$BACKUP_DIR" "$DEPLOY_DIR"
 
 cd "$DEPLOY_DIR"
 
-COMPOSE_FILE="compose.prod.yml"
+COMPOSE_FILE="infra/compose.prod.yml"
 
 docker compose -f "$COMPOSE_FILE" rm -fs nginx || true
 docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps db

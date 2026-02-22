@@ -8,7 +8,7 @@ if [ ! -f "../.env" ]; then
     exit 1
 fi
 
-COMPOSE_FILE="compose.prod.yml"
+COMPOSE_FILE="infra/compose.prod.yml"
 
 echo "Starting deployment..."
 

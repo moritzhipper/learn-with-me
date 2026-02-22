@@ -41,15 +41,15 @@ jobs:
           "
       - name: Deploy Files
         run: |
-          rsync -rlgoDzvc -i --delete \
-            -e "$SSH_CMD" \
-            dist infra/prod/ \
-            $SSH_CONN:$REMOTE_DIR
+          rsync -rlgoDzvc -i --delete -e "$SSH_CMD" \
+            dist/ $SSH_CONN:$REMOTE_DIR/dist/
+          rsync -rlgoDzvc -i --delete -e "$SSH_CMD" \
+            infra/prod/ $SSH_CONN:$REMOTE_DIR/infra/
       - name: Apply Compose
         id: compose
         run: |
-          $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/apply-compose.sh"
+          $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/infra/apply-compose.sh"
       - name: Rollback on Failure
         if: failure() && steps.compose.outcome == 'failure'
         run: |
-          $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/rollback-compose.sh"
+          $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/infra/rollback-compose.sh"
