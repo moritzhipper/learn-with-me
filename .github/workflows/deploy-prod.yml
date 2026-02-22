@@ -33,12 +33,11 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
-      - name: Backup Current Dist
+      - name: Backup Current State
         run: |
           $SSH_CMD $SSH_CONN "
-            cd $REMOTE_DIR &&
-            rm -rf dist.bak &&
-            [ -d dist ] && cp -a dist dist.bak || true
+            rm -rf $REMOTE_DIR.bak &&
+            cp -a $REMOTE_DIR $REMOTE_DIR.bak
           "
       - name: Deploy Files
         run: |
@@ -53,15 +52,4 @@ jobs:
       - name: Rollback on Failure
         if: failure() && steps.compose.outcome == 'failure'
         run: |
-          $SSH_CMD $SSH_CONN "
-            cd $REMOTE_DIR &&
-            if [ -d dist.bak ]; then
-              echo 'Rolling back to previous dist...' &&
-              rm -rf dist &&
-              mv dist.bak dist &&
-              docker compose -f compose.prod.yml down --timeout 30 || true &&
-              docker compose -f compose.prod.yml up -d --wait
-            else
-              echo 'No backup found — cannot rollback'
-            fi
-          "
+          $SSH_CMD $SSH_CONN "bash $REMOTE_DIR/rollback-compose.sh"
