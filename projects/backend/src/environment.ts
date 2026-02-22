@@ -4,7 +4,7 @@ import z from 'zod'
 const EnvironmentSchema = z.object({
   BACKEND_PORT: z.coerce.number(),
   DB_URL: z.string(),
-  DB_NAME: z.string(),
+  POSTGRES_DB: z.string(),
   DB_USER_MIGRATOR: z.string(),
   DB_PASSWORD_MIGRATOR: z.string(),
   DB_USER_APP: z.string(),

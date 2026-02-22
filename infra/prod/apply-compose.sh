@@ -12,7 +12,7 @@ COMPOSE_FILE="compose.prod.yml"
 
 docker compose -f "$COMPOSE_FILE" config > /tmp/compose-backup.yml 2>/dev/null || true
 
-if docker compose -f "$COMPOSE_FILE" up -d --wait; then
+if docker compose -f "$COMPOSE_FILE" up -d --wait --force-recreate; then
   docker system prune -f
   docker image prune -af
 else
