@@ -29,7 +29,7 @@ esbuild
     banner: {
       js: `import { createRequire } from 'module';const require = createRequire(import.meta.url);`
     },
-    plugins: [esbuildPluginPino({ transports: ['pino-pretty'] })],
+    plugins: [esbuildPluginPino()],
     external: []
   })
   .then(() => {

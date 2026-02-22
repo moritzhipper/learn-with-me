@@ -9,15 +9,13 @@ import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import {
   fetchBankById,
-  fetchBanks as fetchSharedBanks,
+  fetchBanks,
   fetchUserBanks,
   increaseDownloadCount,
   shareBank
 } from '../handler/banks'
 
-const options = {}
-
-const root: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
+export const banksHandler: FastifyPluginAsyncZod = async (fastify): Promise<void> => {
   fastify.route({
     method: 'GET',
     url: API_ROUTES.BANKS.ROOT,
@@ -27,7 +25,7 @@ const root: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
         200: z.array(BankShareViaDBSchema)
       }
     },
-    handler: fetchSharedBanks
+    handler: fetchBanks
   })
 
   fastify.route({
@@ -77,5 +75,3 @@ const root: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
     handler: shareBank
   })
 }
-
-export default root

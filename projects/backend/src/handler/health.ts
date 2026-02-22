@@ -1,7 +1,8 @@
-import { FastifyBaseLogger } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { dbApp } from '../db/db'
 
-export const checkHealth = async (log: FastifyBaseLogger): Promise<void> => {
+export const checkHealth = async (request: FastifyRequest, reply: FastifyReply) => {
   await dbApp.execute('SELECT 1')
-  log.info('Database connection is healthy')
+  request.log.info('Database connection is healthy')
+  return reply.status(200)
 }
