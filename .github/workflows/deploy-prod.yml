@@ -37,7 +37,11 @@ jobs:
         run: |
           $SSH_CMD $SSH_CONN "
             rm -rf $REMOTE_DIR.bak &&
-            cp -a $REMOTE_DIR $REMOTE_DIR.bak
+            if [ -d $REMOTE_DIR ]; then
+              cp -a $REMOTE_DIR $REMOTE_DIR.bak
+            else
+              echo 'No existing deployment to back up, first deploy'
+            fi
           "
       - name: Deploy Files
         run: |
