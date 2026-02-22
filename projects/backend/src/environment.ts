@@ -2,7 +2,7 @@ import 'dotenv/config'
 import z from 'zod'
 
 const EnvironmentSchema = z.object({
-  BACKEND_PORT: z.coerce.number().default(3000),
+  BACKEND_PORT: z.coerce.number(),
   DB_URL: z.string(),
   DB_NAME: z.string(),
   POSTGRES_USER_MIGRATOR: z.string(),
