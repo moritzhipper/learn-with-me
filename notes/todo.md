@@ -2,6 +2,8 @@
 
 # Infra
 
+- document setup
+- configure automatic updates on ubuntu
 - deploy
 - finish github CD Action
 - add outbound and inbound firewall for server

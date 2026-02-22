@@ -26,19 +26,23 @@ export const applyMigration = async (log: FastifyBaseLogger) => {
 }
 
 const getDrizzleVersion = async (): Promise<null | DrizzleVersion> => {
-  const result = await dbMigrator.execute<DrizzleVersion>(sql`
-    SELECT id, hash, created_at 
-    FROM drizzle.__drizzle_migrations 
-    ORDER BY created_at DESC 
-    LIMIT 1
-  `)
+  try {
+    const result = await dbMigrator.execute<DrizzleVersion>(sql`
+      SELECT id, hash, created_at 
+      FROM drizzle.__drizzle_migrations 
+      ORDER BY created_at DESC 
+      LIMIT 1
+    `)
 
-  const version = result.rows[0]
-  if (!version) return null
+    const version = result.rows[0]
+    if (!version) return null
 
-  return {
-    id: version.id,
-    hash: version.hash,
-    created_at: new Date(Number(version.created_at))
+    return {
+      id: version.id,
+      hash: version.hash,
+      created_at: new Date(Number(version.created_at))
+    }
+  } catch {
+    return null
   }
 }
