@@ -1,10 +1,12 @@
 #!/bin/bash
 set -e
 
-# Verify required variables
-: "${REMOTE_USER:?REMOTE_USER is not set}"
-
 cd /home/${REMOTE_USER}/lingolizard
+
+if [ ! -f "../.env" ]; then
+    echo "ERROR: .env file not found! Add one please thanks :)"
+    exit 1
+fi
 
 COMPOSE_FILE="compose.prod.yml"
 

@@ -1,0 +1,11 @@
+
+// validate CD env
+: "${REMOTE_USER:?REMOTE_USER is not set}"
+
+
+// validate node env
+: "${DB_URL:?DB_URL is not set}"
+: "${POSTGRES_USER_MIGRATOR:?POSTGRES_USER_MIGRATOR is not set}"
+: "${POSTGRES_PASSWORD_MIGRATOR:?POSTGRES_PASSWORD_MIGRATOR is not set}"
+: "${POSTGRES_USER_APP:?POSTGRES_USER_APP is not set}"
+: "${POSTGRES_PASSWORD_APP:?POSTGRES_PASSWORD_APP is not set}"
