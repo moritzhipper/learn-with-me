@@ -4,10 +4,14 @@ export const errorHandler = (error: FastifyError, request: FastifyRequest, reply
   if (error instanceof errorCodes.FST_ERR_VALIDATION) {
     return reply
       .badRequest()
-      .send({ success: false, message: 'Invalid request data', details: error.validation })
+      .send({ success: false, message: 'Larry could not process your request.' })
   }
   if (error instanceof errorCodes.FST_ERR_NOT_FOUND) {
-    return reply.notFound().send({ success: false, message: 'Resource not found' })
+    return reply
+      .notFound()
+      .send({ success: false, message: 'Larry was not able to find the resource.' })
   }
-  return reply.internalServerError().send({ success: false, message: 'Internal server error.' })
+  return reply
+    .internalServerError()
+    .send({ success: false, message: 'Larry encountered an internal server error.' })
 }
