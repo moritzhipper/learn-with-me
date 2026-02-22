@@ -19,10 +19,7 @@ if docker compose -f "$COMPOSE_FILE" up -d --force-recreate --no-deps db && \
    
 # 2. Explicitly tear down the proxy to release the host port
    docker compose -f "$COMPOSE_FILE" rm -fs nginx && \
-   
-# 3. Give the OS kernel time to clear the TIME_WAIT socket
-   echo "Waiting for port 80 to be released..." && \
-   sleep 3 && \
+
    
 # 4. Bring the proxy back up
    docker compose -f "$COMPOSE_FILE" up -d --no-deps nginx && \
