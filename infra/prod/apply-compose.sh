@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
 
-cd /home/deployer/lingolizard
+# Verify required variables
+: "${REMOTE_USER:?REMOTE_USER is not set}"
+
+cd /home/${REMOTE_USER}/lingolizard
 
 COMPOSE_FILE="compose.prod.yml"
 

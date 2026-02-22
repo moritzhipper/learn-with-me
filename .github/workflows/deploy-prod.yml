@@ -35,7 +35,7 @@ jobs:
           rsync -rlgoDzvc -i --delete \
             -e "$SSH_CMD" \
             dist infra/prod/ \
-            $SSH_CONN:/home/deployer/lingolizard
+            $SSH_CONN:/home/${{ secrets.REMOTE_USER }}/lingolizard
       - name: Apply Compose
         run: |
-          $SSH_CMD $SSH_CONN "bash /home/deployer/lingolizard/apply-compose.sh"
+          $SSH_CMD $SSH_CONN "bash /home/${{ secrets.REMOTE_USER }}/lingolizard/apply-compose.sh"
