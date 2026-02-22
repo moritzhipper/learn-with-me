@@ -6,15 +6,15 @@ import * as schema from './schema'
 const poolApp = new Pool({
   connectionString: env.DB_URL,
   database: env.DB_NAME,
-  user: env.POSTGRES_USER_APP,
-  password: env.POSTGRES_PASSWORD_APP
+  user: env.DB_USER_APP,
+  password: env.DB_PASSWORD_APP
 })
 
 const poolMigrator = new Pool({
   connectionString: env.DB_URL,
   database: env.DB_NAME,
-  user: env.POSTGRES_USER_MIGRATOR,
-  password: env.POSTGRES_PASSWORD_MIGRATOR,
+  user: env.DB_USER_MIGRATOR,
+  password: env.DB_PASSWORD_MIGRATOR,
   max: 1
 })
 
