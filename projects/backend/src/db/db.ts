@@ -4,14 +4,16 @@ import { env } from '../environment'
 import * as schema from './schema'
 
 const poolApp = new Pool({
-  connectionString: env.DB_URL,
+  host: env.DB_HOST,
+  port: env.DB_PORT,
   database: env.POSTGRES_DB,
   user: env.DB_USER_APP,
   password: env.DB_PASSWORD_APP
 })
 
 const poolMigrator = new Pool({
-  connectionString: env.DB_URL,
+  host: env.DB_HOST,
+  port: env.DB_PORT,
   database: env.POSTGRES_DB,
   user: env.DB_USER_MIGRATOR,
   password: env.DB_PASSWORD_MIGRATOR,
