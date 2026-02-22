@@ -3,6 +3,7 @@ import Fastify from 'fastify'
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
 import { applyMigration as applyDBMigration } from './db/applyMigration'
 import { env } from './environment'
+import { errorHandler } from './handler/errors'
 import { validateUserheader } from './plugins/validate-user-header'
 import { banksHandler } from './routes/banks'
 import { healthHandler } from './routes/health'
@@ -26,6 +27,7 @@ app.register(sensible)
 app.register(healthHandler)
 app.register(validateUserheader)
 app.register(banksHandler)
+app.setErrorHandler(errorHandler)
 
 const start = async () => {
   try {
