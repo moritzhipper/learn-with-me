@@ -7,7 +7,7 @@ echo "Running init-db.sh: Creating users and configuring database..."
 
 
 # 1. Create users and assign database ownership
-psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" <<-EOSQL
+psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d postgres <<-EOSQL
     -- Create the roles
     CREATE USER $DB_USER_MIGRATOR WITH PASSWORD '$DB_PASSWORD_MIGRATOR';
     CREATE USER $DB_USER_APP WITH PASSWORD '$DB_PASSWORD_APP';
