@@ -3,8 +3,8 @@ import OpenAI from 'openai'
 // reimport when zod v4 + openai compatibility bug is fixed
 // until then use helper function zodTextFormat from utils/genaral-utils
 // import { zodTextFormat } from 'openai/helpers/zod'
-import { LearnablesFromAiSchema } from '@shared/schemas'
-import { LearnableBase, LearnableFromAI } from '@shared/types'
+import { LearnableFromAiWithTypeSchema, LearnablesFromAiSchema } from '@shared/schemas'
+import { LanguageConfig, LearnableBase, LearnableFromAI } from '@shared/types'
 import {
   EasyInputMessage,
   ResponseInputMessageContentList
@@ -18,7 +18,7 @@ import {
 } from '../../types_and_schemas/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
-import { getPrompt } from './prompt'
+import { getPrompt, getQuickTranslatePrompt } from './prompt'
 
 @Injectable({
   providedIn: 'root'
@@ -154,5 +154,32 @@ export class AiService {
       lexeme: c.lexeme,
       translation: c.translation
     }))
+  }
+
+  async translateDirectly(
+    content: string,
+    language: LanguageConfig
+  ): Promise<LearnableBase | null> {
+    const response = await this.oAi().responses.parse({
+      model: this.model,
+      text: {
+        format: zodTextFormat(LearnableFromAiWithTypeSchema, 'learnable_card')
+      },
+      input: [
+        { role: 'system', content: getQuickTranslatePrompt(language) },
+        {
+          role: 'user',
+          content
+        }
+      ]
+    })
+
+    this.settingsStore.addTokensUsed(response.usage?.total_tokens ?? 0)
+    const card = response.output_parsed
+    if (!card) return null
+    return {
+      ...card,
+      notes: ''
+    }
   }
 }

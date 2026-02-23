@@ -5,12 +5,15 @@ export const LearnableFromAiSchema = z.object({
   translation: z.string()
 })
 
+export const LearnableFromAiWithTypeSchema = LearnableFromAiSchema.extend({
+  type: z.enum(['phrase', 'word'])
+})
+
 export const LearnablesFromAiSchema = z.object({
   cards: z.array(LearnableFromAiSchema)
 })
 
-export const LearnableBaseSchema = LearnableFromAiSchema.extend({
-  type: z.enum(['phrase', 'word']),
+export const LearnableBaseSchema = LearnableFromAiWithTypeSchema.extend({
   notes: z.string()
 })
 

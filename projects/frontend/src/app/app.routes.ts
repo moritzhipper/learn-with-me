@@ -5,6 +5,7 @@ import { PracticeComp } from './components/pages/practice-page-comp/practice-pag
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { ExplorePageComp } from './components/pages/share-page-comp/explore-page-comp/explore-page-comp'
 import { SharePageComp } from './components/pages/share-page-comp/share-page-comp'
+import { TranslatePageComp } from './components/pages/translate-page-comp/translate-page-comp'
 
 export const routes: Routes = [
   {
@@ -16,6 +17,11 @@ export const routes: Routes = [
     component: PracticeComp,
     path: 'practice',
     title: 'lingolizard | Practice'
+  },
+  {
+    component: TranslatePageComp,
+    path: 'translate',
+    title: 'lingolizard | Translate'
   },
   {
     path: 'community',

@@ -1,6 +1,6 @@
 :host {
   box-shadow: var(--shadow-bigger);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-3);
   box-sizing: border-box;
 
   .wrapper {
@@ -15,7 +15,7 @@
     .bottom {
       word-break: break-word;
       hyphens: auto;
-      line-height: calc(var(--font-size-3) + var(--distance-2));
+      line-height: calc(--line-height-3);
       padding: var(--distance-5) var(--distance-6) var(--distance-2) var(--distance-6);
       font-size: var(--font-size-3);
     }

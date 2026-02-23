@@ -1,0 +1,10 @@
+<app-page-icon-comp type="translate" />
+<textarea placeholder="type to translate" (input)="onInput($event)"></textarea>
+<p class="translation">
+  @if (translationCard(); as translation) {
+    {{ translation.translation }}
+  }
+</p>
+@if (translationCard(); as learnable) {
+  <app-learnable-comp [learnable]="learnable" />
+}

@@ -1,0 +1,18 @@
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: transparent;
+  border-radius: var(--radius-1) var(--radius-1) 0 0;
+  border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+  font-weight: var(--font-weight-bold);
+}
+
+textarea,
+.translation {
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-3);
+}
+
+.translation {
+  font-style: italic;
+}

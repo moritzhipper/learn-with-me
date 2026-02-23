@@ -38,6 +38,7 @@ export type IconType =
   | 'filter'
   | 'close'
   | 'image'
+  | 'translate'
 
 @Component({
   selector: 'app-icon-comp',

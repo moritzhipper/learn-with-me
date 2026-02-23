@@ -6,7 +6,7 @@
     height: 100vh;
     top: 0;
     overflow: clip;
-    padding: 15vh var(--distance-1) 0 var(--distance-6);
+    padding: 10vh var(--distance-1) 0 var(--distance-6);
   }
 
   .entry {
@@ -48,11 +48,7 @@
   .entry {
     @for $i from 0 through 12 {
       &:nth-child(#{$i - 1}) {
-        animation: entry-enter
-          var(--duration-2)
-          calc(0.07s * #{$i})
-          var(--soft-ease)
-          backwards;
+        animation: entry-enter var(--duration-2) calc(0.07s * #{$i}) var(--soft-ease) backwards;
       }
     }
   }

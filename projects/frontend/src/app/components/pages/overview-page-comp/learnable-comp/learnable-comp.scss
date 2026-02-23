@@ -5,6 +5,8 @@
   padding: var(--distance-2) var(--distance-3);
   position: relative;
   gap: var(--distance-1) 0;
+  background-color: var(--col-accent);
+  border-radius: var(--radius-2);
 
   height: 150px;
   place-items: center start;

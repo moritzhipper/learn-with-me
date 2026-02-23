@@ -139,3 +139,11 @@ export const getPrompt = (
 
   throw new Error('Invalid LearnableCreationConfig')
 }
+
+export const getQuickTranslatePrompt = (language: LanguageConfig): string => `
+Translate the following lexeme from ${language.speaking} to ${language.learning}. Do not comment, do not add anything, translate directly and as literally as possible.
+Correct spelling, capitalization, and grammar in the input.
+ Correctly identify if the input is a single word or a phrase.
+ Only if the text is just a word, the word is a noun and the language has the grammatical construct of articles, add the corresponding article in front of the lexeme and translation.
+ The lexeme you return is to be in ${language.speaking} and the translation is to be in  ${language.learning}.
+`
