@@ -4,7 +4,7 @@
   gap: var(--distance-4);
 
   .learnable {
-    border: 2px solid transparent;
+    border: 2px solid var(--col-accent);
     background-color: var(--col-accent);
     border-radius: var(--radius-2);
     overflow: hidden;

@@ -4,13 +4,12 @@ import { LearnableBase } from '@shared/types'
 import { debounceTime, filter, pipe, switchMap, tap } from 'rxjs'
 import { AiService } from '../../../services/ai/ai.service'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [PageIconComp, LearnableComp, PageHeaderComp],
+  imports: [PageIconComp, LearnableComp],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }

@@ -1,10 +1,15 @@
 <app-page-icon-comp type="translate" />
-<textarea placeholder="type to translate" (input)="onInput($event)"></textarea>
-<p class="translation">
-  @if (translationCard(); as translation) {
-    {{ translation.translation }}
-  }
-</p>
+<div class="translate">
+  <textarea placeholder="type to translate" (input)="onInput($event)"></textarea>
+  <p class="translation">
+    @if (translationCard(); as translation) {
+      {{ translation.translation }}
+    }
+  </p>
+</div>
+
 @if (translationCard(); as learnable) {
-  <app-learnable-comp [learnable]="learnable" />
+  <div class="proposal">
+    <app-learnable-comp class="fly-in-y-wide" [learnable]="learnable" />
+  </div>
 }

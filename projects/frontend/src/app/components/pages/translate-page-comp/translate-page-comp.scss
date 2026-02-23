@@ -1,18 +1,51 @@
-textarea {
-  box-sizing: border-box;
-  width: 100%;
-  background-color: transparent;
-  border-radius: var(--radius-1) var(--radius-1) 0 0;
-  border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
-  font-weight: var(--font-weight-bold);
+@use '../../../../style/mixins' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-4);
 }
 
-textarea,
-.translation {
-  font-size: var(--font-size-3);
-  line-height: var(--line-height-3);
+.translate {
+  textarea {
+    field-sizing: content;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: transparent;
+    border-radius: var(--radius-2) var(--radius-2) 0 0;
+    border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+    font-weight: var(--font-weight-bold);
+  }
+
+  textarea,
+  .translation {
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-3);
+    padding: var(--distance-5);
+  }
+
+  .translation {
+    margin: 0;
+    font-style: italic;
+  }
 }
 
-.translation {
-  font-style: italic;
+.proposal {
+  display: grid;
+  grid-template-columns: var(--grid-auto-columns);
+  gap: var(--distance-4);
+}
+
+@include isPhone() {
+}
+@include isDesktop() {
+  .translate {
+    margin: 10vh 0;
+    width: var(--medium-width);
+    align-self: center;
+    textarea,
+    .translation {
+      text-align: center;
+    }
+  }
 }
