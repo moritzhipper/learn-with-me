@@ -68,9 +68,8 @@ export class TranslatePageComp {
     const value = target.value.trim()
     const language = this.activeBank().language
 
-    if (!language || !value) {
-      this.resetCards()
-    } else {
+    this.resetCards()
+    if (language && value) {
       this.generateTranslations(value, language)
     }
   }
@@ -82,8 +81,10 @@ export class TranslatePageComp {
   }
 
   resetCards() {
+    // reset proposals directly to ensure clean animations
+    // reset fast translation with debounce to avoid flickering
     this.translateFast(null)
-    this.generateWordCards(null)
-    this.generatePhraseCards(null)
+    this.translationWordCards.set([])
+    this.translationPhraseCards.set([])
   }
 }

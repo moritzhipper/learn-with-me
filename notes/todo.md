@@ -2,11 +2,18 @@
 
 # now
 
+- on new key press: all cards delete! then
+- somehow flicker in proposed cards
+- erst karten auf view, wenn beide services finishen
+- streaming for fast translation
+- filter doppelresponses aus preview
+- selektiere zom importieren / importiere alle bubbles oder button
 - move all ai stuff to translate tab
 - do like full preview under main translate thing
 - use two ai calls: one fast translate, separately the other two card calls that already exist
 - add stagger vm mapping for lists
 - move ai stuff to translate page
+- tokenuse digram in stats
 
 # Infra
 

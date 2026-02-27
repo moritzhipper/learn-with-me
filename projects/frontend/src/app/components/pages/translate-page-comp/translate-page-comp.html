@@ -12,7 +12,7 @@
   <div class="proposal">
     @for (card of cards; track card.item.lexeme) {
       <app-learnable-comp
-        animate.enter="fly-in-y-wide"
+        class="fly-in-y-wide"
         [learnable]="card.item"
         [style.animationDelay.s]="card.animDelay"
       />
