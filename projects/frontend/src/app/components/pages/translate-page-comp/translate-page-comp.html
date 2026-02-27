@@ -2,14 +2,20 @@
 <div class="translate">
   <textarea placeholder="type to translate" (input)="onInput($event)"></textarea>
   <p class="translation">
-    @if (translationCard(); as translation) {
-      {{ translation.translation }}
+    @if (fastTranslation(); as translation) {
+      {{ translation }}
     }
   </p>
 </div>
-
-@if (translationCard(); as learnable) {
+@let cards = proposedCards();
+@if (cards.length > 0) {
   <div class="proposal">
-    <app-learnable-comp class="fly-in-y-wide" [learnable]="learnable" />
+    @for (card of cards; track card.item.lexeme) {
+      <app-learnable-comp
+        animate.enter="fly-in-y-wide"
+        [learnable]="card.item"
+        [style.animationDelay.s]="card.animDelay"
+      />
+    }
   </div>
 }
