@@ -1,17 +1,17 @@
 <app-page-icon-comp type="translate" />
-<div class="translate">
+<div
+  class="translate"
+  [class]="{ 'small-text': smallText(), 'has-translation': !!fastTranslation() }"
+>
   <textarea
+    #lexemeEl
     placeholder="type to translate"
     [(ngModel)]="lexemeInput"
-    [class]="{ small: smallText(), 'has-translation': !!fastTranslation() }"
+    (input)="calculateHeight()"
   ></textarea>
-  @if (fastTranslation(); as translation) {
-    <div class="translation" animate.enter="enter" animate.leave="leave">
-      <div class="wrapper">
-        {{ translation }}
-      </div>
-    </div>
-  }
+  <div class="translation" #translationEl>
+    {{ fastTranslation() }}
+  </div>
 </div>
 <div class="proposal">
   @for (card of proposedCards(); track card) {

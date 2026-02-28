@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
@@ -26,9 +26,25 @@ export class TranslatePageComp {
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   protected readonly smallText = computed(() => this.lexemeInput().length > 40)
 
+  lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
+  translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
+
   constructor() {
     this.translateFast(this.creationConfig)
     this.generateProposedCards(this.creationConfig)
+  }
+
+  calculateHeight() {
+    const lexEl = this.lexemeEl().nativeElement
+    const transEl = this.translationEl().nativeElement
+
+    this.adjustHeight(lexEl)
+    this.adjustHeight(transEl)
+  }
+
+  adjustHeight(el: HTMLElement) {
+    el.style.height = '0px'
+    el.style.height = el.scrollHeight + 'px'
   }
 
   private readonly creationConfig = computed<TranslateFastConfig | null>(() => {
