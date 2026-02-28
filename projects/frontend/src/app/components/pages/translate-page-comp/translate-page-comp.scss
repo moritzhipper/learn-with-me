@@ -35,6 +35,22 @@
   display: grid;
   grid-template-columns: var(--grid-auto-columns);
   gap: var(--distance-4);
+
+  app-learnable-comp {
+    &.fly-in-y-wide {
+      animation-delay: var(--anim-delay);
+    }
+    &.poof {
+      animation: poof 0.3s;
+    }
+  }
+}
+
+@keyframes poof {
+  to {
+    translate: 0 5px;
+    opacity: 0;
+  }
 }
 
 @include isPhone() {

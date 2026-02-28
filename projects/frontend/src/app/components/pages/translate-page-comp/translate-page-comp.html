@@ -7,15 +7,14 @@
     }
   </p>
 </div>
-@let cards = proposedCards();
-@if (cards.length > 0) {
-  <div class="proposal">
-    @for (card of cards; track card.item.lexeme) {
-      <app-learnable-comp
-        class="fly-in-y-wide"
-        [learnable]="card.item"
-        [style.animationDelay.s]="card.animDelay"
-      />
-    }
-  </div>
-}
+<div class="proposal">
+  @let cards = proposedCards();
+  @for (card of cards; track card.item.lexeme) {
+    <app-learnable-comp
+      animate.enter="fly-in-y-wide"
+      animate.leave="poof"
+      [learnable]="card.item"
+      [style.--anim-delay.s]="card.animDelay"
+    />
+  }
+</div>

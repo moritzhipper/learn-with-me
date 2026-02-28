@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LanguageConfig, LearnableBase } from '@shared/types'
@@ -9,7 +9,7 @@ import {
   LearnableFromTextCreationConfig,
   TranslateFastConfig
 } from '../../../types_and_schemas/types'
-import { mapToStaggerVM } from '../../../utils/genaral-utils'
+import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 
@@ -23,14 +23,8 @@ import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-co
 export class TranslatePageComp {
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
-  translationWordCards = signal<LearnableBase[]>([])
-  translationPhraseCards = signal<LearnableBase[]>([])
-  fastTranslation = signal<string>('')
-
-  proposedCards = computed(() => {
-    const cards = [...this.translationWordCards(), ...this.translationPhraseCards()]
-    return mapToStaggerVM(cards)
-  })
+  protected fastTranslation = signal<string>('')
+  protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
 
   translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
@@ -46,7 +40,7 @@ export class TranslatePageComp {
       debounceTime(1000),
       switchMap((v) => (v ? this.aiService.createLearnables(v) : of([]))),
       tapResponse({
-        next: (learnables) => this.translationWordCards.set(learnables),
+        next: (learnables) => this.addToProposed(learnables),
         error: console.error
       })
     )
@@ -57,7 +51,7 @@ export class TranslatePageComp {
       debounceTime(1000),
       switchMap((v) => (v ? this.aiService.createLearnables(v) : of([]))),
       tapResponse({
-        next: (learnables) => this.translationPhraseCards.set(learnables),
+        next: (learnables) => this.addToProposed(learnables),
         error: console.error
       })
     )
@@ -69,9 +63,15 @@ export class TranslatePageComp {
     const language = this.activeBank().language
 
     this.resetCards()
+
     if (language && value) {
       this.generateTranslations(value, language)
     }
+  }
+
+  addToProposed(learnables: LearnableBase[]): void {
+    const newCards = mapToStaggerVM(learnables)
+    this.proposedCards.update((cards) => [...cards, ...newCards])
   }
 
   generateTranslations(text: string, language: LanguageConfig) {
@@ -84,7 +84,6 @@ export class TranslatePageComp {
     // reset proposals directly to ensure clean animations
     // reset fast translation with debounce to avoid flickering
     this.translateFast(null)
-    this.translationWordCards.set([])
-    this.translationPhraseCards.set([])
+    this.proposedCards.set([])
   }
 }
