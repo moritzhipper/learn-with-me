@@ -1,18 +1,23 @@
 <app-page-icon-comp type="translate" />
 <div class="translate">
-  <textarea placeholder="type to translate" (input)="onInput($event)"></textarea>
-  <p class="translation">
-    @if (fastTranslation(); as translation) {
-      {{ translation }}
-    }
-  </p>
+  <textarea
+    placeholder="type to translate"
+    [(ngModel)]="lexemeInput"
+    [class]="{ small: smallText(), 'has-translation': !!fastTranslation() }"
+  ></textarea>
+  @if (fastTranslation(); as translation) {
+    <div class="translation" animate.enter="enter" animate.leave="leave">
+      <div class="wrapper">
+        {{ translation }}
+      </div>
+    </div>
+  }
 </div>
 <div class="proposal">
-  @let cards = proposedCards();
-  @for (card of cards; track card.item.lexeme) {
+  @for (card of proposedCards(); track card) {
     <app-learnable-comp
       animate.enter="fly-in-y-wide"
-      animate.leave="poof"
+      animate.leave="fly-out-y"
       [learnable]="card.item"
       [style.--anim-delay.s]="card.animDelay"
     />

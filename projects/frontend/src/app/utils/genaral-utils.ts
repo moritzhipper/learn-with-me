@@ -47,20 +47,11 @@ export const pluralize = (count: number, unit: string): string => {
 
 // staggered animation helpers
 
-export const lerpListAppear = (i: number, totalItems: number, timeSpread: number = 0.3): number => {
-  return (i / totalItems) * timeSpread
-}
-
-export const createAppearRange = (
-  start: number,
-  end: number,
-  timeSpread: number = 0.3
-): number[] => {
-  const range: number[] = []
-  for (let i = start; i <= end; i++) {
-    range.push(lerpListAppear(i, end, timeSpread))
-  }
-  return range
+export const staggerDelays = (count: number, timeSpread: number = 0.3): number[] => {
+  // ensures  that smaller lists dont have too long delays
+  const maxStep = 0.1
+  const step = Math.min(timeSpread / count, maxStep)
+  return Array.from({ length: count }, (_, i) => i * step)
 }
 
 export type StaggerVM<T> = Array<{
@@ -69,8 +60,6 @@ export type StaggerVM<T> = Array<{
 }>
 
 export const mapToStaggerVM = <T>(items: T[], timeSpread: number = 0.3): StaggerVM<T> => {
-  return items.map((item, i) => ({
-    item,
-    animDelay: lerpListAppear(i, items.length, timeSpread)
-  }))
+  const delays = staggerDelays(items.length, timeSpread)
+  return items.map((item, i) => ({ item, animDelay: delays[i] }))
 }

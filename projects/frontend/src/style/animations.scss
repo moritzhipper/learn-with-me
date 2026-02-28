@@ -141,17 +141,16 @@
 .enter,
 .leave {
   display: grid;
-  align-self: flex-end;
 
   .wrapper {
     overflow: hidden;
   }
 }
 .enter {
-  animation: enter var(--duration-2) ease-in-out;
+  animation: enter var(--duration-2) ease-out;
 }
 .leave {
-  animation: leave var(--duration-2) ease-in-out;
+  animation: leave var(--duration-2) ease-out;
 }
 
 @keyframes enter {
