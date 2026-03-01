@@ -42,6 +42,10 @@ export class TranslatePageComp {
     this.translateFast(this.creationConfig)
     this.generateProposedCards(this.creationConfig)
 
+    setTimeout(() => {
+      this.lexemeEl().nativeElement.focus()
+    }, 100)
+
     afterRenderEffect(() => {
       const lexemeEl = this.lexemeEl().nativeElement
       const lexemIn = this.lexemeInput()

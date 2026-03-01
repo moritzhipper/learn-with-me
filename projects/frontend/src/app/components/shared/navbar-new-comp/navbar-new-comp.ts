@@ -15,7 +15,8 @@ import { IconComp } from '../icon-comp/icon-comp'
 export class NavbarNewComp {
   private body = inject(DOCUMENT).body
 
-  appName = config.appNameLong
+  protected readonly appName = config.appNameLong
+  private readonly DIM_ON_PAGES = ['practice', 'translate']
 
   @HostListener('mouseleave', [])
   onleave() {
@@ -33,7 +34,7 @@ export class NavbarNewComp {
   protected readonly lstore = inject(LearnablesStore)
   protected readonly language = computed(() => this.lstore.activeBank().language)
   protected readonly isOpen = signal(false)
-  protected readonly isOnPracticePage = signal(false)
+  protected readonly showDimmed = signal(false)
   protected readonly hasActivePractice = this.lstore.currentPractice
 
   constructor() {
@@ -41,7 +42,8 @@ export class NavbarNewComp {
       if (this.isMobileView) {
         this.isOpen.set(false)
       }
-      this.isOnPracticePage.set(ev.urlAfterRedirects.includes('practice'))
+      const subdued = this.DIM_ON_PAGES.some((page) => ev.urlAfterRedirects.includes(page))
+      this.showDimmed.set(subdued)
     })
   }
 
