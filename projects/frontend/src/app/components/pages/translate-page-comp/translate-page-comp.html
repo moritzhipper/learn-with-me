@@ -5,9 +5,11 @@
   [class]="{ 'small-text': smallText(), 'show-translation': lexemeInput() && translation() }"
 >
   <textarea #lexemeEl placeholder="type to translate" [(ngModel)]="lexemeInput"></textarea>
-  <div class="translation" #translationEl>
-    {{ translation() }}
-  </div>
+  <p class="translation" #translationEl>
+    <span>
+      {{ translation() }}
+    </span>
+  </p>
 </div>
 <div class="proposal">
   @for (card of proposedCards(); track card) {

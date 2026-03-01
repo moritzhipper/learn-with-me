@@ -11,38 +11,61 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  height: 33vh;
+  min-height: 33vh;
+
+  textarea,
+  .translation,
+  .translation span {
+    transition-duration: var(--debounce-duration);
+    transition-timing-function: ease-out;
+  }
+
+  textarea,
+  .translation span {
+    padding: var(--distance-5) 0;
+  }
 
   textarea,
   .translation {
-    transition-property: all;
-    transition-duration: var(--debounce-duration);
-    transition-timing-function: ease-out;
     width: 100%;
-    border-radius: none;
     background-color: transparent;
     box-sizing: border-box;
     outline: none;
-    padding: 0 var(--distance-5);
     display: border-box;
     scrollbar-width: none;
-    border: 1px solid white;
   }
 
   textarea {
+    transition: height;
     font-weight: var(--font-weight-bold);
   }
 
   .translation {
+    transition-property: height;
     font-style: italic;
     overflow: hidden;
+    margin: 0;
+
+    span {
+      display: block;
+      border-top: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+      transition-property: opacity;
+    }
   }
 
-  &.has-translation {
+  &.show-translation {
+    .translation span {
+      transition-delay: var(--debounce-duration);
+      opacity: 1;
+    }
   }
+
   &:not(.show-translation) {
     .translation {
-      //   opacity: 0;
+      transition-delay: var(--debounce-duration);
+      span {
+        opacity: 0;
+      }
     }
   }
   &:not(.small-text) {
@@ -50,6 +73,7 @@
     .translation {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
+      text-align: center;
     }
   }
   &.small-text {
@@ -57,6 +81,7 @@
     .translation {
       line-height: var(--line-height-2);
       font-size: var(--font-size-2);
+      text-align: left;
     }
   }
 }
@@ -74,20 +99,10 @@
 }
 
 @include isPhone() {
-  .translate {
-    .translation,
-    textarea {
-      text-align: center;
-    }
-  }
 }
 @include isDesktop() {
   .translate {
     width: var(--medium-width);
     align-self: center;
-    textarea,
-    .translation {
-      text-align: center;
-    }
   }
 }
