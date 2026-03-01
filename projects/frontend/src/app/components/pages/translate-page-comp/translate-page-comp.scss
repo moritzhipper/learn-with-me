@@ -15,19 +15,18 @@
 
   textarea,
   .translation {
-    transition-property: padding, margin;
-    transition-duration: var(--duration-1);
-    transition-timing-function: ease-in-out;
+    transition-property: all;
+    transition-duration: var(--debounce-duration);
+    transition-timing-function: ease-out;
     width: 100%;
     border-radius: none;
     background-color: transparent;
     box-sizing: border-box;
     outline: none;
     padding: 0 var(--distance-5);
-    font-size: var(--font-size-3);
-    line-height: var(--line-height-3);
-    height: var(--line-height-3);
-    overflow: hidden;
+    display: border-box;
+    scrollbar-width: none;
+    border: 1px solid white;
   }
 
   textarea {
@@ -36,10 +35,22 @@
 
   .translation {
     font-style: italic;
+    overflow: hidden;
   }
 
   &.has-translation {
-    .translation
+  }
+  &:not(.show-translation) {
+    .translation {
+      //   opacity: 0;
+    }
+  }
+  &:not(.small-text) {
+    textarea,
+    .translation {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+    }
   }
   &.small-text {
     textarea,

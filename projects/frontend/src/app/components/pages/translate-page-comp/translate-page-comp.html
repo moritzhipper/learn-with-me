@@ -1,14 +1,10 @@
 <app-page-icon-comp type="translate" />
 <div
   class="translate"
-  [class]="{ 'small-text': smallText(), 'has-translation': !!fastTranslation() }"
+  [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
+  [class]="{ 'small-text': smallText(), 'show-translation': lexemeInput() && fastTranslation() }"
 >
-  <textarea
-    #lexemeEl
-    placeholder="type to translate"
-    [(ngModel)]="lexemeInput"
-    (input)="calculateHeight()"
-  ></textarea>
+  <textarea #lexemeEl placeholder="type to translate" [(ngModel)]="lexemeInput"></textarea>
   <div class="translation" #translationEl>
     {{ fastTranslation() }}
   </div>
