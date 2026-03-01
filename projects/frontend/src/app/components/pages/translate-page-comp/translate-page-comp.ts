@@ -31,7 +31,7 @@ export class TranslatePageComp {
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
   protected readonly lexemeInput = signal<string>('')
-  protected fastTranslation = signal<string>('')
+  protected translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   protected readonly smallText = computed(() => this.lexemeInput().length > 40)
 
@@ -46,7 +46,7 @@ export class TranslatePageComp {
       const lexemeEl = this.lexemeEl().nativeElement
       const lexemIn = this.lexemeInput()
       const transEl = this.translationEl().nativeElement
-      const transOut = this.fastTranslation()
+      const transOut = this.translation()
 
       this.adjustHeight(lexemeEl)
       if (lexemIn && transOut) {
@@ -92,7 +92,7 @@ export class TranslatePageComp {
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       switchMap((v) => (v ? this.aiService.translateFast(v) : of(''))),
-      tap((v) => this.fastTranslation.set(v))
+      tap((v) => this.translation.set(v))
     )
   )
 
