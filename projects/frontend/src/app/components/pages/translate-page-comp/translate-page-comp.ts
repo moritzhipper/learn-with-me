@@ -29,6 +29,9 @@ import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-co
 export class TranslatePageComp {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
   protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
+  protected readonly NORMAL_TEXT_THRESHOLD = 40
+  protected readonly SMALL_TEXT_THRESHOLD = 100
+
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
   protected readonly lexemeInput = signal<string>('')
@@ -39,6 +42,9 @@ export class TranslatePageComp {
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
+
+  textSizeTransClass = computed(() => this.getTextSizeClass(this.translation()))
+  textSizeLexemeClass = computed(() => this.getTextSizeClass(this.lexemeInput()))
 
   constructor() {
     this.translateFast(this.creationConfig)
@@ -124,4 +130,14 @@ export class TranslatePageComp {
       })
     )
   )
+
+  private getTextSizeClass(text: string): 'small' | 'normal' | 'big' {
+    if (text.length < this.SMALL_TEXT_THRESHOLD) {
+      return 'small'
+    } else if (text.length < this.NORMAL_TEXT_THRESHOLD) {
+      return 'normal'
+    } else {
+      return 'big'
+    }
+  }
 }

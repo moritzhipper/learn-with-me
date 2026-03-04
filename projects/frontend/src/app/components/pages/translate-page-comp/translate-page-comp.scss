@@ -72,20 +72,22 @@
       }
     }
   }
-  &:not(.small-text) {
-    textarea,
-    .translation {
+
+  textarea,
+  .translation {
+    &.big {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
       text-align: center;
     }
-  }
-  &.small-text {
-    textarea,
-    .translation {
+    &.normal {
       line-height: var(--line-height-2);
       font-size: var(--font-size-2);
       text-align: left;
+    }
+    &.small {
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
     }
   }
 }
