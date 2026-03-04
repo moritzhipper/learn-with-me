@@ -16,7 +16,7 @@
   textarea,
   .translation {
     // height animations
-    transition-duration: var(--duration-3);
+    transition-duration: var(--debounce-duration);
     transition-timing-function: var(--soft-ease);
   }
   .translation span {

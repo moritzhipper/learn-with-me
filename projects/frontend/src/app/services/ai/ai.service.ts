@@ -193,19 +193,19 @@ export class AiService {
     return defer(() => {
       const controller = new AbortController()
 
-      const requestPromise = this.oAi().responses.create(
-        {
-          model: this.model,
-          input: [
-            { role: 'system', content: getQuickTranslatePrompt(config.language) },
-            { role: 'user', content: config.text }
-          ],
-          stream: true
-        },
-        { signal: controller.signal }
-      )
-
-      return from(requestPromise).pipe(
+      return from(
+        this.oAi().responses.create(
+          {
+            model: this.model,
+            input: [
+              { role: 'system', content: getQuickTranslatePrompt(config.language) },
+              { role: 'user', content: config.text }
+            ],
+            stream: true
+          },
+          { signal: controller.signal }
+        )
+      ).pipe(
         switchMap((stream) => from(stream)),
         tap((event) => {
           if (event.type === 'response.completed' && event.response.usage) {
@@ -213,9 +213,8 @@ export class AiService {
           }
         }),
         filter((event) => event.type === 'response.output_text.delta'),
-        scan((acc, chunk) => acc + chunk, ''),
+        scan((acc, event) => acc + event.delta, ''),
         finalize(() => controller.abort()),
-
         catchError((err) => {
           if (err.name === 'AbortError' || err.name === 'APIUserAbortError') {
             return EMPTY

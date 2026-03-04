@@ -2,7 +2,10 @@
 <div
   class="translate"
   [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
-  [class]="{ 'small-text': smallText(), 'show-translation': lexemeInput() && translation() }"
+  [class]="{
+    'small-text': smallText(),
+    'show-translation': lexemeInput() && translation()
+  }"
 >
   <textarea #lexemeEl placeholder="type to translate" [(ngModel)]="lexemeInput"></textarea>
   <p class="translation" #translationEl>

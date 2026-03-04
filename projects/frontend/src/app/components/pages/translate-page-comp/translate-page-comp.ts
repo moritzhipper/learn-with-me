@@ -27,11 +27,12 @@ import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-co
   host: { class: 'page mid' }
 })
 export class TranslatePageComp {
-  protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 200
+  protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
+  protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
   protected readonly lexemeInput = signal<string>('')
-  protected translation = signal<string>('')
+  protected readonly translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   protected readonly smallText = computed(() => this.lexemeInput().length > 40)
 
@@ -96,7 +97,6 @@ export class TranslatePageComp {
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       switchMap((v) => (v ? this.aiService.translateFastStream$(v) : of(''))),
-      tap((v) => console.log(v)),
       tap((v) => this.translation.set(v))
     )
   )
@@ -106,7 +106,7 @@ export class TranslatePageComp {
     pipe(
       tap(() => this.proposedCards.set([])),
       filter(Boolean),
-      debounceTime(1500),
+      debounceTime(this.PROPOSED_CARDS_DEBOUNCE_MS),
       switchMap((v) =>
         this.aiService.createLearnables({
           type: 'both',
