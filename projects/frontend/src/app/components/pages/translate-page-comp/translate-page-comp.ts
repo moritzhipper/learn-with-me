@@ -132,9 +132,9 @@ export class TranslatePageComp {
   )
 
   private getTextSizeClass(text: string): 'small' | 'normal' | 'big' {
-    if (text.length < this.SMALL_TEXT_THRESHOLD) {
+    if (text.length > this.SMALL_TEXT_THRESHOLD) {
       return 'small'
-    } else if (text.length < this.NORMAL_TEXT_THRESHOLD) {
+    } else if (text.length > this.NORMAL_TEXT_THRESHOLD) {
       return 'normal'
     } else {
       return 'big'
