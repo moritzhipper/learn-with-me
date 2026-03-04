@@ -29,8 +29,8 @@ import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-co
 export class TranslatePageComp {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
   protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
-  protected readonly NORMAL_TEXT_THRESHOLD = 40
-  protected readonly SMALL_TEXT_THRESHOLD = 100
+  protected readonly NORMAL_TEXT_THRESHOLD = 50
+  protected readonly SMALL_TEXT_THRESHOLD = 150
 
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
@@ -43,8 +43,16 @@ export class TranslatePageComp {
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
-  textSizeTransClass = computed(() => this.getTextSizeClass(this.translation()))
-  textSizeLexemeClass = computed(() => this.getTextSizeClass(this.lexemeInput()))
+  textSizeClass = computed(() => {
+    const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
+    if (biggestLength > this.SMALL_TEXT_THRESHOLD) {
+      return 'small'
+    } else if (biggestLength > this.NORMAL_TEXT_THRESHOLD) {
+      return 'normal'
+    } else {
+      return 'big'
+    }
+  })
 
   constructor() {
     this.translateFast(this.creationConfig)
@@ -63,7 +71,8 @@ export class TranslatePageComp {
 
       this.adjustHeight(lexemeEl)
       if (lexemIn && transOut && transEl) {
-        transWrapperEl.style.height = `${transEl.scrollHeight}px`
+        const biggerHeight = Math.max(lexemeEl.scrollHeight, transEl.scrollHeight)
+        transWrapperEl.style.height = `${biggerHeight}px`
       } else {
         transWrapperEl.style.height = '0px'
       }
@@ -105,12 +114,10 @@ export class TranslatePageComp {
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       switchMap((v) => (v ? this.aiService.translateFastStream$(v) : of(''))),
-      tap((v) => console.log(v)),
       tap((v) => this.translation.set(v))
     )
   )
 
-  // more debounce because more cost
   private readonly generateProposedCards = rxMethod<TranslateFastConfig | null>(
     pipe(
       tap(() => this.proposedCards.set([])),

@@ -38,7 +38,7 @@ import { getPrompt, getQuickTranslatePrompt } from './prompt'
   providedIn: 'root'
 })
 export class AiService {
-  private readonly model: ChatModel = 'gpt-5.1'
+  private readonly model: ChatModel = 'gpt-5.2'
   private readonly settingsStore = inject(SettingsStore)
 
   private oAi = computed(

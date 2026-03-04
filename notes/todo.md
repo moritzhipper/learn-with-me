@@ -2,13 +2,8 @@
 
 # now
 
-- use effect to set heights of elements:
-- check textarea size on input, if scroll, make bigger. sync with translation textarea size.
-- when no input text, set size of. translation to zero, remove the angular anims
-- on new key press: all cards delete! then
-- somehow flicker in proposed cards
-- erst karten auf view, wenn beide services finishen
-- streaming for fast translation
+- unter translations
+  - past translations / Past card propositions?
 - filter doppelresponses aus preview
 - selektiere zom importieren / importiere alle bubbles oder button
 - move all ai stuff to translate tab
