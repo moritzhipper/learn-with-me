@@ -14,10 +14,14 @@
   min-height: 33vh;
 
   textarea,
-  .translation,
+  .translation {
+    // height animations
+    transition-duration: var(--duration-3);
+    transition-timing-function: var(--soft-ease);
+  }
   .translation span {
-    transition-duration: var(--debounce-duration);
-    transition-timing-function: ease-out;
+    // opacity animation
+    transition-duration: (--debounce-duration);
   }
 
   textarea,
