@@ -5,6 +5,7 @@
 - unter translations
   - past translations / Past card propositions?
 - filter doppelresponses aus preview
+- implement canceling for proposal cards
 - selektiere zom importieren / importiere alle bubbles oder button
 - move all ai stuff to translate tab
 - do like full preview under main translate thing
