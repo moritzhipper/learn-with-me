@@ -21,7 +21,7 @@
   }
   .translation span {
     // opacity animation
-    transition-duration: (--debounce-duration);
+    transition-duration: var(--debounce-duration);
   }
 
   textarea,
@@ -40,7 +40,7 @@
   }
 
   textarea {
-    transition: height;
+    transition-property: height;
     font-weight: var(--font-weight-bold);
   }
 

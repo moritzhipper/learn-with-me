@@ -8,8 +8,8 @@
   }"
 >
   <textarea #lexemeEl placeholder="type to translate" [(ngModel)]="lexemeInput"></textarea>
-  <p class="translation" #translationEl>
-    <span>
+  <p class="translation" #translationWrapperEl>
+    <span #translationEl>
       {{ translation() }}
     </span>
   </p>
