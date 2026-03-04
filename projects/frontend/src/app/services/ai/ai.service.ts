@@ -10,6 +10,19 @@ import {
   ResponseInputMessageContentList
 } from 'openai/resources/responses/responses.mjs'
 import { ChatModel } from 'openai/resources/shared.mjs'
+import {
+  catchError,
+  defer,
+  EMPTY,
+  filter,
+  finalize,
+  from,
+  Observable,
+  scan,
+  switchMap,
+  tap,
+  throwError
+} from 'rxjs'
 import { SettingsStore } from '../../store/settingsStore'
 import {
   LearnableCreationConfig,
@@ -157,19 +170,59 @@ export class AiService {
     }))
   }
 
-  async translateFast({ text, language }: TranslateFastConfig): Promise<string> {
-    const response = await this.oAi().responses.create({
-      model: this.model,
-      input: [
-        { role: 'system', content: getQuickTranslatePrompt(language) },
-        {
-          role: 'user',
-          content: text
-        }
-      ]
-    })
+  async translateFast(config: TranslateFastConfig, abortSignal: AbortSignal): Promise<string> {
+    const response = await this.oAi().responses.create(
+      {
+        model: this.model,
+        input: [
+          { role: 'system', content: getQuickTranslatePrompt(config.language) },
+          {
+            role: 'user',
+            content: config.text
+          }
+        ]
+      },
+      { signal: abortSignal }
+    )
 
     this.settingsStore.addTokensUsed(response.usage?.total_tokens ?? 0)
     return response.output_text
+  }
+
+  translateFastStream$(config: TranslateFastConfig): Observable<string> {
+    return defer(() => {
+      const controller = new AbortController()
+
+      const requestPromise = this.oAi().responses.create(
+        {
+          model: this.model,
+          input: [
+            { role: 'system', content: getQuickTranslatePrompt(config.language) },
+            { role: 'user', content: config.text }
+          ],
+          stream: true
+        },
+        { signal: controller.signal }
+      )
+
+      return from(requestPromise).pipe(
+        switchMap((stream) => from(stream)),
+        tap((event) => {
+          if (event.type === 'response.completed' && event.response.usage) {
+            this.settingsStore.addTokensUsed(event.response.usage.total_tokens)
+          }
+        }),
+        filter((event) => event.type === 'response.output_text.delta'),
+        scan((acc, chunk) => acc + chunk, ''),
+        finalize(() => controller.abort()),
+
+        catchError((err) => {
+          if (err.name === 'AbortError' || err.name === 'APIUserAbortError') {
+            return EMPTY
+          }
+          return throwError(() => err)
+        })
+      )
+    })
   }
 }

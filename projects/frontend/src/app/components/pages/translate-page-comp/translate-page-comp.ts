@@ -95,17 +95,18 @@ export class TranslatePageComp {
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
-      switchMap((v) => (v ? this.aiService.translateFast(v) : of(''))),
+      switchMap((v) => (v ? this.aiService.translateFastStream$(v) : of(''))),
+      tap((v) => console.log(v)),
       tap((v) => this.translation.set(v))
     )
   )
 
-  // more depbounce because more cost
+  // more debounce because more cost
   private readonly generateProposedCards = rxMethod<TranslateFastConfig | null>(
     pipe(
       tap(() => this.proposedCards.set([])),
       filter(Boolean),
-      debounceTime(1000),
+      debounceTime(1500),
       switchMap((v) =>
         this.aiService.createLearnables({
           type: 'both',
