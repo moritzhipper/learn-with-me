@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
-import { debounceTime, filter, of, pipe, switchMap, tap } from 'rxjs'
+import { ResponseStreamEvent } from 'openai/resources/responses/responses.mjs'
+import { debounceTime, filter, pipe, switchMap, tap } from 'rxjs'
 import { AiService } from '../../../services/ai/ai.service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -115,19 +116,38 @@ export class TranslatePageComp {
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
-      switchMap((v) => (v ? this.aiService.translateFastStream$(v) : of(''))),
+      tap((v) => {
+        if (!v) this.translation.set('')
+      }),
+      filter(Boolean),
+      switchMap((v) => this.aiService.translateFastStream$(v)),
       tapResponse({
-        next: (v) => this.translation.set(v),
+        next: (v) => this.resolveStreamingTranslation(v),
         error: (e) => this.toastService.showToast({ message: 'Translation failed', type: 'error' })
       })
     )
   )
 
+  private resolveStreamingTranslation(event: ResponseStreamEvent) {
+    // reset on start event
+    // append on delta event
+    // add translation to history on completed event
+    if (event.type === 'response.created') {
+      this.translation.set('')
+    } else if (event.type === 'response.output_text.delta') {
+      this.translation.update((t) => t + event.delta)
+    } else if (event.type === 'response.completed') {
+      console.log('Translation completed')
+    }
+  }
+
   private readonly generateProposedCards = rxMethod<TranslateFastConfig | null>(
     pipe(
-      tap(() => this.proposedCards.set([])),
-      filter(Boolean),
       debounceTime(this.PROPOSED_CARDS_DEBOUNCE_MS),
+      tap((v) => {
+        if (!v) this.proposedCards.set([])
+      }),
+      filter(Boolean),
       switchMap((v) =>
         this.aiService.createLearnables({
           type: 'both',

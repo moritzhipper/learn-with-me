@@ -7,18 +7,17 @@ import { LearnablesFromAiSchema } from '@shared/schemas'
 import { LearnableBase, LearnableFromAI } from '@shared/types'
 import {
   EasyInputMessage,
-  ResponseInputMessageContentList
+  ResponseInputMessageContentList,
+  ResponseStreamEvent
 } from 'openai/resources/responses/responses.mjs'
 import { ChatModel } from 'openai/resources/shared.mjs'
 import {
   catchError,
   defer,
   EMPTY,
-  filter,
   finalize,
   from,
   Observable,
-  scan,
   switchMap,
   tap,
   throwError
@@ -189,7 +188,7 @@ export class AiService {
     return response.output_text
   }
 
-  translateFastStream$(config: TranslateFastConfig): Observable<string> {
+  translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
     return defer(() => {
       const controller = new AbortController()
 
@@ -212,8 +211,8 @@ export class AiService {
             this.settingsStore.addTokensUsed(event.response.usage.total_tokens)
           }
         }),
-        filter((event) => event.type === 'response.output_text.delta'),
-        scan((acc, event) => acc + event.delta, ''),
+        // filter((event) => event.type === 'response.output_text.delta'),
+        // scan((acc, event) => acc + event.delta, ''),
         finalize(() => controller.abort()),
         catchError((err) => {
           if (err.name === 'AbortError' || err.name === 'APIUserAbortError') {
