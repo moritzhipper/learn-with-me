@@ -18,12 +18,13 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { TranslateFastConfig } from '../../../types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
+import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [PageIconComp, LearnableComp, FormsModule],
+  imports: [PageIconComp, LearnableComp, FormsModule, IconComp],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }
@@ -146,8 +147,11 @@ export class TranslatePageComp {
         lexeme: this.lexemeInput(),
         translation: this.translation()
       })
-      console.log('Translation completed')
     }
+  }
+
+  protected deleteHistoryItem(id: string) {
+    this.ls.deleteTranslationHistoryItem(id)
   }
 
   private readonly generateProposedCards = rxMethod<TranslateFastConfig | null>(

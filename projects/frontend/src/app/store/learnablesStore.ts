@@ -34,7 +34,10 @@ import {
   setGuess,
   startPractice
 } from './mutators/practice-mutators'
-import { addTranslationHistoryItem } from './mutators/translation-mutators'
+import {
+  addTranslationHistoryItem,
+  deleteTranslationHistoryItem
+} from './mutators/translation-mutators'
 
 export const LearnablesStore = signalStore(
   { providedIn: 'root' },
@@ -70,6 +73,9 @@ export const LearnablesStore = signalStore(
       },
       addTranslationHistoryItem(learnable: LearnableFromAI) {
         patchState(state, addTranslationHistoryItem(learnable))
+      },
+      deleteTranslationHistoryItem(id: string) {
+        patchState(state, deleteTranslationHistoryItem(id))
       },
       createCollection(name: string, ids: string[]) {
         patchState(state, createCollection(name, ids))

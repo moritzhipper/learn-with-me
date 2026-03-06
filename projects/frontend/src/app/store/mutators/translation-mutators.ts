@@ -7,7 +7,23 @@ export const addTranslationHistoryItem =
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       const maxItems = 20
-      const newHistory = [base, ...(b.translationHistory || [])].slice(0, maxItems)
+      const newItem = {
+        id: crypto.randomUUID(),
+        lexeme: base.lexeme,
+        translation: base.translation
+      }
+      const newHistory = [newItem, ...(b.translationHistory || [])].slice(0, maxItems)
+      return {
+        ...b,
+        translationHistory: newHistory
+      }
+    })
+
+export const deleteTranslationHistoryItem =
+  (id: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType =>
+    updateActiveBank(state, (b) => {
+      const newHistory = b.translationHistory.filter((item) => item.id !== id)
       return {
         ...b,
         translationHistory: newHistory

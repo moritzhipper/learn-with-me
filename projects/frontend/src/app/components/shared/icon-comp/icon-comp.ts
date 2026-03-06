@@ -37,6 +37,7 @@ export type IconType =
   | 'compass'
   | 'filter'
   | 'close'
+  | 'close-circle'
   | 'image'
   | 'translate'
 
