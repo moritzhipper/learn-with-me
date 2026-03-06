@@ -35,8 +35,10 @@ export class TranslatePageComp {
   protected readonly SMALL_TEXT_THRESHOLD = 150
 
   private readonly aiService = inject(AiService)
-  private readonly activeBank = inject(LearnablesStore).activeBank
+  private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
+  private readonly activeBank = this.ls.activeBank
+  protected readonly history = computed(() => this.ls.activeBank().translationHistory)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
@@ -137,6 +139,10 @@ export class TranslatePageComp {
     } else if (event.type === 'response.output_text.delta') {
       this.translation.update((t) => t + event.delta)
     } else if (event.type === 'response.completed') {
+      this.ls.addTranslationHistoryItem({
+        lexeme: this.lexemeInput(),
+        translation: this.translation()
+      })
       console.log('Translation completed')
     }
   }
