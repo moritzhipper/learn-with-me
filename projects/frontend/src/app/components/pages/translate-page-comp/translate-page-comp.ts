@@ -13,6 +13,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
 import { debounceTime, filter, of, pipe, switchMap, tap } from 'rxjs'
 import { AiService } from '../../../services/ai/ai.service'
+import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { TranslateFastConfig } from '../../../types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
@@ -34,6 +35,7 @@ export class TranslatePageComp {
 
   private readonly aiService = inject(AiService)
   private readonly activeBank = inject(LearnablesStore).activeBank
+  private readonly toastService = inject(ToastService)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
@@ -114,7 +116,10 @@ export class TranslatePageComp {
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       switchMap((v) => (v ? this.aiService.translateFastStream$(v) : of(''))),
-      tap((v) => this.translation.set(v))
+      tapResponse({
+        next: (v) => this.translation.set(v),
+        error: (e) => this.toastService.showToast({ message: 'Translation failed', type: 'error' })
+      })
     )
   )
 
@@ -133,7 +138,11 @@ export class TranslatePageComp {
       ),
       tapResponse({
         next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
-        error: console.error
+        error: (e) =>
+          this.toastService.showToast({
+            message: 'Failed to generate proposed cards',
+            type: 'error'
+          })
       })
     )
   )

@@ -54,6 +54,7 @@ export const BankBaseSchema = z.object({
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
+  translationHistory: z.array(LearnableFromAiSchema),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema)
 })

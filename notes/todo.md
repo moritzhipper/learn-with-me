@@ -4,6 +4,9 @@
 
 - unter translations
   - past translations / Past card propositions?
+  - finish implement history story thing
+  - switch mode button
+
 - filter doppelresponses aus preview
 - implement canceling for proposal cards
 - selektiere zom importieren / importiere alle bubbles oder button
