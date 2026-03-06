@@ -49,6 +49,8 @@ export class TranslatePageComp {
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
+  protected resetOnNextTransEvent = false
+
   textSizeClass = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
     if (biggestLength > this.SMALL_TEXT_THRESHOLD) {
@@ -62,7 +64,7 @@ export class TranslatePageComp {
 
   constructor() {
     this.translateFast(this.creationConfig)
-    this.generateProposedCards(this.creationConfig)
+    // this.generateProposedCards(this.creationConfig)
 
     setTimeout(() => {
       this.lexemeEl().nativeElement.focus()
@@ -130,24 +132,31 @@ export class TranslatePageComp {
       tapResponse({
         next: (v) => this.resolveStreamingTranslation(v),
         error: (e) => this.toastService.showToast({ message: 'Translation failed', type: 'error' })
-      })
+      }),
+      debounceTime(3000),
+      filter((event) => event.type === 'response.completed'),
+      tap(() => this.saveTranslationHistoryItem())
     )
   )
 
   private resolveStreamingTranslation(event: ResponseStreamEvent) {
-    // reset on start event
-    // append on delta event
-    // add translation to history on completed event
     if (event.type === 'response.created') {
-      this.translation.set('')
+      this.resetOnNextTransEvent = true
+    } else if (event.type === 'response.output_text.delta' && this.resetOnNextTransEvent) {
+      this.resetOnNextTransEvent = false
+      this.translation.set(event.delta)
     } else if (event.type === 'response.output_text.delta') {
       this.translation.update((t) => t + event.delta)
-    } else if (event.type === 'response.completed') {
-      this.ls.addTranslationHistoryItem({
-        lexeme: this.lexemeInput(),
-        translation: this.translation()
-      })
     }
+  }
+
+  private saveTranslationHistoryItem() {
+    const lexeme = this.lexemeInput()
+    const translation = this.translation()
+    this.ls.addTranslationHistoryItem({
+      lexeme: this.lexemeInput(),
+      translation: this.translation()
+    })
   }
 
   protected deleteHistoryItem(id: string) {

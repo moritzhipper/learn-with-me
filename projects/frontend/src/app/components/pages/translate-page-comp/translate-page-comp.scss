@@ -103,6 +103,32 @@
     }
   }
 }
+.history-wrapper {
+  display: grid;
+  gap: var(--distance-4);
+
+  .history-item {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr auto;
+    gap: 0 var(--distance-4);
+    .lexeme {
+      font-weight: var(--font-weight-bold);
+      padding-bottom: var(--distance-2);
+      border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+    }
+    .translation {
+      font-style: italic;
+      padding-top: var(--distance-2);
+    }
+
+    button {
+      place-self: center;
+      grid-row: 1 / span 2;
+      grid-column: 2;
+      opacity: var(--opacity-1);
+    }
+  }
+}
 
 @include isPhone() {
 }
