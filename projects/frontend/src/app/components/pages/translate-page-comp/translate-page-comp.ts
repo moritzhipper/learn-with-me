@@ -104,16 +104,19 @@ export class TranslatePageComp {
     el.style.height = `${targetHeight}px`
   }
 
-  private readonly creationConfig = computed<TranslateFastConfig | null>(() => {
-    const language = this.activeBank().language
-    const text = this.lexemeInput()
-    if (!language || !text) return null
+  private readonly creationConfig = computed<TranslateFastConfig | null>(
+    () => {
+      const language = this.activeBank().language
+      const text = this.lexemeInput()
+      if (!language || !text) return null
 
-    return {
-      language,
-      text
-    }
-  })
+      return {
+        language,
+        text
+      }
+    },
+    { equal: (a, b) => a?.language === b?.language && a?.text === b?.text }
+  )
 
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
