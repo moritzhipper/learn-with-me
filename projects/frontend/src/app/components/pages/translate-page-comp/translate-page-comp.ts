@@ -12,7 +12,7 @@ import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
 import { ResponseStreamEvent } from 'openai/resources/responses/responses.mjs'
-import { debounceTime, filter, pipe, switchMap, tap } from 'rxjs'
+import { debounceTime, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
 import { AiService } from '../../../services/ai/ai.service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -32,8 +32,7 @@ import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-co
 export class TranslatePageComp {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
   protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
-  protected readonly NORMAL_TEXT_THRESHOLD = 50
-  protected readonly SMALL_TEXT_THRESHOLD = 150
+  protected readonly SMALL_TEXT_THRESHOLD = 100
 
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
@@ -43,7 +42,6 @@ export class TranslatePageComp {
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
-  protected readonly smallText = computed(() => this.lexemeInput().length > 40)
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
@@ -52,15 +50,9 @@ export class TranslatePageComp {
   protected isTranslationInitialized = false
   protected isTranslationFinished = false
 
-  textSizeClass = computed(() => {
+  showSmallText = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
-    if (biggestLength > this.SMALL_TEXT_THRESHOLD) {
-      return 'small'
-    } else if (biggestLength > this.NORMAL_TEXT_THRESHOLD) {
-      return 'normal'
-    } else {
-      return 'big'
-    }
+    return biggestLength > this.SMALL_TEXT_THRESHOLD
   })
 
   constructor() {
@@ -133,10 +125,13 @@ export class TranslatePageComp {
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       tap((v) => {
         this.isTranslationInitialized = false
-        if (!v) this.translation.set('')
       }),
-      filter(Boolean),
-      switchMap((v) => this.aiService.translateFastStream$(v)),
+      switchMap((v) => {
+        if (v) return this.aiService.translateFastStream$(v)
+
+        this.translation.set('')
+        return EMPTY
+      }),
       tapResponse({
         next: (v) => this.resolveTranslationStream(v),
         error: (e) => this.toastService.showHttpErrorToast(e)

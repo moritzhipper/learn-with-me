@@ -75,16 +75,12 @@
 
   textarea,
   .translation {
-    &.big {
+    &:not(.small-text) {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
       text-align: center;
     }
-    &.normal {
-      line-height: var(--line-height-2);
-      font-size: var(--font-size-2);
-    }
-    &.small {
+    &.small-text {
       text-align: left;
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);

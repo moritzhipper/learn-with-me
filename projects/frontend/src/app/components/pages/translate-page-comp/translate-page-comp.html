@@ -8,9 +8,9 @@
     #lexemeEl
     placeholder="type to translate"
     [(ngModel)]="lexemeInput"
-    [class]="textSizeClass()"
+    [class.small-text]="showSmallText()"
   ></textarea>
-  <p class="translation" #translationWrapperEl [class]="textSizeClass()">
+  <p class="translation" #translationWrapperEl [class.small-text]="showSmallText()">
     <span #translationEl>
       {{ translation() }}
     </span>
