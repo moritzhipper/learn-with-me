@@ -56,7 +56,8 @@ export class TranslatePageComp {
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
   protected isTranslationInitialized = false
-  protected isTranslationFinished = false
+  protected lastTranslation = ''
+  protected newTranslation = ''
 
   showSmallText = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
@@ -136,7 +137,7 @@ export class TranslatePageComp {
 
         return this.aiService.translateFastStream$(config).pipe(
           tapResponse({
-            next: (event) => this.resolveTranslationStream(event),
+            next: (event) => this.mapStreamToTranslation(event),
             error: (e) => this.toastService.showHttpErrorToast(e)
           }),
           filter((ev): ev is ResponseTextDoneEvent => {
@@ -144,21 +145,30 @@ export class TranslatePageComp {
             const isCurrentUserInput = config.text === this.lexemeInput()
             return isFinishedEvent && isCurrentUserInput
           }),
-          delay(3000),
+          delay(2000),
           tap((ev) => this.saveTranslationHistoryItem(config.text, ev.text))
         )
       })
     )
   )
 
-  private resolveTranslationStream(event: ResponseStreamEvent) {
+  private mapStreamToTranslation(event: ResponseStreamEvent) {
     if (event.type === 'response.created') {
-      this.isTranslationInitialized = false
+      this.newTranslation = ''
     }
+    // Apply old translation to ui from last stream, as long as the new transaltion starts the same and is not finishd
     if (event.type === 'response.output_text.delta') {
-      if (!this.isTranslationInitialized) this.translation.set('')
-      this.isTranslationInitialized = true
-      this.translation.update((t) => t + event.delta)
+      this.newTranslation += event.delta
+      if (this.lastTranslation.startsWith(this.newTranslation)) {
+        this.translation.set(this.lastTranslation)
+      } else {
+        this.lastTranslation = this.newTranslation
+        this.translation.set(this.newTranslation)
+      }
+    }
+    if (event.type === 'response.output_text.done') {
+      this.lastTranslation = event.text
+      this.translation.set(this.lastTranslation)
     }
   }
 
