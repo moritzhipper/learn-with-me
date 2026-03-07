@@ -49,7 +49,8 @@ export class TranslatePageComp {
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
-  protected resetOnNextTransEvent = false
+  protected isTranslationInitialized = false
+  protected isTranslationFinished = false
 
   textSizeClass = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
@@ -77,6 +78,7 @@ export class TranslatePageComp {
       const transOut = this.translation()
       const transEl = this.translationEl().nativeElement
 
+      // Make both lexeme and translation wrapper always same height
       this.adjustHeight(lexemeEl)
       if (lexemIn && transOut && transEl) {
         const biggerHeight = Math.max(lexemeEl.scrollHeight, transEl.scrollHeight)
@@ -121,36 +123,41 @@ export class TranslatePageComp {
     { equal: (a, b) => a?.language === b?.language && a?.text === b?.text }
   )
 
+  // Reset translation field, when inpu text field is empty
+  // Save translition to history, when none is ongoing, a finished translation exists and 2s passed after the last userinput
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       tap((v) => {
         if (!v) this.translation.set('')
+        this.isTranslationFinished = false
+        this.isTranslationInitialized = false
       }),
       filter(Boolean),
       switchMap((v) => this.aiService.translateFastStream$(v)),
       tapResponse({
-        next: (v) => this.resolveStreamingTranslation(v),
-        error: (e) => this.toastService.showToast({ message: 'Translation failed', type: 'error' })
+        next: (v) => this.resolveTranslationStream(v),
+        error: (e) => this.toastService.showHttpErrorToast(e)
       }),
-      debounceTime(3000),
-      filter((event) => event.type === 'response.completed'),
+      debounceTime(2000),
+      filter((ev) => ev.type === 'response.completed' && this.isTranslationFinished),
       tap(() => this.saveTranslationHistoryItem())
     )
   )
 
-  private resolveStreamingTranslation(event: ResponseStreamEvent) {
-    if (event.type === 'response.created') {
-      this.resetOnNextTransEvent = true
-    } else if (event.type === 'response.output_text.delta' && this.resetOnNextTransEvent) {
-      this.resetOnNextTransEvent = false
+  private resolveTranslationStream(event: ResponseStreamEvent) {
+    if (event.type === 'response.output_text.delta' && !this.isTranslationInitialized) {
+      this.isTranslationInitialized = true
       this.translation.set(event.delta)
-    } else if (event.type === 'response.output_text.delta') {
+    } else if (event.type === 'response.output_text.delta' && this.isTranslationInitialized) {
       this.translation.update((t) => t + event.delta)
+    } else if (event.type === 'response.completed') {
+      this.isTranslationFinished = true
     }
   }
 
   private saveTranslationHistoryItem() {
+    console.log('Saving translation history item')
     const lexeme = this.lexemeInput()
     const translation = this.translation()
     this.ls.addTranslationHistoryItem({
@@ -180,11 +187,7 @@ export class TranslatePageComp {
       ),
       tapResponse({
         next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
-        error: (e) =>
-          this.toastService.showToast({
-            message: 'Failed to generate proposed cards',
-            type: 'error'
-          })
+        error: (e) => this.toastService.showHttpErrorToast(e)
       })
     )
   )
