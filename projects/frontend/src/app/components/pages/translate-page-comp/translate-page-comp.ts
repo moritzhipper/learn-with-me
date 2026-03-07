@@ -48,7 +48,7 @@ export class TranslatePageComp {
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
   protected isTranslationInitialized = false
-  protected isTranslationFinished = false
+  protected isTranslationOngoing = false
 
   showSmallText = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
@@ -120,24 +120,24 @@ export class TranslatePageComp {
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
       tap(() => {
-        this.isTranslationFinished = false
+        this.isTranslationOngoing = true
       }),
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
-      tap((v) => {
-        this.isTranslationInitialized = false
-      }),
       switchMap((v) => {
-        if (v) return this.aiService.translateFastStream$(v)
+        if (!v) {
+          this.translation.set('')
+          return EMPTY
+        }
 
-        this.translation.set('')
-        return EMPTY
+        this.isTranslationInitialized = false
+        return this.aiService.translateFastStream$(v)
       }),
       tapResponse({
         next: (v) => this.resolveTranslationStream(v),
         error: (e) => this.toastService.showHttpErrorToast(e)
       }),
       debounceTime(2000),
-      filter((ev) => ev.type === 'response.completed' && this.isTranslationFinished),
+      filter((ev) => ev.type === 'response.completed' && !this.isTranslationOngoing),
       tap(() => this.saveTranslationHistoryItem())
     )
   )
@@ -149,7 +149,7 @@ export class TranslatePageComp {
     } else if (event.type === 'response.output_text.delta' && this.isTranslationInitialized) {
       this.translation.update((t) => t + event.delta)
     } else if (event.type === 'response.completed') {
-      this.isTranslationFinished = true
+      this.isTranslationOngoing = false
     }
   }
 
