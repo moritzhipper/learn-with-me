@@ -127,11 +127,13 @@ export class TranslatePageComp {
   // Save translition to history, when none is ongoing, a finished translation exists and 2s passed after the last userinput
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
+      tap(() => {
+        this.isTranslationFinished = false
+      }),
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
       tap((v) => {
-        if (!v) this.translation.set('')
-        this.isTranslationFinished = false
         this.isTranslationInitialized = false
+        if (!v) this.translation.set('')
       }),
       filter(Boolean),
       switchMap((v) => this.aiService.translateFastStream$(v)),
