@@ -11,8 +11,11 @@ import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
-import { ResponseStreamEvent } from 'openai/resources/responses/responses.mjs'
-import { debounceTime, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
+import {
+  ResponseStreamEvent,
+  ResponseTextDoneEvent
+} from 'openai/resources/responses/responses.mjs'
+import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
 import { AiService } from '../../../services/ai/ai.service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -21,6 +24,11 @@ import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
+
+type TranslationStreamEvent = {
+  event: ResponseTextDoneEvent
+  config: TranslateFastConfig
+}
 
 @Component({
   selector: 'app-translate-page-comp',
@@ -48,7 +56,7 @@ export class TranslatePageComp {
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
   protected isTranslationInitialized = false
-  protected isTranslationOngoing = false
+  protected isTranslationFinished = false
 
   showSmallText = computed(() => {
     const biggestLength = Math.max(this.lexemeInput().length, this.translation().length)
@@ -119,47 +127,47 @@ export class TranslatePageComp {
   // Save translition to history, when none is ongoing, a finished translation exists and 2s passed after the last userinput
   private readonly translateFast = rxMethod<TranslateFastConfig | null>(
     pipe(
-      tap(() => {
-        this.isTranslationOngoing = true
-      }),
       debounceTime(this.FAST_TRANSLATION_DEBOUNCE_MS),
-      switchMap((v) => {
-        if (!v) {
+      switchMap((config) => {
+        if (!config) {
           this.translation.set('')
           return EMPTY
         }
 
-        this.isTranslationInitialized = false
-        return this.aiService.translateFastStream$(v)
-      }),
-      tapResponse({
-        next: (v) => this.resolveTranslationStream(v),
-        error: (e) => this.toastService.showHttpErrorToast(e)
-      }),
-      debounceTime(2000),
-      filter((ev) => ev.type === 'response.completed' && !this.isTranslationOngoing),
-      tap(() => this.saveTranslationHistoryItem())
+        return this.aiService.translateFastStream$(config).pipe(
+          tapResponse({
+            next: (event) => this.resolveTranslationStream(event),
+            error: (e) => this.toastService.showHttpErrorToast(e)
+          }),
+          filter((ev): ev is ResponseTextDoneEvent => {
+            const isFinishedEvent = ev.type === 'response.output_text.done'
+            const isCurrentUserInput = config.text === this.lexemeInput()
+            return isFinishedEvent && isCurrentUserInput
+          }),
+          delay(3000),
+          tap((ev) => this.saveTranslationHistoryItem(config.text, ev.text))
+        )
+      })
     )
   )
 
   private resolveTranslationStream(event: ResponseStreamEvent) {
-    if (event.type === 'response.output_text.delta' && !this.isTranslationInitialized) {
+    if (event.type === 'response.created') {
+      this.isTranslationInitialized = false
+    }
+    if (event.type === 'response.output_text.delta') {
+      if (!this.isTranslationInitialized) this.translation.set('')
       this.isTranslationInitialized = true
-      this.translation.set(event.delta)
-    } else if (event.type === 'response.output_text.delta' && this.isTranslationInitialized) {
       this.translation.update((t) => t + event.delta)
-    } else if (event.type === 'response.completed') {
-      this.isTranslationOngoing = false
     }
   }
 
-  private saveTranslationHistoryItem() {
+  private saveTranslationHistoryItem(lexeme: string, translation: string) {
     console.log('Saving translation history item')
-    const lexeme = this.lexemeInput()
-    const translation = this.translation()
+
     this.ls.addTranslationHistoryItem({
-      lexeme: this.lexemeInput(),
-      translation: this.translation()
+      lexeme,
+      translation
     })
   }
 
