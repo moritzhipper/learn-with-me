@@ -17,7 +17,8 @@ import {
   LearnableWithIdSchema,
   ObjectWithIdSchema,
   PaginationSchema,
-  RequestHeaderSchema
+  RequestHeaderSchema,
+  TranslationHistoryItemSchema
 } from './schemas'
 
 export type LearnableBase = z.infer<typeof LearnableBaseSchema>
@@ -36,6 +37,7 @@ export type ObjectWithId = z.infer<typeof ObjectWithIdSchema>
 export type BankShareViaDB = z.infer<typeof BankShareViaDBSchema>
 export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 
+export type TranslationHistoryItem = z.infer<typeof TranslationHistoryItemSchema>
 export type LearnableWithId = z.infer<typeof LearnableWithIdSchema>
 export type LearnableFromAI = z.infer<typeof LearnableFromAiSchema>
 export type UserLearnable = z.infer<typeof LearnableUserSchema>

@@ -1,7 +1,13 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit'
 import { computed } from '@angular/core'
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
-import { BankBase, BankShareBase, LearnableBase, UserLearnablePartial } from '@shared/types'
+import {
+  BankBase,
+  BankShareBase,
+  LearnableBase,
+  TranslationHistoryItem,
+  UserLearnablePartial
+} from '@shared/types'
 import { Guess } from '../types_and_schemas/types'
 import { initialState } from './initialStates'
 import {
@@ -28,6 +34,10 @@ import {
   setGuess,
   startPractice
 } from './mutators/practice-mutators'
+import {
+  addTranslationHistoryItem,
+  deleteTranslationHistoryItem
+} from './mutators/translation-mutators'
 
 export const LearnablesStore = signalStore(
   { providedIn: 'root' },
@@ -60,6 +70,12 @@ export const LearnablesStore = signalStore(
       },
       startPractice(ids: string[], reverseDirection: boolean) {
         patchState(state, startPractice(ids, reverseDirection))
+      },
+      addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id'>) {
+        patchState(state, addTranslationHistoryItem(learnable))
+      },
+      deleteTranslationHistoryItem(id: string) {
+        patchState(state, deleteTranslationHistoryItem(id))
       },
       createCollection(name: string, ids: string[]) {
         patchState(state, createCollection(name, ids))

@@ -17,6 +17,12 @@ export type Practice = {
   reverseDirection: boolean
 }
 
+export type TranslateFastConfig = {
+  text: string
+  tone: string
+  language: LanguageConfig
+}
+
 type LearnableCreationConfigBase = {
   language: LanguageConfig
   type: 'phrase' | 'word' | 'both'

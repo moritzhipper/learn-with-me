@@ -7,24 +7,37 @@ import { LearnablesFromAiSchema } from '@shared/schemas'
 import { LearnableBase, LearnableFromAI } from '@shared/types'
 import {
   EasyInputMessage,
-  ResponseInputMessageContentList
+  ResponseInputMessageContentList,
+  ResponseStreamEvent
 } from 'openai/resources/responses/responses.mjs'
 import { ChatModel } from 'openai/resources/shared.mjs'
+import {
+  catchError,
+  defer,
+  EMPTY,
+  finalize,
+  from,
+  Observable,
+  switchMap,
+  tap,
+  throwError
+} from 'rxjs'
 import { SettingsStore } from '../../store/settingsStore'
 import {
   LearnableCreationConfig,
   LearnableFromImageCreationConfig,
-  LearnableFromTextCreationConfig
+  LearnableFromTextCreationConfig,
+  TranslateFastConfig
 } from '../../types_and_schemas/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
-import { getPrompt } from './prompt'
+import { getPrompt, getQuickTranslatePrompt } from './prompt'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AiService {
-  private readonly model: ChatModel = 'gpt-5.1'
+  private readonly model: ChatModel = 'gpt-5.2'
   private readonly settingsStore = inject(SettingsStore)
 
   private oAi = computed(
@@ -154,5 +167,58 @@ export class AiService {
       lexeme: c.lexeme,
       translation: c.translation
     }))
+  }
+
+  async translateFast(config: TranslateFastConfig, abortSignal: AbortSignal): Promise<string> {
+    const response = await this.oAi().responses.create(
+      {
+        model: this.model,
+        input: [
+          { role: 'system', content: getQuickTranslatePrompt(config.language, config.tone) },
+          {
+            role: 'user',
+            content: config.text
+          }
+        ]
+      },
+      { signal: abortSignal }
+    )
+
+    this.settingsStore.addTokensUsed(response.usage?.total_tokens ?? 0)
+    return response.output_text
+  }
+
+  translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
+    return defer(() => {
+      const controller = new AbortController()
+
+      return from(
+        this.oAi().responses.create(
+          {
+            model: this.model,
+            input: [
+              { role: 'system', content: getQuickTranslatePrompt(config.language, config.tone) },
+              { role: 'user', content: config.text }
+            ],
+            stream: true
+          },
+          { signal: controller.signal }
+        )
+      ).pipe(
+        switchMap((stream) => from(stream)),
+        tap((event) => {
+          if (event.type === 'response.completed' && event.response.usage) {
+            this.settingsStore.addTokensUsed(event.response.usage.total_tokens)
+          }
+        }),
+        finalize(() => controller.abort()),
+        catchError((err) => {
+          if (err.name === 'AbortError' || err.name === 'APIUserAbortError') {
+            return EMPTY
+          }
+          return throwError(() => err)
+        })
+      )
+    })
   }
 }

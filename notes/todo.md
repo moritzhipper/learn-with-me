@@ -1,5 +1,25 @@
 # ToDo
 
+# now
+
+- save tone to store
+- show tone on history item
+- put magic bubble on translate page
+- unter translations
+  - past translations / Past card propositions?
+  - finish implement history story thing
+  - switch mode button
+
+- filter doppelresponses aus preview
+- implement canceling for proposal cards
+- selektiere zom importieren / importiere alle bubbles oder button
+- move all ai stuff to translate tab
+- do like full preview under main translate thing
+- use two ai calls: one fast translate, separately the other two card calls that already exist
+- add stagger vm mapping for lists
+- move ai stuff to translate page
+- tokenuse digram in stats
+
 # Infra
 
 - document setup

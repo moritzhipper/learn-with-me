@@ -2,7 +2,7 @@
   (click)="toggle()"
   class="toggle"
   [class.open]="isOpen()"
-  [class.dim]="isOnPracticePage() && hasActivePractice() && !isOpen()"
+  [class.dim]="showDimmed() && hasActivePractice() && !isOpen()"
 >
   <app-icon-comp type="menu" />
 </button>
@@ -31,6 +31,10 @@
           <span class="indicator">•</span>
         }
       </span>
+    </a>
+    <a class="entry big practice" routerLink="translate" routerLinkActive="active">
+      <app-icon-comp type="translate" />
+      <span>Translate</span>
     </a>
 
     <a routerLink="community" class="entry big share" routerLinkActive="active">

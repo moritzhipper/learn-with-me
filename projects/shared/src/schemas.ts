@@ -5,16 +5,24 @@ export const LearnableFromAiSchema = z.object({
   translation: z.string()
 })
 
+export const LearnableFromAiWithTypeSchema = LearnableFromAiSchema.extend({
+  type: z.enum(['phrase', 'word'])
+})
+
 export const LearnablesFromAiSchema = z.object({
   cards: z.array(LearnableFromAiSchema)
 })
 
-export const LearnableBaseSchema = LearnableFromAiSchema.extend({
-  type: z.enum(['phrase', 'word']),
+export const LearnableBaseSchema = LearnableFromAiWithTypeSchema.extend({
   notes: z.string()
 })
 
 export const LearnableWithIdSchema = LearnableBaseSchema.extend({
+  id: z.uuid()
+})
+
+export const TranslationHistoryItemSchema = LearnableFromAiSchema.extend({
+  tone: z.string(),
   id: z.uuid()
 })
 
@@ -51,6 +59,7 @@ export const BankBaseSchema = z.object({
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
+  translationHistory: z.array(TranslationHistoryItemSchema),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema)
 })

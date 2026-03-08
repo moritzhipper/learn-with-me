@@ -82,6 +82,7 @@ export const createBank =
       id: crypto.randomUUID(),
       name: base.name,
       createdAt: new Date(),
+      translationHistory: [],
       language: base.language,
       collections: [],
       learnables: []
@@ -104,6 +105,7 @@ export const saveImportToNewBank =
       id: crypto.randomUUID(),
       language: bank.language,
       createdAt: now,
+      translationHistory: [],
       learnables: bank.learnables.map((l) => mapBaseToUserLearnable(l)),
       collections: bank.collections.map((c) => ({
         ...c,

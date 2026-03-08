@@ -37,7 +37,9 @@ export type IconType =
   | 'compass'
   | 'filter'
   | 'close'
+  | 'close-circle'
   | 'image'
+  | 'translate'
 
 @Component({
   selector: 'app-icon-comp',

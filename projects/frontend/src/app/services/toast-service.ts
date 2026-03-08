@@ -25,4 +25,12 @@ export class ToastService {
       this._toasts.update((t) => t.slice(1))
     }, this.TOAST_TTL)
   }
+
+  showHttpErrorToast(error: unknown) {
+    const errorText = error instanceof Error ? error.message : String(error)
+    this.showToast({
+      message: errorText,
+      type: 'error'
+    })
+  }
 }

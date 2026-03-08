@@ -1,0 +1,31 @@
+<app-page-icon-comp type="translate" />
+<input [(ngModel)]="tone" class="context" type="text" placeholder="Set tone or context..." />
+<div
+  class="translate"
+  [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
+  [class.show-translation]="lexemeInput() && translation()"
+>
+  <textarea
+    #lexemeEl
+    placeholder="Type to translate"
+    [(ngModel)]="lexemeInput"
+    [class.small-text]="showSmallText()"
+  ></textarea>
+  <p class="translation" #translationWrapperEl [class.small-text]="showSmallText()">
+    <span #translationEl>
+      {{ translation() }}
+    </span>
+  </p>
+</div>
+
+<div class="history-wrapper">
+  @for (item of history(); track item.id) {
+    <div class="history-item">
+      <div class="lexeme ellipsis">{{ item.lexeme }}</div>
+      <div class="translation ellipsis">{{ item.translation }}</div>
+      <button class="silent" (click)="deleteHistoryItem(item.id)">
+        <app-icon-comp type="trash" />
+      </button>
+    </div>
+  }
+</div>
