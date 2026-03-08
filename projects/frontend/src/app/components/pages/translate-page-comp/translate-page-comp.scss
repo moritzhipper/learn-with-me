@@ -3,7 +3,18 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: var(--distance-4);
+}
+
+input.context {
+  background-color: transparent;
+  font-weight: var(--font-weight-bold);
+  line-height: 24px;
+  margin-right: 72px;
+  max-width: 400px;
+
+  &:not(:focus-visible) {
+    opacity: var(--opacity-1);
+  }
 }
 
 .translate {
@@ -11,7 +22,9 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  min-height: 33vh;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: var(--distance-7);
 
   textarea,
   .translation {
@@ -107,6 +120,7 @@
     display: grid;
     grid-template: 1fr 1fr / 1fr auto;
     gap: 0 var(--distance-4);
+
     .lexeme {
       font-weight: var(--font-weight-bold);
       padding-bottom: var(--distance-1);
@@ -127,10 +141,17 @@
 }
 
 @include isPhone() {
+  .translate {
+    min-height: 230px;
+  }
 }
 @include isDesktop() {
   .translate {
+    min-height: 330px;
     width: var(--medium-width);
     align-self: center;
+  }
+  .history-wrapper {
+    grid-template-columns: 1fr 1fr;
   }
 }

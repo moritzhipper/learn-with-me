@@ -1,4 +1,5 @@
 <app-page-icon-comp type="translate" />
+<input class="context" type="text" placeholder="set tone or context..." />
 <div
   class="translate"
   [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
@@ -16,7 +17,7 @@
     </span>
   </p>
 </div>
-<div class="proposal">
+<!-- <div class="proposal">
   @for (card of proposedCards(); track card.item) {
     <app-learnable-comp
       animate.enter="fly-in-y-wide"
@@ -25,12 +26,12 @@
       [style.--anim-delay.s]="card.animDelay"
     />
   }
-</div>
+</div> -->
 <div class="history-wrapper">
   @for (item of history(); track item.id) {
     <div class="history-item">
-      <div class="lexeme">{{ item.lexeme }}</div>
-      <div class="translation">{{ item.translation }}</div>
+      <div class="lexeme ellipsis">{{ item.lexeme }}</div>
+      <div class="translation ellipsis">{{ item.translation }}</div>
       <button class="silent" (click)="deleteHistoryItem(item.id)">
         <app-icon-comp type="trash" />
       </button>
