@@ -148,8 +148,8 @@ export const getQuickTranslatePrompt = (language: LanguageConfig, tone: string):
     const directTone = `Translate directly and as literally as possible.`
     return `${basePrompt}\n${directTone}`
   } else {
-    const tonePrompt = `Adapt the vocabulary, phrasing, and formality to perfectly match a '${tone}' context.
-      If the original text contains phrasing that clashes with this tone, you MUST paraphrase the underlying meaning so it becomes appropriate for the requested context.`
+    const tonePrompt = `Adapt the vocabulary, phrasing, and formality to perfectly match this tone or context: '${tone}'.
+      If the original text contains phrasing that clashes with this tone, you MUST paraphrase the underlying meaning so it matches the requested context.`
     return `${basePrompt}\n${tonePrompt}`
   }
 }
