@@ -149,6 +149,7 @@ input.context {
 }
 @include isDesktop() {
   .translate {
+    height: 50vh;
     min-height: 330px;
     width: var(--medium-width);
     align-self: center;

@@ -7,7 +7,7 @@
 >
   <textarea
     #lexemeEl
-    placeholder="type to translate"
+    placeholder="Type to translate"
     [(ngModel)]="lexemeInput"
     [class.small-text]="showSmallText()"
   ></textarea>
@@ -17,16 +17,7 @@
     </span>
   </p>
 </div>
-<!-- <div class="proposal">
-  @for (card of proposedCards(); track card.item) {
-    <app-learnable-comp
-      animate.enter="fly-in-y-wide"
-      animate.leave="fly-out-y"
-      [learnable]="card.item"
-      [style.--anim-delay.s]="card.animDelay"
-    />
-  }
-</div> -->
+
 <div class="history-wrapper">
   @for (item of history(); track item.id) {
     <div class="history-item">

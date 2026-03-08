@@ -10,7 +10,6 @@ import {
 import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
-import { LearnableBase } from '@shared/types'
 import {
   ResponseStreamEvent,
   ResponseTextDoneEvent
@@ -20,7 +19,6 @@ import { AiService } from '../../../services/ai/ai.service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { TranslateFastConfig } from '../../../types_and_schemas/types'
-import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 
@@ -45,13 +43,11 @@ export class TranslatePageComp {
   protected readonly tone = signal<string>('')
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
-  protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
   translationEl = viewChild.required<ElementRef<HTMLDivElement>>('translationEl')
 
-  protected isTranslationInitialized = false
   protected lastTranslation = ''
   protected newTranslation = ''
 
@@ -62,7 +58,6 @@ export class TranslatePageComp {
 
   constructor() {
     this.translateFast(this.creationConfig)
-    // this.generateProposedCards(this.creationConfig)
 
     setTimeout(() => {
       this.lexemeEl().nativeElement.focus()
@@ -180,39 +175,7 @@ export class TranslatePageComp {
     }
   }
 
-  private saveTranslationHistoryItem(lexeme: string, translation: string) {
-    console.log('Saving translation history item')
-
-    this.ls.addTranslationHistoryItem({
-      lexeme,
-      translation,
-      tone: this.tone()
-    })
-  }
-
   protected deleteHistoryItem(id: string) {
     this.ls.deleteTranslationHistoryItem(id)
   }
-
-  private readonly generateProposedCards = rxMethod<TranslateFastConfig | null>(
-    pipe(
-      debounceTime(this.PROPOSED_CARDS_DEBOUNCE_MS),
-      tap((v) => {
-        if (!v) this.proposedCards.set([])
-      }),
-      filter(Boolean),
-      switchMap((v) =>
-        this.aiService.createLearnables({
-          type: 'both',
-          language: v.language,
-          text: v.text,
-          source: 'text'
-        })
-      ),
-      tapResponse({
-        next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
-        error: (e) => this.toastService.showHttpErrorToast(e)
-      })
-    )
-  )
 }
