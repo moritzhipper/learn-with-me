@@ -1,16 +1,15 @@
-import { LearnableFromAI } from '@shared/types'
+import { TranslationHistoryItem } from '@shared/types'
 import { LearnablesStoreType } from '../../types_and_schemas/types'
 import { updateActiveBank } from './mutator-utils'
 
 export const addTranslationHistoryItem =
-  (base: LearnableFromAI) =>
+  (base: Omit<TranslationHistoryItem, 'id'>) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       const maxItems = 20
       const newItem = {
-        id: crypto.randomUUID(),
-        lexeme: base.lexeme,
-        translation: base.translation
+        ...base,
+        id: crypto.randomUUID()
       }
       const newHistory = [newItem, ...(b.translationHistory || [])].slice(0, maxItems)
       return {

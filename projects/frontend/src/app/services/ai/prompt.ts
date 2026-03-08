@@ -140,6 +140,16 @@ export const getPrompt = (
   throw new Error('Invalid LearnableCreationConfig')
 }
 
-export const getQuickTranslatePrompt = (language: LanguageConfig): string => `
-Translate the following lexeme from ${language.speaking} to ${language.learning}. Do not comment, do not add anything, translate directly and as literally as possible.
-`
+export const getQuickTranslatePrompt = (language: LanguageConfig, tone: string): string => {
+  const basePrompt = `
+    Translate the input to ${language.learning}. Do not comment, do not add anything.`
+
+  if (!tone) {
+    const directTone = `Translate directly and as literally as possible.`
+    return `${basePrompt}\n${directTone}`
+  } else {
+    const tonePrompt = `Adapt the vocabulary, phrasing, and formality to perfectly match a '${tone}' context.
+      If the original text contains phrasing that clashes with this tone, you MUST paraphrase the underlying meaning so it becomes appropriate for the requested context.`
+    return `${basePrompt}\n${tonePrompt}`
+  }
+}

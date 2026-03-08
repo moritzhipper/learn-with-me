@@ -23,16 +23,10 @@ import { TranslateFastConfig } from '../../../types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
-import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
-
-type TranslationStreamEvent = {
-  event: ResponseTextDoneEvent
-  config: TranslateFastConfig
-}
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [PageIconComp, LearnableComp, FormsModule, IconComp],
+  imports: [PageIconComp, FormsModule, IconComp],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }
@@ -47,6 +41,8 @@ export class TranslatePageComp {
   private readonly toastService = inject(ToastService)
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translationHistory)
+
+  protected readonly tone = signal<string>('')
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
@@ -114,14 +110,19 @@ export class TranslatePageComp {
     () => {
       const language = this.activeBank().language
       const text = this.lexemeInput()
+      const tone = this.tone()
+
       if (!language || !text) return null
 
       return {
         language,
-        text
+        text,
+        tone
       }
     },
-    { equal: (a, b) => a?.language === b?.language && a?.text === b?.text }
+    {
+      equal: (a, b) => a?.language === b?.language && a?.text === b?.text && a?.tone === b?.tone
+    }
   )
 
   // Reset translation field, when inpu text field is empty
@@ -142,11 +143,18 @@ export class TranslatePageComp {
           }),
           filter((ev): ev is ResponseTextDoneEvent => {
             const isFinishedEvent = ev.type === 'response.output_text.done'
-            const isCurrentUserInput = config.text === this.lexemeInput()
+            const isCurrentUserInput =
+              config.text === this.lexemeInput() && config.tone === this.tone()
             return isFinishedEvent && isCurrentUserInput
           }),
           delay(2000),
-          tap((ev) => this.saveTranslationHistoryItem(config.text, ev.text))
+          tap((ev) =>
+            this.ls.addTranslationHistoryItem({
+              lexeme: config.text,
+              tone: config.tone,
+              translation: ev.text
+            })
+          )
         )
       })
     )
@@ -177,7 +185,8 @@ export class TranslatePageComp {
 
     this.ls.addTranslationHistoryItem({
       lexeme,
-      translation
+      translation,
+      tone: this.tone()
     })
   }
 

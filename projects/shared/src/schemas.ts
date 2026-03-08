@@ -22,6 +22,7 @@ export const LearnableWithIdSchema = LearnableBaseSchema.extend({
 })
 
 export const TranslationHistoryItemSchema = LearnableFromAiSchema.extend({
+  tone: z.string(),
   id: z.uuid()
 })
 

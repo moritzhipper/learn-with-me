@@ -5,7 +5,7 @@ import {
   BankBase,
   BankShareBase,
   LearnableBase,
-  LearnableFromAI,
+  TranslationHistoryItem,
   UserLearnablePartial
 } from '@shared/types'
 import { Guess } from '../types_and_schemas/types'
@@ -71,7 +71,7 @@ export const LearnablesStore = signalStore(
       startPractice(ids: string[], reverseDirection: boolean) {
         patchState(state, startPractice(ids, reverseDirection))
       },
-      addTranslationHistoryItem(learnable: LearnableFromAI) {
+      addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id'>) {
         patchState(state, addTranslationHistoryItem(learnable))
       },
       deleteTranslationHistoryItem(id: string) {

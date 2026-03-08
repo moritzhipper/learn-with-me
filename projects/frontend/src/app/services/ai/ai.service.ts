@@ -174,7 +174,7 @@ export class AiService {
       {
         model: this.model,
         input: [
-          { role: 'system', content: getQuickTranslatePrompt(config.language) },
+          { role: 'system', content: getQuickTranslatePrompt(config.language, config.tone) },
           {
             role: 'user',
             content: config.text
@@ -197,7 +197,7 @@ export class AiService {
           {
             model: this.model,
             input: [
-              { role: 'system', content: getQuickTranslatePrompt(config.language) },
+              { role: 'system', content: getQuickTranslatePrompt(config.language, config.tone) },
               { role: 'user', content: config.text }
             ],
             stream: true
@@ -211,8 +211,6 @@ export class AiService {
             this.settingsStore.addTokensUsed(event.response.usage.total_tokens)
           }
         }),
-        // filter((event) => event.type === 'response.output_text.delta'),
-        // scan((acc, event) => acc + event.delta, ''),
         finalize(() => controller.abort()),
         catchError((err) => {
           if (err.name === 'AbortError' || err.name === 'APIUserAbortError') {

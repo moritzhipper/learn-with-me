@@ -19,6 +19,7 @@ export type Practice = {
 
 export type TranslateFastConfig = {
   text: string
+  tone: string
   language: LanguageConfig
 }
 
