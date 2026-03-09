@@ -83,6 +83,7 @@ export const createBank =
       name: base.name,
       createdAt: new Date(),
       translationHistory: [],
+      translateTone: '',
       language: base.language,
       collections: [],
       learnables: []
@@ -106,6 +107,7 @@ export const saveImportToNewBank =
       language: bank.language,
       createdAt: now,
       translationHistory: [],
+      translateTone: '',
       learnables: bank.learnables.map((l) => mapBaseToUserLearnable(l)),
       collections: bank.collections.map((c) => ({
         ...c,

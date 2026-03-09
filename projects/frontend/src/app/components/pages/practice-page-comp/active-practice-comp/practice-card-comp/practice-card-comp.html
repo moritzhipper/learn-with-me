@@ -8,7 +8,6 @@
     placeholder="no notes"
     [value]="card.notes"
     (input)="setUpdatedNotes(textArea.value)"
-    (blur)="finishEditing.emit()"
     [disabled]="!allowEdit()"
     #textArea
   ></textarea>

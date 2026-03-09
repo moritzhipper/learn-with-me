@@ -36,7 +36,8 @@ import {
 } from './mutators/practice-mutators'
 import {
   addTranslationHistoryItem,
-  deleteTranslationHistoryItem
+  deleteTranslationHistoryItem,
+  setTone
 } from './mutators/translation-mutators'
 
 export const LearnablesStore = signalStore(
@@ -76,6 +77,9 @@ export const LearnablesStore = signalStore(
       },
       deleteTranslationHistoryItem(id: string) {
         patchState(state, deleteTranslationHistoryItem(id))
+      },
+      updateTranslateTone(tone: string) {
+        patchState(state, setTone(tone))
       },
       createCollection(name: string, ids: string[]) {
         patchState(state, createCollection(name, ids))

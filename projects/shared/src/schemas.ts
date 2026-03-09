@@ -60,6 +60,7 @@ export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
   translationHistory: z.array(TranslationHistoryItemSchema),
+  translateTone: z.string(),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema)
 })

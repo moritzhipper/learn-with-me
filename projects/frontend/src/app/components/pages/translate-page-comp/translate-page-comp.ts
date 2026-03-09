@@ -40,7 +40,7 @@ export class TranslatePageComp {
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translationHistory)
 
-  protected readonly tone = signal<string>('')
+  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
 
@@ -177,5 +177,9 @@ export class TranslatePageComp {
 
   protected deleteHistoryItem(id: string) {
     this.ls.deleteTranslationHistoryItem(id)
+  }
+
+  protected setTone(tone: string) {
+    this.ls.updateTranslateTone(tone)
   }
 }

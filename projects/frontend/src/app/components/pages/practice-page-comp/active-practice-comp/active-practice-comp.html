@@ -21,7 +21,6 @@
       [allowEdit]="cardState() === 'editing' && entry.viewIndex === 0"
       [reverseDirection]="currentPractice().reverseDirection"
       (updateNotes)="updateNotes($event)"
-      (finishEditing)="finishEditing()"
     />
   } @else if (!('id' in entry.content)) {
     <app-practice-summary-card

@@ -103,12 +103,8 @@ export class ActivePracticeComp {
       this.cardState.set('editing')
     } else if (focusedState === 'editing') {
       this.cardState.set('revealed')
+      this.statsOpen.set(false)
     }
-  }
-
-  protected finishEditing() {
-    this.statsOpen.set(false)
-    this.cardState.set('revealed')
   }
 
   pointerDown(e: PointerEvent) {
