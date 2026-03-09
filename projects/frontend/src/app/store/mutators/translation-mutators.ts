@@ -28,3 +28,11 @@ export const deleteTranslationHistoryItem =
         translationHistory: newHistory
       }
     })
+
+export const setTone =
+  (tone: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType =>
+    updateActiveBank(state, (b) => ({
+      ...b,
+      translateTone: tone
+    }))

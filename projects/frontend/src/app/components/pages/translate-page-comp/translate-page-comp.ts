@@ -32,7 +32,7 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 export class TranslatePageComp {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
   protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
-  protected readonly SMALL_TEXT_THRESHOLD = 100
+  protected readonly SMALL_TEXT_THRESHOLD = 70
 
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
@@ -40,7 +40,7 @@ export class TranslatePageComp {
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translationHistory)
 
-  protected readonly tone = signal<string>('')
+  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
 
@@ -177,5 +177,9 @@ export class TranslatePageComp {
 
   protected deleteHistoryItem(id: string) {
     this.ls.deleteTranslationHistoryItem(id)
+  }
+
+  protected setTone(tone: string) {
+    this.ls.updateTranslateTone(tone)
   }
 }

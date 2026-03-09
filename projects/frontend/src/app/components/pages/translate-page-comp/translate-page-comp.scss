@@ -12,6 +12,7 @@ input.context {
   margin-right: 72px;
   max-width: 400px;
   border-radius: var(--radius-3);
+  border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
 
   &:not(:focus-visible) {
     opacity: var(--opacity-1);
@@ -26,7 +27,7 @@ input.context {
   box-sizing: border-box;
   position: relative;
   padding: var(--distance-6) 0;
-  margin-bottom: var(--distance-7);
+  margin-bottom: var(--distance-6);
 
   textarea,
   .translation {
@@ -88,14 +89,17 @@ input.context {
     }
   }
 
-  textarea,
-  .translation {
-    &:not(.small-text) {
+  &:not(.small-text) {
+    textarea,
+    .translation {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
       text-align: center;
     }
-    &.small-text {
+  }
+  &.small-text {
+    textarea,
+    .translation {
       text-align: left;
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
@@ -144,7 +148,7 @@ input.context {
 
 @include isPhone() {
   .translate {
-    min-height: 230px;
+    min-height: 300px;
   }
 }
 @include isDesktop() {
@@ -156,8 +160,5 @@ input.context {
   }
   .history-wrapper {
     grid-template-columns: 1fr 1fr;
-  }
-  input.context {
-    border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
   }
 }

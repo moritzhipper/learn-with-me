@@ -17,7 +17,6 @@ export class PracticeCardComp {
   reverseDirection = input.required<boolean>()
   updateNotes = output<{ id: string; newNotes: string }>()
   allowEdit = input<boolean>(false)
-  finishEditing = output<void>()
 
   private readonly textArea = viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
 

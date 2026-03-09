@@ -1,4 +1,4 @@
-import { Component, computed, DOCUMENT, HostListener, inject } from '@angular/core'
+import { Component, computed, DOCUMENT, inject } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, RouterOutlet } from '@angular/router'
 import { tapResponse } from '@ngrx/operators'
@@ -18,12 +18,6 @@ type PageConfig = {
   icon: string
   title: string
   mode: 'full' | 'compact'
-}
-
-const DEFAULT_PAGE_CONFIG: PageConfig = {
-  icon: 'page',
-  mode: 'compact',
-  title: ''
 }
 
 @Component({
@@ -58,23 +52,8 @@ export class App {
     )
   )
 
-  @HostListener('window:resize')
-  onResize() {
-    this.setBodyHeight()
-  }
-
-  @HostListener('window:load')
-  onLoad() {
-    this.setBodyHeight()
-  }
-
   constructor() {
     this.params.subscribe()
-    setTimeout(() => this.setBodyHeight(), 1000)
-  }
-
-  setBodyHeight() {
-    this.document.body.style.setProperty('--app-height', `${window.innerHeight}px`)
   }
 
   resolveBankError() {
