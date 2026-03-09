@@ -21,10 +21,10 @@
   }
 
   &.dim {
-    background-color: transparent;
+    background-color: rgb(from var(--col-bg) r g b / var(--opacity-0));
+    backdrop-filter: blur(5px);
     opacity: var(--opacity-1);
     border: 1px solid transparent;
-    backdrop-filter: none;
   }
 }
 

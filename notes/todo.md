@@ -2,7 +2,6 @@
 
 # now
 
-- save tone to store
 - show tone on history item
 - put magic bubble on translate page
 - unter translations
@@ -19,6 +18,8 @@
 - add stagger vm mapping for lists
 - move ai stuff to translate page
 - tokenuse digram in stats
+- handle exporting and import bank not working:
+  - imported bank keeps name, but does not keep collection if languages divert
 
 # Infra
 
