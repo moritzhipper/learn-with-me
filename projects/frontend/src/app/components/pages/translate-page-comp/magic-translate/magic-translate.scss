@@ -5,10 +5,12 @@
   justify-content: center;
   padding: var(--distance-5) 0;
 
-  .input-wrapper {
+  form {
     display: grid;
-    width: var(--medium-width);
 
+    grid-template-rows: 1fr auto;
+    width: var(--medium-width);
+    gap: var(--distance-4);
     .image,
     textarea {
       grid-area: 1 / 1;
@@ -17,16 +19,19 @@
       place-self: end end;
       padding: var(--distance-4);
     }
+    .type {
+    }
   }
 }
 
 @include isDesktop() {
-  .input-wrapper {
-    height: 40vh;
+  form {
+    padding-top: 10vh;
+    height: 400px;
   }
 }
 @include isPhone() {
-  .input-wrapper {
+  form {
     height: 40vh;
   }
 }

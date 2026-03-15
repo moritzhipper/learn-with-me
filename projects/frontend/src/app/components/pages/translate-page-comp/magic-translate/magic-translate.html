@@ -1,11 +1,20 @@
 <div class="header-section">
-  <div class="input-wrapper">
+  <form [formGroup]="form">
     <textarea
-      [(ngModel)]="text"
       placeholder="Paste notes, articles, or any other text here"
+      formControlName="text"
     ></textarea>
-    <button class="big image">
+    <button class="big image" type="button">
       <app-icon-comp type="image" [size]="32" />
     </button>
-  </div>
+    <app-radio-comp
+      [config]="[
+        { value: 'word', label: 'Words' },
+        { value: 'phrase', label: 'Phrases' },
+        { value: 'both', label: 'Both' }
+      ]"
+      formControlName="type"
+      class="type"
+    />
+  </form>
 </div>
