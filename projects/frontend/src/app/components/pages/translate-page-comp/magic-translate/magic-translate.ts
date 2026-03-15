@@ -1,9 +1,14 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { tapResponse } from '@ngrx/operators'
+import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
+import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
+import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
+import { debounceTime, EMPTY, from, pipe, switchMap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
@@ -18,6 +23,8 @@ export class MagicTranslate {
   private readonly _fb = inject(NonNullableFormBuilder)
   private readonly ls = inject(LearnablesStore)
   protected readonly proposedCards = signal<LearnableBase[]>([])
+  private readonly aiService = inject(AiService)
+  private readonly toastService = inject(ToastService)
 
   form = this._fb.group({
     type: ['word'],
@@ -54,6 +61,28 @@ export class MagicTranslate {
 
     return null
   })
+
+  createLearnables = rxMethod<LearnableCreationConfig | null>(
+    pipe(
+      debounceTime(1000),
+      switchMap((config) => {
+        if (!config) {
+          this.proposedCards.set([])
+          return EMPTY
+        }
+
+        return from(this.aiService.createLearnables(config)).pipe(
+          tapResponse({
+            next: (learnables) => this.proposedCards.set(learnables),
+            error: (e) => this.toastService.showHttpErrorToast(e)
+          })
+        )
+      })
+    )
+  )
+  constructor() {
+    this.createLearnables(this.createLearnablesConfig)
+  }
 
   // create two rxMetho
   onFileChange(event: Event) {

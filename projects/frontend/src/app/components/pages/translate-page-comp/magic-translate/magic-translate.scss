@@ -7,14 +7,15 @@
 
   form {
     display: grid;
-
     grid-template-rows: 1fr auto;
     width: var(--medium-width);
     gap: var(--distance-4);
+
     .image-input,
     textarea {
       grid-area: 1 / 1;
     }
+
     .image-input {
       display: grid;
       place-self: end end;
@@ -43,8 +44,6 @@
       input:focus-visible + label {
         outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
       }
-    }
-    .type {
     }
   }
 }
