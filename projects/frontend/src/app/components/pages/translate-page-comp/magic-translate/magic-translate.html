@@ -4,9 +4,17 @@
       placeholder="Paste notes, articles, or any other text here"
       formControlName="text"
     ></textarea>
-    <button class="big image" type="button" (click)="onFileChange($event)">
-      <app-icon-comp type="image" [size]="32" />
-    </button>
+    <div class="image-input">
+      <input
+        id="image"
+        type="file"
+        accept="image/*;capture=camera"
+        (change)="onFileChange($event)"
+      />
+      <label for="image">
+        <app-icon-comp type="image" [size]="32" />
+      </label>
+    </div>
     <app-radio-comp
       [config]="[
         { value: 'word', label: 'Words' },

@@ -11,13 +11,38 @@
     grid-template-rows: 1fr auto;
     width: var(--medium-width);
     gap: var(--distance-4);
-    .image,
+    .image-input,
     textarea {
       grid-area: 1 / 1;
     }
-    .image {
+    .image-input {
+      display: grid;
       place-self: end end;
-      padding: var(--distance-4);
+      place-items: stretch;
+
+      input,
+      label {
+        width: var(--distance-7);
+        height: var(--distance-7);
+        padding: 0;
+        border-radius: var(--radius-1);
+        grid-area: 1 / 1;
+      }
+
+      input {
+        overflow: hidden;
+        opacity: 0;
+      }
+      label {
+        display: grid;
+        place-items: center;
+        outline: 0px solid transparent;
+        transition: outline var(--duration-0);
+        cursor: pointer;
+      }
+      input:focus-visible + label {
+        outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+      }
     }
     .type {
     }
