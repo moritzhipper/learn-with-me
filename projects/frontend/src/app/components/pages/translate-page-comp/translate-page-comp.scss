@@ -25,8 +25,7 @@ input.context {
   justify-content: center;
   box-sizing: border-box;
   position: relative;
-  // padding: var(--distance-6) 0;
-  margin-bottom: var(--distance-6);
+  margin-bottom: var(--distance-7);
 
   textarea,
   .translation {
@@ -34,6 +33,7 @@ input.context {
     transition-duration: var(--debounce-duration);
     transition-timing-function: var(--soft-ease);
   }
+
   .translation span {
     // opacity animation
     transition-duration: var(--debounce-duration);
@@ -66,7 +66,8 @@ input.context {
 
     span {
       display: block;
-      border-top: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+      border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+      border-width: 1px 0 0 0;
       transition-property: opacity;
     }
   }
@@ -131,43 +132,40 @@ input.context {
 .history-wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--distance-4);
+  gap: var(--distance-5);
 
   .history-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--distance-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--distance-2);
 
-    .interaction {
+    .header {
       display: flex;
-      gap: var(--distance-2);
-
-      .remove {
+      gap: var(--distance-4);
+      align-items: center;
+      .created {
         opacity: var(--opacity-1);
       }
-    }
-    .text {
-      display: flex;
-      flex-direction: column;
-      gap: var(--distance-2);
-      overflow: hidden;
-
-      .lexeme {
-        font-weight: var(--font-weight-bold);
+      .separator {
+        flex: 1;
+        border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
       }
-
-      .translation {
-        font-style: italic;
-      }
-
-      .tone {
+      .remove,
+      .add {
         opacity: var(--opacity-1);
       }
     }
 
-    &:not(:last-child) {
-      padding-bottom: var(--distance-4);
-      border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+    .lexeme {
+      font-weight: var(--font-weight-bold);
+    }
+
+    .translation {
+      font-style: italic;
+    }
+
+    .tone {
+      opacity: var(--opacity-1);
     }
   }
 }
@@ -185,8 +183,25 @@ input.context {
   .translate {
     height: 50vh;
     min-height: 330px;
-    width: var(--medium-width);
     align-self: center;
+    &:not(.small-text) {
+      width: var(--medium-width);
+    }
+    &.small-text {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+      place-items: stretch;
+      textarea,
+      .translation span {
+        // flex: 1;
+        padding: var(--distance-5);
+      }
+
+      .translation span {
+        border-width: 0 0 0 1px;
+      }
+    }
   }
   .history-item .interaction {
     flex-direction: row-reverse;

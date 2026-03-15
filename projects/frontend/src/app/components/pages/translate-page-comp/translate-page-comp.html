@@ -27,21 +27,23 @@
 <div class="history-wrapper">
   @for (item of history(); track item.id) {
     <div class="history-item">
-      <div class="text">
-        <div class="lexeme">{{ item.lexeme }}</div>
-        <div class="translation">{{ item.translation }}</div>
-        @if (item.tone) {
-          <div class="tone">{{ item.tone }}</div>
-        }
-      </div>
-      <div class="interaction">
-        <button class="add small">
-          <app-icon-comp type="add-fill" />
-        </button>
+      <div class="header">
+        <div class="created">{{ item.createdAt | date: 'mediumDate' }}</div>
+        <div class="separator"></div>
+
         <button class="remove small" (click)="deleteHistoryItem(item.id)">
           <app-icon-comp type="trash" />
         </button>
+        <button class="add small has-icon">
+          add
+          <app-icon-comp type="add-fill" />
+        </button>
       </div>
+      <div class="lexeme">{{ item.lexeme }}</div>
+      <div class="translation">{{ item.translation }}</div>
+      @if (item.tone) {
+        <div class="tone">{{ item.tone }}</div>
+      }
     </div>
   }
 </div>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import {
   afterRenderEffect,
   Component,
@@ -24,7 +25,7 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [PageIconComp, FormsModule, IconComp],
+  imports: [PageIconComp, FormsModule, IconComp, DatePipe],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }
