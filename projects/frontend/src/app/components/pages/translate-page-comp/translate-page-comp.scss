@@ -28,15 +28,3 @@ input.context {
   background-color: var(--col-accent);
   box-shadow: var(--shadow-big);
 }
-
-.proposal {
-  display: grid;
-  grid-template-columns: var(--grid-auto-columns);
-  gap: var(--distance-4);
-
-  app-learnable-comp {
-    &.fly-in-y-wide {
-      animation-delay: var(--anim-delay);
-    }
-  }
-}

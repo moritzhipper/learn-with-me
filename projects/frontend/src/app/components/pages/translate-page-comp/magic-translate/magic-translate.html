@@ -4,7 +4,7 @@
       placeholder="Paste notes, articles, or any other text here"
       formControlName="text"
     ></textarea>
-    <button class="big image" type="button">
+    <button class="big image" type="button" (click)="onFileChange($event)">
       <app-icon-comp type="image" [size]="32" />
     </button>
     <app-radio-comp
@@ -17,4 +17,10 @@
       class="type"
     />
   </form>
+</div>
+
+<div class="proposal">
+  @for (card of proposedCards(); track card) {
+    <app-learnable-comp [learnable]="card" />
+  }
 </div>
