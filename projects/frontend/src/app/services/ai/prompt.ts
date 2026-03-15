@@ -142,7 +142,7 @@ export const getPrompt = (
 
 export const getQuickTranslatePrompt = (language: LanguageConfig, tone: string): string => {
   const basePrompt = `
-    Translate the input to ${language.learning}. Do not comment, do not add anything.`
+    Translate the input to ${language.learning}. Do not comment, do not add anything. Use correct casing.`
 
   if (!tone) {
     const directTone = `Translate directly and as literally as possible.`

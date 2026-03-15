@@ -21,9 +21,9 @@
   }
 
   &.dim {
+    border: 1px solid var(--col-bg);
     background-color: rgb(from var(--col-bg) r g b / var(--opacity-0));
     backdrop-filter: blur(5px);
-    border: 1px solid transparent;
 
     app-icon-comp {
       opacity: var(--opacity-1);
