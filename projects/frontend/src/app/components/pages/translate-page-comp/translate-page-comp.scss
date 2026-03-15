@@ -56,6 +56,7 @@ input.context {
   textarea {
     transition-property: height;
     font-weight: var(--font-weight-bold);
+    border-radius: 0px;
   }
 
   .translation {
@@ -187,18 +188,21 @@ input.context {
     &:not(.small-text) {
       width: var(--medium-width);
     }
+
     &.small-text {
       display: grid;
 
       grid-template-columns: 1fr 1fr;
       place-items: stretch;
-      textarea,
-      .translation span {
-        // flex: 1;
-        padding: var(--distance-5);
-      }
+      width: 100%;
 
+      textarea {
+        padding: 0px;
+        padding-right: var(--distance-5);
+      }
       .translation span {
+        padding: 0px;
+        padding-left: var(--distance-5);
         border-width: 0 0 0 1px;
       }
     }
