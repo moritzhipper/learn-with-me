@@ -2,6 +2,7 @@
 
 # now
 
+- click on small magic opens with preset
 - put magic bubble on translate page
 - unter translations
   - past translations / Past card propositions?

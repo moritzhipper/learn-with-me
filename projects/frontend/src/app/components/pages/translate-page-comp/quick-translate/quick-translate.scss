@@ -98,7 +98,11 @@
   .history-item {
     display: flex;
     flex-direction: column;
-    gap: var(--distance-3);
+    gap: var(--distance-2);
+
+    p {
+      margin: 0;
+    }
 
     .header {
       display: flex;

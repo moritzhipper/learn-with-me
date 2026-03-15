@@ -1,6 +1,10 @@
 <app-page-icon-comp type="translate" />
-<button class="silent mode-switch-bubble">
-  <app-icon-comp type="magic" />
+<button class="silent mode-switch-bubble" (click)="toggleMode()">
+  @if (selectedMode() === 'quick') {
+    <app-icon-comp type="magic" />
+  } @else {
+    <app-icon-comp type="translate" />
+  }
 </button>
 <input
   ngModel
@@ -9,4 +13,8 @@
   type="text"
   placeholder="Set tone or context..."
 />
-<app-quick-translate />
+@if (selectedMode() === 'quick') {
+  <app-quick-translate />
+} @else {
+  <app-magic-translate />
+}

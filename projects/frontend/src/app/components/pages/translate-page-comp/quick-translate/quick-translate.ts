@@ -5,7 +5,6 @@ import {
   computed,
   ElementRef,
   inject,
-  input,
   signal,
   viewChild
 } from '@angular/core'
@@ -40,7 +39,7 @@ export class QuickTranslate {
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translationHistory)
 
-  protected readonly tone = input<string>('')
+  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
 

@@ -1,0 +1,32 @@
+@use '../../../../../style/mixins.scss' as *;
+
+.header-section {
+  display: flex;
+  justify-content: center;
+  padding: var(--distance-5) 0;
+
+  .input-wrapper {
+    display: grid;
+    width: var(--medium-width);
+
+    .image,
+    textarea {
+      grid-area: 1 / 1;
+    }
+    .image {
+      place-self: end end;
+      padding: var(--distance-4);
+    }
+  }
+}
+
+@include isDesktop() {
+  .input-wrapper {
+    height: 40vh;
+  }
+}
+@include isPhone() {
+  .input-wrapper {
+    height: 40vh;
+  }
+}
