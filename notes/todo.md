@@ -2,7 +2,6 @@
 
 # now
 
-- show tone on history item
 - put magic bubble on translate page
 - unter translations
   - past translations / Past card propositions?
@@ -10,6 +9,7 @@
   - switch mode button
 - add generate mode to translate page, remove from cards page
 - create 'Add key' on translate page when not provided
+  -remove magic add code from overview page
 
 - filter doppelresponses aus preview
 - implement canceling for proposal cards
