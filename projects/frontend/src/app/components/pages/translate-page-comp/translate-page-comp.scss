@@ -125,29 +125,35 @@ input.context {
 
   .history-item {
     display: grid;
-    grid-template: auto auto auto / 1fr auto;
-    gap: 0 var(--distance-4);
+    grid-template-columns: 1fr auto;
+    gap: var(--distance-4);
 
-    .lexeme {
-      font-weight: var(--font-weight-bold);
-      padding-bottom: var(--distance-1);
+    .interaction {
+      display: flex;
+      flex-direction: column;
+      gap: var(--distance-2);
+      align-items: end;
+      .remove {
+        opacity: var(--opacity-1);
+      }
     }
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--distance-2);
+      overflow: hidden;
 
-    .translation {
-      font-style: italic;
-      padding-bottom: var(--distance-1);
-    }
+      .lexeme {
+        font-weight: var(--font-weight-bold);
+      }
 
-    .tone {
-      opacity: var(--opacity-1);
-    }
+      .translation {
+        font-style: italic;
+      }
 
-    button {
-      align-self: start;
-      place-self: center;
-      grid-row: 1 / span 3;
-      grid-column: 2;
-      opacity: var(--opacity-1);
+      .tone {
+        opacity: var(--opacity-1);
+      }
     }
 
     &:not(:last-child) {

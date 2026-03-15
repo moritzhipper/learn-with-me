@@ -27,8 +27,8 @@ export class NavbarNewComp {
 
   // delay closing via link click a bit to show active link change animation
   private readonly navEvent$ = inject(Router).events.pipe(
-    filter((e) => e instanceof NavigationEnd),
-    takeUntilDestroyed()
+    takeUntilDestroyed(),
+    filter((e) => e instanceof NavigationEnd)
   )
 
   protected readonly lstore = inject(LearnablesStore)

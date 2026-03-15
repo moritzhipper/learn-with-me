@@ -23,15 +23,23 @@
 <div class="history-wrapper">
   @for (item of history(); track item.id) {
     <div class="history-item">
-      <div class="lexeme ellipsis">{{ item.lexeme }}</div>
-      <div class="translation ellipsis">{{ item.translation }}</div>
-      @if (item.tone) {
-        <div class="tone">{{ item.tone }}</div>
-      }
-      <div class="tone"></div>
-      <button class="silent" (click)="deleteHistoryItem(item.id)">
-        <app-icon-comp type="trash" />
-      </button>
+      <div class="text">
+        <div class="lexeme">{{ item.lexeme }}</div>
+        <div class="translation">{{ item.translation }}</div>
+        @if (item.tone) {
+          <div class="tone">{{ item.tone }}</div>
+        }
+        <div class="tone"></div>
+      </div>
+      <div class="interaction">
+        <button class="has-icon small">
+          add
+          <app-icon-comp type="add-fill" />
+        </button>
+        <button class="remove small" (click)="deleteHistoryItem(item.id)">
+          <app-icon-comp type="trash" />
+        </button>
+      </div>
     </div>
   }
 </div>
