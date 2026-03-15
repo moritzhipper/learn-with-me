@@ -29,11 +29,9 @@
         @if (item.tone) {
           <div class="tone">{{ item.tone }}</div>
         }
-        <div class="tone"></div>
       </div>
       <div class="interaction">
-        <button class="has-icon small">
-          add
+        <button class="add small">
           <app-icon-comp type="add-fill" />
         </button>
         <button class="remove small" (click)="deleteHistoryItem(item.id)">
