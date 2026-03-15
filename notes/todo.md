@@ -8,6 +8,8 @@
   - past translations / Past card propositions?
   - finish implement history story thing
   - switch mode button
+- add generate mode to translate page, remove from cards page
+- create 'Add key' on translate page when not provided
 
 - filter doppelresponses aus preview
 - implement canceling for proposal cards
@@ -23,6 +25,10 @@
 
 # Infra
 
+- CD: Create folder per succesfull deployment to allow rollback to date
+  - configure drizzle to also generate rollback files
+  - naming scheme of folder: timestamp_commitsha
+  - delete folder of failed deployment: history only contains succesfull rollackable deployments
 - document setup
 - configure automatic updates on ubuntu
 - deploy

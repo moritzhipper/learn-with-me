@@ -25,6 +25,10 @@
     <div class="history-item">
       <div class="lexeme ellipsis">{{ item.lexeme }}</div>
       <div class="translation ellipsis">{{ item.translation }}</div>
+      @if (item.tone) {
+        <div class="tone">{{ item.tone }}</div>
+      }
+      <div class="tone"></div>
       <button class="silent" (click)="deleteHistoryItem(item.id)">
         <app-icon-comp type="trash" />
       </button>
