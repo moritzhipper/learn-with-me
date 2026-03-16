@@ -16,6 +16,10 @@
       grid-area: 1 / 1;
     }
 
+    textarea {
+      background-color: transparent;
+      border: 2px solid var(--col-accent);
+    }
     .image-input {
       display: grid;
       place-self: end end;
@@ -28,6 +32,7 @@
         padding: 0;
         border-radius: var(--radius-1);
         grid-area: 1 / 1;
+        cursor: pointer;
       }
 
       input {
@@ -39,7 +44,6 @@
         place-items: center;
         outline: 0px solid transparent;
         transition: outline var(--duration-0);
-        cursor: pointer;
       }
       input:focus-visible + label {
         outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
