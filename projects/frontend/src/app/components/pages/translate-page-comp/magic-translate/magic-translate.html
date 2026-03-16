@@ -28,7 +28,11 @@
 </div>
 
 <div class="proposal">
-  @for (card of proposedCards(); track card) {
-    <app-learnable-comp [learnable]="card" />
+  @for (cardVM of proposedCards(); track cardVM) {
+    <app-learnable-comp
+      class="fly-in-y-wide"
+      [learnable]="cardVM.item"
+      [style.animationDelay.s]="cardVM.animDelay"
+    />
   }
 </div>

@@ -8,6 +8,7 @@ import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
+import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
 import { debounceTime, EMPTY, from, pipe, switchMap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
@@ -22,7 +23,7 @@ import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable
 export class MagicTranslate {
   private readonly _fb = inject(NonNullableFormBuilder)
   private readonly ls = inject(LearnablesStore)
-  protected readonly proposedCards = signal<LearnableBase[]>([])
+  protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
 
@@ -73,7 +74,7 @@ export class MagicTranslate {
 
         return from(this.aiService.createLearnables(config)).pipe(
           tapResponse({
-            next: (learnables) => this.proposedCards.set(learnables),
+            next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
             error: (e) => this.toastService.showHttpErrorToast(e)
           })
         )
