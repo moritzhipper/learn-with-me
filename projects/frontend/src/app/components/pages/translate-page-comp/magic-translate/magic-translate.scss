@@ -1,9 +1,16 @@
 @use '../../../../../style/mixins.scss' as *;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  // display:;
+  // place-items: stretch;
+  // overflow: hidden;
+}
 .header-section {
   display: flex;
   justify-content: center;
-  padding: var(--distance-5) 0;
+  padding-top: var(--distance-5);
 
   form {
     display: grid;
@@ -17,7 +24,7 @@
     }
 
     textarea {
-      background-color: transparent;
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
       border: 2px solid var(--col-accent);
     }
     .image-input {
@@ -72,6 +79,6 @@
 }
 @include isPhone() {
   form {
-    height: 40vh;
+    height: 60vh;
   }
 }

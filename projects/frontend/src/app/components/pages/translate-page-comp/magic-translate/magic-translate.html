@@ -1,5 +1,11 @@
 <div class="header-section">
   <form [formGroup]="form">
+    @if (imagePreview(); as img) {
+      <div class="image-preview">
+        <img [src]="img" alt="Preview" />
+      </div>
+      <button type="button" class="small delete">Remove Image</button>
+    }
     <textarea
       placeholder="Paste notes, articles, or any other text here"
       formControlName="text"
@@ -16,6 +22,7 @@
       </label>
     </div>
     <app-radio-comp
+      label="Type"
       [config]="[
         { value: 'word', label: 'Words' },
         { value: 'phrase', label: 'Phrases' },
@@ -24,10 +31,12 @@
       formControlName="type"
       class="type"
     />
+    <button type="submit" class="big">Generate</button>
   </form>
 </div>
 
 <div class="proposal">
+  <h2 class="indent">Proposed Cards</h2>
   @for (cardVM of proposedCards(); track cardVM) {
     <app-learnable-comp
       class="fly-in-y-wide"

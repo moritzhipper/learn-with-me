@@ -82,7 +82,7 @@ export class MagicTranslate {
     )
   )
   constructor() {
-    this.createLearnables(this.createLearnablesConfig)
+    // this.createLearnables(this.createLearnablesConfig)
   }
 
   // create two rxMetho

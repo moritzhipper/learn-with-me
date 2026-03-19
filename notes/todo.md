@@ -2,6 +2,8 @@
 
 # now
 
+-generate: ad delete image and image preview
+
 - click on small magic opens with preset
 - migrate file uplaod to magic translate
 - unter translations
