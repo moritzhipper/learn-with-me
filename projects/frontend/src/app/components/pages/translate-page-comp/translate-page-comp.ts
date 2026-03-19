@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
@@ -17,6 +17,7 @@ export class TranslatePageComp {
   selectedMode = signal<'quick' | 'magic'>('quick')
 
   private readonly ls = inject(LearnablesStore)
+  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
 
   protected setTone(tone: string) {
     this.ls.updateTranslateTone(tone)

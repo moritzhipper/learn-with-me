@@ -7,7 +7,7 @@
   }
 </button>
 <input
-  ngModel
+  [ngModel]="tone()"
   (ngModelChange)="setTone($event)"
   class="context"
   type="text"
