@@ -44,6 +44,9 @@
 
 ## Right Now
 
+- change translate direction on translate page
+- make cards better visible
+- make error thingy on community same as empty state -> component?
 - write tests for store
   - import
   - merge

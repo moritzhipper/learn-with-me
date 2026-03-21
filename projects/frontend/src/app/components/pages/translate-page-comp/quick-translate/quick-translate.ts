@@ -165,7 +165,8 @@ export class QuickTranslate {
     if (event.type === 'response.created') {
       this.newTranslation = ''
     }
-    // Apply old translation to ui from last stream, as long as the new transaltion starts the same and is not finishd
+    // Apply old translation to ui from last stream, as long as the new transaltion starts the same and is not finished
+    // Prevents flicker on same translation start
     if (event.type === 'response.output_text.delta') {
       this.newTranslation += event.delta
       if (this.lastTranslation.startsWith(this.newTranslation)) {
