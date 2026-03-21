@@ -80,8 +80,9 @@ export class MagicTranslate {
       })
     )
   )
-  constructor() {
-    // this.createLearnables(this.createLearnablesConfig)
+
+  removeImage() {
+    this.imagePreview.set(null)
   }
 
   // create two rxMetho

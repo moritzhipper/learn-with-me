@@ -3,9 +3,6 @@
 :host {
   display: flex;
   flex-direction: column;
-  // display:;
-  // place-items: stretch;
-  // overflow: hidden;
 }
 .header-section {
   display: flex;
@@ -19,8 +16,37 @@
     gap: var(--distance-4);
 
     .image-input,
+    .image-preview,
+    .image-delete,
     textarea {
       grid-area: 1 / 1;
+    }
+
+    .image-preview {
+      overflow: hidden;
+      height: 100%;
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      display: grid;
+      place-items: center;
+      position: relative;
+      border-radius: var(--radius-1);
+      border: 2px solid var(--col-accent);
+
+      img {
+        position: absolute;
+        transition: opacity var(--duration-2);
+        opacity: 1;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .image-delete {
+      z-index: 2;
+      margin: var(--distance-2);
+      place-self: end;
+      background-color: var(--col-accent);
+      box-shadow: var(--shadow-big);
     }
 
     textarea {
@@ -29,7 +55,7 @@
     }
     .image-input {
       display: grid;
-      place-self: end end;
+      place-self: end;
       place-items: stretch;
 
       input,

@@ -4,23 +4,27 @@
       <div class="image-preview">
         <img [src]="img" alt="Preview" />
       </div>
-      <button type="button" class="small delete">Remove Image</button>
+      <button type="button" class="small image-delete has-icon" (click)="removeImage()">
+        Remove Image
+        <app-icon-comp type="image" [size]="24" />
+      </button>
+    } @else {
+      <textarea
+        placeholder="Paste notes, articles, or any other text here and press Generate"
+        formControlName="text"
+      ></textarea>
+      <div class="image-input">
+        <input
+          id="image"
+          type="file"
+          accept="image/*;capture=camera"
+          (change)="onFileChange($event)"
+        />
+        <label for="image">
+          <app-icon-comp type="image" [size]="32" />
+        </label>
+      </div>
     }
-    <textarea
-      placeholder="Paste notes, articles, or any other text here and press Generate"
-      formControlName="text"
-    ></textarea>
-    <div class="image-input">
-      <input
-        id="image"
-        type="file"
-        accept="image/*;capture=camera"
-        (change)="onFileChange($event)"
-      />
-      <label for="image">
-        <app-icon-comp type="image" [size]="32" />
-      </label>
-    </div>
     <app-radio-comp
       label="Type"
       [config]="[
