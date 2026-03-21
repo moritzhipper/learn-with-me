@@ -82,6 +82,22 @@
         outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
       }
     }
+
+    &.converting {
+      textarea,
+      .image-preview {
+        --bg1: rgb(from var(--col-accent) r g b / var(--opacity-0));
+        --bg2: rgb(from var(--col-primary) r g b / var(--opacity-1));
+
+        background: linear-gradient(-45deg, var(--bg1) 35%, var(--bg2) 50%, var(--bg1) 55%);
+        background-size: 280% 280%;
+        animation: converting 4s infinite;
+
+        img {
+          opacity: var(--opacity-1);
+        }
+      }
+    }
   }
 }
 
@@ -106,5 +122,16 @@
 @include isPhone() {
   form {
     height: 60vh;
+  }
+}
+
+@keyframes converting {
+  from {
+    background-position: 0% 0%;
+  }
+
+  80%,
+  100% {
+    background-position: 100% 100%;
   }
 }

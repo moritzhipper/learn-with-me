@@ -9,7 +9,7 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
-import { EMPTY, from, pipe, switchMap } from 'rxjs'
+import { EMPTY, from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
@@ -26,6 +26,7 @@ export class MagicTranslate {
   protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
+  isConverting = signal(false)
 
   form = this._fb.group({
     type: ['word'],
@@ -70,8 +71,9 @@ export class MagicTranslate {
           this.proposedCards.set([])
           return EMPTY
         }
-
+        this.isConverting.set(true)
         return from(this.aiService.createLearnables(config)).pipe(
+          tap(() => this.isConverting.set(false)),
           tapResponse({
             next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
             error: (e) => this.toastService.showHttpErrorToast(e)
