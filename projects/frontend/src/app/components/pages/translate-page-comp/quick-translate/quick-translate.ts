@@ -12,11 +12,13 @@ import {
 import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
+import { TranslationHistoryItem } from '@shared/types'
 import {
   ResponseStreamEvent,
   ResponseTextDoneEvent
 } from 'openai/resources/responses/responses.mjs'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
+import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types_and_schemas/types'
@@ -37,6 +39,8 @@ export class QuickTranslate {
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
+  private readonly modalService = inject(ModalService)
+
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translationHistory)
 
@@ -175,6 +179,17 @@ export class QuickTranslate {
       this.lastTranslation = event.text
       this.translation.set(this.lastTranslation)
     }
+  }
+
+  protected async createCard(historyItem: TranslationHistoryItem) {
+    // map history item to card
+    // add to modal as caard preview
+
+    const result = await this.modalService.open('collection-add')
+    if (result.type === 'cancel') return
+    // add card to store
+    // move to collection
+    // toast: Card added to collection xy
   }
 
   protected deleteHistoryItem(id: string) {

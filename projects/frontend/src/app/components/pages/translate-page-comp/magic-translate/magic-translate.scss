@@ -36,6 +36,7 @@
       position: relative;
       border-radius: var(--radius-1);
       border: 2px solid var(--col-accent);
+      box-sizing: border-box;
 
       img {
         position: absolute;
@@ -48,7 +49,7 @@
     }
     .image-delete {
       z-index: 2;
-      margin: var(--distance-2);
+      margin: var(--distance-3);
       place-self: end;
       background-color: var(--col-accent);
       box-shadow: var(--shadow-big);

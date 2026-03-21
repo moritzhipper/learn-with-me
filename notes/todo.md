@@ -2,10 +2,14 @@
 
 # now
 
--generate: ad delete image and image preview
+- add cardspreview to collection add to accomondate for adding learnable afterwards
 
 - put complete translations into state (not quick trans though)
   - communicate magic preset trhough state
+- implement selection and import bubble appearance on translate page
+- remove magic add from state facade in overview
+
+- layout of translate pages: 100vh, lower part centered opaqu 'Translate a thing and the nhistory is here' / 'Generate a thing to see the cards to choose from'
 
 - migrate file uplaod to magic translate
 
