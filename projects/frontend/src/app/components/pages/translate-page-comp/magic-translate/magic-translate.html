@@ -1,5 +1,5 @@
 <div class="header-section">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="translate()">
     @if (imagePreview(); as img) {
       <div class="image-preview">
         <img [src]="img" alt="Preview" />

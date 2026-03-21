@@ -9,7 +9,7 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
-import { debounceTime, EMPTY, from, pipe, switchMap } from 'rxjs'
+import { EMPTY, from, pipe, switchMap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
@@ -65,7 +65,6 @@ export class MagicTranslate {
 
   createLearnables = rxMethod<LearnableCreationConfig | null>(
     pipe(
-      debounceTime(1000),
       switchMap((config) => {
         if (!config) {
           this.proposedCards.set([])
@@ -96,5 +95,17 @@ export class MagicTranslate {
       this.imagePreview.set(reader.result as string)
     }
     reader.readAsDataURL(file)
+  }
+
+  translate() {
+    const config = this.createLearnablesConfig()
+    if (config) {
+      this.createLearnables(this.createLearnablesConfig())
+    } else {
+      this.toastService.showToast({
+        type: 'error',
+        message: 'Please provide text or an image for translation.'
+      })
+    }
   }
 }

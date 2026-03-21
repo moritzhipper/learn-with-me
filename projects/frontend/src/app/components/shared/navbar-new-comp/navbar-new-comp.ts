@@ -1,8 +1,8 @@
 import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { config } from 'projects/frontend/src/config'
-import { filter } from 'rxjs'
+import { filter, map, tap } from 'rxjs'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { IconComp } from '../icon-comp/icon-comp'
 
@@ -18,6 +18,9 @@ export class NavbarNewComp {
   protected readonly appName = config.appNameLong
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
+  private readonly lStore = inject(LearnablesStore)
+  protected readonly hasActivePractice = computed(() => !!this.lStore.currentPractice())
+
   @HostListener('mouseleave', [])
   onleave() {
     if (!this.isMobileView) {
@@ -26,26 +29,28 @@ export class NavbarNewComp {
   }
 
   // delay closing via link click a bit to show active link change animation
-  private readonly navEvent$ = inject(Router).events.pipe(
+  private readonly currentUrl$ = inject(Router).events.pipe(
     takeUntilDestroyed(),
-    filter((e) => e instanceof NavigationEnd)
+    tap(() => {
+      if (this.isMobileView) this.isOpen.set(false)
+    }),
+    filter((e) => e instanceof NavigationEnd),
+    map((e) => e.urlAfterRedirects)
   )
+
+  currentUrl = toSignal(this.currentUrl$)
 
   protected readonly lstore = inject(LearnablesStore)
   protected readonly language = computed(() => this.lstore.activeBank().language)
   protected readonly isOpen = signal(false)
   protected readonly showDimmed = signal(false)
-  protected readonly hasActivePractice = this.lstore.currentPractice
 
-  constructor() {
-    this.navEvent$.subscribe((ev) => {
-      if (this.isMobileView) {
-        this.isOpen.set(false)
-      }
-      const subdued = this.DIM_ON_PAGES.some((page) => ev.urlAfterRedirects.includes(page))
-      this.showDimmed.set(subdued)
-    })
-  }
+  protected readonly subdue = computed(() => {
+    const isClosed = this.isOpen()!
+    const isOnDimmableUrl = this.DIM_ON_PAGES.some((page) => this.currentUrl()?.includes(page))
+
+    return isClosed && isOnDimmableUrl
+  })
 
   toggle() {
     this.isOpen.set(!this.isOpen())
