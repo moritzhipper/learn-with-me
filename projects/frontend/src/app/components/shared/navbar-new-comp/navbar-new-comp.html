@@ -1,4 +1,9 @@
-<button (click)="toggle()" class="toggle" [class.open]="isOpen()" [class.dim]="subdue()">
+<button
+  (click)="toggle()"
+  class="toggle"
+  [class.open]="isOpen()"
+  [class.dim]="isOnDimmablePage() && !isOpen()"
+>
   <app-icon-comp type="menu" />
 </button>
 

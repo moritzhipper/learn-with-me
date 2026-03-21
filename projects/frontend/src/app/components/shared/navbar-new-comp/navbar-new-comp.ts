@@ -2,7 +2,6 @@ import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@an
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { config } from 'projects/frontend/src/config'
-import { filter, map, tap } from 'rxjs'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { IconComp } from '../icon-comp/icon-comp'
 
@@ -29,28 +28,26 @@ export class NavbarNewComp {
   }
 
   // delay closing via link click a bit to show active link change animation
-  private readonly currentUrl$ = inject(Router).events.pipe(
-    takeUntilDestroyed(),
-    tap(() => {
-      if (this.isMobileView) this.isOpen.set(false)
-    }),
-    filter((e) => e instanceof NavigationEnd),
-    map((e) => e.urlAfterRedirects)
-  )
+  private readonly currentUrl$ = inject(Router).events.pipe(takeUntilDestroyed())
 
   currentUrl = toSignal(this.currentUrl$)
 
   protected readonly lstore = inject(LearnablesStore)
   protected readonly language = computed(() => this.lstore.activeBank().language)
   protected readonly isOpen = signal(false)
-  protected readonly showDimmed = signal(false)
+  protected readonly isOnDimmablePage = signal(false)
 
-  protected readonly subdue = computed(() => {
-    const isClosed = this.isOpen()!
-    const isOnDimmableUrl = this.DIM_ON_PAGES.some((page) => this.currentUrl()?.includes(page))
-
-    return isClosed && isOnDimmableUrl
-  })
+  constructor() {
+    this.currentUrl$.subscribe((ev) => {
+      if (this.isMobileView) {
+        this.isOpen.set(false)
+      }
+      if (ev instanceof NavigationEnd) {
+        const isOnDimmable = this.DIM_ON_PAGES.some((page) => ev.urlAfterRedirects.includes(page))
+        this.isOnDimmablePage.set(isOnDimmable)
+      }
+    })
+  }
 
   toggle() {
     this.isOpen.set(!this.isOpen())
