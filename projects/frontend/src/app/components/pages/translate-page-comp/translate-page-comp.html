@@ -14,7 +14,7 @@
   placeholder="Set tone or context..."
 />
 @if (selectedMode() === 'quick') {
-  <app-quick-translate />
+  <app-quick-translate (openInMagicMode)="openInMagicMode($event)" />
 } @else {
-  <app-magic-translate />
+  <app-magic-translate [preset]="magicPreset()" />
 }

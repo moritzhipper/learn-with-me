@@ -5,6 +5,7 @@ import {
   computed,
   ElementRef,
   inject,
+  output,
   signal,
   viewChild
 } from '@angular/core'
@@ -42,6 +43,8 @@ export class QuickTranslate {
   protected readonly tone = computed(() => this.ls.activeBank().translateTone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
+
+  readonly openInMagicMode = output<string>()
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, computed, effect, inject, input, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
@@ -34,8 +34,19 @@ export class MagicTranslate {
   })
 
   imagePreview = signal<string | null>(null)
-
   formSignal = toSignal(this.form.valueChanges)
+
+  preset = input<string>()
+
+  constructor() {
+    effect(() => {
+      const preset = this.preset()
+
+      if (preset) {
+        this.form.patchValue({ text: preset })
+      }
+    })
+  }
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language

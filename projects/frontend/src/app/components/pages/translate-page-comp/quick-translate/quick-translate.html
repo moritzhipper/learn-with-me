@@ -22,7 +22,7 @@
         <button class="remove small" (click)="deleteHistoryItem(item.id)">
           <app-icon-comp type="trash" />
         </button>
-        <button class="magic small" (click)="deleteHistoryItem(item.id)">
+        <button class="magic small" (click)="openInMagicMode.emit(item.lexeme)">
           <app-icon-comp type="magic" />
         </button>
         <button class="add small has-icon">

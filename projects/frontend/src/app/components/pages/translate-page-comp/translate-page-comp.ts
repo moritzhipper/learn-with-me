@@ -15,6 +15,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
 })
 export class TranslatePageComp {
   selectedMode = signal<'quick' | 'magic'>('quick')
+  magicPreset = signal<string>('')
 
   private readonly ls = inject(LearnablesStore)
   protected readonly tone = computed(() => this.ls.activeBank().translateTone)
@@ -24,6 +25,12 @@ export class TranslatePageComp {
   }
 
   protected toggleMode() {
+    this.magicPreset.set('')
     this.selectedMode.update((v) => (v === 'quick' ? 'magic' : 'quick'))
+  }
+
+  openInMagicMode(text: string) {
+    this.magicPreset.set(text)
+    this.selectedMode.set('magic')
   }
 }
