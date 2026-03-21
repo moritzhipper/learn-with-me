@@ -15,6 +15,11 @@
     width: var(--medium-width);
     gap: var(--distance-4);
 
+    .config {
+      display: grid;
+      gap: var(--distance-4);
+    }
+
     .image-input,
     .image-preview,
     .image-delete,
@@ -115,13 +120,20 @@
 
 @include isDesktop() {
   form {
-    padding-top: 10vh;
+    padding: 5vh 0;
     height: 400px;
+
+    .config {
+      grid-template-columns: 1fr 200px;
+    }
   }
 }
 @include isPhone() {
   form {
     height: 60vh;
+    .config {
+      grid-template-columns: 1fr;
+    }
   }
 }
 

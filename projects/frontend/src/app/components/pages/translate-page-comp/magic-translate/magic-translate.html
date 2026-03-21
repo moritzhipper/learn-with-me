@@ -25,22 +25,27 @@
         </label>
       </div>
     }
-    <app-radio-comp
-      label="Type"
-      [config]="[
-        { value: 'word', label: 'Words' },
-        { value: 'phrase', label: 'Phrases' },
-        { value: 'both', label: 'Both' }
-      ]"
-      formControlName="type"
-      class="type"
-    />
-    <button type="submit">Generate</button>
+    <div class="config">
+      <app-radio-comp
+        label="Type"
+        [config]="[
+          { value: 'word', label: 'Words' },
+          { value: 'phrase', label: 'Phrases' },
+          { value: 'both', label: 'Both' }
+        ]"
+        formControlName="type"
+        class="type"
+      />
+      <button type="submit" class="has-icon" [disabled]="isConverting()">
+        Generate
+        <app-icon-comp type="magic" [size]="24" />
+      </button>
+    </div>
   </form>
 </div>
 
+<h2 class="indent">Proposed Cards</h2>
 <div class="proposal">
-  <h2 class="indent">Proposed Cards</h2>
   @for (cardVM of proposedCards(); track cardVM) {
     <app-learnable-comp
       class="fly-in-y-wide"

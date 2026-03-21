@@ -25,6 +25,7 @@ input.context {
   z-index: 10;
   padding: var(--distance-4);
   border-radius: 100%;
-  background-color: var(--col-accent);
+  background-color: var(--col-primary);
+  color: var(--col-bg);
   box-shadow: var(--shadow-big);
 }

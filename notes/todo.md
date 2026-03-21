@@ -4,15 +4,10 @@
 
 -generate: ad delete image and image preview
 
-- click on small magic opens with preset
+- put complete translations into state (not quick trans though)
+  - communicate magic preset trhough state
+
 - migrate file uplaod to magic translate
-- unter translations
-  - past translations / Past card propositions?
-  - finish implement history story thing
-  - switch mode button
-- add generate mode to translate page, remove from cards page
-- create 'Add key' on translate page when not provided
-  -remove magic add code from overview page
 
 - filter doppelresponses aus preview
 - implement canceling for proposal cards
