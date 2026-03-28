@@ -26,13 +26,12 @@
   } @else {
     <div class="learnables">
       @for (learnable of visibleLearnables(); track learnable.id) {
-        <button
-          class="silent learnable"
-          (click)="toggleLearnableSelection(learnable.id)"
-          [class.selected]="isSelected(learnable.id)"
-        >
-          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
-        </button>
+        <app-learnable-comp
+          [learnable]="learnable"
+          [showNewBadge]="isLastAdded(learnable.id)"
+          [isSelected]="isSelected(learnable.id)"
+          (onSelect)="toggleLearnableSelection(learnable.id)"
+        />
       }
     </div>
   }
@@ -40,13 +39,11 @@
     <h2>Unsorted Cards</h2>
     <div class="learnables">
       @for (learnable of unsortedCards(); track learnable.id) {
-        <button
-          class="silent learnable"
-          (click)="toggleLearnableSelection(learnable.id)"
-          [class.selected]="isSelected(learnable.id)"
-        >
-          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
-        </button>
+        <app-learnable-comp
+          [learnable]="learnable"
+          [showNewBadge]="isLastAdded(learnable.id)"
+          [isSelected]="isSelected(learnable.id)"
+        />
       }
     </div>
   }

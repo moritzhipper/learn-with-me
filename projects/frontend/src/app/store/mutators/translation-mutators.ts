@@ -25,13 +25,17 @@ export const addTranslationHistoryItem =
 export const addMagicTranslateCards =
   (cards: LearnableBase[]) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (b) => ({
-      ...b,
-      translations: {
-        ...b.translations,
-        magicTranslateCards: cards
+    updateActiveBank(state, (b) => {
+      const cardsWithIds = cards.map((c) => ({ ...c, id: crypto.randomUUID() }))
+
+      return {
+        ...b,
+        translations: {
+          ...b.translations,
+          magicTranslateCards: cardsWithIds
+        }
       }
-    }))
+    })
 
 export const deleteTranslationHistoryItem =
   (id: string) =>

@@ -54,7 +54,9 @@
     <app-learnable-comp
       class="fly-in-y-wide"
       [learnable]="cardVM.item"
-      [style.animationDelay.s]="cardVM.animDelay"
+      [style.--anim-delay.s]="cardVM.animDelay"
+      (onSelect)="toggleSelection(cardVM.item.id)"
+      [isSelected]="isSelected(cardVM.item.id)"
     />
   }
 </div>

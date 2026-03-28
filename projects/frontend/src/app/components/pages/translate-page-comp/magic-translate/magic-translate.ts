@@ -30,6 +30,7 @@ export class MagicTranslate {
   protected readonly proposedCards = computed(() =>
     mapToStaggerVM(this.ls.activeBank().translations.magicTranslateCards)
   )
+  protected readonly selectedCardsIds = signal<string[]>([])
   isConverting = signal(false)
 
   form = this._fb.group<
@@ -123,5 +124,20 @@ export class MagicTranslate {
         message: 'Please provide text or an image for translation.'
       })
     }
+  }
+
+  toggleSelection(cardId: string) {
+    this.selectedCardsIds.update((ids) => {
+      const isSet = ids.includes(cardId)
+      if (isSet) {
+        return ids.filter((id) => id !== cardId)
+      } else {
+        return [...ids, cardId]
+      }
+    })
+  }
+
+  isSelected(cardId: string) {
+    return this.selectedCardsIds().includes(cardId)
   }
 }
