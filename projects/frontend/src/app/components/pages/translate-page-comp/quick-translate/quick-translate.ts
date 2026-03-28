@@ -42,9 +42,9 @@ export class QuickTranslate {
   private readonly modalService = inject(ModalService)
 
   private readonly activeBank = this.ls.activeBank
-  protected readonly history = computed(() => this.ls.activeBank().translationHistory)
+  protected readonly history = computed(() => this.ls.activeBank().translations.history)
 
-  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
+  protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
 

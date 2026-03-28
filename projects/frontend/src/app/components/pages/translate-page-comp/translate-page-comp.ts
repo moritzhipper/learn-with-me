@@ -18,7 +18,7 @@ export class TranslatePageComp {
   magicPreset = signal<string>('')
 
   private readonly ls = inject(LearnablesStore)
-  protected readonly tone = computed(() => this.ls.activeBank().translateTone)
+  protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
 
   protected setTone(tone: string) {
     this.ls.updateTranslateTone(tone)

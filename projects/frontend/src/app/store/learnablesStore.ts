@@ -35,6 +35,7 @@ import {
   startPractice
 } from './mutators/practice-mutators'
 import {
+  addMagicTranslateCards,
   addTranslationHistoryItem,
   deleteTranslationHistoryItem,
   setTone
@@ -77,6 +78,9 @@ export const LearnablesStore = signalStore(
       },
       deleteTranslationHistoryItem(id: string) {
         patchState(state, deleteTranslationHistoryItem(id))
+      },
+      setMagicTranslateCards(cards: LearnableBase[]) {
+        patchState(state, addMagicTranslateCards(cards))
       },
       updateTranslateTone(tone: string) {
         patchState(state, setTone(tone))

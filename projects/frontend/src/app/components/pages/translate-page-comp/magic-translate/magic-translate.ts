@@ -3,7 +3,6 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
-import { LearnableBase } from '@shared/types'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
@@ -11,8 +10,8 @@ import {
   LearnableCreationConfig,
   LearnableFromTextCreationConfig
 } from 'projects/frontend/src/app/types_and_schemas/types'
-import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
-import { EMPTY, from, pipe, switchMap, tap } from 'rxjs'
+import { mapToStaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
+import { from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
@@ -26,9 +25,11 @@ import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable
 export class MagicTranslate {
   private readonly _fb = inject(NonNullableFormBuilder)
   private readonly ls = inject(LearnablesStore)
-  protected readonly proposedCards = signal<StaggerVM<LearnableBase>>([])
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
+  protected readonly proposedCards = computed(() =>
+    mapToStaggerVM(this.ls.activeBank().translations.magicTranslateCards)
+  )
   isConverting = signal(false)
 
   form = this._fb.group<
@@ -80,18 +81,14 @@ export class MagicTranslate {
     return null
   })
 
-  createLearnables = rxMethod<LearnableCreationConfig | null>(
+  createLearnables = rxMethod<LearnableCreationConfig>(
     pipe(
       switchMap((config) => {
-        if (!config) {
-          this.proposedCards.set([])
-          return EMPTY
-        }
         this.isConverting.set(true)
         return from(this.aiService.createLearnables(config)).pipe(
           tap(() => this.isConverting.set(false)),
           tapResponse({
-            next: (learnables) => this.proposedCards.set(mapToStaggerVM(learnables)),
+            next: (learnables) => this.ls.setMagicTranslateCards(learnables),
             error: (e) => this.toastService.showHttpErrorToast(e)
           })
         )
@@ -119,7 +116,7 @@ export class MagicTranslate {
   translate() {
     const config = this.createLearnablesConfig()
     if (config) {
-      this.createLearnables(this.createLearnablesConfig())
+      this.createLearnables(config)
     } else {
       this.toastService.showToast({
         type: 'error',

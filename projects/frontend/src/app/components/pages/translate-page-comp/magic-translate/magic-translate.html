@@ -36,7 +36,11 @@
         formControlName="type"
         class="type"
       />
-      <button type="submit" class="has-icon" [disabled]="isConverting()">
+      <button
+        type="submit"
+        class="has-icon"
+        [disabled]="isConverting() || !createLearnablesConfig()"
+      >
         Generate
         <app-icon-comp type="magic" [size]="24" />
       </button>
