@@ -186,3 +186,5 @@ summarycard: nicht aufdeckbar, sobald gezogen immer aufgedeckt
   - auf 1 summary
 - lege aktuelle 0 karte weg ohne vote, sodass summary nach rueckt
 - mit viwmodelIndex arbeiten?
+
+Learn a new Laguage with larry the lizard!

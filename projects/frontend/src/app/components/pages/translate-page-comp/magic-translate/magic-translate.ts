@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core'
+import { Component, computed, inject, input, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
@@ -7,7 +7,10 @@ import { LearnableBase } from '@shared/types'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
-import { LearnableCreationConfig } from 'projects/frontend/src/app/types_and_schemas/types'
+import {
+  LearnableCreationConfig,
+  LearnableFromTextCreationConfig
+} from 'projects/frontend/src/app/types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
 import { EMPTY, from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
@@ -28,9 +31,11 @@ export class MagicTranslate {
   private readonly toastService = inject(ToastService)
   isConverting = signal(false)
 
-  form = this._fb.group({
-    type: ['word'],
-    text: ['']
+  form = this._fb.group<
+    Pick<LearnableCreationConfig, 'type'> & Pick<LearnableFromTextCreationConfig, 'text'>
+  >({
+    type: 'word',
+    text: ''
   })
 
   imagePreview = signal<string | null>(null)
@@ -38,36 +43,36 @@ export class MagicTranslate {
 
   preset = input<string>()
 
-  constructor() {
-    effect(() => {
-      const preset = this.preset()
-
-      if (preset) {
-        this.form.patchValue({ text: preset })
-      }
-    })
+  ngOnInit() {
+    const preset = this.preset()
+    if (preset) {
+      this.form.patchValue({ text: preset })
+    }
   }
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
-    if (!language) return null
+    const form = this.formSignal()
+    const type = form?.type
 
-    const imagePreview = this.imagePreview()
-    if (imagePreview) {
+    if (!language || !type) return null
+
+    const image = this.imagePreview()
+    if (image) {
       return {
         source: 'image',
-        image: imagePreview,
-        type: 'both',
+        image: image,
+        type,
         language
       }
     }
 
-    const form = this.formSignal()
-    if (form?.text && form?.type) {
+    const text = form?.text
+    if (text) {
       return {
         source: 'text',
-        text: form.text,
-        type: form.type as LearnableCreationConfig['type'],
+        text,
+        type,
         language
       }
     }
