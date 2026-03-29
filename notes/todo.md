@@ -2,6 +2,7 @@
 
 # now
 
+- remove old bubble
 - add cardspreview to collection add to accomondate for adding learnable afterwards
 
 - put complete translations into state (not quick trans though)

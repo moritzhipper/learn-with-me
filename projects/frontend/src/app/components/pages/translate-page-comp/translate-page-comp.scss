@@ -17,15 +17,3 @@ input.context {
     opacity: var(--opacity-1);
   }
 }
-
-.mode-switch-bubble {
-  position: fixed;
-  bottom: var(--distance-4);
-  right: var(--distance-4);
-  z-index: 10;
-  padding: var(--distance-4);
-  border-radius: 100%;
-  background-color: var(--col-primary);
-  color: var(--col-bg);
-  box-shadow: var(--shadow-big);
-}

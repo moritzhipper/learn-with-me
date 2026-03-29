@@ -10,16 +10,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [
-    PageIconComp,
-    FormsModule,
-    IconComp,
-    QuickTranslate,
-    MagicTranslate,
-    Bubbles,
-    Bubble,
-    IconComp
-  ],
+  imports: [PageIconComp, FormsModule, IconComp, QuickTranslate, MagicTranslate, Bubbles, Bubble],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }

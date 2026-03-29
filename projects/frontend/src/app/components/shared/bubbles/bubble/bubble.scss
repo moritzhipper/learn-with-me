@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.bubble {
+  transition: none;
+  border-radius: 100%;
+  box-shadow: var(--shadow-big);
+  color: var(--col-bg);
+
+  &.big {
+    padding: var(--distance-4);
+  }
+
+  &.small {
+    padding: var(--distance-2);
+  }
+  &:not(.trash) {
+    background-color: var(--col-primary);
+  }
+  &.trash {
+    background-color: var(--col-warning);
+  }
+}
