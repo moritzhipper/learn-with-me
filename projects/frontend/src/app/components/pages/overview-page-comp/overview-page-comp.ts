@@ -4,6 +4,8 @@ import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent, removeDuplicates } from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
+import { Bubble } from '../../shared/bubbles/bubble/bubble'
+import { Bubbles } from '../../shared/bubbles/bubbles'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
@@ -32,7 +34,9 @@ import { OverviewPageFacade } from './overview-page-facade'
     PageHeaderComp,
     PageIconComp,
     FilterComp,
-    PagePlaceholderComp
+    PagePlaceholderComp,
+    Bubbles,
+    Bubble
   ],
   host: { class: 'page mid' }
 })

@@ -1,4 +1,4 @@
-<app-edit-bubbles-comp
+<!-- <app-edit-bubbles-comp
   (create)="addNew()"
   (bulkEdit)="bulkEdit()"
   (resetSelection)="resetLearnableSelection()"
@@ -7,7 +7,16 @@
   (delete)="deleteSelection()"
   [allowRemoveFromCollection]="!!selectedCollectionId()"
   [selectedCardsCount]="selectedLearnableIds().length"
-/>
+/> -->
+<app-bubbles>
+  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+  @if (selectedLearnableIds().length !== 0) {
+    <app-bubble config="reset-selection" (select)="resetLearnableSelection()" />
+    <app-bubble config="move" (select)="addToCollection()" />
+    <app-bubble config="remove" (select)="removeSelectionFromCollection()" />
+    <app-bubble config="trash" (select)="deleteSelection()" />
+  }
+</app-bubbles>
 
 <app-page-icon-comp type="card" />
 <app-page-header-comp [title]="selectedCollection()?.name || 'All Cards'" icon="card">

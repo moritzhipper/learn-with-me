@@ -1,11 +1,23 @@
 <app-page-icon-comp type="translate" />
-<button class="silent mode-switch-bubble" (click)="toggleMode()">
+
+<app-bubbles>
+  @if (selectedMode() === 'quick') {
+    <app-bubble config="magic" size="big" (select)="toggleMode()" />
+  } @else {
+    <app-bubble config="translate" size="big" (select)="toggleMode()" />
+  }
+
+  <app-bubble config="move" />
+  <app-bubble config="reset-selection" />
+</app-bubbles>
+
+<!-- <button class="silent mode-switch-bubble" (click)="toggleMode()">
   @if (selectedMode() === 'quick') {
     <app-icon-comp type="magic" />
   } @else {
     <app-icon-comp type="translate" />
   }
-</button>
+</button> -->
 <input
   [ngModel]="tone()"
   (ngModelChange)="setTone($event)"
