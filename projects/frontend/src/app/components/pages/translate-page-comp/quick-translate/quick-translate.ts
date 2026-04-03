@@ -23,11 +23,13 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types_and_schemas/types'
 import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
+import { Bubble } from '../../../shared/bubbles/bubble/bubble'
+import { Bubbles } from '../../../shared/bubbles/bubbles'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [IconComp, FormsModule, DatePipe],
+  imports: [IconComp, FormsModule, DatePipe, Bubbles, Bubble],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
@@ -48,7 +50,7 @@ export class QuickTranslate {
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
 
-  readonly openInMagicMode = output<string>()
+  readonly openMagicMode = output<string | void>()
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')

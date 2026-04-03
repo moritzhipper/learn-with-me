@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core'
+import { Component, computed, inject, input, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
@@ -10,15 +10,17 @@ import {
   LearnableCreationConfig,
   LearnableFromTextCreationConfig
 } from 'projects/frontend/src/app/types_and_schemas/types'
-import { mapToStaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
+import { mapToStaggerVM, staggerDelays } from 'projects/frontend/src/app/utils/genaral-utils'
 import { from, pipe, switchMap, tap } from 'rxjs'
+import { Bubble } from '../../../shared/bubbles/bubble/bubble'
+import { Bubbles } from '../../../shared/bubbles/bubbles'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 
 @Component({
   selector: 'app-magic-translate',
-  imports: [FormsModule, IconComp, RadioComp, ReactiveFormsModule, LearnableComp],
+  imports: [FormsModule, IconComp, RadioComp, ReactiveFormsModule, LearnableComp, Bubbles, Bubble],
   templateUrl: './magic-translate.html',
   styleUrl: './magic-translate.scss'
 })
@@ -32,6 +34,7 @@ export class MagicTranslate {
   )
   protected readonly selectedCardsIds = signal<string[]>([])
   isConverting = signal(false)
+  openQuickMode = output<void>()
 
   form = this._fb.group<
     Pick<LearnableCreationConfig, 'type'> & Pick<LearnableFromTextCreationConfig, 'text'>
@@ -40,8 +43,10 @@ export class MagicTranslate {
     text: ''
   })
 
-  imagePreview = signal<string | null>(null)
-  formSignal = toSignal(this.form.valueChanges)
+  protected imagePreview = signal<string | null>(null)
+  protected formSignal = toSignal(this.form.valueChanges)
+
+  protected readonly animdelays = staggerDelays(2)
 
   preset = input<string>()
 

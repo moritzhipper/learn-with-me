@@ -1,31 +1,15 @@
 <app-bubbles>
   <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
   @if (selectedLearnableIds().length !== 0) {
-    <app-bubble
-      config="reset-selection"
-      (select)="resetLearnableSelection()"
-      animate.enter="fly-in-xy-0"
-      [style.animationDelay.s]="animdelays[0]"
-    />
-    <app-bubble
-      config="move"
-      (select)="addToCollection()"
-      animate.enter="fly-in-xy-0"
-      [style.animationDelay.s]="animdelays[1]"
-    />
+    <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="0" />
+    <app-bubble config="move" (select)="addToCollection()" [animateIndex]="1" />
     @if (selectedCollectionId()) {
-      <app-bubble
-        config="remove"
-        (select)="removeSelectionFromCollection()"
-        animate.enter="fly-in-xy-0"
-        [style.animationDelay.s]="animdelays[2]"
-      />
+      <app-bubble config="remove" (select)="removeSelectionFromCollection()" [animateIndex]="2" />
     }
     <app-bubble
       config="trash"
       (select)="deleteSelection()"
-      animate.enter="fly-in-xy-0"
-      [style.animationDelay.s]="selectedCollectionId() ? animdelays[3] : animdelays[2]"
+      [animateIndex]="selectedCollectionId() ? 3 : 2"
     />
   }
 </app-bubbles>

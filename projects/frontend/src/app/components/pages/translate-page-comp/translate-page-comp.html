@@ -1,16 +1,5 @@
 <app-page-icon-comp type="translate" />
 
-<app-bubbles>
-  @if (selectedMode() === 'quick') {
-    <app-bubble config="magic" size="big" (select)="toggleMode()" />
-  } @else {
-    <app-bubble config="translate" size="big" (select)="toggleMode()" />
-  }
-
-  <app-bubble config="move" />
-  <app-bubble config="reset-selection" />
-</app-bubbles>
-
 <input
   [ngModel]="tone()"
   (ngModelChange)="setTone($event)"
@@ -19,7 +8,7 @@
   placeholder="Set tone or context..."
 />
 @if (selectedMode() === 'quick') {
-  <app-quick-translate (openInMagicMode)="openInMagicMode($event)" />
+  <app-quick-translate (openMagicMode)="openInMagicMode($event)" />
 } @else {
-  <app-magic-translate [preset]="magicPreset()" />
+  <app-magic-translate [preset]="magicPreset()" (openQuickMode)="openQuickMode()" />
 }

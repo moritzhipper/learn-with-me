@@ -22,3 +22,32 @@
     background-color: var(--col-warning);
   }
 }
+
+@for $i from 0 through 4 {
+  :host.fly-in-bubble-#{$i} {
+    z-index: -1;
+    animation: fly-in-bubble var(--duration-3) var(--overshot) backwards;
+    animation-delay: calc(0.05s * #{$i});
+  }
+
+  :host.fly-out-bubble-#{$i} {
+    z-index: -1;
+    animation: fly-out-bubble var(--duration-0) backwards;
+    animation-delay: calc(0.1s - 0.03s * #{$i});
+  }
+}
+
+@keyframes fly-in-bubble {
+  from {
+    scale: 0.7;
+    opacity: 0;
+    translate: 50px -5px;
+  }
+}
+
+@keyframes fly-out-bubble {
+  to {
+    opacity: 0;
+    scale: 0.6;
+  }
+}

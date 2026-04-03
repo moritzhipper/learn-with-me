@@ -1,3 +1,7 @@
+<app-bubbles>
+  <app-bubble config="magic" size="big" (select)="openMagicMode.emit()" />
+</app-bubbles>
+
 <div
   class="translate"
   [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
@@ -22,7 +26,7 @@
         <button class="remove small" (click)="deleteHistoryItem(item.id)">
           <app-icon-comp type="trash" />
         </button>
-        <button class="magic small" (click)="openInMagicMode.emit(item.lexeme)">
+        <button class="magic small" (click)="openMagicMode.emit(item.lexeme)">
           <app-icon-comp type="magic" />
         </button>
         <button class="add small has-icon">

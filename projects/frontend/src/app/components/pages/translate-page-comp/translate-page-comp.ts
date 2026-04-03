@@ -1,16 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { Bubble } from '../../shared/bubbles/bubble/bubble'
-import { Bubbles } from '../../shared/bubbles/bubbles'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { MagicTranslate } from './magic-translate/magic-translate'
 import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
-  imports: [PageIconComp, FormsModule, IconComp, QuickTranslate, MagicTranslate, Bubbles, Bubble],
+  imports: [PageIconComp, FormsModule, QuickTranslate, MagicTranslate],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
   host: { class: 'page mid' }
@@ -26,13 +23,15 @@ export class TranslatePageComp {
     this.ls.updateTranslateTone(tone)
   }
 
-  protected toggleMode() {
+  protected openQuickMode() {
     this.magicPreset.set('')
-    this.selectedMode.update((v) => (v === 'quick' ? 'magic' : 'quick'))
+    this.selectedMode.set('quick')
   }
 
-  openInMagicMode(text: string) {
-    this.magicPreset.set(text)
+  openInMagicMode(text: string | void) {
+    if (text) {
+      this.magicPreset.set(text)
+    }
     this.selectedMode.set('magic')
   }
 }

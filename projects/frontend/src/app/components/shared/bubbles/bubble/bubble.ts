@@ -15,10 +15,15 @@ export type BubbleConfig =
   selector: 'app-bubble',
   imports: [IconComp],
   templateUrl: './bubble.html',
-  styleUrl: './bubble.scss'
+  styleUrl: './bubble.scss',
+  host: {
+    '[animate.enter]': '`fly-in-bubble-${animateIndex()}`',
+    '[animate.leave]': '`fly-out-bubble-${animateIndex()}`'
+  }
 })
 export class Bubble {
   config = input.required<BubbleConfig>()
   size = input<'big' | 'small'>('small')
   select = output<void>()
+  animateIndex = input<number>(0)
 }
