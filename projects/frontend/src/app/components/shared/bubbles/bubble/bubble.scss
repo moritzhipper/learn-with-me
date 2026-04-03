@@ -23,7 +23,7 @@
   }
 }
 
-@for $i from 0 through 4 {
+@for $i from 1 through 4 {
   :host.fly-in-bubble-#{$i} {
     z-index: -1;
     animation: fly-in-bubble var(--duration-3) var(--overshot) backwards;
