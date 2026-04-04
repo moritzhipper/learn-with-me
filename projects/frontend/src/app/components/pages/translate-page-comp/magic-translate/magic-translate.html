@@ -1,8 +1,8 @@
 <app-bubbles>
   <app-bubble config="translate" size="big" (select)="openQuickMode.emit()" />
   @if (selectedCardsIds().length) {
-    <app-bubble config="move" [animateIndex]="1" />
-    <app-bubble config="reset-selection" [animateIndex]="2" />
+    <app-bubble config="move" [animateIndex]="1" (select)="importCards()" />
+    <app-bubble config="reset-selection" [animateIndex]="2" (select)="resetSelection()" />
   }
 </app-bubbles>
 
@@ -12,7 +12,7 @@
       <div class="image-preview">
         <img [src]="img" alt="Preview" />
       </div>
-      <button type="button" class="small image-delete has-icon" (click)="removeImage()">
+      <button type="button" class="small image-delete has-icon" (click)="imagePreview.set(null)">
         Remove Image
         <app-icon-comp type="image" [size]="24" />
       </button>

@@ -25,6 +25,10 @@
 - tokenuse digram in stats
 - handle exporting and import bank not working:
   - imported bank keeps name, but does not keep collection if languages divert
+- store, relevant for magic add:
+  - adding cards with creating new collection not yet possible
+
+- somehow streamline the notifications after adding learnables -> shared facade service?
 
 # Infra
 
@@ -63,6 +67,13 @@ only put hat on big larry, remove from logo
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
+
+## Store
+
+- Create shared facade, that calls modalService and sends toasts and stuff
+  - on add: allow providing new collection name
+  - show toast: adde, skipped,
+- use on magic add and overvew
 
 # write tests
 

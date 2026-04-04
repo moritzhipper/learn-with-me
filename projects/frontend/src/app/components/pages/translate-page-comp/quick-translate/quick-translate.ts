@@ -12,7 +12,6 @@ import {
 import { FormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
-import { TranslationHistoryItem } from '@shared/types'
 import {
   ResponseStreamEvent,
   ResponseTextDoneEvent
@@ -182,17 +181,6 @@ export class QuickTranslate {
       this.lastTranslation = event.text
       this.translation.set(this.lastTranslation)
     }
-  }
-
-  protected async createCard(historyItem: TranslationHistoryItem) {
-    // map history item to card
-    // add to modal as caard preview
-
-    const result = await this.modalService.open('collection-add')
-    if (result.type === 'cancel') return
-    // add card to store
-    // move to collection
-    // toast: Card added to collection xy
   }
 
   protected deleteHistoryItem(id: string) {
