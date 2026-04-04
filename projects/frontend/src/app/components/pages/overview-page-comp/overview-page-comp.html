@@ -15,7 +15,11 @@
 </app-bubbles>
 
 <app-page-icon-comp type="card" />
-<app-page-header-comp [title]="selectedCollection()?.name || 'All Cards'" icon="card">
+<app-page-header-comp
+  [title]="selectedCollection()?.name || 'All Cards'"
+  backLink="/"
+  backLinkText="Home"
+>
   <app-collection-info-comp [config]="headerConfig()" />
 </app-page-header-comp>
 @if (userHasCards()) {

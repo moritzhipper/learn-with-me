@@ -19,9 +19,14 @@
         {{ language().speaking }}
       </span>
     </div>
-    <a routerLink="cards" class="entry big" routerLinkActive="active">
-      <app-icon-comp type="card" />
-      <span>Cards</span>
+    <a
+      routerLink="/"
+      class="entry big"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <app-icon-comp type="dashboard" />
+      <span>Home</span>
     </a>
     <a class="entry big practice" routerLink="practice" routerLinkActive="active">
       <app-icon-comp type="learn" />
@@ -37,10 +42,6 @@
       <span>Translate</span>
     </a>
 
-    <a routerLink="community" class="entry big share" routerLinkActive="active">
-      <app-icon-comp type="share-network-fill" />
-      <span>Community</span>
-    </a>
     <a routerLink="settings" class="entry small" routerLinkActive="active">
       <app-icon-comp type="settings" />
       <span>Settings</span>

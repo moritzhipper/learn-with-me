@@ -41,6 +41,7 @@ export type IconType =
   | 'close-circle'
   | 'image'
   | 'translate'
+  | 'dashboard'
 
 @Component({
   selector: 'app-icon-comp',
