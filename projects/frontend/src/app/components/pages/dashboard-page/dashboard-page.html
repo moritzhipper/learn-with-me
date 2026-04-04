@@ -1,15 +1,18 @@
 <app-page-header-comp title="Home" />
 <app-page-icon-comp type="dashboard" />
-<a routerLink="/practice">Practice</a>
+
+<app-header-link label="Practice" route="practice" />
 
 SHow those presets: - 'Continue Ongoing' - 'Pracice by room for improvement', - 'Practice by
 collecion' - 'Practice newest Cards', - practice 'Spaced repetition review',
-<a routerLink="/cards">Cards</a>
+
+<app-header-link label="Your Cards" route="cards" />
 show here: - All cards card with this info on it: (Number of cards, number of cards without
 collection, average confidence) - collections with number of cards in each, and average confidence )
 
-<a routerLink="/community">Community</a>
-Show preview of top 5 community for current language pair
+<app-header-link label="Community" route="community" />
 
-<a routerLink="stats">Statistics</a>
+Show preview of top 5 community for current language pair
+<app-header-link label="Statistics" route="stats" />
+
 Show timeline of recent activity Show progress towards goals

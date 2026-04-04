@@ -1,34 +1,5 @@
 @use '../../../../style/mixins.scss' as *;
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: var(--distance-1);
-
-  h2,
-  app-icon-comp {
-    transition: translate var(--duration-1);
-  }
-  h2 {
-    display: block;
-    margin: 0;
-  }
-
-  app-icon-comp {
-    rotate: 90deg;
-  }
-
-  &:hover,
-  &:focus-visible {
-    app-icon-comp {
-      translate: var(--distance-2);
-    }
-    h2 {
-      translate: var(--distance-1);
-    }
-  }
-}
-
 .collections {
   gap: var(--distance-4);
 }

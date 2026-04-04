@@ -11,6 +11,7 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types_and_schemas/types'
 import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
+import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -42,7 +43,8 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     IconComp,
     RouterLink,
     LoadingSpinner,
-    PagePlaceholderComp
+    PagePlaceholderComp,
+    HeaderLink
   ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss',

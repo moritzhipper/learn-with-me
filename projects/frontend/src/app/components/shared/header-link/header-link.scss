@@ -1,0 +1,40 @@
+@use '../../../../style/mixins.scss' as *;
+
+a {
+  display: flex;
+  align-items: center;
+  gap: var(--distance-1);
+  margin: var(--distance-6) 0 var(--distance-3) var(--distance-3);
+
+  h2,
+  app-icon-comp {
+    transition: translate var(--duration-1);
+  }
+  h2 {
+    display: block;
+    margin: 0;
+  }
+
+  app-icon-comp {
+    rotate: 90deg;
+  }
+
+  &:hover,
+  &:focus-visible {
+    app-icon-comp {
+      translate: var(--distance-2);
+    }
+    h2 {
+      translate: var(--distance-1);
+    }
+  }
+}
+
+@include isDesktop {
+}
+
+@include isPhone() {
+  a {
+    justify-content: space-between;
+  }
+}
