@@ -1,0 +1,45 @@
+@use '../../../../style/mixins.scss' as *;
+
+.sections {
+  display: grid;
+  gap: var(--distance-4);
+
+  section {
+    overflow: hidden;
+    border-radius: var(--radius-2);
+
+    border: 1px solid var(--col-accent);
+    overflow: hidden;
+
+    .actions {
+      display: grid;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+
+      grid-auto-flow: column;
+    }
+  }
+}
+
+@include isDesktop {
+  .sections {
+    grid-template-columns: 1fr 1fr;
+    .wide {
+      grid-column: span 2;
+    }
+
+    .actions {
+      grid-auto-columns: 400px;
+    }
+  }
+}
+
+@include isPhone {
+  .sections {
+    grid-template-columns: 1fr;
+    margin: 0 calc(-1 * var(--distance-5));
+    .actions {
+      grid-auto-columns: 100%;
+    }
+  }
+}

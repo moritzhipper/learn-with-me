@@ -12,6 +12,22 @@ New translation
 
 # now
 
+## Dashboard
+
+### Practice handling
+
+- make the autoflow scroll thing reusable
+- use: shared, cards collection select
+- create this box pattern everywhere
+
+- add current practice to acitve banke
+- dont reset current practice on bank change
+- add practice history
+- add collection id to history item if necessary OR array of ids
+
+- show spaced repitition and history relyiant cards
+- on practice config: show, instead of the select, the same categories as on dashboard page
+
 - filter doppelresponses aus preview
 - selektiere zom importieren / importiere alle bubbles oder button
 - tokenuse digram in stats

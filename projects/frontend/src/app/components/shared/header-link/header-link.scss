@@ -4,6 +4,7 @@ a {
   display: flex;
   align-items: center;
   gap: var(--distance-1);
+  padding-left: var(--distance-3);
 
   h2,
   app-icon-comp {

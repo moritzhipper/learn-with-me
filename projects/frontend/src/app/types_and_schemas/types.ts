@@ -1,9 +1,4 @@
-import type {
-  BankRequestConfig,
-  BankUser,
-  LanguageConfig,
-  LanguageConfigRequest
-} from '@shared/types'
+import { BankRequestConfig, BankUser, LanguageConfig, LanguageConfigRequest } from '@shared/types'
 
 export type LearnablesStoreType = {
   banks: BankUser[]

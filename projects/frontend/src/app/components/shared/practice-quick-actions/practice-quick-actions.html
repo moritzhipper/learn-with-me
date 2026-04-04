@@ -1,0 +1,17 @@
+@for (action of quickActions(); track $index) {
+  @switch (action.type) {
+    @case ('continue') {
+      <button class="silent quick">
+        <div class="header">Continue practice</div>
+        {{ action.cardsLeft }} cards left
+      </button>
+    }
+    @case ('collection-review') {}
+    @case ('collection-improve') {}
+    @case ('collection') {
+      <button class="silent quick">
+        Practice {{ action.collection.name }} ({{ action.averageScore }} confidence)
+      </button>
+    }
+  }
+}
