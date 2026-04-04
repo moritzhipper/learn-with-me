@@ -2,14 +2,19 @@ import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { calculateAverageConfidencePercent, removeDuplicates } from '../../../utils/genaral-utils'
+import {
+  calculateAverageConfidencePercent,
+  removeDuplicates,
+  staggerDelays
+} from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
+import { Bubble } from '../../shared/bubbles/bubble/bubble'
+import { Bubbles } from '../../shared/bubbles/bubbles'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
-import { EditBubblesComp } from './edit-bubbles-comp/edit-bubbles-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 import { OverviewPageFacade } from './overview-page-facade'
@@ -28,11 +33,12 @@ import { OverviewPageFacade } from './overview-page-facade'
     LearnableComp,
     IconComp,
     FormsModule,
-    EditBubblesComp,
     PageHeaderComp,
     PageIconComp,
     FilterComp,
-    PagePlaceholderComp
+    PagePlaceholderComp,
+    Bubbles,
+    Bubble
   ],
   host: { class: 'page mid' }
 })
@@ -44,6 +50,8 @@ export class OverviewComp {
   protected readonly bank = this._lStore.activeBank
   readonly collections = computed(() => this.bank().collections)
   readonly learnables = computed(() => this.bank().learnables)
+
+  protected readonly animdelays = staggerDelays(5)
 
   readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>({
     source: this.collections,
@@ -123,14 +131,6 @@ export class OverviewComp {
   readonly userHasCards = computed(() => this._lStore.learnables().length !== 0)
 
   // View event handlers - delegate to facade
-
-  async addNew() {
-    const cardsAdded = await this._facade.openAddLearnablesModal(
-      this.selectedCollection(),
-      this.bank().language
-    )
-    this.selectNewestIfAdded(cardsAdded)
-  }
 
   async bulkEdit() {
     const cardsAdded = await this._facade.openBulkEditModal(

@@ -1,28 +1,32 @@
 # ToDo
 
+# New page
+
+New translation
+
+- only in navigation: Dashboard, Translate, practice
+- On Dashboard
+  - practice History: Last practiced, spaced repititions candidates, some positive motivating stat based on improvements
+  - Your Cards Preview
+  - Community preview
+
 # now
 
-- show tone on history item
-- put magic bubble on translate page
-- unter translations
-  - past translations / Past card propositions?
-  - finish implement history story thing
-  - switch mode button
-
 - filter doppelresponses aus preview
-- implement canceling for proposal cards
 - selektiere zom importieren / importiere alle bubbles oder button
-- move all ai stuff to translate tab
-- do like full preview under main translate thing
-- use two ai calls: one fast translate, separately the other two card calls that already exist
-- add stagger vm mapping for lists
-- move ai stuff to translate page
 - tokenuse digram in stats
 - handle exporting and import bank not working:
   - imported bank keeps name, but does not keep collection if languages divert
+- store, relevant for magic add:
+  - adding cards with creating new collection not yet possible
+- somehow streamline the notifications after adding learnables -> shared facade service?
 
 # Infra
 
+- CD: Create folder per succesfull deployment to allow rollback to date
+  - configure drizzle to also generate rollback files
+  - naming scheme of folder: timestamp_commitsha
+  - delete folder of failed deployment: history only contains succesfull rollackable deployments
 - document setup
 - configure automatic updates on ubuntu
 - deploy
@@ -36,6 +40,8 @@
 
 ## Right Now
 
+- change translate direction on translate page
+- make error thingy on community same as empty state -> component?
 - write tests for store
   - import
   - merge
@@ -51,6 +57,13 @@ only put hat on big larry, remove from logo
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
+
+## Store
+
+- Create shared facade, that calls modalService and sends toasts and stuff
+  - on add: allow providing new collection name
+  - show toast: adde, skipped,
+- use on magic add and overvew
 
 # write tests
 
@@ -78,7 +91,6 @@ only put hat on big larry, remove from logo
 
 ## Backend
 
-- hide server errors from fe
 - search in both directions
 - add ratelimiting?
 - add inbetween layer to backend
@@ -90,24 +102,17 @@ only put hat on big larry, remove from logo
 ## Frontend
 
 - How to handle reverse matches in fe on import?
-- greadeziehen:
-  - Bank gross schrieben
-  - punkt nach toasts
+
 - unify styles for:
   - tutorial and practice config
 - show in which collections card is in form
-- remove height hack?
 - add state indicator component?
   - handles loading, no-data, error, etc
-- check if i can live without the height hack but with overscroll css˜
-- remove or reimplement cardsfilter logic in frontend
 - migrate to signal forms, migrate selector thingy to signal input
 - check chrome web manifest warnings -> fix
 - unify big approvable form layout for: practice selector, bank import -> make it soo it looks like intro comp
 - create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template
-- get rid of angular-architects helper
-  - remove -f from ci build
 - in overview for every langague in users banks a category
 
 - show 'wiggle' and info toast every x seconds when user doesnt interact for y seconds,
@@ -122,15 +127,8 @@ only put hat on big larry, remove from logo
   - collection can have collections
   - collections can be stacked
 
-- refactor bulkEdit mit add altest ids and mark them in overview facede and overview
-
-- deploy via cloudflare pages, worker and upstash redis
-- add load more cards on scroll / pagination?
-
 - stats page:
   - has practice history -> you can see cards here, most held card and stuff
-
-make settinggsstore simple service with update function and effect that writes to sessionstorage?
 
 ## Later
 
@@ -175,3 +173,5 @@ summarycard: nicht aufdeckbar, sobald gezogen immer aufgedeckt
   - auf 1 summary
 - lege aktuelle 0 karte weg ohne vote, sodass summary nach rueckt
 - mit viwmodelIndex arbeiten?
+
+Learn a new Laguage with larry the lizard!

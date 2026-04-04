@@ -13,6 +13,7 @@ import {
   LanguageConfigSchema,
   LearnableBaseSchema,
   LearnableFromAiSchema,
+  LearnableFromAiWithTypeSchema,
   LearnableUserSchema,
   LearnableWithIdSchema,
   ObjectWithIdSchema,
@@ -40,6 +41,7 @@ export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 export type TranslationHistoryItem = z.infer<typeof TranslationHistoryItemSchema>
 export type LearnableWithId = z.infer<typeof LearnableWithIdSchema>
 export type LearnableFromAI = z.infer<typeof LearnableFromAiSchema>
+export type LearnableFromAIWithType = z.infer<typeof LearnableFromAiWithTypeSchema>
 export type UserLearnable = z.infer<typeof LearnableUserSchema>
 
 export type PaginationConfig = z.infer<typeof PaginationSchema>

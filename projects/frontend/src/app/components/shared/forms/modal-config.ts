@@ -6,13 +6,11 @@ import { DeleteCollectionComp } from './delete-collection-comp/delete-collection
 import { EditBankComp } from './edit-bank-comp/edit-bank-comp'
 import { EditCollectionComp } from './edit-collection-comp/edit-collection-comp'
 import { ImportFormComp } from './import-form-comp/import-form-comp'
-import { MagicAddComp } from './magic-add-comp/magic-add-comp'
 import { SelectLanguageMatchComp } from './select-language-match-comp/select-language-match-comp'
 import { ShareFormComp } from './share-form-comp/share-form-comp'
 import { SingleEditComp } from './single-edit-comp/single-edit-comp'
 
 export type ModalType =
-  | 'magic-add'
   | 'bulk-edit'
   | 'single-edit'
   | 'confirm'
@@ -32,7 +30,6 @@ export type OpenModalConfig = {
 export type ModalResult<T> = { type: 'confirm'; value: T } | { type: 'cancel' }
 
 export const modalConfig: Record<ModalType, Type<unknown>> = {
-  'magic-add': MagicAddComp,
   'single-edit': SingleEditComp,
   'bulk-edit': BulkEditComp,
   confirm: ConfirmFormComp,

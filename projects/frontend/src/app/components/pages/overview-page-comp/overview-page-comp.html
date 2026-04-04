@@ -1,13 +1,18 @@
-<app-edit-bubbles-comp
-  (create)="addNew()"
-  (bulkEdit)="bulkEdit()"
-  (resetSelection)="resetLearnableSelection()"
-  (removeFromCollection)="removeSelectionFromCollection()"
-  (addToCollection)="addToCollection()"
-  (delete)="deleteSelection()"
-  [allowRemoveFromCollection]="!!selectedCollectionId()"
-  [selectedCardsCount]="selectedLearnableIds().length"
-/>
+<app-bubbles>
+  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+  @if (selectedLearnableIds().length !== 0) {
+    <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="1" />
+    <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />
+    @if (selectedCollectionId()) {
+      <app-bubble config="remove" (select)="removeSelectionFromCollection()" [animateIndex]="3" />
+    }
+    <app-bubble
+      config="trash"
+      (select)="deleteSelection()"
+      [animateIndex]="selectedCollectionId() ? 4 : 3"
+    />
+  }
+</app-bubbles>
 
 <app-page-icon-comp type="card" />
 <app-page-header-comp [title]="selectedCollection()?.name || 'All Cards'" icon="card">
@@ -26,13 +31,12 @@
   } @else {
     <div class="learnables">
       @for (learnable of visibleLearnables(); track learnable.id) {
-        <button
-          class="silent learnable"
-          (click)="toggleLearnableSelection(learnable.id)"
-          [class.selected]="isSelected(learnable.id)"
-        >
-          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
-        </button>
+        <app-learnable-comp
+          [learnable]="learnable"
+          [showNewBadge]="isLastAdded(learnable.id)"
+          [isSelected]="isSelected(learnable.id)"
+          (onSelect)="toggleLearnableSelection(learnable.id)"
+        />
       }
     </div>
   }
@@ -40,13 +44,12 @@
     <h2>Unsorted Cards</h2>
     <div class="learnables">
       @for (learnable of unsortedCards(); track learnable.id) {
-        <button
-          class="silent learnable"
-          (click)="toggleLearnableSelection(learnable.id)"
-          [class.selected]="isSelected(learnable.id)"
-        >
-          <app-learnable-comp [learnable]="learnable" [showNewBadge]="isLastAdded(learnable.id)" />
-        </button>
+        <app-learnable-comp
+          [learnable]="learnable"
+          [showNewBadge]="isLastAdded(learnable.id)"
+          [isSelected]="isSelected(learnable.id)"
+          (onSelect)="toggleLearnableSelection(learnable.id)"
+        />
       }
     </div>
   }

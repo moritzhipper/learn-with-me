@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common'
-import { Component, computed, input } from '@angular/core'
+import { Component, computed, input, output } from '@angular/core'
 import { LearnableBase, UserLearnable } from '@shared/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
@@ -8,13 +8,13 @@ import { IconComp } from '../../../shared/icon-comp/icon-comp'
   imports: [DatePipe, IconComp],
   templateUrl: './learnable-comp.html',
   styleUrl: './learnable-comp.scss',
-  host: {
-    '[class.small-text]': 'hasManyLetters()'
-  }
+  host: {}
 })
 export class LearnableComp {
   learnable = input.required<UserLearnable | LearnableBase>()
   showNewBadge = input<boolean>(false)
+  isSelected = input<boolean>(false)
+  onSelect = output<void>()
   hasManyLetters = computed(() => {
     const lexemeLengt = this.learnable().lexeme.length
     const translationLength = this.learnable().translation.length

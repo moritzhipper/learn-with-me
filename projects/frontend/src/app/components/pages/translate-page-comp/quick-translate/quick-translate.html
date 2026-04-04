@@ -1,0 +1,44 @@
+<app-bubbles>
+  <app-bubble config="magic" size="big" (select)="openMagicMode.emit()" />
+</app-bubbles>
+
+<div
+  class="translate"
+  [style.--debounce-duration.s]="FAST_TRANSLATION_DEBOUNCE_MS / 1000"
+  [class.show-translation]="lexemeInput() && translation()"
+  [class.small-text]="showSmallText()"
+>
+  <textarea #lexemeEl placeholder="Type to translate" [(ngModel)]="lexemeInput"></textarea>
+  <p class="translation" #translationWrapperEl>
+    <span #translationEl>
+      {{ translation() }}
+    </span>
+  </p>
+</div>
+
+<div class="history-wrapper">
+  @for (item of history(); track item.id) {
+    <div class="history-item">
+      <div class="header">
+        <div class="created">{{ item.createdAt | date: 'mediumDate' }}</div>
+        <div class="separator"></div>
+
+        <button class="remove small" (click)="deleteHistoryItem(item.id)">
+          <app-icon-comp type="trash" />
+        </button>
+        <button class="magic small" (click)="openMagicMode.emit(item.lexeme)">
+          <app-icon-comp type="magic" />
+        </button>
+        <button class="add small has-icon">
+          <span> add </span>
+          <app-icon-comp type="add-fill" />
+        </button>
+      </div>
+      <p class="lexeme">{{ item.lexeme }}</p>
+      <p class="translation">{{ item.translation }}</p>
+      @if (item.tone) {
+        <p class="tone">{{ item.tone }}</p>
+      }
+    </div>
+  }
+</div>

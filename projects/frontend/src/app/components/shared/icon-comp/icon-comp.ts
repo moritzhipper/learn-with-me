@@ -13,6 +13,7 @@ export type IconType =
   | 'trash'
   | 'edit'
   | 'reset'
+  | 'add-fill'
   | 'add'
   | 'play'
   | 'collection'

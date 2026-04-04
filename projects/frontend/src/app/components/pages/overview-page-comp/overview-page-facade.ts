@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core'
-import { BankUser, CollectionUser, LanguageConfig, LearnableBase } from '@shared/types'
+import { BankUser, CollectionUser, LearnableBase } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -26,19 +26,6 @@ export class OverviewPageFacade {
   // ─────────────────────────────────────────────────────────────────────────────
   // Learnable Operations
   // ─────────────────────────────────────────────────────────────────────────────
-
-  async openAddLearnablesModal(
-    selectedCollection: CollectionUser | null,
-    language: LanguageConfig
-  ): Promise<boolean> {
-    const result = await this.modalService.open<LearnableBase[]>('magic-add', {
-      language
-    })
-
-    if (result.type !== 'confirm') return false
-
-    return this.addLearnablesToStore(result.value, selectedCollection)
-  }
 
   async openBulkEditModal(
     selectedLearnableIds: string[],

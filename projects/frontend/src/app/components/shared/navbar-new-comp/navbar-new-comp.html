@@ -2,7 +2,7 @@
   (click)="toggle()"
   class="toggle"
   [class.open]="isOpen()"
-  [class.dim]="showDimmed() && hasActivePractice() && !isOpen()"
+  [class.dim]="isOnDimmablePage() && !isOpen()"
 >
   <app-icon-comp type="menu" />
 </button>

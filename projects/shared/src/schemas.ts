@@ -23,6 +23,7 @@ export const LearnableWithIdSchema = LearnableBaseSchema.extend({
 
 export const TranslationHistoryItemSchema = LearnableFromAiSchema.extend({
   tone: z.string(),
+  createdAt: z.coerce.date(),
   id: z.uuid()
 })
 
@@ -59,8 +60,11 @@ export const BankBaseSchema = z.object({
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
-  translationHistory: z.array(TranslationHistoryItemSchema),
-  translateTone: z.string(),
+  translations: z.object({
+    magicTranslateCards: z.array(LearnableWithIdSchema),
+    history: z.array(TranslationHistoryItemSchema),
+    tone: z.string()
+  }),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema)
 })

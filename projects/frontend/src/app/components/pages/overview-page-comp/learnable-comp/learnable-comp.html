@@ -1,43 +1,51 @@
 @let la = learnable();
 @let isUserlearnable = 'createdAt' in la;
-
-@if (showNewBadge()) {
-  <app-icon-comp type="new" [size]="60" />
-}
-<div class="lexeme">
-  {{ la.lexeme }}
-</div>
-<div class="translation">
-  {{ la.translation }}
-</div>
-<div class="notes">
-  {{ la.notes }}
-</div>
-<div class="info">
-  @if (isUserlearnable) {
-    {{ la.createdAt | date: 'mediumDate' }} •
+<button
+  class="wrapper silent"
+  [class]="{
+    'small-text': hasManyLetters(),
+    selected: isSelected()
+  }"
+  (click)="onSelect.emit()"
+>
+  @if (showNewBadge()) {
+    <app-icon-comp type="new" [size]="60" />
   }
-  {{ la.type }}
-</div>
-@if (isUserlearnable) {
-  <div class="last-guesses">
-    <div class="guesses lexeme">
-      @for (guess of la.guesses.lexeme; track $index) {
-        @if (guess) {
-          <div class="right"></div>
-        } @else {
-          <div class="wrong"></div>
-        }
-      }
-    </div>
-    <div class="guesses translation">
-      @for (guess of la.guesses.translation; track $index) {
-        @if (guess) {
-          <div class="right"></div>
-        } @else {
-          <div class="wrong"></div>
-        }
-      }
-    </div>
+  <div class="lexeme">
+    {{ la.lexeme }}
   </div>
-}
+  <div class="translation">
+    {{ la.translation }}
+  </div>
+  <div class="notes">
+    {{ la.notes }}
+  </div>
+  <div class="info">
+    @if (isUserlearnable) {
+      {{ la.createdAt | date: 'mediumDate' }} •
+    }
+    {{ la.type }}
+  </div>
+  @if (isUserlearnable) {
+    <div class="last-guesses">
+      <div class="guesses lexeme">
+        @for (guess of la.guesses.lexeme; track $index) {
+          @if (guess) {
+            <div class="right"></div>
+          } @else {
+            <div class="wrong"></div>
+          }
+        }
+      </div>
+      <div class="guesses translation">
+        @for (guess of la.guesses.translation; track $index) {
+          @if (guess) {
+            <div class="right"></div>
+          } @else {
+            <div class="wrong"></div>
+          }
+        }
+      </div>
+    </div>
+  }
+</button>

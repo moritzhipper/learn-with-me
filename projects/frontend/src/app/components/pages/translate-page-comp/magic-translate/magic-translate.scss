@@ -1,0 +1,150 @@
+@use '../../../../../style/mixins.scss' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.header-section {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--distance-5);
+
+  form {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    width: var(--medium-width);
+    gap: var(--distance-4);
+
+    .config {
+      display: grid;
+      gap: var(--distance-4);
+    }
+
+    .image-input,
+    .image-preview,
+    .image-delete,
+    textarea {
+      grid-area: 1 / 1;
+    }
+
+    .image-preview {
+      overflow: hidden;
+      height: 100%;
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      display: grid;
+      place-items: center;
+      position: relative;
+      border-radius: var(--radius-1);
+      border: 2px solid var(--col-accent);
+      box-sizing: border-box;
+
+      img {
+        position: absolute;
+        transition: opacity var(--duration-2);
+        opacity: 1;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .image-delete {
+      z-index: 2;
+      margin: var(--distance-3);
+      place-self: end;
+      background-color: var(--col-accent);
+      box-shadow: var(--shadow-big);
+    }
+
+    textarea {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      border: 2px solid var(--col-accent);
+    }
+    .image-input {
+      display: grid;
+      place-self: end;
+      place-items: stretch;
+
+      input,
+      label {
+        width: var(--distance-7);
+        height: var(--distance-7);
+        padding: 0;
+        border-radius: var(--radius-1);
+        grid-area: 1 / 1;
+        cursor: pointer;
+      }
+
+      input {
+        overflow: hidden;
+        opacity: 0;
+      }
+      label {
+        display: grid;
+        place-items: center;
+        outline: 0px solid transparent;
+        transition: outline var(--duration-0);
+      }
+      input:focus-visible + label {
+        outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+      }
+    }
+
+    &.converting {
+      textarea,
+      .image-preview {
+        --bg1: rgb(from var(--col-accent) r g b / var(--opacity-0));
+        --bg2: rgb(from var(--col-primary) r g b / var(--opacity-1));
+
+        background: linear-gradient(-45deg, var(--bg1) 35%, var(--bg2) 50%, var(--bg1) 55%);
+        background-size: 280% 280%;
+        animation: converting 4s infinite;
+
+        img {
+          opacity: var(--opacity-1);
+        }
+      }
+    }
+  }
+}
+
+.proposal {
+  display: grid;
+  grid-template-columns: var(--grid-auto-columns);
+  gap: var(--distance-4);
+
+  app-learnable-comp {
+    &.fly-in-y-wide {
+      animation-delay: var(--anim-delay);
+    }
+  }
+}
+
+@include isDesktop() {
+  form {
+    padding: 5vh 0;
+    height: 400px;
+
+    .config {
+      grid-template-columns: 1fr 200px;
+    }
+  }
+}
+@include isPhone() {
+  form {
+    height: 60vh;
+    .config {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@keyframes converting {
+  from {
+    background-position: 0% 0%;
+  }
+
+  80%,
+  100% {
+    background-position: 100% 100%;
+  }
+}

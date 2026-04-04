@@ -1,4 +1,8 @@
 :host {
+  display: contents;
+}
+
+.wrapper {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto 1fr;
@@ -7,6 +11,8 @@
   gap: var(--distance-1) 0;
   background-color: var(--col-accent);
   border-radius: var(--radius-2);
+  border: 2px solid var(--col-accent);
+  transition: border var(--duration-0);
 
   height: 150px;
   place-items: center start;
@@ -66,11 +72,14 @@
   }
 }
 
-:host {
+.wrapper {
   &.small-text {
     .lexeme,
     .translation {
       font-size: var(--font-size-0);
     }
+  }
+  &.selected {
+    border: 2px solid var(--col-primary);
   }
 }

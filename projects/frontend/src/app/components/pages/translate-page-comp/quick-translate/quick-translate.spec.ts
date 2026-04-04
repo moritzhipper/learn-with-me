@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditBubblesComp } from './edit-bubbles-comp';
+import { QuickTranslate } from './quick-translate';
 
-describe('EditBubblesComp', () => {
-  let component: EditBubblesComp;
-  let fixture: ComponentFixture<EditBubblesComp>;
+describe('QuickTranslate', () => {
+  let component: QuickTranslate;
+  let fixture: ComponentFixture<QuickTranslate>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditBubblesComp]
+      imports: [QuickTranslate]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditBubblesComp);
+    fixture = TestBed.createComponent(QuickTranslate);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

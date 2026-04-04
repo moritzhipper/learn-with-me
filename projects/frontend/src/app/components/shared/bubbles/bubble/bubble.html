@@ -1,0 +1,33 @@
+<button
+  class="silent bubble"
+  (click)="select.emit()"
+  [class]="size()"
+  [class.trash]="config() === 'trash'"
+>
+  @switch (config()) {
+    @case ('magic') {
+      <app-icon-comp type="magic" />
+    }
+    @case ('bulk-edit') {
+      <app-icon-comp type="pen" />
+    }
+    @case ('translate') {
+      <app-icon-comp type="translate" />
+    }
+    @case ('remove') {
+      <app-icon-comp type="collection-remove" />
+    }
+    @case ('import') {
+      <app-icon-comp type="import" />
+    }
+    @case ('move') {
+      <app-icon-comp type="collection-add" />
+    }
+    @case ('trash') {
+      <app-icon-comp type="trash" />
+    }
+    @case ('reset-selection') {
+      <app-icon-comp type="reset" />
+    }
+  }
+</button>

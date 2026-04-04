@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MagicAddComp } from './magic-add-comp';
+import { Bubbles } from './bubbles';
 
-describe('MagicAddComp', () => {
-  let component: MagicAddComp;
-  let fixture: ComponentFixture<MagicAddComp>;
+describe('Bubbles', () => {
+  let component: Bubbles;
+  let fixture: ComponentFixture<Bubbles>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MagicAddComp]
+      imports: [Bubbles]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MagicAddComp);
+    fixture = TestBed.createComponent(Bubbles);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {
