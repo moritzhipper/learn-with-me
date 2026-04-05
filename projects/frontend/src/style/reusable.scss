@@ -70,8 +70,8 @@ a.icon {
   @include isPhone {
     scroll-snap-align: start;
     scroll-padding-left: var(--distance-5);
-    margin: 0 calc(-1 * var(--distance-5));
     padding: 0 var(--distance-5);
+    margin: 0 calc(-1 * var(--distance-5));
     grid-auto-columns: 100%;
     scrollbar-width: none;
   }

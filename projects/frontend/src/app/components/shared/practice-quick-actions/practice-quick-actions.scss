@@ -3,6 +3,8 @@
 }
 
 button.quick {
+  display: grid;
+  padding: 0;
   height: 100px;
   background-color: var(--col-accent-2);
   color: var(--col-bg);

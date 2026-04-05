@@ -66,4 +66,9 @@ export class PracticeQuickActions {
     const colLearnables = learnables.filter((l) => ids.includes(l.id))
     return calculateAverageConfidencePercent(colLearnables)
   }
+
+  protected selectAction(action: QuickAction) {
+    // if not continue, but acitve practice -> verify using modal
+    // else start practice with selected ids, then route to ractice page
+  }
 }

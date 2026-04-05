@@ -8,10 +8,14 @@
   display: grid;
   gap: var(--distance-4);
   section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--distance-4);
     border-radius: var(--radius-2);
     min-width: 0px;
 
-    border: 1px solid var(--col-accent);
+    // border: 1px solid var(--col-accent);
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     box-sizing: border-box;
   }
 }
@@ -28,12 +32,5 @@
 @include isPhone {
   .sections {
     grid-template-columns: 1fr;
-    .actions {
-      scroll-padding-left: var(--distance-5);
-      margin: 0 calc(-1 * var(--distance-5));
-      padding: 0 var(--distance-5);
-      grid-auto-columns: 100%;
-      scrollbar-width: none;
-    }
   }
 }
