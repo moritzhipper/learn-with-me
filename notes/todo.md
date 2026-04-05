@@ -11,6 +11,7 @@ New translation
   - Community preview
 
 - make carousel reusable!
+  - on mobile no scroolbar,
 
 # now
 

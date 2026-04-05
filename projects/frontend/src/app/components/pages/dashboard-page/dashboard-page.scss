@@ -16,7 +16,6 @@
       display: grid;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-padding-left: var(--distance-5);
       grid-auto-flow: column;
       gap: var(--distance-4);
     }
@@ -40,10 +39,11 @@
   .sections {
     grid-template-columns: 1fr;
     .actions {
-      //   width: 100%;
+      scroll-padding-left: var(--distance-5);
       margin: 0 calc(-1 * var(--distance-5));
       padding: 0 var(--distance-5);
       grid-auto-columns: 100%;
+      scrollbar-width: none;
     }
   }
 }
