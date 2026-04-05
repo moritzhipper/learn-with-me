@@ -3,6 +3,7 @@
 :host {
   box-sizing: border-box;
 }
+
 .sections {
   display: grid;
   gap: var(--distance-4);
@@ -12,13 +13,6 @@
 
     border: 1px solid var(--col-accent);
     box-sizing: border-box;
-    .actions {
-      display: grid;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      grid-auto-flow: column;
-      gap: var(--distance-4);
-    }
   }
 }
 
@@ -27,10 +21,6 @@
     grid-template-columns: 1fr 1fr;
     .wide {
       grid-column: span 2;
-    }
-
-    .actions {
-      grid-auto-columns: 400px;
     }
   }
 }

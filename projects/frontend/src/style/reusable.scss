@@ -1,3 +1,5 @@
+@use './mixins.scss' as *;
+
 form.modal {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -47,4 +49,30 @@ a.icon {
   box-shadow:
     3px 3px rgb(from var(--col-text) r g b / 0.02),
     6px 6px rgb(from var(--col-text) r g b / 0.02);
+}
+
+// scrollable lists
+.caroussel-wrapper {
+  display: grid;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  grid-auto-flow: column;
+  gap: var(--distance-4);
+
+  .caroussel-item {
+    scroll-snap-align: start;
+  }
+
+  @include isDesktop {
+    grid-auto-columns: 400px;
+  }
+
+  @include isPhone {
+    scroll-snap-align: start;
+    scroll-padding-left: var(--distance-5);
+    margin: 0 calc(-1 * var(--distance-5));
+    padding: 0 var(--distance-5);
+    grid-auto-columns: 100%;
+    scrollbar-width: none;
+  }
 }
