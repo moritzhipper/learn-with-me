@@ -10,6 +10,8 @@ New translation
   - Your Cards Preview
   - Community preview
 
+- make carousel reusable!
+
 # now
 
 ## Dashboard

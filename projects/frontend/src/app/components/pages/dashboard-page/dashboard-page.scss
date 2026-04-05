@@ -1,22 +1,24 @@
 @use '../../../../style/mixins.scss' as *;
 
+:host {
+  box-sizing: border-box;
+}
 .sections {
   display: grid;
   gap: var(--distance-4);
-
   section {
-    overflow: hidden;
     border-radius: var(--radius-2);
+    min-width: 0px;
 
     border: 1px solid var(--col-accent);
-    overflow: hidden;
-
+    box-sizing: border-box;
     .actions {
       display: grid;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-
+      scroll-padding-left: var(--distance-5);
       grid-auto-flow: column;
+      gap: var(--distance-4);
     }
   }
 }
@@ -37,8 +39,10 @@
 @include isPhone {
   .sections {
     grid-template-columns: 1fr;
-    margin: 0 calc(-1 * var(--distance-5));
     .actions {
+      //   width: 100%;
+      margin: 0 calc(-1 * var(--distance-5));
+      padding: 0 var(--distance-5);
       grid-auto-columns: 100%;
     }
   }
