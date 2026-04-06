@@ -9,10 +9,8 @@
   gap: var(--distance-4);
   section {
     display: grid;
-    border-radius: var(--radius-2);
     min-width: 0px;
 
-    // border: 1px solid var(--col-accent);
     box-sizing: border-box;
   }
 }
@@ -22,8 +20,11 @@
     grid-template-columns: 1fr 1fr;
 
     section {
-      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-      padding-bottom: var(--distance-4);
+      .caroussel-wrapper {
+        border-radius: var(--radius-2);
+        background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+        padding: var(--distance-4);
+      }
       &.wide {
         grid-column: span 2;
       }

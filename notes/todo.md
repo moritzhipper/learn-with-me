@@ -2,7 +2,9 @@
 
 # New page
 
-New translation
+- create collection color
+  - apply on all collection overview comps
+    New translation
 
 - only in navigation: Dashboard, Translate, practice
 - On Dashboard

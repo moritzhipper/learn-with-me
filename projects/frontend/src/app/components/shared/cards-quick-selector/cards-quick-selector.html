@@ -1,0 +1,21 @@
+<button class="silent quick all caroussel-item">
+  Overview
+
+  <div>
+    {{ summary().allCardsCount }}
+  </div>
+  <div>
+    {{ summary().unsortedCount }}
+  </div>
+  <div>
+    {{ summary().collectionCount }}
+  </div>
+</button>
+@for (coll of collections(); track coll.id) {
+  <button class="silent quick collection caroussel-item">
+    <div>
+      {{ coll.name }}
+    </div>
+    <div>{{ coll.cardIds.length }} cards</div>
+  </button>
+}
