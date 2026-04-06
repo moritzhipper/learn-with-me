@@ -16,8 +16,13 @@
   </section>
   <section>
     <app-header-link label="Community" route="community" />
+    <div class="caroussel-wrapper">
+      @for (bank of sharedBanks.value(); track bank.id) {
+        <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
+      }
+    </div>
 
-    Show preview of top 5 community for current language pair
+    <!-- Show preview of top 5 community for current language pair -->
   </section>
   <section>
     <app-header-link label="Statistics" route="stats" />

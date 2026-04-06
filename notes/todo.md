@@ -2,9 +2,10 @@
 
 # New page
 
-- create collection color
+- create collection color, create collection card
   - apply on all collection overview comps
     New translation
+  - use this layout for shared, dashboard
 
 - only in navigation: Dashboard, Translate, practice
 - On Dashboard
@@ -22,6 +23,7 @@
 
 ### Practice handling
 
+- add: add select all option to magic generate
 - make the autoflow scroll thing reusable
 - use: shared, cards collection select
 - create this box pattern everywhere

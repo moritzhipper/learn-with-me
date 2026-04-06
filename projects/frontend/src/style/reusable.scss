@@ -67,10 +67,10 @@ a.icon {
     grid-auto-columns: 300px;
     padding: 0 var(--distance-4);
     scroll-padding-left: var(--distance-4);
+    scrollbar-width: thin;
   }
 
   @include isPhone {
-    scroll-snap-align: start;
     scroll-padding-left: var(--distance-5);
     padding: 0 var(--distance-5);
     margin: 0 calc(-1 * var(--distance-5));
