@@ -12,6 +12,7 @@ New translation
 
 - make carousel reusable!
   - on mobile no scroolbar,
+  - on desktop: hold scroll buttons, do fade
 
 # now
 

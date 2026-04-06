@@ -64,7 +64,9 @@ a.icon {
   }
 
   @include isDesktop {
-    grid-auto-columns: 400px;
+    grid-auto-columns: 300px;
+    padding: 0 var(--distance-4);
+    scroll-padding-left: var(--distance-4);
   }
 
   @include isPhone {

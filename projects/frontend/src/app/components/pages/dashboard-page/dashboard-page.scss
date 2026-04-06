@@ -13,7 +13,6 @@
     min-width: 0px;
 
     // border: 1px solid var(--col-accent);
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     box-sizing: border-box;
   }
 }
@@ -21,8 +20,13 @@
 @include isDesktop {
   .sections {
     grid-template-columns: 1fr 1fr;
-    .wide {
-      grid-column: span 2;
+
+    section {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      padding-bottom: var(--distance-4);
+      &.wide {
+        grid-column: span 2;
+      }
     }
   }
 }

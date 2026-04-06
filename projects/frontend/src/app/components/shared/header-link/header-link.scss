@@ -29,9 +29,3 @@ a {
     }
   }
 }
-
-@include isPhone() {
-  a {
-    justify-content: space-between;
-  }
-}
