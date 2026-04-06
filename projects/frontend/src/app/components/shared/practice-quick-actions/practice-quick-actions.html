@@ -1,17 +1,28 @@
 @for (action of quickActions(); track $index) {
-  @switch (action.type) {
-    @case ('continue') {
-      <button class="silent quick caroussel-item">
-        <div class="header">Continue practice</div>
-        {{ action.cardsLeft }} cards left
-      </button>
+  <button class="silent quick caroussel-item">
+    @switch (action.type) {
+      @case ('continue') {
+        <h3>Continue practice</h3>
+        <p>{{ action.cardsLeft }} cards left until you're done!</p>
+      }
+      @case ('collection-review') {
+        <h3>{{ action.collection.name }} <span class="type"> Spaced Rep </span></h3>
+
+        <p>
+          Its spaced repetition time! You practiced this xxx, now is the time to lock the cards in.
+        </p>
+      }
+      @case ('collection-improve') {
+        <h3>
+          {{ action.collection.name }}
+          <span class="type">Improve</span>
+        </h3>
+        <p>Theres a lot of potential to improve</p>
+      }
+      @case ('collection-start') {
+        <h3>{{ action.collection.name }} <span class="type"> Start </span></h3>
+        <p>You didnt practice this one yet. Lets begin!</p>
+      }
     }
-    @case ('collection-review') {}
-    @case ('collection-improve') {}
-    @case ('collection') {
-      <button class="silent quick caroussel-item">
-        Practice {{ action.collection.name }} ({{ action.averageScore }} confidence)
-      </button>
-    }
-  }
+  </button>
 }

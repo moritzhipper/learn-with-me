@@ -21,7 +21,8 @@
 
     section {
       .caroussel-wrapper {
-        border-radius: var(--radius-2);
+        border-radius: var(--radius-3);
+
         background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
         padding: var(--distance-4);
       }

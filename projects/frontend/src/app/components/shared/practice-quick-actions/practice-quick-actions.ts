@@ -10,6 +10,7 @@ type QuickAction =
     }
   | {
       type: 'collection-review'
+      collection: Collection
       cardsCount: number
       averageScore: number
     }
@@ -19,7 +20,7 @@ type QuickAction =
       averageScore: number
     }
   | {
-      type: 'collection'
+      type: 'collection-start'
       collection: Collection
       averageScore: number
     }
@@ -56,7 +57,7 @@ export class PracticeQuickActions {
     for (const collection of collections) {
       const collectionLearnables = learnables.filter((l) => collection.cardIds.includes(l.id))
       const averageScore = calculateAverageConfidencePercent(collectionLearnables)
-      quickActions.push({ type: 'collection', collection, averageScore })
+      quickActions.push({ type: 'collection-start', collection, averageScore })
     }
 
     return quickActions
