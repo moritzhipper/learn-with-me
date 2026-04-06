@@ -17,13 +17,13 @@
           {{ action.collection.name }}
           <span class="type">Improve</span>
         </h3>
-        <p>Theres a lot of potential to improve</p>
+        <p class="small">Theres a lot of potential to improve</p>
       }
       @case ('collection-start') {
         <h3>{{ action.collection.name }} <span class="type"> Start </span></h3>
-        <p>You didnt practice this one yet</p>
+        <p class="small">You didnt practice this one yet</p>
       }
     }
-    <app-icon-comp type="learn" [size]="20" />
+    <app-icon-comp type="learn" />
   </button>
 }

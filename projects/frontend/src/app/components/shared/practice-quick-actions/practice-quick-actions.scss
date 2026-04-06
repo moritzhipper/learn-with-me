@@ -25,9 +25,9 @@ button.quick {
     height: 100%;
     width: auto;
     aspect-ratio: 1 / 1;
-    right: -40px;
+    right: var(--distance-2);
     opacity: var(--opacity-0);
 
-    top: 0;
+    bottom: 0;
   }
 }
