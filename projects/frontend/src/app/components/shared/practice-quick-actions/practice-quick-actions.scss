@@ -3,6 +3,8 @@
 }
 
 button.quick {
+  overflow: hidden;
+  position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
   height: 120px;
@@ -17,5 +19,15 @@ button.quick {
     .type {
       opacity: var(--opacity-1);
     }
+  }
+  app-icon-comp {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    right: -40px;
+    opacity: var(--opacity-0);
+
+    top: 0;
   }
 }

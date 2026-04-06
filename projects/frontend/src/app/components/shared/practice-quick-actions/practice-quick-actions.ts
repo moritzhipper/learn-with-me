@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core'
 import { Collection, UserLearnable } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
+import { IconComp } from '../icon-comp/icon-comp'
 
 type QuickAction =
   | {
@@ -27,7 +28,7 @@ type QuickAction =
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [],
+  imports: [IconComp],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })
