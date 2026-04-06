@@ -7,6 +7,8 @@
     New translation
   - use this layout for shared, dashboard
 
+- create a sharedCollectionsList comp, having the filters as input and the comp resolving the call inside?
+
 - only in navigation: Dashboard, Translate, practice
 - On Dashboard
   - practice History: Last practiced, spaced repititions candidates, some positive motivating stat based on improvements

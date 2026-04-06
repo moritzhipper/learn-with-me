@@ -1,6 +1,8 @@
 import { Component, computed, inject } from '@angular/core'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { removeDuplicates } from '../../../utils/genaral-utils'
+import { SharedBankComp } from '../../pages/share-page-comp/shared-collection-comp/shared-bank-comp'
+import { CollectionCardComp } from '../collection-card-comp/collection-card-comp'
 
 type AllCardsSummary = {
   allCardsCount: number
@@ -10,7 +12,7 @@ type AllCardsSummary = {
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [],
+  imports: [CollectionCardComp, SharedBankComp],
   templateUrl: './cards-quick-selector.html',
   styleUrl: './cards-quick-selector.scss'
 })

@@ -3,19 +3,18 @@
 <div class="sections">
   <section class="wide">
     <app-header-link label="Practice" route="practice" />
-
     <div class="caroussel-wrapper">
       <app-practice-quick-actions />
     </div>
   </section>
-  <section class="wide">
+  <section>
     <app-header-link label="Your Cards" route="cards" />
     <div class="caroussel-wrapper">
       <app-cards-quick-selector />
     </div>
   </section>
   <section>
-    <app-header-link label="Community" route="community" />
+    <app-header-link label="Community Banks" route="community" />
     <div class="caroussel-wrapper">
       @for (bank of sharedBanks.value(); track bank.id) {
         <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
@@ -24,7 +23,7 @@
 
     <!-- Show preview of top 5 community for current language pair -->
   </section>
-  <section>
+  <section class="wide">
     <app-header-link label="Statistics" route="stats" />
 
     Show timeline of recent activity Show progress towards goals
