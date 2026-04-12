@@ -2,6 +2,13 @@
 
 # New page
 
+# right now
+
+- make practice active bank dependant
+- add historical prioactifces
+- add missing practice entries in practice recommendations
+- add empty states to dashboard items
+
 - create collection color, create collection card
   - apply on all collection overview comps
     New translation
