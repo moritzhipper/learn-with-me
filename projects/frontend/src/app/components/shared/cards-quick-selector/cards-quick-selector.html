@@ -11,5 +11,7 @@
       {{ coll.name }}
     </h3>
     <div>{{ coll.cardIds.length }} cards</div>
+    <div>created {{ coll.createdAt | date: 'mediumDate' }}</div>
+    <div>average confidence</div>
   </button>
 }

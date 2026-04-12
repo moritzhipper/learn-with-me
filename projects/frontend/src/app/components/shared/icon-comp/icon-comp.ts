@@ -42,6 +42,7 @@ export type IconType =
   | 'image'
   | 'translate'
   | 'dashboard'
+  | 'donut-chart-fill'
 
 @Component({
   selector: 'app-icon-comp',

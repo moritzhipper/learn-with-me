@@ -1,8 +1,7 @@
+import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { removeDuplicates } from '../../../utils/genaral-utils'
-import { SharedBankComp } from '../../pages/share-page-comp/shared-collection-comp/shared-bank-comp'
-import { CollectionCardComp } from '../collection-card-comp/collection-card-comp'
 
 type AllCardsSummary = {
   allCardsCount: number
@@ -10,9 +9,11 @@ type AllCardsSummary = {
   collectionCount: number
 }
 
+type CollectionSummary = {}
+
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [CollectionCardComp, SharedBankComp],
+  imports: [DatePipe],
   templateUrl: './cards-quick-selector.html',
   styleUrl: './cards-quick-selector.scss'
 })
