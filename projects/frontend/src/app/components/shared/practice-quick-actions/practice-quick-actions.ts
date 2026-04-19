@@ -41,9 +41,9 @@ export class PracticeQuickActions {
     const quickActions: QuickAction[] = []
 
     // add resume card if necessary
-    const currentPractice = this.ls.currentPractice()
+    const currentPractice = this.ls.activeBank().practice.current
     if (currentPractice) {
-      const cardsLeft = currentPractice.guessables.length - currentPractice.index
+      const cardsLeft = currentPractice.guessables.length - currentPractice.guessableIndex
       quickActions.push({ type: 'continue', cardsLeft })
     }
     // add review card for spaced repetition based on history

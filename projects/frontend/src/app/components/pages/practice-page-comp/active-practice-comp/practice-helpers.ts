@@ -1,5 +1,4 @@
-import { UserLearnable } from '@shared/types'
-import { Practice } from '../../../../types_and_schemas/types'
+import { Practice, UserLearnable } from '@shared/types'
 import {
   ActivePracticeSummary,
   PracticeRating
@@ -15,8 +14,8 @@ export type CardViewModel = {
 }
 
 export const getCardsViewModel = (practice: Practice, cards: UserLearnable[]): CardViewModel[] => {
-  const currentIndex = practice.index
-  const lastGuessIndex = practice.guessables.findLastIndex((g) => g.guessed !== 'unanswered')
+  const currentIndex = practice.guessableIndex
+  const lastGuessIndex = practice.guessables.findLastIndex((g) => g.guess !== 'unanswered')
 
   // assumes finished early because current index is not last guess index + 1
   if (currentIndex !== lastGuessIndex + 1) {
@@ -87,9 +86,9 @@ const getVMforFinishedEarly = (
 }
 
 const createSummary = (practice: Practice): ActivePracticeSummary => {
-  const correctGuesses = practice.guessables.filter((g) => g.guessed === 'right').length
-  const wrongGuesses = practice.guessables.filter((g) => g.guessed === 'wrong').length
-  const unansweredGuesses = practice.guessables.filter((g) => g.guessed === 'unanswered').length
+  const correctGuesses = practice.guessables.filter((g) => g.guess === 'right').length
+  const wrongGuesses = practice.guessables.filter((g) => g.guess === 'wrong').length
+  const unansweredGuesses = practice.guessables.filter((g) => g.guess === 'unanswered').length
 
   const guessesDone = correctGuesses + wrongGuesses
   const guessedRightPercent =

@@ -3,8 +3,7 @@ import { LearnablesStoreType, SettingsStoreType } from '../types_and_schemas/typ
 
 export const initialState: LearnablesStoreType = {
   banks: [],
-  activeBankId: null,
-  currentPractice: null
+  activeBankId: null
 }
 
 export const initialSettings: SettingsStoreType = {

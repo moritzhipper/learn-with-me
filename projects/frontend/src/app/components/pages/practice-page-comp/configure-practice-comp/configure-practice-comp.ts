@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { Practice } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnablesStore'
 import { LearnablesFilterConfig } from '../../../../types_and_schemas/types'
 import { calculateAverageConfidencePercent } from '../../../../utils/genaral-utils'
@@ -31,7 +32,7 @@ export class ConfigurePracticeComp {
     type: null,
     collectionIdentifier: null,
     confidence: undefined,
-    reverseDirection: false
+    direction: 'forward'
   })
 
   private readonly _formSignal = toSignal(this.form.valueChanges, {
@@ -58,9 +59,9 @@ export class ConfigurePracticeComp {
   })
 
   start() {
-    const reverseDirection = !!this.form.value.reverseDirection
     const iDs = this.selectedLearnableIds()
-    this._lStore.startPractice(iDs, reverseDirection)
+    const direction = this.form.value.direction as Practice['direction']
+    this._lStore.startPractice(iDs, direction)
   }
 
   protected selectOptions = computed<SelectOption[]>(() => {

@@ -26,11 +26,11 @@
   />
   <app-radio-comp
     [config]="[
-      { value: false, label: bank().language.speaking },
-      { value: true, label: bank().language.learning }
+      { value: 'forward', label: bank().language.speaking },
+      { value: 'reverse', label: bank().language.learning }
     ]"
     label="Guess Language"
-    formControlName="reverseDirection"
+    formControlName="direction"
   />
   <label class="collection">
     <span> Collection </span>

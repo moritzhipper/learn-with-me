@@ -1,6 +1,6 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
+import { Guess, Practice } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnablesStore'
-import { Guess, Practice } from '../../../../types_and_schemas/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
 import { CardViewModel, getCardsViewModel } from './practice-helpers'
@@ -70,7 +70,7 @@ export class ActivePracticeComp {
 
   isFinished = computed<boolean>(() => {
     const practice = this.currentPractice()
-    return practice.index > practice.guessables.length - 1
+    return practice.guessableIndex > practice.guessables.length - 1
   })
 
   reveal() {

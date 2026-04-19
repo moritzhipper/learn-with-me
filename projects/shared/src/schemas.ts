@@ -57,6 +57,19 @@ export const BankBaseSchema = z.object({
   name: z.string()
 })
 
+export const Guess = z.literal(['right', 'wrong', 'unanswered'])
+export const GuessableSchema = z.object({
+  id: z.string(),
+  guess: Guess
+})
+
+export const PracticeSchema = z.object({
+  createdAt: z.coerce.date(),
+  guessableIndex: z.number(),
+  guessables: z.array(GuessableSchema),
+  direction: z.literal(['forward', 'reverse'])
+})
+
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
@@ -66,7 +79,11 @@ export const BankUserSchema = BankBaseSchema.extend({
     tone: z.string()
   }),
   learnables: z.array(LearnableUserSchema),
-  collections: z.array(CollectionUserSchema)
+  collections: z.array(CollectionUserSchema),
+  practice: z.object({
+    current: PracticeSchema.nullable(),
+    history: z.array(PracticeSchema)
+  })
 })
 
 export const BankShareConfigSchema = z.object({
