@@ -33,10 +33,11 @@ button.quick {
   .intervalls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     position: relative;
     --min-days: 1;
     --max-days: 60;
-    --dimension: 24px;
+    --dimension: var(--distance-5);
 
     height: var(--dimension);
 
@@ -51,18 +52,32 @@ button.quick {
 
       display: grid;
       place-items: center;
-      font-size: var(--font-size-0);
+      font-size: var(--distance-3);
       width: var(--dimension);
-
-      aspect-ratio: 1 / 1;
       height: 100%;
+      aspect-ratio: 1 / 1;
 
       &.marker {
+        // color: var(--col-accent-2);
+        border-radius: var(--radius-0);
+        font-weight: var(--font-weight-bold);
       }
       &.scope {
-        border-radius: var(--radius-0);
-        background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+        .line {
+          display: block;
+          height: 100%;
+          width: 5px;
+          background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+        }
       }
+    }
+    .graph {
+      display: block;
+      width: 100%;
+      height: var(--distance-4);
+      border-radius: var(--radius-1);
+
+      background-color: rgb(from var(--col-bg) r g b / var(--opacity-0));
     }
   }
 }
