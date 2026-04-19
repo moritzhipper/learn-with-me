@@ -30,54 +30,51 @@ button.quick {
     bottom: 0;
   }
 
-  .intervalls {
+  .scale {
+    height: var(--distance-4);
+    border-radius: var(--radius-1);
+    background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  }
+
+  .practices {
+    height: var(--distance-3);
+  }
+
+  .scale,
+  .practices {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: relative;
     --min-days: 1;
     --max-days: 60;
     --dimension: var(--distance-5);
 
-    height: var(--dimension);
-
     .interval {
       position: absolute;
 
-      /* 1. Normalize the value to a 0-1 decimal multiplier */
       --progress: calc((var(--days) - var(--min-days)) / (var(--max-days) - var(--min-days)));
-
-      /* 2. Apply the multiplier to the available horizontal space */
       left: calc(var(--progress) * (100% - var(--dimension)));
 
       display: grid;
       place-items: center;
       font-size: var(--distance-3);
       width: var(--dimension);
-      height: 100%;
-      aspect-ratio: 1 / 1;
 
       &.marker {
-        // color: var(--col-accent-2);
         border-radius: var(--radius-0);
         font-weight: var(--font-weight-bold);
+        color: var(--col-accent-2);
       }
-      &.scope {
-        .line {
-          display: block;
-          height: 100%;
-          width: 5px;
+      &.practice {
+        .dot {
+          border-radius: 100%;
+
+          height: 5px;
+          aspect-ratio: 1 / 1;
+
           background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
         }
       }
-    }
-    .graph {
-      display: block;
-      width: 100%;
-      height: var(--distance-4);
-      border-radius: var(--radius-1);
-
-      background-color: rgb(from var(--col-bg) r g b / var(--opacity-0));
     }
   }
 }
