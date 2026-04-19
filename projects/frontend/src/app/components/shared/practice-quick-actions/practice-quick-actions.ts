@@ -58,7 +58,7 @@ export class PracticeQuickActions {
     }
     // add review card for spaced repetition based on history
     // spaced repetition times: 1d, 3d, 7d, 14d, 30d, 60d
-    const spacedRepActions = this.getSPacedRepetitinActions(
+    const spacedRepActions = this.getSpacedRepetitinActions(
       this.ls.activeBank().practice.history,
       this.ls.collections(),
       cards
@@ -94,7 +94,7 @@ export class PracticeQuickActions {
     // else start practice with selected ids, then route to ractice page
   }
 
-  private getSPacedRepetitinActions(
+  private getSpacedRepetitinActions(
     history: Practice[],
     collections: Collection[],
     learnables: UserLearnable[]

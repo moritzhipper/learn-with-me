@@ -12,11 +12,9 @@
           Its spaced repetition time! You practiced this xxx, now is the time to lock the cards in.
         </p>
         <div class="intervalls">
-          <div class="scope" [style.--days-ago.%]="action.daysAgo"></div>
+          <div class="interval scope" [style.--days]="action.daysAgo"></div>
           @for (interval of spacedRepIntervals; track interval) {
-            <span class="interval" [class.relevant]="interval === action.daysAgo">
-              {{ interval }}d
-            </span>
+            <div class="interval marker" [style.--days]="interval">{{ interval }}</div>
           }
         </div>
       }

@@ -7,7 +7,6 @@ button.quick {
   position: relative;
   display: grid;
   grid-template-rows: auto 1fr;
-  height: 120px;
   padding: var(--distance-4);
   border-radius: var(--radius-2);
   background-color: var(--col-accent-2);
@@ -20,6 +19,7 @@ button.quick {
       opacity: var(--opacity-1);
     }
   }
+
   app-icon-comp {
     position: absolute;
     height: 100%;
@@ -27,21 +27,42 @@ button.quick {
     aspect-ratio: 1 / 1;
     right: var(--distance-2);
     opacity: var(--opacity-0);
-
     bottom: 0;
   }
 
   .intervalls {
     display: flex;
     justify-content: space-between;
+    position: relative;
+    --min-days: 1;
     --max-days: 60;
-    .scope {
+    --dimension: 24px;
+
+    height: var(--dimension);
+
+    .interval {
       position: absolute;
-      padding-left: calc(var(--days-ago) / var(--max-days));
-      display: block;
+
+      /* 1. Normalize the value to a 0-1 decimal multiplier */
+      --progress: calc((var(--days) - var(--min-days)) / (var(--max-days) - var(--min-days)));
+
+      /* 2. Apply the multiplier to the available horizontal space */
+      left: calc(var(--progress) * (100% - var(--dimension)));
+
+      display: grid;
+      place-items: center;
+      font-size: var(--font-size-0);
       width: var(--dimension);
-      height: var(--dimension);
-      background-color: black;
+
+      aspect-ratio: 1 / 1;
+      height: 100%;
+
+      &.marker {
+      }
+      &.scope {
+        border-radius: var(--radius-0);
+        background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+      }
     }
   }
 }
