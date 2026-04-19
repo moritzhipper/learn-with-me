@@ -30,4 +30,18 @@ button.quick {
 
     bottom: 0;
   }
+
+  .intervalls {
+    display: flex;
+    justify-content: space-between;
+    --max-days: 60;
+    .scope {
+      position: absolute;
+      padding-left: calc(var(--days-ago) / var(--max-days));
+      display: block;
+      width: var(--dimension);
+      height: var(--dimension);
+      background-color: black;
+    }
+  }
 }

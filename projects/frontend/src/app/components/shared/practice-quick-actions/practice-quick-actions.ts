@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core'
-import { Collection, UserLearnable } from '@shared/types'
+import { Collection, Practice, UserLearnable } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 import { IconComp } from '../icon-comp/icon-comp'
@@ -10,10 +10,10 @@ type QuickAction =
       cardsLeft: number
     }
   | {
-      type: 'collection-review'
+      type: 'collection-spaced-rep'
       collection: Collection
-      cardsCount: number
       averageScore: number
+      daysAgo: number
     }
   | {
       type: 'collection-improve'
@@ -25,6 +25,11 @@ type QuickAction =
       collection: Collection
       averageScore: number
     }
+  | {
+      type: 'customize'
+    }
+
+type SpacedRepetitionInterval = 1 | 3 | 7 | 14 | 30 | 60
 
 @Component({
   selector: 'app-practice-quick-actions',
@@ -35,9 +40,14 @@ type QuickAction =
 export class PracticeQuickActions {
   //   SHow those presets: - 'Continue Ongoing' - 'Pracice by room for improvement', - 'Practice by
   // collecion' - 'Practice newest Cards', - practice 'Spaced repetition review',
+  // custom pracitce
   private readonly ls = inject(LearnablesStore)
 
+  protected readonly spacedRepIntervals: SpacedRepetitionInterval[] = [1, 3, 7, 14, 30, 60]
+
   quickActions = computed<QuickAction[]>(() => {
+    const cards = this.ls.activeBank().learnables
+
     const quickActions: QuickAction[] = []
 
     // add resume card if necessary
@@ -47,6 +57,13 @@ export class PracticeQuickActions {
       quickActions.push({ type: 'continue', cardsLeft })
     }
     // add review card for spaced repetition based on history
+    // spaced repetition times: 1d, 3d, 7d, 14d, 30d, 60d
+    const spacedRepActions = this.getSPacedRepetitinActions(
+      this.ls.activeBank().practice.history,
+      this.ls.collections(),
+      cards
+    )
+    quickActions.concat(spacedRepActions)
 
     // add practice newest cards
 
@@ -61,6 +78,9 @@ export class PracticeQuickActions {
       quickActions.push({ type: 'collection-start', collection, averageScore })
     }
 
+    // link to customize page
+    quickActions.push({ type: 'customize' })
+
     return quickActions
   })
 
@@ -72,5 +92,40 @@ export class PracticeQuickActions {
   protected selectAction(action: QuickAction) {
     // if not continue, but acitve practice -> verify using modal
     // else start practice with selected ids, then route to ractice page
+  }
+
+  private getSPacedRepetitinActions(
+    history: Practice[],
+    collections: Collection[],
+    learnables: UserLearnable[]
+  ): QuickAction[] {
+    const now = new Date()
+    const getDaysAgo = (practice: Practice) =>
+      (now.getTime() - new Date(practice.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+
+    return history.reduce((actions: QuickAction[], practice) => {
+      const daysAgo = getDaysAgo(practice)
+      const maximumIntervalDistance = 3
+
+      const hasRelevantInterval = this.spacedRepIntervals.some(
+        (interval) => interval <= daysAgo && daysAgo < interval + maximumIntervalDistance
+      )
+
+      if (practice.type !== 'collection' || !hasRelevantInterval) return actions
+      const relevantCollection = collections.find((c) => c.id === practice.collectionId)
+
+      if (!relevantCollection) return actions
+      const averageScore = this.mapToConfidencePercent(relevantCollection.cardIds, learnables)
+
+      return [
+        ...actions,
+        {
+          type: 'collection-spaced-rep',
+          collection: relevantCollection,
+          averageScore,
+          daysAgo
+        }
+      ]
+    }, [])
   }
 }

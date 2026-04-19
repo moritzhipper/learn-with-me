@@ -5,12 +5,20 @@
         <h3>Continue practice</h3>
         <p>{{ action.cardsLeft }} cards left until you're done!</p>
       }
-      @case ('collection-review') {
+      @case ('collection-spaced-rep') {
         <h3>{{ action.collection.name }} <span class="type"> Spaced Rep </span></h3>
 
         <p>
           Its spaced repetition time! You practiced this xxx, now is the time to lock the cards in.
         </p>
+        <div class="intervalls">
+          <div class="scope" [style.--days-ago.%]="action.daysAgo"></div>
+          @for (interval of spacedRepIntervals; track interval) {
+            <span class="interval" [class.relevant]="interval === action.daysAgo">
+              {{ interval }}d
+            </span>
+          }
+        </div>
       }
       @case ('collection-improve') {
         <h3>
@@ -22,6 +30,10 @@
       @case ('collection-start') {
         <h3>{{ action.collection.name }} <span class="type"> Start </span></h3>
         <p class="small">You didnt practice this one yet</p>
+      }
+      @case ('customize') {
+        <h3>Customize Practice</h3>
+        <p class="small">Customize your practice session exactly how you want to</p>
       }
     }
     <app-icon-comp type="learn" />

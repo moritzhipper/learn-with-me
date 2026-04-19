@@ -63,12 +63,26 @@ export const GuessableSchema = z.object({
   guess: Guess
 })
 
-export const PracticeSchema = z.object({
+export const PracticeBaseSchema = z.object({
   createdAt: z.coerce.date(),
   guessableIndex: z.number(),
   guessables: z.array(GuessableSchema),
   direction: z.literal(['forward', 'reverse'])
 })
+
+export const CustomPracticeSchema = PracticeBaseSchema.extend({
+  type: z.literal('custom')
+})
+
+export const CollectionPracticeSchema = PracticeBaseSchema.extend({
+  type: z.literal('collection'),
+  collectionId: z.string()
+})
+
+export const PracticeSchema = z.discriminatedUnion('type', [
+  CustomPracticeSchema,
+  CollectionPracticeSchema
+])
 
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),

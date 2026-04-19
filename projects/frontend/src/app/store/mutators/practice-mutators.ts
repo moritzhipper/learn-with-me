@@ -35,7 +35,7 @@ export const updateGuessables = (guessables: Guessable[], id: string, guess: Gue
   guessables.map((g) => (g.id === id ? { ...g, guess } : g))
 
 export const startPractice =
-  (ids: string[], direction: Practice['direction']) =>
+  (ids: string[], direction: Practice['direction'], collectionId?: string) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       // randomize order of ids to prevent memorization of order
@@ -44,6 +44,10 @@ export const startPractice =
         id,
         guess: 'unanswered'
       }))
+
+      const typeConfig = collectionId
+        ? { type: 'collection' as const, collectionId }
+        : { type: 'custom' as const }
 
       return {
         ...b,
@@ -54,7 +58,8 @@ export const startPractice =
             index: 0,
             guessableIndex: 0,
             createdAt: new Date(),
-            direction
+            direction,
+            ...typeConfig
           }
         }
       }
