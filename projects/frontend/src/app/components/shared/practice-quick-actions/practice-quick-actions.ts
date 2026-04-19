@@ -63,7 +63,7 @@ export class PracticeQuickActions {
       this.ls.collections(),
       cards
     )
-    quickActions.concat(spacedRepActions)
+    quickActions.push(...spacedRepActions)
 
     // add practice newest cards
 
@@ -104,16 +104,31 @@ export class PracticeQuickActions {
       (now.getTime() - new Date(practice.createdAt).getTime()) / (1000 * 60 * 60 * 24)
 
     return history.reduce((actions: QuickAction[], practice) => {
+      // // this is for testing and stuff
+      const debugColl = collections[0]
+      if (debugColl) {
+        return [
+          ...actions,
+          {
+            type: 'collection-spaced-rep',
+            collection: debugColl,
+            averageScore: 50,
+            daysAgo: getDaysAgo(practice)
+          }
+        ]
+      }
+
+      if (practice.type !== 'collection') return actions
+
       const daysAgo = getDaysAgo(practice)
       const maximumIntervalDistance = 3
 
       const hasRelevantInterval = this.spacedRepIntervals.some(
         (interval) => interval <= daysAgo && daysAgo < interval + maximumIntervalDistance
       )
+      if (!hasRelevantInterval) return actions
 
-      if (practice.type !== 'collection' || !hasRelevantInterval) return actions
       const relevantCollection = collections.find((c) => c.id === practice.collectionId)
-
       if (!relevantCollection) return actions
       const averageScore = this.mapToConfidencePercent(relevantCollection.cardIds, learnables)
 
