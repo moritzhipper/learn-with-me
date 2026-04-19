@@ -4,6 +4,7 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import {
   BankBase,
   BankShareBase,
+  BankUser,
   Guess,
   LearnableBase,
   Practice,
@@ -129,6 +130,12 @@ export const LearnablesStore = signalStore(
       },
       reset() {
         patchState(state, initialState)
+      },
+      addBankForDebug(bank: BankUser) {
+        patchState(state, (state) => ({
+          ...state,
+          banks: [...state.banks, bank]
+        }))
       }
     }
   })

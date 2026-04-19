@@ -1,7 +1,8 @@
 import { Practice } from '@shared/types'
-import { LearnablesStoreType } from '../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types_and_schemas/types'
 
-type DebugStoreConfig = {
+type SeedDebugBankConfig = {
+  name: string
   collectionConfig: {
     name: string
     cardCount: number
@@ -12,7 +13,8 @@ type DebugStoreConfig = {
   }[]
 }
 
-const defaultDebugConfig: DebugStoreConfig = {
+const defaultDebugConfig: SeedDebugBankConfig = {
+  name: 'Debug Bank',
   collectionConfig: [
     {
       name: 'Collection 1',
@@ -27,6 +29,14 @@ const defaultDebugConfig: DebugStoreConfig = {
     {
       type: 'collection',
       daysAgo: 1
+    },
+    {
+      type: 'collection',
+      daysAgo: 2
+    },
+    {
+      type: 'collection',
+      daysAgo: 10
     }
   ]
 }
