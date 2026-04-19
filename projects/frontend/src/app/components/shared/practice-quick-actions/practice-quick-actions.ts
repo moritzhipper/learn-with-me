@@ -13,7 +13,7 @@ type QuickAction =
       type: 'collection-spaced-rep'
       collection: Collection
       averageScore: number
-      daysAgo: number
+      daysAgo: number[]
     }
   | {
       type: 'collection-improve'
@@ -103,20 +103,29 @@ export class PracticeQuickActions {
     const getDaysAgo = (practice: Practice) =>
       (now.getTime() - new Date(practice.createdAt).getTime()) / (1000 * 60 * 60 * 24)
 
-    return history.reduce((actions: QuickAction[], practice) => {
+    return history.reduce<QuickAction[]>((actions: QuickAction[], practice) => {
       if (practice.type !== 'collection') return actions
+      let updatedExistingAction = false
+      const updatedActions = actions.map((a) => {
+        if (a.type === 'collection-spaced-rep' && a.collection.id === practice.collectionId) {
+          updatedExistingAction = true
+          return {
+            ...a,
+            daysAgo: [...a.daysAgo, getDaysAgo(practice)]
+          }
+        }
+        return a
+      })
 
-      const daysAgo = getDaysAgo(practice)
-      const maximumIntervalDistance = 3
-
-      const hasRelevantInterval = this.spacedRepIntervals.some(
-        (interval) => interval <= daysAgo && daysAgo < interval + maximumIntervalDistance
-      )
-      if (!hasRelevantInterval) return actions
-
+      if (updatedExistingAction) return updatedActions
       const relevantCollection = collections.find((c) => c.id === practice.collectionId)
       if (!relevantCollection) return actions
-      const averageScore = this.mapToConfidencePercent(relevantCollection.cardIds, learnables)
+
+      const averageScore = this.mapToConfidencePercent(
+        practice.guessables.map((g) => g.id),
+        learnables
+      )
+      const daysAgo = getDaysAgo(practice)
 
       return [
         ...actions,
@@ -124,7 +133,7 @@ export class PracticeQuickActions {
           type: 'collection-spaced-rep',
           collection: relevantCollection,
           averageScore,
-          daysAgo
+          daysAgo: [daysAgo]
         }
       ]
     }, [])
