@@ -104,20 +104,6 @@ export class PracticeQuickActions {
       (now.getTime() - new Date(practice.createdAt).getTime()) / (1000 * 60 * 60 * 24)
 
     return history.reduce((actions: QuickAction[], practice) => {
-      // // this is for testing and stuff
-      const debugColl = collections[0]
-      if (debugColl) {
-        return [
-          ...actions,
-          {
-            type: 'collection-spaced-rep',
-            collection: debugColl,
-            averageScore: 50,
-            daysAgo: getDaysAgo(practice)
-          }
-        ]
-      }
-
       if (practice.type !== 'collection') return actions
 
       const daysAgo = getDaysAgo(practice)

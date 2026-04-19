@@ -134,7 +134,8 @@ export const LearnablesStore = signalStore(
       addBankForDebug(bank: BankUser) {
         patchState(state, (state) => ({
           ...state,
-          banks: [...state.banks, bank]
+          banks: [...state.banks, bank],
+          activeBankId: bank.id
         }))
       }
     }
