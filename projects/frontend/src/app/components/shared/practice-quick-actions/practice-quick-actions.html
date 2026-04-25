@@ -8,17 +8,19 @@
       @case ('collection') {
         <h3>{{ action.collection.name }} <span class="type"> Spaced Rep </span></h3>
 
-        <p>
-          Its spaced repetition time! You practiced this xxx, now is the time to lock the cards in.
-        </p>
+        <p>Improve your confidence in this collection.</p>
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-by-day') {
         <h3>
-          {{ action.dateUTC | date: 'mediumDate' }}
+          {{ action.dateAddedUTC | date: 'mediumDate' }}
           <span class="type">Added By Day</span>
         </h3>
-        <p class="small">These fit perfectly into a spaced repetition routine.</p>
+        <p class="small">
+          Maximize learning effectiveness by nailing the spaced repetition interval timing for those
+          cards.
+        </p>
+        <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('customize') {
         <h3>Customize Practice</h3>

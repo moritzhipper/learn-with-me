@@ -51,6 +51,7 @@ export class PracticeQuickActions {
   // also add: worst cards quick action?
   quickActions = computed<QuickAction[]>(() => {
     const cards = this.ls.activeBank().learnables
+    const history = this.ls.activeBank().practice.history
 
     const quickActions: QuickAction[] = []
 
@@ -64,14 +65,14 @@ export class PracticeQuickActions {
     // Map collections to practice intervalls
     // spaced repetition times: 1d, 3d, 7d, 14d, 30d, 60d
     const spacedRepActions = this.deductActionsFromCollections(
-      this.ls.activeBank().practice.history,
+      history,
       this.ls.collections(),
       cards
     )
     quickActions.push(...spacedRepActions)
 
     // By date added!
-    quickActions.push(...this.deductActionsFromDateAdded(cards))
+    quickActions.push(...this.deductActionsFromDateAdded(history, cards))
 
     // By worst cards
     // link to customize page
