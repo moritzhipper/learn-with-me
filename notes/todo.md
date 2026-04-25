@@ -4,9 +4,8 @@
 
 # right now
 
-- add practice type: cardsoftheday -> link to quickactions
-- create pracitcetimeline comp
-- add missing practice entries in practice recommendations
+- add action: practice worst
+- ensure the correct practice type is set on practice start
 - add empty states to dashboard items
 
 - create collection color, create collection card
