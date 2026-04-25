@@ -1,10 +1,5 @@
 @use '../../../../style/mixins.scss' as *;
 
-.stats {
-  font-size: var(--font-size-2);
-  line-height: var(--font-size-3);
-}
-
 .add-bank,
 app-bank-settings-card,
 app-settings-item-comp {
@@ -42,9 +37,6 @@ app-settings-item-comp {
     height: 200px;
     opacity: var(--opacity-0);
   }
-}
-p {
-  margin: 0;
 }
 
 .delete {

@@ -29,10 +29,6 @@ h2.language {
   padding: var(--distance-7) 0;
   gap: var(--distance-4);
   text-align: center;
-
-  p {
-    margin: 0;
-  }
 }
 
 @include isPhone() {

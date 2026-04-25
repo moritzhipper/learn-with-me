@@ -5,17 +5,17 @@
 
   <div class="stats">
     <h2>You got {{ sum.guessedRightPercent }}% right</h2>
-    <div class="subtitle">{{ text() }}</div>
+    <p class="subtitle">{{ text() }}</p>
     <div class="stat">
-      <span class="label">guessed incorrectly </span>
+      <p class="label size-0">guessed incorrectly</p>
       <span class="count">{{ sum.wrongGuesses }}</span>
     </div>
     <div class="stat">
-      <span class="label">guessed correctly </span>
+      <p class="label size-0">guessed correctly</p>
       <span class="count">{{ sum.correctGuesses }}</span>
     </div>
     <div class="stat">
-      <span class="label">unanswered </span>
+      <p class="label size-0">unanswered</p>
       <span class="count">{{ sum.unansweredGuesses }}</span>
     </div>
   </div>

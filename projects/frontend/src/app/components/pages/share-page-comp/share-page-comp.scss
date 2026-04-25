@@ -4,6 +4,12 @@
   gap: var(--distance-4);
 }
 
+.preview-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-5);
+}
+
 a.see-more {
   display: grid;
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
@@ -50,10 +56,6 @@ a.see-more {
   align-items: center;
   padding: var(--distance-7) 0;
   text-align: center;
-
-  p {
-    margin: 0;
-  }
   .error-wrapper {
     display: flex;
     gap: var(--distance-4);
