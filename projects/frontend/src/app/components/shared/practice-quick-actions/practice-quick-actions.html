@@ -5,7 +5,7 @@
         <h3>Continue practice</h3>
         <p>{{ action.cardsLeft }} cards left until you're done!</p>
       }
-      @case ('collection-spaced-rep') {
+      @case ('collection') {
         <h3>{{ action.collection.name }} <span class="type"> Spaced Rep </span></h3>
 
         <p>
@@ -24,16 +24,12 @@
           }
         </div>
       }
-      @case ('collection-improve') {
+      @case ('added-by-day') {
         <h3>
-          {{ action.collection.name }}
-          <span class="type">Improve</span>
+          {{ action.date | date: 'mediumDate' }}
+          <span class="type">Added By Day</span>
         </h3>
-        <p class="small">Theres a lot of potential to improve</p>
-      }
-      @case ('collection-start') {
-        <h3>{{ action.collection.name }} <span class="type"> Start </span></h3>
-        <p class="small">You didnt practice this one yet</p>
+        <p class="small">These fit perfectly into a spaced repetition routine.</p>
       }
       @case ('customize') {
         <h3>Customize Practice</h3>

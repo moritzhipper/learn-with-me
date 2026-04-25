@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Collection, Practice, UserLearnable } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -10,19 +11,20 @@ type QuickAction =
       cardsLeft: number
     }
   | {
-      type: 'collection-spaced-rep'
+      type: 'collection'
       collection: Collection
       averageScore: number
       daysAgo: number[]
     }
   | {
-      type: 'collection-improve'
+      type: 'worst-cards'
       collection: Collection
       averageScore: number
     }
   | {
-      type: 'collection-start'
-      collection: Collection
+      type: 'added-by-day'
+      date: Date
+      learnableIds: string[]
       averageScore: number
     }
   | {
@@ -33,18 +35,20 @@ type SpacedRepetitionInterval = 1 | 3 | 7 | 14 | 30 | 60
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp],
+  imports: [IconComp, DatePipe],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })
 export class PracticeQuickActions {
-  //   SHow those presets: - 'Continue Ongoing' - 'Pracice by room for improvement', - 'Practice by
+  //  SHow those presets: - 'Continue Ongoing' - 'Pracice by room for improvement', - 'Practice by
   // collecion' - 'Practice newest Cards', - practice 'Spaced repetition review',
   // custom pracitce
   private readonly ls = inject(LearnablesStore)
+  private now = new Date().getTime()
 
   protected readonly spacedRepIntervals: SpacedRepetitionInterval[] = [1, 3, 7, 14, 30, 60]
 
+  // also add: worst cards quick action?
   quickActions = computed<QuickAction[]>(() => {
     const cards = this.ls.activeBank().learnables
 
@@ -56,31 +60,24 @@ export class PracticeQuickActions {
       const cardsLeft = currentPractice.guessables.length - currentPractice.guessableIndex
       quickActions.push({ type: 'continue', cardsLeft })
     }
-    // add review card for spaced repetition based on history
+
+    // Map collections to practice intervalls
     // spaced repetition times: 1d, 3d, 7d, 14d, 30d, 60d
-    const spacedRepActions = this.getSpacedRepetitinActions(
+    const spacedRepActions = this.getCollectionsWithSpacedPracticeDates(
       this.ls.activeBank().practice.history,
       this.ls.collections(),
       cards
     )
     quickActions.push(...spacedRepActions)
 
-    // add practice newest cards
-
-    // add collections here sorted by creation date
-
-    // exclude collections that are already included in review or room for improvement
-    const collections = this.ls.collections()
-    const learnables = this.ls.learnables()
-    for (const collection of collections) {
-      const collectionLearnables = learnables.filter((l) => collection.cardIds.includes(l.id))
-      const averageScore = calculateAverageConfidencePercent(collectionLearnables)
-      quickActions.push({ type: 'collection-start', collection, averageScore })
-    }
+    // add added by day cards
+    const addedByDayActions = this.getCardsByDateAdded(cards)
+    quickActions.push(...addedByDayActions)
 
     // link to customize page
     quickActions.push({ type: 'customize' })
 
+    // end: sort all quickactions by relevance. find out which relevance is best lol
     return quickActions
   })
 
@@ -94,48 +91,50 @@ export class PracticeQuickActions {
     // else start practice with selected ids, then route to ractice page
   }
 
-  private getSpacedRepetitinActions(
+  private getCardsByDateAdded(learnables: UserLearnable[]): QuickAction[] {
+    const dateLearnableMap: Map<Date, UserLearnable[]> = new Map()
+
+    learnables.forEach((learnable) => {
+      // todo: put every date to start of day to group by day correctly and allow sort of array
+      const dateStartOfDay = new Date(learnable.createdAt)
+      dateStartOfDay.setHours(0, 0, 0, 0)
+
+      if (!dateLearnableMap.has(dateStartOfDay)) {
+        dateLearnableMap.set(dateStartOfDay, [learnable])
+      } else {
+        dateLearnableMap.get(dateStartOfDay)!.push(learnable)
+      }
+    })
+
+    return Array.from(dateLearnableMap.entries()).map(([date, learnables]) => ({
+      type: 'added-by-day',
+      date,
+      learnableIds: learnables.map((l) => l.id),
+      averageScore: calculateAverageConfidencePercent(learnables)
+    }))
+  }
+
+  private getCollectionsWithSpacedPracticeDates(
     history: Practice[],
     collections: Collection[],
     learnables: UserLearnable[]
   ): QuickAction[] {
     const now = new Date()
-    const getDaysAgo = (practice: Practice) =>
-      (now.getTime() - new Date(practice.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+    const getDaysAgo = (date: Date) =>
+      (now.getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24)
 
-    return history.reduce<QuickAction[]>((actions: QuickAction[], practice) => {
-      if (practice.type !== 'collection') return actions
-      let updatedExistingAction = false
-      const updatedActions = actions.map((a) => {
-        if (a.type === 'collection-spaced-rep' && a.collection.id === practice.collectionId) {
-          updatedExistingAction = true
-          return {
-            ...a,
-            daysAgo: [...a.daysAgo, getDaysAgo(practice)]
-          }
-        }
-        return a
-      })
+    return collections.map((c) => {
+      const practiceDates = history
+        .filter((h) => h.type === 'collection')
+        .filter((h) => h.collectionId === c.id)
+        .map((h) => getDaysAgo(h.createdAt))
 
-      if (updatedExistingAction) return updatedActions
-      const relevantCollection = collections.find((c) => c.id === practice.collectionId)
-      if (!relevantCollection) return actions
-
-      const averageScore = this.mapToConfidencePercent(
-        practice.guessables.map((g) => g.id),
-        learnables
-      )
-      const daysAgo = getDaysAgo(practice)
-
-      return [
-        ...actions,
-        {
-          type: 'collection-spaced-rep',
-          collection: relevantCollection,
-          averageScore,
-          daysAgo: [daysAgo]
-        }
-      ]
-    }, [])
+      return {
+        collection: c,
+        type: 'collection',
+        daysAgo: practiceDates,
+        averageScore: this.mapToConfidencePercent(c.cardIds, learnables)
+      }
+    })
   }
 }

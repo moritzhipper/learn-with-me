@@ -21,7 +21,7 @@ const defaultDebugConfig: SeedDebugBankConfig = {
     {
       name: 'Collection 2',
       cardCount: 20,
-      practicedDaysAgo: [2, 5, 10]
+      practicedDaysAgo: [2, 5, 10, 16, 40]
     }
   ],
   customPracticeDaysAgo: [2, 5, 20]
