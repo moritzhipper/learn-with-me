@@ -79,8 +79,15 @@ export const CollectionPracticeSchema = PracticeBaseSchema.extend({
   collectionId: z.string()
 })
 
+export const AddedOnDayPractceSchema = PracticeBaseSchema.extend({
+  type: z.literal('added-on-day'),
+  dayCardsAddedUTC: z.number(),
+  collectionId: z.string()
+})
+
 export const PracticeSchema = z.discriminatedUnion('type', [
   CustomPracticeSchema,
+  AddedOnDayPractceSchema,
   CollectionPracticeSchema
 ])
 

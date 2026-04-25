@@ -2,7 +2,10 @@ import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Collection, Practice, UserLearnable } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
+import {
+  calculateAverageConfidencePercent,
+  convertToDayPrecisionUTCDate
+} from '../../../utils/genaral-utils'
 import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
@@ -24,9 +27,10 @@ type QuickAction =
     }
   | {
       type: 'added-by-day'
-      dateUTC: number
+      dateAddedUTC: number
       learnableIds: string[]
       averageScore: number
+      practiceDates: number[]
     }
   | {
       type: 'customize'
@@ -82,29 +86,41 @@ export class PracticeQuickActions {
     // else start practice with selected ids, then route to ractice page
   }
 
-  private deductActionsFromDateAdded(learnables: UserLearnable[]): QuickAction[] {
-    const dateLearnableMap: Map<number, UserLearnable[]> = new Map()
+  private deductActionsFromDateAdded(
+    history: Practice[],
+    learnables: UserLearnable[]
+  ): QuickAction[] {
+    // Map all learnables to a map by day added
+    // then convert map to quickactions
+
+    const dateAddedLearnableMap: Map<number, UserLearnable[]> = new Map()
 
     learnables.forEach((learnable) => {
-      const dateStartOfDay = new Date(learnable.createdAt)
-      dateStartOfDay.setHours(0, 0, 0, 0)
+      // convert to UTC to allow Map to do its lookup thing
+      const dayAddedUtc = convertToDayPrecisionUTCDate(learnable.createdAt)
 
-      // convert to number to allow Map to do its lookup thing
-      const dateUtc = dateStartOfDay.getTime()
-
-      if (!dateLearnableMap.has(dateUtc)) {
-        dateLearnableMap.set(dateUtc, [learnable])
+      if (!dateAddedLearnableMap.has(dayAddedUtc)) {
+        dateAddedLearnableMap.set(dayAddedUtc, [learnable])
       } else {
-        dateLearnableMap.get(dateUtc)!.push(learnable)
+        dateAddedLearnableMap.get(dayAddedUtc)!.push(learnable)
       }
     })
 
-    return Array.from(dateLearnableMap.entries()).map(([dateUTC, learnables]) => ({
-      type: 'added-by-day',
-      dateUTC,
-      learnableIds: learnables.map((l) => l.id),
-      averageScore: calculateAverageConfidencePercent(learnables)
-    }))
+    return Array.from(dateAddedLearnableMap.entries()).map(([dateAddedUTC, learnables]) => {
+      const averageScore = calculateAverageConfidencePercent(learnables)
+      const practiceDates = history
+        .filter((h) => h.type === 'added-on-day')
+        .filter((h) => h.dayCardsAddedUTC === dateAddedUTC)
+        .map((h) => h.dayCardsAddedUTC)
+
+      return {
+        type: 'added-by-day',
+        learnableIds: learnables.map((l) => l.id),
+        dateAddedUTC,
+        practiceDates,
+        averageScore
+      }
+    })
   }
 
   private deductActionsFromCollections(
