@@ -4,8 +4,8 @@
 
 # right now
 
-- make practice active bank dependant
-- add historical prioactifces
+- add practice type: cardsoftheday -> link to quickactions
+- create pracitcetimeline comp
 - add missing practice entries in practice recommendations
 - add empty states to dashboard items
 
@@ -111,6 +111,10 @@ only put hat on big larry, remove from logo
 
 - check practice process
 - import merge correct
+
+### Documentation
+
+- explain spaced rep, explai wuick actions and their difference
 
 ## shared
 

@@ -1,0 +1,12 @@
+<div class="practices">
+  @for (daysAgo of dates(); track daysAgo) {
+    <div class="interval practice" [style.--days-ago]="daysAgo">
+      <div class="dot"></div>
+    </div>
+  }
+</div>
+<div class="scale">
+  @for (interval of SPACED_REP_INTERVALS; track interval) {
+    <div class="interval marker" [style.--days-ago]="interval">{{ interval }}</div>
+  }
+</div>

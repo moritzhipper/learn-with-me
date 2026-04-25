@@ -11,18 +11,7 @@
         <p>
           Its spaced repetition time! You practiced this xxx, now is the time to lock the cards in.
         </p>
-        <div class="practices">
-          @for (days of action.daysAgo; track days) {
-            <div class="interval practice" [style.--days]="days">
-              <div class="dot"></div>
-            </div>
-          }
-        </div>
-        <div class="scale">
-          @for (interval of spacedRepIntervals; track interval) {
-            <div class="interval marker" [style.--days]="interval">{{ interval }}</div>
-          }
-        </div>
+        <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-by-day') {
         <h3>

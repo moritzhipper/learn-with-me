@@ -4,6 +4,7 @@ import { Collection, Practice, UserLearnable } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 import { IconComp } from '../icon-comp/icon-comp'
+import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
 type QuickAction =
   | {
@@ -14,7 +15,7 @@ type QuickAction =
       type: 'collection'
       collection: Collection
       averageScore: number
-      daysAgo: number[]
+      practiceDates: Date[]
     }
   | {
       type: 'worst-cards'
@@ -31,11 +32,9 @@ type QuickAction =
       type: 'customize'
     }
 
-type SpacedRepetitionInterval = 1 | 3 | 7 | 14 | 30 | 60
-
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp, DatePipe],
+  imports: [IconComp, DatePipe, SpacedRepetitionTimeline],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })
@@ -44,9 +43,6 @@ export class PracticeQuickActions {
   // collecion' - 'Practice newest Cards', - practice 'Spaced repetition review',
   // custom pracitce
   private readonly ls = inject(LearnablesStore)
-  private now = new Date().getTime()
-
-  protected readonly spacedRepIntervals: SpacedRepetitionInterval[] = [1, 3, 7, 14, 30, 60]
 
   // also add: worst cards quick action?
   quickActions = computed<QuickAction[]>(() => {
@@ -63,16 +59,15 @@ export class PracticeQuickActions {
 
     // Map collections to practice intervalls
     // spaced repetition times: 1d, 3d, 7d, 14d, 30d, 60d
-    const spacedRepActions = this.getCollectionsWithSpacedPracticeDates(
+    const spacedRepActions = this.deductActionsFromCollections(
       this.ls.activeBank().practice.history,
       this.ls.collections(),
       cards
     )
     quickActions.push(...spacedRepActions)
 
-    // add added by day cards
-    const addedByDayActions = this.getCardsByDateAdded(cards)
-    quickActions.push(...addedByDayActions)
+    // By date added!
+    quickActions.push(...this.deductActionsFromDateAdded(cards))
 
     // link to customize page
     quickActions.push({ type: 'customize' })
@@ -81,17 +76,12 @@ export class PracticeQuickActions {
     return quickActions
   })
 
-  private mapToConfidencePercent(ids: string[], learnables: UserLearnable[]): number {
-    const colLearnables = learnables.filter((l) => ids.includes(l.id))
-    return calculateAverageConfidencePercent(colLearnables)
-  }
-
   protected selectAction(action: QuickAction) {
     // if not continue, but acitve practice -> verify using modal
     // else start practice with selected ids, then route to ractice page
   }
 
-  private getCardsByDateAdded(learnables: UserLearnable[]): QuickAction[] {
+  private deductActionsFromDateAdded(learnables: UserLearnable[]): QuickAction[] {
     const dateLearnableMap: Map<Date, UserLearnable[]> = new Map()
 
     learnables.forEach((learnable) => {
@@ -114,26 +104,28 @@ export class PracticeQuickActions {
     }))
   }
 
-  private getCollectionsWithSpacedPracticeDates(
+  private deductActionsFromCollections(
     history: Practice[],
     collections: Collection[],
     learnables: UserLearnable[]
   ): QuickAction[] {
     const now = new Date()
-    const getDaysAgo = (date: Date) =>
-      (now.getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24)
 
-    return collections.map((c) => {
+    return collections.map((collection) => {
       const practiceDates = history
         .filter((h) => h.type === 'collection')
-        .filter((h) => h.collectionId === c.id)
-        .map((h) => getDaysAgo(h.createdAt))
+        .filter((h) => h.collectionId === collection.id)
+        .map((h) => h.createdAt)
+
+      const averageScore = calculateAverageConfidencePercent(
+        learnables.filter((l) => collection.cardIds.includes(l.id))
+      )
 
       return {
-        collection: c,
         type: 'collection',
-        daysAgo: practiceDates,
-        averageScore: this.mapToConfidencePercent(c.cardIds, learnables)
+        collection,
+        practiceDates,
+        averageScore
       }
     })
   }
