@@ -24,7 +24,7 @@ type QuickAction =
     }
   | {
       type: 'added-by-day'
-      date: Date
+      dateUTC: number
       learnableIds: string[]
       averageScore: number
     }
@@ -69,6 +69,7 @@ export class PracticeQuickActions {
     // By date added!
     quickActions.push(...this.deductActionsFromDateAdded(cards))
 
+    // By worst cards
     // link to customize page
     quickActions.push({ type: 'customize' })
 
@@ -82,23 +83,25 @@ export class PracticeQuickActions {
   }
 
   private deductActionsFromDateAdded(learnables: UserLearnable[]): QuickAction[] {
-    const dateLearnableMap: Map<Date, UserLearnable[]> = new Map()
+    const dateLearnableMap: Map<number, UserLearnable[]> = new Map()
 
     learnables.forEach((learnable) => {
-      // todo: put every date to start of day to group by day correctly and allow sort of array
       const dateStartOfDay = new Date(learnable.createdAt)
       dateStartOfDay.setHours(0, 0, 0, 0)
 
-      if (!dateLearnableMap.has(dateStartOfDay)) {
-        dateLearnableMap.set(dateStartOfDay, [learnable])
+      // convert to number to allow Map to do its lookup thing
+      const dateUtc = dateStartOfDay.getTime()
+
+      if (!dateLearnableMap.has(dateUtc)) {
+        dateLearnableMap.set(dateUtc, [learnable])
       } else {
-        dateLearnableMap.get(dateStartOfDay)!.push(learnable)
+        dateLearnableMap.get(dateUtc)!.push(learnable)
       }
     })
 
-    return Array.from(dateLearnableMap.entries()).map(([date, learnables]) => ({
+    return Array.from(dateLearnableMap.entries()).map(([dateUTC, learnables]) => ({
       type: 'added-by-day',
-      date,
+      dateUTC,
       learnableIds: learnables.map((l) => l.id),
       averageScore: calculateAverageConfidencePercent(learnables)
     }))

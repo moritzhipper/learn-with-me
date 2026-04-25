@@ -15,7 +15,7 @@
       }
       @case ('added-by-day') {
         <h3>
-          {{ action.date | date: 'mediumDate' }}
+          {{ action.dateUTC | date: 'mediumDate' }}
           <span class="type">Added By Day</span>
         </h3>
         <p class="small">These fit perfectly into a spaced repetition routine.</p>
