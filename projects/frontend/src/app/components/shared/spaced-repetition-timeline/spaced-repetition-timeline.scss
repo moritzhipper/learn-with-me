@@ -40,6 +40,11 @@
         aspect-ratio: 1 / 1;
         background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
       }
+      .now {
+        height: 12px;
+        width: 2px;
+        background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+      }
     }
   }
 }
