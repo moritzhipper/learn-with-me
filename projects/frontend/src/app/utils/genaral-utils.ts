@@ -66,10 +66,11 @@ export const mapToStaggerVM = <T>(items: T[], timeSpread: number = 0.3): Stagger
 
 // time utils
 
-export const calcDaysAgo = (now: Date, date: Date | number): number => {
+export const calcDaysAgo = (now: Date | number, date: Date | number): number => {
+  const nowDate = new Date(now)
   const dateObj = new Date(date)
   const msInDay = 1000 * 60 * 60 * 24
-  return (now.getTime() - dateObj.getTime()) / msInDay
+  return (nowDate.getTime() - dateObj.getTime()) / msInDay
 }
 
 export const convertToDayPrecisionUTCDate = (date: Date): number => {

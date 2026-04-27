@@ -1,7 +1,11 @@
 <div class="practices">
-  @for (daysAgo of dates(); track daysAgo) {
-    <div class="interval practice" [style.--days-ago]="daysAgo">
-      <div class="dot"></div>
+  @for (marker of dates(); track marker) {
+    <div class="interval practice" [style.--days-ago]="marker.intervall">
+      @if (marker.type === 'practice') {
+        <div class="dot"></div>
+      } @else {
+        <div class="dot">s</div>
+      }
     </div>
   }
 </div>
