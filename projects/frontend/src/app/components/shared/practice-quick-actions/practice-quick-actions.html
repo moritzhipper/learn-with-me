@@ -24,8 +24,12 @@
       @case ('worst-cards') {
         <h3>Most potential</h3>
         <p>
-          <strong>{{ action.learnableIds.length }}</strong> cards |
-          <strong> {{ action.averageScore }}% </strong> average
+          <span class="word-list-item">
+            <strong>{{ action.learnableIds.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> average
+          </span>
         </p>
         <p class="size-0">
           Focus on the cards with the lowest average score to boost your overall confidence.
