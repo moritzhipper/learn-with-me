@@ -23,15 +23,14 @@ export class SpacedRepetitionTimeline {
    * The earliest practice date is treated as interval `1`. Each later practice
    * is then positioned relative to that first practice, while a trailing `now`
    * marker is added so the UI can render the current point in time.
-   *
-   * @param dates Practice dates as `Date` objects or timestamps.
-   * @returns Timeline markers for each practice plus a final `now` marker.
    */
   private mapToMarkers(dates: Date[] | number[]): TimeMarker[] {
-    if (dates.length === 0) return []
+    if (dates.length === 0) return [{ intervall: 1, type: 'now' }]
 
     const now = new Date()
     const daysAgo = dates.map((date) => calcDaysAgo(now, date))
+
+    // This is days ago +1 for intervall index shift
     const nowInterval = Math.max(...daysAgo) + 1
 
     const markers: TimeMarker[] = daysAgo.map((v) => ({
