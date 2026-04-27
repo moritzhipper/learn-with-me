@@ -22,7 +22,7 @@ type QuickAction =
     }
   | {
       type: 'worst-cards'
-      collection: Collection
+      learnableIds: string[]
       averageScore: number
     }
   | {
@@ -75,6 +75,8 @@ export class PracticeQuickActions {
     quickActions.push(...this.deductActionsFromDateAdded(history, cards))
 
     // By worst cards
+    quickActions.push(...this.deductWorstCardsAction(cards))
+
     // link to customize page
     quickActions.push({ type: 'customize' })
 
@@ -148,5 +150,28 @@ export class PracticeQuickActions {
         averageScore
       }
     })
+  }
+
+  private deductWorstCardsAction(learnables: UserLearnable[]): QuickAction[] {
+    // do bad learnable cascade
+    // return empty when all learnables better than 80%
+    let worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.2)
+    if (worstLearnables.length === 0) {
+      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.6)
+    } else if (worstLearnables.length === 0) {
+      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.8)
+    }
+
+    if (worstLearnables.length === 0) {
+      return []
+    } else {
+      return [
+        {
+          type: 'worst-cards',
+          learnableIds: worstLearnables.map((l) => l.id),
+          averageScore: calculateAverageConfidencePercent(worstLearnables)
+        }
+      ]
+    }
   }
 }

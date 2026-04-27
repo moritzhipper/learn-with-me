@@ -4,6 +4,10 @@
 
 # right now
 
+- how to show language direction on practice quick actions?
+- add now marker to practice timeline
+- add specific icons to practice configs
+- finish worst learnable mapping
 - add action: practice worst
 - ensure the correct practice type is set on practice start
 - add empty states to dashboard items
@@ -89,6 +93,11 @@ only put hat on big larry, remove from logo
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
+
+## How scores are calculated
+
+- save guesses instead of true false on cards
+- let true and false influence, but not guesses yet not
 
 ## Store
 

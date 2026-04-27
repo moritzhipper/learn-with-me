@@ -20,6 +20,10 @@ button.quick {
     }
   }
 
+  strong {
+    color: var(--col-bg);
+  }
+
   app-icon-comp {
     position: absolute;
     height: 100%;

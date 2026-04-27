@@ -17,14 +17,23 @@
           <span class="type">Added By Day</span>
         </h3>
         <p class="size-0">
-          Maximize learning effectiveness by nailing the spaced repetition interval timing for those
-          cards.
+          Maximize learning effectiveness by catching the spaced repetition interval exactly.
         </p>
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
+      @case ('worst-cards') {
+        <h3>Most potential</h3>
+        <p>
+          <strong>{{ action.learnableIds.length }}</strong> cards |
+          <strong> {{ action.averageScore }}% </strong> average
+        </p>
+        <p class="size-0">
+          Focus on the cards with the lowest average score to boost your overall confidence.
+        </p>
+      }
       @case ('customize') {
-        <h3>Customize Practice</h3>
-        <p class="size-0">Customize your practice session exactly how you want to</p>
+        <h3>Customize everything</h3>
+        <p class="size-0">Customize your practice session exactly how you want to.</p>
       }
     }
     <app-icon-comp type="learn" />
