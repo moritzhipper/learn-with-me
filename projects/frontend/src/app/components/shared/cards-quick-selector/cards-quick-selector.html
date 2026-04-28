@@ -1,17 +1,41 @@
-<button class="silent quick all caroussel-item">
-  <h3>All Cards</h3>
-
-  <div>{{ summary().allCardsCount }} Cards</div>
-  <div>{{ summary().collectionCount }} Collections</div>
-  <div>{{ summary().unsortedCount }} Cards without collection</div>
-</button>
 @for (coll of collections(); track coll.id) {
   <button class="silent quick collection caroussel-item">
     <h3>
       {{ coll.name }}
     </h3>
-    <div>{{ coll.cardIds.length }} cards</div>
-    <div>created {{ coll.createdAt | date: 'mediumDate' }}</div>
-    <div>average confidence</div>
+    <p>
+      <span class="word-list-item">
+        <strong>
+          {{ coll.cardIds.length }}
+        </strong>
+        cards
+      </span>
+      <span class="word-list-item">
+        <strong> {{ summary().averageConfidence }}% </strong>
+        confidence
+      </span>
+    </p>
+    <p class="size-0 date">{{ coll.createdAt | date: 'mediumDate' }}</p>
   </button>
 }
+<button class="silent quick all caroussel-item">
+  <h3>All Cards</h3>
+  <p>
+    <span class="word-list-item">
+      <strong>
+        {{ summary().allCardsCount }}
+      </strong>
+      cards
+    </span>
+    <span class="word-list-item">
+      <strong>
+        {{ summary().collectionCount }}
+      </strong>
+      collections
+    </span>
+    <span class="word-list-item">
+      <strong> {{ summary().averageConfidence }}% </strong>
+      confidence
+    </span>
+  </p>
+</button>

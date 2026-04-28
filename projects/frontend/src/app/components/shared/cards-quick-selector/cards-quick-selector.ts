@@ -1,15 +1,19 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
+import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { removeDuplicates } from '../../../utils/genaral-utils'
+import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 
 type AllCardsSummary = {
   allCardsCount: number
-  unsortedCount: number
   collectionCount: number
+  averageConfidence: number
 }
 
-type CollectionSummary = {}
+type CollectionSummary = {
+  collection: Collection
+  averageConfidence: number
+}
 
 @Component({
   selector: 'app-cards-quick-selector',
@@ -22,15 +26,22 @@ export class CardsQuickSelector {
   protected readonly collections = this.ls.collections
 
   protected summary = computed<AllCardsSummary>(() => {
-    const collections = this.collections()
-    const allIds = removeDuplicates(this.ls.learnables().map((l) => l.id))
-    const idsInCollection = removeDuplicates(collections.flatMap((c) => c.cardIds))
-    const unsortedCount = allIds.filter((id) => !idsInCollection.includes(id))
-
+    const allCards = this.ls.learnables()
+    const averageConfidence = calculateAverageConfidencePercent(allCards)
     return {
-      allCardsCount: allIds.length,
-      unsortedCount: unsortedCount.length,
-      collectionCount: collections.length
+      allCardsCount: allCards.length,
+      collectionCount: this.collections().length,
+      averageConfidence
     }
+  })
+
+  protected collectionSummary = computed<CollectionSummary[]>(() => {
+    const allCards = this.ls.learnables()
+    return this.collections().map((coll) => ({
+      collection: coll,
+      averageConfidence: calculateAverageConfidencePercent(
+        allCards.filter((card) => coll.cardIds.includes(card.id))
+      )
+    }))
   })
 }
