@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
+import { Router } from '@angular/router'
 import { Collection, Practice, UserLearnable } from '@shared/types'
+import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import {
   calculateAverageConfidencePercent,
@@ -43,12 +45,10 @@ type QuickAction =
   styleUrl: './practice-quick-actions.scss'
 })
 export class PracticeQuickActions {
-  //  SHow those presets: - 'Continue Ongoing' - 'Pracice by room for improvement', - 'Practice by
-  // collecion' - 'Practice newest Cards', - practice 'Spaced repetition review',
-  // custom pracitce
   private readonly ls = inject(LearnablesStore)
+  private readonly modalService = inject(ModalService)
+  private readonly router = inject(Router)
 
-  // also add: worst cards quick action?
   quickActions = computed<QuickAction[]>(() => {
     const cards = this.ls.activeBank().learnables
     const history = this.ls.activeBank().practice.history
@@ -84,9 +84,31 @@ export class PracticeQuickActions {
     return quickActions
   })
 
-  protected selectAction(action: QuickAction) {
-    // if not continue, but acitve practice -> verify using modal
+  protected async selectAction(action: QuickAction) {
+    // if not continue, but acitve practice -> verify quitting it using modal
     // else start practice with selected ids, then route to ractice page
+
+    if (this.ls.activeBank().practice.current && action.type !== 'continue') {
+      const response = await this.modalService.open('confirm', {
+        message:
+          'You have an ongoing practice session. If you start a new one your progress will be lost.',
+        label: 'Thats fine!'
+      })
+      if (response.type === 'cancel') return
+      this.ls.quitPracticePrematurly()
+    }
+
+    // start new with action config, (also set correct type for history)
+    // Just redirect, when customize or continue selected
+    // then redirect
+    if (action.type === 'collection') {
+      this.ls.startPractice(action.collection.cardIds, 'forward')
+    } else if (action.type === 'worst-cards') {
+      this.ls.startPractice(action.learnableIds, 'forward')
+    } else if (action.type === 'added-by-day') {
+      this.ls.startPractice(action.learnableIds, 'forward')
+    }
+    this.router.navigate(['practice'])
   }
 
   private deductActionsFromDateAdded(

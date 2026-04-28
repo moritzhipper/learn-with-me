@@ -36,6 +36,8 @@
 
 ### Practice handling
 
+- clean up modal confirm pupu config to allow title, body, confirm and cancle label. search for occurences, then make use
+- add automatism that automatically selects the worst direction?
 - add: add select all option to magic generate
 - make the autoflow scroll thing reusable
 - use: shared, cards collection select

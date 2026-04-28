@@ -1,5 +1,5 @@
 @for (action of quickActions(); track $index) {
-  <button class="silent quick caroussel-item">
+  <button class="silent quick caroussel-item" (click)="selectAction(action)">
     @switch (action.type) {
       @case ('continue') {
         <h3>Continue practice</h3>
