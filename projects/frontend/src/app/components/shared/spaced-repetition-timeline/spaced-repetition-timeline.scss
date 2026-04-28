@@ -1,16 +1,4 @@
-// setup for spaced rep indicator
-.scale {
-  height: var(--distance-4);
-  border-radius: var(--radius-1);
-  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
-}
-
-.practices {
-  height: var(--distance-3);
-}
-
-.scale,
-.practices {
+.timeline {
   display: flex;
   align-items: center;
   position: relative;
@@ -18,25 +6,38 @@
   --max-days: 60;
   --dimension: var(--distance-5);
 
-  .interval {
+  .marker {
     position: absolute;
     display: grid;
     place-items: center;
     width: var(--dimension);
-    font-size: var(--distance-3);
 
     --progress: calc((var(--days-ago) - var(--min-days)) / (var(--max-days) - var(--min-days)));
     left: calc(var(--progress) * (100% - var(--dimension)));
+  }
 
-    &.marker {
+  &.practice {
+    height: var(--distance-4);
+
+    .marker {
+      app-icon-comp {
+        width: var(--distance-4);
+        height: var(--distance-4);
+        color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+      }
+    }
+  }
+
+  &.scale {
+    height: var(--distance-4);
+    border-radius: var(--radius-1);
+    background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+
+    .marker {
       border-radius: var(--radius-0);
       font-weight: var(--font-weight-bold);
       color: var(--col-accent-2);
-    }
-    &.practice {
-      app-icon-comp {
-        color: rgb(from var(--col-bg) r g b / var(--opacity-1));
-      }
+      font-size: var(--distance-3);
     }
   }
 }
