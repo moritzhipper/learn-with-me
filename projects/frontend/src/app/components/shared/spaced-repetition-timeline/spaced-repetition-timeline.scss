@@ -34,16 +34,8 @@
       color: var(--col-accent-2);
     }
     &.practice {
-      .dot {
-        border-radius: 100%;
-        height: 5px;
-        aspect-ratio: 1 / 1;
-        background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
-      }
-      .now {
-        height: 12px;
-        width: 2px;
-        background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+      app-icon-comp {
+        color: rgb(from var(--col-bg) r g b / var(--opacity-1));
       }
     }
   }

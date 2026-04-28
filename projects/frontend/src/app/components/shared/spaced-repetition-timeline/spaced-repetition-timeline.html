@@ -2,9 +2,9 @@
   @for (marker of dates(); track marker) {
     <div class="interval practice" [style.--days-ago]="marker.intervall">
       @if (marker.type === 'practice') {
-        <div class="dot"></div>
+        <app-icon-comp type="circle-check" [size]="12" />
       } @else {
-        <div class="now"></div>
+        <app-icon-comp type="circle" [size]="12" />
       }
     </div>
   }

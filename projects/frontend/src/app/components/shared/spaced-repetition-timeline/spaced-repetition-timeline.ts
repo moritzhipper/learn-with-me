@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core'
 import { calcDaysAgo } from '../../../utils/genaral-utils'
+import { IconComp } from '../icon-comp/icon-comp'
 
 type TimeMarker = {
   intervall: number
@@ -8,7 +9,7 @@ type TimeMarker = {
 
 @Component({
   selector: 'app-spaced-repetition-timeline',
-  imports: [],
+  imports: [IconComp],
   templateUrl: './spaced-repetition-timeline.html',
   styleUrl: './spaced-repetition-timeline.scss'
 })
