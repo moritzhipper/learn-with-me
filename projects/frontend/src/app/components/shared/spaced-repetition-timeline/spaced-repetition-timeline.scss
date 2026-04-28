@@ -21,8 +21,9 @@
 
     .marker {
       app-icon-comp {
-        width: var(--distance-4);
-        height: var(--distance-4);
+        rotate: 180deg;
+        width: var(--distance-3);
+        height: var(--distance-3);
         color: rgb(from var(--col-bg) r g b / var(--opacity-1));
       }
     }

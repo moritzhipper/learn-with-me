@@ -5,8 +5,9 @@
 button.quick {
   overflow: hidden;
   position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-2);
   padding: var(--distance-4);
   border-radius: var(--radius-2);
   background-color: var(--col-accent-2);
@@ -15,7 +16,10 @@ button.quick {
   h3 {
     margin: 0;
     color: currentColor;
+    display: inline-flex;
+
     .type {
+      margin-left: auto;
       opacity: var(--opacity-1);
     }
   }
@@ -32,5 +36,9 @@ button.quick {
     right: var(--distance-2);
     opacity: var(--opacity-0);
     bottom: 0;
+  }
+
+  app-spaced-repetition-timeline {
+    margin-top: auto;
   }
 }

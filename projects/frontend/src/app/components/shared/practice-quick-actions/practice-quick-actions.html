@@ -6,18 +6,37 @@
         <p>{{ action.cardsLeft }} cards left until you're done!</p>
       }
       @case ('collection') {
-        <h3>{{ action.collection.name }} <span class="type"> Spaced Rep </span></h3>
+        <h3>
+          {{ action.collection.name }}
+        </h3>
+        <p>
+          <span class="word-list-item">
+            <strong>{{ action.collection.cardIds.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> confidence
+          </span>
+        </p>
 
-        <p>Improve your confidence in this collection.</p>
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-by-day') {
         <h3>
-          {{ action.dateAddedUTC | date: 'mediumDate' }}
-          <span class="type">Added By Day</span>
+          Added By Day
+          <span class="type">
+            {{ action.dateAddedUTC | date: 'mediumDate' }}
+          </span>
         </h3>
+        <p>
+          <span class="word-list-item">
+            <strong>{{ action.learnableIds.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> confidence
+          </span>
+        </p>
         <p class="size-0">
-          Maximize learning effectiveness by catching the spaced repetition interval exactly.
+          Maximize effectiveness by catching the spaced repetition interval exactly.
         </p>
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
@@ -28,7 +47,7 @@
             <strong>{{ action.learnableIds.length }}</strong> cards
           </span>
           <span class="word-list-item">
-            <strong> {{ action.averageScore }}% </strong> average
+            <strong> {{ action.averageScore }}% </strong> confidence
           </span>
         </p>
         <p class="size-0">
@@ -37,7 +56,7 @@
       }
       @case ('customize') {
         <h3>Customize everything</h3>
-        <p class="size-0">Customize your practice session exactly how you want to.</p>
+        <p>Customize your practice session exactly how you want to.</p>
       }
     }
     <app-icon-comp type="learn" />

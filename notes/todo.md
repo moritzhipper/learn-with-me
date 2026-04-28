@@ -77,6 +77,7 @@
 
 ## Right Now
 
+- use icons for confidence / percent to be shown everywhere instead of text
 - change translate direction on translate page
 - make error thingy on community same as empty state -> component?
 - write tests for store
