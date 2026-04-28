@@ -40,12 +40,9 @@ a.icon {
   word-break: break-all;
 }
 
-.word-list-item {
-  white-space: nowrap;
-  &:not(:last-of-type):after {
-    opacity: var(--opacity-1);
-    content: ' • ';
-  }
+.word-list-item:not(:last-of-type):after {
+  opacity: var(--opacity-1);
+  content: ' • ';
 }
 
 .stacked-shadow {

@@ -18,8 +18,13 @@
     margin: 0;
   }
 
-  .date {
+  .bottom {
     margin-top: auto;
     opacity: var(--opacity-1);
+  }
+  p.all {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: wrap;
   }
 }

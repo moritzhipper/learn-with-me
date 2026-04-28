@@ -15,12 +15,12 @@
         confidence
       </span>
     </p>
-    <p class="size-0 date">{{ coll.createdAt | date: 'mediumDate' }}</p>
+    <p class="size-0 bottom">{{ coll.createdAt | date: 'mediumDate' }}</p>
   </button>
 }
 <button class="silent quick all caroussel-item">
   <h3>All Cards</h3>
-  <p>
+  <p class="all">
     <span class="word-list-item">
       <strong>
         {{ summary().allCardsCount }}
@@ -33,9 +33,14 @@
       </strong>
       collections
     </span>
+  </p>
+  <p class="size-0 bottom">
     <span class="word-list-item">
       <strong> {{ summary().averageConfidence }}% </strong>
       confidence
+    </span>
+    <span class="word-list-item">
+      <strong> {{ summary().collectionLess }} </strong> cards without collection
     </span>
   </p>
 </button>

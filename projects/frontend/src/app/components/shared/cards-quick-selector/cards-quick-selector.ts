@@ -8,6 +8,7 @@ type AllCardsSummary = {
   allCardsCount: number
   collectionCount: number
   averageConfidence: number
+  collectionLess: number
 }
 
 type CollectionSummary = {
@@ -28,10 +29,14 @@ export class CardsQuickSelector {
   protected summary = computed<AllCardsSummary>(() => {
     const allCards = this.ls.learnables()
     const averageConfidence = calculateAverageConfidencePercent(allCards)
+    const collectionIds = this.collections().flatMap((c) => c.cardIds)
+    const collectionLess = allCards.filter((c) => !collectionIds.includes(c.id)).length
+
     return {
       allCardsCount: allCards.length,
       collectionCount: this.collections().length,
-      averageConfidence
+      averageConfidence,
+      collectionLess
     }
   })
 

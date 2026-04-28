@@ -33,8 +33,8 @@ export class DashboardPage {
       this.apiS.getCommunityBanks({
         limit: 6,
         sortBy: 'top',
-        speaking: params.learning,
-        learning: params.speaking
+        speaking: params.speaking,
+        learning: params.learning
       })
   })
 }

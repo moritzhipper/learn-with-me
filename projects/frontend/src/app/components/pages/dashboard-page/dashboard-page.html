@@ -16,7 +16,7 @@
   <section>
     <app-header-link label="Community Banks" route="community" />
     <div class="caroussel-wrapper">
-      @if (sharedBanks.hasValue()) {
+      @if (sharedBanks.hasValue() && sharedBanks.value().length > 0) {
         @for (bank of sharedBanks.value(); track bank.id) {
           <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
         }

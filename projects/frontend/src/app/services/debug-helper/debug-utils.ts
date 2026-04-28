@@ -2,6 +2,8 @@ import { BankUser, CollectionUser, Guessable, Practice, UserLearnable } from '@s
 
 type SeedDebugBankConfig = {
   name: string
+  learning: string
+  speaking: string
   collectionConfig: {
     name: string
     cardCount: number
@@ -12,6 +14,8 @@ type SeedDebugBankConfig = {
 
 const defaultDebugConfig: SeedDebugBankConfig = {
   name: 'Debug Bank',
+  learning: 'Dutch',
+  speaking: 'German',
   collectionConfig: [
     {
       name: 'Collection 1',
@@ -113,7 +117,7 @@ export const buildDebugBank = (): BankUser => {
     id: crypto.randomUUID(),
     name: config.name,
     createdAt: now,
-    language: { speaking: 'English', learning: 'Spanish' },
+    language: { speaking: config.speaking, learning: config.learning },
     translations: { magicTranslateCards: [], history: [], tone: 'neutral' },
     learnables: allLearnables,
     collections,
