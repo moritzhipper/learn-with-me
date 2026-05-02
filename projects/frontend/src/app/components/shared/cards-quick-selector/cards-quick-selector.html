@@ -1,4 +1,4 @@
-@for (coll of collections(); track coll.id) {
+@for (coll of collectionSummaries(); track coll.id) {
   <button class="silent quick collection caroussel-item">
     <h3>
       {{ coll.name }}
@@ -11,7 +11,7 @@
         cards
       </span>
       <span class="word-list-item">
-        <strong> {{ summary().averageConfidence }}% </strong>
+        <strong> {{ coll.averageConfidence }}% </strong>
         confidence
       </span>
     </p>

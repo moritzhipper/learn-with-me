@@ -4,6 +4,7 @@
 
 # right now
 
+- add correct link on quick select cards
 - put icon instead of line for now marker on timeline
 - how to show language direction on practice quick actions?
 - add specific icons to practice configs

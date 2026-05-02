@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
-import { Collection } from '@shared/types'
+import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 
@@ -11,8 +11,7 @@ type AllCardsSummary = {
   collectionLess: number
 }
 
-type CollectionSummary = {
-  collection: Collection
+type CollectionSummary = CollectionUser & {
   averageConfidence: number
 }
 
@@ -40,10 +39,10 @@ export class CardsQuickSelector {
     }
   })
 
-  protected collectionSummary = computed<CollectionSummary[]>(() => {
+  protected collectionSummaries = computed<CollectionSummary[]>(() => {
     const allCards = this.ls.learnables()
     return this.collections().map((coll) => ({
-      collection: coll,
+      ...coll,
       averageConfidence: calculateAverageConfidencePercent(
         allCards.filter((card) => coll.cardIds.includes(card.id))
       )
