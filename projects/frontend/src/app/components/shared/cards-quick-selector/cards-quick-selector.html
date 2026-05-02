@@ -1,5 +1,5 @@
 @for (coll of collectionSummaries(); track coll.id) {
-  <button class="silent quick collection caroussel-item">
+  <button class="silent quick collection caroussel-item" (click)="openCollection(coll.id)">
     <h3>
       {{ coll.name }}
     </h3>
@@ -18,7 +18,7 @@
     <p class="size-0 bottom">{{ coll.createdAt | date: 'mediumDate' }}</p>
   </button>
 }
-<button class="silent quick all caroussel-item">
+<button class="silent quick all caroussel-item" (click)="openAllCards()">
   <h3>All Cards</h3>
   <p class="all">
     <span class="word-list-item">

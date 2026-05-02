@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
+import { Router } from '@angular/router'
 import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
@@ -23,7 +24,9 @@ type CollectionSummary = CollectionUser & {
 })
 export class CardsQuickSelector {
   private readonly ls = inject(LearnablesStore)
+
   protected readonly collections = this.ls.collections
+  private readonly router = inject(Router)
 
   protected summary = computed<AllCardsSummary>(() => {
     const allCards = this.ls.learnables()
@@ -48,4 +51,11 @@ export class CardsQuickSelector {
       )
     }))
   })
+
+  openCollection(collectionID: string) {
+    this.router.navigate(['/cards'], { state: { collectionID } })
+  }
+  openAllCards() {
+    this.router.navigate(['/cards'])
+  }
 }
