@@ -1,5 +1,4 @@
-import { Guess, Guessable, PracticeActive, UserLearnable } from '@shared/types'
-import { PracticeConfig } from '../../types/practice-types'
+import { Guess, Guessable, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
@@ -40,25 +39,53 @@ export const startPractice =
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       // randomize order of ids to prevent memorization of order
-      const shuffledIds = schwarzianShuffle(config.learnableIds)
+      const shuffledIds = schwarzianShuffle(config.learnableIDs)
       const guessables: Guessable[] = shuffledIds.map((id) => ({
         id,
         guess: 'unanswered'
       }))
 
-      const typeConfig = collectionId ? { type: 'collection', collectionId } : { type: 'custom' }
+      const basePractice = {
+        guessables,
+        guessableIndex: 0,
+        createdAt: new Date(),
+        direction: config.direction,
+        learnableIDs: config.learnableIDs
+      }
 
-      return {
-        ...b,
-        practice: {
-          ...b.practice,
-          current: {
-            guessables,
-            index: 0,
-            guessableIndex: 0,
-            createdAt: new Date(),
-            direction,
-            type: config.type
+      if (config.type === 'collection') {
+        return {
+          ...b,
+          practice: {
+            ...b.practice,
+            current: {
+              ...basePractice,
+              type: 'collection',
+              collectionId: config.collectionId
+            }
+          }
+        }
+      } else if (config.type === 'added-on-day') {
+        return {
+          ...b,
+          practice: {
+            ...b.practice,
+            current: {
+              ...basePractice,
+              type: 'added-on-day',
+              dayCardsAddedUTC: config.dayCardsAddedUTC
+            }
+          }
+        }
+      } else {
+        return {
+          ...b,
+          practice: {
+            ...b.practice,
+            current: {
+              ...basePractice,
+              type: 'custom'
+            }
           }
         }
       }

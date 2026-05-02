@@ -61,7 +61,11 @@ export class ConfigurePracticeComp {
   start() {
     const iDs = this.selectedLearnableIds()
     const direction = this.form.value.direction as PracticeActive['direction']
-    this._lStore.startPractice(iDs, direction)
+    this._lStore.startPractice({
+      type: 'custom',
+      learnableIDs: iDs,
+      direction
+    })
   }
 
   protected selectOptions = computed<SelectOption[]>(() => {

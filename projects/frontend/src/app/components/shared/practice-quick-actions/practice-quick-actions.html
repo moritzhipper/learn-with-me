@@ -20,16 +20,16 @@
 
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
-      @case ('added-by-day') {
+      @case ('added-on-day') {
         <h3>
           Added By Day
           <span class="type">
-            {{ action.dateAddedUTC | date: 'mediumDate' }}
+            {{ action.dayCardsAddedUTC | date: 'mediumDate' }}
           </span>
         </h3>
         <p>
           <span class="word-list-item">
-            <strong>{{ action.learnableIds.length }}</strong> cards
+            <strong>{{ action.learnableIDs.length }}</strong> cards
           </span>
           <span class="word-list-item">
             <strong> {{ action.averageScore }}% </strong> confidence
@@ -44,7 +44,7 @@
         <h3>Most potential</h3>
         <p>
           <span class="word-list-item">
-            <strong>{{ action.learnableIds.length }}</strong> cards
+            <strong>{{ action.learnableIDs.length }}</strong> cards
           </span>
           <span class="word-list-item">
             <strong> {{ action.averageScore }}% </strong> confidence

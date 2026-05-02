@@ -63,6 +63,7 @@ const buildCollectionPractices = (
     createdAt: daysAgoToDate(now, daysAgo),
     guessableIndex: collection.cardIds.length,
     guessables: toGuessables(collection.cardIds),
+    learnableIDs: collection.cardIds,
     direction: 'forward'
   }))
 
@@ -77,6 +78,7 @@ const buildCustomPractices = (
     createdAt: daysAgoToDate(now, daysAgo),
     guessableIndex: guessables.length,
     guessables,
+    learnableIDs: learnableIds,
     direction: 'forward'
   }))
 }

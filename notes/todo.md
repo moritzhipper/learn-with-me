@@ -4,6 +4,7 @@
 
 # right now
 
+- finish implementing the specific config throughout
 - add to start new practice: type
 - put icon instead of line for now marker on timeline
 - how to show language direction on practice quick actions?

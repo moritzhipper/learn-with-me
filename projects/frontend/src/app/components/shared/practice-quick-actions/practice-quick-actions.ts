@@ -22,10 +22,10 @@ type CollectionQuickAction = PracticeConfigQuickAction<'collection'> & {
 }
 
 type AddedOnDayQuickAction = PracticeConfigQuickAction<'added-on-day'> & {
-  dateAddedUTC: number
+  dayCardsAddedUTC: number
   averageScore: number
   practiceDates: number[]
-  learnableIds: string[]
+  learnableIDs: string[]
 }
 
 type QuickAction =
@@ -34,13 +34,15 @@ type QuickAction =
       cardsLeft: number
     }
   | {
-      type: 'worst-cards'
-      learnableIds: string[]
-      averageScore: number
-    }
-  | {
       type: 'customize'
     }
+  | {
+      type: 'worst-cards'
+      learnableIDs: string[]
+      averageScore: number
+    }
+  | CollectionQuickAction
+  | AddedOnDayQuickAction
 
 @Component({
   selector: 'app-practice-quick-actions',
@@ -106,11 +108,25 @@ export class PracticeQuickActions {
     // Just redirect, when customize or continue selected
     // then redirect
     if (action.type === 'collection') {
-      this.ls.startPractice(action.collection.cardIds, 'forward')
+      this.ls.startPractice({
+        type: 'collection',
+        collectionId: action.collection.id,
+        learnableIDs: action.collection.cardIds,
+        direction: 'forward'
+      })
     } else if (action.type === 'worst-cards') {
-      this.ls.startPractice(action.learnableIds, 'forward')
-    } else if (action.type === 'added-by-day') {
-      this.ls.startPractice(action.learnableIds, 'forward')
+      this.ls.startPractice({
+        type: 'custom',
+        learnableIDs: action.learnableIDs,
+        direction: 'forward'
+      })
+    } else if (action.type === 'added-on-day') {
+      this.ls.startPractice({
+        type: 'added-on-day',
+        dayCardsAddedUTC: action.dayCardsAddedUTC,
+        learnableIDs: action.learnableIDs,
+        direction: 'forward'
+      })
     }
     this.router.navigate(['practice'])
   }
@@ -135,17 +151,17 @@ export class PracticeQuickActions {
       }
     })
 
-    return Array.from(dateAddedLearnableMap.entries()).map(([dateAddedUTC, learnables]) => {
+    return Array.from(dateAddedLearnableMap.entries()).map(([dayCardsAddedUTC, learnables]) => {
       const averageScore = calculateAverageConfidencePercent(learnables)
       const practiceDates = history
         .filter((h) => h.type === 'added-on-day')
-        .filter((h) => h.dayCardsAddedUTC === dateAddedUTC)
+        .filter((h) => h.dayCardsAddedUTC === dayCardsAddedUTC)
         .map((h) => h.dayCardsAddedUTC)
 
       return {
-        type: 'added-by-day',
-        learnableIds: learnables.map((l) => l.id),
-        dateAddedUTC,
+        type: 'added-on-day',
+        learnableIDs: learnables.map((l) => l.id),
+        dayCardsAddedUTC,
         practiceDates,
         averageScore
       }
@@ -194,7 +210,7 @@ export class PracticeQuickActions {
       return [
         {
           type: 'worst-cards',
-          learnableIds: worstLearnables.map((l) => l.id),
+          learnableIDs: worstLearnables.map((l) => l.id),
           averageScore: calculateAverageConfidencePercent(worstLearnables)
         }
       ]

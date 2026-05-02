@@ -20,17 +20,18 @@ export const PracticeConfigAddedOnDaySchema = z.object({
   dayCardsAddedUTC: z.number()
 })
 
-export const PracticeConfigSchema = z.discriminatedUnion('type', [
-  PracticeConfigCustomSchema,
-  PracticeConfigCollectionSchema,
-  PracticeConfigAddedOnDaySchema
-])
+export const PracticeConfigSchema = z
+  .discriminatedUnion('type', [
+    PracticeConfigCustomSchema,
+    PracticeConfigCollectionSchema,
+    PracticeConfigAddedOnDaySchema
+  ])
+  .and(PracticeConfigBaseSchema)
 
 export const PracticeActiveSchema = z
   .object({
     createdAt: z.coerce.date(),
     guessableIndex: z.number(),
-    guessables: z.array(GuessableSchema),
-    direction: z.literal(['forward', 'reverse'])
+    guessables: z.array(GuessableSchema)
   })
   .and(PracticeConfigSchema)
