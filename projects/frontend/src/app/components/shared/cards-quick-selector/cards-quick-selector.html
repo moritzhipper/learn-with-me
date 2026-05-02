@@ -1,46 +1,49 @@
-@for (coll of collectionSummaries(); track coll.id) {
-  <button class="silent quick collection caroussel-item" (click)="openCollection(coll.id)">
-    <h3>
-      {{ coll.name }}
-    </h3>
-    <p>
-      <span class="word-list-item">
-        <strong>
-          {{ coll.cardIds.length }}
-        </strong>
-        cards
-      </span>
-      <span class="word-list-item">
-        <strong> {{ coll.averageConfidence }}% </strong>
-        confidence
-      </span>
-    </p>
-    <p class="size-0 bottom">{{ coll.createdAt | date: 'mediumDate' }}</p>
-  </button>
+@for (sum of summaries(); track $index) {
+  @if (sum.type === 'collection') {
+    <button class="silent quick collection caroussel-item" (click)="openLink(sum.id)">
+      <h3>
+        {{ sum.name }}
+      </h3>
+      <p>
+        <span class="word-list-item">
+          <strong>
+            {{ sum.cardIds.length }}
+          </strong>
+          cards
+        </span>
+        <span class="word-list-item">
+          <strong> {{ sum.averageConfidence }}% </strong>
+          confidence
+        </span>
+      </p>
+      <p class="size-0 bottom">{{ sum.createdAt | date: 'mediumDate' }}</p>
+    </button>
+  } @else {
+    <button class="silent quick all caroussel-item" (click)="openLink()">
+      <h3>All Cards</h3>
+      <p class="all">
+        <span class="word-list-item">
+          <strong>
+            {{ sum.allCardsCount }}
+          </strong>
+          cards
+        </span>
+        <span class="word-list-item">
+          <strong>
+            {{ sum.collectionCount }}
+          </strong>
+          collections
+        </span>
+      </p>
+      <p class="size-0 bottom">
+        <span class="word-list-item">
+          <strong> {{ sum.averageConfidence }}% </strong>
+          confidence
+        </span>
+        <span class="word-list-item">
+          <strong> {{ sum.collectionLess }} </strong> cards without collection
+        </span>
+      </p>
+    </button>
+  }
 }
-<button class="silent quick all caroussel-item" (click)="openAllCards()">
-  <h3>All Cards</h3>
-  <p class="all">
-    <span class="word-list-item">
-      <strong>
-        {{ summary().allCardsCount }}
-      </strong>
-      cards
-    </span>
-    <span class="word-list-item">
-      <strong>
-        {{ summary().collectionCount }}
-      </strong>
-      collections
-    </span>
-  </p>
-  <p class="size-0 bottom">
-    <span class="word-list-item">
-      <strong> {{ summary().averageConfidence }}% </strong>
-      confidence
-    </span>
-    <span class="word-list-item">
-      <strong> {{ summary().collectionLess }} </strong> cards without collection
-    </span>
-  </p>
-</button>

@@ -6,6 +6,7 @@ import { LearnablesStore } from '../../../store/learnablesStore'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 
 type AllCardsSummary = {
+  type: 'all'
   allCardsCount: number
   collectionCount: number
   averageConfidence: number
@@ -13,6 +14,7 @@ type AllCardsSummary = {
 }
 
 type CollectionSummary = CollectionUser & {
+  type: 'collection'
   averageConfidence: number
 }
 
@@ -28,34 +30,37 @@ export class CardsQuickSelector {
   protected readonly collections = this.ls.collections
   private readonly router = inject(Router)
 
-  protected summary = computed<AllCardsSummary>(() => {
+  protected readonly summaries = computed<(CollectionSummary | AllCardsSummary)[]>(() => {
     const allCards = this.ls.learnables()
-    const averageConfidence = calculateAverageConfidencePercent(allCards)
-    const collectionIds = this.collections().flatMap((c) => c.cardIds)
-    const collectionLess = allCards.filter((c) => !collectionIds.includes(c.id)).length
+    const collections = this.collections()
 
-    return {
-      allCardsCount: allCards.length,
-      collectionCount: this.collections().length,
-      averageConfidence,
-      collectionLess
-    }
-  })
-
-  protected collectionSummaries = computed<CollectionSummary[]>(() => {
-    const allCards = this.ls.learnables()
-    return this.collections().map((coll) => ({
+    const collectionSummaries: CollectionSummary[] = collections.map((coll) => ({
       ...coll,
+      type: 'collection',
       averageConfidence: calculateAverageConfidencePercent(
         allCards.filter((card) => coll.cardIds.includes(card.id))
       )
     }))
+
+    const collectionIds = collections.flatMap((c) => c.cardIds)
+    const collectionLessCards = allCards.filter((c) => !collectionIds.includes(c.id))
+
+    const allCardsSummary: AllCardsSummary = {
+      type: 'all',
+      allCardsCount: allCards.length,
+      collectionCount: collections.length,
+      averageConfidence: calculateAverageConfidencePercent(allCards),
+      collectionLess: collectionLessCards.length
+    }
+
+    return [...collectionSummaries, allCardsSummary]
   })
 
-  openCollection(collectionID: string) {
-    this.router.navigate(['/cards'], { state: { collectionID } })
-  }
-  openAllCards() {
-    this.router.navigate(['/cards'])
+  openLink(collectionID?: string) {
+    if (collectionID) {
+      this.router.navigate(['/cards'], { state: { collectionID } })
+    } else {
+      this.router.navigate(['/cards'])
+    }
   }
 }
