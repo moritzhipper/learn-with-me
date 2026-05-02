@@ -4,30 +4,12 @@
 
 # right now
 
-- finish implementing the specific config throughout
-- add to start new practice: type
 - put icon instead of line for now marker on timeline
 - how to show language direction on practice quick actions?
-- add now marker to practice timeline
 - add specific icons to practice configs
-- finish worst learnable mapping
-- add action: practice worst
-- ensure the correct practice type is set on practice start
-- add empty states to dashboard items
 
 - create collection color, create collection card
   - apply on all collection overview comps
-    New translation
-  - use this layout for shared, dashboard
-
-- create a sharedCollectionsList comp, having the filters as input and the comp resolving the call inside?
-
-- only in navigation: Dashboard, Translate, practice
-- On Dashboard
-  - practice History: Last practiced, spaced repititions candidates, some positive motivating stat based on improvements
-  - Your Cards Preview
-  - Community preview
-
 - make carousel reusable!
   - on mobile no scroolbar,
   - on desktop: hold scroll buttons, do fade
@@ -38,19 +20,13 @@
 
 ### Practice handling
 
-- clean up modal confirm pupu config to allow title, body, confirm and cancle label. search for occurences, then make use
 - add automatism that automatically selects the worst direction?
+- clean up modal confirm pupu config to allow title, body, confirm and cancle label. search for occurences, then make use
 - add: add select all option to magic generate
-- make the autoflow scroll thing reusable
 - use: shared, cards collection select
-- create this box pattern everywhere
 
-- add current practice to acitve banke
-- dont reset current practice on bank change
 - add practice history
-- add collection id to history item if necessary OR array of ids
 
-- show spaced repitition and history relyiant cards
 - on practice config: show, instead of the select, the same categories as on dashboard page
 
 - filter doppelresponses aus preview
