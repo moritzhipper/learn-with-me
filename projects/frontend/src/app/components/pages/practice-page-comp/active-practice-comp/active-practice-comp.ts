@@ -1,5 +1,5 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
-import { Guess, Practice } from '@shared/types'
+import { Guess, PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnablesStore'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
@@ -48,7 +48,7 @@ export class ActivePracticeComp {
     guessWrong: false
   })
 
-  currentPractice = input.required<Practice>()
+  currentPractice = input.required<PracticeActive>()
 
   cardViewModel = computed<CardViewModel[]>(() =>
     getCardsViewModel(this.currentPractice(), this._lStore.activeBank().learnables)

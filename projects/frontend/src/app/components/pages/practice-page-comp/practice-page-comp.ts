@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core'
-import { Practice } from '@shared/types'
+import { PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { ActivePracticeComp } from './active-practice-comp/active-practice-comp'
@@ -16,11 +16,11 @@ export class PracticeComp {
   protected readonly ls = inject(LearnablesStore)
   currentPractice = computed(() => this.ls.activeBank().practice.current)
 
-  protected isFinished(prac: Practice): boolean {
+  protected isFinished(prac: PracticeActive): boolean {
     return prac.guessableIndex >= prac.guessables.length
   }
 
-  protected isUnfinished(prac: Practice): boolean {
+  protected isUnfinished(prac: PracticeActive): boolean {
     return prac.guessableIndex < prac.guessables.length
   }
 }

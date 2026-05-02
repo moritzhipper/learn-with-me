@@ -1,5 +1,5 @@
 import { CollectionUser } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types/types'
 import { removeLearnables } from './bank-mutators'
 import { updateActiveBank } from './mutator-utils'
 

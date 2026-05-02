@@ -1,4 +1,4 @@
-import { BankUser, CollectionUser, Guessable, Practice, UserLearnable } from '@shared/types'
+import { BankUser, CollectionUser, Guessable, PracticeActive, UserLearnable } from '@shared/types'
 
 type SeedDebugBankConfig = {
   name: string
@@ -56,7 +56,7 @@ const buildCollectionPractices = (
   collection: CollectionUser,
   daysAgoList: number[],
   now: Date
-): Practice[] =>
+): PracticeActive[] =>
   daysAgoList.map((daysAgo) => ({
     type: 'collection',
     collectionId: collection.id,
@@ -70,7 +70,7 @@ const buildCustomPractices = (
   learnableIds: string[],
   daysAgoList: number[],
   now: Date
-): Practice[] => {
+): PracticeActive[] => {
   const guessables = toGuessables(learnableIds)
   return daysAgoList.map((daysAgo) => ({
     type: 'custom',

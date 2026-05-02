@@ -1,5 +1,5 @@
 import { LearnableBase, TranslationHistoryItem } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
 export const addTranslationHistoryItem =

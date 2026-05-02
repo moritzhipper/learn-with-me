@@ -1,15 +1,7 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  output,
-  signal,
-  untracked
-} from '@angular/core'
+import { Component, computed, effect, inject, output, signal, untracked } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { LearnablesFilterConfig } from '../../../../types_and_schemas/types'
+import { LearnablesFilterConfig } from '../../../../types/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 

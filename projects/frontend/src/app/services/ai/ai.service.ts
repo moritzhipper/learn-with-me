@@ -28,7 +28,7 @@ import {
   LearnableFromImageCreationConfig,
   LearnableFromTextCreationConfig,
   TranslateFastConfig
-} from '../../types_and_schemas/types'
+} from '../../types/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
 import { getPrompt, getQuickTranslatePrompt } from './prompt'

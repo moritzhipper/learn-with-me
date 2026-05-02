@@ -4,6 +4,7 @@
 
 # right now
 
+- add to start new practice: type
 - put icon instead of line for now marker on timeline
 - how to show language direction on practice quick actions?
 - add now marker to practice timeline

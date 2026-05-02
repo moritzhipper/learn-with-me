@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { PracticeSchema } from './practice-schemas'
 
 export const LearnableFromAiSchema = z.object({
   lexeme: z.string(),
@@ -62,34 +63,6 @@ export const GuessableSchema = z.object({
   id: z.string(),
   guess: Guess
 })
-
-export const PracticeBaseSchema = z.object({
-  createdAt: z.coerce.date(),
-  guessableIndex: z.number(),
-  guessables: z.array(GuessableSchema),
-  direction: z.literal(['forward', 'reverse'])
-})
-
-export const CustomPracticeSchema = PracticeBaseSchema.extend({
-  type: z.literal('custom')
-})
-
-export const CollectionPracticeSchema = PracticeBaseSchema.extend({
-  type: z.literal('collection'),
-  collectionId: z.string()
-})
-
-export const AddedOnDayPractceSchema = PracticeBaseSchema.extend({
-  type: z.literal('added-on-day'),
-  dayCardsAddedUTC: z.number(),
-  collectionId: z.string()
-})
-
-export const PracticeSchema = z.discriminatedUnion('type', [
-  CustomPracticeSchema,
-  AddedOnDayPractceSchema,
-  CollectionPracticeSchema
-])
 
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),

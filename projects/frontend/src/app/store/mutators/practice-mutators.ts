@@ -1,11 +1,12 @@
-import { Guess, Guessable, Practice, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { Guess, Guessable, PracticeActive, UserLearnable } from '@shared/types'
+import { PracticeConfig } from '../../types/practice-types'
+import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
 export const addGuessToLearnable = (
   learnable: UserLearnable,
   guess: Guess,
-  direction: Practice['direction']
+  direction: PracticeActive['direction']
 ): UserLearnable => {
   const updateGuesses = (guesses: boolean[], isCorrect: boolean): boolean[] => [
     ...guesses.slice(1),
@@ -35,19 +36,17 @@ export const updateGuessables = (guessables: Guessable[], id: string, guess: Gue
   guessables.map((g) => (g.id === id ? { ...g, guess } : g))
 
 export const startPractice =
-  (ids: string[], direction: Practice['direction'], collectionId?: string) =>
+  (config: PracticeConfig) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       // randomize order of ids to prevent memorization of order
-      const shuffledIds = schwarzianShuffle(ids)
+      const shuffledIds = schwarzianShuffle(config.learnableIds)
       const guessables: Guessable[] = shuffledIds.map((id) => ({
         id,
         guess: 'unanswered'
       }))
 
-      const typeConfig = collectionId
-        ? { type: 'collection' as const, collectionId }
-        : { type: 'custom' as const }
+      const typeConfig = collectionId ? { type: 'collection', collectionId } : { type: 'custom' }
 
       return {
         ...b,
@@ -59,7 +58,7 @@ export const startPractice =
             guessableIndex: 0,
             createdAt: new Date(),
             direction,
-            ...typeConfig
+            type: config.type
           }
         }
       }

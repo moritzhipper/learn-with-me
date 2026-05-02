@@ -1,5 +1,5 @@
 import { BankBase, BankShareBase, BankUser, LearnableBase, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types/types'
 import {
   learnablesLexemeMatch as lLexemeMatch,
   learnablesMatch as lMatch,

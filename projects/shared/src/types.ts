@@ -1,4 +1,5 @@
 import z from 'zod'
+import { PracticeActiveSchema, PracticeConfigSchema } from './practice-schemas'
 import {
   BankShareBaseSchema,
   BankShareConfigSchema,
@@ -20,7 +21,6 @@ import {
   LearnableWithIdSchema,
   ObjectWithIdSchema,
   PaginationSchema,
-  PracticeSchema,
   RequestHeaderSchema,
   TranslationHistoryItemSchema
 } from './schemas'
@@ -42,7 +42,8 @@ export type BankShareViaDB = z.infer<typeof BankShareViaDBSchema>
 export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 
 export type Guessable = z.infer<typeof GuessableSchema>
-export type Practice = z.infer<typeof PracticeSchema>
+export type PracticeActive = z.infer<typeof PracticeActiveSchema>
+export type PracticeConfig = z.infer<typeof PracticeConfigSchema>
 export type Guess = z.infer<typeof Guess>
 
 export type TranslationHistoryItem = z.infer<typeof TranslationHistoryItemSchema>

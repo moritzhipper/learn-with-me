@@ -1,4 +1,4 @@
-import { Practice, UserLearnable } from '@shared/types'
+import { PracticeActive, UserLearnable } from '@shared/types'
 import {
   ActivePracticeSummary,
   PracticeRating
@@ -13,7 +13,10 @@ export type CardViewModel = {
   viewIndex: number
 }
 
-export const getCardsViewModel = (practice: Practice, cards: UserLearnable[]): CardViewModel[] => {
+export const getCardsViewModel = (
+  practice: PracticeActive,
+  cards: UserLearnable[]
+): CardViewModel[] => {
   const currentIndex = practice.guessableIndex
   const lastGuessIndex = practice.guessables.findLastIndex((g) => g.guess !== 'unanswered')
 
@@ -31,7 +34,11 @@ export const getCardsViewModel = (practice: Practice, cards: UserLearnable[]): C
  *
  * When no next cards are available, summary card is added to the guess queue
  */
-const getVM = (focusIndex: number, cards: UserLearnable[], practice: Practice): CardViewModel[] => {
+const getVM = (
+  focusIndex: number,
+  cards: UserLearnable[],
+  practice: PracticeActive
+): CardViewModel[] => {
   const indexes = [-1, 0, 1, 2]
   return indexes.reduce<CardViewModel[]>((vms, relIndex) => {
     const guessableIndex = focusIndex + relIndex
@@ -62,7 +69,7 @@ const getVM = (focusIndex: number, cards: UserLearnable[], practice: Practice): 
 const getVMforFinishedEarly = (
   focusIndex: number,
   cards: UserLearnable[],
-  practice: Practice
+  practice: PracticeActive
 ): CardViewModel[] => {
   // when no guess was done, focusindex can be -1, so ensure at least 0
   const index = Math.max(0, focusIndex)
@@ -85,7 +92,7 @@ const getVMforFinishedEarly = (
   return viewModel.concat([{ content: nextCard, viewIndex: -1 }])
 }
 
-const createSummary = (practice: Practice): ActivePracticeSummary => {
+const createSummary = (practice: PracticeActive): ActivePracticeSummary => {
   const correctGuesses = practice.guessables.filter((g) => g.guess === 'right').length
   const wrongGuesses = practice.guessables.filter((g) => g.guess === 'wrong').length
   const unansweredGuesses = practice.guessables.filter((g) => g.guess === 'unanswered').length

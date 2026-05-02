@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
-import { Collection, Practice, UserLearnable } from '@shared/types'
+import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import {
@@ -11,28 +11,32 @@ import {
 import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
+type PracticeConfigQuickAction<T extends PracticeConfig['type']> = {
+  type: T
+}
+
+type CollectionQuickAction = PracticeConfigQuickAction<'collection'> & {
+  collection: Collection
+  averageScore: number
+  practiceDates: Date[]
+}
+
+type AddedOnDayQuickAction = PracticeConfigQuickAction<'added-on-day'> & {
+  dateAddedUTC: number
+  averageScore: number
+  practiceDates: number[]
+  learnableIds: string[]
+}
+
 type QuickAction =
   | {
       type: 'continue'
       cardsLeft: number
     }
   | {
-      type: 'collection'
-      collection: Collection
-      averageScore: number
-      practiceDates: Date[]
-    }
-  | {
       type: 'worst-cards'
       learnableIds: string[]
       averageScore: number
-    }
-  | {
-      type: 'added-by-day'
-      dateAddedUTC: number
-      learnableIds: string[]
-      averageScore: number
-      practiceDates: number[]
     }
   | {
       type: 'customize'
@@ -112,7 +116,7 @@ export class PracticeQuickActions {
   }
 
   private deductActionsFromDateAdded(
-    history: Practice[],
+    history: PracticeActive[],
     learnables: UserLearnable[]
   ): QuickAction[] {
     // Map all learnables to a map by day added
@@ -149,7 +153,7 @@ export class PracticeQuickActions {
   }
 
   private deductActionsFromCollections(
-    history: Practice[],
+    history: PracticeActive[],
     collections: Collection[],
     learnables: UserLearnable[]
   ): QuickAction[] {

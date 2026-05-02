@@ -1,9 +1,9 @@
 import { Component, computed, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { Practice } from '@shared/types'
+import { PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnablesStore'
-import { LearnablesFilterConfig } from '../../../../types_and_schemas/types'
+import { LearnablesFilterConfig } from '../../../../types/types'
 import { calculateAverageConfidencePercent } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
@@ -60,7 +60,7 @@ export class ConfigurePracticeComp {
 
   start() {
     const iDs = this.selectedLearnableIds()
-    const direction = this.form.value.direction as Practice['direction']
+    const direction = this.form.value.direction as PracticeActive['direction']
     this._lStore.startPractice(iDs, direction)
   }
 

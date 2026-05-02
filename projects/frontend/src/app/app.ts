@@ -55,6 +55,9 @@ export class App {
 
   constructor() {
     this.params.subscribe()
+  }
+
+  addDebug() {
     this.debugHelper.seedDebugBank()
   }
 

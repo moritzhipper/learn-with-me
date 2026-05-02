@@ -1,6 +1,6 @@
 import { Component, effect, ElementRef, input, output, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { Practice, UserLearnable } from '@shared/types'
+import { PracticeActive, UserLearnable } from '@shared/types'
 
 @Component({
   selector: 'app-practice-card-comp',
@@ -14,7 +14,7 @@ import { Practice, UserLearnable } from '@shared/types'
 export class PracticeCardComp {
   concealed = input<boolean>(true)
   learnable = input.required<UserLearnable>()
-  direction = input.required<Practice['direction']>()
+  direction = input.required<PracticeActive['direction']>()
   updateNotes = output<{ id: string; newNotes: string }>()
   allowEdit = input<boolean>(false)
 
