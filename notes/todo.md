@@ -2,7 +2,12 @@
 
 # New page
 
-# right now
+# right now: Stats
+
+- Show timeline on top: same as on dashboard page
+- items on timeline: practice, cards count, general confidence
+
+- show practice cards?
 
 ## General
 
