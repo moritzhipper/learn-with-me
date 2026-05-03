@@ -5,7 +5,10 @@
 # right now: Stats
 
 - Show timeline on top: same as on dashboard page
-- items on timeline: practice, cards count, general confidence
+- put end of practice stickers somewhere prominent on ollection
+- confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
+- confidence = confidence per cards = higher score, higher impressiveness!
+- items on timeline: practices?
 
 - show practice cards?
 

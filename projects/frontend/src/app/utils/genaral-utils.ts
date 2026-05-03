@@ -80,3 +80,6 @@ export const convertToDayPrecisionUTCDate = (date: Date): number => {
   // convert to number to allow Map to do its lookup thing
   return dateStartOfDay.getTime()
 }
+
+export const isSameDay = (date1: Date, date2: Date): boolean =>
+  convertToDayPrecisionUTCDate(date1) === convertToDayPrecisionUTCDate(date2)
