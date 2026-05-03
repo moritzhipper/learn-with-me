@@ -1,5 +1,5 @@
 import { BankBase, BankShareBase, BankUser, LearnableBase, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types/types'
 import {
   learnablesLexemeMatch as lLexemeMatch,
   learnablesMatch as lMatch,
@@ -8,29 +8,26 @@ import {
   updateActiveBank
 } from './mutator-utils'
 
-// Helper to check if practice should be reset when cards are deleted
-const shouldResetPractice = (state: LearnablesStoreType, idsToDelete: string[]): boolean =>
-  state.currentPractice?.guessables.some((g) => idsToDelete.includes(g.id)) ?? false
-
 // Remove learnables from the active bank
 const removeLearnablesFromBank = (
   state: LearnablesStoreType,
   idsToDelete: string[]
-): LearnablesStoreType => {
-  const updatedState = updateActiveBank(state, (b) => ({
-    ...b,
-    learnables: b.learnables.filter((l) => !idsToDelete.includes(l.id)),
-    collections: b.collections.map((c) => ({
-      ...c,
-      cardIds: c.cardIds.filter((cardId) => !idsToDelete.includes(cardId))
-    }))
-  }))
+): LearnablesStoreType =>
+  updateActiveBank(state, (b) => {
+    const shouldResetPractice = !!b.practice.active?.guessables.some((g) =>
+      idsToDelete.includes(g.id)
+    )
 
-  return {
-    ...updatedState,
-    currentPractice: shouldResetPractice(state, idsToDelete) ? null : state.currentPractice
-  }
-}
+    return {
+      ...b,
+      learnables: b.learnables.filter((l) => !idsToDelete.includes(l.id)),
+      collections: b.collections.map((c) => ({
+        ...c,
+        cardIds: c.cardIds.filter((cardId) => !idsToDelete.includes(cardId))
+      })),
+      practice: shouldResetPractice ? { ...b.practice, active: null } : b.practice
+    }
+  })
 
 export const removeLearnables =
   (ids: string[]) =>
@@ -48,8 +45,7 @@ export const setActiveBank =
   (id: string) =>
   (state: LearnablesStoreType): LearnablesStoreType => ({
     ...state,
-    activeBankId: id,
-    currentPractice: null
+    activeBankId: id
   })
 
 export const deleteBank =
@@ -70,8 +66,7 @@ export const deleteBank =
     return {
       ...state,
       banks,
-      activeBankId,
-      currentPractice: null
+      activeBankId
     }
   }
 
@@ -89,14 +84,17 @@ export const createBank =
       },
       language: base.language,
       collections: [],
-      learnables: []
+      learnables: [],
+      practice: {
+        active: null,
+        history: []
+      }
     }
 
     return {
       ...state,
       activeBankId: newBank.id,
-      banks: [...state.banks, newBank],
-      currentPractice: null
+      banks: [...state.banks, newBank]
     }
   }
 
@@ -118,7 +116,11 @@ export const saveImportToNewBank =
       collections: bank.collections.map((c) => ({
         ...c,
         createdAt: now
-      }))
+      })),
+      practice: {
+        active: null,
+        history: []
+      }
     }
     return {
       ...state,

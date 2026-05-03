@@ -1,4 +1,4 @@
-import { Component, computed, DOCUMENT, inject } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ActivatedRoute, RouterOutlet } from '@angular/router'
 import { tapResponse } from '@ngrx/operators'
@@ -10,6 +10,7 @@ import { NavbarNewComp } from './components/shared/navbar-new-comp/navbar-new-co
 import { OnboardingComp } from './components/shared/onboarding-comp/onboarding-comp'
 import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-outlet-comp'
 import { ApiService } from './services/api-service'
+import { DebugHelper } from './services/debug-helper/debug-helper'
 import { ShareBanksService } from './services/share-banks-service'
 import { ToastService } from './services/toast-service'
 import { LearnablesStore } from './store/learnablesStore'
@@ -34,9 +35,9 @@ export class App {
   private readonly toastS = inject(ToastService)
   private readonly bankService = inject(ShareBanksService)
 
-  protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
+  private readonly debugHelper = inject(DebugHelper)
 
-  private document = inject(DOCUMENT)
+  protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
 
   private params = this.route.queryParams.pipe(
     takeUntilDestroyed(),
@@ -54,6 +55,10 @@ export class App {
 
   constructor() {
     this.params.subscribe()
+  }
+
+  addDebug() {
+    this.debugHelper.seedDebugBank()
   }
 
   resolveBankError() {

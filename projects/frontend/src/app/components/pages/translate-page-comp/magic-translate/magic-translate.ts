@@ -10,7 +10,7 @@ import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore
 import {
   LearnableCreationConfig,
   LearnableFromTextCreationConfig
-} from 'projects/frontend/src/app/types_and_schemas/types'
+} from 'projects/frontend/src/app/types/types'
 import { mapToStaggerVM, staggerDelays } from 'projects/frontend/src/app/utils/genaral-utils'
 import { from, pipe, switchMap, tap } from 'rxjs'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'

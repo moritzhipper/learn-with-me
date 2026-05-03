@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { PracticeActiveSchema } from './practice-schemas'
 
 export const LearnableFromAiSchema = z.object({
   lexeme: z.string(),
@@ -57,6 +58,12 @@ export const BankBaseSchema = z.object({
   name: z.string()
 })
 
+export const Guess = z.literal(['right', 'wrong', 'unanswered'])
+export const GuessableSchema = z.object({
+  id: z.string(),
+  guess: Guess
+})
+
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
@@ -66,7 +73,11 @@ export const BankUserSchema = BankBaseSchema.extend({
     tone: z.string()
   }),
   learnables: z.array(LearnableUserSchema),
-  collections: z.array(CollectionUserSchema)
+  collections: z.array(CollectionUserSchema),
+  practice: z.object({
+    active: PracticeActiveSchema.nullable(),
+    history: z.array(PracticeActiveSchema)
+  })
 })
 
 export const BankShareConfigSchema = z.object({

@@ -3,7 +3,7 @@ import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@share
 import { config } from '../../config'
 import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnablesStore'
-import { ImportStrategy } from '../types_and_schemas/types'
+import { ImportStrategy } from '../types/types'
 import {
   mapBankToShareable,
   parseFileImportString,

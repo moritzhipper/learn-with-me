@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
+import { PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import { Practice } from '../../../types_and_schemas/types'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { ActivePracticeComp } from './active-practice-comp/active-practice-comp'
 import { ConfigurePracticeComp } from './configure-practice-comp/configure-practice-comp'
@@ -13,13 +13,14 @@ import { ConfigurePracticeComp } from './configure-practice-comp/configure-pract
   host: { class: 'page full' }
 })
 export class PracticeComp {
-  protected readonly currentPractice = inject(LearnablesStore).currentPractice
+  protected readonly ls = inject(LearnablesStore)
+  currentPractice = computed(() => this.ls.activeBank().practice.active)
 
-  protected isFinished(prac: Practice): boolean {
-    return prac.index >= prac.guessables.length
+  protected isFinished(prac: PracticeActive): boolean {
+    return prac.guessableIndex >= prac.guessables.length
   }
 
-  protected isUnfinished(prac: Practice): boolean {
-    return prac.index < prac.guessables.length
+  protected isUnfinished(prac: PracticeActive): boolean {
+    return prac.guessableIndex < prac.guessables.length
   }
 }

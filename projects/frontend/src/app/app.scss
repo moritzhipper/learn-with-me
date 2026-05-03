@@ -7,3 +7,8 @@ main {
 router-outlet {
   display: none;
 }
+.debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+}

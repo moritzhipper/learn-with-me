@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
-import { ImportStrategy } from 'projects/frontend/src/app/types_and_schemas/types'
+import { ImportStrategy } from 'projects/frontend/src/app/types/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 

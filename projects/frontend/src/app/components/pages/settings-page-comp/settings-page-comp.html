@@ -1,14 +1,14 @@
 <app-page-icon-comp type="settings" />
 <app-page-header-comp title="Settings" />
 
-<div class="stats">
+<p class="stats size-2">
   You created <strong>{{ stats().banks }} </strong> holding
   <strong>{{ stats().collections }} </strong> having a total of
   <strong>{{ stats().learnables }}</strong
   >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
-</div>
+</p>
 <h2 class="indent">Banks</h2>
-<div class="banks">
+<div class="caroussel-wrapper">
   @for (bank of banks(); track bank.id) {
     <app-bank-settings-card
       [bank]="bank"
@@ -18,10 +18,11 @@
       (download)="downloadBank(bank)"
       (edit)="editBank(bank)"
       (share)="shareBank(bank)"
+      class="caroussel-item"
     />
   }
-  <button class="add-bank" (click)="createNewBank()">
-    <span>Add Bank</span>
+  <button class="add-bank caroussel-item" (click)="createNewBank()">
+    <span>Create new Bank</span>
     <app-icon-comp type="add" size="auto" />
   </button>
 </div>

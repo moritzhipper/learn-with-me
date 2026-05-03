@@ -1,0 +1,30 @@
+:host {
+  display: contents;
+}
+
+.quick {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2);
+  gap: var(--distance-2);
+  background-color: var(--col-accent);
+  padding: var(--distance-4);
+
+  strong {
+    color: currentColor;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .bottom {
+    margin-top: auto;
+    opacity: var(--opacity-1);
+  }
+  p.all {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: wrap;
+  }
+}

@@ -2,15 +2,28 @@
 
 # New page
 
-New translation
+# right now
 
-- only in navigation: Dashboard, Translate, practice
-- On Dashboard
-  - practice History: Last practiced, spaced repititions candidates, some positive motivating stat based on improvements
-  - Your Cards Preview
-  - Community preview
+## General
 
-# now
+- replace single confidence with both directions confidenc to allow user deciding on direction before start
+- add automatism that automatically selects the worst direction?
+- create component to show confidence (general %, forward, backwards)
+- streamline colors, give practice, collection and cards on color wich is not UI color
+- use caroussel on shared page
+- use ng-icon instead of my custom solution
+- add layout helper scss
+
+## Dashboard
+
+### Practice handling
+
+- add: add select all option to magic generate
+- use: shared, cards collection select
+
+- add practice history
+
+- on practice config: show, instead of the select, the same categories as on dashboard page
 
 - filter doppelresponses aus preview
 - selektiere zom importieren / importiere alle bubbles oder button
@@ -40,6 +53,7 @@ New translation
 
 ## Right Now
 
+- use icons for confidence / percent to be shown everywhere instead of text
 - change translate direction on translate page
 - make error thingy on community same as empty state -> component?
 - write tests for store
@@ -57,6 +71,11 @@ only put hat on big larry, remove from logo
 - fix download preview view form
   - return only overview for most bank endpoints
   - return full bank for download endpoint, increase download count
+
+## How scores are calculated
+
+- save guesses instead of true false on cards
+- let true and false influence, but not guesses yet not
 
 ## Store
 
@@ -78,6 +97,10 @@ only put hat on big larry, remove from logo
 
 - check practice process
 - import merge correct
+
+### Documentation
+
+- explain spaced rep, explai wuick actions and their difference
 
 ## shared
 

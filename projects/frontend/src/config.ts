@@ -1,4 +1,4 @@
-import { AppConfig } from './app/types_and_schemas/types'
+import { AppConfig } from './app/types/types'
 
 export const config: AppConfig = {
   appNameLong: 'lingolizard',

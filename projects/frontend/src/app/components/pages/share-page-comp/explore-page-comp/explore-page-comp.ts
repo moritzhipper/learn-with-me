@@ -8,10 +8,7 @@ import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
-import {
-  ApiFetchState,
-  ExplorePageCategoryConfig
-} from 'projects/frontend/src/app/types_and_schemas/types'
+import { ApiFetchState, ExplorePageCategoryConfig } from 'projects/frontend/src/app/types/types'
 import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
 import { lastValueFrom } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'

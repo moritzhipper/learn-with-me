@@ -1,5 +1,6 @@
 import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { Router } from '@angular/router'
 import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import {
@@ -45,6 +46,7 @@ import { OverviewPageFacade } from './overview-page-facade'
 export class OverviewComp {
   private readonly _lStore = inject(LearnablesStore)
   private readonly _facade = inject(OverviewPageFacade)
+  private readonly router = inject(Router)
 
   // Component state management
   protected readonly bank = this._lStore.activeBank
@@ -110,6 +112,14 @@ export class OverviewComp {
       averageConfidence: calculateAverageConfidencePercent(this.learnables())
     }
   })
+
+  constructor() {
+    const collectionIDfromRouter = this.router.currentNavigation()?.extras.state?.['collectionID']
+    const isValid =
+      typeof collectionIDfromRouter === 'string' &&
+      this.collections().some((c) => c.id === collectionIDfromRouter)
+    if (isValid) this.selectedCollectionId.set(collectionIDfromRouter)
+  }
 
   async handleFilterAction(action: FilterAction) {
     const collection = this.selectedCollection()

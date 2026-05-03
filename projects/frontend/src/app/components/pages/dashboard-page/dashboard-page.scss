@@ -1,0 +1,40 @@
+@use '../../../../style/mixins.scss' as *;
+
+:host {
+  box-sizing: border-box;
+}
+
+.sections {
+  display: grid;
+  gap: var(--distance-5);
+  section {
+    display: grid;
+    min-width: 0px;
+
+    box-sizing: border-box;
+  }
+}
+
+@include isDesktop {
+  .sections {
+    grid-template-columns: 1fr 1fr;
+
+    section {
+      .caroussel-wrapper {
+        border-radius: var(--radius-3);
+
+        background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+        padding: var(--distance-4);
+      }
+      &.wide {
+        grid-column: span 2;
+      }
+    }
+  }
+}
+
+@include isPhone {
+  .sections {
+    grid-template-columns: 1fr;
+  }
+}

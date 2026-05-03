@@ -1,17 +1,19 @@
 :root {
   --col-base-0: #191a1c;
   --col-base-1: #5348b0;
-  --col-base-2: #dd93e5;
+  --col-base-2: #7092c6;
   --col-base-3: #e8cfec;
-  --col-base-4: #b34e69; // warn
-  --col-base-5: #487934; // success
+  --col-base-4: #b3801c;
+  --col-base-5: #975754; // warn
+  --col-base-6: #487934; // success
 
   --col-text: var(--col-base-3);
   --col-primary: var(--col-base-2);
   --col-accent: var(--col-base-1);
+  --col-accent-2: var(--col-base-4);
   --col-bg: var(--col-base-0);
-  --col-warning: var(--col-base-4);
-  --col-success: var(--col-base-5);
+  --col-warning: var(--col-base-5);
+  --col-success: var(--col-base-6);
 
   --shadow-bigger: 0px 20px 50px 0 var(--col-base-0);
   --shadow-big: 0px 10px 20px -7px var(--col-base-0);
@@ -29,6 +31,7 @@
   --font-size-3: 32px;
   --font-size-4: 64px;
 
+  --line-height-0: 20px;
   --line-height-1: 22px;
   --line-height-2: 28px;
   --line-height-3: 44px;

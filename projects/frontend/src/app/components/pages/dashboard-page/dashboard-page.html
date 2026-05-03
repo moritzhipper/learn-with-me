@@ -1,0 +1,33 @@
+<app-page-header-comp title="Home" />
+<app-page-icon-comp type="dashboard" />
+<div class="sections">
+  <section class="wide">
+    <app-header-link label="Practice" route="practice" />
+    <div class="caroussel-wrapper">
+      <app-practice-quick-actions />
+    </div>
+  </section>
+  <section>
+    <app-header-link label="Your Cards" route="cards" />
+    <div class="caroussel-wrapper">
+      <app-cards-quick-selector />
+    </div>
+  </section>
+  <section>
+    <app-header-link label="Community Banks" route="community" />
+    <div class="caroussel-wrapper">
+      @if (sharedBanks.hasValue() && sharedBanks.value().length > 0) {
+        @for (bank of sharedBanks.value(); track bank.id) {
+          <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
+        }
+      } @else {
+        <p>Shared banks are not available right now. Try again later.</p>
+      }
+    </div>
+  </section>
+  <section class="wide">
+    <app-header-link label="Stats" route="stats" />
+
+    Show timeline of recent activity Show progress towards goals
+  </section>
+</div>

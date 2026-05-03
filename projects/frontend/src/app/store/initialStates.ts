@@ -1,10 +1,9 @@
 import { GuessHistory } from '@shared/types'
-import { LearnablesStoreType, SettingsStoreType } from '../types_and_schemas/types'
+import { LearnablesStoreType, SettingsStoreType } from '../types/types'
 
 export const initialState: LearnablesStoreType = {
   banks: [],
-  activeBankId: null,
-  currentPractice: null
+  activeBankId: null
 }
 
 export const initialSettings: SettingsStoreType = {

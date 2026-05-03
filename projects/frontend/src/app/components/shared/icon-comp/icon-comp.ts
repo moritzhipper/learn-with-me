@@ -41,6 +41,10 @@ export type IconType =
   | 'close-circle'
   | 'image'
   | 'translate'
+  | 'dashboard'
+  | 'donut-chart-fill'
+  | 'drop'
+  | 'drop-fill'
 
 @Component({
   selector: 'app-icon-comp',

@@ -1,24 +1,5 @@
 @use '../../../../style/mixins.scss' as *;
 
-.stats {
-  font-size: var(--font-size-2);
-  line-height: var(--font-size-3);
-}
-
-.banks {
-  gap: var(--distance-4);
-  overflow-x: auto;
-  display: flex;
-  margin: calc(var(--distance-4) * -1);
-  padding: var(--distance-4);
-  scrollbar-width: none;
-  box-sizing: border-box;
-  app-bank-settings-card {
-    min-height: 200px;
-    min-width: 360px;
-  }
-}
-
 .add-bank,
 app-bank-settings-card,
 app-settings-item-comp {
@@ -56,9 +37,6 @@ app-settings-item-comp {
     height: 200px;
     opacity: var(--opacity-0);
   }
-}
-p {
-  margin: 0;
 }
 
 .delete {

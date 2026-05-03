@@ -1,0 +1,14 @@
+form {
+  grid-template-rows: 1fr auto;
+}
+
+h3 {
+  margin: 0;
+  padding-bottom: var(--distance-3);
+}
+
+.warning {
+  padding: var(--distance-4);
+  background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
+  border-radius: var(--radius-2);
+}

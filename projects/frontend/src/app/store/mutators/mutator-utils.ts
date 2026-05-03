@@ -1,5 +1,5 @@
 import { BankUser, LearnableBase, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types_and_schemas/types'
+import { LearnablesStoreType } from '../../types/types'
 import { initialGuesses } from '../initialStates'
 
 /** Helper to update the active bank in state */

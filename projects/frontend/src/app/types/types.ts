@@ -1,20 +1,8 @@
-import type {
-  BankRequestConfig,
-  BankUser,
-  LanguageConfig,
-  LanguageConfigRequest
-} from '@shared/types'
+import { BankRequestConfig, BankUser, LanguageConfig, LanguageConfigRequest } from '@shared/types'
 
 export type LearnablesStoreType = {
   banks: BankUser[]
   activeBankId: string | null
-  currentPractice: Practice | null
-}
-
-export type Practice = {
-  index: number
-  guessables: Guessable[]
-  reverseDirection: boolean
 }
 
 export type TranslateFastConfig = {
@@ -41,13 +29,6 @@ export type LearnableFromImageCreationConfig = LearnableCreationConfigBase & {
 export type LearnableCreationConfig =
   | LearnableFromTextCreationConfig
   | LearnableFromImageCreationConfig
-
-export type Guess = 'right' | 'wrong' | 'unanswered'
-
-export type Guessable = {
-  id: string
-  guessed: Guess
-}
 
 export type SettingsStoreType = {
   apiKey: string

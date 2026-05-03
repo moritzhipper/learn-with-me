@@ -1,0 +1,64 @@
+@for (action of quickActions(); track $index) {
+  <button class="silent quick caroussel-item" (click)="selectAction(action)">
+    @switch (action.type) {
+      @case ('continue') {
+        <h3>Continue practice</h3>
+        <p>{{ action.cardsLeft }} cards left until you're done!</p>
+      }
+      @case ('collection') {
+        <h3>
+          {{ action.collection.name }}
+        </h3>
+        <p>
+          <span class="word-list-item">
+            <strong>{{ action.collection.cardIds.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> confidence
+          </span>
+        </p>
+
+        <app-spaced-repetition-timeline [dates]="action.practiceDates" />
+      }
+      @case ('added-on-day') {
+        <h3>
+          Added By Day
+          <span class="type">
+            {{ action.dayCardsAddedUTC | date: 'mediumDate' }}
+          </span>
+        </h3>
+        <p>
+          <span class="word-list-item">
+            <strong>{{ action.learnableIDs.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> confidence
+          </span>
+        </p>
+        <p class="size-0">
+          Maximize effectiveness by catching the spaced repetition interval exactly.
+        </p>
+        <app-spaced-repetition-timeline [dates]="action.practiceDates" />
+      }
+      @case ('worst-cards') {
+        <h3>Most potential</h3>
+        <p>
+          <span class="word-list-item">
+            <strong>{{ action.learnableIDs.length }}</strong> cards
+          </span>
+          <span class="word-list-item">
+            <strong> {{ action.averageScore }}% </strong> confidence
+          </span>
+        </p>
+        <p class="size-0">
+          Focus on the cards with the lowest average score to boost your overall confidence.
+        </p>
+      }
+      @case ('customize') {
+        <h3>Customize everything</h3>
+        <p>Set up the practice session exactly how you want to.</p>
+      }
+    }
+    <app-icon-comp type="learn" />
+  </button>
+}

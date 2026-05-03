@@ -63,3 +63,20 @@ export const mapToStaggerVM = <T>(items: T[], timeSpread: number = 0.3): Stagger
   const delays = staggerDelays(items.length, timeSpread)
   return items.map((item, i) => ({ item, animDelay: delays[i] }))
 }
+
+// time utils
+
+export const calcDaysAgo = (now: Date | number, date: Date | number): number => {
+  const nowDate = new Date(now)
+  const dateObj = new Date(date)
+  const msInDay = 1000 * 60 * 60 * 24
+  return (nowDate.getTime() - dateObj.getTime()) / msInDay
+}
+
+export const convertToDayPrecisionUTCDate = (date: Date): number => {
+  const dateStartOfDay = new Date(date)
+  dateStartOfDay.setHours(0, 0, 0, 0)
+
+  // convert to number to allow Map to do its lookup thing
+  return dateStartOfDay.getTime()
+}

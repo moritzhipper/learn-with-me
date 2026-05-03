@@ -4,11 +4,13 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import {
   BankBase,
   BankShareBase,
+  BankUser,
+  Guess,
   LearnableBase,
+  PracticeConfig,
   TranslationHistoryItem,
   UserLearnablePartial
 } from '@shared/types'
-import { Guess } from '../types_and_schemas/types'
 import { initialState } from './initialStates'
 import {
   applyBankUpdates,
@@ -70,8 +72,8 @@ export const LearnablesStore = signalStore(
       removeLearnables(ids: string[]) {
         patchState(state, removeLearnables(ids))
       },
-      startPractice(ids: string[], reverseDirection: boolean) {
-        patchState(state, startPractice(ids, reverseDirection))
+      startPractice(config: PracticeConfig) {
+        patchState(state, startPractice(config))
       },
       addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id' | 'createdAt'>) {
         patchState(state, addTranslationHistoryItem(learnable))
@@ -128,6 +130,13 @@ export const LearnablesStore = signalStore(
       },
       reset() {
         patchState(state, initialState)
+      },
+      addBankForDebug(bank: BankUser) {
+        patchState(state, (state) => ({
+          ...state,
+          banks: [...state.banks, bank],
+          activeBankId: bank.id
+        }))
       }
     }
   })

@@ -1,6 +1,6 @@
 import { Component, effect, ElementRef, input, output, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { UserLearnable } from '@shared/types'
+import { PracticeActive, UserLearnable } from '@shared/types'
 
 @Component({
   selector: 'app-practice-card-comp',
@@ -14,11 +14,11 @@ import { UserLearnable } from '@shared/types'
 export class PracticeCardComp {
   concealed = input<boolean>(true)
   learnable = input.required<UserLearnable>()
-  reverseDirection = input.required<boolean>()
+  direction = input.required<PracticeActive['direction']>()
   updateNotes = output<{ id: string; newNotes: string }>()
   allowEdit = input<boolean>(false)
 
-  private readonly textArea = viewChild<ElementRef<HTMLTextAreaElement>>('textArea')
+  private readonly textArea = viewChild.required<ElementRef<HTMLTextAreaElement>>('textArea')
 
   setUpdatedNotes(newNotes: string) {
     this.updateNotes.emit({ id: this.learnable().id, newNotes })
@@ -28,7 +28,7 @@ export class PracticeCardComp {
     effect(() => {
       if (this.allowEdit()) {
         setTimeout(() => {
-          this.textArea()?.nativeElement.focus()
+          this.textArea().nativeElement.focus()
         }, 300)
       }
     })

@@ -1,47 +1,47 @@
 <app-page-icon-comp type="share-network-fill" />
-<app-page-header-comp title="Community" />
+<app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
 
-@for (section of previewBanks(); track section.item.title) {
-  <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
-    @if (section.item.type === 'community') {
-      <a
-        class="h2 indent header silent"
-        routerLink="/community/explore"
-        [queryParams]="section.item.params"
-        [class.first]="$index === 0"
-      >
-        <h2>{{ section.item.title }}</h2>
-        <app-icon-comp type="chevron" [size]="24" />
-      </a>
-      <div class="collections community">
-        @for (bank of section.item.banks; track bank.id) {
-          <app-shared-bank-comp
-            class="stacked-shadow"
-            [bank]="bank"
-            (copyId)="copyLink(bank)"
-            (importBank)="importBank(bank)"
-            [isCommunityBank]="true"
-          />
-        }
-        <a
-          class="silent see-more stacked-shadow"
-          routerLink="/community/explore"
+<div class="preview-sections">
+  @for (section of previewBanks(); track section.item.title) {
+    <div class="preview-section fly-in-y-wide" [style.animationDelay.s]="section.animDelay">
+      @if (section.item.type === 'community') {
+        <app-header-link
+          [label]="section.item.title"
+          [route]="'/community/explore'"
           [queryParams]="section.item.params"
-        >
-          <span> Explore more </span>
-          <app-icon-comp type="chevron" size="auto" />
-        </a>
-      </div>
-    } @else {
-      <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
-      <div class="collections user">
-        @for (bank of section.item.banks; track bank.id) {
-          <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
-        }
-      </div>
-    }
-  </div>
-}
+        />
+
+        <div class="collections community">
+          @for (bank of section.item.banks; track bank.id) {
+            <app-shared-bank-comp
+              class="stacked-shadow"
+              [bank]="bank"
+              (copyId)="copyLink(bank)"
+              (importBank)="importBank(bank)"
+              [isCommunityBank]="true"
+            />
+          }
+
+          <a
+            class="silent see-more stacked-shadow"
+            routerLink="/community/explore"
+            [queryParams]="section.item.params"
+          >
+            <span> Explore more </span>
+            <app-icon-comp type="chevron" size="auto" />
+          </a>
+        </div>
+      } @else {
+        <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
+        <div class="collections user">
+          @for (bank of section.item.banks; track bank.id) {
+            <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
 
 @if (fetchState() === 'no-data') {
   <app-page-placeholder-comp title="No shared banks available">

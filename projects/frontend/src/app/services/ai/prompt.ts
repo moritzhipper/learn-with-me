@@ -1,5 +1,5 @@
 import { LanguageConfig, LearnableBase } from '@shared/types'
-import { LearnableCreationConfig } from '../../types_and_schemas/types'
+import { LearnableCreationConfig } from '../../types/types'
 
 const systemPrompt = ({ learning, speaking }: LanguageConfig) => `
   You are a language tutor creating vocabulary cards.  

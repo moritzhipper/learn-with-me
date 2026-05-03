@@ -1,0 +1,44 @@
+.timeline {
+  display: flex;
+  align-items: center;
+  position: relative;
+  --min-days: 1;
+  --max-days: 60;
+  --dimension: var(--distance-5);
+
+  .marker {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--dimension);
+
+    --progress: calc((var(--days-ago) - var(--min-days)) / (var(--max-days) - var(--min-days)));
+    left: calc(var(--progress) * (100% - var(--dimension)));
+  }
+
+  &.practice {
+    height: var(--distance-4);
+
+    .marker {
+      app-icon-comp {
+        rotate: 180deg;
+        width: var(--distance-3);
+        height: var(--distance-3);
+        color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+      }
+    }
+  }
+
+  &.scale {
+    height: var(--distance-4);
+    border-radius: var(--radius-1);
+    background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+
+    .marker {
+      border-radius: var(--radius-0);
+      font-weight: var(--font-weight-bold);
+      color: var(--col-accent-2);
+      font-size: var(--distance-3);
+    }
+  }
+}

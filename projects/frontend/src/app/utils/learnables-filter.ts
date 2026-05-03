@@ -1,5 +1,5 @@
 import { UserLearnable } from '@shared/types'
-import { LearnablesFilterConfig } from '../types_and_schemas/types'
+import { LearnablesFilterConfig } from '../types/types'
 
 export const filterLearnables = (
   learnables: UserLearnable[],
