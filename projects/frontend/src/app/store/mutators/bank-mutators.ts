@@ -14,7 +14,7 @@ const removeLearnablesFromBank = (
   idsToDelete: string[]
 ): LearnablesStoreType =>
   updateActiveBank(state, (b) => {
-    const shouldResetPractice = !!b.practice.current?.guessables.some((g) =>
+    const shouldResetPractice = !!b.practice.active?.guessables.some((g) =>
       idsToDelete.includes(g.id)
     )
 
@@ -25,7 +25,7 @@ const removeLearnablesFromBank = (
         ...c,
         cardIds: c.cardIds.filter((cardId) => !idsToDelete.includes(cardId))
       })),
-      practice: shouldResetPractice ? { ...b.practice, current: null } : b.practice
+      practice: shouldResetPractice ? { ...b.practice, active: null } : b.practice
     }
   })
 
@@ -86,7 +86,7 @@ export const createBank =
       collections: [],
       learnables: [],
       practice: {
-        current: null,
+        active: null,
         history: []
       }
     }
@@ -118,7 +118,7 @@ export const saveImportToNewBank =
         createdAt: now
       })),
       practice: {
-        current: null,
+        active: null,
         history: []
       }
     }

@@ -124,7 +124,7 @@ export const buildDebugBank = (): BankUser => {
     learnables: allLearnables,
     collections,
     practice: {
-      current: null,
+      active: null,
       history: [...collectionPractices, ...customPractices]
     }
   }

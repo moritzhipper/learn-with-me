@@ -58,7 +58,7 @@ export const startPractice =
           ...b,
           practice: {
             ...b.practice,
-            current: {
+            active: {
               ...basePractice,
               type: 'collection',
               collectionId: config.collectionId
@@ -70,7 +70,7 @@ export const startPractice =
           ...b,
           practice: {
             ...b.practice,
-            current: {
+            active: {
               ...basePractice,
               type: 'added-on-day',
               dayCardsAddedUTC: config.dayCardsAddedUTC
@@ -82,7 +82,7 @@ export const startPractice =
           ...b,
           practice: {
             ...b.practice,
-            current: {
+            active: {
               ...basePractice,
               type: 'custom'
             }
@@ -96,7 +96,7 @@ export const setGuess =
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       // no practice running
-      const practice = b.practice.current
+      const practice = b.practice.active
       if (!practice) return b
 
       // practice already finished
@@ -112,7 +112,7 @@ export const setGuess =
         learnables: updatedlearnables,
         practice: {
           ...b.practice,
-          current: {
+          active: {
             ...practice,
             guessableIndex: practice.guessableIndex + 1,
             guessables: updateGuessables(practice.guessables, currentGuessable.id, guess)
@@ -125,7 +125,7 @@ export const quitPracticeEarly =
   () =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
-      const currentPractice = b.practice.current
+      const currentPractice = b.practice.active
       if (!currentPractice) return b
 
       // set index to end
@@ -137,7 +137,7 @@ export const quitPracticeEarly =
       return {
         ...b,
         practice: {
-          current: finishedPractice,
+          active: finishedPractice,
           history: [...b.practice.history, finishedPractice]
         }
       }
@@ -147,13 +147,13 @@ export const removePractice =
   () =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
-      const currentPractice = b.practice.current
+      const currentPractice = b.practice.active
       if (!currentPractice) return b
       return {
         ...b,
         practice: {
           ...b.practice,
-          current: null,
+          active: null,
           history: [currentPractice, ...b.practice.history]
         }
       }

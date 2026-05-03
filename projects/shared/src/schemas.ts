@@ -75,7 +75,7 @@ export const BankUserSchema = BankBaseSchema.extend({
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionUserSchema),
   practice: z.object({
-    current: PracticeActiveSchema.nullable(),
+    active: PracticeActiveSchema.nullable(),
     history: z.array(PracticeActiveSchema)
   })
 })

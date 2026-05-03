@@ -18,7 +18,7 @@ export class NavbarNewComp {
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
   private readonly lStore = inject(LearnablesStore)
-  protected readonly hasActivePractice = computed(() => !!this.lStore.activeBank().practice.current)
+  protected readonly hasActivePractice = computed(() => !!this.lStore.activeBank().practice.active)
 
   @HostListener('mouseleave', [])
   onleave() {

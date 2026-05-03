@@ -4,25 +4,20 @@
 
 # right now
 
-- add correct link on quick select cards
-- put icon instead of line for now marker on timeline
-- how to show language direction on practice quick actions?
-- add specific icons to practice configs
+## General
 
-- create collection color, create collection card
-  - apply on all collection overview comps
-- make carousel reusable!
-  - on mobile no scroolbar,
-  - on desktop: hold scroll buttons, do fade
-
-# now
+- replace single confidence with both directions confidenc to allow user deciding on direction before start
+- add automatism that automatically selects the worst direction?
+- create component to show confidence (general %, forward, backwards)
+- streamline colors, give practice, collection and cards on color wich is not UI color
+- use caroussel on shared page
+- use ng-icon instead of my custom solution
+- add layout helper scss
 
 ## Dashboard
 
 ### Practice handling
 
-- add automatism that automatically selects the worst direction?
-- clean up modal confirm pupu config to allow title, body, confirm and cancle label. search for occurences, then make use
 - add: add select all option to magic generate
 - use: shared, cards collection select
 

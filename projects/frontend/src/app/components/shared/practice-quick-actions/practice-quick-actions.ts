@@ -8,6 +8,7 @@ import {
   calculateAverageConfidencePercent,
   convertToDayPrecisionUTCDate
 } from '../../../utils/genaral-utils'
+import { StartPracticeFormConf } from '../forms/start-practice-form/start-practice-form'
 import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
@@ -62,7 +63,7 @@ export class PracticeQuickActions {
     const quickActions: QuickAction[] = []
 
     // add resume card if necessary
-    const currentPractice = this.ls.activeBank().practice.current
+    const currentPractice = this.ls.activeBank().practice.active
     if (currentPractice) {
       const cardsLeft = currentPractice.guessables.length - currentPractice.guessableIndex
       quickActions.push({ type: 'continue', cardsLeft })
@@ -91,41 +92,41 @@ export class PracticeQuickActions {
   })
 
   protected async selectAction(action: QuickAction) {
-    // if not continue, but acitve practice -> verify quitting it using modal
-    // else start practice with selected ids, then route to ractice page
+    // if no active practice continue, else verify quitting it using modal
 
-    if (this.ls.activeBank().practice.current && action.type !== 'continue') {
-      const response = await this.modalService.open('confirm', {
-        message:
-          'You have an ongoing practice session. If you start a new one your progress will be lost.',
-        label: 'Thats fine!'
-      })
-      if (response.type === 'cancel') return
-      this.ls.quitPracticePrematurly()
+    if (action.type === 'continue') {
+      this.router.navigate(['practice'])
+      return
     }
 
-    // start new with action config, (also set correct type for history)
+    const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
+      activePractice: this.ls.activeBank().practice.active
+    })
+
+    if (response.type === 'cancel') return
+    const direction = response.value.direction
+
+    // Start new with action config, then redirect
     // Just redirect, when customize or continue selected
-    // then redirect
     if (action.type === 'collection') {
       this.ls.startPractice({
         type: 'collection',
         collectionId: action.collection.id,
         learnableIDs: action.collection.cardIds,
-        direction: 'forward'
+        direction
       })
     } else if (action.type === 'worst-cards') {
       this.ls.startPractice({
         type: 'custom',
         learnableIDs: action.learnableIDs,
-        direction: 'forward'
+        direction
       })
     } else if (action.type === 'added-on-day') {
       this.ls.startPractice({
         type: 'added-on-day',
         dayCardsAddedUTC: action.dayCardsAddedUTC,
         learnableIDs: action.learnableIDs,
-        direction: 'forward'
+        direction
       })
     }
     this.router.navigate(['practice'])

@@ -14,7 +14,7 @@ import { ConfigurePracticeComp } from './configure-practice-comp/configure-pract
 })
 export class PracticeComp {
   protected readonly ls = inject(LearnablesStore)
-  currentPractice = computed(() => this.ls.activeBank().practice.current)
+  currentPractice = computed(() => this.ls.activeBank().practice.active)
 
   protected isFinished(prac: PracticeActive): boolean {
     return prac.guessableIndex >= prac.guessables.length
