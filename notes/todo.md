@@ -4,6 +4,8 @@
 
 # right now: Stats
 
+- stats: show cards guessed count, this is the only important thing: practice!!!!
+- in graphs: cards guesse, do histogramm
 - Show timeline on top: same as on dashboard page
 - show history items sorted by day, cool timelne left oder so
 - put end of practice stickers somewhere prominent on ollection
