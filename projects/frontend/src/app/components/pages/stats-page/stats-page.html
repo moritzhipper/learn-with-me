@@ -4,14 +4,28 @@
 <div class="history">
   @for (entry of practiceHistory() | keyvalue; track entry.key) {
     <div class="day">
-      <h2>
+      <div class="header">
         <app-icon-comp type="drop-fill" />
-        {{ entry.key | date: 'mediumDate' }}
-      </h2>
+        <h2>
+          {{ entry.key | date: 'mediumDate' }}
+        </h2>
+        <p class="stats">
+          <span class="word-list-item"> {{ entry.value.totalRight }} right </span>
+          <span class="word-list-item"> {{ entry.value.totalWrong }} wrong </span>
+        </p>
+      </div>
       <div class="practices-wrapper">
-        @for (practice of entry.value; track $index) {
+        @for (practice of entry.value.practices; track $index) {
           <div class="practice">
-            <p>{{ practice.learnableIDs.length }} cards practiced</p>
+            <h3>
+              @if (practice.type === 'collection') {
+                {{ practice.collectionName }}
+              } @else if (practice.type === 'added-on-day') {
+                Added on this day
+              } @else {
+                Custom
+              }
+            </h3>
             <p>
               <span class="word-list-item">
                 <strong>{{ practice.right }}</strong> right</span
