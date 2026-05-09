@@ -1,22 +1,31 @@
 <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 <app-page-icon-comp type="donut-chart-fill" />
-<p>show timeline here at top of all practices</p>
-<p>sort entries below by day -> same day, two entries</p>
-@for (practice of practiceHistory(); track $index) {
-  <div class="practice">
-    <h2>{{ practice.type }}</h2>
-    <p>{{ practice.createdAt | date: 'mediumDate' }}</p>
-    <p>{{ practice.learnableIDs.length }} cards practiced</p>
-    <p>
-      <span class="word-list-item">
-        <strong>{{ practice.right }}</strong> right</span
-      >
-      <span class="word-list-item"
-        ><strong>{{ practice.wrong }}</strong> wrong</span
-      >
-      <span class="word-list-item"
-        ><strong>{{ practice.unanswered }}</strong> unanswered</span
-      >
-    </p>
-  </div>
-}
+
+<div class="history">
+  @for (entry of practiceHistory() | keyvalue; track entry.key) {
+    <div class="day">
+      <h2>
+        <app-icon-comp type="drop-fill" />
+        {{ entry.key | date: 'mediumDate' }}
+      </h2>
+      <div class="practices-wrapper">
+        @for (practice of entry.value; track $index) {
+          <div class="practice">
+            <p>{{ practice.learnableIDs.length }} cards practiced</p>
+            <p>
+              <span class="word-list-item">
+                <strong>{{ practice.right }}</strong> right</span
+              >
+              <span class="word-list-item"
+                ><strong>{{ practice.wrong }}</strong> wrong</span
+              >
+              <span class="word-list-item"
+                ><strong>{{ practice.unanswered }}</strong> unanswered</span
+              >
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
