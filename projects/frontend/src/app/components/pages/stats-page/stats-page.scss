@@ -1,7 +1,13 @@
+@use '../../../../style/mixins.scss' as *;
+
 .history {
   display: flex;
   flex-direction: column;
   gap: var(--distance-5);
+}
+
+app-practice-timeline {
+  padding-bottom: var(--distance-4);
 }
 
 .day {
@@ -58,5 +64,14 @@
         color: currentColor;
       }
     }
+  }
+}
+
+// @include isDesktop {
+// }
+@include isPhone {
+  app-practice-timeline {
+    margin: 0 calc(var(--distance-5) * -1);
+    padding: var(--distance-5);
   }
 }
