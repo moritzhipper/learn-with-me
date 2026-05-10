@@ -2,10 +2,26 @@
 
 # New page
 
-# right now
+## General navigation
+
+- interaction elements always bottom: configire practice, stats timeline, translate, edit cards ?
+
+# right now: Stats
+
+- stats: show cards guessed count, this is the only important thing: practice!!!!
+- in graphs: cards guesse, do histogramm
+- Show timeline on top: same as on dashboard page
+- show history items sorted by day, cool timelne left oder so
+- put end of practice stickers somewhere prominent on ollection
+- confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
+- confidence = confidence per cards = higher score, higher impressiveness!
+- items on timeline: practices?
+
+- show practice cards?
 
 ## General
 
+- colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
 - add automatism that automatically selects the worst direction?
 - create component to show confidence (general %, forward, backwards)
@@ -13,6 +29,12 @@
 - use caroussel on shared page
 - use ng-icon instead of my custom solution
 - add layout helper scss
+
+### Stats
+
+- make more obvious what the cound is
+- add weekly average cards guessed
+- addd dayly average cards guessed
 
 ## Dashboard
 

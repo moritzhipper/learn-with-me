@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core'
-import { calcDaysAgo } from '../../../utils/genaral-utils'
+import { calcDaysDifference } from '../../../utils/genaral-utils'
 import { IconComp } from '../icon-comp/icon-comp'
 
 type TimeMarker = {
@@ -29,7 +29,7 @@ export class SpacedRepetitionTimeline {
     if (dates.length === 0) return [{ intervall: 1, type: 'now' }]
 
     const now = new Date()
-    const daysAgo = dates.map((date) => calcDaysAgo(now, date))
+    const daysAgo = dates.map((date) => calcDaysDifference(now, date))
 
     // This is days ago +1 for intervall index shift
     const nowInterval = Math.max(...daysAgo) + 1

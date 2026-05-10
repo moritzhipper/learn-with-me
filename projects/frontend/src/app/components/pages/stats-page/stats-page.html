@@ -1,2 +1,45 @@
 <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 <app-page-icon-comp type="donut-chart-fill" />
+<app-practice-timeline [practiceHistory]="practiceHistory()" (selectDay)="scrollToDay($event)" />
+<div class="history">
+  @for (entry of practiceHistoryDays(); track entry.day) {
+    <div class="day" [id]="'day-' + entry.day">
+      <div class="header">
+        <app-icon-comp type="drop-fill" />
+        <h2>
+          {{ entry.day | date: 'mediumDate' }}
+        </h2>
+        <p class="stats">
+          <span class="word-list-item"> {{ entry.summary.totalRight }} right </span>
+          <span class="word-list-item"> {{ entry.summary.totalWrong }} wrong </span>
+        </p>
+      </div>
+      <div class="practices-wrapper">
+        @for (practice of entry.summary.practices; track $index) {
+          <div class="practice">
+            <h3>
+              @if (practice.type === 'collection') {
+                {{ practice.collectionName }}
+              } @else if (practice.type === 'added-on-day') {
+                Added on this day
+              } @else {
+                Custom
+              }
+            </h3>
+            <p>
+              <span class="word-list-item">
+                <strong>{{ practice.right }}</strong> right</span
+              >
+              <span class="word-list-item"
+                ><strong>{{ practice.wrong }}</strong> wrong</span
+              >
+              <span class="word-list-item"
+                ><strong>{{ practice.unanswered }}</strong> left</span
+              >
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

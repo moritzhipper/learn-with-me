@@ -73,6 +73,9 @@ export const LearnablesStore = signalStore(
         patchState(state, removeLearnables(ids))
       },
       startPractice(config: PracticeConfig) {
+        // ensure that quit practices are saved to history
+        if (!!state.activeBank().practice.active) patchState(state, quitPracticeEarly())
+
         patchState(state, startPractice(config))
       },
       addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id' | 'createdAt'>) {

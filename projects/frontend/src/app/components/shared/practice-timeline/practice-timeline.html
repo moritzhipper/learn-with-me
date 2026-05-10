@@ -1,0 +1,13 @@
+@for (day of practiceHistory(); track day) {
+  @if (day.guessed === 0) {
+    <div class="day empty"></div>
+  } @else {
+    <button class="day" [style.--guessed]="day.guessed" (click)="selectDay.emit(day.day)">
+      @if (day.guessed > 15) {
+        <p class="size-0">
+          {{ day.guessed }}
+        </p>
+      }
+    </button>
+  }
+}
