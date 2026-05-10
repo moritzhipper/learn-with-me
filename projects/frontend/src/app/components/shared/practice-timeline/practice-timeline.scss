@@ -5,15 +5,15 @@
   gap: var(--distance-2);
   overflow-x: auto;
   scrollbar-width: none;
+}
 
-  .day {
-    height: calc(var(--guessed) / var(--max-guesses) * 100%);
-    border-radius: var(--radius-0);
-    flex: 1;
-    min-width: 30px;
-    max-width: 50px;
+.day {
+  height: calc(var(--guessed) / var(--max-guesses) * 100%);
+  border-radius: var(--radius-0);
+  flex: 0 0 30px;
+  background-color: var(--col-accent-2);
 
-    width: 10px;
-    background-color: var(--col-accent-2);
+  &:first-child {
+    margin-left: auto;
   }
 }
