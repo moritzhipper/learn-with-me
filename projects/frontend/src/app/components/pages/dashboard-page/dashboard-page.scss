@@ -10,7 +10,6 @@
   section {
     display: grid;
     min-width: 0px;
-
     box-sizing: border-box;
   }
 }
@@ -20,9 +19,11 @@
     grid-template-columns: 1fr 1fr;
 
     section {
+      display: grid;
+      grid-template-rows: auto 1fr;
+
       .caroussel-wrapper {
         border-radius: var(--radius-3);
-
         background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
         padding: var(--distance-4);
       }

@@ -1,21 +1,21 @@
 <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 <app-page-icon-comp type="donut-chart-fill" />
-
+<app-practice-timeline [practiceHistory]="practiceHistory()" />
 <div class="history">
-  @for (entry of practiceHistory() | keyvalue; track entry.key) {
+  @for (entry of practiceHistoryDays(); track entry.day) {
     <div class="day">
       <div class="header">
         <app-icon-comp type="drop-fill" />
         <h2>
-          {{ entry.key | date: 'mediumDate' }}
+          {{ entry.day | date: 'mediumDate' }}
         </h2>
         <p class="stats">
-          <span class="word-list-item"> {{ entry.value.totalRight }} right </span>
-          <span class="word-list-item"> {{ entry.value.totalWrong }} wrong </span>
+          <span class="word-list-item"> {{ entry.summary.totalRight }} right </span>
+          <span class="word-list-item"> {{ entry.summary.totalWrong }} wrong </span>
         </p>
       </div>
       <div class="practices-wrapper">
-        @for (practice of entry.value.practices; track $index) {
+        @for (practice of entry.summary.practices; track $index) {
           <div class="practice">
             <h3>
               @if (practice.type === 'collection') {
