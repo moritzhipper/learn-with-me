@@ -24,8 +24,17 @@
 
       .caroussel-wrapper {
         border-radius: var(--radius-3);
-        background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
         padding: var(--distance-4);
+
+        &.cards {
+          background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+        }
+        &.practice {
+          background-color: rgb(from var(--col-accent-2) r g b / var(--opacity-0));
+        }
+        &.community {
+          background-color: rgb(from var(--col-primary) r g b / var(--opacity-0));
+        }
       }
 
       &.wide {

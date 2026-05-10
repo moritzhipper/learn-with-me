@@ -14,17 +14,29 @@
   border-radius: var(--radius-0);
   min-height: var(--distance-2);
   flex: 1;
-  min-width: 40px;
+  min-width: 50px;
   background-color: var(--col-accent-2);
+  box-shadow: var(--shadow-small);
 
   &.empty {
     opacity: var(--opacity-0);
+  }
+  &:not(.empty) {
+    display: flex;
+    justify-content: center;
+
+    p {
+      opacity: var(--opacity-1);
+      padding-top: var(--distance-2);
+      color: var(--col-bg);
+      font-weight: var(--font-weight-bold);
+    }
   }
 }
 
 @include isPhone {
   :host {
     margin: 0 calc(var(--distance-5) * -1);
-    padding: var(--distance-5);
+    padding: 0 var(--distance-5);
   }
 }

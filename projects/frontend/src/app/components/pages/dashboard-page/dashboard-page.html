@@ -3,19 +3,19 @@
 <div class="sections">
   <section class="wide">
     <app-header-link label="Practice" route="practice" />
-    <div class="caroussel-wrapper">
+    <div class="caroussel-wrapper practice">
       <app-practice-quick-actions />
     </div>
   </section>
   <section>
     <app-header-link label="Your Cards" route="cards" />
-    <div class="caroussel-wrapper">
+    <div class="caroussel-wrapper cards">
       <app-cards-quick-selector />
     </div>
   </section>
   <section>
     <app-header-link label="Community Banks" route="community" />
-    <div class="caroussel-wrapper">
+    <div class="caroussel-wrapper community">
       @if (sharedBanks.hasValue() && sharedBanks.value().length > 0) {
         @for (bank of sharedBanks.value(); track bank.id) {
           <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
@@ -27,6 +27,6 @@
   </section>
   <section class="wide">
     <app-header-link label="Stats" route="stats" />
-    <app-practice-timeline [practiceHistory]="practiceHistory()" />
+    <p>See your practice history and track your progress over time.</p>
   </section>
 </div>

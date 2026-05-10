@@ -1,9 +1,9 @@
 <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 <app-page-icon-comp type="donut-chart-fill" />
-<app-practice-timeline [practiceHistory]="practiceHistory()" />
+<app-practice-timeline [practiceHistory]="practiceHistory()" (selectDay)="scrollToDay($event)" />
 <div class="history">
   @for (entry of practiceHistoryDays(); track entry.day) {
-    <div class="day">
+    <div class="day" [id]="'day-' + entry.day">
       <div class="header">
         <app-icon-comp type="drop-fill" />
         <h2>

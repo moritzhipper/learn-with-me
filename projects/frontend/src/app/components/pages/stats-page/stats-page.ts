@@ -89,4 +89,11 @@ export class StatsPage {
   private practiceComparator(a: PracticeActive, b: PracticeActive): number {
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   }
+
+  protected scrollToDay(day: number): void {
+    const element = document.getElementById(`day-${day}`)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }
 }

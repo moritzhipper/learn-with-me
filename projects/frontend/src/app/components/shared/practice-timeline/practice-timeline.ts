@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, input } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  output
+} from '@angular/core'
 import { PracticeActive } from '@shared/types'
 import {
   calcDaysDifference,
@@ -22,6 +30,8 @@ type PracticeTimelineData = {
   }
 })
 export class PracticeTimeline implements AfterViewInit {
+  selectDay = output<number>()
+
   private host: HTMLElement = inject(ElementRef).nativeElement
 
   readonly practiceHistory = input.required<PracticeTimelineData[], PracticeActive[]>({

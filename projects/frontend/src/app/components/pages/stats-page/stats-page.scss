@@ -1,3 +1,5 @@
+@use '../../../../style/mixins.scss' as *;
+
 .history {
   display: flex;
   flex-direction: column;
@@ -25,20 +27,16 @@ app-practice-timeline {
     app-icon-comp {
       width: var(--font-size-3);
       aspect-ratio: 1 / 1;
-      color: var(--accent);
+      color: var(--col-accent-2);
       rotate: 180deg;
       translate: 0 1px;
-    }
-
-    .stats {
-      margin-left: auto;
     }
   }
 
   .practices-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: var(--grid-auto-columns);
     gap: var(--distance-4);
-    flex-direction: column;
     border-left: 1px solid var(--accent);
     padding-left: calc(var(--font-size-3) / 2);
     margin-left: calc((var(--font-size-3) / 2) - 0.5px);
@@ -63,5 +61,11 @@ app-practice-timeline {
         color: currentColor;
       }
     }
+  }
+}
+
+@include isPhone {
+  .stats {
+    margin-left: auto;
   }
 }
