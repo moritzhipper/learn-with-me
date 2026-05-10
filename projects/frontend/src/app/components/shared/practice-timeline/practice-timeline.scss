@@ -1,3 +1,5 @@
+@use '../../../../style/mixins.scss' as *;
+
 :host {
   display: flex;
   align-items: end;
@@ -10,10 +12,19 @@
 .day {
   height: calc(var(--guessed) / var(--max-guesses) * 100%);
   border-radius: var(--radius-0);
-  flex: 0 0 30px;
+  min-height: var(--distance-2);
+  flex: 1;
+  min-width: 40px;
   background-color: var(--col-accent-2);
 
-  &:first-child {
-    margin-left: auto;
+  &.empty {
+    opacity: var(--opacity-0);
+  }
+}
+
+@include isPhone {
+  :host {
+    margin: 0 calc(var(--distance-5) * -1);
+    padding: var(--distance-5);
   }
 }

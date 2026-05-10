@@ -1,5 +1,3 @@
-@use '../../../../style/mixins.scss' as *;
-
 .history {
   display: flex;
   flex-direction: column;
@@ -7,7 +5,7 @@
 }
 
 app-practice-timeline {
-  padding-bottom: var(--distance-4);
+  padding-bottom: var(--distance-5);
 }
 
 .day {
@@ -23,6 +21,7 @@ app-practice-timeline {
     h2 {
       margin: 0;
     }
+
     app-icon-comp {
       width: var(--font-size-3);
       aspect-ratio: 1 / 1;
@@ -64,14 +63,5 @@ app-practice-timeline {
         color: currentColor;
       }
     }
-  }
-}
-
-// @include isDesktop {
-// }
-@include isPhone {
-  app-practice-timeline {
-    margin: 0 calc(var(--distance-5) * -1);
-    padding: var(--distance-5);
   }
 }

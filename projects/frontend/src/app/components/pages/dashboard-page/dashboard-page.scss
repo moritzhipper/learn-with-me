@@ -27,6 +27,7 @@
         background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
         padding: var(--distance-4);
       }
+
       &.wide {
         grid-column: span 2;
       }
