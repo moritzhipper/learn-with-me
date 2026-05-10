@@ -1,4 +1,11 @@
-import { BankUser, CollectionUser, Guessable, PracticeActive, UserLearnable } from '@shared/types'
+import {
+  BankUser,
+  CollectionUser,
+  Guess,
+  Guessable,
+  PracticeActive,
+  UserLearnable
+} from '@shared/types'
 
 type SeedDebugBankConfig = {
   name: string
@@ -20,12 +27,12 @@ const defaultDebugConfig: SeedDebugBankConfig = {
     {
       name: 'Collection 1',
       cardCount: 10,
-      practicedDaysAgo: [7, 5, 1]
+      practicedDaysAgo: [7, 7, 5, 5, 2, 1, 0]
     },
     {
       name: 'Collection 2',
       cardCount: 20,
-      practicedDaysAgo: [2, 5, 10, 16, 40]
+      practicedDaysAgo: [2, 5, 10, 16]
     }
   ],
   customPracticeDaysAgo: [2, 5, 20]
@@ -50,19 +57,25 @@ const buildLearnable = (index: number, now: Date): UserLearnable => ({
   }
 })
 
-const toGuessables = (ids: string[]): Guessable[] => ids.map((id) => ({ id, guess: 'unanswered' }))
+const guessPool: Guess[] = ['right', 'wrong', 'unanswered']
+
+const toGuessables = (ids: string[], offset = 0): Guessable[] =>
+  ids.map((id, index) => ({
+    id,
+    guess: guessPool[(index + offset) % guessPool.length]
+  }))
 
 const buildCollectionPractices = (
   collection: CollectionUser,
   daysAgoList: number[],
   now: Date
 ): PracticeActive[] =>
-  daysAgoList.map((daysAgo) => ({
+  daysAgoList.map((daysAgo, practiceIndex) => ({
     type: 'collection',
     collectionId: collection.id,
     createdAt: daysAgoToDate(now, daysAgo),
     guessableIndex: collection.cardIds.length,
-    guessables: toGuessables(collection.cardIds),
+    guessables: toGuessables(collection.cardIds, practiceIndex),
     learnableIDs: collection.cardIds,
     direction: 'forward'
   }))
@@ -72,12 +85,11 @@ const buildCustomPractices = (
   daysAgoList: number[],
   now: Date
 ): PracticeActive[] => {
-  const guessables = toGuessables(learnableIds)
-  return daysAgoList.map((daysAgo) => ({
+  return daysAgoList.map((daysAgo, practiceIndex) => ({
     type: 'custom',
     createdAt: daysAgoToDate(now, daysAgo),
-    guessableIndex: guessables.length,
-    guessables,
+    guessableIndex: learnableIds.length,
+    guessables: toGuessables(learnableIds, practiceIndex + 1),
     learnableIDs: learnableIds,
     direction: 'forward'
   }))

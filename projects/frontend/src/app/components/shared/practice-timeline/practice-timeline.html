@@ -1,8 +1,3 @@
 @for (day of practiceHistory(); track day) {
-  <div class="day">
-    <div class="header">
-      {{ day.day | date: 'mediumDate' }}
-    </div>
-    <div class="guessed">{{ day.guessed }} guessed</div>
-  </div>
+  <div class="day" [style.--guessed]="day.guessed"></div>
 }

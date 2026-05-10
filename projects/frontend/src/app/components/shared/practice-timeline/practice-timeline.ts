@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common'
-import { Component, input } from '@angular/core'
+import { Component, computed, input } from '@angular/core'
 import { PracticeActive } from '@shared/types'
 import {
   calcDaysDifference,
@@ -17,12 +17,17 @@ type PracticeTimelineData = {
   selector: 'app-practice-timeline',
   imports: [DatePipe],
   templateUrl: './practice-timeline.html',
-  styleUrl: './practice-timeline.scss'
+  styleUrl: './practice-timeline.scss',
+  host: {
+    '[style.--max-guesses]': 'maxGuesses()'
+  }
 })
 export class PracticeTimeline {
   practiceHistory = input.required<PracticeTimelineData[], PracticeActive[]>({
     transform: this.mapToTimeline
   })
+
+  maxGuesses = computed(() => Math.max(...this.practiceHistory().map((d) => d.guessed), 0))
 
   private mapToTimeline(history: PracticeActive[]): PracticeTimelineData[] {
     const earliestDate = Math.min(...history.map((h) => convertToDayPrecisionUTCDate(h.createdAt)))
