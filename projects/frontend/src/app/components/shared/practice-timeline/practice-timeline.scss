@@ -27,9 +27,16 @@
 
     p {
       opacity: var(--opacity-1);
-      padding-top: var(--distance-2);
       color: var(--col-bg);
       font-weight: var(--font-weight-bold);
+
+      &.inside {
+        translate: 0 var(--distance-2);
+      }
+      &:not(.inside) {
+        color: var(--col-accent-2);
+        translate: 0 calc(-1 * (var(--line-height-1)));
+      }
     }
   }
 }
