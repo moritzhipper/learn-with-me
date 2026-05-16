@@ -22,9 +22,7 @@ type PracticeHistoryItemSummary = PracticeActive & {
 
 type PracticeHistoryDaySummary = {
   practices: PracticeHistoryItemSummary[]
-  totalRight: number
-  totalWrong: number
-  totalUnanswered: number
+  totalGuesses: number
 }
 
 @Component({
@@ -61,20 +59,17 @@ export class StatsPage {
         }
 
         const daySummary = acc[dayOfPractice]
+        const totalGuesses = summary.right + summary.wrong
 
         if (daySummary) {
           acc[dayOfPractice] = {
             practices: [...daySummary.practices, summary],
-            totalRight: daySummary.totalRight + summary.right,
-            totalWrong: daySummary.totalWrong + summary.wrong,
-            totalUnanswered: daySummary.totalUnanswered + summary.unanswered
+            totalGuesses: daySummary.totalGuesses + totalGuesses
           }
         } else {
           acc[dayOfPractice] = {
             practices: [summary],
-            totalRight: summary.right,
-            totalWrong: summary.wrong,
-            totalUnanswered: summary.unanswered
+            totalGuesses: summary.right + summary.wrong
           }
         }
         return acc

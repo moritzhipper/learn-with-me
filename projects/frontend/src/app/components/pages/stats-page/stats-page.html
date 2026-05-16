@@ -10,8 +10,7 @@
           {{ entry.day | date: 'mediumDate' }}
         </h2>
         <p class="stats">
-          <span class="word-list-item"> {{ entry.summary.totalRight }} right </span>
-          <span class="word-list-item"> {{ entry.summary.totalWrong }} wrong </span>
+          <strong> {{ entry.summary.totalGuesses }} </strong> guesses
         </p>
       </div>
       <div class="practices-wrapper">
