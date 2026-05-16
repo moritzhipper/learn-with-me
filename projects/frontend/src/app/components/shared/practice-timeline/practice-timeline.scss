@@ -34,7 +34,7 @@
   flex: 1;
   min-width: 50px;
   background-color: var(--col-accent-2);
-  box-shadow: var(--shadow-small);
+  box-shadow: var(--shadow-medium);
 
   &.empty {
     opacity: var(--opacity-0);
@@ -61,7 +61,12 @@
 
 @include isPhone {
   :host {
+    z-index: 10;
     margin: 0 calc(var(--distance-5) * -1);
-    padding: 0 var(--distance-5);
+    padding: var(--distance-5);
+    background: linear-gradient(0deg, var(--col-bg) 40%, transparent 100%);
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   }
 }
