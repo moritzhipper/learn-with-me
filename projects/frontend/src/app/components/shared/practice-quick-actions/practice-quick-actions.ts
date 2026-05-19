@@ -99,7 +99,7 @@ export class PracticeQuickActions {
     }
 
     const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
-      activePractice: this.ls.activeBank().practice.active
+      hasActicePractice: !!this.ls.activeBank().practice.active
     })
 
     if (response.type === 'cancel') return

@@ -1,9 +1,9 @@
 <form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
   <h2 class="fly-in-y-0">Start new Practice</h2>
   @if (hasActicePractice()) {
-    <div class="warning full">
+    <div class="warning full fly-in-y-0">
       <h3><strong>Practice already in progress </strong></h3>
-      <p>Starting this practice will discard your current progress.</p>
+      <p>Starting a new practice will discard your current progress.</p>
     </div>
   }
   <app-radio-comp

@@ -72,7 +72,6 @@
 @include isPhone() {
   :host {
     .card {
-      // margin-top: var(--distance-7);
       place-self: stretch;
     }
 
