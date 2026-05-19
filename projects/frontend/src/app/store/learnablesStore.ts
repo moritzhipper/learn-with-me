@@ -8,7 +8,6 @@ import {
   Guess,
   LearnableBase,
   PracticeConfig,
-  TranslationHistoryItem,
   UserLearnablePartial
 } from '@shared/types'
 import { initialState } from './initialStates'
@@ -78,7 +77,7 @@ export const LearnablesStore = signalStore(
 
         patchState(state, startPractice(config))
       },
-      addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id' | 'createdAt'>) {
+      addTranslationHistoryItem(learnable: LearnableBase) {
         patchState(state, addTranslationHistoryItem(learnable))
       },
       deleteTranslationHistoryItem(id: string) {

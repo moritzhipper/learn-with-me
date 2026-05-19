@@ -94,6 +94,7 @@ export class MagicTranslate {
     pipe(
       switchMap((config) => {
         this.isConverting.set(true)
+        this.ls.setMagicTranslateCards([])
         return from(this.aiService.createLearnables(config)).pipe(
           tap(() => this.isConverting.set(false)),
           tapResponse({

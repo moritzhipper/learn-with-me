@@ -2,9 +2,13 @@
 
 # New page
 
-## General navigation
+## RIGHT NOW: Translate page
 
-- interaction elements always bottom: configire practice, stats timeline, translate, edit cards ?
+- Make simple translations also cards -> allow interaction via bubbles same on both pages
+- unify the card selection and toggle selected cards stuff? create shared helper maybe?
+- unifiy bubbles and selection and stuff generally
+- add select all bubble
+- remove existing cards already on translate button click
 
 # right now: Stats
 

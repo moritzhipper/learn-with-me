@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common'
 import {
   afterRenderEffect,
   Component,
@@ -24,11 +23,11 @@ import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [IconComp, FormsModule, DatePipe, Bubbles, Bubble],
+  imports: [FormsModule, Bubbles, Bubble, LearnableComp],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
@@ -41,6 +40,8 @@ export class QuickTranslate {
   private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
+
+  protected readonly selectedCardsIds = signal<string[]>([])
 
   private readonly activeBank = this.ls.activeBank
   protected readonly history = computed(() => this.ls.activeBank().translations.history)
@@ -150,13 +151,15 @@ export class QuickTranslate {
             return isFinishedEvent && isCurrentUserInput
           }),
           delay(2000),
-          tap((ev) =>
+          tap((ev) => {
+            const tone = config.tone ? `Tone: ${config.tone}` : ''
             this.ls.addTranslationHistoryItem({
               lexeme: config.text,
-              tone: config.tone,
-              translation: ev.text
+              notes: tone,
+              translation: ev.text,
+              type: 'phrase'
             })
-          )
+          })
         )
       })
     )
@@ -185,5 +188,24 @@ export class QuickTranslate {
 
   protected deleteHistoryItem(id: string) {
     this.ls.deleteTranslationHistoryItem(id)
+  }
+
+  toggleSelection(cardId: string) {
+    this.selectedCardsIds.update((ids) => {
+      const isSet = ids.includes(cardId)
+      if (isSet) {
+        return ids.filter((id) => id !== cardId)
+      } else {
+        return [...ids, cardId]
+      }
+    })
+  }
+
+  isSelected(cardId: string) {
+    return this.selectedCardsIds().includes(cardId)
+  }
+
+  resetSelection() {
+    this.selectedCardsIds.set([])
   }
 }

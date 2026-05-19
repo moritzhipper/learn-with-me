@@ -18,27 +18,10 @@
 
 <div class="history-wrapper">
   @for (item of history(); track item.id) {
-    <div class="history-item">
-      <div class="header">
-        <div class="created">{{ item.createdAt | date: 'mediumDate' }}</div>
-        <div class="separator"></div>
-
-        <button class="remove small" (click)="deleteHistoryItem(item.id)">
-          <app-icon-comp type="trash" />
-        </button>
-        <button class="magic small" (click)="openMagicMode.emit(item.lexeme)">
-          <app-icon-comp type="magic" />
-        </button>
-        <button class="add small has-icon">
-          <span> add </span>
-          <app-icon-comp type="add-fill" />
-        </button>
-      </div>
-      <p class="lexeme">{{ item.lexeme }}</p>
-      <p class="translation">{{ item.translation }}</p>
-      @if (item.tone) {
-        <p class="tone">{{ item.tone }}</p>
-      }
-    </div>
+    <app-learnable-comp
+      [learnable]="item"
+      [isSelected]="isSelected(item.id)"
+      (click)="toggleSelection(item.id)"
+    />
   }
 </div>
