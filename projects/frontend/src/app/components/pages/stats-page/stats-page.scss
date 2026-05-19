@@ -1,67 +1,78 @@
 @use '../../../../style/mixins.scss' as *;
-
+:host {
+  padding-bottom: 180px;
+}
 .history {
   display: flex;
   flex-direction: column;
   gap: var(--distance-5);
+
   strong {
     color: currentColor;
+  }
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
+
+    .header {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--distance-2);
+
+      h2 {
+        margin: 0;
+      }
+
+      app-icon-comp {
+        width: var(--font-size-3);
+        aspect-ratio: 1 / 1;
+        color: var(--col-accent-2);
+        rotate: 180deg;
+        translate: 0 1px;
+      }
+    }
+
+    .practices-wrapper {
+      display: grid;
+      grid-template-columns: var(--grid-auto-columns);
+      gap: var(--distance-4);
+      border-left: 1px solid var(--accent);
+      padding-left: calc(var(--font-size-3) / 2);
+      margin-left: calc((var(--font-size-3) / 2) - 0.5px);
+      border-radius: 0 0 0 var(--radius-2);
+      padding-bottom: var(--distance-3);
+      padding-top: var(--distance-3);
+
+      .practice {
+        color: var(--col-bg);
+        border-radius: var(--radius-1);
+        padding: var(--distance-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--distance-2);
+        background-color: var(--col-accent-2);
+
+        h3 {
+          margin: 0;
+          color: currentColor;
+        }
+      }
+    }
   }
 }
 
 app-practice-timeline {
-  padding-bottom: var(--distance-5);
-}
-
-.day {
-  display: flex;
-  flex-direction: column;
-  --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
-
-  .header {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--distance-2);
-
-    h2 {
-      margin: 0;
-    }
-
-    app-icon-comp {
-      width: var(--font-size-3);
-      aspect-ratio: 1 / 1;
-      color: var(--col-accent-2);
-      rotate: 180deg;
-      translate: 0 1px;
-    }
-  }
-
-  .practices-wrapper {
-    display: grid;
-    grid-template-columns: var(--grid-auto-columns);
-    gap: var(--distance-4);
-    border-left: 1px solid var(--accent);
-    padding-left: calc(var(--font-size-3) / 2);
-    margin-left: calc((var(--font-size-3) / 2) - 0.5px);
-    border-radius: 0 0 0 var(--radius-2);
-    padding-bottom: var(--distance-3);
-    padding-top: var(--distance-3);
-
-    .practice {
-      color: var(--col-bg);
-      border-radius: var(--radius-1);
-      padding: var(--distance-4);
-      display: flex;
-      flex-direction: column;
-      gap: var(--distance-2);
-      background-color: var(--col-accent-2);
-
-      h3 {
-        margin: 0;
-        color: currentColor;
-      }
-    }
-  }
+  z-index: 10;
+  width: 100%;
+  padding: var(--distance-5);
+  height: 180px;
+  background: linear-gradient(0deg, var(--col-bg) 30%, transparent 100%);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  box-sizing: border-box;
 }
 
 @include isPhone {

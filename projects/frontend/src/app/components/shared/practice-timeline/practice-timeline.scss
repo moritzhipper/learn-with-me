@@ -3,10 +3,10 @@
 :host {
   display: flex;
   align-items: end;
-  height: 130px;
   gap: var(--distance-2);
-  overflow-x: auto;
+  overflow-x: scroll;
   scrollbar-width: none;
+  width: 100%;
 }
 
 .item.date-label {
@@ -56,17 +56,5 @@
         translate: 0 calc(-1 * (var(--line-height-1)));
       }
     }
-  }
-}
-
-@include isPhone {
-  :host {
-    z-index: 10;
-    margin: 0 calc(var(--distance-5) * -1);
-    padding: var(--distance-5);
-    background: linear-gradient(0deg, var(--col-bg) 40%, transparent 100%);
-    position: fixed;
-    width: 100%;
-    bottom: 0;
   }
 }

@@ -62,6 +62,6 @@ export class PracticeTimeline implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'instant' })
+    this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'smooth' })
   }
 }
