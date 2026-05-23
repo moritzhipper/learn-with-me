@@ -38,6 +38,7 @@ import {
 import {
   addMagicTranslateCards,
   addTranslationHistoryItem,
+  deleteMagicTranslateCards,
   deleteTranslationHistoryItem,
   setTone
 } from './mutators/translation-mutators'
@@ -80,8 +81,11 @@ export const LearnablesStore = signalStore(
       addTranslationHistoryItem(learnable: LearnableBase) {
         patchState(state, addTranslationHistoryItem(learnable))
       },
-      deleteTranslationHistoryItem(id: string) {
-        patchState(state, deleteTranslationHistoryItem(id))
+      deleteTranslationHistoryItems(ids: string[]) {
+        patchState(state, deleteTranslationHistoryItem(ids))
+      },
+      deleteMagicTranslateItems(ids: string[]) {
+        patchState(state, deleteMagicTranslateCards(ids))
       },
       setMagicTranslateCards(cards: LearnableBase[]) {
         patchState(state, addMagicTranslateCards(cards))

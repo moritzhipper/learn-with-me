@@ -177,27 +177,4 @@ export class QuickTranslate {
       this.translation.set(this.lastTranslation)
     }
   }
-
-  protected deleteHistoryItem(id: string) {
-    this.ls.deleteTranslationHistoryItem(id)
-  }
-
-  toggleSelection(cardId: string) {
-    this.selectedCardsIds.update((ids) => {
-      const isSet = ids.includes(cardId)
-      if (isSet) {
-        return ids.filter((id) => id !== cardId)
-      } else {
-        return [...ids, cardId]
-      }
-    })
-  }
-
-  isSelected(cardId: string) {
-    return this.selectedCardsIds().includes(cardId)
-  }
-
-  resetSelection() {
-    this.selectedCardsIds.set([])
-  }
 }

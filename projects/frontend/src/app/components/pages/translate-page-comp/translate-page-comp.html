@@ -2,8 +2,12 @@
 <app-bubbles>
   <app-bubble [config]="selectedMode()" size="big" (select)="toggleMode()" />
   @if (selectedCardsIds().size) {
-    <app-bubble config="move" [animateIndex]="1" />
+    <app-bubble config="move" [animateIndex]="1" (select)="importCards()" />
     <app-bubble config="reset-selection" [animateIndex]="2" (select)="resetSelection()" />
+
+    @if (selectedMode() === 'translate') {
+      <app-bubble config="trash" [animateIndex]="3" (select)="deleteSelection()" />
+    }
   }
 </app-bubbles>
 

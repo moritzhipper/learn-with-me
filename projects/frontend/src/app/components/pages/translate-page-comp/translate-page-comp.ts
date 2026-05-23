@@ -1,5 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { ModalService } from '../../../services/modal-service'
+import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
@@ -28,6 +30,8 @@ export class TranslatePageComp {
   magicPreset = signal<string>('')
   selectedCardsIds = signal<Set<string>>(new Set())
   private readonly ls = inject(LearnablesStore)
+  private readonly toastS = inject(ToastService)
+  private readonly modalService = inject(ModalService)
 
   translations = computed(() => this.ls.activeBank().translations)
 
@@ -70,17 +74,29 @@ export class TranslatePageComp {
     this.selectedCardsIds.set(new Set())
   }
 
+  deleteSelection() {
+    const selectedIds = [...this.selectedCardsIds()]
+    if (this.selectedMode() === 'translate') {
+      this.ls.deleteTranslationHistoryItems(selectedIds)
+    } else {
+      this.ls.deleteMagicTranslateItems(selectedIds)
+    }
+  }
+
   async importCards() {
-    // const proposed = this.proposedCards()
-    // const selectedCards = proposed
-    //   .map((p) => p.item)
-    //   .filter((c) => this.selectedCardsIds().includes(c.id))
-    // if (!selectedCards.length) return
-    // const result = await this.modalService.open('confirm', {
-    //   message: `Do you want to import ${selectedCards.length} cards?`
-    // })
-    // if (result.type === 'cancel') return
-    // this.ls.addLearnables(selectedCards)
-    // this.toastService.showToast('Cards imported successfully!')
+    const visibleCards =
+      this.selectedMode() === 'translate'
+        ? this.translations().history
+        : this.translations().magicTranslateCards
+    const selectedCards = visibleCards.filter((c) => this.selectedCardsIds().has(c.id))
+    if (!selectedCards.length) return
+
+    const result = await this.modalService.open('confirm', {
+      message: `Do you want to import ${selectedCards.length} cards?`
+    })
+
+    if (result.type === 'cancel') return
+    this.ls.addLearnables(selectedCards)
+    this.toastS.showToast('Cards imported successfully!')
   }
 }
