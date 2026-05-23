@@ -1,14 +1,29 @@
 <app-page-icon-comp type="translate" />
+<app-bubbles>
+  <app-bubble [config]="selectedMode()" size="big" (select)="toggleMode()" />
+  @if (selectedCardsIds().size) {
+    <app-bubble config="move" [animateIndex]="1" />
+    <app-bubble config="reset-selection" [animateIndex]="2" (select)="resetSelection()" />
+  }
+</app-bubbles>
 
 <input
-  [ngModel]="tone()"
+  [ngModel]="translations().tone"
   (ngModelChange)="setTone($event)"
   class="context"
   type="text"
   placeholder="Set tone or context..."
 />
-@if (selectedMode() === 'quick') {
-  <app-quick-translate (openMagicMode)="openInMagicMode($event)" />
+@if (selectedMode() === 'translate') {
+  <app-quick-translate />
+  <div class="cards">
+    @for (card of translations().history; track card.id) {
+      <app-learnable-comp [learnable]="card" />
+    }
+  </div>
 } @else {
   <app-magic-translate [preset]="magicPreset()" (openQuickMode)="openQuickMode()" />
+  @for (card of translations().magicTranslateCards; track card.id) {
+    <app-learnable-comp [learnable]="card" />
+  }
 }

@@ -4,7 +4,6 @@ import {
   computed,
   ElementRef,
   inject,
-  output,
   signal,
   viewChild
 } from '@angular/core'
@@ -16,18 +15,14 @@ import {
   ResponseTextDoneEvent
 } from 'openai/resources/responses/responses.mjs'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
-import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
-import { Bubble } from '../../../shared/bubbles/bubble/bubble'
-import { Bubbles } from '../../../shared/bubbles/bubbles'
-import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [FormsModule, Bubbles, Bubble, LearnableComp],
+  imports: [FormsModule],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
@@ -39,7 +34,6 @@ export class QuickTranslate {
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
-  private readonly modalService = inject(ModalService)
 
   protected readonly selectedCardsIds = signal<string[]>([])
 
@@ -49,8 +43,6 @@ export class QuickTranslate {
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
-
-  readonly openMagicMode = output<string | void>()
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')

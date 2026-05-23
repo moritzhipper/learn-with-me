@@ -4,6 +4,8 @@
 
 ## RIGHT NOW: Translate page
 
+- create animation delay directive, takes index and listlength ad input, set delay style on host
+- when on quick translate cards selected and bubble clicked, they will be set as preset on magic mode
 - Make simple translations also cards -> allow interaction via bubbles same on both pages
 - unify the card selection and toggle selected cards stuff? create shared helper maybe?
 - unifiy bubbles and selection and stuff generally

@@ -4,7 +4,6 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angul
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
-import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import {
@@ -30,7 +29,6 @@ export class MagicTranslate {
   private readonly ls = inject(LearnablesStore)
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
-  private readonly modalService = inject(ModalService)
 
   protected readonly proposedCards = computed(() =>
     mapToStaggerVM(this.ls.activeBank().translations.magicTranslateCards)
@@ -128,40 +126,5 @@ export class MagicTranslate {
         message: 'Please provide text or an image for translation.'
       })
     }
-  }
-
-  toggleSelection(cardId: string) {
-    this.selectedCardsIds.update((ids) => {
-      const isSet = ids.includes(cardId)
-      if (isSet) {
-        return ids.filter((id) => id !== cardId)
-      } else {
-        return [...ids, cardId]
-      }
-    })
-  }
-
-  isSelected(cardId: string) {
-    return this.selectedCardsIds().includes(cardId)
-  }
-
-  resetSelection() {
-    this.selectedCardsIds.set([])
-  }
-
-  async importCards() {
-    const proposed = this.proposedCards()
-    const selectedCards = proposed
-      .map((p) => p.item)
-      .filter((c) => this.selectedCardsIds().includes(c.id))
-
-    if (!selectedCards.length) return
-    const result = await this.modalService.open('confirm', {
-      message: `Do you want to import ${selectedCards.length} cards?`
-    })
-    if (result.type === 'cancel') return
-    this.ls.addLearnables(selectedCards)
-
-    this.toastService.showToast('Cards imported successfully!')
   }
 }
