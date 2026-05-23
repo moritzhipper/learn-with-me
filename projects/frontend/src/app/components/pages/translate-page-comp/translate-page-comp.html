@@ -18,12 +18,22 @@
   <app-quick-translate />
   <div class="cards">
     @for (card of translations().history; track card.id) {
-      <app-learnable-comp [learnable]="card" />
+      <app-learnable-comp
+        [learnable]="card"
+        (onSelect)="toggleSelection(card.id)"
+        [isSelected]="isSelected(card.id)"
+      />
     }
   </div>
 } @else {
-  <app-magic-translate [preset]="magicPreset()" (openQuickMode)="openQuickMode()" />
-  @for (card of translations().magicTranslateCards; track card.id) {
-    <app-learnable-comp [learnable]="card" />
-  }
+  <app-magic-translate [(preset)]="magicPreset" (openQuickMode)="openQuickMode()" />
+  <div class="cards">
+    @for (card of translations().magicTranslateCards; track card.id) {
+      <app-learnable-comp
+        [learnable]="card"
+        (onSelect)="toggleSelection(card.id)"
+        [isSelected]="isSelected(card.id)"
+      />
+    }
+  </div>
 }

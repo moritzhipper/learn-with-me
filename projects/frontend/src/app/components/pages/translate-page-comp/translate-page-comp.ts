@@ -36,7 +36,19 @@ export class TranslatePageComp {
   }
 
   toggleMode() {
-    this.selectedMode.update((prev) => (prev === 'translate' ? 'magic' : 'translate'))
+    if (this.selectedMode() === 'translate') {
+      const selectedCardsText = this.ls
+        .activeBank()
+        .learnables.filter((l) => this.selectedCardsIds().has(l.id))
+        .map((c) => c.lexeme)
+        .join(', ')
+      this.magicPreset.set(selectedCardsText)
+      this.selectedMode.set('magic')
+    } else {
+      this.selectedMode.set('translate')
+      this.magicPreset.set('')
+    }
+    this.selectedCardsIds.set(new Set())
   }
   protected openQuickMode() {
     this.magicPreset.set('')

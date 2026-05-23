@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core'
+import { Component, computed, inject, model, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
@@ -49,7 +49,7 @@ export class MagicTranslate {
 
   protected readonly animdelays = staggerDelays(2)
 
-  preset = input<string>()
+  preset = model<string>()
 
   ngOnInit() {
     const preset = this.preset()
