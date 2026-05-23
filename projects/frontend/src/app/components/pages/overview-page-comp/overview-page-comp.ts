@@ -206,4 +206,9 @@ export class OverviewComp {
     await this._facade.confirmAndDeleteLearnables(this.selectedLearnableIds())
     this.selectedLearnableIds.set([])
   }
+
+  selectAll() {
+    const visibleIDs = this.visibleLearnables().map((l) => l.id)
+    this.selectedLearnableIds.set(visibleIDs)
+  }
 }

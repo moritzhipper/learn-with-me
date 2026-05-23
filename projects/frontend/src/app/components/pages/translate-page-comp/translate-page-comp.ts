@@ -73,6 +73,14 @@ export class TranslatePageComp {
   resetSelection() {
     this.selectedCardsIds.set(new Set())
   }
+  selectAll() {
+    const visibleCards =
+      this.selectedMode() === 'translate'
+        ? this.translations().history
+        : this.translations().magicTranslateCards
+    const allIds = visibleCards.map((c) => c.id)
+    this.selectedCardsIds.set(new Set(allIds))
+  }
 
   deleteSelection() {
     const selectedIds = [...this.selectedCardsIds()]

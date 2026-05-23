@@ -45,6 +45,7 @@ export type IconType =
   | 'donut-chart-fill'
   | 'drop'
   | 'drop-fill'
+  | 'checkbox-multiple'
 
 @Component({
   selector: 'app-icon-comp',
