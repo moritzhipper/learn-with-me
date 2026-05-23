@@ -1,11 +1,15 @@
 <app-bubbles>
   <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
   @if (selectedLearnableIds().length !== 0) {
-    <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="1" />
-    <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />
+    <app-bubble config="move" (select)="addToCollection()" [animateIndex]="1" />
     @if (selectedCollectionId()) {
-      <app-bubble config="remove" (select)="removeSelectionFromCollection()" [animateIndex]="3" />
+      <app-bubble config="remove" (select)="removeSelectionFromCollection()" [animateIndex]="2" />
     }
+    <app-bubble
+      config="reset-selection"
+      (select)="resetLearnableSelection()"
+      [animateIndex]="selectedCollectionId() ? 3 : 2"
+    />
     <app-bubble
       config="trash"
       (select)="deleteSelection()"

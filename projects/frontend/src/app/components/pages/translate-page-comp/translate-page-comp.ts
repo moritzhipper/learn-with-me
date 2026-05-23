@@ -39,7 +39,7 @@ export class TranslatePageComp {
     if (this.selectedMode() === 'translate') {
       const selectedCardsText = this.ls
         .activeBank()
-        .learnables.filter((l) => this.selectedCardsIds().has(l.id))
+        .translations.history.filter((l) => this.selectedCardsIds().has(l.id))
         .map((c) => c.lexeme)
         .join(', ')
       this.magicPreset.set(selectedCardsText)
@@ -49,17 +49,6 @@ export class TranslatePageComp {
       this.magicPreset.set('')
     }
     this.selectedCardsIds.set(new Set())
-  }
-  protected openQuickMode() {
-    this.magicPreset.set('')
-    this.selectedMode.set('translate')
-  }
-
-  openInMagicMode(text: string | void) {
-    if (text) {
-      this.magicPreset.set(text)
-    }
-    this.selectedMode.set('magic')
   }
 
   toggleSelection(cardId: string) {
