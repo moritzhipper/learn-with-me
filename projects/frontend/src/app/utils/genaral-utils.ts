@@ -54,16 +54,6 @@ export const staggerDelays = (count: number, timeSpread: number = 0.3): number[]
   return Array.from({ length: count }, (_, i) => i * step)
 }
 
-export type StaggerVM<T> = Array<{
-  item: T
-  animDelay: number
-}>
-
-export const mapToStaggerVM = <T>(items: T[], timeSpread: number = 0.3): StaggerVM<T> => {
-  const delays = staggerDelays(items.length, timeSpread)
-  return items.map((item, i) => ({ item, animDelay: delays[i] }))
-}
-
 // time utils
 
 export const calcDaysDifference = (date1: Date | number, date2: Date | number): number => {

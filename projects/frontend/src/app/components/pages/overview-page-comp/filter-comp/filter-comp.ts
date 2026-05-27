@@ -2,11 +2,6 @@ import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import {
-  mapToStaggerVM,
-  staggerDelays,
-  StaggerVM
-} from 'projects/frontend/src/app/utils/genaral-utils'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
@@ -19,11 +14,7 @@ export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
 })
 export class FilterComp {
   selectedCollectionId = model.required<string | null>()
-  collections = input.required<StaggerVM<CollectionUser>, CollectionUser[]>({
-    transform: mapToStaggerVM
-  })
-
-  protected readonly delays = staggerDelays(4)
+  collections = input.required<CollectionUser[]>()
 
   onAction = output<FilterAction>()
 }

@@ -5,12 +5,12 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { mockUserBanks } from '@shared/testing/mockBanks'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
+import { AnimDelay } from '../../../services/anim-delay'
 import { ApiService } from '../../../services/api-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
-import { mapToStaggerVM, StaggerVM } from '../../../utils/genaral-utils'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
@@ -44,7 +44,8 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     RouterLink,
     LoadingSpinner,
     PagePlaceholderComp,
-    HeaderLink
+    HeaderLink,
+    AnimDelay
   ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss',
@@ -93,7 +94,7 @@ export class SharePageComp {
     { title: 'New on lingolizard', params: { sortBy: 'new' }, type: 'community' }
   ])
 
-  protected readonly previewBanks = signal<StaggerVM<BanksPreviewSection> | null>(null)
+  protected readonly previewBanks = signal<BanksPreviewSection[] | null>(null)
 
   constructor() {
     this.fetchBankPreviews()
@@ -131,12 +132,11 @@ export class SharePageComp {
       }))
       .filter((section) => section.banks.length > 0)
 
-    const sectionVM = mapToStaggerVM(mappedResponse)
     if (mappedResponse.length === 0) {
       this.fetchState.set('no-data')
     } else {
       this.fetchState.set('idle')
-      this.previewBanks.set(sectionVM)
+      this.previewBanks.set(mappedResponse)
     }
   }
 

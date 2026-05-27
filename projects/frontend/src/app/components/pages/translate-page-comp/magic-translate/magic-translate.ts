@@ -10,7 +10,7 @@ import {
   LearnableCreationConfig,
   LearnableFromTextCreationConfig
 } from 'projects/frontend/src/app/types/types'
-import { mapToStaggerVM, staggerDelays } from 'projects/frontend/src/app/utils/genaral-utils'
+import { staggerDelays } from 'projects/frontend/src/app/utils/genaral-utils'
 import { from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
@@ -27,9 +27,6 @@ export class MagicTranslate {
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
 
-  protected readonly proposedCards = computed(() =>
-    mapToStaggerVM(this.ls.activeBank().translations.magicTranslateCards)
-  )
   protected readonly selectedCardsIds = signal<string[]>([])
   isConverting = signal(false)
 

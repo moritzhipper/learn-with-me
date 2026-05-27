@@ -4,19 +4,19 @@
   <div class="pseudo-select" [class.user-selected]="selectedCollectionId() !== null">
     <select [(ngModel)]="selectedCollectionId">
       <option [ngValue]="null">All cards</option>
-      @for (coll of collections(); track coll.item.id) {
-        <option [ngValue]="coll.item.id">{{ coll.item.name }}</option>
+      @for (coll of collections(); track coll.id) {
+        <option [ngValue]="coll.id">{{ coll.name }}</option>
       }
     </select>
     <app-icon-comp type="chevron" [size]="30" />
   </div>
-  @for (coll of collections(); track coll.item.id) {
+  @for (coll of collections(); track coll.id) {
     <button
-      (click)="selectedCollectionId.set(coll.item.id)"
+      (click)="selectedCollectionId.set(coll.id)"
       class="small fly-in-x-wide"
       [animDelay]="{ i: $index, list: collections() }"
     >
-      {{ coll.item.name }}
+      {{ coll.name }}
     </button>
   }
 } @else {
