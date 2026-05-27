@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { AnimDelay } from '../../../services/anim-delay'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
@@ -19,7 +20,8 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     MagicTranslate,
     Bubbles,
     Bubble,
-    LearnableComp
+    LearnableComp,
+    AnimDelay
   ],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
@@ -73,6 +75,7 @@ export class TranslatePageComp {
   resetSelection() {
     this.selectedCardsIds.set(new Set())
   }
+
   selectAll() {
     const visibleCards =
       this.selectedMode() === 'translate'
@@ -84,6 +87,7 @@ export class TranslatePageComp {
 
   deleteSelection() {
     const selectedIds = [...this.selectedCardsIds()]
+    this.resetSelection()
     if (this.selectedMode() === 'translate') {
       this.ls.deleteTranslationHistoryItems(selectedIds)
     } else {

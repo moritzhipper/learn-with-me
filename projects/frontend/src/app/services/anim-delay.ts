@@ -12,7 +12,7 @@ export class AnimDelay {
   readonly animDelay = input.required<Number, AnimConfig>({
     transform: (conf) => this.mapToAnimDelay(conf)
   })
-  private readonly DURATION_DEFAULT = 0.3
+  private readonly DURATION_DEFAULT = 0.2
 
   protected mapToAnimDelay(conf: AnimConfig): number {
     const size = 'size' in conf ? conf.size : conf.list.length

@@ -35,6 +35,8 @@
   <div class="cards">
     @for (card of translations().magicTranslateCards; track card.id) {
       <app-learnable-comp
+        class="fly-in-y-wide"
+        [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
         [learnable]="card"
         (onSelect)="toggleSelection(card.id)"
         [isSelected]="isSelected(card.id)"

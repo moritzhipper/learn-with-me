@@ -43,6 +43,11 @@
 - add weekly average cards guessed
 - addd dayly average cards guessed
 
+## translate
+
+- add prompt type
+- add 'get phrase or word' ai api call in between card to history add thing
+
 ## Dashboard
 
 ### Practice handling
