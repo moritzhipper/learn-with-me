@@ -16,29 +16,22 @@
   );
 
   --soft-ease: cubic-bezier(0.322, 0.582, 0.006, 0.987);
-
-  --stagger: 0.1s;
 }
-@for $i from 0 through 12 {
-  .fly-in-y-#{$i} {
-    animation: fly-in-y var(--duration-3) var(--overshot) backwards;
-    animation-delay: calc(var(--stagger) * #{$i});
-  }
 
-  .fly-in-x-#{$i} {
-    animation: fly-in-x var(--duration-2) var(--overshot) backwards;
-    animation-delay: calc(var(--stagger) * #{$i});
-  }
+.fly-in-y {
+  animation: fly-in-y var(--duration-3) var(--overshot) backwards;
+}
 
-  .fly-in-x-rev-#{$i} {
-    animation: fly-in-x-rev var(--duration-2) var(--overshot) backwards;
-    animation-delay: calc(0.05s * #{$i});
-  }
+.fly-in-x {
+  animation: fly-in-x var(--duration-2) var(--overshot) backwards;
+}
 
-  .fly-in-xy-#{$i} {
-    animation: fly-in-xy var(--duration-3) var(--overshot) backwards;
-    animation-delay: calc(var(--stagger) * #{$i});
-  }
+.fly-in-x-rev {
+  animation: fly-in-x-rev var(--duration-2) var(--overshot) backwards;
+}
+
+.fly-in-xy {
+  animation: fly-in-xy var(--duration-3) var(--overshot) backwards;
 }
 
 @keyframes fly-in-y {

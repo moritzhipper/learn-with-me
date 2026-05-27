@@ -1,8 +1,9 @@
 <form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
-  <h2 class="full fly-in-y-0">Share {{ bank().name }}?</h2>
+  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: 5 }">Share {{ bank().name }}?</h2>
 
   <app-radio-comp
-    class="full fly-in-y-0"
+    class="full fly-in-y"
+    [animDelay]="{ i: 1, size: 5 }"
     label="time online"
     formControlName="ttlMinutes"
     [config]="[
@@ -25,7 +26,8 @@
     ]"
   />
   <app-radio-comp
-    class="full fly-in-y-0"
+    class="full fly-in-y"
+    [animDelay]="{ i: 2, size: 5 }"
     label="make community bank"
     formControlName="isCommunityBank"
     [config]="[
@@ -39,6 +41,8 @@
       }
     ]"
   />
-  <button type="button" (click)="cancel()" class="big fly-in-y-1">Cancel</button>
-  <button type="submit" class="fly-in-y-2">Share</button>
+  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }">
+    Cancel
+  </button>
+  <button type="submit" class="fly-in-y" [animDelay]="{ i: 4, size: 5 }">Share</button>
 </form>

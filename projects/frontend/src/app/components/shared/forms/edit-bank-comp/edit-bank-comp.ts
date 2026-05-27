@@ -1,11 +1,12 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { BankBase } from '@shared/types'
+import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-edit-bank-comp',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AnimDelay],
   templateUrl: './edit-bank-comp.html',
   styleUrl: './edit-bank-comp.scss'
 })
