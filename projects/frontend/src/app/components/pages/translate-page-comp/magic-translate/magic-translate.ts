@@ -10,7 +10,6 @@ import {
   LearnableCreationConfig,
   LearnableFromTextCreationConfig
 } from 'projects/frontend/src/app/types/types'
-import { staggerDelays } from 'projects/frontend/src/app/utils/genaral-utils'
 import { from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
@@ -39,8 +38,6 @@ export class MagicTranslate {
 
   protected imagePreview = signal<string | null>(null)
   protected formSignal = toSignal(this.form.valueChanges)
-
-  protected readonly animdelays = staggerDelays(2)
 
   preset = model<string>()
 

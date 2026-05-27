@@ -1,7 +1,7 @@
 import { computed, Directive, input } from '@angular/core'
-import { staggerDelays } from '../utils/genaral-utils'
 
 type AnimConfig = { i: number; duration?: number } & ({ size: number } | { list: unknown[] })
+
 @Directive({
   selector: '[animDelay]',
   host: {
@@ -10,11 +10,14 @@ type AnimConfig = { i: number; duration?: number } & ({ size: number } | { list:
 })
 export class AnimDelay {
   readonly animDelay = input.required<AnimConfig>()
+  private readonly DURATION_DEFAULT = 0.3
 
   protected readonly animationDelay = computed(() => {
-    const config = this.animDelay()
-    const size = 'size' in config ? config.size : config.list.length
+    const conf = this.animDelay()
+    const size = 'size' in conf ? conf.size : conf.list.length
+    const i = conf.i
+    const duration = conf.duration ?? this.DURATION_DEFAULT
 
-    return staggerDelays(size, config.duration)[config.i]
+    return i * (duration / size)
   })
 }

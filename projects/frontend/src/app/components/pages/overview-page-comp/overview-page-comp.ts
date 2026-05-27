@@ -3,11 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { CollectionUser } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnablesStore'
-import {
-  calculateAverageConfidencePercent,
-  removeDuplicates,
-  staggerDelays
-} from '../../../utils/genaral-utils'
+import { calculateAverageConfidencePercent, removeDuplicates } from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
@@ -52,8 +48,6 @@ export class OverviewComp {
   protected readonly bank = this._lStore.activeBank
   readonly collections = computed(() => this.bank().collections)
   readonly learnables = computed(() => this.bank().learnables)
-
-  protected readonly animdelays = staggerDelays(5)
 
   readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>({
     source: this.collections,

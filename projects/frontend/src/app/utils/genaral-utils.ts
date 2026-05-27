@@ -45,15 +45,6 @@ export const pluralize = (count: number, unit: string): string => {
   return `${count} ${unit}${pluralS}`
 }
 
-// staggered animation helpers
-
-export const staggerDelays = (count: number, timeSpread: number = 0.3): number[] => {
-  // ensures  that smaller lists dont have too long delays
-  const maxStep = 0.1
-  const step = Math.min(timeSpread / count, maxStep)
-  return Array.from({ length: count }, (_, i) => i * step)
-}
-
 // time utils
 
 export const calcDaysDifference = (date1: Date | number, date2: Date | number): number => {
