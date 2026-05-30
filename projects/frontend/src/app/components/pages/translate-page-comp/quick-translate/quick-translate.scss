@@ -90,12 +90,6 @@
   }
 }
 
-.history-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--distance-5);
-}
-
 @include isPhone() {
   .translate {
     min-height: 300px;

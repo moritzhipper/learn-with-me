@@ -1,6 +1,6 @@
 import { Component, computed, inject, model, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
-import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
@@ -16,7 +16,7 @@ import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
 @Component({
   selector: 'app-magic-translate',
-  imports: [FormsModule, IconComp, RadioComp, ReactiveFormsModule],
+  imports: [IconComp, RadioComp, ReactiveFormsModule],
   templateUrl: './magic-translate.html',
   styleUrl: './magic-translate.scss'
 })
@@ -26,7 +26,6 @@ export class MagicTranslate {
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
 
-  protected readonly selectedCardsIds = signal<string[]>([])
   isConverting = signal(false)
 
   form = this._fb.group<

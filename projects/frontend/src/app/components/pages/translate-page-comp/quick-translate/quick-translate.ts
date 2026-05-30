@@ -28,17 +28,13 @@ import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
 })
 export class QuickTranslate {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
-  protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
   protected readonly SMALL_TEXT_THRESHOLD = 70
 
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
 
-  protected readonly selectedCardsIds = signal<string[]>([])
-
   private readonly activeBank = this.ls.activeBank
-  protected readonly history = computed(() => this.ls.activeBank().translations.history)
 
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
