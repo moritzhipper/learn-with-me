@@ -3,7 +3,11 @@ import OpenAI from 'openai'
 // reimport when zod v4 + openai compatibility bug is fixed
 // until then use helper function zodTextFormat from utils/genaral-utils
 // import { zodTextFormat } from 'openai/helpers/zod'
-import { LearnablesFromAiSchema } from '@shared/schemas'
+import {
+  LearnableFromAiWithTypeSchema,
+  LearnablesFromAiSchema,
+  LearnableTypeEnum
+} from '@shared/schemas'
 import { LearnableBase, LearnableFromAI } from '@shared/types'
 import {
   EasyInputMessage,
@@ -22,6 +26,7 @@ import {
   tap,
   throwError
 } from 'rxjs'
+import z from 'zod'
 import { SettingsStore } from '../../store/settingsStore'
 import {
   LearnableCreationConfig,
@@ -93,6 +98,11 @@ export class AiService {
     if (config.type === 'word' || config.type === 'both') {
       const prompt = getPrompt(config.language, 'word', 'image')
       cardPromises.push(this._createCardsFromImage(image, prompt, 'word'))
+    }
+
+    if (config.type === 'prompt') {
+      const prompt = getPrompt(config.language, 'prompt', 'image')
+      cardPromises.push(this.createCardsFromPrompt(prompt))
     }
     const cardLists = await Promise.all(cardPromises)
     const cards = cardLists.flat(1)
@@ -167,6 +177,48 @@ export class AiService {
       lexeme: c.lexeme,
       translation: c.translation
     }))
+  }
+
+  async createCardsFromPrompt(userPrompt: string, systemPrompt: string): Promise<LearnableBase[]> {
+    const response = await this.oAi().responses.parse({
+      model: this.model,
+      text: {
+        format: zodTextFormat(z.array(LearnableFromAiWithTypeSchema), 'learnable_cards')
+      },
+      input: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ]
+    })
+
+    const cards = response.output_parsed?.map((c) => ({
+      lexeme: c.lexeme,
+      translation: c.translation,
+      type: c.type,
+      notes: ''
+    }))
+
+    return cards ?? []
+  }
+
+  async categorizeCard(card: LearnableFromAI): Promise<string> {
+    // add correct prompt
+    const systemPrompt = ''
+    const cardString = String(card)
+    const response = await this.oAi().responses.parse({
+      model: this.model,
+      text: {
+        format: zodTextFormat(LearnableTypeEnum, 'learnable_cards')
+      },
+      input: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: cardString }
+      ]
+    })
+
+    const type = response.output_parsed
+
+    return type ?? 'word'
   }
 
   async translateFast(config: TranslateFastConfig, abortSignal: AbortSignal): Promise<string> {

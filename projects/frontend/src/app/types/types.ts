@@ -13,7 +13,7 @@ export type TranslateFastConfig = {
 
 type LearnableCreationConfigBase = {
   language: LanguageConfig
-  type: 'phrase' | 'word' | 'both'
+  type: 'phrase' | 'word' | 'both' | 'prompt'
 }
 
 export type LearnableFromTextCreationConfig = LearnableCreationConfigBase & {

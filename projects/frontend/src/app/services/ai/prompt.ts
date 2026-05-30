@@ -116,9 +116,11 @@ const extractWordsFromImagePrompt = () => `
   Possible Words: street, sidewalks, cars, buses, road, street vendor, food, cart, buildings, city, people, selling, walking, busy, traffic, traffic jam
 `
 
+const createCardsFromPromptPrompt = () => ``
+
 export const getPrompt = (
   language: LanguageConfig,
-  type: LearnableBase['type'],
+  type: LearnableBase['type'] | 'prompt',
   source: LearnableCreationConfig['source']
 ): string => {
   if (type === 'word' && source === 'text') {
@@ -135,6 +137,10 @@ export const getPrompt = (
 
   if (type === 'phrase' && source === 'image') {
     return `${systemPrompt(language)}${phrasesPrompt(language)}${extractPhrasesFromImagePrompt()}`
+  }
+
+  if (type === 'prompt') {
+    return `${systemPrompt(language)}${createCardsFromPromptPrompt()}`
   }
 
   throw new Error('Invalid LearnableCreationConfig')

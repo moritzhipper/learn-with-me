@@ -3,7 +3,14 @@
 # Translate
 
 - add prompt type
-- add 'get phrase or word' ai api call in between card to history add thing
+  - add prompt for this
+  - remove image input when prompt is selected
+  - keep the words phrases both thing, put prompt mode into checkbox
+  - add notes to prompot prompt ai retunr thing (this is this tenxe, this is this comment, bla bla)
+- add 'categorize' api call for translate
+  - add prompt for this
+- add date back to quick trans
+- put last prompt for extracted cards in store for context of created cards
 
 # right now: Stats
 
