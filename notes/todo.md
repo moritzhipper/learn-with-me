@@ -1,22 +1,15 @@
 # ToDo
 
-# New page
+# Translate
 
-## RIGHT NOW: Translate page
-
-- Make simple translations also cards -> allow interaction via bubbles same on both pages
-- unify the card selection and toggle selected cards stuff? create shared helper maybe?
-- unifiy bubbles and selection and stuff generally
-- add select all bubble
-- remove existing cards already on translate button click
+- add prompt type
+- add 'get phrase or word' ai api call in between card to history add thing
 
 # right now: Stats
 
 - put end of practice stickers somewhere prominent on ollection
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
 - confidence = confidence per cards = higher score, higher impressiveness!
-
-- show practice cards?
 
 ## General
 
@@ -33,14 +26,9 @@
 
 ### Stats
 
-- make more obvious what the cound is
+- make more obvious what the count is
 - add weekly average cards guessed
 - addd dayly average cards guessed
-
-## translate
-
-- add prompt type
-- add 'get phrase or word' ai api call in between card to history add thing
 
 ## Dashboard
 
