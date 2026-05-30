@@ -21,26 +21,34 @@
 />
 @if (selectedMode() === 'translate') {
   <app-quick-translate />
-  <div class="cards">
-    @for (card of translations().history; track card.id) {
-      <app-learnable-comp
-        [learnable]="card"
-        (onSelect)="toggleSelection(card.id)"
-        [isSelected]="isSelected(card.id)"
-      />
-    }
-  </div>
+  @if (translations().history.length > 0) {
+    <h2 class="indent">History</h2>
+    <div class="cards">
+      @for (card of translations().history; track card.id) {
+        <app-learnable-comp
+          class="fly-in-y-wide"
+          [learnable]="card"
+          (onSelect)="toggleSelection(card.id)"
+          [isSelected]="isSelected(card.id)"
+        />
+      }
+    </div>
+  }
 } @else {
   <app-magic-translate [(preset)]="magicPreset" />
-  <div class="cards">
-    @for (card of translations().magicTranslateCards; track card.id) {
-      <app-learnable-comp
-        class="fly-in-y-wide"
-        [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
-        [learnable]="card"
-        (onSelect)="toggleSelection(card.id)"
-        [isSelected]="isSelected(card.id)"
-      />
-    }
-  </div>
+
+  @if (translations().magicTranslateCards.length > 0) {
+    <h2 class="indent">Extracted Cards</h2>
+    <div class="cards">
+      @for (card of translations().magicTranslateCards; track card.id) {
+        <app-learnable-comp
+          class="fly-in-y-wide"
+          [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
+          [learnable]="card"
+          (onSelect)="toggleSelection(card.id)"
+          [isSelected]="isSelected(card.id)"
+        />
+      }
+    </div>
+  }
 }

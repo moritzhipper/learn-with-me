@@ -29,6 +29,10 @@ p {
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
   }
+
+  &.placeholder {
+    opacity: var(--opacity-1);
+  }
 }
 
 h1 {

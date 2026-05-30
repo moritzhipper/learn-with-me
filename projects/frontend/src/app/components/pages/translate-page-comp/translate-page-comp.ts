@@ -47,7 +47,7 @@ export class TranslatePageComp {
         .activeBank()
         .translations.history.filter((l) => this.selectedCardsIds().has(l.id))
         .map((c) => c.lexeme)
-        .join(', ')
+        .join('/n')
       this.magicPreset.set(selectedCardsText)
       this.selectedMode.set('magic')
     } else {
