@@ -9,6 +9,7 @@ import {
   Validators
 } from '@angular/forms'
 import { LearnableBase, UserLearnable, UserLearnablePartial } from '@shared/types'
+import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -21,7 +22,7 @@ export type ConfirmationType = {
 
 @Component({
   selector: 'app-bulk-edit-comp',
-  imports: [ReactiveFormsModule, CommonModule, RadioComp, IconComp],
+  imports: [ReactiveFormsModule, CommonModule, RadioComp, IconComp, AnimDelay],
   templateUrl: './bulk-edit-comp.html',
   styleUrl: './bulk-edit-comp.scss'
 })

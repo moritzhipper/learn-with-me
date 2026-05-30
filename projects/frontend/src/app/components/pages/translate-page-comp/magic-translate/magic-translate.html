@@ -1,11 +1,3 @@
-<app-bubbles>
-  <app-bubble config="translate" size="big" (select)="openQuickMode.emit()" />
-  @if (selectedCardsIds().length) {
-    <app-bubble config="move" [animateIndex]="1" (select)="importCards()" />
-    <app-bubble config="reset-selection" [animateIndex]="2" (select)="resetSelection()" />
-  }
-</app-bubbles>
-
 <div class="header-section">
   <form [formGroup]="form" (ngSubmit)="translate()" [class.converting]="isConverting()">
     @if (imagePreview(); as img) {
@@ -39,7 +31,8 @@
         [config]="[
           { value: 'word', label: 'Words' },
           { value: 'phrase', label: 'Phrases' },
-          { value: 'both', label: 'Both' }
+          { value: 'both', label: 'Both' },
+          { value: 'prompt', label: 'Prompt' }
         ]"
         formControlName="type"
         class="type"
@@ -54,17 +47,4 @@
       </button>
     </div>
   </form>
-</div>
-
-<h2 class="indent">New Cards</h2>
-<div class="proposal">
-  @for (cardVM of proposedCards(); track cardVM) {
-    <app-learnable-comp
-      class="fly-in-y-wide"
-      [learnable]="cardVM.item"
-      [style.--anim-delay.s]="cardVM.animDelay"
-      (onSelect)="toggleSelection(cardVM.item.id)"
-      [isSelected]="isSelected(cardVM.item.id)"
-    />
-  }
 </div>

@@ -1,14 +1,54 @@
 <app-page-icon-comp type="translate" />
+<app-bubbles>
+  <app-bubble [config]="selectedMode()" size="big" (select)="toggleMode()" />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+  @if (selectedCardsIds().size) {
+    <app-bubble config="reset-selection" [animateIndex]="1" (select)="resetSelection()" />
+    <app-bubble config="move" [animateIndex]="2" (select)="importCards()" />
+
+    @if (selectedMode() === 'translate') {
+      <app-bubble config="trash" [animateIndex]="3" (select)="deleteSelection()" />
+    }
+  }
+</app-bubbles>
 
 <input
-  [ngModel]="tone()"
+  [ngModel]="translations().tone"
   (ngModelChange)="setTone($event)"
   class="context"
   type="text"
   placeholder="Set tone or context..."
 />
-@if (selectedMode() === 'quick') {
-  <app-quick-translate (openMagicMode)="openInMagicMode($event)" />
+@if (selectedMode() === 'translate') {
+  <app-quick-translate />
+  @if (translations().history.length > 0) {
+    <h2 class="indent">History</h2>
+    <div class="cards">
+      @for (card of translations().history; track card.id) {
+        <app-learnable-comp
+          class="fly-in-y-wide"
+          [learnable]="card"
+          (onSelect)="toggleSelection(card.id)"
+          [isSelected]="isSelected(card.id)"
+        />
+      }
+    </div>
+  }
 } @else {
-  <app-magic-translate [preset]="magicPreset()" (openQuickMode)="openQuickMode()" />
+  <app-magic-translate [(preset)]="magicPreset" />
+
+  @if (translations().magicTranslateCards.length > 0) {
+    <h2 class="indent">Extracted Cards</h2>
+    <div class="cards">
+      @for (card of translations().magicTranslateCards; track card.id) {
+        <app-learnable-comp
+          class="fly-in-y-wide"
+          [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
+          [learnable]="card"
+          (onSelect)="toggleSelection(card.id)"
+          [isSelected]="isSelected(card.id)"
+        />
+      }
+    </div>
+  }
 }

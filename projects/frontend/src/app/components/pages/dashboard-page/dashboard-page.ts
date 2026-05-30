@@ -7,7 +7,6 @@ import { HeaderLink } from '../../shared/header-link/header-link'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { PracticeQuickActions } from '../../shared/practice-quick-actions/practice-quick-actions'
-import { PracticeTimeline } from '../../shared/practice-timeline/practice-timeline'
 import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared-bank-comp'
 
 @Component({
@@ -18,8 +17,7 @@ import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared
     HeaderLink,
     PracticeQuickActions,
     CardsQuickSelector,
-    SharedBankComp,
-    PracticeTimeline
+    SharedBankComp
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',

@@ -3,20 +3,38 @@
 :host {
   display: flex;
   align-items: end;
-  height: 100px;
   gap: var(--distance-2);
-  overflow-x: auto;
+  overflow-x: scroll;
   scrollbar-width: none;
+  width: 100%;
 }
 
-.day {
-  height: calc(var(--guessed) / var(--max-guesses) * 100%);
+.item.date-label {
+  position: relative;
+  height: 100%;
+  min-width: 4px;
+  background-color: rgb(from var(--col-accent-2) r g b / var(--opacity-0));
+  border-radius: var(--radius-0);
+
+  .label {
+    opacity: var(--opacity-1);
+    position: absolute;
+    bottom: 0;
+    left: var(--distance-4);
+    white-space: nowrap;
+  }
+}
+
+.item.indicator {
+  box-sizing: border-box;
+  margin-bottom: var(--line-height-2);
+  height: calc(var(--guessed) / var(--max-guesses) * 100% - var(--line-height-2));
   border-radius: var(--radius-0);
   min-height: var(--distance-2);
   flex: 1;
   min-width: 50px;
   background-color: var(--col-accent-2);
-  box-shadow: var(--shadow-small);
+  box-shadow: var(--shadow-medium);
 
   &.empty {
     opacity: var(--opacity-0);
@@ -27,16 +45,16 @@
 
     p {
       opacity: var(--opacity-1);
-      padding-top: var(--distance-2);
       color: var(--col-bg);
       font-weight: var(--font-weight-bold);
-    }
-  }
-}
 
-@include isPhone {
-  :host {
-    margin: 0 calc(var(--distance-5) * -1);
-    padding: 0 var(--distance-5);
+      &.inside {
+        translate: 0 var(--distance-0);
+      }
+      &:not(.inside) {
+        color: var(--col-accent-2);
+        translate: 0 calc(-1 * (var(--line-height-1)));
+      }
+    }
   }
 }

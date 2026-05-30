@@ -1,25 +1,19 @@
 # ToDo
 
-# New page
+# Translate
 
-## General navigation
-
-- interaction elements always bottom: configire practice, stats timeline, translate, edit cards ?
+- add prompt type
+- add 'get phrase or word' ai api call in between card to history add thing
 
 # right now: Stats
 
-- stats: show cards guessed count, this is the only important thing: practice!!!!
-- in graphs: cards guesse, do histogramm
-- Show timeline on top: same as on dashboard page
-- show history items sorted by day, cool timelne left oder so
 - put end of practice stickers somewhere prominent on ollection
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
 - confidence = confidence per cards = higher score, higher impressiveness!
-- items on timeline: practices?
-
-- show practice cards?
 
 ## General
+
+- use display content for main layout or pages to align stuff
 
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
@@ -32,7 +26,7 @@
 
 ### Stats
 
-- make more obvious what the cound is
+- make more obvious what the count is
 - add weekly average cards guessed
 - addd dayly average cards guessed
 

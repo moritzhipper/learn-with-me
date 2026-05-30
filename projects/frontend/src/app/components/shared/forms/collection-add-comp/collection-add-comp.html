@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="fly-in-y-0">add to collection</h2>
-  <div class="collections fly-in-y-0">
+  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">add to collection</h2>
+  <div class="collections fly-in-y" [animDelay]="{ i: 1, size: 5 }">
     @for (collection of collections(); track collection.id) {
       <label class="radio">
         <input type="radio" [value]="collection.id" formControlName="addToId" />
@@ -9,7 +9,7 @@
       </label>
     }
   </div>
-  <label class="fly-in-y-0">
+  <label class="fly-in-y" [animDelay]="{ i: 2, size: 5 }">
     <span>create new</span>
     <input
       type="text"
@@ -20,11 +20,14 @@
       (click)="resetCollectionSelection()"
     />
   </label>
-  <button class="big fly-in-y-1" type="button" (click)="cancel()">Cancel</button>
+  <button class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }" type="button" (click)="cancel()">
+    Cancel
+  </button>
   <button
     type="submit"
     [disabled]="!form.value.createName && !form.value.addToId"
-    class="fly-in-y-2"
+    class="fly-in-y"
+    [animDelay]="{ i: 4, size: 5 }"
   >
     Confirm
   </button>

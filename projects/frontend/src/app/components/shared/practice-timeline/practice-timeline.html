@@ -1,13 +1,20 @@
 @for (day of practiceHistory(); track day) {
+  @if (day.isFirstDayOfWeek) {
+    <div class="item date-label">
+      <p class="label size-0">{{ day.day | date: 'E, dd MMMM' }}</p>
+    </div>
+  }
   @if (day.guessed === 0) {
-    <div class="day empty"></div>
+    <div class="item indicator empty"></div>
   } @else {
-    <button class="day" [style.--guessed]="day.guessed" (click)="selectDay.emit(day.day)">
-      @if (day.guessed > 15) {
-        <p class="size-0">
-          {{ day.guessed }}
-        </p>
-      }
+    <button
+      class="item indicator"
+      [style.--guessed]="day.guessed"
+      (click)="selectDay.emit(day.day)"
+    >
+      <p class="size-0" [class.inside]="day.guessed > 20">
+        {{ day.guessed }}
+      </p>
     </button>
   }
 }

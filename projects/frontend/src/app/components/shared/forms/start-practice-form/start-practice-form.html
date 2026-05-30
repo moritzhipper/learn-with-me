@@ -1,13 +1,12 @@
 <form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
-  <h2 class="fly-in-y-0">Start new Practice</h2>
-  @if (hasActicePractice()) {
-    <div class="warning full">
-      <h3><strong>Practice already in progress </strong></h3>
-      <p>Starting this practice will discard your current progress.</p>
-    </div>
-  }
+  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Start new Practice</h2>
+  <div class="warning full fly-in-y" [animDelay]="{ i: 1, size: 5 }">
+    <h3><strong>Practice already in progress </strong></h3>
+    <p>Starting a new practice will discard your current progress.</p>
+  </div>
   <app-radio-comp
-    class="full fly-in-y-0"
+    class="full fly-in-y"
+    [animDelay]="{ i: 2, size: 5 }"
     label="Direction"
     formControlName="direction"
     [config]="[
@@ -16,12 +15,8 @@
     ]"
   />
 
-  <button type="button" (click)="cancel()" class="big fly-in-y-1">Cancel</button>
-  <button type="submit" class="fly-in-y-2">
-    @if (hasActicePractice()) {
-      Start new
-    } @else {
-      Start
-    }
+  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }">
+    Cancel
   </button>
+  <button type="submit" class="fly-in-y" [animDelay]="{ i: 4, size: 5 }">Start new</button>
 </form>

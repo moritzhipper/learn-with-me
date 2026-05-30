@@ -1,9 +1,11 @@
 <form (ngSubmit)="onSubmit()" class="modal" [formGroup]="form">
-  <h2 class="full fly-in-y-0">Import {{ bank().name }}?</h2>
-
   @let sum = summary();
-  @if (sum.collectionsCount > 1) {
-    <div class="preview full fly-in-y-0">
+  @let hasCollectionsPreview = sum.collectionsCount > 1;
+  @let hasLanguageWarning = differentLanguages();
+  @let animSize = 4 + (hasCollectionsPreview ? 1 : 0) + (hasLanguageWarning ? 2 : 0);
+  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: animSize }">Import {{ bank().name }}?</h2>
+  @if (hasCollectionsPreview) {
+    <div class="preview full fly-in-y" [animDelay]="{ i: 1, size: animSize }">
       <h3>Collections</h3>
       <p>
         @for (coll of sum.previewCollections; track coll.id) {
@@ -17,7 +19,10 @@
       </p>
     </div>
   }
-  <div class="preview full fly-in-y-0">
+  <div
+    class="preview full fly-in-y"
+    [animDelay]="{ i: hasCollectionsPreview ? 2 : 1, size: animSize }"
+  >
     <h3>Cards</h3>
     <p>
       @for (learnable of sum.previewCards; track learnable) {
@@ -28,14 +33,18 @@
       }
     </p>
   </div>
-  @if (differentLanguages()) {
-    <div class="section warning full fly-in-y-0">
+  @if (hasLanguageWarning) {
+    <div
+      class="section warning full fly-in-y"
+      [animDelay]="{ i: hasCollectionsPreview ? 3 : 2, size: animSize }"
+    >
       <p>
         Your active Banks' languages and this shared Bank's languages are different. Would you like
         to merge the cards into your active Bank or create a new one?
       </p>
       <app-radio-comp
-        class="fly-in-y-0"
+        class="fly-in-y"
+        [animDelay]="{ i: hasCollectionsPreview ? 4 : 3, size: animSize }"
         formControlName="importStrategy"
         label="Strategy"
         [config]="[
@@ -45,6 +54,25 @@
       />
     </div>
   }
-  <button type="button" class="big fly-in-y-1" (click)="cancel()">Cancel</button>
-  <button type="submit" class="fly-in-y-2">Import</button>
+  <button
+    type="button"
+    class="big fly-in-y"
+    [animDelay]="{
+      i: 2 + (hasCollectionsPreview ? 1 : 0) + (hasLanguageWarning ? 2 : 0),
+      size: animSize
+    }"
+    (click)="cancel()"
+  >
+    Cancel
+  </button>
+  <button
+    type="submit"
+    class="fly-in-y"
+    [animDelay]="{
+      i: 3 + (hasCollectionsPreview ? 1 : 0) + (hasLanguageWarning ? 2 : 0),
+      size: animSize
+    }"
+  >
+    Import
+  </button>
 </form>

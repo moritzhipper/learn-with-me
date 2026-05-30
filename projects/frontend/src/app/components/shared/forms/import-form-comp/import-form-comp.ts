@@ -1,6 +1,7 @@
 import { Component, computed, input } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
+import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { ImportStrategy } from 'projects/frontend/src/app/types/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -11,7 +12,7 @@ export type ImportFormResult = {
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })

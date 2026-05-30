@@ -8,7 +8,6 @@ import {
   Guess,
   LearnableBase,
   PracticeConfig,
-  TranslationHistoryItem,
   UserLearnablePartial
 } from '@shared/types'
 import { initialState } from './initialStates'
@@ -39,6 +38,7 @@ import {
 import {
   addMagicTranslateCards,
   addTranslationHistoryItem,
+  deleteMagicTranslateCards,
   deleteTranslationHistoryItem,
   setTone
 } from './mutators/translation-mutators'
@@ -78,11 +78,14 @@ export const LearnablesStore = signalStore(
 
         patchState(state, startPractice(config))
       },
-      addTranslationHistoryItem(learnable: Omit<TranslationHistoryItem, 'id' | 'createdAt'>) {
+      addTranslationHistoryItem(learnable: LearnableBase) {
         patchState(state, addTranslationHistoryItem(learnable))
       },
-      deleteTranslationHistoryItem(id: string) {
-        patchState(state, deleteTranslationHistoryItem(id))
+      deleteTranslationHistoryItems(ids: string[]) {
+        patchState(state, deleteTranslationHistoryItem(ids))
+      },
+      deleteMagicTranslateItems(ids: string[]) {
+        patchState(state, deleteMagicTranslateCards(ids))
       },
       setMagicTranslateCards(cards: LearnableBase[]) {
         patchState(state, addMagicTranslateCards(cards))

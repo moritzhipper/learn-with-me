@@ -1,16 +1,15 @@
-import { LearnableBase, TranslationHistoryItem } from '@shared/types'
+import { LearnableBase, LearnableWithId } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
 export const addTranslationHistoryItem =
-  (base: Omit<TranslationHistoryItem, 'id' | 'createdAt'>) =>
+  (base: LearnableBase) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
       const maxItems = 20
-      const newItem = {
+      const newItem: LearnableWithId = {
         ...base,
-        id: crypto.randomUUID(),
-        createdAt: new Date()
+        id: crypto.randomUUID()
       }
       const newHistory = [newItem, ...(b.translations.history || [])].slice(0, maxItems)
       return {
@@ -38,15 +37,29 @@ export const addMagicTranslateCards =
     })
 
 export const deleteTranslationHistoryItem =
-  (id: string) =>
+  (ids: string[]) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => {
-      const newHistory = b.translations.history.filter((item) => item.id !== id)
+      const newHistory = b.translations.history.filter((item) => !ids.includes(item.id))
       return {
         ...b,
         translations: {
           ...b.translations,
           history: newHistory
+        }
+      }
+    })
+
+export const deleteMagicTranslateCards =
+  (ids: string[]) =>
+  (state: LearnablesStoreType): LearnablesStoreType =>
+    updateActiveBank(state, (b) => {
+      const newCards = b.translations.magicTranslateCards.filter((item) => !ids.includes(item.id))
+      return {
+        ...b,
+        translations: {
+          ...b.translations,
+          magicTranslateCards: newCards
         }
       }
     })

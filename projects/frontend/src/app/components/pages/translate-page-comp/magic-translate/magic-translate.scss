@@ -56,8 +56,9 @@
     }
 
     textarea {
-      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-      border: 2px solid var(--col-accent);
+      background-color: transparent;
+      // background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      border: 1px solid var(--col-accent);
     }
     .image-input {
       display: grid;
@@ -103,18 +104,6 @@
           opacity: var(--opacity-1);
         }
       }
-    }
-  }
-}
-
-.proposal {
-  display: grid;
-  grid-template-columns: var(--grid-auto-columns);
-  gap: var(--distance-4);
-
-  app-learnable-comp {
-    &.fly-in-y-wide {
-      animation-delay: var(--anim-delay);
     }
   }
 }

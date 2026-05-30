@@ -17,3 +17,9 @@ input.context {
     opacity: var(--opacity-1);
   }
 }
+
+.cards {
+  display: grid;
+  gap: var(--distance-4);
+  grid-template-columns: var(--grid-auto-columns);
+}

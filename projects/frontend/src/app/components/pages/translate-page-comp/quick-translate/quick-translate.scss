@@ -90,58 +90,9 @@
   }
 }
 
-.history-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--distance-5);
-
-  .history-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--distance-2);
-
-    .header {
-      display: flex;
-      gap: var(--distance-4);
-      align-items: center;
-      .created {
-        opacity: var(--opacity-1);
-      }
-      .separator {
-        flex: 1;
-        border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
-      }
-      button {
-        opacity: var(--opacity-1);
-      }
-    }
-
-    .lexeme {
-      font-weight: var(--font-weight-bold);
-    }
-
-    .translation {
-      font-style: italic;
-    }
-
-    .tone {
-      opacity: var(--opacity-1);
-    }
-  }
-}
-
 @include isPhone() {
   .translate {
     min-height: 300px;
-  }
-  .history-item {
-    .interaction {
-      flex-direction: column;
-      align-items: end;
-    }
-    button.add span {
-      display: none;
-    }
   }
 }
 @include isDesktop() {
@@ -173,9 +124,5 @@
         border-width: 0 0 0 1px;
       }
     }
-  }
-  .history-item .interaction {
-    flex-direction: row-reverse;
-    align-items: start;
   }
 }

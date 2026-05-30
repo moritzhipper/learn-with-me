@@ -4,11 +4,13 @@
       <app-larry-big class="larry fly-in-y-wide" />
       <!-- <app-icon-comp type="learn" class="icon-big fly-in-y-wide" /> -->
       <div class="header">
-        <p class="fly-in-xy-0">Welcome to</p>
-        <h1 class="fly-in-xy-1">lingolizard</h1>
+        <p class="fly-in-xy" [animDelay]="{ i: 0, size: 13 }">Welcome to</p>
+        <h1 class="fly-in-xy" [animDelay]="{ i: 1, size: 13 }">lingolizard</h1>
       </div>
-      <p class="fly-in-xy-2">Create, practice and share learning cards and collections.</p>
-      <p class="pb-4 fly-in-xy-3">
+      <p class="fly-in-xy" [animDelay]="{ i: 2, size: 13 }">
+        Create, practice and share learning cards and collections.
+      </p>
+      <p class="pb-4 fly-in-xy" [animDelay]="{ i: 3, size: 13 }">
         Prepare for conversations in other languages, slang, dialects or situations. Your
         imagination is the limit!
       </p>
@@ -61,7 +63,8 @@
       <app-icon-comp type="chevron" />
     </button>
     <button
-      class="big next fly-in-xy-12"
+      class="big next fly-in-xy"
+      [animDelay]="{ i: 12, size: 13 }"
       [disabled]="activeIndex() === 3 && languageForm.invalid"
       (click)="next()"
     >

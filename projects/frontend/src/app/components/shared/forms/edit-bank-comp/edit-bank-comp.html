@@ -1,12 +1,12 @@
 <form class="modal" (ngSubmit)="submit()" [formGroup]="form">
-  <h2 class="full fly-in-y-0">
+  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: 4 }">
     @if (preset()) {
       Edit Bank
     } @else {
       Create new Bank
     }
   </h2>
-  <div class="inputs full fly-in-y-0">
+  <div class="inputs full fly-in-y" [animDelay]="{ i: 1, size: 4 }">
     <label>
       <span>Bank Name </span>
       <input formControlName="name" />
@@ -21,8 +21,10 @@
     </label>
   </div>
 
-  <button type="button" (click)="cancel()" class="big fly-in-y-1">Cancel</button>
-  <button type="submit" class="fly-in-y-2" [disabled]="form.invalid">
+  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }">
+    Cancel
+  </button>
+  <button type="submit" class="fly-in-y" [animDelay]="{ i: 3, size: 4 }" [disabled]="form.invalid">
     @if (preset()) {
       Save
     } @else {

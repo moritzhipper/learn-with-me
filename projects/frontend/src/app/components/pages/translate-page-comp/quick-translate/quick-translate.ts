@@ -1,11 +1,9 @@
-import { DatePipe } from '@angular/common'
 import {
   afterRenderEffect,
   Component,
   computed,
   ElementRef,
   inject,
-  output,
   signal,
   viewChild
 } from '@angular/core'
@@ -17,39 +15,30 @@ import {
   ResponseTextDoneEvent
 } from 'openai/resources/responses/responses.mjs'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
-import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
-import { Bubble } from '../../../shared/bubbles/bubble/bubble'
-import { Bubbles } from '../../../shared/bubbles/bubbles'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [IconComp, FormsModule, DatePipe, Bubbles, Bubble],
+  imports: [FormsModule],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
 export class QuickTranslate {
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
-  protected readonly PROPOSED_CARDS_DEBOUNCE_MS = 1500
   protected readonly SMALL_TEXT_THRESHOLD = 70
 
   private readonly aiService = inject(AiService)
   private readonly ls = inject(LearnablesStore)
   private readonly toastService = inject(ToastService)
-  private readonly modalService = inject(ModalService)
 
   private readonly activeBank = this.ls.activeBank
-  protected readonly history = computed(() => this.ls.activeBank().translations.history)
 
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
-
-  readonly openMagicMode = output<string | void>()
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
@@ -150,13 +139,15 @@ export class QuickTranslate {
             return isFinishedEvent && isCurrentUserInput
           }),
           delay(2000),
-          tap((ev) =>
+          tap((ev) => {
+            const tone = config.tone ? `Tone: ${config.tone}` : ''
             this.ls.addTranslationHistoryItem({
               lexeme: config.text,
-              tone: config.tone,
-              translation: ev.text
+              notes: tone,
+              translation: ev.text,
+              type: 'phrase'
             })
-          )
+          })
         )
       })
     )
@@ -181,9 +172,5 @@ export class QuickTranslate {
       this.lastTranslation = event.text
       this.translation.set(this.lastTranslation)
     }
-  }
-
-  protected deleteHistoryItem(id: string) {
-    this.ls.deleteTranslationHistoryItem(id)
   }
 }

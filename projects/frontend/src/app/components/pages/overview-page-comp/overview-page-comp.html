@@ -1,5 +1,7 @@
 <app-bubbles>
   <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+
   @if (selectedLearnableIds().length !== 0) {
     <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="1" />
     <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />

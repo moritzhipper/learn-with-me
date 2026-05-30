@@ -3,13 +3,13 @@ import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
+import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { ApiFetchState, ExplorePageCategoryConfig } from 'projects/frontend/src/app/types/types'
-import { mapToStaggerVM, StaggerVM } from 'projects/frontend/src/app/utils/genaral-utils'
 import { lastValueFrom } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
@@ -29,7 +29,8 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
     IconComp,
     RadioComp,
     FormsModule,
-    PagePlaceholderComp
+    PagePlaceholderComp,
+    AnimDelay
   ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss',
@@ -53,7 +54,7 @@ export class ExplorePageComp {
   private readonly PAGE_LIMIT = 15
   private PAGE_OFFSET = 0
 
-  protected readonly visibleBanksVM = signal<StaggerVM<BankShareViaDB>>([])
+  protected readonly visibleBanks = signal<BankShareViaDB[]>([])
   params = signal<ExplorePageCategoryConfig>(this.initParams())
 
   document = inject(DOCUMENT)
@@ -104,9 +105,7 @@ export class ExplorePageComp {
         })
       )
 
-      // makes the last banks animation appear after 0.2s
-      const bankVM = mapToStaggerVM(banks)
-      this.visibleBanksVM.set([...this.visibleBanksVM(), ...bankVM])
+      this.visibleBanks.set([...this.visibleBanks(), ...banks])
 
       if (banks.length < this.PAGE_LIMIT) {
         this.fetchState.set('all-loaded')
@@ -135,7 +134,7 @@ export class ExplorePageComp {
   updateParams(p: Partial<ExplorePageCategoryConfig>) {
     this.PAGE_OFFSET = 0
     this.fetchState.set('idle')
-    this.visibleBanksVM.set([])
+    this.visibleBanks.set([])
     this.params.update((old) => ({ ...old, ...p }))
     this.loadNextPage()
   }

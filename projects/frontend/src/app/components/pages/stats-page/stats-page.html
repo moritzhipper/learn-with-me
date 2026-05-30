@@ -1,6 +1,7 @@
 <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 <app-page-icon-comp type="donut-chart-fill" />
 <app-practice-timeline [practiceHistory]="practiceHistory()" (selectDay)="scrollToDay($event)" />
+
 <div class="history">
   @for (entry of practiceHistoryDays(); track entry.day) {
     <div class="day" [id]="'day-' + entry.day">
@@ -10,8 +11,7 @@
           {{ entry.day | date: 'mediumDate' }}
         </h2>
         <p class="stats">
-          <span class="word-list-item"> {{ entry.summary.totalRight }} right </span>
-          <span class="word-list-item"> {{ entry.summary.totalWrong }} wrong </span>
+          <strong> {{ entry.summary.totalGuesses }} </strong> guesses
         </p>
       </div>
       <div class="practices-wrapper">

@@ -25,14 +25,14 @@
 </div>
 
 <div class="banks">
-  @for (bankVM of visibleBanksVM(); track bankVM.item.id) {
+  @for (bank of visibleBanks(); track bank.id) {
     <app-shared-bank-comp
       class="stacked-shadow fly-in-y-wide"
-      [bank]="bankVM.item"
+      [bank]="bank"
       [isCommunityBank]="true"
-      (copyId)="copyBankId(bankVM.item)"
-      (importBank)="importBank(bankVM.item)"
-      [style.animationDelay.s]="bankVM.animDelay"
+      [animDelay]="{ i: $index, list: visibleBanks() }"
+      (copyId)="copyBankId(bank)"
+      (importBank)="importBank(bank)"
     />
   }
 </div>

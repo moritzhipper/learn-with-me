@@ -10,6 +10,7 @@ export type BubbleConfig =
   | 'move'
   | 'trash'
   | 'reset-selection'
+  | 'checkbox-multiple'
 
 @Component({
   selector: 'app-bubble',
@@ -23,7 +24,7 @@ export type BubbleConfig =
 })
 export class Bubble {
   config = input.required<BubbleConfig>()
-  size = input<'big' | 'small'>('small')
+  size = input<'big' | 'medium' | 'small'>('small')
   select = output<void>()
   animateIndex = input<number>(0)
 }

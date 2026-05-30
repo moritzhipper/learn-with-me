@@ -1,14 +1,11 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
-import {
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-edit-collection-comp',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AnimDelay],
   templateUrl: './edit-collection-comp.html',
   styleUrl: './edit-collection-comp.scss'
 })

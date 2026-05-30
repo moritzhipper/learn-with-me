@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import {
   AfterViewInit,
   Component,
@@ -10,7 +11,7 @@ import {
 import { PracticeActive } from '@shared/types'
 import {
   calcDaysDifference,
-  convertToDayPrecisionUTCDate,
+  convertToDayPrecisionUTCDate as convertToDayPrecisionUnixDate,
   isSameDay
 } from '../../../utils/genaral-utils'
 
@@ -18,11 +19,12 @@ import {
 type PracticeTimelineData = {
   day: number
   guessed: number
+  isFirstDayOfWeek: boolean
 }
 
 @Component({
   selector: 'app-practice-timeline',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './practice-timeline.html',
   styleUrl: './practice-timeline.scss',
   host: {
@@ -43,7 +45,7 @@ export class PracticeTimeline implements AfterViewInit {
   )
 
   private mapToTimeline(history: PracticeActive[]): PracticeTimelineData[] {
-    const earliestDate = Math.min(...history.map((h) => convertToDayPrecisionUTCDate(h.createdAt)))
+    const earliestDate = Math.min(...history.map((h) => convertToDayPrecisionUnixDate(h.createdAt)))
     const range = calcDaysDifference(new Date(), earliestDate)
     const oneDayInMs = 1000 * 60 * 60 * 24
 
@@ -53,11 +55,13 @@ export class PracticeTimeline implements AfterViewInit {
         .map((h) => h.guessables.filter((g) => g.guess !== 'unanswered').length)
         .reduce((acc, val) => acc + val, 0)
 
-      return { day, guessed }
+      const isFirstDayOfWeek = new Date(day).getDay() === 1
+
+      return { day, guessed, isFirstDayOfWeek }
     })
   }
 
   ngAfterViewInit(): void {
-    this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'instant' })
+    this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'smooth' })
   }
 }
