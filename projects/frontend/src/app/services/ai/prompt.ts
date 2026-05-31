@@ -1,4 +1,4 @@
-import { LanguageConfig, LearnableBase } from '@shared/types'
+import { LanguageConfig } from '@shared/types'
 import { LearnableCreationConfig } from '../../types/types'
 
 const systemPrompt = ({ learning, speaking }: LanguageConfig) => `
@@ -118,28 +118,25 @@ const extractWordsFromImagePrompt = () => `
 
 const createCardsFromPromptPrompt = () => ``
 
-export const getPrompt = (
-  language: LanguageConfig,
-  type: LearnableBase['type'] | 'prompt',
-  source: LearnableCreationConfig['sourceType']
-): string => {
-  if (type === 'word' && source === 'text') {
+export const getPrompt = (config: LearnableCreationConfig): string => {
+  const { language, sourceType, cardType } = config
+  if (cardType === 'word' && sourceType === 'text') {
     return `${systemPrompt(language)}${wordsPrompt(language)}${extractWordsFromTextPrompt(language)}`
   }
 
-  if (type === 'phrase' && source === 'text') {
+  if (cardType === 'phrase' && sourceType === 'text') {
     return `${systemPrompt(language)}${phrasesPrompt(language)}${extractPhrasesFromTextPrompt(language)}`
   }
 
-  if (type === 'word' && source === 'image') {
+  if (cardType === 'word' && sourceType === 'image') {
     return `${systemPrompt(language)}${wordsPrompt(language)}${extractWordsFromImagePrompt()}`
   }
 
-  if (type === 'phrase' && source === 'image') {
+  if (cardType === 'phrase' && sourceType === 'image') {
     return `${systemPrompt(language)}${phrasesPrompt(language)}${extractPhrasesFromImagePrompt()}`
   }
 
-  if (type === 'prompt') {
+  if (sourceType === 'prompt') {
     return `${systemPrompt(language)}${createCardsFromPromptPrompt()}`
   }
 

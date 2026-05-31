@@ -8,6 +8,11 @@
   - keep the words phrases both thing, put prompt mode into checkbox
   - add notes to prompot prompt ai retunr thing (this is this tenxe, this is this comment, bla bla)
   - only show either textarea or image button on selection of correct type
+  - prompts: join generate cards prompts, so words and phrases are gnerated in one go -> makes ai align cards better.
+  - make create cards from prompt also fill notes
+    - clean up ai service a lot
+    - create seperate prompt files
+      not this super verbose pattern: only: getPrompt, mapSourceToContent, callAi
 - add 'categorize' api call for translate
   - add prompt for this
 - add date back to quick trans
