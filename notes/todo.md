@@ -7,6 +7,7 @@
   - remove image input when prompt is selected
   - keep the words phrases both thing, put prompt mode into checkbox
   - add notes to prompot prompt ai retunr thing (this is this tenxe, this is this comment, bla bla)
+  - only show either textarea or image button on selection of correct type
 - add 'categorize' api call for translate
   - add prompt for this
 - add date back to quick trans

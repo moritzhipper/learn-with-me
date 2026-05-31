@@ -8,11 +8,15 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import {
   LearnableCreationConfig,
-  LearnableFromTextCreationConfig
+  LearnableCreationConfigBase
 } from 'projects/frontend/src/app/types/types'
 import { from, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
+
+type FormType = Pick<LearnableCreationConfig, 'cardType' | 'sourceType'> & {
+  textSource: string
+}
 
 @Component({
   selector: 'app-magic-translate',
@@ -28,11 +32,10 @@ export class MagicTranslate {
 
   isConverting = signal(false)
 
-  form = this._fb.group<
-    Pick<LearnableCreationConfig, 'type'> & Pick<LearnableFromTextCreationConfig, 'text'>
-  >({
-    type: 'word',
-    text: ''
+  form = this._fb.group<FormType>({
+    cardType: 'word',
+    sourceType: 'text',
+    textSource: ''
   })
 
   protected imagePreview = signal<string | null>(null)
@@ -43,34 +46,37 @@ export class MagicTranslate {
   ngOnInit() {
     const preset = this.preset()
     if (preset) {
-      this.form.patchValue({ text: preset })
+      this.form.patchValue({ sourceType: 'text', textSource: preset })
     }
   }
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
     const form = this.formSignal()
-    const type = form?.type
+    const cardType = form?.cardType
+    const sourceType = form?.sourceType
 
-    if (!language || !type) return null
+    if (!language || !cardType || !sourceType) return null
+    const base: LearnableCreationConfigBase = {
+      language,
+      cardType
+    }
 
     const image = this.imagePreview()
-    if (image) {
+    if (sourceType === 'image' && image) {
       return {
-        source: 'image',
-        image: image,
-        type,
-        language
+        sourceType: 'image',
+        source: image,
+        ...base
       }
     }
 
-    const text = form?.text
-    if (text) {
+    const textSource = form?.textSource
+    if ((sourceType === 'text' || sourceType === 'prompt') && textSource) {
       return {
-        source: 'text',
-        text,
-        type,
-        language
+        sourceType,
+        source: textSource,
+        ...base
       }
     }
 
@@ -81,7 +87,6 @@ export class MagicTranslate {
     pipe(
       switchMap((config) => {
         this.isConverting.set(true)
-        this.ls.setMagicTranslateCards([])
         return from(this.aiService.createLearnables(config)).pipe(
           tap(() => this.isConverting.set(false)),
           tapResponse({

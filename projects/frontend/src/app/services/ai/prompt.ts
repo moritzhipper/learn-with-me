@@ -121,7 +121,7 @@ const createCardsFromPromptPrompt = () => ``
 export const getPrompt = (
   language: LanguageConfig,
   type: LearnableBase['type'] | 'prompt',
-  source: LearnableCreationConfig['source']
+  source: LearnableCreationConfig['sourceType']
 ): string => {
   if (type === 'word' && source === 'text') {
     return `${systemPrompt(language)}${wordsPrompt(language)}${extractWordsFromTextPrompt(language)}`

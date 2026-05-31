@@ -54,7 +54,7 @@ export class AiService {
   )
 
   async createLearnables(config: LearnableCreationConfig): Promise<LearnableBase[]> {
-    if (config.source === 'image') {
+    if (config.sourceType === 'image') {
       return this.createLearnablesFromImage(config)
     } else {
       return this.createLearnablesFromString(config)
@@ -65,16 +65,17 @@ export class AiService {
     config: LearnableFromTextCreationConfig
   ): Promise<LearnableBase[]> {
     const cardPromises: Promise<LearnableBase[]>[] = []
-    const text = config.text
+    const text = config.source
 
     // when both, do call phrase and cards, if one of them, call one of them
     // chatgpt skips a lot of input when doing both at once
-    if (config.type === 'phrase' || config.type === 'both') {
-      const prompt = getPrompt(config.language, 'phrase', config.source)
+    if (config.cardType === 'phrase' || config.cardType === 'both') {
+      const prompt = getPrompt(config.language, 'phrase', config.sourceType)
       cardPromises.push(this._createCardsFromText(text, prompt, 'phrase'))
     }
-    if (config.type === 'word' || config.type === 'both') {
-      const prompt = getPrompt(config.language, 'word', config.source)
+
+    if (config.cardType === 'word' || config.cardType === 'both') {
+      const prompt = getPrompt(config.language, 'word', config.sourceType)
       cardPromises.push(this._createCardsFromText(text, prompt, 'word', 300))
     }
 
@@ -88,22 +89,18 @@ export class AiService {
     config: LearnableFromImageCreationConfig
   ): Promise<LearnableBase[]> {
     const cardPromises: Promise<LearnableBase[]>[] = []
-    const image = config.image
+    const image = config.source
 
-    if (config.type === 'phrase' || config.type === 'both') {
+    if (config.cardType === 'phrase' || config.cardType === 'both') {
       const prompt = getPrompt(config.language, 'phrase', 'image')
       cardPromises.push(this._createCardsFromImage(image, prompt, 'phrase'))
     }
 
-    if (config.type === 'word' || config.type === 'both') {
+    if (config.cardType === 'word' || config.cardType === 'both') {
       const prompt = getPrompt(config.language, 'word', 'image')
       cardPromises.push(this._createCardsFromImage(image, prompt, 'word'))
     }
 
-    if (config.type === 'prompt') {
-      const prompt = getPrompt(config.language, 'prompt', 'image')
-      cardPromises.push(this.createCardsFromPrompt(prompt))
-    }
     const cardLists = await Promise.all(cardPromises)
     const cards = cardLists.flat(1)
 

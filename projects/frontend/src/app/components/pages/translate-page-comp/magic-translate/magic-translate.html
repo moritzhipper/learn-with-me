@@ -11,7 +11,7 @@
     } @else {
       <textarea
         placeholder="Paste notes, articles, or any other text here and press Generate"
-        formControlName="text"
+        formControlName="textSource"
       ></textarea>
       <div class="image-input">
         <input
@@ -27,14 +27,23 @@
     }
     <div class="config">
       <app-radio-comp
-        label="Type"
+        label="Generate"
         [config]="[
           { value: 'word', label: 'Words' },
           { value: 'phrase', label: 'Phrases' },
-          { value: 'both', label: 'Both' },
-          { value: 'prompt', label: 'Prompt' }
+          { value: 'both', label: 'Both' }
         ]"
-        formControlName="type"
+        formControlName="cardType"
+        class="type"
+      />
+      <app-radio-comp
+        label="From"
+        [config]="[
+          { value: 'text', label: 'Text' },
+          { value: 'prompt', label: 'Prompt' },
+          { value: 'image', label: 'Image' }
+        ]"
+        formControlName="sourceType"
         class="type"
       />
       <button
