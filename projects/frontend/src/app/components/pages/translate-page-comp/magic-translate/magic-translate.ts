@@ -10,7 +10,7 @@ import {
   LearnableCreationConfig,
   LearnableCreationConfigBase
 } from 'projects/frontend/src/app/types/types'
-import { from, pipe, switchMap, tap } from 'rxjs'
+import { from, map, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
@@ -39,7 +39,10 @@ export class MagicTranslate {
   })
 
   protected imagePreview = signal<string | null>(null)
-  protected formSignal = toSignal(this.form.valueChanges)
+
+  protected formSignal = toSignal(this.form.valueChanges.pipe(map(() => this.form.getRawValue())), {
+    initialValue: this.form.getRawValue()
+  })
 
   preset = model<string>()
 
@@ -52,11 +55,10 @@ export class MagicTranslate {
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
-    const form = this.formSignal()
-    const cardType = form?.cardType
-    const sourceType = form?.sourceType
+    const { cardType, sourceType, textSource } = this.formSignal()
 
-    if (!language || !cardType || !sourceType) return null
+    if (!language) return null
+
     const base: LearnableCreationConfigBase = {
       language,
       cardType
@@ -71,7 +73,6 @@ export class MagicTranslate {
       }
     }
 
-    const textSource = form?.textSource
     if ((sourceType === 'text' || sourceType === 'prompt') && textSource) {
       return {
         sourceType,

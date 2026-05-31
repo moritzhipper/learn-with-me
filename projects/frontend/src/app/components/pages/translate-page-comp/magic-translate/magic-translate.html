@@ -1,30 +1,44 @@
 <div class="header-section">
   <form [formGroup]="form" (ngSubmit)="translate()" [class.converting]="isConverting()">
-    @if (imagePreview(); as img) {
-      <div class="image-preview">
-        <img [src]="img" alt="Preview" />
+    @if (formSignal().sourceType === 'image') {
+      <div class="image-wrapper">
+        @if (imagePreview(); as img) {
+          <img [src]="img" alt="Preview" />
+          <button
+            type="button"
+            class="small image-delete has-icon"
+            (click)="imagePreview.set(null)"
+          >
+            Remove Image
+            <app-icon-comp type="image" [size]="24" />
+          </button>
+        } @else {
+          <div class="image-input">
+            <input
+              id="image"
+              type="file"
+              accept="image/*;capture=camera"
+              (change)="onFileChange($event)"
+            />
+            <label for="image">
+              <app-icon-comp type="image" [size]="32" />
+              <p class="light size-0">Add picture</p>
+            </label>
+          </div>
+        }
       </div>
-      <button type="button" class="small image-delete has-icon" (click)="imagePreview.set(null)">
-        Remove Image
-        <app-icon-comp type="image" [size]="24" />
-      </button>
-    } @else {
+    } @else if (formSignal().sourceType === 'text') {
       <textarea
         placeholder="Paste notes, articles, or any other text here and press Generate"
         formControlName="textSource"
       ></textarea>
-      <div class="image-input">
-        <input
-          id="image"
-          type="file"
-          accept="image/*;capture=camera"
-          (change)="onFileChange($event)"
-        />
-        <label for="image">
-          <app-icon-comp type="image" [size]="32" />
-        </label>
-      </div>
+    } @else {
+      <textarea
+        placeholder="Describe what you want to learn and press Generate. For example: 'Describing time management'"
+        formControlName="textSource"
+      ></textarea>
     }
+
     <div class="config">
       <app-radio-comp
         label="Generate"
@@ -40,8 +54,8 @@
         label="From"
         [config]="[
           { value: 'text', label: 'Text' },
-          { value: 'prompt', label: 'Prompt' },
-          { value: 'image', label: 'Image' }
+          { value: 'image', label: 'Image' },
+          { value: 'prompt', label: 'Prompt' }
         ]"
         formControlName="sourceType"
         class="type"

@@ -17,25 +17,21 @@
 
     .config {
       display: grid;
-      gap: var(--distance-4);
     }
 
-    .image-input,
-    .image-preview,
-    .image-delete,
+    .image-wrapper,
     textarea {
       grid-area: 1 / 1;
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     }
 
-    .image-preview {
-      overflow: hidden;
-      height: 100%;
-      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-      display: grid;
-      place-items: center;
-      position: relative;
+    .image-wrapper {
       border-radius: var(--radius-1);
-      border: 2px solid var(--col-accent);
+      display: grid;
+      place-items: stretch;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
       box-sizing: border-box;
 
       img {
@@ -46,47 +42,44 @@
         height: 100%;
         width: 100%;
       }
-    }
-    .image-delete {
-      z-index: 2;
-      margin: var(--distance-3);
-      place-self: end;
-      background-color: var(--col-accent);
-      box-shadow: var(--shadow-big);
-    }
-
-    textarea {
-      background-color: transparent;
-      // background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-      border: 1px solid var(--col-accent);
-    }
-    .image-input {
-      display: grid;
-      place-self: end;
-      place-items: stretch;
-
-      input,
-      label {
-        width: var(--distance-7);
-        height: var(--distance-7);
-        padding: 0;
-        border-radius: var(--radius-1);
-        grid-area: 1 / 1;
-        cursor: pointer;
+      .image-delete {
+        z-index: 2;
+        margin: var(--distance-3);
+        place-self: end;
+        background-color: var(--col-accent);
+        box-shadow: var(--shadow-big);
       }
 
-      input {
-        overflow: hidden;
-        opacity: 0;
-      }
-      label {
+      .image-input {
         display: grid;
-        place-items: center;
-        outline: 0px solid transparent;
-        transition: outline var(--duration-0);
-      }
-      input:focus-visible + label {
-        outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+        place-self: stretch;
+        place-items: stretch;
+
+        input,
+        label {
+          place-self: stretch;
+          padding: 0;
+          border-radius: var(--radius-1);
+          grid-area: 1 / 1;
+          cursor: pointer;
+        }
+
+        input {
+          overflow: hidden;
+          opacity: 0;
+        }
+
+        label {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          outline: 0px solid transparent;
+          transition: outline var(--duration-0);
+        }
+        input:focus-visible + label {
+          outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+        }
       }
     }
 
@@ -114,7 +107,11 @@
     height: 400px;
 
     .config {
-      grid-template-columns: 1fr 200px;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--distance-4);
+    }
+    button {
+      grid-column: span 2;
     }
   }
 }
@@ -123,6 +120,10 @@
     height: 60vh;
     .config {
       grid-template-columns: 1fr;
+      gap: var(--distance-2);
+      button {
+        margin-top: var(--distance-4);
+      }
     }
   }
 }
