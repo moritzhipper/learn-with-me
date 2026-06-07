@@ -36,9 +36,7 @@ import {
   getExtractFromImagePrompt,
   getExtractFromTextPrompt
 } from './pompt-new'
-import { getPrompt, getQuickTranslatePrompt } from './prompt'
-
-type AICallConfigProxy = Omit<LearnableCreationConfig, 'source' | 'sourceType'>
+import { getQuickTranslatePrompt } from './prompts/quick-translate-prompts'
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +54,6 @@ export class AiService {
   )
 
   async createLearnables(config: LearnableCreationConfig): Promise<LearnableBase[]> {
-    const prompt = getPrompt(config)
     const promises: Promise<LearnableBase[]>[] = []
 
     if (config.sourceType === 'text') {
@@ -73,14 +70,17 @@ export class AiService {
   }
 
   // todo: add chunking back
-  //  const chunks = mapPhrasesFromInputToChunks(text, chunkSize)
-
-  async extractFromText(text: string, config: AICallConfigProxy): Promise<LearnableBase[]> {
+  // const chunks = mapPhrasesFromInputToChunks(text, chunkSize)
+  async extractFromText(text: string, config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getExtractFromTextPrompt(config)
     const cardType = config.cardType
 
     if (cardType === 'both') {
-      const cards = await this.createCardsWithAI(systemPrompt, text, LearnableFromAiWithTypeSchema)
+      const cards = await this.createStructuredOutput(
+        systemPrompt,
+        text,
+        z.array(LearnableFromAiWithTypeSchema)
+      )
       return cards.map((c) => ({
         type: c.type,
         lexeme: c.lexeme,
@@ -88,7 +88,11 @@ export class AiService {
         notes: ''
       }))
     } else {
-      const cards = await this.createCardsWithAI(systemPrompt, text, LearnableFromAiSchema)
+      const cards = await this.createStructuredOutput(
+        systemPrompt,
+        text,
+        z.array(LearnableFromAiSchema)
+      )
       return cards.map((c) => ({
         type: cardType,
         lexeme: c.lexeme,
@@ -98,7 +102,7 @@ export class AiService {
     }
   }
 
-  async extractFromImage(image: string, config: AICallConfigProxy): Promise<LearnableBase[]> {
+  async extractFromImage(image: string, config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getExtractFromImagePrompt(config)
     const userMessageContent: ResponseInputMessageContentList = [
       {
@@ -110,10 +114,10 @@ export class AiService {
 
     const cardType = config.cardType
     if (cardType === 'both') {
-      const cards = await this.createCardsWithAI(
+      const cards = await this.createStructuredOutput(
         systemPrompt,
         userMessageContent,
-        LearnableFromAiWithTypeSchema
+        z.array(LearnableFromAiWithTypeSchema)
       )
       return cards.map((c) => ({
         type: c.type,
@@ -122,10 +126,10 @@ export class AiService {
         notes: ''
       }))
     } else {
-      const cards = await this.createCardsWithAI(
+      const cards = await this.createStructuredOutput(
         systemPrompt,
         userMessageContent,
-        LearnableFromAiSchema
+        z.array(LearnableFromAiSchema)
       )
       return cards.map((c) => ({
         type: cardType,
@@ -138,51 +142,40 @@ export class AiService {
 
   async createFromUserPrompt(
     userPrompt: string,
-    config: AICallConfigProxy
+    config: LearnableCreationConfig
   ): Promise<LearnableBase[]> {
     const systemPrompt = getCreateFromUserPromptPrompt(config)
-    return this.createCardsWithAI(systemPrompt, userPrompt, LearnableBaseSchema)
+    return this.createStructuredOutput(systemPrompt, userPrompt, z.array(LearnableBaseSchema))
   }
 
-  async createCardsWithAI<T>(
+  private async createStructuredOutput<T>(
     systemPrompt: string,
     userContent: EasyInputMessage['content'],
     zodSchema: z.ZodType<T>
-  ): Promise<T[]> {
+  ): Promise<T> {
     const response = await this.oAi().responses.parse({
       model: this.model,
       text: {
-        format: zodTextFormat(z.array(zodSchema), 'learnable_cards')
+        format: zodTextFormat(zodSchema, 'response_type')
       },
       input: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userContent }
       ]
     })
+
     this.settingsStore.addTokensUsed(response.usage?.total_tokens ?? 0)
 
-    return response.output_parsed ?? []
+    if (!response.output_parsed) throw new Error('An error occured calling AI service.')
+
+    return response.output_parsed
   }
 
-  // keep those
+  // TODO: add correct prompt
   async categorizeCard(card: LearnableFromAI): Promise<string> {
-    // add correct prompt
     const systemPrompt = ''
     const cardString = String(card)
-    const response = await this.oAi().responses.parse({
-      model: this.model,
-      text: {
-        format: zodTextFormat(LearnableTypeEnum, 'learnable_cards')
-      },
-      input: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: cardString }
-      ]
-    })
-
-    const type = response.output_parsed
-
-    return type ?? 'word'
+    return this.createStructuredOutput(systemPrompt, cardString, LearnableTypeEnum)
   }
 
   translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
@@ -194,7 +187,10 @@ export class AiService {
           {
             model: this.model,
             input: [
-              { role: 'system', content: getQuickTranslatePrompt(config.language, config.tone) },
+              {
+                role: 'system',
+                content: getQuickTranslatePrompt(config.language.learning, config.tone)
+              },
               { role: 'user', content: config.text }
             ],
             stream: true

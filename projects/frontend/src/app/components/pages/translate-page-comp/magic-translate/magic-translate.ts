@@ -56,7 +56,7 @@ export class MagicTranslate {
 
     if (!language) return null
 
-    const base: LearnableCreationConfigBase = {
+    const base: Pick<LearnableCreationConfig, 'language' | 'cardType'> = {
       language,
       cardType
     }
