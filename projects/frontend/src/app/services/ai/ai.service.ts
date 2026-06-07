@@ -4,8 +4,8 @@ import OpenAI from 'openai'
 // until then use helper function zodTextFormat from utils/genaral-utils
 // import { zodTextFormat } from 'openai/helpers/zod'
 import {
-  LearnableFromAiSchema,
-  LearnableFromAiWithTypeSchema,
+  LearnableFromAiListSchema,
+  LearnableFromAiWithTypeListSchema,
   LearnableTypeEnum
 } from '@shared/schemas'
 import { LearnableBase, LearnableFromAI } from '@shared/types'
@@ -75,26 +75,26 @@ export class AiService {
     const cardType = config.cardType
 
     if (cardType === 'both') {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         text,
-        z.array(LearnableFromAiWithTypeSchema)
+        LearnableFromAiWithTypeListSchema
       )
 
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: c.type,
         lexeme: c.lexeme,
         translation: c.translation,
         notes: ''
       }))
     } else {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         text,
-        z.array(LearnableFromAiSchema)
+        LearnableFromAiListSchema
       )
 
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: cardType,
         lexeme: c.lexeme,
         translation: c.translation,
@@ -115,24 +115,24 @@ export class AiService {
 
     const cardType = config.cardType
     if (cardType === 'both') {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         userMessageContent,
-        z.array(LearnableFromAiWithTypeSchema)
+        LearnableFromAiWithTypeListSchema
       )
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: c.type,
         lexeme: c.lexeme,
         translation: c.translation,
         notes: ''
       }))
     } else {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         userMessageContent,
-        z.array(LearnableFromAiSchema)
+        LearnableFromAiListSchema
       )
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: cardType,
         lexeme: c.lexeme,
         translation: c.translation,
@@ -149,25 +149,25 @@ export class AiService {
     const cardType = config.cardType
 
     if (cardType === 'both') {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         userPrompt,
-        z.array(LearnableFromAiWithTypeSchema)
+        LearnableFromAiWithTypeListSchema
       )
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: c.type,
         lexeme: c.lexeme,
         translation: c.translation,
         notes: ''
       }))
     } else {
-      const cards = await this.createStructuredOutput(
+      const response = await this.createStructuredOutput(
         systemPrompt,
         userPrompt,
-        z.array(LearnableFromAiSchema)
+        LearnableFromAiListSchema
       )
 
-      return cards.map((c) => ({
+      return response.cards.map((c) => ({
         type: cardType,
         lexeme: c.lexeme,
         translation: c.translation,

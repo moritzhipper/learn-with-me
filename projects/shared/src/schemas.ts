@@ -6,14 +6,18 @@ export const LearnableFromAiSchema = z.object({
   translation: z.string()
 })
 
+export const LearnableFromAiListSchema = z.object({
+  cards: z.array(LearnableFromAiSchema)
+})
+
 export const LearnableTypeEnum = z.enum(['phrase', 'word'])
 
 export const LearnableFromAiWithTypeSchema = LearnableFromAiSchema.extend({
   type: LearnableTypeEnum
 })
 
-export const LearnablesFromAiSchema = z.object({
-  cards: z.array(LearnableFromAiSchema)
+export const LearnableFromAiWithTypeListSchema = z.object({
+  cards: z.array(LearnableFromAiWithTypeSchema)
 })
 
 export const LearnableBaseSchema = LearnableFromAiWithTypeSchema.extend({

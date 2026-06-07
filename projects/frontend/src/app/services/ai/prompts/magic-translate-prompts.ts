@@ -20,6 +20,8 @@ const phraseCardStylePrompt = `
 Phrase cards should
 - always contain either sayings, idioms, expressions, very short sentences or parts of sentences
 - have ... at the beginning or end if the phrase can be part of a larger sentence
+- use correct capitalization and punctuation
+- A maximum of 8 words, never more
 - never contain single words that can not be used as standalone phrases
 
 ### Examples 
@@ -85,12 +87,17 @@ export const getExtractFromTextPrompt = ({
   language,
   cardType
 }: LearnableCreationConfig): string => {
-  const extractFromTextPrompt = `
+  let extractFromTextPrompt = `
   ## Your Task
 
   You are given a text, from which you extract vocabulary cards. 
   Make shure, no piece of text is left unprocessed. 
   This means that the resulting cards should cover 100% of the user input and allow learning the full text by using the cards.`
+
+  if (cardType === 'phrase' || cardType === 'both') {
+    extractFromTextPrompt += `
+    If the text contains long sentences, create multiple phrase cards containing parts of that sentence.`
+  }
 
   return `${getSystemPrompt(language)}\n${extractFromTextPrompt}\n${cardTypePrompt(cardType)}`
 }
