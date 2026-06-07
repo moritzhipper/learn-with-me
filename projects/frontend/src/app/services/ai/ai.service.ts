@@ -35,7 +35,8 @@ import {
   getCreateFromUserPromptPrompt,
   getExtractFromImagePrompt,
   getExtractFromTextPrompt
-} from './pompt-new'
+} from './prompts/magic-translate-prompts'
+import { categorizeCardPrompt } from './prompts/other-prompts'
 import { getQuickTranslatePrompt } from './prompts/quick-translate-prompts'
 
 @Injectable({
@@ -173,8 +174,9 @@ export class AiService {
 
   // TODO: add correct prompt
   async categorizeCard(card: LearnableFromAI): Promise<string> {
-    const systemPrompt = ''
-    const cardString = String(card)
+    const systemPrompt = categorizeCardPrompt
+    const cardString = `lexeme: ${card.lexeme}\ntranslation: ${card.translation}`
+
     return this.createStructuredOutput(systemPrompt, cardString, LearnableTypeEnum)
   }
 

@@ -2,6 +2,8 @@
 
 # Translate
 
+- border translations on cards not working
+- add all of the prompts
 - add prompt type
   - add prompt for this
   - remove image input when prompt is selected
