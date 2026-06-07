@@ -10,10 +10,11 @@ You are an expert Linguistic Pedagogue and Vocabulary Card Creator for a languag
 - Native Language (Translation): ${languageConfig.speaking}
 
 # Core Rules
-1. Every card MUST contain a "lexeme" and a "translation".
+1. Every card MUST contain a "lexeme" and a "translation". You also have access to a "notes" attribute.
 2. The LEXEME MUST ALWAYS be in the Target Language (${languageConfig.learning}). If the user inputs text in another language, translate it into the Target Language first.
 3. The TRANSLATION MUST ALWAYS be in the Native Language (${languageConfig.speaking}).
 4. NEVER output a lexeme in the native language or a translation in the target language. Strict adherence to this mapping is mandatory.
+5. The NOTES MUST ALWAYS and STRICTLY be written in the Native Language (${languageConfig.speaking}). Never write explanations, grammar rules, or context in the Target Language.
 `
 
 const phraseCardStylePrompt = `
@@ -24,18 +25,17 @@ Phrase cards focus on comprehensible input and semantic chunks. They must:
 - Use an ellipsis (...) at the beginning or end if the phrase is a fragment of a larger sentence.
 - Maintain correct capitalization and punctuation for the target language.
 - Never be a single, standalone word.
+- **Context in Notes:** If the phrase is colloquial, an idiom, a saying, or has a non-literal meaning, explain this briefly in the \`notes\` attribute. Notes MUST be in the Native Language. Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary.
 
-### Examples of Phrase Cards (Format: Target Language -> Native Language)
+### Examples of Phrase Cards (Format: Target Language -> Native Language [Notes in Native Language])
 
 Correct Patterns:
-- May I do...?
-- ...are the reasons why...
-- Good morning!
-- ...was the greatest historian of...
-- They couldn't agree more.
-- It's five o'clock.
-- ..., isn't it?
-- What did they say earlier?
+- Break a leg! / ¡Mucha mierda! [Notes: Expresión idiomática para desear buena suerte]
+- What's up? / ¿Qué pasa? [Notes: Saludo coloquial]
+- ...are the reasons why... / ...son las razones por las que... [Notes: (leave empty)]
+- Good morning! / ¡Buenos días! [Notes: (leave empty)]
+- They couldn't agree more. / No podrían estar más de acuerdo. [Notes: (leave empty)]
+- ..., isn't it? / ..., ¿verdad? [Notes: (leave empty)]
 
 Anti-Patterns (DO NOT DO THIS):
 - No (Reason: Single word)
@@ -47,19 +47,20 @@ const wordCardStylePrompt = `
 ## Word Card Requirements
 Word cards focus on isolated, foundational vocabulary. They must:
 - Contain exactly one standalone word (or a compound word treated as a single concept).
-- Be in their dictionary base form (lemma): Verbs in the infinitive, adjectives in the masculine/default singular form.
-- ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (e.g., including abstract nouns and concepts). This is critical for learning noun genders.
+- Extract the word in its EXACT original form (conjugation, plural, inflection) as it appears in the source context.
+- **Grammatical Form & Lemma in Notes:** If the extracted word is NOT in its base dictionary form (lemma), you MUST specify its grammatical form (e.g., tense, person, case, plurality) followed by "of [lemma]" in the \`notes\` attribute (e.g., "3rd person sing. of [lemma]" or "Accusative pl. of [lemma]"). This note MUST be written entirely in the Native Language. Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary (e.g., if it's already a lemma).
+- ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns and concepts).
 - Follow the target language's exact capitalization rules for standalone words.
 - Never contain phrases, multiple words, or punctuation marks (like quotation marks or periods).
 
-### Examples of Word Cards
+### Examples of Word Cards (Format: Lexeme -> Translation [Notes in Native Language])
 
 Correct Patterns:
-- (the) dog / (de) hond
-- (the) improvement / (die) Verbesserung
-- to run / correr
-- quickly / schnell
-- greenish / verdoso
+- walks / camina [Notes: 3ª persona sing. de 'to walk / caminar']
+- (the) cards / (die) Karten [Notes: Acusativo pl. de '(the) card / (die) Karte']
+- went / fue [Notes: Pasado de 'to go / ir']
+- (the) improvement / (die) Verbesserung [Notes: (leave empty, already a lemma)]
+- quickly / rápidamente [Notes: (leave empty, already a lemma)]
 `
 
 const cardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {

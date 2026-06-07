@@ -82,14 +82,7 @@ export class AiService {
         )
       )
 
-      return responses
-        .flatMap((r) => r.cards)
-        .map((c) => ({
-          type: c.type,
-          lexeme: c.lexeme,
-          translation: c.translation,
-          notes: ''
-        }))
+      return responses.flatMap((r) => r.cards)
     } else {
       const responses = await Promise.all(
         chunks.map((chunk) =>
@@ -100,10 +93,8 @@ export class AiService {
       return responses
         .flatMap((r) => r.cards)
         .map((c) => ({
-          type: cardType,
-          lexeme: c.lexeme,
-          translation: c.translation,
-          notes: ''
+          ...c,
+          type: cardType
         }))
     }
   }
@@ -125,12 +116,7 @@ export class AiService {
         userMessageContent,
         LearnableFromAiWithTypeListSchema
       )
-      return response.cards.map((c) => ({
-        type: c.type,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
-      }))
+      return response.cards
     } else {
       const response = await this.createStructuredOutput(
         systemPrompt,
@@ -138,10 +124,8 @@ export class AiService {
         LearnableFromAiListSchema
       )
       return response.cards.map((c) => ({
-        type: cardType,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
+        ...c,
+        type: cardType
       }))
     }
   }
@@ -159,12 +143,7 @@ export class AiService {
         userPrompt,
         LearnableFromAiWithTypeListSchema
       )
-      return response.cards.map((c) => ({
-        type: c.type,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
-      }))
+      return response.cards
     } else {
       const response = await this.createStructuredOutput(
         systemPrompt,
@@ -173,10 +152,8 @@ export class AiService {
       )
 
       return response.cards.map((c) => ({
-        type: cardType,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
+        ...c,
+        type: cardType
       }))
     }
   }
