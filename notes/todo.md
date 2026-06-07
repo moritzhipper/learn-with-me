@@ -9,6 +9,7 @@
   - add notes to prompot prompt ai retunr thing (this is this tenxe, this is this comment, bla bla)
   - only show either textarea or image button on selection of correct type
   - prompts: join generate cards prompts, so words and phrases are gnerated in one go -> makes ai align cards better.
+  - Types: Generate, extract (there mage or textthing)
   - make create cards from prompt also fill notes
     - clean up ai service a lot
     - create seperate prompt files

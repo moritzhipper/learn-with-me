@@ -6,10 +6,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
-import {
-  LearnableCreationConfig,
-  LearnableCreationConfigBase
-} from 'projects/frontend/src/app/types/types'
+import { LearnableCreationConfig } from 'projects/frontend/src/app/types/types'
 import { from, map, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
