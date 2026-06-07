@@ -30,6 +30,7 @@ import z from 'zod'
 import { SettingsStore } from '../../store/settingsStore'
 import { LearnableCreationConfig, TranslateFastConfig } from '../../types/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
+import { mapPhrasesFromInputToChunks } from './ai-utils'
 import {
   getCreateFromUserPromptPrompt,
   getExtractFromImagePrompt,
@@ -68,38 +69,42 @@ export class AiService {
     return cardsLists.flat(1)
   }
 
-  // todo: add chunking back
-  // const chunks = mapPhrasesFromInputToChunks(text, chunkSize)
+  // warning: chunking introduces duplicates
   async extractFromText(text: string, config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getExtractFromTextPrompt(config)
     const cardType = config.cardType
+    const chunks = mapPhrasesFromInputToChunks(text, 1000)
 
     if (cardType === 'both') {
-      const response = await this.createStructuredOutput(
-        systemPrompt,
-        text,
-        LearnableFromAiWithTypeListSchema
+      const responses = await Promise.all(
+        chunks.map((chunk) =>
+          this.createStructuredOutput(systemPrompt, chunk, LearnableFromAiWithTypeListSchema)
+        )
       )
 
-      return response.cards.map((c) => ({
-        type: c.type,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
-      }))
+      return responses
+        .flatMap((r) => r.cards)
+        .map((c) => ({
+          type: c.type,
+          lexeme: c.lexeme,
+          translation: c.translation,
+          notes: ''
+        }))
     } else {
-      const response = await this.createStructuredOutput(
-        systemPrompt,
-        text,
-        LearnableFromAiListSchema
+      const responses = await Promise.all(
+        chunks.map((chunk) =>
+          this.createStructuredOutput(systemPrompt, text, LearnableFromAiListSchema)
+        )
       )
 
-      return response.cards.map((c) => ({
-        type: cardType,
-        lexeme: c.lexeme,
-        translation: c.translation,
-        notes: ''
-      }))
+      return responses
+        .flatMap((r) => r.cards)
+        .map((c) => ({
+          type: cardType,
+          lexeme: c.lexeme,
+          translation: c.translation,
+          notes: ''
+        }))
     }
   }
 
