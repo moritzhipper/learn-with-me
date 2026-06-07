@@ -48,26 +48,20 @@ Do not create like this:
 const wordCardStylePrompt = `
 ## Word Card Requirements
 
-Word cards should
-- always contain a single word that can be used standalone
-- have the correct article in front of the lexeme in paranthesis if the language has grammatical construct of articles and the word is a noun
-- have correct capitalization if the language does that for single standing words
-- never contain phrases or sentences
+Word cards should:
+- Always contain a single word that can be used standalone.
+- ALWAYS add the correct definite article in parentheses in front of the card's lexeme and translation IF the word is a noun (including abstract nouns, concepts, and processes).
+- Have correct capitalization if the language does that for single standing words.
+- Never contain phrases, sentences, or punctuation marks like quotation marks.
 
-### Examples (only align the style, your output is to be in the languages the user is learning)
+### Examples
 
 Create like this:
-- (the) dog
+- (the) dog / (de) hond
+- (the) improvement
 - (das) Haus
 - quickly
 - greenish
-- later
-
-Do not create like this:
-- ...the dog...
-- a dog
-- No!
-- Yes!
 `
 
 const cardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {

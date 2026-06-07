@@ -42,7 +42,7 @@ import { categorizeCardPrompt, getQuickTranslatePrompt } from './prompts/quick-t
   providedIn: 'root'
 })
 export class AiService {
-  private readonly model: ChatModel = 'gpt-5.2'
+  private readonly model: ChatModel = 'gpt-5.4'
   private readonly settingsStore = inject(SettingsStore)
 
   private oAi = computed(
