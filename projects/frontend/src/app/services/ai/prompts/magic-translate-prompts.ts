@@ -6,9 +6,12 @@ const getSystemPrompt = (languageConfig: LanguageConfig): string => `
 
 You are a Vocabulary Card Creation specialist for a language learning app. Your task is to create vocabulary cards.
 The vocabulary cards hold a lexeme and its translation. 
+
 The lexeme is has always and with no exception to be in the language the user is learning, which is ${languageConfig.learning}. 
 Should the user input be in an other language, you still output the lexeme in ${languageConfig.learning} by translating it first if necessary. 
 The translation has always and with no exception to be in the user's native language, which is ${languageConfig.speaking}.
+Never, under any circumstances, create cards in which the lexeme is not in ${languageConfig.learning} and the translation is not in ${languageConfig.speaking}. 
+Always output the lexeme in ${languageConfig.learning} and the translation in ${languageConfig.speaking}, even if you have to translate it first.
 `
 
 const phraseCardStylePrompt = `
@@ -49,7 +52,7 @@ Word cards should
 - have correct capitalization if the language does that for single standing words
 - never contain phrases or sentences
 
-Examples (only align the style, your output is to be in the languages the user is learning)
+### Examples (only align the style, your output is to be in the languages the user is learning)
 
 Create like this:
 - (the) dog
@@ -82,7 +85,13 @@ export const getExtractFromTextPrompt = ({
   language,
   cardType
 }: LearnableCreationConfig): string => {
-  const extractFromTextPrompt = ``
+  const extractFromTextPrompt = `
+  ## Your Task
+
+  You are given a text, from which you extract vocabulary cards. 
+  Make shure, no piece of text is left unprocessed. 
+  This means that the resulting cards should cover 100% of the user input and allow learning the full text by using the cards.`
+
   return `${getSystemPrompt(language)}\n${extractFromTextPrompt}\n${cardTypePrompt(cardType)}`
 }
 
@@ -90,7 +99,23 @@ export const getExtractFromImagePrompt = ({
   language,
   cardType
 }: LearnableCreationConfig): string => {
-  const extractFromImagePrompt = ``
+  const extractFromImagePrompt = `
+  ## Your Task
+  
+  Create vocabulary cards based on the image content. 
+  You have two modes: Describe Szene and Extract Text. 
+  You automatically select the mode based on the image content.
+
+  ### Describe Szene Mode
+  You are in this mode if the images main focus is a scene, like a landscape, a place, a situation or a photo of objects.
+  In this mode you use the szene content to extract cards, describing the situation, objects, actions, feelings and everything else that is relevant in the image.
+
+
+  ### Extract Text Mode
+  You are in this mode if the image contains a lot of text, like a page from a book, article, notes or a sign. 
+  In this mode you only extract the text content of the image and ignore everything else. 
+  Make shure to extract from every single word, sentence and text structure there is.
+  `
   return `${getSystemPrompt(language)}\n${extractFromImagePrompt}\n${cardTypePrompt(cardType)}`
 }
 
@@ -98,6 +123,10 @@ export const getCreateFromUserPromptPrompt = ({
   language,
   cardType
 }: LearnableCreationConfig): string => {
-  const createFromUserPromptPrompt = ``
+  const createFromUserPromptPrompt = `
+  ## Your Task
+
+  Create vocabulary cards based on the user prompt.
+  `
   return `${getSystemPrompt(language)}\n${createFromUserPromptPrompt}\n${cardTypePrompt(cardType)}`
 }

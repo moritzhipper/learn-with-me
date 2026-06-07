@@ -4,7 +4,6 @@ import OpenAI from 'openai'
 // until then use helper function zodTextFormat from utils/genaral-utils
 // import { zodTextFormat } from 'openai/helpers/zod'
 import {
-  LearnableBaseSchema,
   LearnableFromAiSchema,
   LearnableFromAiWithTypeSchema,
   LearnableTypeEnum
@@ -36,8 +35,7 @@ import {
   getExtractFromImagePrompt,
   getExtractFromTextPrompt
 } from './prompts/magic-translate-prompts'
-import { categorizeCardPrompt } from './prompts/other-prompts'
-import { getQuickTranslatePrompt } from './prompts/quick-translate-prompts'
+import { categorizeCardPrompt, getQuickTranslatePrompt } from './prompts/quick-translate-prompts'
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +80,7 @@ export class AiService {
         text,
         z.array(LearnableFromAiWithTypeSchema)
       )
+
       return cards.map((c) => ({
         type: c.type,
         lexeme: c.lexeme,
@@ -94,6 +93,7 @@ export class AiService {
         text,
         z.array(LearnableFromAiSchema)
       )
+
       return cards.map((c) => ({
         type: cardType,
         lexeme: c.lexeme,
@@ -146,7 +146,34 @@ export class AiService {
     config: LearnableCreationConfig
   ): Promise<LearnableBase[]> {
     const systemPrompt = getCreateFromUserPromptPrompt(config)
-    return this.createStructuredOutput(systemPrompt, userPrompt, z.array(LearnableBaseSchema))
+    const cardType = config.cardType
+
+    if (cardType === 'both') {
+      const cards = await this.createStructuredOutput(
+        systemPrompt,
+        userPrompt,
+        z.array(LearnableFromAiWithTypeSchema)
+      )
+      return cards.map((c) => ({
+        type: c.type,
+        lexeme: c.lexeme,
+        translation: c.translation,
+        notes: ''
+      }))
+    } else {
+      const cards = await this.createStructuredOutput(
+        systemPrompt,
+        userPrompt,
+        z.array(LearnableFromAiSchema)
+      )
+
+      return cards.map((c) => ({
+        type: cardType,
+        lexeme: c.lexeme,
+        translation: c.translation,
+        notes: ''
+      }))
+    }
   }
 
   private async createStructuredOutput<T>(
@@ -172,12 +199,9 @@ export class AiService {
     return response.output_parsed
   }
 
-  // TODO: add correct prompt
   async categorizeCard(card: LearnableFromAI): Promise<string> {
-    const systemPrompt = categorizeCardPrompt
     const cardString = `lexeme: ${card.lexeme}\ntranslation: ${card.translation}`
-
-    return this.createStructuredOutput(systemPrompt, cardString, LearnableTypeEnum)
+    return this.createStructuredOutput(categorizeCardPrompt, cardString, LearnableTypeEnum)
   }
 
   translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
