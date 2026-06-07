@@ -3,7 +3,8 @@ import { PracticeActiveSchema } from './practice-schemas'
 
 export const LearnableFromAiSchema = z.object({
   lexeme: z.string(),
-  translation: z.string()
+  translation: z.string(),
+  notes: z.string()
 })
 
 export const LearnableFromAiListSchema = z.object({
