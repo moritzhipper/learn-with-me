@@ -1,19 +1,69 @@
 import { LanguageConfig } from '@shared/types'
 import { LearnableCreationConfig } from '../../../types/types'
 
-// Purpose: Create learning cards specialist.
-// Lexeme -> Translation -> lexeme always in lang x, translation always in lang y. no matter the user input lang, alwas lexem in x and trans in y. when user input not in x, transfor to x
-const getSystemPrompt = (languageConfig: LanguageConfig): string => ``
+const getSystemPrompt = (languageConfig: LanguageConfig): string => `
+# Your Purpose
 
-// phrase cards like this (example)
-// phrases not longer that xy. split into multiple when necessary, example: bigger to smaller
-// add ... to front or back if phrase is part
-const phraseCardStylePrompt = ``
+You are a Vocabulary Card Creation specialist for a language learning app. Your task is to create vocabulary cards.
+The vocabulary cards hold a lexeme and its translation. 
+The lexeme is has always and with no exception to be in the language the user is learning, which is ${languageConfig.learning}. 
+Should the user input be in an other language, you still output the lexeme in ${languageConfig.learning} by translating it first if necessary. 
+The translation has always and with no exception to be in the user's native language, which is ${languageConfig.speaking}.
+`
 
-// cards like this (example)
-// add articles to nouns if is relevant in the language
-// correct capitalization if langugae does that for single standing words
-const wordCardStylePrompt = ``
+const phraseCardStylePrompt = `
+## Phrase Card Requirements
+
+Phrase cards should
+- always contain either sayings, idioms, expressions, very short sentences or parts of sentences
+- have ... at the beginning or end if the phrase can be part of a larger sentence
+- never contain single words that can not be used as standalone phrases
+
+### Examples 
+Only align the style, your output is to be in the languages the user is learning)
+
+Create like this:
+- May I do...?
+- ...are the reasons why...
+- Good morning!
+- ...was the greates Historian of...
+- They couldn't agree more.
+- Its five o'clock. 
+- ..., isn't it?
+- What did they say earlier?
+- What?
+
+Do not create like this:
+- No
+- Yes
+- Dog
+- ...dog...
+`
+
+const wordCardStylePrompt = `
+## Word Card Requirements
+
+Word cards should
+- always contain a single word that can be used standalone
+- have the correct article in front of the lexeme in paranthesis if the language has grammatical construct of articles and the word is a noun
+- have correct capitalization if the language does that for single standing words
+- never contain phrases or sentences
+
+Examples (only align the style, your output is to be in the languages the user is learning)
+
+Create like this:
+- (the) dog
+- (das) Haus
+- quickly
+- greenish
+- later
+
+Do not create like this:
+- ...the dog...
+- a dog
+- No!
+- Yes!
+`
 
 const cardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {
   if (type === 'word') {
