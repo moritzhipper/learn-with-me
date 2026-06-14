@@ -5,16 +5,17 @@
   flex-direction: column;
 }
 
-input.context {
-  background-color: transparent;
-  font-weight: var(--font-weight-bold);
-  line-height: 24px;
-  margin-right: 72px;
-  max-width: 500px;
-  border-radius: var(--radius-3);
-
-  &:not(:focus-visible) {
-    opacity: var(--opacity-1);
+.tone-wrapper {
+  opacity: var(--opacity-1);
+  align-self: start;
+  padding: var(--distance-1) 0;
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-1);
+  }
+  .tone {
+    font-weight: var(--font-weight-bold);
   }
 }
 

@@ -12,13 +12,11 @@
   }
 </app-bubbles>
 
-<input
-  [ngModel]="translations().tone"
-  (ngModelChange)="setTone($event)"
-  class="context"
-  type="text"
-  placeholder="Set tone or context..."
-/>
+<button class="tone-wrapper silent" (click)="setTone()">
+  <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
+  <p class="tone size-2">{{ translations().tone }}</p>
+</button>
+
 @if (selectedMode() === 'translate') {
   <app-quick-translate />
   @if (translations().history.length > 0) {

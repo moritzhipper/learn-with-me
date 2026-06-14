@@ -10,6 +10,7 @@ import { SelectLanguageMatchComp } from './select-language-match-comp/select-lan
 import { ShareFormComp } from './share-form-comp/share-form-comp'
 import { SingleEditComp } from './single-edit-comp/single-edit-comp'
 import { StartPracticeForm } from './start-practice-form/start-practice-form'
+import { TextInputForm } from './text-input-form/text-input-form'
 
 export type ModalType =
   | 'bulk-edit'
@@ -23,6 +24,7 @@ export type ModalType =
   | 'edit-bank'
   | 'change-language-match'
   | 'start-practice'
+  | 'text-input'
 
 export type OpenModalConfig = {
   type: ModalType
@@ -42,7 +44,8 @@ export const modalConfig: Record<ModalType, Type<unknown>> = {
   'bank-share': ShareFormComp,
   'edit-bank': EditBankComp,
   'change-language-match': SelectLanguageMatchComp,
-  'start-practice': StartPracticeForm
+  'start-practice': StartPracticeForm,
+  'text-input': TextInputForm
 }
 
 export const getModalComponent = (type: ModalType): Type<unknown> => {

@@ -6,6 +6,7 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
+import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 import { MagicTranslate } from './magic-translate/magic-translate'
@@ -21,7 +22,8 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     Bubbles,
     Bubble,
     LearnableComp,
-    AnimDelay
+    AnimDelay,
+    IconComp
   ],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss',
@@ -37,8 +39,10 @@ export class TranslatePageComp {
 
   translations = computed(() => this.ls.activeBank().translations)
 
-  protected setTone(tone: string) {
-    this.ls.updateTranslateTone(tone)
+  protected async setTone() {
+    const result = await this.modalService.open('text-input')
+    if (result.type === 'cancel') return
+    this.ls.updateTranslateTone(result.value as string)
   }
 
   toggleMode() {
