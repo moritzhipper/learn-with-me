@@ -43,8 +43,9 @@
   .info {
     font-size: var(--font-size-0);
     place-self: end start;
-    opacity: var(--opacity-0);
+    opacity: var(--opacity-1);
   }
+
   .last-guesses {
     place-self: end;
     display: grid;

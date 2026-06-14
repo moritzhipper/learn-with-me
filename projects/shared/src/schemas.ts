@@ -12,6 +12,9 @@ export const LearnableFromAiListSchema = z.object({
 })
 
 export const LearnableTypeEnum = z.enum(['phrase', 'word'])
+export const LearnableTypeEnumCategorizationSchema = z.object({
+  type: LearnableTypeEnum
+})
 
 export const LearnableFromAiWithTypeSchema = LearnableFromAiSchema.extend({
   type: LearnableTypeEnum

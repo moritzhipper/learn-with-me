@@ -6,7 +6,7 @@ import OpenAI from 'openai'
 import {
   LearnableFromAiListSchema,
   LearnableFromAiWithTypeListSchema,
-  LearnableTypeEnum
+  LearnableTypeEnumCategorizationSchema
 } from '@shared/schemas'
 import { LearnableBase, LearnableFromAI } from '@shared/types'
 import {
@@ -181,9 +181,14 @@ export class AiService {
     return response.output_parsed
   }
 
-  async categorizeCard(card: LearnableFromAI): Promise<string> {
+  async categorizeCard(card: Omit<LearnableFromAI, 'notes'>): Promise<LearnableBase['type']> {
     const cardString = `lexeme: ${card.lexeme}\ntranslation: ${card.translation}`
-    return this.createStructuredOutput(categorizeCardPrompt, cardString, LearnableTypeEnum)
+    const response = await this.createStructuredOutput(
+      categorizeCardPrompt,
+      cardString,
+      LearnableTypeEnumCategorizationSchema
+    )
+    return response.type
   }
 
   translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
