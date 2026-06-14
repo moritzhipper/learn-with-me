@@ -6,10 +6,10 @@ import { BaseModalDirective } from '../base-modal-directive'
 @Component({
   selector: 'app-text-input-form',
   imports: [ReactiveFormsModule, AnimDelay],
-  templateUrl: './text-input-form.html',
-  styleUrl: './text-input-form.scss'
+  templateUrl: './set-tone-form.html',
+  styleUrl: './set-tone-form.scss'
 })
-export class TextInputForm extends BaseModalDirective {
+export class SetToneForm extends BaseModalDirective {
   form = new FormGroup({
     text: new FormControl('', [Validators.required])
   })
