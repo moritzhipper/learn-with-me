@@ -10,7 +10,6 @@
             (click)="imagePreview.set(null)"
           >
             Remove Image
-            <app-icon-comp type="image" [size]="24" />
           </button>
         </div>
       } @else {
@@ -26,7 +25,7 @@
             (change)="onFileChange($event)"
           />
           <label for="image">
-            <app-icon-comp type="image" [size]="32" />
+            <app-icon-comp type="image" />
           </label>
         </div>
       }

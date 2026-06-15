@@ -51,6 +51,7 @@
       .image-delete {
         z-index: 2;
         margin: var(--distance-3);
+        padding: var(--distance-2) var(--distance-3);
         place-self: end;
         background-color: var(--col-accent);
         box-shadow: var(--shadow-big);
@@ -73,12 +74,17 @@
       input {
         overflow: hidden;
         opacity: 0;
-        aspect-ratio: 1 / 1;
-        width: 64px;
-        height: 64px;
+        width: 0;
+      }
+
+      app-icon-comp {
+        height: 32px;
+        width: 32px;
+        padding: var(--distance-4);
       }
 
       label {
+        width: min-content;
         display: flex;
         flex-direction: column;
         justify-content: center;
