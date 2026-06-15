@@ -59,7 +59,6 @@
 
     .image-input {
       display: grid;
-      place-items: stretch;
       place-self: end end;
 
       input,
@@ -74,9 +73,9 @@
       input {
         overflow: hidden;
         opacity: 0;
+        aspect-ratio: 1 / 1;
         width: 64px;
         height: 64px;
-        aspect-ratio: 1 / 1;
       }
 
       label {
@@ -90,10 +89,6 @@
       input:focus-visible + label {
         outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
       }
-    }
-
-    .extract-config {
-      position: relative;
     }
 
     &.converting {
@@ -133,10 +128,7 @@
     height: 60vh;
     .config {
       grid-template-columns: 1fr;
-      gap: var(--distance-2);
-      button {
-        margin-top: var(--distance-4);
-      }
+      gap: var(--distance-4);
     }
   }
 }

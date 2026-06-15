@@ -14,6 +14,10 @@
           </button>
         </div>
       } @else {
+        <textarea
+          placeholder="Paste notes, articles, or any other text here and press Generate"
+          formControlName="source"
+        ></textarea>
         <div class="image-input">
           <input
             id="image"
@@ -25,10 +29,6 @@
             <app-icon-comp type="image" [size]="32" />
           </label>
         </div>
-        <textarea
-          placeholder="Paste notes, articles, or any other text here and press Generate"
-          formControlName="source"
-        ></textarea>
       }
     } @else {
       <textarea
@@ -63,7 +63,7 @@
         class="has-icon"
         [disabled]="isConverting() || !createLearnablesConfig()"
       >
-        Generate
+        Do the Magic
         <app-icon-comp type="magic" [size]="24" />
       </button>
     </div>
