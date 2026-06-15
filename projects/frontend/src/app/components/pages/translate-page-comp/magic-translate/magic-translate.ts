@@ -11,8 +11,10 @@ import { from, map, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
-type FormType = Pick<LearnableCreationConfig, 'cardType' | 'sourceType'> & {
-  textSource: string
+type FormType = {
+  mode: 'extract' | 'generate'
+  cardType: LearnableCreationConfig['cardType']
+  source: string
 }
 
 @Component({
@@ -31,8 +33,8 @@ export class MagicTranslate {
 
   form = this._fb.group<FormType>({
     cardType: 'word',
-    sourceType: 'text',
-    textSource: ''
+    mode: 'extract',
+    source: ''
   })
 
   protected imagePreview = signal<string | null>(null)
@@ -46,13 +48,13 @@ export class MagicTranslate {
   ngOnInit() {
     const preset = this.preset()
     if (preset) {
-      this.form.patchValue({ sourceType: 'text', textSource: preset })
+      this.form.patchValue({ mode: 'extract', source: preset })
     }
   }
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
-    const { cardType, sourceType, textSource } = this.formSignal()
+    const { cardType, mode, source } = this.formSignal()
 
     if (!language) return null
 
@@ -62,18 +64,22 @@ export class MagicTranslate {
     }
 
     const image = this.imagePreview()
-    if (sourceType === 'image' && image) {
+    if (mode === 'extract' && image) {
       return {
         sourceType: 'image',
         source: image,
         ...base
       }
-    }
-
-    if ((sourceType === 'text' || sourceType === 'prompt') && textSource) {
+    } else if (mode === 'extract' && source) {
       return {
-        sourceType,
-        source: textSource,
+        sourceType: 'text',
+        source,
+        ...base
+      }
+    } else if (mode === 'generate' && source) {
+      return {
+        sourceType: 'prompt',
+        source,
         ...base
       }
     }

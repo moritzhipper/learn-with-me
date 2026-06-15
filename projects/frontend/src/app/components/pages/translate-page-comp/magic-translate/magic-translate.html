@@ -1,8 +1,8 @@
 <div class="header-section">
   <form [formGroup]="form" (ngSubmit)="translate()" [class.converting]="isConverting()">
-    @if (formSignal().sourceType === 'image') {
-      <div class="image-wrapper">
-        @if (imagePreview(); as img) {
+    @if (formSignal().mode === 'extract') {
+      @if (imagePreview(); as img) {
+        <div class="image-preview">
           <img [src]="img" alt="Preview" />
           <button
             type="button"
@@ -12,36 +12,43 @@
             Remove Image
             <app-icon-comp type="image" [size]="24" />
           </button>
-        } @else {
-          <div class="image-input">
-            <input
-              id="image"
-              type="file"
-              accept="image/*;capture=camera"
-              (change)="onFileChange($event)"
-            />
-            <label for="image">
-              <app-icon-comp type="image" [size]="32" />
-              <p class="light size-0">Add picture</p>
-            </label>
-          </div>
-        }
-      </div>
-    } @else if (formSignal().sourceType === 'text') {
-      <textarea
-        placeholder="Paste notes, articles, or any other text here and press Generate"
-        formControlName="textSource"
-      ></textarea>
+        </div>
+      } @else {
+        <div class="image-input">
+          <input
+            id="image"
+            type="file"
+            accept="image/*;capture=camera"
+            (change)="onFileChange($event)"
+          />
+          <label for="image">
+            <app-icon-comp type="image" [size]="32" />
+          </label>
+        </div>
+        <textarea
+          placeholder="Paste notes, articles, or any other text here and press Generate"
+          formControlName="source"
+        ></textarea>
+      }
     } @else {
       <textarea
         placeholder="Describe what you want to learn and press Generate. For example: 'Describing time management'"
-        formControlName="textSource"
+        formControlName="source"
       ></textarea>
     }
 
     <div class="config">
       <app-radio-comp
-        label="Generate"
+        [darkMode]="true"
+        [config]="[
+          { value: 'extract', label: 'Extract' },
+          { value: 'generate', label: 'Generate' }
+        ]"
+        formControlName="mode"
+        class="type"
+      />
+      <app-radio-comp
+        [darkMode]="true"
         [config]="[
           { value: 'word', label: 'Words' },
           { value: 'phrase', label: 'Phrases' },
@@ -50,16 +57,7 @@
         formControlName="cardType"
         class="type"
       />
-      <app-radio-comp
-        label="From"
-        [config]="[
-          { value: 'text', label: 'Text' },
-          { value: 'image', label: 'Image' },
-          { value: 'prompt', label: 'Prompt' }
-        ]"
-        formControlName="sourceType"
-        class="type"
-      />
+
       <button
         type="submit"
         class="has-icon"
