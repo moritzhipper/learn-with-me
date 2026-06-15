@@ -1,14 +1,16 @@
-<form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
+<form class="modal" (ngSubmit)="confirm(form.value.text)" [formGroup]="form">
   <h2 [animDelay]="{ i: 0, size: 3 }" class="fly-in-y">Tone</h2>
 
   <p class="full fly-in-y" [animDelay]="{ i: 1, size: 3 }">
-    Translations will align with this tone. Try out those: "Casual", "Formal", "Talking to a cute
-    dog", "Adressing an arch enemy using youth slang"
+    Set a single word or a short description of the tone or context you want to use the translations
+    in.
   </p>
-  <label class="full fly-in-y" [animDelay]="{ i: 2, size: 3 }">
-    <span>Tone</span>
-    <input type="text" formControlName="text" />
-  </label>
+  <textarea
+    class="full fly-in-y"
+    [animDelay]="{ i: 2, size: 3 }"
+    formControlName="text"
+    placeholder="Casual, Formal, Adressing an arch enemy, etc."
+  ></textarea>
   <button type="button" [animDelay]="{ i: 3, size: 3 }" class="big fly-in-y" (click)="cancel()">
     Cancel
   </button>

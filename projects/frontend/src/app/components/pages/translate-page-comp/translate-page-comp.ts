@@ -40,9 +40,12 @@ export class TranslatePageComp {
   translations = computed(() => this.ls.activeBank().translations)
 
   protected async setTone() {
-    const result = await this.modalService.open('text-input')
+    const result = await this.modalService.open<string>('text-input', {
+      preset: this.translations().tone
+    })
     if (result.type === 'cancel') return
-    this.ls.updateTranslateTone(result.value as string)
+
+    this.ls.updateTranslateTone(result.value)
   }
 
   toggleMode() {
