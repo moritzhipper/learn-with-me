@@ -14,7 +14,7 @@
 
 <button class="tone-wrapper silent" (click)="setTone()">
   <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
-  <p class="tone size-2">{{ translations().tone || 'Neutral' }}</p>
+  <p class="tone size-2 ellipsis">{{ translations().tone || 'Neutral' }}</p>
 </button>
 
 @if (selectedMode() === 'translate') {
