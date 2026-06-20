@@ -2,27 +2,10 @@
 
 # Translate
 
-- implement add to collection for generated
-
 - add tone back to magic translate
 - add to prompt: plural for words
-- add phrase / word icon to learnable cards?
-- add prompt type
-  - add prompt for this
-  - remove image input when prompt is selected
-  - keep the words phrases both thing, put prompt mode into checkbox
-  - add notes to prompot prompt ai retunr thing (this is this tenxe, this is this comment, bla bla)
-  - only show either textarea or image button on selection of correct type
-  - prompts: join generate cards prompts, so words and phrases are gnerated in one go -> makes ai align cards better.
-  - Types: Generate, extract (there mage or textthing)
-  - make create cards from prompt also fill notes
-    - clean up ai service a lot
-    - create seperate prompt files
-      not this super verbose pattern: only: getPrompt, mapSourceToContent, callAi
-- add 'categorize' api call for translate
-  - add prompt for this
 - add date back to quick trans
-- put last prompt for extracted cards in store for context of created cards
+- add phrase / word icon to learnable cards?
 
 ## Sunday
 
@@ -34,6 +17,8 @@
   - remove cards from collection
   - actions return id(s) of created items, to allow follow up
   - do multiple actions concurrently in app code
+
+  - then add to bank and to collection to translate thing
 
 # right now: Stats
 

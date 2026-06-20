@@ -54,13 +54,15 @@ export class MagicTranslate {
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
+    const tone = this.ls.activeBank().translations.tone
     const { cardType, mode, source } = this.formSignal()
 
     if (!language) return null
 
-    const base: Pick<LearnableCreationConfig, 'language' | 'cardType'> = {
+    const base: Pick<LearnableCreationConfig, 'language' | 'cardType' | 'tone'> = {
       language,
-      cardType
+      cardType,
+      tone
     }
 
     const image = this.imagePreview()

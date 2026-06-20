@@ -16,6 +16,7 @@ export type LearnableCreationConfig = {
   cardType: 'phrase' | 'word' | 'both'
   sourceType: 'text' | 'prompt' | 'image'
   source: string
+  tone: string
 }
 
 export type SettingsStoreType = {

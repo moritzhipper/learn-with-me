@@ -1,5 +1,6 @@
 import { LanguageConfig } from '@shared/types'
 import { LearnableCreationConfig } from '../../../types/types'
+import { tonePrompt } from './shared-ptompts'
 
 const getSystemPrompt = (languageConfig: LanguageConfig): string => `
 # Role & Purpose
@@ -88,7 +89,8 @@ ${phraseCardStylePrompt}
 
 export const getExtractFromTextPrompt = ({
   language,
-  cardType
+  cardType,
+  tone
 }: LearnableCreationConfig): string => {
   let extractFromTextPrompt = `
 ## Task: Text Extraction
@@ -102,12 +104,13 @@ Ensure exhaustive coverage of the meaningful vocabulary, idiomatic expressions, 
 If the text contains complex or long sentences, break them down into smaller, logical semantic chunks (maximum 8 words per chunk) to create digestible phrase cards.`
   }
 
-  return `${getSystemPrompt(language)}\n${extractFromTextPrompt}\n${cardTypePrompt(cardType)}`
+  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromTextPrompt}\n${cardTypePrompt(cardType)}`
 }
 
 export const getExtractFromImagePrompt = ({
   language,
-  cardType
+  cardType,
+  tone
 }: LearnableCreationConfig): string => {
   const extractFromImagePrompt = `
 ## Task: Image-Based Extraction
@@ -121,16 +124,17 @@ Analyze the provided image and generate vocabulary cards. Automatically categori
 - Trigger: The image heavily features written text (e.g., book pages, articles, signs, notes).
 - Action: Ignore the background aesthetics and strictly extract the written content. Break down the sentences, headings, and distinct text structures into learnable vocabulary cards.
 `
-  return `${getSystemPrompt(language)}\n${extractFromImagePrompt}\n${cardTypePrompt(cardType)}`
+  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromImagePrompt}\n${cardTypePrompt(cardType)}`
 }
 
 export const getCreateFromUserPromptPrompt = ({
   language,
-  cardType
+  cardType,
+  tone
 }: LearnableCreationConfig): string => {
   const createFromUserPromptPrompt = `
 ## Task: Prompt-Based Generation
 Generate highly useful, context-appropriate vocabulary cards based strictly on the thematic or specific instructions provided in the user's prompt. 
 `
-  return `${getSystemPrompt(language)}\n${createFromUserPromptPrompt}\n${cardTypePrompt(cardType)}`
+  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${createFromUserPromptPrompt}\n${cardTypePrompt(cardType)}`
 }
