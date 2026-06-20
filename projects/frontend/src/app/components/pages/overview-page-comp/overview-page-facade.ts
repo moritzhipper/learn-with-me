@@ -68,7 +68,8 @@ export class OverviewPageFacade {
 
   async openAddToCollectionModal(learnableIds: string[]): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
-      collections: this.store.collections()
+      collections: this.store.collections(),
+      cardIds: learnableIds
     })
 
     if (result.type !== 'confirm') return

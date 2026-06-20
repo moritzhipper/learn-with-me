@@ -2,7 +2,8 @@
 
 # Translate
 
-- remove tone from magic extract, only on qick translate. align prompts, put it on corresponding store thing (add middle size config bubble for tone?)
+- implement add to collection for generated
+
 - add tone back to magic translate
 - add to prompt: plural for words
 - add phrase / word icon to learnable cards?
@@ -48,10 +49,20 @@
 - add weekly average cards guessed
 - addd dayly average cards guessed
 
+## Modal Forms
+
+Create better reusable styles (import styles per form), holding:
+
+- Header Style (no margin on h2, allowing h2 + description) -> See add to collection form
+- Description style
+- maybe just creat form header component?
+- Create Info Card style, like start new practice and stuff
+
 ## Dashboard
 
 ### Practice handling
 
+- automatically start the correct direction based on progress
 - add: add select all option to magic generate
 - use: shared, cards collection select
 

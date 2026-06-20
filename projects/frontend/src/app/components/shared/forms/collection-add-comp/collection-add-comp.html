@@ -1,16 +1,30 @@
 <form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">add to collection</h2>
-  <div class="collections fly-in-y" [animDelay]="{ i: 1, size: 5 }">
-    @for (collection of collections(); track collection.id) {
-      <label class="radio">
-        <input type="radio" [value]="collection.id" formControlName="addToId" />
+  <div class="header full">
+    <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Add to collection</h2>
+    <p class="fly-in-y light" [animDelay]="{ i: 0, size: 5 }">
+      {{ cardIds().length }} cards selected
+    </p>
+  </div>
 
-        <span>{{ collection.name }}</span>
+  <div class="collections fly-in-y" [animDelay]="{ i: 1, size: 5 }">
+    @for (collectionVM of collectionsVM(); track collectionVM.id) {
+      <label class="radio">
+        <input type="radio" [value]="collectionVM.id" formControlName="addToId" />
+
+        <div class="display-text">
+          <p class="name">
+            {{ collectionVM.name }}
+          </p>
+          <p class="count">
+            adds
+            {{ collectionVM.cardsWillBeAddedCount }}
+          </p>
+        </div>
       </label>
     }
   </div>
   <label class="fly-in-y" [animDelay]="{ i: 2, size: 5 }">
-    <span>create new</span>
+    <span>Create new</span>
     <input
       type="text"
       class="create"

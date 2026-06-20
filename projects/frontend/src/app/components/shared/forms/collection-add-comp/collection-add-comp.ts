@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core'
+import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { CollectionUser } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
@@ -7,6 +7,10 @@ import { BaseModalDirective } from '../base-modal-directive'
 export type ConfirmCollectionAddType = {
   createName?: string
   addToId?: string
+}
+
+type CollectionVM = CollectionUser & {
+  cardsWillBeAddedCount: number
 }
 
 @Component({
@@ -24,6 +28,15 @@ export class CollectionAddComp extends BaseModalDirective {
   })
 
   collections = input.required<CollectionUser[]>()
+  cardIds = input.required<string[]>()
+
+  collectionsVM = computed<CollectionVM[]>(() => {
+    const cardIds = this.cardIds()
+    return this.collections().map((c) => ({
+      ...c,
+      cardsWillBeAddedCount: c.cardIds.filter((id) => cardIds.includes(id)).length
+    }))
+  })
 
   resetCollectionSelection() {
     this.form.patchValue({ addToId: '' })
