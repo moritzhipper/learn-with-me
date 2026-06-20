@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BankBase, BankUser } from '@shared/types'
+import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -33,6 +34,7 @@ export class SettingsComp {
   private readonly _modalService = inject(ModalService)
   private readonly _toastS = inject(ToastService)
   private readonly _sharedBankS = inject(ShareBanksService)
+  private readonly debugHelper = inject(DebugHelper)
 
   protected tokensUsed = this._settingsS.tokensUsed
   protected apiKey = this._settingsS.apiKey
@@ -53,6 +55,8 @@ export class SettingsComp {
       learnables: pluralize(learnablesCount, 'learnable')
     }
   })
+
+  addDebug = this.debugHelper.seedDebugBank
 
   async reset() {
     const { banks, collections, learnables } = this.stats()

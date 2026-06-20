@@ -10,16 +10,9 @@ import { NavbarNewComp } from './components/shared/navbar-new-comp/navbar-new-co
 import { OnboardingComp } from './components/shared/onboarding-comp/onboarding-comp'
 import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-outlet-comp'
 import { ApiService } from './services/api-service'
-import { DebugHelper } from './services/debug-helper/debug-helper'
 import { ShareBanksService } from './services/share-banks-service'
 import { ToastService } from './services/toast-service'
 import { LearnablesStore } from './store/learnablesStore'
-
-type PageConfig = {
-  icon: string
-  title: string
-  mode: 'full' | 'compact'
-}
 
 @Component({
   selector: 'app-root',
@@ -34,8 +27,6 @@ export class App {
   private readonly apiS = inject(ApiService)
   private readonly toastS = inject(ToastService)
   private readonly bankService = inject(ShareBanksService)
-
-  private readonly debugHelper = inject(DebugHelper)
 
   protected readonly hasBank = computed(() => this._lStore.banks().length > 0)
 
@@ -55,10 +46,6 @@ export class App {
 
   constructor() {
     this.params.subscribe()
-  }
-
-  addDebug() {
-    this.debugHelper.seedDebugBank()
   }
 
   resolveBankError() {

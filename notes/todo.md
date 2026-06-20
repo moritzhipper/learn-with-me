@@ -3,8 +3,9 @@
 # Translate
 
 - remove tone from magic extract, only on qick translate. align prompts, put it on corresponding store thing (add middle size config bubble for tone?)
+- add tone back to magic translate
+- add to prompt: plural for words
 - add phrase / word icon to learnable cards?
-- add all of the prompts
 - add prompt type
   - add prompt for this
   - remove image input when prompt is selected

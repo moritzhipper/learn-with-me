@@ -24,7 +24,8 @@
     textarea {
       grid-area: 1 / 1;
     }
-    textarea {
+    textarea,
+    .image-preview {
       background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     }
 
