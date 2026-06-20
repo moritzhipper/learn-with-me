@@ -92,7 +92,7 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    this.store.editCollection(collection.id, result.value)
+    this.store.editCollection(result.value, collection.id)
   }
 
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {

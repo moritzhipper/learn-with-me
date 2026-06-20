@@ -32,10 +32,12 @@ export class CollectionAddComp extends BaseModalDirective {
 
   collectionsVM = computed<CollectionVM[]>(() => {
     const cardIds = this.cardIds()
-    return this.collections().map((c) => ({
+    const vm = this.collections().map((c) => ({
       ...c,
-      cardsWillBeAddedCount: c.cardIds.filter((id) => cardIds.includes(id)).length
+      cardsWillBeAddedCount: cardIds.filter((id) => !c.cardIds.includes(id)).length
     }))
+
+    return vm
   })
 
   resetCollectionSelection() {

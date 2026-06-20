@@ -24,6 +24,17 @@
 - add date back to quick trans
 - put last prompt for extracted cards in store for context of created cards
 
+## Sunday
+
+- cleanup store, make actions atomar
+  - crud per resource, with object as config (update for coll has: addIds, removeIds, updateName)
+  - import learnables (rotateIDs option)
+  - add collection
+  - add cards to collection
+  - remove cards from collection
+  - actions return id(s) of created items, to allow follow up
+  - do multiple actions concurrently in app code
+
 # right now: Stats
 
 - put end of practice stickers somewhere prominent on ollection

@@ -6,6 +6,7 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnablesStore'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
+import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
@@ -110,12 +111,18 @@ export class TranslatePageComp {
     const selectedCards = visibleCards.filter((c) => this.selectedCardsIds().has(c.id))
     if (!selectedCards.length) return
 
-    const result = await this.modalService.open('confirm', {
-      message: `Do you want to import ${selectedCards.length} cards?`
+    const collections = this.ls.activeBank().collections
+
+    const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
+      collections,
+      cardIds: selectedCards.map((c) => c.id)
     })
 
     if (result.type === 'cancel') return
-    this.ls.addLearnables(selectedCards)
+    if (result.value.createName) {
+    }
+    alert('implement crudo store adapters')
+
     this.toastS.showToast('Cards imported successfully!')
   }
 }
