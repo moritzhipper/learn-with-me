@@ -20,7 +20,7 @@
 @if (selectedMode() === 'translate') {
   <app-quick-translate />
   @if (translations().history.length > 0) {
-    <h2 class="indent">History</h2>
+    <h2 class="indent fly-in-y-wide">History</h2>
     <div class="cards">
       @for (card of translations().history; track card.id) {
         <app-learnable-comp
@@ -36,12 +36,12 @@
   <app-magic-translate [(preset)]="magicPreset" />
 
   @if (translations().magicTranslateCards.length > 0) {
-    <h2 class="indent">Extracted Cards</h2>
+    <h2 class="indent fly-in-y-wide">Extracted Cards</h2>
     <div class="cards">
       @for (card of translations().magicTranslateCards; track card.id) {
         <app-learnable-comp
           class="fly-in-y-wide"
-          [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
+          [animDelay]="{ i: $index + 1, list: translations().magicTranslateCards }"
           [learnable]="card"
           (onSelect)="toggleSelection(card.id)"
           [isSelected]="isSelected(card.id)"

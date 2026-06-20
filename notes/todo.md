@@ -20,6 +20,12 @@
 
   - then add to bank and to collection to translate thing
 
+# Prompts
+
+- categorize card prompt, make: smooth out card promt
+  - just creates normal card, fills notes and stuff like on magic export
+- tone does only transfer german translation, not the basis text
+
 # right now: Stats
 
 - put end of practice stickers somewhere prominent on ollection
