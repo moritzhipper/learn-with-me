@@ -1,90 +1,6 @@
-import { LanguageConfig } from '@shared/types'
 import { LearnableCreationConfig } from '../../../types/types'
-import { tonePrompt } from './shared-ptompts'
-
-const getSystemPrompt = (languageConfig: LanguageConfig): string => `
-# Role & Purpose
-You are an expert Linguistic Pedagogue and Vocabulary Card Creator for a language learning app. Your sole task is to generate highly accurate, contextually relevant vocabulary cards.
-
-# Language Constraints
-- Target Language (Learning / Lexemes): ${languageConfig.learning}
-- Native Language (Translation / Notes): ${languageConfig.speaking}
-
-# Core Rules
-1. Every card MUST contain a "lexeme" and a "translation". You also have access to a "notes" attribute.
-2. TRANSLATION MANDATE: The LEXEME MUST ALWAYS be in the Target Language (${languageConfig.learning}). If the user's input text or prompt is in the Native Language or any other language, you MUST translate the concepts into the Target Language to create the lexeme.
-3. The TRANSLATION MUST ALWAYS be in the Native Language (${languageConfig.speaking}).
-4. NEVER output a lexeme in the native language or a translation in the target language. Strict adherence to this mapping is mandatory.
-5. The NOTES MUST ALWAYS and STRICTLY be written in the Native Language (${languageConfig.speaking}). Never write explanations, grammar rules, or context in the Target Language.
-`
-const phraseCardStylePrompt = `
-## Phrase Card Requirements
-Phrase cards focus on comprehensible input and semantic chunks. They must:
-- Consist of idioms, expressions, collocations, or short sentences.
-- Be strictly limited to a maximum of 8 words to respect cognitive load limits.
-- Use an ellipsis (...) at the beginning or end if the phrase is a fragment of a larger sentence.
-- Maintain correct capitalization and punctuation.
-- Never be a single, standalone word.
-- **Context in Notes:** If the phrase is colloquial, an idiom, a saying, or has a non-literal meaning, explain this briefly in the \`notes\` attribute. Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary.
-
-### Examples of Phrase Cards (Format: Lexeme / Translation [Notes: Context if needed])
-
-Correct Patterns:
-- Break a leg! / ¡Mucha mierda! [Notes: Expresión idiomática para desear buena suerte]
-- What's up? / ¿Qué pasa? [Notes: Saludo coloquial]
-- ...are the reasons why... / ...son las razones por las que... [Notes: (leave empty)]
-- Good morning! / ¡Buenos días! [Notes: (leave empty)]
-- They couldn't agree more. / No podrían estar más de acuerdo. [Notes: (leave empty)]
-- ..., isn't it? / ..., ¿verdad? [Notes: (leave empty)]
-
-Anti-Patterns (DO NOT DO THIS):
-- No (Reason: Single word)
-- Dog (Reason: Single word)
-- ...dog... (Reason: Lacks semantic context)
-`
-
-const wordCardStylePrompt = `
-## Word Card Requirements
-Word cards focus on isolated, foundational vocabulary. They must:
-- Contain exactly one standalone word (or a compound word treated as a single concept).
-- **Form:** If extracting directly from a source text, capture the word in its exact contextual form (conjugation, plural, inflection). If generating or translating from a conceptual prompt, use the most natural base dictionary form (lemma).
-- **Grammatical Form & Lemma in Notes:** If the lexeme is NOT in its base dictionary form (lemma), you MUST specify its grammatical form (e.g., tense, person, case, plurality) followed by "of [lemma]" in the \`notes\` attribute (e.g., "3rd person sing. of [lemma]" or "Accusative pl. of [lemma]"). Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary (e.g., if it's already a lemma).
-- ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns and concepts).
-- Follow exact capitalization rules for standalone words.
-- Never contain phrases, multiple words, or punctuation marks (like quotation marks or periods).
-
-### Examples of Word Cards (Format: Lexeme / Translation [Notes: Grammar if needed])
-
-Correct Patterns:
-- walks / camina [Notes: 3ª persona sing. de 'to walk / caminar']
-- (the) cards / (die) Karten [Notes: Acusativo pl. de '(the) card / (die) Karte']
-- went / fue [Notes: Pasado de 'to go / ir']
-- (the) improvement / (die) Verbesserung [Notes: (leave empty, already a lemma)]
-- quickly / rápidamente [Notes: (leave empty, already a lemma)]
-`
-
-const cardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {
-  if (type === 'word') {
-    return `
-# Output Constraint: WORD CARDS ONLY
-Strictly extract and generate single-word vocabulary cards. Do not output any phrases or sentences.
-${wordCardStylePrompt}
-`
-  } else if (type === 'phrase') {
-    return `
-# Output Constraint: PHRASE CARDS ONLY
-Strictly extract and generate phrase/sentence vocabulary cards. Do not output any single, isolated words.
-${phraseCardStylePrompt}
-`
-  } else {
-    return `
-# Output Constraint: MIXED CARDS (WORDS & PHRASES)
-Extract a balanced mix of both single words and useful semantic phrases.
-${wordCardStylePrompt}
-${phraseCardStylePrompt}
-`
-  }
-}
+import { getCardTypePrompt } from './prompt-snippets/card-type-prompts'
+import { tonePrompt } from './prompt-snippets/tone-prompts'
 
 export const getExtractFromTextPrompt = ({
   language,
@@ -103,7 +19,7 @@ Ensure exhaustive coverage of the meaningful vocabulary, idiomatic expressions, 
 If the text contains complex or long sentences, break them down into smaller, logical semantic chunks (maximum 8 words per chunk) to create digestible phrase cards.`
   }
 
-  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromTextPrompt}\n${cardTypePrompt(cardType)}`
+  return `${getMagicTranslateSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromTextPrompt}\n${getCardTypePrompt(cardType)}`
 }
 
 export const getExtractFromImagePrompt = ({
@@ -123,7 +39,7 @@ Analyze the provided image and generate vocabulary cards. Automatically categori
 - Trigger: The image heavily features written text (e.g., book pages, articles, signs, notes).
 - Action: Ignore the background aesthetics and strictly extract the written content. Break down the sentences, headings, and distinct text structures into learnable vocabulary cards.
 `
-  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromImagePrompt}\n${cardTypePrompt(cardType)}`
+  return `${getMagicTranslateSystemPrompt(language)}\n${tonePrompt(tone)}\n${extractFromImagePrompt}\n${getCardTypePrompt(cardType)}`
 }
 
 export const getCreateFromUserPromptPrompt = ({
@@ -135,5 +51,8 @@ export const getCreateFromUserPromptPrompt = ({
 ## Task: Prompt-Based Generation
 Generate highly useful, context-appropriate vocabulary cards based strictly on the thematic or specific instructions provided in the user's prompt. 
 `
-  return `${getSystemPrompt(language)}\n${tonePrompt(tone)}\n${createFromUserPromptPrompt}\n${cardTypePrompt(cardType)}`
+  return `${getMagicTranslateSystemPrompt(language)}\n${tonePrompt(tone)}\n${createFromUserPromptPrompt}\n${getCardTypePrompt(cardType)}`
+}
+function getMagicTranslateSystemPrompt(language: { speaking: string; learning: string }) {
+  throw new Error('Function not implemented.')
 }

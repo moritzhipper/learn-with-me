@@ -57,11 +57,11 @@ export class AiService {
     const promises: Promise<LearnableBase[]>[] = []
 
     if (config.sourceType === 'text') {
-      promises.push(this.extractFromText(config.source, config))
+      promises.push(this.extractFromText(config))
     } else if (config.sourceType === 'image') {
-      promises.push(this.extractFromImage(config.source, config))
+      promises.push(this.extractFromImage(config))
     } else if (config.sourceType === 'prompt') {
-      promises.push(this.createFromUserPrompt(config.source, config))
+      promises.push(this.createFromUserPrompt(config))
     }
 
     const cardsLists = await Promise.all(promises)
@@ -69,11 +69,11 @@ export class AiService {
     return cardsLists.flat(1)
   }
 
-  // warning: chunking introduces duplicates
-  async extractFromText(text: string, config: LearnableCreationConfig): Promise<LearnableBase[]> {
+  // warning: chunking can introduces duplicate cards
+  async extractFromText(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getExtractFromTextPrompt(config)
     const cardType = config.cardType
-    const chunks = mapPhrasesFromInputToChunks(text, 1000)
+    const chunks = mapPhrasesFromInputToChunks(config.source, 1000)
 
     if (cardType === 'both') {
       const responses = await Promise.all(
@@ -86,7 +86,7 @@ export class AiService {
     } else {
       const responses = await Promise.all(
         chunks.map((chunk) =>
-          this.createStructuredOutput(systemPrompt, text, LearnableFromAiListSchema)
+          this.createStructuredOutput(systemPrompt, config.source, LearnableFromAiListSchema)
         )
       )
 
@@ -99,13 +99,13 @@ export class AiService {
     }
   }
 
-  async extractFromImage(image: string, config: LearnableCreationConfig): Promise<LearnableBase[]> {
+  async extractFromImage(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getExtractFromImagePrompt(config)
     const userMessageContent: ResponseInputMessageContentList = [
       {
         type: 'input_image',
         detail: 'high',
-        image_url: image
+        image_url: config.source
       }
     ]
 
@@ -130,24 +130,21 @@ export class AiService {
     }
   }
 
-  async createFromUserPrompt(
-    userPrompt: string,
-    config: LearnableCreationConfig
-  ): Promise<LearnableBase[]> {
+  async createFromUserPrompt(config: LearnableCreationConfig): Promise<LearnableBase[]> {
     const systemPrompt = getCreateFromUserPromptPrompt(config)
     const cardType = config.cardType
 
     if (cardType === 'both') {
       const response = await this.createStructuredOutput(
         systemPrompt,
-        userPrompt,
+        config.source,
         LearnableFromAiWithTypeListSchema
       )
       return response.cards
     } else {
       const response = await this.createStructuredOutput(
         systemPrompt,
-        userPrompt,
+        config.source,
         LearnableFromAiListSchema
       )
 

@@ -1,8 +1,9 @@
-import { tonePrompt } from './shared-ptompts'
+import { tonePrompt } from './prompt-snippets/tone-prompts'
 
 export const getQuickTranslatePrompt = (language: string, tone: string): string => {
   const basePrompt = `
-    Translate the input to ${language}. Do not comment, do not add anything. Use correct casing.`
+Translate the input to ${language}. Do not comment, do not add anything. Use correct casing.
+`
 
   return `${basePrompt}\n${tonePrompt(tone)}`
 }
