@@ -20,4 +20,4 @@ export const getQuickTranslateSystemPrompt = (language: string): string => `
 Translate the input to ${language}. Do not comment, do not add anything. Use correct casing.
 `
 
-export const getCategorizeCardSystemPrompt = `You purpose is to categrize vocabulary cards into one of two categories: phrase or word.`
+export const categorizeCardSystemPrompt = `You purpose is to categrize vocabulary cards into one of two categories: phrase or word.`

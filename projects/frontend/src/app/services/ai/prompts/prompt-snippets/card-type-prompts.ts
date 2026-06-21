@@ -31,8 +31,9 @@ const wordCardStylePrompt = `
 
 Word cards focus on isolated, foundational vocabulary. They must:
 - Contain exactly one standalone word (or a compound word treated as a single concept).
-- **Form:** If extracting directly from a source text, capture the word in its exact contextual form (conjugation, plural, inflection). If generating or translating from a conceptual prompt, use the most natural base dictionary form (lemma).
-- **Grammatical Form & Lemma in Notes:** If the lexeme is NOT in its base dictionary form (lemma), you MUST specify its grammatical form (e.g., tense, person, case, plurality) followed by "of [lemma]" in the \`notes\` attribute (e.g., "3rd person sing. of [lemma]" or "Accusative pl. of [lemma]"). Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary (e.g., if it's already a lemma).
+- **Form:** If extracting directly from a source text, capture the lexeme and translation in its exact contextual form (conjugation, plural, inflection).
+- **Grammatical Form & Lemma in Notes:** If the lexeme is NOT in its base dictionary form (lemma), you MUST specify its grammatical form (e.g., tense, person, case, plurality) followed by "of [lemma]" in the \`notes\` attribute (e.g., "3rd person sing. of [lemma]" or "Accusative pl. of [lemma]")  
+- Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary (e.g., if it's already a lemma).
 - ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns and concepts).
 - Follow exact capitalization rules for standalone words.
 - Never contain phrases, multiple words, or punctuation marks (like quotation marks or periods).

@@ -132,7 +132,7 @@
 }
 @include isPhone() {
   form {
-    height: 60vh;
+    height: 75vh;
     .config {
       grid-template-columns: 1fr;
       gap: var(--distance-4);

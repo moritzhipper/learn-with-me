@@ -2,7 +2,7 @@ import { LearnableCreationConfig } from '../../../types/types'
 import { getCardTypePrompt } from './prompt-snippets/card-type-prompts'
 import { getPromptSourcePrompt } from './prompt-snippets/source-type-prompts'
 import {
-  getCategorizeCardSystemPrompt,
+  categorizeCardSystemPrompt,
   getMagicTranslateSystemPrompt,
   getQuickTranslateSystemPrompt
 } from './prompt-snippets/system-prompts'
@@ -23,4 +23,4 @@ export const getQuickTranslatePrompt = (language: string, tone: string): string 
   ${getQuickTranslateSystemPrompt(language)}
   ${getTonePrompt(tone)}`
 
-export const getCategorizeCardPrompt = (): string => getCategorizeCardSystemPrompt
+export const getCategorizeCardPrompt = (): string => categorizeCardSystemPrompt
