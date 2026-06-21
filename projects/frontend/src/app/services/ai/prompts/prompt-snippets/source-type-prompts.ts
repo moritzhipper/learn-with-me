@@ -1,6 +1,6 @@
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types/types'
 
-export const imageSourcePrompt = `
+const imageSourcePrompt = `
 ## Task: Image-Based Extraction
 Analyze the provided image and generate vocabulary cards. Automatically categorize the image into one of two modes and proceed accordingly:
 
@@ -13,7 +13,7 @@ Analyze the provided image and generate vocabulary cards. Automatically categori
 - Action: Ignore the background aesthetics and strictly extract the written content. Break down the sentences, headings, and distinct text structures into learnable vocabulary cards.
 `
 
-export const getTextSourcePrompt = (cardType: LearnableCreationConfig['cardType']) => {
+const getTextSourcePrompt = (cardType: LearnableCreationConfig['cardType']) => {
   const basePrompt = `
 ## Task: Text Extraction
 
@@ -21,14 +21,25 @@ You will receive a source text. Extract comprehensive vocabulary cards from it s
 Ensure exhaustive coverage of the meaningful vocabulary, idiomatic expressions, and structural chunks present in the input. Do not leave key semantic elements unprocessed.
 `
   if (cardType === 'word') return basePrompt
+
   const breakDownPhrasesPrompt = `
 If the text contains complex or long sentences, break them down into smaller, logical semantic chunks (maximum 8 words per chunk) to create digestible phrase cards.
 `
-
-  return `${basePrompt}${breakDownPhrasesPrompt}`
+  return `
+  ${basePrompt}
+  ${breakDownPhrasesPrompt}`
 }
 
-export const promptSourcePrompt = `
+const promptSourcePrompt = `
 ## Task: Prompt-Based Generation
 Generate highly useful, context-appropriate vocabulary cards based strictly on the thematic or specific instructions provided in the user's prompt. 
 `
+
+export const getPromptSourcePrompt = (
+  sourceType: LearnableCreationConfig['sourceType'],
+  cardType: LearnableCreationConfig['cardType']
+) => {
+  if (sourceType === 'text') return getTextSourcePrompt(cardType)
+  if (sourceType === 'image') return imageSourcePrompt
+  return promptSourcePrompt
+}

@@ -32,11 +32,10 @@ import { LearnableCreationConfig, TranslateFastConfig } from '../../types/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'
 import {
-  getCreateFromUserPromptPrompt,
-  getExtractFromImagePrompt,
-  getExtractFromTextPrompt
-} from './prompts/magic-translate-prompts'
-import { categorizeCardPrompt, getQuickTranslatePrompt } from './prompts/quick-translate-prompts'
+  getCategorizeCardPrompt,
+  getMagicTranslatePrompt,
+  getQuickTranslatePrompt
+} from './prompts/prompts'
 
 @Injectable({
   providedIn: 'root'
@@ -54,14 +53,15 @@ export class AiService {
   )
 
   async createLearnables(config: LearnableCreationConfig): Promise<LearnableBase[]> {
+    const systemPrompt = getMagicTranslatePrompt(config)
     const promises: Promise<LearnableBase[]>[] = []
 
     if (config.sourceType === 'text') {
-      promises.push(this.extractFromText(config))
+      promises.push(this.extractFromText(config, systemPrompt))
     } else if (config.sourceType === 'image') {
-      promises.push(this.extractFromImage(config))
+      promises.push(this.extractFromImage(config, systemPrompt))
     } else if (config.sourceType === 'prompt') {
-      promises.push(this.createFromUserPrompt(config))
+      promises.push(this.createFromUserPrompt(config, systemPrompt))
     }
 
     const cardsLists = await Promise.all(promises)
@@ -70,8 +70,10 @@ export class AiService {
   }
 
   // warning: chunking can introduces duplicate cards
-  async extractFromText(config: LearnableCreationConfig): Promise<LearnableBase[]> {
-    const systemPrompt = getExtractFromTextPrompt(config)
+  async extractFromText(
+    config: LearnableCreationConfig,
+    systemPrompt: string
+  ): Promise<LearnableBase[]> {
     const cardType = config.cardType
     const chunks = mapPhrasesFromInputToChunks(config.source, 1000)
 
@@ -99,8 +101,10 @@ export class AiService {
     }
   }
 
-  async extractFromImage(config: LearnableCreationConfig): Promise<LearnableBase[]> {
-    const systemPrompt = getExtractFromImagePrompt(config)
+  async extractFromImage(
+    config: LearnableCreationConfig,
+    systemPrompt: string
+  ): Promise<LearnableBase[]> {
     const userMessageContent: ResponseInputMessageContentList = [
       {
         type: 'input_image',
@@ -130,8 +134,10 @@ export class AiService {
     }
   }
 
-  async createFromUserPrompt(config: LearnableCreationConfig): Promise<LearnableBase[]> {
-    const systemPrompt = getCreateFromUserPromptPrompt(config)
+  async createFromUserPrompt(
+    config: LearnableCreationConfig,
+    systemPrompt: string
+  ): Promise<LearnableBase[]> {
     const cardType = config.cardType
 
     if (cardType === 'both') {
@@ -155,6 +161,16 @@ export class AiService {
     }
   }
 
+  async categorizeCard(card: Omit<LearnableFromAI, 'notes'>): Promise<LearnableBase['type']> {
+    const cardString = `lexeme: ${card.lexeme}\ntranslation: ${card.translation}`
+    const response = await this.createStructuredOutput(
+      getCategorizeCardPrompt(),
+      cardString,
+      LearnableTypeEnumCategorizationSchema
+    )
+    return response.type
+  }
+
   private async createStructuredOutput<T>(
     systemPrompt: string,
     userContent: EasyInputMessage['content'],
@@ -176,16 +192,6 @@ export class AiService {
     if (!response.output_parsed) throw new Error('An error occured calling AI service.')
 
     return response.output_parsed
-  }
-
-  async categorizeCard(card: Omit<LearnableFromAI, 'notes'>): Promise<LearnableBase['type']> {
-    const cardString = `lexeme: ${card.lexeme}\ntranslation: ${card.translation}`
-    const response = await this.createStructuredOutput(
-      categorizeCardPrompt,
-      cardString,
-      LearnableTypeEnumCategorizationSchema
-    )
-    return response.type
   }
 
   translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {

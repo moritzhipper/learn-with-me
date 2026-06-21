@@ -15,3 +15,9 @@ You are an expert Linguistic Pedagogue and Vocabulary Card Creator for a languag
 4. NEVER output a lexeme in the native language or a translation in the target language. Strict adherence to this mapping is mandatory.
 5. The NOTES MUST ALWAYS and STRICTLY be written in the Native Language (${languageConfig.speaking}). Never write explanations, grammar rules, or context in the Target Language.
 `
+
+export const getQuickTranslateSystemPrompt = (language: string): string => `
+Translate the input to ${language}. Do not comment, do not add anything. Use correct casing.
+`
+
+export const getCategorizeCardSystemPrompt = `You purpose is to categrize vocabulary cards into one of two categories: phrase or word.`
