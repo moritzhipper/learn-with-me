@@ -6,13 +6,16 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
-import {
-  LearnableCreationConfig,
-  LearnableFromTextCreationConfig
-} from 'projects/frontend/src/app/types/types'
-import { from, pipe, switchMap, tap } from 'rxjs'
+import { LearnableCreationConfig } from 'projects/frontend/src/app/types/types'
+import { from, map, pipe, switchMap, tap } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
+
+type FormType = {
+  mode: 'extract' | 'generate'
+  cardType: LearnableCreationConfig['cardType']
+  source: string
+}
 
 @Component({
   selector: 'app-magic-translate',
@@ -28,49 +31,58 @@ export class MagicTranslate {
 
   isConverting = signal(false)
 
-  form = this._fb.group<
-    Pick<LearnableCreationConfig, 'type'> & Pick<LearnableFromTextCreationConfig, 'text'>
-  >({
-    type: 'word',
-    text: ''
+  form = this._fb.group<FormType>({
+    cardType: 'word',
+    mode: 'extract',
+    source: ''
   })
 
   protected imagePreview = signal<string | null>(null)
-  protected formSignal = toSignal(this.form.valueChanges)
+
+  protected formSignal = toSignal(this.form.valueChanges.pipe(map(() => this.form.getRawValue())), {
+    initialValue: this.form.getRawValue()
+  })
 
   preset = model<string>()
 
   ngOnInit() {
     const preset = this.preset()
     if (preset) {
-      this.form.patchValue({ text: preset })
+      this.form.patchValue({ mode: 'extract', source: preset })
     }
   }
 
   protected createLearnablesConfig = computed<LearnableCreationConfig | null>(() => {
     const language = this.ls.activeBank().language
-    const form = this.formSignal()
-    const type = form?.type
+    const tone = this.ls.activeBank().translations.tone
+    const { cardType, mode, source } = this.formSignal()
 
-    if (!language || !type) return null
+    if (!language) return null
 
-    const image = this.imagePreview()
-    if (image) {
-      return {
-        source: 'image',
-        image: image,
-        type,
-        language
-      }
+    const base: Pick<LearnableCreationConfig, 'language' | 'cardType' | 'tone'> = {
+      language,
+      cardType,
+      tone
     }
 
-    const text = form?.text
-    if (text) {
+    const image = this.imagePreview()
+    if (mode === 'extract' && image) {
       return {
-        source: 'text',
-        text,
-        type,
-        language
+        sourceType: 'image',
+        source: image,
+        ...base
+      }
+    } else if (mode === 'extract' && source) {
+      return {
+        sourceType: 'text',
+        source,
+        ...base
+      }
+    } else if (mode === 'generate' && source) {
+      return {
+        sourceType: 'prompt',
+        source,
+        ...base
       }
     }
 
@@ -81,7 +93,6 @@ export class MagicTranslate {
     pipe(
       switchMap((config) => {
         this.isConverting.set(true)
-        this.ls.setMagicTranslateCards([])
         return from(this.aiService.createLearnables(config)).pipe(
           tap(() => this.isConverting.set(false)),
           tapResponse({

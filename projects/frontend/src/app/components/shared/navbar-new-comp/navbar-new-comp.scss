@@ -13,6 +13,7 @@
   backdrop-filter: blur(5px);
 
   transition: all var(--duration-1);
+  box-shadow: var(--shadow-small);
 
   &.open {
     transform: rotate(-10deg);
@@ -21,7 +22,7 @@
   }
 
   &.dim {
-    border: 1px solid transparent;
+    border: 1px solid rgb(from var(--col-bg) r g b / var(--opacity-0));
     background-color: rgb(from var(--col-bg) r g b / var(--opacity-0));
     backdrop-filter: blur(5px);
 

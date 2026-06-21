@@ -68,7 +68,8 @@ export class OverviewPageFacade {
 
   async openAddToCollectionModal(learnableIds: string[]): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
-      collections: this.store.collections()
+      collections: this.store.collections(),
+      cardIds: learnableIds
     })
 
     if (result.type !== 'confirm') return
@@ -91,7 +92,7 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    this.store.editCollection(collection.id, result.value)
+    this.store.editCollection(result.value, collection.id)
   }
 
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {

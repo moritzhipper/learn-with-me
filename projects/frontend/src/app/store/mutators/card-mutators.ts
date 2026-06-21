@@ -1,5 +1,6 @@
-import { LearnableBase, UserLearnablePartial } from '@shared/types'
+import { LearnableBase, LearnableWithId, UserLearnablePartial } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
+import { updateCollectionCardIDs } from './collection-mutators'
 import { mapBaseToFullToLearnables, updateActiveBank } from './mutator-utils'
 
 export const saveNewlyCreatedLearnables =
@@ -20,6 +21,20 @@ export const saveNewlyCreatedLearnables =
       return {
         ...b,
         learnables: [...b.learnables, ...fullNew]
+      }
+    })
+
+export const importFromTranslate =
+  (learnablesBase: LearnableWithId[], collectionID?: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType =>
+    updateActiveBank(state, (b) => {
+      const learnableIds = learnablesBase.map((l) => l.id)
+      const fullNew = mapBaseToFullToLearnables(learnablesBase)
+
+      return {
+        ...b,
+        collections: b.collections.map(updateCollectionCardIDs(collectionID, learnableIds)),
+        learnables: [...fullNew, ...b.learnables]
       }
     })
 

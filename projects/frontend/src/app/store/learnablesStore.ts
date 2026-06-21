@@ -7,6 +7,7 @@ import {
   BankUser,
   Guess,
   LearnableBase,
+  LearnableWithId,
   PracticeConfig,
   UserLearnablePartial
 } from '@shared/types'
@@ -22,7 +23,11 @@ import {
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
-import { saveNewlyCreatedLearnables, updateLearnables } from './mutators/card-mutators'
+import {
+  importFromTranslate,
+  saveNewlyCreatedLearnables,
+  updateLearnables
+} from './mutators/card-mutators'
 import {
   createCollection,
   deleteCollection,
@@ -98,6 +103,9 @@ export const LearnablesStore = signalStore(
       },
       editCollectionLearnables(collectionID: string, addIDs: string[], deleteIDs: string[]) {
         patchState(state, editCollection(collectionID, addIDs, deleteIDs))
+      },
+      importLearnablesFromTranslate(learnables: LearnableWithId[], collectionID?: string) {
+        patchState(state, importFromTranslate(learnables, collectionID))
       },
       mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
         const result = saveImportToActiveBankNew(state.activeBank(), importBank)

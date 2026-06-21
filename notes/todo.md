@@ -1,9 +1,16 @@
 # ToDo
 
-# Translate
+## Sunday
 
-- add prompt type
-- add 'get phrase or word' ai api call in between card to history add thing
+- cleanup store, make actions atomar
+  - crud per resource, with object as config (update for coll has: addIds, removeIds, updateName)
+  - import learnables (rotateIDs option)
+  - add collection
+  - add cards to collection
+  - remove cards from collection
+  - actions return id(s) of created items, to allow follow up
+  - do multiple actions concurrently in app code
+  - then add to bank and to collection to translate thing
 
 # right now: Stats
 
@@ -30,10 +37,20 @@
 - add weekly average cards guessed
 - addd dayly average cards guessed
 
+## Modal Forms
+
+Create better reusable styles (import styles per form), holding:
+
+- Header Style (no margin on h2, allowing h2 + description) -> See add to collection form
+- Description style
+- maybe just creat form header component?
+- Create Info Card style, like start new practice and stuff
+
 ## Dashboard
 
 ### Practice handling
 
+- automatically start the correct direction based on progress
 - add: add select all option to magic generate
 - use: shared, cards collection select
 

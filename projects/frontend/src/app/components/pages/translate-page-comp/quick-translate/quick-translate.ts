@@ -18,7 +18,7 @@ import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
-import { debounceTime, delay, EMPTY, filter, pipe, switchMap, tap } from 'rxjs'
+import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
 
 @Component({
   selector: 'app-quick-translate',
@@ -138,14 +138,24 @@ export class QuickTranslate {
               config.text === this.lexemeInput() && config.tone === this.tone()
             return isFinishedEvent && isCurrentUserInput
           }),
+          map((ev) => ({
+            lexeme: config.text,
+            translation: ev.text
+          })),
+          switchMap((learnable) =>
+            from(this.aiService.categorizeCard(learnable)).pipe(
+              map((category) => ({
+                ...learnable,
+                type: category
+              }))
+            )
+          ),
           delay(2000),
-          tap((ev) => {
+          tap((learnable) => {
             const tone = config.tone ? `Tone: ${config.tone}` : ''
             this.ls.addTranslationHistoryItem({
-              lexeme: config.text,
-              notes: tone,
-              translation: ev.text,
-              type: 'phrase'
+              ...learnable,
+              notes: tone
             })
           })
         )

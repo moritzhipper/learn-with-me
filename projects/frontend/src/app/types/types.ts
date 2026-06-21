@@ -11,24 +11,13 @@ export type TranslateFastConfig = {
   language: LanguageConfig
 }
 
-type LearnableCreationConfigBase = {
+export type LearnableCreationConfig = {
   language: LanguageConfig
-  type: 'phrase' | 'word' | 'both'
+  cardType: 'phrase' | 'word' | 'both'
+  sourceType: 'text' | 'prompt' | 'image'
+  source: string
+  tone: string
 }
-
-export type LearnableFromTextCreationConfig = LearnableCreationConfigBase & {
-  source: 'text'
-  text: string
-}
-
-export type LearnableFromImageCreationConfig = LearnableCreationConfigBase & {
-  source: 'image'
-  image: string
-}
-
-export type LearnableCreationConfig =
-  | LearnableFromTextCreationConfig
-  | LearnableFromImageCreationConfig
 
 export type SettingsStoreType = {
   apiKey: string

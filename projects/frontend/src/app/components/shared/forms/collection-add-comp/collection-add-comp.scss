@@ -1,6 +1,10 @@
 form {
   grid-template-rows: 1fr auto;
 
+  .header {
+    text-align: center;
+    align-self: center;
+  }
   label,
   .collections {
     grid-column: span 2;
@@ -24,12 +28,16 @@ form {
     user-select: none;
     cursor: pointer;
 
-    span {
-      opacity: 1;
-      padding: var(--distance-3) var(--distance-4);
-      font-size: var(--font-size-1);
+    .display-text {
       border-radius: var(--radius-1);
       background-color: var(--col-accent);
+      padding: var(--distance-3) var(--distance-4);
+      display: inline-flex;
+      justify-content: space-between;
+
+      .count {
+        opacity: var(--opacity-1);
+      }
     }
 
     input[type='radio'] {
@@ -39,11 +47,11 @@ form {
       opacity: 0;
     }
 
-    input:focus + span {
+    input:focus + .display-text {
       background-color: rgb(from var(--col-primary) r g b / var(--opacity-0));
     }
 
-    input:checked + span {
+    input:checked + .display-text {
       background-color: var(--col-primary);
       color: var(--col-bg);
     }

@@ -10,6 +10,18 @@ const createNewCollection = (name: string, cardIds: string[]): CollectionUser =>
   cardIds
 })
 
+export const updateCollectionCardIDs =
+  (collectionID?: string, addIDs: string[] = [], deleteIDs: string[] = []) =>
+  (collection: CollectionUser) => {
+    if (collection.id !== collectionID) return collection
+    return {
+      ...collection,
+      cardIds: [...new Set([...collection.cardIds, ...addIDs])].filter(
+        (cardId) => !deleteIDs.includes(cardId)
+      )
+    }
+  }
+
 export const createCollection =
   (name: string, cardIds: string[]) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
@@ -23,13 +35,7 @@ export const editCollection =
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => ({
       ...b,
-      collections: b.collections.map((c) => {
-        if (c.id !== collectionID) return c
-        const updatedCardIds = [...new Set([...c.cardIds, ...addIDs])].filter(
-          (cardId) => !deleteIDs.includes(cardId)
-        )
-        return { ...c, cardIds: updatedCardIds }
-      })
+      collections: b.collections.map(updateCollectionCardIDs(collectionID, addIDs, deleteIDs))
     }))
 
 export const deleteCollection =
@@ -53,7 +59,7 @@ export const deleteCollection =
   }
 
 export const renameCollection =
-  (id: string, name: string) =>
+  (name: string, id: string) =>
   (state: LearnablesStoreType): LearnablesStoreType =>
     updateActiveBank(state, (b) => ({
       ...b,

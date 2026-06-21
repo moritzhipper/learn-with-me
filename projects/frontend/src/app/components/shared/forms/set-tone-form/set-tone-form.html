@@ -1,0 +1,18 @@
+<form class="modal" (ngSubmit)="confirm(form.value.text)" [formGroup]="form">
+  <h2 [animDelay]="{ i: 0, size: 3 }" class="fly-in-y">Tone</h2>
+
+  <p class="full fly-in-y" [animDelay]="{ i: 1, size: 3 }">
+    Set a single word or a short description of the tone or context you want to use the translations
+    in.
+  </p>
+  <textarea
+    class="full fly-in-y"
+    [animDelay]="{ i: 2, size: 3 }"
+    formControlName="text"
+    placeholder="Casual, Formal, Adressing an arch enemy, etc."
+  ></textarea>
+  <button type="button" [animDelay]="{ i: 3, size: 3 }" class="big fly-in-y" (click)="cancel()">
+    Cancel
+  </button>
+  <button type="submit" [animDelay]="{ i: 4, size: 3 }" class="fly-in-y">Submit</button>
+</form>

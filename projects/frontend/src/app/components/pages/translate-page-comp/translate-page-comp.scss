@@ -5,16 +5,21 @@
   flex-direction: column;
 }
 
-input.context {
-  background-color: transparent;
-  font-weight: var(--font-weight-bold);
-  line-height: 24px;
-  margin-right: 72px;
-  max-width: 500px;
-  border-radius: var(--radius-3);
+.tone-wrapper {
+  opacity: var(--opacity-1);
+  align-self: start;
+  padding-top: var(--distance-1);
+  padding-right: var(--distance-7);
+  overflow: hidden;
+  max-width: 100%;
 
-  &:not(:focus-visible) {
-    opacity: var(--opacity-1);
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-1);
+  }
+  .tone {
+    font-weight: var(--font-weight-bold);
   }
 }
 

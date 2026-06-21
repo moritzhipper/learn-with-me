@@ -34,10 +34,12 @@ textarea,
 input,
 select {
   font-size: var(--font-size-1);
+  line-height: var(--line-height-1);
 }
 
 button {
-  transition-property: background-color, opacity, outline, color, box-shadow, padding, rotate;
+  transition-property:
+    background-color, opacity, outline, color, box-shadow, padding, rotate, border;
   transition-duration: var(--duration-0);
   transition-timing-function: ease-out;
 

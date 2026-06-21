@@ -12,21 +12,21 @@
   }
 </app-bubbles>
 
-<input
-  [ngModel]="translations().tone"
-  (ngModelChange)="setTone($event)"
-  class="context"
-  type="text"
-  placeholder="Set tone or context..."
-/>
+<button class="tone-wrapper silent" (click)="setTone()">
+  <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
+  <p class="tone size-2 ellipsis">{{ translations().tone || 'Neutral' }}</p>
+</button>
+
 @if (selectedMode() === 'translate') {
   <app-quick-translate />
   @if (translations().history.length > 0) {
-    <h2 class="indent">History</h2>
+    <h2 class="indent fly-in-y-wide">History</h2>
     <div class="cards">
+      @let transCount = translations().history.length;
       @for (card of translations().history; track card.id) {
         <app-learnable-comp
           class="fly-in-y-wide"
+          [animDelay]="{ i: $index + 1, size: transCount }"
           [learnable]="card"
           (onSelect)="toggleSelection(card.id)"
           [isSelected]="isSelected(card.id)"
@@ -38,12 +38,13 @@
   <app-magic-translate [(preset)]="magicPreset" />
 
   @if (translations().magicTranslateCards.length > 0) {
-    <h2 class="indent">Extracted Cards</h2>
+    <h2 class="indent fly-in-y-wide">Extracted Cards</h2>
     <div class="cards">
+      @let transCount = translations().magicTranslateCards.length;
       @for (card of translations().magicTranslateCards; track card.id) {
         <app-learnable-comp
           class="fly-in-y-wide"
-          [animDelay]="{ i: $index, list: translations().magicTranslateCards }"
+          [animDelay]="{ i: $index + 1, size: transCount }"
           [learnable]="card"
           (onSelect)="toggleSelection(card.id)"
           [isSelected]="isSelected(card.id)"

@@ -7,6 +7,7 @@ import { EditBankComp } from './edit-bank-comp/edit-bank-comp'
 import { EditCollectionComp } from './edit-collection-comp/edit-collection-comp'
 import { ImportFormComp } from './import-form-comp/import-form-comp'
 import { SelectLanguageMatchComp } from './select-language-match-comp/select-language-match-comp'
+import { SetToneForm } from './set-tone-form/set-tone-form'
 import { ShareFormComp } from './share-form-comp/share-form-comp'
 import { SingleEditComp } from './single-edit-comp/single-edit-comp'
 import { StartPracticeForm } from './start-practice-form/start-practice-form'
@@ -23,6 +24,7 @@ export type ModalType =
   | 'edit-bank'
   | 'change-language-match'
   | 'start-practice'
+  | 'text-input'
 
 export type OpenModalConfig = {
   type: ModalType
@@ -42,7 +44,8 @@ export const modalConfig: Record<ModalType, Type<unknown>> = {
   'bank-share': ShareFormComp,
   'edit-bank': EditBankComp,
   'change-language-match': SelectLanguageMatchComp,
-  'start-practice': StartPracticeForm
+  'start-practice': StartPracticeForm,
+  'text-input': SetToneForm
 }
 
 export const getModalComponent = (type: ModalType): Type<unknown> => {

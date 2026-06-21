@@ -3,15 +3,25 @@ import { PracticeActiveSchema } from './practice-schemas'
 
 export const LearnableFromAiSchema = z.object({
   lexeme: z.string(),
-  translation: z.string()
+  translation: z.string(),
+  notes: z.string()
+})
+
+export const LearnableFromAiListSchema = z.object({
+  cards: z.array(LearnableFromAiSchema)
+})
+
+export const LearnableTypeEnum = z.enum(['phrase', 'word'])
+export const LearnableTypeEnumCategorizationSchema = z.object({
+  type: LearnableTypeEnum
 })
 
 export const LearnableFromAiWithTypeSchema = LearnableFromAiSchema.extend({
-  type: z.enum(['phrase', 'word'])
+  type: LearnableTypeEnum
 })
 
-export const LearnablesFromAiSchema = z.object({
-  cards: z.array(LearnableFromAiSchema)
+export const LearnableFromAiWithTypeListSchema = z.object({
+  cards: z.array(LearnableFromAiWithTypeSchema)
 })
 
 export const LearnableBaseSchema = LearnableFromAiWithTypeSchema.extend({
