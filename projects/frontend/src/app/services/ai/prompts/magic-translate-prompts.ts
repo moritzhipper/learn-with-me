@@ -12,34 +12,28 @@ export const getExtractFromTextPrompt = ({
   language,
   cardType,
   tone
-}: LearnableCreationConfig): string => {
-  return `
+}: LearnableCreationConfig): string => `
   ${getMagicTranslateSystemPrompt(language)}
   ${getTonePrompt(tone)}
   ${getTextSourcePrompt(cardType)}
   ${getCardTypePrompt(cardType)}`
-}
 
 export const getExtractFromImagePrompt = ({
   language,
   cardType,
   tone
-}: LearnableCreationConfig): string => {
-  return `
+}: LearnableCreationConfig): string => `
   ${getMagicTranslateSystemPrompt(language)}
   ${getTonePrompt(tone)}
   ${imageSourcePrompt}
   ${getCardTypePrompt(cardType)}`
-}
 
 export const getCreateFromUserPromptPrompt = ({
   language,
   cardType,
   tone
-}: LearnableCreationConfig): string => {
-  return `
+}: LearnableCreationConfig): string => `
   ${getMagicTranslateSystemPrompt(language)}
   ${getTonePrompt(tone)}
   ${promptSourcePrompt}
   ${getCardTypePrompt(cardType)}`
-}
