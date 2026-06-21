@@ -1,6 +1,6 @@
 import { LearnableCreationConfig } from 'projects/frontend/src/app/types/types'
 
-export const extractFromImagePrompt = `
+export const imageSourcePrompt = `
 ## Task: Image-Based Extraction
 Analyze the provided image and generate vocabulary cards. Automatically categorize the image into one of two modes and proceed accordingly:
 
@@ -13,7 +13,7 @@ Analyze the provided image and generate vocabulary cards. Automatically categori
 - Action: Ignore the background aesthetics and strictly extract the written content. Break down the sentences, headings, and distinct text structures into learnable vocabulary cards.
 `
 
-export const getExtractFromTextPrompt = (cardType: LearnableCreationConfig['cardType']) => {
+export const getTextSourcePrompt = (cardType: LearnableCreationConfig['cardType']) => {
   const basePrompt = `
 ## Task: Text Extraction
 
@@ -28,7 +28,7 @@ If the text contains complex or long sentences, break them down into smaller, lo
   return `${basePrompt}${breakDownPhrasesPrompt}`
 }
 
-export const createFromUserPromptPrompt = `
+export const promptSourcePrompt = `
 ## Task: Prompt-Based Generation
 Generate highly useful, context-appropriate vocabulary cards based strictly on the thematic or specific instructions provided in the user's prompt. 
 `

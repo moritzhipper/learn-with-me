@@ -1,8 +1,7 @@
-export const tonePrompt = (tone?: string): string => {
+export const getTonePrompt = (tone?: string): string => {
   if (!tone) return ''
 
   return `
-
 ## ACTIVE TONE & REWRITE MANDATE: "${tone}"
 
 You MUST adapt the vocabulary, phrasing, and formality to perfectly match this tone. 

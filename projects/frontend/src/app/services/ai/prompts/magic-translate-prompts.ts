@@ -6,7 +6,7 @@ import {
   promptSourcePrompt
 } from './prompt-snippets/source-type-prompts'
 import { getMagicTranslateSystemPrompt } from './prompt-snippets/system-prompts'
-import { tonePrompt } from './prompt-snippets/tone-prompts'
+import { getTonePrompt } from './prompt-snippets/tone-prompts'
 
 export const getExtractFromTextPrompt = ({
   language,
@@ -15,7 +15,7 @@ export const getExtractFromTextPrompt = ({
 }: LearnableCreationConfig): string => {
   return `
   ${getMagicTranslateSystemPrompt(language)}
-  ${tonePrompt(tone)}
+  ${getTonePrompt(tone)}
   ${getTextSourcePrompt(cardType)}
   ${getCardTypePrompt(cardType)}`
 }
@@ -27,7 +27,7 @@ export const getExtractFromImagePrompt = ({
 }: LearnableCreationConfig): string => {
   return `
   ${getMagicTranslateSystemPrompt(language)}
-  ${tonePrompt(tone)}
+  ${getTonePrompt(tone)}
   ${imageSourcePrompt}
   ${getCardTypePrompt(cardType)}`
 }
@@ -39,7 +39,7 @@ export const getCreateFromUserPromptPrompt = ({
 }: LearnableCreationConfig): string => {
   return `
   ${getMagicTranslateSystemPrompt(language)}
-  ${tonePrompt(tone)}
+  ${getTonePrompt(tone)}
   ${promptSourcePrompt}
   ${getCardTypePrompt(cardType)}`
 }
