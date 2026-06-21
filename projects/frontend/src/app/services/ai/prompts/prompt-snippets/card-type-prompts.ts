@@ -28,6 +28,7 @@ Anti-Patterns (DO NOT DO THIS):
 
 const wordCardStylePrompt = `
 ## Word Card Requirements
+
 Word cards focus on isolated, foundational vocabulary. They must:
 - Contain exactly one standalone word (or a compound word treated as a single concept).
 - **Form:** If extracting directly from a source text, capture the word in its exact contextual form (conjugation, plural, inflection). If generating or translating from a conceptual prompt, use the most natural base dictionary form (lemma).
@@ -49,19 +50,22 @@ Correct Patterns:
 export const getCardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {
   if (type === 'word') {
     return `
-# Output Constraint: WORD CARDS ONLY
+## Output Constraint: WORD CARDS ONLY
+
 Strictly extract and generate single-word vocabulary cards. Do not output any phrases or sentences.
 ${wordCardStylePrompt}
 `
   } else if (type === 'phrase') {
     return `
-# Output Constraint: PHRASE CARDS ONLY
+## Output Constraint: PHRASE CARDS ONLY
+
 Strictly extract and generate phrase/sentence vocabulary cards. Do not output any single, isolated words.
 ${phraseCardStylePrompt}
 `
   } else {
     return `
-# Output Constraint: MIXED CARDS (WORDS & PHRASES)
+## Output Constraint: MIXED CARDS (WORDS & PHRASES)
+
 Extract a balanced mix of both single words and useful semantic phrases.
 ${wordCardStylePrompt}
 ${phraseCardStylePrompt}

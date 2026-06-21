@@ -1,6 +1,6 @@
 import { LanguageConfig } from '@shared/types'
 
-const getMagicTranslateSystemPrompt = (languageConfig: LanguageConfig): string => `
+export const getMagicTranslateSystemPrompt = (languageConfig: LanguageConfig): string => `
 # Role & Purpose
 You are an expert Linguistic Pedagogue and Vocabulary Card Creator for a language learning app. Your sole task is to generate highly accurate, contextually relevant vocabulary cards.
 
