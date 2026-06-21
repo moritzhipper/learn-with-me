@@ -25,27 +25,55 @@ Anti-Patterns (DO NOT DO THIS):
 - Dog (Reason: Single word)
 - ...dog... (Reason: Lacks semantic context)
 `
-
-const wordCardStylePrompt = `
+export const wordCardStylePrompt = `
 ## Word Card Requirements
 
-Word cards focus on isolated, foundational vocabulary. They must:
-- Contain exactly one standalone word (or a compound word treated as a single concept).
-- **Form:** If extracting directly from a source text, capture the lexeme and translation in its exact contextual form (conjugation, plural, inflection).
-- **Grammatical Form & Lemma in Notes:** If the lexeme is NOT in its base dictionary form (lemma), you MUST specify its grammatical form (e.g., tense, person, case, plurality) followed by "of [lemma]" in the \`notes\` attribute (e.g., "3rd person sing. of [lemma]" or "Accusative pl. of [lemma]")  
-- Keep notes extremely short. Leave the attribute completely empty if a note is not strictly necessary (e.g., if it's already a lemma).
-- ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns and concepts).
-- Follow exact capitalization rules for standalone words.
-- Never contain phrases, multiple words, or punctuation marks (like quotation marks or periods).
+Word cards focus on isolated, foundational vocabulary. They must strictly adhere to the following rules:
 
-### Examples of Word Cards (Format: Lexeme / Translation [Notes: Grammar if needed])
+### 1. Content & Formatting
+- Single Concept: Contain exactly one standalone word (or a recognized compound word treated as a single concept).
+- Contextual Extraction: If extracting directly from a source text, capture the lexeme and translation in its exact contextual form (e.g., conjugated verb, inflected noun, inflected adjective).
+- Articles for Nouns: ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns). This is critical for learning grammatical gender.
+- Clean Text: Follow exact capitalization rules for standalone words in the target language. Never include phrases, secondary words, or punctuation marks (like quotation marks or periods).
 
-Correct Patterns:
-- walks / camina [Notes: 3ª persona sing. de 'to walk / caminar']
-- (the) cards / (die) Karten [Notes: Acusativo pl. de '(the) card / (die) Karte']
-- went / fue [Notes: Pasado de 'to go / ir']
-- (the) improvement / (die) Verbesserung [Notes: (leave empty, already a lemma)]
-- quickly / rápidamente [Notes: (leave empty, already a lemma)]
+### 2. Mandatory Notes (Grammar & Morphology)
+To support language learning best practices, the 'notes' attribute MUST capture essential morphological paradigms based on the word's part of speech. Keep these notes concise and formatted predictably.
+
+A. Contextual Form (If applicable):
+If the extracted lexeme is NOT in its base dictionary form (lemma), you MUST start the note by specifying its exact grammatical morphology in the text (e.g., tense, mood, person, case, plurality) followed by 'of [lemma]'.
+Example: '3rd person singular present indicative of to walk / caminar.' or 'Accusative plural of (the) card.'
+
+B. Essential Morphological Paradigms (ALWAYS REQUIRED):
+After defining the contextual form (or immediately, if the word is already a lemma), you MUST include the following base paradigms depending on the word's lexical category:
+- Nouns (Substantives): ALWAYS list the nominative singular and nominative plural forms. (Format: 'Singular: X, Plural: Y')
+- Verbs: ALWAYS list the infinitive. If the verb is irregular in the target language, also list its preterite and past participle forms. (Format: 'Infinitive: X, Preterite: Y, Past Participle: Z')
+- Adjectives/Adverbs: ALWAYS list the positive degree. If it possesses irregular gradations, list them. (Format: 'Positive: X, Comparative: Y, Superlative: Z')
+- Other Lexical Categories: Leave the notes completely empty unless step A (Contextual Form) applies.
+
+---
+
+### Examples of Word Cards (Format: Lexeme / Translation [Notes])
+
+- walks / camina 
+  [Notes: 3rd person singular present indicative of 'to walk / caminar'. Infinitive: walk, Preterite: walked, Past Participle: walked]
+
+- (the) cards / (die) Karten 
+  [Notes: Accusative plural of '(the) card / (die) Karte'. Singular: (the) card, Plural: (the) cards]
+
+- went / fue 
+  [Notes: 3rd person singular preterite indicative of 'to go / ir'. Infinitive: go, Preterite: went, Past Participle: gone]
+
+- (the) improvement / (die) Verbesserung 
+  [Notes: Singular: (the) improvement, Plural: (the) improvements]
+
+- better / mejor
+  [Notes: Comparative degree of 'good / bueno'. Positive: good, Comparative: better, Superlative: best]
+
+- quickly / rápidamente 
+  [Notes: Positive: quickly]
+
+- with / con
+  [Notes: ]
 `
 
 export const getCardTypePrompt = (type: LearnableCreationConfig['cardType']): string => {
