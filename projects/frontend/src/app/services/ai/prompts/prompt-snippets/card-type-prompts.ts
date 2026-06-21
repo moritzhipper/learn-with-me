@@ -25,6 +25,7 @@ Anti-Patterns (DO NOT DO THIS):
 - Dog (Reason: Single word)
 - ...dog... (Reason: Lacks semantic context)
 `
+
 export const wordCardStylePrompt = `
 ## Word Card Requirements
 
