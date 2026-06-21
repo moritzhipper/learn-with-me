@@ -4,9 +4,7 @@
 
 - add tone back to magic translate
 - add to prompt: plural for words
-- prompts
-  - per type file
-  - one index file to orchestrate
+
 - add date back to quick trans
 - add phrase / word icon to learnable cards?
 
