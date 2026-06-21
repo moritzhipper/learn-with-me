@@ -6,6 +6,7 @@
   border-radius: 100%;
   box-shadow: var(--shadow-big);
   color: var(--col-bg);
+  transition-property: outline;
 
   &.big {
     padding: var(--distance-4);
