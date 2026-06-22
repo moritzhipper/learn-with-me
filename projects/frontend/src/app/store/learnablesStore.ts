@@ -23,7 +23,7 @@ import {
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
-import { createCard, importFromTranslate, updateCards } from './mutators/card-mutators'
+import { createLearnables, importFromTranslate, updateCards } from './mutators/card-mutators'
 import {
   createCollection,
   deleteCollection,
@@ -65,7 +65,8 @@ export const LearnablesStore = signalStore(
   withMethods((state) => {
     return {
       addLearnables(learnablesBase: LearnableBase[]) {
-        patchState(state, createCard(learnablesBase))
+        const ids = createLearnables(state, learnablesBase)
+        return ids
       },
       updateLearnables(learnables: UserLearnablePartial[]) {
         patchState(state, updateCards(learnables))

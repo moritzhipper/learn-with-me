@@ -1,3 +1,4 @@
+import { patchState, WritableStateSource } from '@ngrx/signals'
 import { BankUser, LearnableBase, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { initialGuesses } from '../initialStates'
@@ -9,6 +10,24 @@ export const updateActiveBank =
     ...state,
     banks: state.banks.map((b) => (b.id === state.activeBankId ? updater(b) : b))
   })
+
+export const updateActiveBankWithResult = <Result>(
+  state: WritableStateSource<LearnablesStoreType>,
+  updater: (bank: BankUser) => { updatedBank: BankUser; result: Result }
+): Result => {
+  let helperResult: Result | undefined
+
+  patchState(
+    state,
+    updateActiveBank((bank) => {
+      const { updatedBank, result } = updater(bank)
+      helperResult = result
+      return updatedBank
+    })
+  )
+
+  return helperResult!
+}
 
 export const learnablesMatch = (l1: LearnableBase, l2: LearnableBase) =>
   l1.lexeme === l2.lexeme && l1.translation === l2.translation && l1.type === l2.type

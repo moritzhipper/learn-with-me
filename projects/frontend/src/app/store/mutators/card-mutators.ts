@@ -1,5 +1,11 @@
+import { WritableStateSource } from '@ngrx/signals'
 import { Guess, LearnableBase } from '@shared/types'
-import { mapBaseToFullToLearnables, updateActiveBank } from './mutator-utils'
+import { LearnablesStoreType } from '../../types/types'
+import {
+  mapBaseToFullToLearnables,
+  updateActiveBank,
+  updateActiveBankWithResult
+} from './mutator-utils'
 
 type CardUpdater = {
   id: string
@@ -25,6 +31,35 @@ export const createCard = (learnablesBase: LearnableBase[]) =>
     return {
       ...b,
       learnables: [...b.learnables, ...fullNew]
+    }
+  })
+
+export const createLearnables = (
+  state: WritableStateSource<LearnablesStoreType>,
+  learnablesBase: LearnableBase[]
+): string[] =>
+  updateActiveBankWithResult(state, (bank) => {
+    const newLearnables = learnablesBase.filter(
+      (learnableBase, index, self) =>
+        self.findIndex(
+          (other) =>
+            other.lexeme === learnableBase.lexeme && other.translation === learnableBase.translation
+        ) === index &&
+        !bank.learnables.some(
+          (learnable) =>
+            learnableBase.lexeme === learnable.lexeme &&
+            learnableBase.translation === learnable.translation
+        )
+    )
+
+    const fullNew = mapBaseToFullToLearnables(newLearnables)
+
+    return {
+      updatedBank: {
+        ...bank,
+        learnables: [...bank.learnables, ...fullNew]
+      },
+      result: fullNew.map((learnable) => learnable.id)
     }
   })
 
