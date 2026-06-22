@@ -4,12 +4,17 @@ import { LearnablesStoreType } from '../../types/types'
 import { initialGuesses } from '../initialStates'
 
 /** Helper to update the active bank in state */
-export const updateActiveBank =
-  (updater: (bank: BankUser) => BankUser) =>
-  (state: LearnablesStoreType): LearnablesStoreType => ({
-    ...state,
-    banks: state.banks.map((b) => (b.id === state.activeBankId ? updater(b) : b))
-  })
+export const updateActiveBank = (
+  state: WritableStateSource<LearnablesStoreType>,
+  updater: (bank: BankUser) => BankUser
+): void =>
+  patchState(state, (currentState) => ({
+    ...currentState,
+    banks: currentState.banks.map((bank) => {
+      if (bank.id !== currentState.activeBankId) return bank
+      return updater(bank)
+    })
+  }))
 
 export const updateActiveBankWithResult = <Result>(
   state: WritableStateSource<LearnablesStoreType>,
@@ -19,10 +24,14 @@ export const updateActiveBankWithResult = <Result>(
 
   patchState(
     state,
-    updateActiveBank((bank) => {
-      const { updatedBank, result } = updater(bank)
-      helperResult = result
-      return updatedBank
+    (currentState): LearnablesStoreType => ({
+      ...currentState,
+      banks: currentState.banks.map((bank) => {
+        if (bank.id !== currentState.activeBankId) return bank
+        const { updatedBank, result } = updater(bank)
+        helperResult = result
+        return updatedBank
+      })
     })
   )
 
