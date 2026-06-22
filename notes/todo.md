@@ -3,18 +3,16 @@
 ## Sunday
 
 - cleanup store, make actions atomar
+  - create state slices, no double method callback mapping
+  - update code to accomondate for chainging + side effects
+  - use results to toast stuss
+
   - crud per resource, with object as config (update for coll has: addIds, removeIds, updateName)
-  - first: cards & collections
   - crud wording for functions
   - no sideffects, just chaining
   - import learnables (rotateIDs option)
-  - add collection
-  - add cards to collection
-  - remove cards from collection
   - actions return id(s) of created items, to allow follow up
-  - do multiple actions concurrently in app code
   - then add to bank and to collection to translate thing
-  - find way to make the mutators return also stats like added adis nor ne collection id and stuff for chaining
 
 # right now: Stats
 

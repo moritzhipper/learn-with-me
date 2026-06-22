@@ -1,4 +1,4 @@
-import { BankBase, BankShareBase, BankUser, LearnableBase, UserLearnable } from '@shared/types'
+import { BankShareBase, BankUser, LearnableBase, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import {
   learnablesLexemeMatch as lLexemeMatch,
@@ -6,70 +6,6 @@ import {
   learnablesTranslationMatch as lTranslationMatch,
   mapBaseToUserLearnable
 } from './mutator-utils'
-
-export const createBank =
-  (base: BankBase) =>
-  (state: LearnablesStoreType): LearnablesStoreType => {
-    const newBank: BankUser = {
-      id: crypto.randomUUID(),
-      name: base.name,
-      createdAt: new Date(),
-      translations: {
-        history: [],
-        tone: '',
-        magicTranslateCards: []
-      },
-      language: base.language,
-      collections: [],
-      learnables: [],
-      practice: {
-        active: null,
-        history: []
-      }
-    }
-
-    return {
-      ...state,
-      activeBankId: newBank.id,
-      banks: [...state.banks, newBank]
-    }
-  }
-
-export const updateBank =
-  (base: BankBase, bankID: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => ({
-    ...state,
-    banks: state.banks.map((b) => (b.id === bankID ? { ...b, ...base } : b))
-  })
-
-export const deleteBank =
-  (id: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => {
-    // do not allow deleting the only bank
-    if (state.banks.length === 1) {
-      console.warn('Cannot delete bank if its the only one.')
-      return state
-    }
-
-    // remove the bank
-    const banks = state.banks.filter((b) => b.id !== id)
-
-    // set id of active bank to existing bank if the active bank is deleted
-    const activeBankId = state.activeBankId !== id ? state.activeBankId : banks[0].id
-
-    return {
-      ...state,
-      banks,
-      activeBankId
-    }
-  }
-
-export const setActiveBank =
-  (id: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => ({
-    ...state,
-    activeBankId: id
-  })
 
 // from here no cleanup happened yet
 // yet to be moved into atomar actions -> those shouldd be atomar state actions chained in state config
