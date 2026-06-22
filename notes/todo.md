@@ -6,13 +6,14 @@
   - create state slices, no double method callback mapping
   - update code to accomondate for chainging + side effects
   - use results to toast stuss
-
+  - add bakc quit practice hwne starting on active present to store
   - crud per resource, with object as config (update for coll has: addIds, removeIds, updateName)
-  - crud wording for functions
   - no sideffects, just chaining
   - import learnables (rotateIDs option)
   - actions return id(s) of created items, to allow follow up
   - then add to bank and to collection to translate thing
+  - reimplement import bank using atomar state functions
+  - migrate last bank methods to bank feature
 
 # right now: Stats
 

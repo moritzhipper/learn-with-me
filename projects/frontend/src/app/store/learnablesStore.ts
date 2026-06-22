@@ -1,7 +1,8 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit'
 import { computed } from '@angular/core'
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
-import { BankBase, BankShareBase, BankUser } from '@shared/types'
+import { BankShareBase, BankUser } from '@shared/types'
+import { withBankCrud } from './features/bank-crud'
 import { withCardsCrud } from './features/cards-crud'
 import { withCollectionsCrud } from './features/collections-crud'
 import { withPracticeFeature } from './features/practice-feature'
@@ -10,12 +11,8 @@ import { initialState } from './initialStates'
 import {
   applyBankUpdates,
   BankMergeSummary,
-  createBank,
-  deleteBank,
   saveImportToNewBank as saveImportAsNewBank,
-  saveImportToActiveBankNew,
-  setActiveBank,
-  updateBank
+  saveImportToActiveBankNew
 } from './mutators/bank-mutators'
 
 export const LearnablesStore = signalStore(
@@ -40,6 +37,7 @@ export const LearnablesStore = signalStore(
   withCollectionsCrud(),
   withPracticeFeature(),
   withTranslateFeature(),
+  withBankCrud(),
   withMethods((state) => {
     return {
       mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
@@ -49,19 +47,6 @@ export const LearnablesStore = signalStore(
       },
       saveBankAsNewBank(importBank: BankShareBase) {
         patchState(state, saveImportAsNewBank(importBank))
-      },
-
-      addBank(base: BankBase) {
-        patchState(state, createBank(base))
-      },
-      updateBank(base: BankBase, bankID: string) {
-        patchState(state, updateBank(base, bankID))
-      },
-      setActiveBank(id: string) {
-        patchState(state, setActiveBank(id))
-      },
-      deleteBank(id: string) {
-        patchState(state, deleteBank(id))
       },
 
       reset() {
