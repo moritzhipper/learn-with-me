@@ -3,13 +3,12 @@ import { LearnablesStoreType } from '../../types/types'
 import { initialGuesses } from '../initialStates'
 
 /** Helper to update the active bank in state */
-export const updateActiveBank = (
-  state: LearnablesStoreType,
-  updater: (bank: BankUser) => BankUser
-): LearnablesStoreType => ({
-  ...state,
-  banks: state.banks.map((b) => (b.id === state.activeBankId ? updater(b) : b))
-})
+export const updateActiveBank =
+  (updater: (bank: BankUser) => BankUser) =>
+  (state: LearnablesStoreType): LearnablesStoreType => ({
+    ...state,
+    banks: state.banks.map((b) => (b.id === state.activeBankId ? updater(b) : b))
+  })
 
 export const learnablesMatch = (l1: LearnableBase, l2: LearnableBase) =>
   l1.lexeme === l2.lexeme && l1.translation === l2.translation && l1.type === l2.type

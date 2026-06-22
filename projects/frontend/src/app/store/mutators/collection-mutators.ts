@@ -22,21 +22,17 @@ export const updateCollectionCardIDs =
     }
   }
 
-export const createCollection =
-  (name: string, cardIds: string[]) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (b) => ({
-      ...b,
-      collections: [...b.collections, createNewCollection(name, cardIds)]
-    }))
+export const createCollection = (name: string, cardIds: string[]) =>
+  updateActiveBank((b) => ({
+    ...b,
+    collections: [...b.collections, createNewCollection(name, cardIds)]
+  }))
 
-export const editCollection =
-  (collectionID: string, addIDs: string[], deleteIDs: string[]) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (b) => ({
-      ...b,
-      collections: b.collections.map(updateCollectionCardIDs(collectionID, addIDs, deleteIDs))
-    }))
+export const editCollection = (collectionID: string, addIDs: string[], deleteIDs: string[]) =>
+  updateActiveBank((b) => ({
+    ...b,
+    collections: b.collections.map(updateCollectionCardIDs(collectionID, addIDs, deleteIDs))
+  }))
 
 export const deleteCollection =
   (id: string, removeCards: boolean) =>
@@ -45,10 +41,10 @@ export const deleteCollection =
     const cardIds = activeBank?.collections.find((c) => c.id === id)?.cardIds ?? []
 
     // Remove the collection
-    const stateWithoutCollection = updateActiveBank(state, (b) => ({
+    const stateWithoutCollection = updateActiveBank((b) => ({
       ...b,
       collections: b.collections.filter((c) => c.id !== id)
-    }))
+    }))(state)
 
     // Optionally remove the cards using shared helper
     if (removeCards && cardIds.length > 0) {
@@ -58,10 +54,8 @@ export const deleteCollection =
     return stateWithoutCollection
   }
 
-export const renameCollection =
-  (name: string, id: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    updateActiveBank(state, (b) => ({
-      ...b,
-      collections: b.collections.map((c) => (c.id === id ? { ...c, name } : c))
-    }))
+export const renameCollection = (name: string, id: string) =>
+  updateActiveBank((b) => ({
+    ...b,
+    collections: b.collections.map((c) => (c.id === id ? { ...c, name } : c))
+  }))

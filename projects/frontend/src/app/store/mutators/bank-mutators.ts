@@ -13,7 +13,7 @@ const removeLearnablesFromBank = (
   state: LearnablesStoreType,
   idsToDelete: string[]
 ): LearnablesStoreType =>
-  updateActiveBank(state, (b) => {
+  updateActiveBank((b) => {
     const shouldResetPractice = !!b.practice.active?.guessables.some((g) =>
       idsToDelete.includes(g.id)
     )
@@ -27,7 +27,7 @@ const removeLearnablesFromBank = (
       })),
       practice: shouldResetPractice ? { ...b.practice, active: null } : b.practice
     }
-  })
+  })(state)
 
 export const removeLearnables =
   (ids: string[]) =>
