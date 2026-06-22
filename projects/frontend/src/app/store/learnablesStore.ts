@@ -7,7 +7,6 @@ import {
   BankUser,
   Guess,
   LearnableBase,
-  LearnableWithId,
   PracticeConfig,
   UserLearnablePartial
 } from '@shared/types'
@@ -17,24 +16,22 @@ import {
   BankMergeSummary,
   createBank,
   deleteBank,
-  removeLearnables,
   saveImportToNewBank as saveImportAsNewBank,
   saveImportToActiveBankNew,
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
-import { createLearnables, importFromTranslate, updateCards } from './mutators/card-mutators'
+import { createCards, deleteCards, updateCards } from './mutators/card-mutators'
 import {
+  CollectionUpdater,
   createCollection,
   deleteCollection,
-  editCollection,
-  renameCollection
+  updateCollection
 } from './mutators/collection-mutators'
 import {
   createPractice,
   endPracticeEarly,
-  savePracticeToHistoryAndReset,
-  setGuess
+  savePracticeToHistoryAndReset
 } from './mutators/practice-mutators'
 import {
   addMagicTranslateCards,
@@ -64,46 +61,52 @@ export const LearnablesStore = signalStore(
   })),
   withMethods((state) => {
     return {
-      addLearnables(learnablesBase: LearnableBase[]) {
-        const ids = createLearnables(state, learnablesBase)
+      createCards(learnablesBase: LearnableBase[]): string[] {
+        const ids = createCards(state, learnablesBase)
         return ids
       },
-      updateLearnables(learnables: UserLearnablePartial[]) {
-        patchState(state, updateCards(learnables))
+      updateCards(learnables: UserLearnablePartial[]) {
+        updateCards(state, learnables)
       },
-      removeLearnables(ids: string[]) {
-        patchState(state, removeLearnables(ids))
+      deleteCards(ids: string[]) {
+        deleteCards(state, ids)
+      },
+      createCollection(name: string, ids: string[]) {
+        createCollection(state, name)
+      },
+      updateCollection(updater: CollectionUpdater) {
+        updateCollection(state, updater)
+      },
+      deleteCollection(id: string) {
+        deleteCollection(state, id)
       },
       startPractice(config: PracticeConfig) {
         // ensure that quit practices are saved to history
-        if (!!state.activeBank().practice.active) patchState(state, endPracticeEarly())
 
-        patchState(state, createPractice(config))
+        if (!!state.activeBank().practice.active) endPracticeEarly(state)
+
+        createPractice(state, config)
       },
       addTranslationHistoryItem(learnable: LearnableBase) {
-        patchState(state, addTranslationHistoryItem(learnable))
+        addTranslationHistoryItem(state, learnable)
       },
       deleteTranslationHistoryItems(ids: string[]) {
-        patchState(state, deleteTranslationHistoryItem(ids))
+        deleteTranslationHistoryItem(state, ids)
       },
       deleteMagicTranslateItems(ids: string[]) {
-        patchState(state, deleteMagicTranslateCards(ids))
+        deleteMagicTranslateCards(state, ids)
       },
       setMagicTranslateCards(cards: LearnableBase[]) {
-        patchState(state, addMagicTranslateCards(cards))
+        addMagicTranslateCards(state, cards)
       },
       updateTranslateTone(tone: string) {
-        patchState(state, setTone(tone))
+        setTone(state, tone)
       },
-      createCollection(name: string, ids: string[]) {
-        patchState(state, createCollection(name, ids))
+
+      editCollectionLearnables(updater: CollectionUpdater) {
+        updateCollection(state, updater)
       },
-      editCollectionLearnables(collectionID: string, addIDs: string[], deleteIDs: string[]) {
-        patchState(state, editCollection(collectionID, addIDs, deleteIDs))
-      },
-      importLearnablesFromTranslate(learnables: LearnableWithId[], collectionID?: string) {
-        patchState(state, importFromTranslate(learnables, collectionID))
-      },
+
       mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
         const result = saveImportToActiveBankNew(state.activeBank(), importBank)
         patchState(state, applyBankUpdates(result.updatedBank))
@@ -112,12 +115,7 @@ export const LearnablesStore = signalStore(
       saveBankAsNewBank(importBank: BankShareBase) {
         patchState(state, saveImportAsNewBank(importBank))
       },
-      editCollection(name: string, id: string) {
-        patchState(state, renameCollection(name, id))
-      },
-      deleteCollection(id: string, removeLearnables: boolean = false) {
-        patchState(state, deleteCollection(id, removeLearnables))
-      },
+
       addBank(base: BankBase) {
         patchState(state, createBank(base))
       },
@@ -131,10 +129,10 @@ export const LearnablesStore = signalStore(
         patchState(state, deleteBank(id))
       },
       quitPracticePrematurly() {
-        patchState(state, endPracticeEarly())
+        endPracticeEarly(state)
       },
       quitPractice() {
-        patchState(state, savePracticeToHistoryAndReset())
+        savePracticeToHistoryAndReset(state)
       },
       setGuess(guess: Guess) {
         patchState(state, setGuess(guess))

@@ -92,7 +92,7 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    this.store.editCollection(result.value, collection.id)
+    this.store.updateCollection(result.value, collection.id)
   }
 
   async openDeleteCollectionModal(collection: CollectionUser): Promise<void> {
@@ -128,7 +128,7 @@ export class OverviewPageFacade {
     if (learnables.length === 0) return false
 
     const countBefore = this.store.learnables().length
-    this.store.addLearnables(learnables)
+    this.store.createCards(learnables)
     const countAfter = this.store.learnables().length
     const addedCount = countAfter - countBefore
 

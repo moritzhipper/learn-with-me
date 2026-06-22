@@ -1,11 +1,7 @@
 import { WritableStateSource } from '@ngrx/signals'
 import { Guess, LearnableBase } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
-import {
-  mapBaseToFullToLearnables,
-  updateActiveBank,
-  updateActiveBankWithResult
-} from './mutator-utils'
+import { mapBaseToFullToLearnables, updateActiveBank } from './mutator-utils'
 
 type CardUpdater = {
   id: string
@@ -15,30 +11,13 @@ type CardUpdater = {
 
 // todo: add rotate ids option for import
 // Report ids of added (always, safety for when regenerated ids) -> when skipped because duplicate, report the old card thing
-export const createCard = (learnablesBase: LearnableBase[]) =>
-  updateActiveBank((b) => {
-    // Filter out duplicates in input and items that already exist in bank
-    const newLearnables = learnablesBase.filter(
-      (lb, index, self) =>
-        self.findIndex(
-          (other) => other.lexeme === lb.lexeme && other.translation === lb.translation
-        ) === index &&
-        !b.learnables.some((l) => lb.lexeme === l.lexeme && lb.translation === l.translation)
-    )
-
-    const fullNew = mapBaseToFullToLearnables(newLearnables)
-
-    return {
-      ...b,
-      learnables: [...b.learnables, ...fullNew]
-    }
-  })
-
-export const createLearnables = (
+export const createCards = (
   state: WritableStateSource<LearnablesStoreType>,
   learnablesBase: LearnableBase[]
-): string[] =>
-  updateActiveBankWithResult(state, (bank) => {
+): string[] => {
+  const newIds: string[] = []
+
+  updateActiveBank(state, (bank) => {
     const newLearnables = learnablesBase.filter(
       (learnableBase, index, self) =>
         self.findIndex(
@@ -55,21 +34,23 @@ export const createLearnables = (
     const fullNew = mapBaseToFullToLearnables(newLearnables)
 
     return {
-      updatedBank: {
-        ...bank,
-        learnables: [...bank.learnables, ...fullNew]
-      },
-      result: fullNew.map((learnable) => learnable.id)
+      ...bank,
+      learnables: [...bank.learnables, ...fullNew]
     }
   })
+  return newIds
+}
 
 const updateGuesses = (guesses: boolean[], guess?: Guess): boolean[] => {
   if (!guess) return guesses
   return [...guesses.slice(1), guess === 'right']
 }
 
-export const updateCards = (cards: CardUpdater[]) =>
-  updateActiveBank((b) => ({
+export const updateCards = (
+  state: WritableStateSource<LearnablesStoreType>,
+  cards: CardUpdater[]
+) =>
+  updateActiveBank(state, (b) => ({
     ...b,
     learnables: b.learnables.map((l) => {
       const updateVals = cards.find((ul) => ul.id === l.id)
@@ -89,8 +70,8 @@ export const updateCards = (cards: CardUpdater[]) =>
     })
   }))
 
-export const deleteLearnables = (ids: string[]) =>
-  updateActiveBank((b) => {
+export const deleteCards = (state: WritableStateSource<LearnablesStoreType>, ids: string[]) =>
+  updateActiveBank(state, (b) => {
     const updatedLearnables = b.learnables.filter((l) => !ids.includes(l.id))
     const updatedCollections = b.collections.map((c) => ({
       ...c,

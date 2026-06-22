@@ -1,8 +1,13 @@
+import { WritableStateSource } from '@ngrx/signals'
 import { LearnableBase, LearnableWithId } from '@shared/types'
+import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
-export const addTranslationHistoryItem = (base: LearnableBase) =>
-  updateActiveBank((b) => {
+export const addTranslationHistoryItem = (
+  state: WritableStateSource<LearnablesStoreType>,
+  base: LearnableBase
+) =>
+  updateActiveBank(state, (b) => {
     const maxItems = 20
     const newItem: LearnableWithId = {
       ...base,
@@ -18,8 +23,11 @@ export const addTranslationHistoryItem = (base: LearnableBase) =>
     }
   })
 
-export const addMagicTranslateCards = (cards: LearnableBase[]) =>
-  updateActiveBank((b) => {
+export const addMagicTranslateCards = (
+  state: WritableStateSource<LearnablesStoreType>,
+  cards: LearnableBase[]
+) =>
+  updateActiveBank(state, (b) => {
     const cardsWithIds = cards.map((c) => ({ ...c, id: crypto.randomUUID() }))
 
     return {
@@ -31,8 +39,11 @@ export const addMagicTranslateCards = (cards: LearnableBase[]) =>
     }
   })
 
-export const deleteTranslationHistoryItem = (ids: string[]) =>
-  updateActiveBank((b) => {
+export const deleteTranslationHistoryItem = (
+  state: WritableStateSource<LearnablesStoreType>,
+  ids: string[]
+) =>
+  updateActiveBank(state, (b) => {
     const newHistory = b.translations.history.filter((item) => !ids.includes(item.id))
     return {
       ...b,
@@ -43,8 +54,11 @@ export const deleteTranslationHistoryItem = (ids: string[]) =>
     }
   })
 
-export const deleteMagicTranslateCards = (ids: string[]) =>
-  updateActiveBank((b) => {
+export const deleteMagicTranslateCards = (
+  state: WritableStateSource<LearnablesStoreType>,
+  ids: string[]
+) =>
+  updateActiveBank(state, (b) => {
     const newCards = b.translations.magicTranslateCards.filter((item) => !ids.includes(item.id))
     return {
       ...b,
@@ -55,8 +69,8 @@ export const deleteMagicTranslateCards = (ids: string[]) =>
     }
   })
 
-export const setTone = (tone: string) =>
-  updateActiveBank((b) => ({
+export const setTone = (state: WritableStateSource<LearnablesStoreType>, tone: string) =>
+  updateActiveBank(state, (b) => ({
     ...b,
     translations: {
       ...b.translations,

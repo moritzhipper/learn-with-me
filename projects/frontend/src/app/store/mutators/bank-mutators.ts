@@ -71,6 +71,10 @@ export const setActiveBank =
     activeBankId: id
   })
 
+// from here no cleanup happened yet
+// yet to be moved into atomar actions -> those shouldd be atomar state actions chained in state config
+// sideeffects are not cool :()
+
 export const saveImportToNewBank =
   (bank: BankShareBase) =>
   (state: LearnablesStoreType): LearnablesStoreType => {

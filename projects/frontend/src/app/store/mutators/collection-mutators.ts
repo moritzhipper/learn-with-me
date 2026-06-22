@@ -1,3 +1,5 @@
+import { WritableStateSource } from '@ngrx/signals'
+import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
 type CollectionUpdater = {
@@ -7,8 +9,8 @@ type CollectionUpdater = {
   name?: string
 }
 
-export const createCollection = (name: string) =>
-  updateActiveBank((b) => ({
+export const createCollection = (state: WritableStateSource<LearnablesStoreType>, name: string) =>
+  updateActiveBank(state, (b) => ({
     ...b,
     collections: [
       ...b.collections,
@@ -21,8 +23,11 @@ export const createCollection = (name: string) =>
     ]
   }))
 
-export const updateCollection = (update: CollectionUpdater) =>
-  updateActiveBank((b) => ({
+export const updateCollection = (
+  state: WritableStateSource<LearnablesStoreType>,
+  update: CollectionUpdater
+) =>
+  updateActiveBank(state, (b) => ({
     ...b,
     collections: b.collections.map((c) => {
       if (c.id !== update.id) return c
@@ -36,8 +41,8 @@ export const updateCollection = (update: CollectionUpdater) =>
     })
   }))
 
-export const deleteCollection = (id: string) =>
-  updateActiveBank((b) => ({
+export const deleteCollection = (state: WritableStateSource<LearnablesStoreType>, id: string) =>
+  updateActiveBank(state, (b) => ({
     ...b,
     collections: b.collections.filter((c) => c.id !== id)
   }))

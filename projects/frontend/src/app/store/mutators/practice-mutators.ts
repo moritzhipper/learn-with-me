@@ -1,9 +1,13 @@
+import { WritableStateSource } from '@ngrx/signals'
 import { Guessable, PracticeConfig } from '@shared/types'
+import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from './mutator-utils'
 
-export const createPractice = (config: PracticeConfig) =>
-  updateActiveBank((b) => {
-    // randomize order of ids to prevent memorization of order
+export const createPractice = (
+  state: WritableStateSource<LearnablesStoreType>,
+  config: PracticeConfig
+) =>
+  updateActiveBank(state, (b) => {
     const shuffledIds = schwarzianShuffle(config.learnableIDs)
     const guessables: Guessable[] = shuffledIds.map((id) => ({
       id,
@@ -56,8 +60,8 @@ export const createPractice = (config: PracticeConfig) =>
     }
   })
 
-export const endPracticeEarly = () =>
-  updateActiveBank((b) => {
+export const endPracticeEarly = (state: WritableStateSource<LearnablesStoreType>) =>
+  updateActiveBank(state, (b) => {
     const currentPractice = b.practice.active
     if (!currentPractice) return b
 
@@ -76,8 +80,8 @@ export const endPracticeEarly = () =>
     }
   })
 
-export const savePracticeToHistoryAndReset = () =>
-  updateActiveBank((b) => {
+export const savePracticeToHistoryAndReset = (state: WritableStateSource<LearnablesStoreType>) =>
+  updateActiveBank(state, (b) => {
     const currentPractice = b.practice.active
     if (!currentPractice) return b
     return {
