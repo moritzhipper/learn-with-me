@@ -23,7 +23,7 @@ import {
   setActiveBank,
   updateBank
 } from './mutators/bank-mutators'
-import { createLearnables, importFromTranslate, updateLearnables } from './mutators/card-mutators'
+import { createCard, importFromTranslate, updateCards } from './mutators/card-mutators'
 import {
   createCollection,
   deleteCollection,
@@ -31,10 +31,10 @@ import {
   renameCollection
 } from './mutators/collection-mutators'
 import {
-  quitPracticeEarly,
-  removePractice,
-  setGuess,
-  startPractice
+  createPractice,
+  endPracticeEarly,
+  savePracticeToHistoryAndReset,
+  setGuess
 } from './mutators/practice-mutators'
 import {
   addMagicTranslateCards,
@@ -65,19 +65,19 @@ export const LearnablesStore = signalStore(
   withMethods((state) => {
     return {
       addLearnables(learnablesBase: LearnableBase[]) {
-        patchState(state, createLearnables(learnablesBase))
+        patchState(state, createCard(learnablesBase))
       },
       updateLearnables(learnables: UserLearnablePartial[]) {
-        patchState(state, updateLearnables(learnables))
+        patchState(state, updateCards(learnables))
       },
       removeLearnables(ids: string[]) {
         patchState(state, removeLearnables(ids))
       },
       startPractice(config: PracticeConfig) {
         // ensure that quit practices are saved to history
-        if (!!state.activeBank().practice.active) patchState(state, quitPracticeEarly())
+        if (!!state.activeBank().practice.active) patchState(state, endPracticeEarly())
 
-        patchState(state, startPractice(config))
+        patchState(state, createPractice(config))
       },
       addTranslationHistoryItem(learnable: LearnableBase) {
         patchState(state, addTranslationHistoryItem(learnable))
@@ -130,10 +130,10 @@ export const LearnablesStore = signalStore(
         patchState(state, deleteBank(id))
       },
       quitPracticePrematurly() {
-        patchState(state, quitPracticeEarly())
+        patchState(state, endPracticeEarly())
       },
       quitPractice() {
-        patchState(state, removePractice())
+        patchState(state, savePracticeToHistoryAndReset())
       },
       setGuess(guess: Guess) {
         patchState(state, setGuess(guess))

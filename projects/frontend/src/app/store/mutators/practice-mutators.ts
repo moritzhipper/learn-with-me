@@ -1,39 +1,7 @@
-import { Guess, Guessable, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
+import { Guessable, PracticeConfig } from '@shared/types'
 import { updateActiveBank } from './mutator-utils'
 
-export const addGuessToLearnable = (
-  learnable: UserLearnable,
-  guess: Guess,
-  direction: PracticeActive['direction']
-): UserLearnable => {
-  const updateGuesses = (guesses: boolean[], isCorrect: boolean): boolean[] => [
-    ...guesses.slice(1),
-    isCorrect
-  ]
-
-  if (direction === 'forward') {
-    return {
-      ...learnable,
-      guesses: {
-        ...learnable.guesses,
-        translation: updateGuesses(learnable.guesses.translation, guess === 'right')
-      }
-    }
-  } else {
-    return {
-      ...learnable,
-      guesses: {
-        ...learnable.guesses,
-        lexeme: updateGuesses(learnable.guesses.lexeme, guess === 'right')
-      }
-    }
-  }
-}
-
-export const updateGuessables = (guessables: Guessable[], id: string, guess: Guess): Guessable[] =>
-  guessables.map((g) => (g.id === id ? { ...g, guess } : g))
-
-export const startPractice = (config: PracticeConfig) =>
+export const createPractice = (config: PracticeConfig) =>
   updateActiveBank((b) => {
     // randomize order of ids to prevent memorization of order
     const shuffledIds = schwarzianShuffle(config.learnableIDs)
@@ -88,35 +56,7 @@ export const startPractice = (config: PracticeConfig) =>
     }
   })
 
-export const setGuess = (guess: Guess) =>
-  updateActiveBank((b) => {
-    // no practice running
-    const practice = b.practice.active
-    if (!practice) return b
-
-    // practice already finished
-    const currentGuessable = practice.guessables[practice.guessableIndex]
-    if (!currentGuessable) return b
-
-    const updatedlearnables = b.learnables.map((l) =>
-      l.id === currentGuessable.id ? addGuessToLearnable(l, guess, practice.direction) : l
-    )
-
-    return {
-      ...b,
-      learnables: updatedlearnables,
-      practice: {
-        ...b.practice,
-        active: {
-          ...practice,
-          guessableIndex: practice.guessableIndex + 1,
-          guessables: updateGuessables(practice.guessables, currentGuessable.id, guess)
-        }
-      }
-    }
-  })
-
-export const quitPracticeEarly = () =>
+export const endPracticeEarly = () =>
   updateActiveBank((b) => {
     const currentPractice = b.practice.active
     if (!currentPractice) return b
@@ -136,7 +76,7 @@ export const quitPracticeEarly = () =>
     }
   })
 
-export const removePractice = () =>
+export const savePracticeToHistoryAndReset = () =>
   updateActiveBank((b) => {
     const currentPractice = b.practice.active
     if (!currentPractice) return b
