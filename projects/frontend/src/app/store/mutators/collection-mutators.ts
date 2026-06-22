@@ -1,61 +1,43 @@
-import { CollectionUser } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
-import { removeLearnables } from './bank-mutators'
 import { updateActiveBank } from './mutator-utils'
 
-const createNewCollection = (name: string, cardIds: string[]): CollectionUser => ({
-  id: crypto.randomUUID(),
-  createdAt: new Date(),
-  name,
-  cardIds
-})
+type CollectionUpdater = {
+  id: string
+  deleteIDs?: string[]
+  addIDs?: string[]
+  name?: string
+}
 
-export const updateCollectionCardIDs =
-  (collectionID?: string, addIDs: string[] = [], deleteIDs: string[] = []) =>
-  (collection: CollectionUser) => {
-    if (collection.id !== collectionID) return collection
-    return {
-      ...collection,
-      cardIds: [...new Set([...collection.cardIds, ...addIDs])].filter(
-        (cardId) => !deleteIDs.includes(cardId)
-      )
-    }
-  }
-
-export const createCollection = (name: string, cardIds: string[]) =>
+export const createCollection = (name: string) =>
   updateActiveBank((b) => ({
     ...b,
-    collections: [...b.collections, createNewCollection(name, cardIds)]
+    collections: [
+      ...b.collections,
+      {
+        id: crypto.randomUUID(),
+        createdAt: new Date(),
+        name,
+        cardIds: []
+      }
+    ]
   }))
 
-export const editCollection = (collectionID: string, addIDs: string[], deleteIDs: string[]) =>
+export const updateCollection = (update: CollectionUpdater) =>
   updateActiveBank((b) => ({
     ...b,
-    collections: b.collections.map(updateCollectionCardIDs(collectionID, addIDs, deleteIDs))
+    collections: b.collections.map((c) => {
+      if (c.id !== update.id) return c
+      return {
+        ...c,
+        name: update.name ?? c.name,
+        cardIds: [...new Set([...(update.addIDs ?? []), ...c.cardIds])].filter(
+          (id) => !(update.deleteIDs ?? []).includes(id)
+        )
+      }
+    })
   }))
 
-export const deleteCollection =
-  (id: string, removeCards: boolean) =>
-  (state: LearnablesStoreType): LearnablesStoreType => {
-    const activeBank = state.banks.find((b) => b.id === state.activeBankId)
-    const cardIds = activeBank?.collections.find((c) => c.id === id)?.cardIds ?? []
-
-    // Remove the collection
-    const stateWithoutCollection = updateActiveBank((b) => ({
-      ...b,
-      collections: b.collections.filter((c) => c.id !== id)
-    }))(state)
-
-    // Optionally remove the cards using shared helper
-    if (removeCards && cardIds.length > 0) {
-      return removeLearnables(cardIds)(stateWithoutCollection)
-    }
-
-    return stateWithoutCollection
-  }
-
-export const renameCollection = (name: string, id: string) =>
+export const deleteCollection = (id: string) =>
   updateActiveBank((b) => ({
     ...b,
-    collections: b.collections.map((c) => (c.id === id ? { ...c, name } : c))
+    collections: b.collections.filter((c) => c.id !== id)
   }))

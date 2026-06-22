@@ -4,71 +4,8 @@ import {
   learnablesLexemeMatch as lLexemeMatch,
   learnablesMatch as lMatch,
   learnablesTranslationMatch as lTranslationMatch,
-  mapBaseToUserLearnable,
-  updateActiveBank
+  mapBaseToUserLearnable
 } from './mutator-utils'
-
-// Remove learnables from the active bank
-const removeLearnablesFromBank = (
-  state: LearnablesStoreType,
-  idsToDelete: string[]
-): LearnablesStoreType =>
-  updateActiveBank((b) => {
-    const shouldResetPractice = !!b.practice.active?.guessables.some((g) =>
-      idsToDelete.includes(g.id)
-    )
-
-    return {
-      ...b,
-      learnables: b.learnables.filter((l) => !idsToDelete.includes(l.id)),
-      collections: b.collections.map((c) => ({
-        ...c,
-        cardIds: c.cardIds.filter((cardId) => !idsToDelete.includes(cardId))
-      })),
-      practice: shouldResetPractice ? { ...b.practice, active: null } : b.practice
-    }
-  })(state)
-
-export const removeLearnables =
-  (ids: string[]) =>
-  (state: LearnablesStoreType): LearnablesStoreType =>
-    removeLearnablesFromBank(state, ids)
-
-export const updateBank =
-  (base: BankBase, bankID: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => ({
-    ...state,
-    banks: state.banks.map((b) => (b.id === bankID ? { ...b, ...base } : b))
-  })
-
-export const setActiveBank =
-  (id: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => ({
-    ...state,
-    activeBankId: id
-  })
-
-export const deleteBank =
-  (id: string) =>
-  (state: LearnablesStoreType): LearnablesStoreType => {
-    // do not allow deleting the only bank
-    if (state.banks.length === 1) {
-      console.warn('Cannot delete bank if its the only one.')
-      return state
-    }
-
-    // remove the bank
-    const banks = state.banks.filter((b) => b.id !== id)
-
-    // set id of active bank to existing bank if the active bank is deleted
-    const activeBankId = state.activeBankId !== id ? state.activeBankId : banks[0].id
-
-    return {
-      ...state,
-      banks,
-      activeBankId
-    }
-  }
 
 export const createBank =
   (base: BankBase) =>
@@ -97,6 +34,42 @@ export const createBank =
       banks: [...state.banks, newBank]
     }
   }
+
+export const updateBank =
+  (base: BankBase, bankID: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType => ({
+    ...state,
+    banks: state.banks.map((b) => (b.id === bankID ? { ...b, ...base } : b))
+  })
+
+export const deleteBank =
+  (id: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType => {
+    // do not allow deleting the only bank
+    if (state.banks.length === 1) {
+      console.warn('Cannot delete bank if its the only one.')
+      return state
+    }
+
+    // remove the bank
+    const banks = state.banks.filter((b) => b.id !== id)
+
+    // set id of active bank to existing bank if the active bank is deleted
+    const activeBankId = state.activeBankId !== id ? state.activeBankId : banks[0].id
+
+    return {
+      ...state,
+      banks,
+      activeBankId
+    }
+  }
+
+export const setActiveBank =
+  (id: string) =>
+  (state: LearnablesStoreType): LearnablesStoreType => ({
+    ...state,
+    activeBankId: id
+  })
 
 export const saveImportToNewBank =
   (bank: BankShareBase) =>

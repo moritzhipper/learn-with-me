@@ -1,8 +1,9 @@
-import { LearnableBase, LearnableWithId, UserLearnablePartial } from '@shared/types'
-import { updateCollectionCardIDs } from './collection-mutators'
+import { LearnableBase, UserLearnablePartial } from '@shared/types'
 import { mapBaseToFullToLearnables, updateActiveBank } from './mutator-utils'
 
-export const saveLearnables = (learnablesBase: LearnableBase[]) =>
+// todo: add rotate ids option for import
+// Report ids of added (always, safety for when regenerated ids) -> when skipped because duplicate, report the old card thing
+export const createLearnables = (learnablesBase: LearnableBase[]) =>
   updateActiveBank((b) => {
     // Filter out duplicates in input and items that already exist in bank
     const newLearnables = learnablesBase.filter(
@@ -21,18 +22,6 @@ export const saveLearnables = (learnablesBase: LearnableBase[]) =>
     }
   })
 
-export const importFromTranslate = (learnablesBase: LearnableWithId[], collectionID?: string) =>
-  updateActiveBank((b) => {
-    const learnableIds = learnablesBase.map((l) => l.id)
-    const fullNew = mapBaseToFullToLearnables(learnablesBase)
-
-    return {
-      ...b,
-      collections: b.collections.map(updateCollectionCardIDs(collectionID, learnableIds)),
-      learnables: [...fullNew, ...b.learnables]
-    }
-  })
-
 export const updateLearnables = (updatedL: UserLearnablePartial[]) =>
   updateActiveBank((b) => ({
     ...b,
@@ -42,3 +31,20 @@ export const updateLearnables = (updatedL: UserLearnablePartial[]) =>
       return { ...l, ...updated }
     })
   }))
+
+export const deleteLearnables = (ids: string[]) =>
+  updateActiveBank((b) => {
+    const updatedLearnables = b.learnables.filter((l) => !ids.includes(l.id))
+    const updatedCollections = b.collections.map((c) => ({
+      ...c,
+      cardIds: c.cardIds.filter((cardId) => !ids.includes(cardId))
+    }))
+
+    const practiceHoldsDeleted = !!b.practice.active?.guessables.some((g) => ids.includes(g.id))
+    return {
+      ...b,
+      learnables: updatedLearnables,
+      collections: updatedCollections,
+      practice: practiceHoldsDeleted ? { ...b.practice, active: null } : b.practice
+    }
+  })
