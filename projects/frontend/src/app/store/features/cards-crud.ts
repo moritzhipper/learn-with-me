@@ -7,14 +7,14 @@ type CardUpdater = {
   id: string
   addGuessTranslation?: Guess
   addGuessLexeme?: Guess
-} & Partial<Pick<LearnableBase, 'lexeme' | 'translation' | 'type' | 'notes'>>
+} & Partial<LearnableBase>
 
 const updateGuesses = (guesses: boolean[], guess?: Guess): boolean[] => {
   if (!guess) return guesses
   return [...guesses.slice(1), guess === 'right']
 }
 
-export const withCardsCrud = () =>
+export const withCardsCrud = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({

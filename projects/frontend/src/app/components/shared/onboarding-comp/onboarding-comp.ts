@@ -56,6 +56,6 @@ export class OnboardingComp {
       name: 'My First Language Bank',
       language
     }
-    this._lStore.addBank(bank)
+    this._lStore.createBank(bank)
   }
 }

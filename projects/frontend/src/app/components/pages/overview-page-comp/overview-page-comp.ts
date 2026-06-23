@@ -141,11 +141,6 @@ export class OverviewComp {
       this.selectedLearnableIds(),
       this.selectedCollection()
     )
-    this.selectNewestIfAdded(cardsAdded)
-  }
-
-  private selectNewestIfAdded(cardsAdded: boolean) {
-    if (cardsAdded) this.selectNewest()
   }
 
   addVisibleToSelection() {

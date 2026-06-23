@@ -80,9 +80,19 @@ export class ActivePracticeComp {
   }
 
   setGuess(guess: Guess) {
-    if (this.isFinished()) return
+    const practice = this.currentPractice()
+    const currentCardID = practice.guessables[practice.guessableIndex]?.id
+    if (this.isFinished() || !currentCardID) return
 
-    this._lStore.setGuess(guess)
+    this._lStore.setGuessToPractice(guess)
+    const direction = practice.direction
+
+    if (direction === 'guessTranslation') {
+      this._lStore.updateCards([{ id: currentCardID, addGuessTranslation: guess }])
+    } else if (direction === 'guessLexeme') {
+      this._lStore.updateCards([{ id: currentCardID, addGuessLexeme: guess }])
+    }
+
     this.lastGuessOutcome.set(guess)
     this.cardState.set('hidden')
     this.statsOpen.set(false)
@@ -90,10 +100,10 @@ export class ActivePracticeComp {
 
   quit() {
     if (this.isFinished()) {
-      this._lStore.quitPractice()
+      this._lStore.resetPracticeAndSaveToHistory()
     } else {
       this.lastGuessOutcome.set('wrong')
-      this._lStore.quitPracticePrematurly()
+      this._lStore.endPracticePrematurely()
     }
   }
 
@@ -137,7 +147,7 @@ export class ActivePracticeComp {
   }
 
   updateNotes({ id, newNotes }: { id: string; newNotes: string }) {
-    this._lStore.updateLearnables([{ id, notes: newNotes }])
+    this._lStore.updateCards([{ id, notes: newNotes }])
   }
 
   trackCard(c: CardViewModel) {

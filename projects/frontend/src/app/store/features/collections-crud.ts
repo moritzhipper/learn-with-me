@@ -13,19 +13,21 @@ export const withCollectionsCrud = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({
-      createCollection(name: string) {
+      createCollection(name: string): string {
+        const newId = crypto.randomUUID()
         updateActiveBank(store, (b) => ({
           ...b,
           collections: [
             ...b.collections,
             {
-              id: crypto.randomUUID(),
+              id: newId,
               createdAt: new Date(),
               name,
               cardIds: []
             }
           ]
         }))
+        return newId
       },
       updateCollection(update: CollectionUpdater) {
         updateActiveBank(store, (b) => ({

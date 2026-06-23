@@ -98,11 +98,17 @@ export class PracticeQuickActions {
       return
     }
 
-    const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
-      hasActicePractice: !!this.ls.activeBank().practice.active
-    })
+    const hasActivePractice = !!this.ls.activeBank().practice.active
 
+    const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
+      hasActivePractice
+    })
     if (response.type === 'cancel') return
+
+    if (hasActivePractice) {
+      this.ls.resetPracticeAndSaveToHistory()
+    }
+
     const direction = response.value.direction
 
     // Start new with action config, then redirect

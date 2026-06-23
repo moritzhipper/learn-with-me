@@ -1,8 +1,8 @@
-@let forward = direction() === 'forward';
+@let guessTranslation = direction() === 'guessTranslation';
 @let card = learnable();
 <div class="wrapper">
-  <p class="top size-3">{{ forward ? card.lexeme : card.translation }}</p>
-  <p class="bottom size-3">{{ forward ? card.translation : card.lexeme }}</p>
+  <p class="top size-3">{{ guessTranslation ? card.lexeme : card.translation }}</p>
+  <p class="bottom size-3">{{ guessTranslation ? card.translation : card.lexeme }}</p>
   <textarea
     class="notes"
     placeholder="no notes"

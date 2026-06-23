@@ -1,5 +1,5 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guessable, PracticeConfig } from '@shared/types'
+import { Guess, Guessable, PracticeConfig } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
@@ -8,6 +8,11 @@ const schwarzianShuffle = <T>(array: T[]): T[] => {
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
+}
+
+const updateGuesses = (guesses: boolean[], guess: Guess): boolean[] => {
+  if (!guess) return guesses
+  return [...guesses.slice(1), guess === 'right']
 }
 
 export const withPracticeFeature = <_>() =>
@@ -68,7 +73,7 @@ export const withPracticeFeature = <_>() =>
           }
         })
       },
-      endPracticePrematurly() {
+      endPracticePrematurely() {
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
@@ -88,7 +93,32 @@ export const withPracticeFeature = <_>() =>
           }
         })
       },
-      resetPractiveAndSaveToHistory() {
+      setGuessToPractice(guess: Guess) {
+        // update card -> do in other mutator
+
+        updateActiveBank(store, (b) => {
+          const currentPractice = b.practice.active
+          if (!currentPractice) return b
+
+          const cardIndex = currentPractice.guessableIndex
+          const updatedGuessables = currentPractice.guessables.map((g, index) =>
+            index === cardIndex ? { ...g, guess } : g
+          )
+
+          return {
+            ...b,
+            practice: {
+              ...b.practice,
+              active: {
+                ...currentPractice,
+                guessableIndex: cardIndex + 1,
+                guessables: updatedGuessables
+              }
+            }
+          }
+        })
+      },
+      resetPracticeAndSaveToHistory() {
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b

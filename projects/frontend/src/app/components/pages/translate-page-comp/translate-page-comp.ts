@@ -119,9 +119,18 @@ export class TranslatePageComp {
     })
 
     if (result.type === 'cancel') return
-    if (result.value.createName) {
-    }
-    alert('implement crudo store adapters')
+
+    // create collection user wishes creation of new one
+    const collectionID =
+      'addToId' in result.value
+        ? result.value.addToId
+        : this.ls.createCollection(result.value.createName)
+
+    // import cards
+    const cardIDs = this.ls.createCards(selectedCards)
+
+    // add to collection
+    this.ls.updateCollection({ id: collectionID, addIDs: cardIDs })
 
     this.toastS.showToast('Cards imported successfully!')
   }

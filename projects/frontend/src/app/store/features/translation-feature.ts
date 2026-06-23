@@ -3,7 +3,7 @@ import { LearnableBase, LearnableWithId } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
-export const withCollectionsCrud = <_>() =>
+export const withTranslateFeature = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({

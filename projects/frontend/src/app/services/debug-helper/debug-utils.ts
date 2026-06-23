@@ -77,7 +77,7 @@ const buildCollectionPractices = (
     guessableIndex: collection.cardIds.length,
     guessables: toGuessables(collection.cardIds, practiceIndex),
     learnableIDs: collection.cardIds,
-    direction: 'forward'
+    direction: 'guessTranslation'
   }))
 
 const buildCustomPractices = (
@@ -91,7 +91,7 @@ const buildCustomPractices = (
     guessableIndex: learnableIds.length,
     guessables: toGuessables(learnableIds, practiceIndex + 1),
     learnableIDs: learnableIds,
-    direction: 'forward'
+    direction: 'guessTranslation'
   }))
 }
 

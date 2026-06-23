@@ -15,6 +15,12 @@
   - reimplement import bank using atomar state functions
   - migrate last bank methods to bank feature
 
+##
+
+Allow to put in german or dutch, making the card always be correct and translation working
+
+- > add switch icon to center
+
 # right now: Stats
 
 - put end of practice stickers somewhere prominent on ollection

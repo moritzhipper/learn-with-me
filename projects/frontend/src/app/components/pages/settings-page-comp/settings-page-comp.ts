@@ -56,7 +56,7 @@ export class SettingsComp {
     }
   })
 
-  addDebug = this.debugHelper.seedDebugBank
+  addDebug = () => this.debugHelper.seedDebugBank()
 
   async reset() {
     const { banks, collections, learnables } = this.stats()
@@ -74,7 +74,7 @@ export class SettingsComp {
     const result = await this._modalService.open<BankBase>('edit-bank')
     if (result.type !== 'confirm') return
 
-    this._languageS.addBank(result.value)
+    this._languageS.createBank(result.value)
   }
 
   setActiveBank(id: string) {
