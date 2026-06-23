@@ -2,7 +2,6 @@ import { Component, computed, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
-import { mockUserBanks } from '@shared/testing/mockBanks'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { AnimDelay } from '../../../services/anim-delay'
@@ -56,12 +55,11 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 export class SharePageComp {
   private readonly _toastS = inject(ToastService)
   private readonly _shareBanksS = inject(ShareBanksService)
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly _apiS = inject(ApiService)
-  private readonly bankLanguage = computed(() => this._lStore.activeBank().language)
+  private readonly bankLanguage = computed(() => this.ls.activeBank().language)
   protected readonly MAX_PREVIEW_BANKS = 8
 
-  protected userBanks: BankShareViaDB[] = mockUserBanks(3)
   protected fetchState = signal<ApiFetchState>('idle')
 
   fetchBankPreviews = rxMethod<void>(

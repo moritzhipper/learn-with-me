@@ -30,7 +30,7 @@ import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
 })
 export class SettingsComp {
   private readonly _settingsS = inject(SettingsStore)
-  private readonly _languageS = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly _modalService = inject(ModalService)
   private readonly _toastS = inject(ToastService)
   private readonly _sharedBankS = inject(ShareBanksService)
@@ -39,16 +39,12 @@ export class SettingsComp {
   protected tokensUsed = this._settingsS.tokensUsed
   protected apiKey = this._settingsS.apiKey
 
-  protected banks = this._languageS.banks
-  protected activeBankId = computed(() => this._languageS.activeBank().id)
+  protected banks = this.ls.banks
+  protected activeBankId = computed(() => this.ls.activeBank().id)
   protected stats = computed(() => {
-    const banksCount = this._languageS.banks().length
-    const collectionsCount = this._languageS
-      .banks()
-      .reduce((acc, bank) => acc + bank.collections.length, 0)
-    const learnablesCount = this._languageS
-      .banks()
-      .reduce((acc, bank) => acc + bank.learnables.length, 0)
+    const banksCount = this.ls.banks().length
+    const collectionsCount = this.ls.banks().reduce((acc, bank) => acc + bank.collections.length, 0)
+    const learnablesCount = this.ls.banks().reduce((acc, bank) => acc + bank.learnables.length, 0)
     return {
       banks: pluralize(banksCount, 'bank'),
       collections: pluralize(collectionsCount, 'collection'),
@@ -66,7 +62,7 @@ export class SettingsComp {
     })
 
     if (result.type !== 'confirm') return
-    this._languageS.reset()
+    this.ls.reset()
     this._settingsS.reset()
   }
 
@@ -74,11 +70,11 @@ export class SettingsComp {
     const result = await this._modalService.open<BankBase>('edit-bank')
     if (result.type !== 'confirm') return
 
-    this._languageS.createBank(result.value)
+    this.ls.createBank(result.value)
   }
 
   setActiveBank(id: string) {
-    this._languageS.setActiveBank(id)
+    this.ls.setActiveBank(id)
   }
 
   async editBank(bank: BankUser) {
@@ -87,7 +83,7 @@ export class SettingsComp {
     })
     if (result.type !== 'confirm') return
 
-    this._languageS.updateBank(result.value, bank.id)
+    this.ls.updateBank(result.value, bank.id)
   }
 
   async shareBank(bank: BankUser) {
@@ -95,7 +91,7 @@ export class SettingsComp {
   }
 
   async deleteBank(id: string) {
-    if (this._languageS.banks().length === 1) {
+    if (this.ls.banks().length === 1) {
       this._toastS.showToast({
         type: 'error',
         message: `You can not delete the only Bank.`
@@ -109,7 +105,7 @@ export class SettingsComp {
 
     if (result.type !== 'confirm') return
 
-    this._languageS.deleteBank(id)
+    this.ls.deleteBank(id)
   }
 
   downloadBank(bank: BankUser) {

@@ -21,7 +21,7 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 export class OnboardingComp {
   protected readonly activeIndex = signal(0)
   private readonly _settings = inject(SettingsStore)
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
 
   protected apiKey = this._settings.apiKey
 
@@ -56,6 +56,6 @@ export class OnboardingComp {
       name: 'My First Language Bank',
       language
     }
-    this._lStore.createBank(bank)
+    this.ls.createBank(bank)
   }
 }

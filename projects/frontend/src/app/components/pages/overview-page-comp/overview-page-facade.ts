@@ -17,7 +17,7 @@ import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collect
   providedIn: 'root'
 })
 export class OverviewPageFacade {
-  private readonly store = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)
   private readonly shareBanksS = inject(ShareBanksService)
@@ -30,7 +30,7 @@ export class OverviewPageFacade {
     selectedLearnableIds: string[],
     selectedCollection: CollectionUser | null
   ): Promise<void> {
-    const learnables = this.store.learnables().filter((l) => selectedLearnableIds.includes(l.id))
+    const learnables = this.ls.learnables().filter((l) => selectedLearnableIds.includes(l.id))
 
     const result = await this.modalService.open<ConfirmationType>('bulk-edit', {
       learnables
@@ -39,12 +39,12 @@ export class OverviewPageFacade {
     if (result.type !== 'confirm') return
 
     const { update, deleteIDs, add } = result.value
-    this.store.updateCards(update)
-    this.store.deleteCards(deleteIDs)
+    this.ls.updateCards(update)
+    this.ls.deleteCards(deleteIDs)
 
-    const newIds = this.store.createCards(add)
+    const newIds = this.ls.createCards(add)
     if (selectedCollection) {
-      this.store.updateCollection({ id: selectedCollection.id, addIDs: newIds })
+      this.ls.updateCollection({ id: selectedCollection.id, addIDs: newIds })
     }
   }
 
@@ -60,7 +60,7 @@ export class OverviewPageFacade {
     })
 
     if (result.type !== 'confirm') return
-    this.store.deleteCards(learnableIds)
+    this.ls.deleteCards(learnableIds)
     this.toastService.showToast(`Removed ${count} cards.`)
   }
 
@@ -70,7 +70,7 @@ export class OverviewPageFacade {
 
   async openAddToCollectionModal(learnableIds: string[]): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
-      collections: this.store.collections(),
+      collections: this.ls.collections(),
       cardIds: learnableIds
     })
 
@@ -79,14 +79,14 @@ export class OverviewPageFacade {
     const collectionID =
       'addToId' in result.value
         ? result.value.addToId
-        : this.store.createCollection(result.value.createName)
+        : this.ls.createCollection(result.value.createName)
 
-    this.store.updateCollection({ id: collectionID, addIDs: learnableIds })
+    this.ls.updateCollection({ id: collectionID, addIDs: learnableIds })
     this.toastService.showToast('Added cards to collection.')
   }
 
   removeLearnablesFromCollection(collectionId: string, ids: string[]): void {
-    this.store.updateCollection({
+    this.ls.updateCollection({
       id: collectionId,
       deleteIDs: ids
     })
@@ -100,7 +100,7 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    this.store.updateCollection({
+    this.ls.updateCollection({
       id: collection.id,
       name: result.value
     })
@@ -112,8 +112,8 @@ export class OverviewPageFacade {
 
     if (result.type !== 'confirm') return
 
-    if (result.value.deletionType === 'remove') this.store.deleteCards(collection.cardIds)
-    this.store.deleteCollection(collection.id)
+    if (result.value.deletionType === 'remove') this.ls.deleteCards(collection.cardIds)
+    this.ls.deleteCollection(collection.id)
 
     this.toastService.showToast(`Collection ${collection.name} deleted.`)
   }
@@ -127,6 +127,6 @@ export class OverviewPageFacade {
   }
 
   downloadCollection(collectionId: string) {
-    this.shareBanksS.exportBank(this.store.activeBank(), [collectionId])
+    this.shareBanksS.exportBank(this.ls.activeBank(), [collectionId])
   }
 }

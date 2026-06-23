@@ -22,11 +22,11 @@ type SelectOption = {
 })
 export class ConfigurePracticeComp {
   private readonly _fb = inject(NonNullableFormBuilder)
-  private readonly _lStore = inject(LearnablesStore)
-  protected bank = this._lStore.activeBank
+  private readonly ls = inject(LearnablesStore)
+  protected bank = this.ls.activeBank
 
-  protected collections = this._lStore.collections
-  protected learnables = this._lStore.learnables
+  protected collections = this.ls.collections
+  protected learnables = this.ls.learnables
 
   protected form = this._fb.group({
     type: null,
@@ -61,7 +61,7 @@ export class ConfigurePracticeComp {
   start() {
     const iDs = this.selectedLearnableIds()
     const direction = this.form.value.direction as PracticeActive['direction']
-    this._lStore.startPractice({
+    this.ls.startPractice({
       type: 'custom',
       learnableIDs: iDs,
       direction
@@ -87,7 +87,7 @@ export class ConfigurePracticeComp {
   })
 
   calculateAverageConfidence(learnableIds: string[]): number {
-    const learnables = this._lStore.learnables().filter((l) => learnableIds.includes(l.id))
+    const learnables = this.ls.learnables().filter((l) => learnableIds.includes(l.id))
 
     return calculateAverageConfidencePercent(learnables)
   }

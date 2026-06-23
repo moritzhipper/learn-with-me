@@ -34,7 +34,7 @@ export class ActivePracticeComp {
     }
   }
 
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
 
   protected readonly statsOpen = signal<boolean>(false)
   protected readonly cardState = signal<FocusCardState>('hidden')
@@ -51,7 +51,7 @@ export class ActivePracticeComp {
   currentPractice = input.required<PracticeActive>()
 
   cardViewModel = computed<CardViewModel[]>(() =>
-    getCardsViewModel(this.currentPractice(), this._lStore.activeBank().learnables)
+    getCardsViewModel(this.currentPractice(), this.ls.activeBank().learnables)
   )
 
   stateClasses = computed(() => {
@@ -84,13 +84,13 @@ export class ActivePracticeComp {
     const currentCardID = practice.guessables[practice.guessableIndex]?.id
     if (this.isFinished() || !currentCardID) return
 
-    this._lStore.setGuessToPractice(guess)
+    this.ls.setGuessToPractice(guess)
     const direction = practice.direction
 
     if (direction === 'guessTranslation') {
-      this._lStore.updateCards([{ id: currentCardID, addGuessTranslation: guess }])
+      this.ls.updateCards([{ id: currentCardID, addGuessTranslation: guess }])
     } else if (direction === 'guessLexeme') {
-      this._lStore.updateCards([{ id: currentCardID, addGuessLexeme: guess }])
+      this.ls.updateCards([{ id: currentCardID, addGuessLexeme: guess }])
     }
 
     this.lastGuessOutcome.set(guess)
@@ -100,10 +100,10 @@ export class ActivePracticeComp {
 
   quit() {
     if (this.isFinished()) {
-      this._lStore.resetPracticeAndSaveToHistory()
+      this.ls.resetPracticeAndSaveToHistory()
     } else {
       this.lastGuessOutcome.set('wrong')
-      this._lStore.endPracticePrematurely()
+      this.ls.endPracticePrematurely()
     }
   }
 
@@ -147,7 +147,7 @@ export class ActivePracticeComp {
   }
 
   updateNotes({ id, newNotes }: { id: string; newNotes: string }) {
-    this._lStore.updateCards([{ id, notes: newNotes }])
+    this.ls.updateCards([{ id, notes: newNotes }])
   }
 
   trackCard(c: CardViewModel) {

@@ -17,8 +17,8 @@ export class NavbarNewComp {
   protected readonly appName = config.appNameLong
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
-  private readonly lStore = inject(LearnablesStore)
-  protected readonly hasActivePractice = computed(() => !!this.lStore.activeBank().practice.active)
+  protected readonly ls = inject(LearnablesStore)
+  protected readonly hasActivePractice = computed(() => !!this.ls.activeBank().practice.active)
 
   @HostListener('mouseleave', [])
   onleave() {
@@ -32,8 +32,7 @@ export class NavbarNewComp {
 
   currentUrl = toSignal(this.currentUrl$)
 
-  protected readonly lstore = inject(LearnablesStore)
-  protected readonly language = computed(() => this.lstore.activeBank().language)
+  protected readonly language = computed(() => this.ls.activeBank().language)
   protected readonly isOpen = signal(false)
   protected readonly isOnDimmablePage = signal(false)
 

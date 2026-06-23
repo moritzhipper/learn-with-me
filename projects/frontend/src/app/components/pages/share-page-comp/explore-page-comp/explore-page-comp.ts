@@ -42,7 +42,7 @@ export class ExplorePageComp {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly toastS = inject(ToastService)
-  private readonly lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
   private readonly shareBanksS = inject(ShareBanksService)
   private readonly _modalService = inject(ModalService)
@@ -86,7 +86,7 @@ export class ExplorePageComp {
 
       return parsedParams
     } catch {
-      const activeBankLang = this.lStore.activeBank().language
+      const activeBankLang = this.ls.activeBank().language
       return { ...activeBankLang, sortBy: 'top' }
     }
   }

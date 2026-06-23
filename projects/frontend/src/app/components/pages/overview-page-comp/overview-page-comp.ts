@@ -40,12 +40,12 @@ import { OverviewPageFacade } from './overview-page-facade'
   host: { class: 'page mid' }
 })
 export class OverviewComp {
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly _facade = inject(OverviewPageFacade)
   private readonly router = inject(Router)
 
   // Component state management
-  protected readonly bank = this._lStore.activeBank
+  protected readonly bank = this.ls.activeBank
   readonly collections = computed(() => this.bank().collections)
   readonly learnables = computed(() => this.bank().learnables)
 
@@ -132,7 +132,7 @@ export class OverviewComp {
 
   readonly collectionIsEmpty = computed(() => this._collectionLearnables().length === 0)
 
-  readonly userHasCards = computed(() => this._lStore.learnables().length !== 0)
+  readonly userHasCards = computed(() => this.ls.learnables().length !== 0)
 
   // View event handlers - delegate to facade
 
