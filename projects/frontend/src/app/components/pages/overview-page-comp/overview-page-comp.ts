@@ -53,6 +53,14 @@ export class OverviewComp {
   private readonly modalService = inject(ModalService)
   private readonly shareBanksS = inject(ShareBanksService)
 
+  constructor() {
+    const collectionIDfromRouter = this.router.currentNavigation()?.extras.state?.['collectionID']
+    const isValid =
+      typeof collectionIDfromRouter === 'string' &&
+      this.collections().some((c) => c.id === collectionIDfromRouter)
+    if (isValid) this.selectedCollectionId.set(collectionIDfromRouter)
+  }
+
   // Component state management
   protected readonly bank = this.ls.activeBank
   readonly collections = computed(() => this.bank().collections)
@@ -86,10 +94,6 @@ export class OverviewComp {
     return this.learnables().filter((l) => !allCollectionCardIds.has(l.id))
   })
 
-  private readonly _newestIds = computed(() =>
-    filterLearnables(this.learnables(), { age: 'newest' }).map((l) => l.id)
-  )
-
   private readonly _collectionLearnables = computed(() => {
     const collection = this.selectedCollection()
     if (!collection) return this.learnables()
@@ -118,14 +122,6 @@ export class OverviewComp {
       averageConfidence: calculateAverageConfidencePercent(this.learnables())
     }
   })
-
-  constructor() {
-    const collectionIDfromRouter = this.router.currentNavigation()?.extras.state?.['collectionID']
-    const isValid =
-      typeof collectionIDfromRouter === 'string' &&
-      this.collections().some((c) => c.id === collectionIDfromRouter)
-    if (isValid) this.selectedCollectionId.set(collectionIDfromRouter)
-  }
 
   async handleFilterAction(action: FilterAction) {
     const collection = this.selectedCollection()
@@ -197,6 +193,7 @@ export class OverviewComp {
     this.selectedLearnableIds.set([])
   }
 
+  //  Collection Operations
   async addToCollection() {
     const learnableIds = this.selectedLearnableIds()
     const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
