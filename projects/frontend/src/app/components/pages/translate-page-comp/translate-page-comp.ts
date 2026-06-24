@@ -132,6 +132,6 @@ export class TranslatePageComp {
     // add to collection
     this.ls.updateCollection({ id: collectionID, addIDs: cardIDs })
 
-    this.toastS.showToast('Cards imported successfully!')
+    this.toastS.showToast('Card(s) imported successfully!')
   }
 }

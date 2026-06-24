@@ -1,7 +1,7 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guess, LearnableBase } from '@shared/types'
+import { Guess, LearnableBase, LearnableBaseWithID, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
-import { mapBaseToFullToLearnables, updateActiveBank } from '../mutators/mutator-utils'
+import { updateActiveBank } from '../mutators/mutator-utils'
 
 type CardUpdater = {
   id: string
@@ -18,31 +18,37 @@ export const withCardsCrud = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({
-      createCards(cards: LearnableBase[]): string[] {
-        const newIds: string[] = []
+      createCards(
+        cards: (LearnableBase | LearnableBaseWithID)[],
+        rotateIDs: boolean = false
+      ): string[] {
+        const importedIDs: string[] = []
         updateActiveBank(store, (bank) => {
-          const newLearnables = cards.filter(
-            (learnableBase, index, self) =>
-              self.findIndex(
-                (other) =>
-                  other.lexeme === learnableBase.lexeme &&
-                  other.translation === learnableBase.translation
-              ) === index &&
-              !bank.learnables.some(
-                (learnable) =>
-                  learnableBase.lexeme === learnable.lexeme &&
-                  learnableBase.translation === learnable.translation
-              )
-          )
+          const dateNow = new Date()
 
-          const fullNew = mapBaseToFullToLearnables(newLearnables)
+          const fullCards: UserLearnable[] = cards.map((l) => {
+            const hasID = 'id' in l && l.id !== undefined
+            const id = hasID && !rotateIDs ? l.id : crypto.randomUUID()
+
+            return {
+              ...l,
+              id,
+              createdAt: dateNow,
+              guesses: {
+                translation: [false, false, false, false, false],
+                lexeme: [false, false, false, false, false]
+              }
+            }
+          })
+
+          importedIDs.push(...fullCards.map((l) => l.id))
 
           return {
             ...bank,
-            learnables: [...bank.learnables, ...fullNew]
+            learnables: [...bank.learnables, ...fullCards]
           }
         })
-        return newIds
+        return importedIDs
       },
       updateCards(cards: CardUpdater[]): void {
         updateActiveBank(store, (b) => ({

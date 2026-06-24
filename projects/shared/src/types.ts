@@ -25,6 +25,7 @@ import {
 } from './schemas'
 
 export type LearnableBase = z.infer<typeof LearnableBaseSchema>
+export type LearnableBaseWithID = z.infer<typeof LearnableWithIdSchema>
 
 export type Collection = z.infer<typeof CollectionBaseSchema>
 export type CollectionUser = z.infer<typeof CollectionUserSchema>
