@@ -85,13 +85,6 @@ export class ActivePracticeComp {
     if (this.isFinished() || !currentCardID) return
 
     this.ls.setGuessToPractice(guess)
-    const direction = practice.direction
-
-    if (direction === 'guessTranslation') {
-      this.ls.updateCards([{ id: currentCardID, addGuessTranslation: guess }])
-    } else if (direction === 'guessLexeme') {
-      this.ls.updateCards([{ id: currentCardID, addGuessLexeme: guess }])
-    }
 
     this.lastGuessOutcome.set(guess)
     this.cardState.set('hidden')

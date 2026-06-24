@@ -5,8 +5,6 @@ import { learnablesMatch, updateActiveBank } from '../mutators/mutator-utils'
 
 type CardUpdater = {
   id: string
-  addGuessTranslation?: Guess
-  addGuessLexeme?: Guess
 } & Partial<LearnableBase>
 
 type CreateCardsResult = {
@@ -79,7 +77,7 @@ export const withCardsCrud = <_>() =>
 
           return {
             ...bank,
-            learnables: [...bank.learnables, ...newCards]
+            learnables: [...newCards, ...bank.learnables]
           }
         })
         return {
@@ -100,11 +98,7 @@ export const withCardsCrud = <_>() =>
               lexeme: updateVals.lexeme ?? l.lexeme,
               translation: updateVals.translation ?? l.translation,
               type: updateVals.type ?? l.type,
-              notes: updateVals.notes ?? l.notes,
-              guesses: {
-                translation: updateGuesses(l.guesses.translation, updateVals.addGuessTranslation),
-                lexeme: updateGuesses(l.guesses.lexeme, updateVals.addGuessLexeme)
-              }
+              notes: updateVals.notes ?? l.notes
             }
           })
         }))

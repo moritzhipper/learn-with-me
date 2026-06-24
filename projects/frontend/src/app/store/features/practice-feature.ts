@@ -1,5 +1,5 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guess, Guessable, PracticeConfig } from '@shared/types'
+import { Guess, Guessable, PracticeConfig, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
@@ -10,9 +10,21 @@ const schwarzianShuffle = <T>(array: T[]): T[] => {
     .map(({ value }) => value)
 }
 
-const updateGuesses = (guesses: boolean[], guess: Guess): boolean[] => {
-  if (!guess) return guesses
-  return [...guesses.slice(1), guess === 'right']
+const updateGuesses = (
+  guess: Guess,
+  toUpdate: UserLearnable['guesses'],
+  direction: PracticeConfig['direction']
+): UserLearnable['guesses'] => {
+  if (direction === 'guessTranslation')
+    return {
+      ...toUpdate,
+      translation: [...toUpdate.translation.slice(1), guess === 'right']
+    }
+
+  return {
+    ...toUpdate,
+    lexeme: [...toUpdate.lexeme.slice(1), guess === 'right']
+  }
 }
 
 export const withPracticeFeature = <_>() =>
@@ -32,7 +44,8 @@ export const withPracticeFeature = <_>() =>
             guessableIndex: 0,
             createdAt: new Date(),
             direction: config.direction,
-            learnableIDs: config.learnableIDs
+            learnableIDs: config.learnableIDs,
+            type: config.type
           }
 
           if (config.type === 'collection') {
@@ -94,19 +107,29 @@ export const withPracticeFeature = <_>() =>
         })
       },
       setGuessToPractice(guess: Guess) {
-        // update card -> do in other mutator
-
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
 
           const cardIndex = currentPractice.guessableIndex
+          if (cardIndex >= currentPractice.guessables.length) return b
+
           const updatedGuessables = currentPractice.guessables.map((g, index) =>
             index === cardIndex ? { ...g, guess } : g
           )
 
+          const updatedCards = b.learnables.map((l) => {
+            if (l.id !== currentPractice.guessables[cardIndex].id) return l
+
+            return {
+              ...l,
+              guesses: updateGuesses(guess, l.guesses, currentPractice.direction)
+            }
+          })
+
           return {
             ...b,
+            learnables: updatedCards,
             practice: {
               ...b.practice,
               active: {
