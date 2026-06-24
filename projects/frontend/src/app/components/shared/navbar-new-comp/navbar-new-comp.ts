@@ -2,7 +2,7 @@ import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@an
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { config } from 'projects/frontend/src/config'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({

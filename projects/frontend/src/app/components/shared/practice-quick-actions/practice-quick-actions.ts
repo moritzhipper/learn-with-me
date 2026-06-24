@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import {
   calculateAverageConfidencePercent,
   convertToDayPrecisionUTCDate

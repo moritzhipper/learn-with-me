@@ -7,7 +7,7 @@ import { withCardsCrud } from './features/cards-crud'
 import { withCollectionsCrud } from './features/collections-crud'
 import { withPracticeFeature } from './features/practice-feature'
 import { withTranslateFeature } from './features/translation-feature'
-import { initialState } from './initialStates'
+import { initialState } from './initial-states'
 import {
   applyBankUpdates,
   BankMergeSummary,

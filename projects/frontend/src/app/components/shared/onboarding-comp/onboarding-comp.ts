@@ -7,8 +7,8 @@ import {
 } from '@angular/forms'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { LearnablesStore } from '../../../store/learnablesStore'
-import { SettingsStore } from '../../../store/settingsStore'
+import { LearnablesStore } from '../../../store/learnables-store'
+import { SettingsStore } from '../../../store/settings-store'
 import { IconComp } from '../icon-comp/icon-comp'
 import { LarryBig } from '../larries/larry-big/larry-big'
 

@@ -16,7 +16,7 @@ import {
 } from 'openai/resources/responses/responses.mjs'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
-import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
+import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
 

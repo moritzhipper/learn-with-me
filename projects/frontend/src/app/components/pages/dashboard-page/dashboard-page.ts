@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { ApiService } from '../../../services/api-service'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/cards-quick-selector/cards-quick-selector'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'

@@ -2,7 +2,7 @@ import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
 import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
-import { LearnablesStore } from '../store/learnablesStore'
+import { LearnablesStore } from '../store/learnables-store'
 import { ImportStrategy } from '../types/types'
 import {
   mapBankToShareable,

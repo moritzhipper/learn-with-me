@@ -1,7 +1,7 @@
 import { patchState, WritableStateSource } from '@ngrx/signals'
 import { BankUser, LearnableBase, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
-import { initialGuesses } from '../initialStates'
+import { initialGuesses } from '../initial-states'
 
 /** Helper to update the active bank in state */
 export const updateActiveBank = (

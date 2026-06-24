@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core'
 import { PracticeActive } from '@shared/types'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { ActivePracticeComp } from './active-practice-comp/active-practice-comp'
 import { ConfigurePracticeComp } from './configure-practice-comp/configure-practice-comp'

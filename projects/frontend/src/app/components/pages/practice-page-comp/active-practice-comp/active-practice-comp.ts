@@ -1,6 +1,6 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
 import { Guess, PracticeActive } from '@shared/types'
-import { LearnablesStore } from '../../../../store/learnablesStore'
+import { LearnablesStore } from '../../../../store/learnables-store'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
 import { CardViewModel, getCardsViewModel } from './practice-helpers'
