@@ -1,5 +1,5 @@
 @let la = learnable();
-@let isUserlearnable = 'createdAt' in la;
+@let isUserlearnable = 'guesses' in la;
 <button
   class="wrapper silent"
   [class]="{
@@ -18,10 +18,10 @@
     {{ la.notes }}
   </div>
   <div class="info">
-    @if (isUserlearnable) {
-      {{ la.createdAt | date: 'mediumDate' }} •
-    }
-    {{ la.type }}
+    <span class="word-list-item"> {{ la.createdAt | date: 'mediumDate' }} </span>
+    <span class="word-list-item">
+      {{ la.type }}
+    </span>
   </div>
   @if (isUserlearnable) {
     <div class="last-guesses">

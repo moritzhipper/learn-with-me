@@ -1,7 +1,7 @@
 import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { CollectionUser } from '@shared/types'
+import { Collection } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -66,7 +66,7 @@ export class OverviewComp {
   readonly collections = computed(() => this.bank().collections)
   readonly learnables = computed(() => this.bank().learnables)
 
-  readonly selectedCollectionId = linkedSignal<CollectionUser[], string | null>({
+  readonly selectedCollectionId = linkedSignal<Collection[], string | null>({
     source: this.collections,
     computation: (collections, previous) => {
       const previousId = previous?.value
@@ -79,12 +79,12 @@ export class OverviewComp {
   readonly collectionIsEmpty = computed(() => this._collectionLearnables().length === 0)
   readonly userHasCards = computed(() => this.ls.learnables().length !== 0)
 
-  readonly selectedCollection = computed<CollectionUser | null>(
+  readonly selectedCollection = computed<Collection | null>(
     () => this.collections().find((c) => c.id === this.selectedCollectionId()) ?? null
   )
 
   // resets selectedLearnableSelection when selected collectionID changes
-  readonly selectedLearnableIds = linkedSignal<CollectionUser | null, string[]>({
+  readonly selectedLearnableIds = linkedSignal<Collection | null, string[]>({
     source: this.selectedCollection,
     computation: () => []
   })
@@ -152,7 +152,7 @@ export class OverviewComp {
     this.ls.updateCards(update)
     this.ls.deleteCards(deleteIDs)
 
-    const { idsOfAllAdded } = this.ls.importCards(add)
+    const { idsOfAll: idsOfAllAdded } = this.ls.importCards(add)
     const selectedCollection = this.selectedCollection()
     if (selectedCollection) {
       this.ls.updateCollection({ id: selectedCollection.id, addIDs: idsOfAllAdded })
@@ -227,7 +227,7 @@ export class OverviewComp {
     this.selectedLearnableIds.set([])
   }
 
-  async renameCollection(collection: CollectionUser): Promise<void> {
+  async renameCollection(collection: Collection): Promise<void> {
     const result = await this.modalService.open<string>('collection-rename', {
       name: collection.name
     })
@@ -241,7 +241,7 @@ export class OverviewComp {
     this.toastService.showToast(`Collection renamed to ${result.value}.`)
   }
 
-  async deleteCollection(collection: CollectionUser): Promise<void> {
+  async deleteCollection(collection: Collection): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionDeletionType>('collection-delete')
 
     if (result.type !== 'confirm') return

@@ -1,4 +1,4 @@
-import { GuessHistory } from '@shared/types'
+import { BankUser, GuessHistory } from '@shared/types'
 import { LearnablesStoreType, SettingsStoreType } from '../types/types'
 
 export const initialState: LearnablesStoreType = {
@@ -10,6 +10,17 @@ export const initialSettings: SettingsStoreType = {
   apiKey: '',
   tokensUsed: 0,
   userID: crypto.randomUUID()
+}
+
+export const initialTranslations: BankUser['translations'] = {
+  history: [],
+  magicTranslateCards: [],
+  tone: ''
+}
+
+export const initialPractice: BankUser['practice'] = {
+  active: null,
+  history: []
 }
 
 export const initialGuesses: {

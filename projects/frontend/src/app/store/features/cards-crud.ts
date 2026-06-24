@@ -14,10 +14,9 @@ type CreateCardsResult = {
   // - cards skipped because the content already exists
   // Returning all IDs allows follow-up actions, such as adding cards to collections.
   // idsOfAllAdded holds new card ids and both duplicate references.
-  idsOfAllAdded: string[]
-
-  idsOfIDDuplicates: string[]
-  idsOfContentDuplicates: string[]
+  idsOfAll: string[]
+  idsOfNewlyAdded: string[]
+  idsOfDuplicates: { importedID: string; duplicateID: string; reason: 'id' | 'content' }[]
 }
 
 const updateGuesses = (guesses: boolean[], guess?: Guess): boolean[] => {
@@ -35,9 +34,8 @@ export const withCardsCrud = <_>() =>
        * @returns An object containing the IDs of all added cards, ID duplicates, and content duplicates.
        */
       importCards(cards: (LearnableBase | LearnableBaseWithID)[]): CreateCardsResult {
-        const addedCardIDs: string[] = []
-        const skippedDupIDs: string[] = []
-        const skippedDupCards: string[] = []
+        const newCardIDs: string[] = []
+        const duplicates: CreateCardsResult['idsOfDuplicates'] = []
 
         updateActiveBank(store, (bank) => {
           const dateNow = new Date()
@@ -49,21 +47,24 @@ export const withCardsCrud = <_>() =>
 
             const idDuplicate = bank.learnables.find((l) => l.id === id)
             if (idDuplicate) {
-              skippedDupIDs.push(idDuplicate.id)
-              addedCardIDs.push(idDuplicate.id)
+              duplicates.push({ importedID: id, duplicateID: idDuplicate.id, reason: 'id' })
               continue
             }
 
             const contentDuplicate = bank.learnables.find((bankCard) =>
               learnablesMatch(bankCard, card)
             )
+
             if (contentDuplicate) {
-              addedCardIDs.push(contentDuplicate.id)
-              skippedDupCards.push(contentDuplicate.id)
+              duplicates.push({
+                importedID: id,
+                duplicateID: contentDuplicate.id,
+                reason: 'content'
+              })
               continue
             }
 
-            addedCardIDs.push(id)
+            newCardIDs.push(id)
             newCards.push({
               ...card,
               id,
@@ -80,10 +81,11 @@ export const withCardsCrud = <_>() =>
             learnables: [...newCards, ...bank.learnables]
           }
         })
+
         return {
-          idsOfAllAdded: addedCardIDs,
-          idsOfIDDuplicates: skippedDupIDs,
-          idsOfContentDuplicates: skippedDupCards
+          idsOfAll: [...newCardIDs, ...duplicates.map((d) => d.duplicateID)],
+          idsOfNewlyAdded: newCardIDs,
+          idsOfDuplicates: duplicates
         }
       },
       updateCards(cards: CardUpdater[]): void {

@@ -1,33 +1,59 @@
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { BankBase, BankUser } from '@shared/types'
+import { BankBase, BankShareBase, BankUser, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
+import { initialGuesses, initialPractice, initialTranslations } from '../initial-states'
 
 export const withBankCrud = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({
-      createBank(base: BankBase) {
+      createBank(base: BankBase): string {
         const newBank: BankUser = {
           ...base,
           id: crypto.randomUUID(),
           createdAt: new Date(),
-          translations: {
-            history: [],
-            tone: '',
-            magicTranslateCards: []
-          },
           collections: [],
           learnables: [],
-          practice: {
-            active: null,
-            history: []
-          }
+          translations: initialTranslations,
+          practice: initialPractice
         }
+
         patchState(store, {
-          ...store,
-          activeBankId: newBank.id,
           banks: [newBank, ...store.banks()]
         })
+
+        return newBank.id
+      },
+      importBank(bank: BankUser | BankShareBase): string {
+        const newID = crypto.randomUUID()
+
+        const isUserBank = 'practice' in bank
+
+        if (isUserBank) {
+          patchState(store, {
+            banks: [{ ...bank, id: newID }, ...store.banks()]
+          })
+        } else {
+          const userLearnables: UserLearnable[] = bank.learnables.map((l) => ({
+            ...l,
+            guesses: initialGuesses
+          }))
+
+          const newBank: BankUser = {
+            ...bank,
+            id: newID,
+            createdAt: new Date(),
+            learnables: userLearnables,
+            translations: initialTranslations,
+            practice: initialPractice
+          }
+
+          patchState(store, {
+            banks: [newBank, ...store.banks()]
+          })
+        }
+
+        return newID
       },
       updateBank(base: BankBase, bankID: string) {
         const updatedBanks = store.banks().map((b) => (b.id === bankID ? { ...b, ...base } : b))

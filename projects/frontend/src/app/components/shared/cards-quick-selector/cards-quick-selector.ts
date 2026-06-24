@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
-import { CollectionUser } from '@shared/types'
+import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
 
@@ -13,7 +13,7 @@ type AllCardsSummary = {
   collectionLess: number
 }
 
-type CollectionSummary = CollectionUser & {
+type CollectionSummary = Collection & {
   type: 'collection'
   averageConfidence: number
 }

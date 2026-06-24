@@ -8,12 +8,6 @@ import { withCollectionsCrud } from './features/collections-crud'
 import { withPracticeFeature } from './features/practice-feature'
 import { withTranslateFeature } from './features/translation-feature'
 import { initialState } from './initial-states'
-import {
-  applyBankUpdates,
-  BankMergeSummary,
-  saveImportToNewBank as saveImportAsNewBank,
-  saveImportToActiveBankNew
-} from './mutators/bank-mutators'
 
 export const LearnablesStore = signalStore(
   { providedIn: 'root' },
@@ -38,26 +32,33 @@ export const LearnablesStore = signalStore(
   withPracticeFeature(),
   withTranslateFeature(),
   withBankCrud(),
-  withMethods((state) => {
-    return {
-      mergeBankIntoActiveBank(importBank: BankShareBase): BankMergeSummary {
-        const result = saveImportToActiveBankNew(state.activeBank(), importBank)
-        patchState(state, applyBankUpdates(result.updatedBank))
-        return result.summary
-      },
-      saveBankAsNewBank(importBank: BankShareBase) {
-        patchState(state, saveImportAsNewBank(importBank))
-      },
-      reset() {
-        patchState(state, initialState)
-      },
-      addBankForDebug(bank: BankUser) {
-        patchState(state, (state) => ({
-          ...state,
-          banks: [...state.banks, bank],
-          activeBankId: bank.id
-        }))
+  withMethods((state) => ({
+    mergeIntoActiveBank(bankShareBase: BankShareBase) {
+      const cards = bankShareBase.learnables
+      const collections = bankShareBase.collections
+      const { idsOfDuplicates } = state.importCards(cards)
+      // add collections
+      // replace duplicate card ids with existing ids, so the collection stays intact but links the existing cards
+
+      for (const collection of collections) {
+        const id = state.createCollection(collection.name)
+        const addIDs = collection.cardIds.map((cardId) => {
+          const duplicate = idsOfDuplicates.find((d) => d.importedID === cardId)
+          return duplicate?.duplicateID ?? cardId
+        })
+
+        state.updateCollection({ id, addIDs })
       }
+    },
+    reset() {
+      patchState(state, initialState)
+    },
+    addBankForDebug(bank: BankUser) {
+      patchState(state, (state) => ({
+        ...state,
+        banks: [...state.banks, bank],
+        activeBankId: bank.id
+      }))
     }
-  })
+  }))
 )

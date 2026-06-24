@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { CollectionUser } from '@shared/types'
+import { Collection } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
@@ -12,7 +12,7 @@ export type ConfirmCollectionAddType =
       addToId: string
     }
 
-type CollectionVM = CollectionUser & {
+type CollectionVM = Collection & {
   cardsWillBeAddedCount: number
 }
 
@@ -30,7 +30,7 @@ export class CollectionAddComp extends BaseModalDirective {
     addToId: ['']
   })
 
-  collections = input.required<CollectionUser[]>()
+  collections = input.required<Collection[]>()
   cardIds = input.required<string[]>()
 
   collectionsVM = computed<CollectionVM[]>(() => {

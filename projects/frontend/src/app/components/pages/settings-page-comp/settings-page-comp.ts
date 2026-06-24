@@ -70,7 +70,8 @@ export class SettingsComp {
     const result = await this._modalService.open<BankBase>('edit-bank')
     if (result.type !== 'confirm') return
 
-    this.ls.createBank(result.value)
+    const id = this.ls.createBank(result.value)
+    this.setActiveBank(id)
   }
 
   setActiveBank(id: string) {

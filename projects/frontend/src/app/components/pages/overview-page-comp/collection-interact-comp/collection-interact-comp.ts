@@ -1,6 +1,6 @@
 import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CollectionUser } from '@shared/types'
+import { Collection } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
@@ -11,7 +11,7 @@ import { IconComp } from '../../../shared/icon-comp/icon-comp'
   styleUrl: './collection-interact-comp.scss'
 })
 export class CollectionInteractComp {
-  selectableCollections = input.required<CollectionUser[]>()
+  selectableCollections = input.required<Collection[]>()
   selectedCollectionId = model.required<string | null>()
 
   edit = output<void>()

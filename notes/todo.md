@@ -2,6 +2,10 @@
 
 ## Sunday
 
+- keep created at on exported card
+- dont overwrite
+- add created add to with id schema
+
 ##
 
 Allow to put in german or dutch, making the card always be correct and translation working

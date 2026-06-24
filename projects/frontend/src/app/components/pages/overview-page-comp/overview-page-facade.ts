@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core'
-import { CollectionUser } from '@shared/types'
+import { Collection } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -41,7 +41,7 @@ export class OverviewPageFacade {
     this.toastService.showToast('Added cards to collection.')
   }
 
-  async openRenameCollectionModal(collection: CollectionUser): Promise<void> {
+  async openRenameCollectionModal(collection: Collection): Promise<void> {
     const result = await this.modalService.open<string>('collection-rename', {
       name: collection.name
     })

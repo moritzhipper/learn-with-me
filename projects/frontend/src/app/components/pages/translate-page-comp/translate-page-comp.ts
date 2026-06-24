@@ -127,7 +127,7 @@ export class TranslatePageComp {
         : this.ls.createCollection(result.value.createName)
 
     // import cards
-    const { idsOfAllAdded } = this.ls.importCards(selectedCards)
+    const { idsOfAll: idsOfAllAdded } = this.ls.importCards(selectedCards)
 
     // add to collection
     this.ls.updateCollection({ id: collectionID, addIDs: idsOfAllAdded })

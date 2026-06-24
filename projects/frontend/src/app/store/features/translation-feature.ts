@@ -12,7 +12,8 @@ export const withTranslateFeature = <_>() =>
           const maxItems = 20
           const newItem: LearnableWithId = {
             ...learnable,
-            id: crypto.randomUUID()
+            id: crypto.randomUUID(),
+            createdAt: new Date()
           }
           const newHistory = [newItem, ...(b.translations.history || [])].slice(0, maxItems)
           return {
@@ -52,7 +53,11 @@ export const withTranslateFeature = <_>() =>
       },
       setMagicTranslateCards(cards: LearnableBase[]) {
         updateActiveBank(store, (b) => {
-          const cardsWithIds = cards.map((c) => ({ ...c, id: crypto.randomUUID() }))
+          const cardsWithIds = cards.map((c) => ({
+            ...c,
+            id: crypto.randomUUID(),
+            createdAt: new Date()
+          }))
 
           return {
             ...b,
