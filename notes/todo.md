@@ -2,6 +2,9 @@
 
 ## Sunday
 
+- move last three methods from facade back to overview page
+
+- remove last added thing from cards
 - cleanup store, make actions atomar
   - create state slices, no double method callback mapping
   - update code to accomondate for chainging + side effects

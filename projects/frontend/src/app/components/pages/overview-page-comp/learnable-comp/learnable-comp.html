@@ -8,9 +8,6 @@
   }"
   (click)="onSelect.emit()"
 >
-  @if (showNewBadge()) {
-    <app-icon-comp type="new" [size]="60" />
-  }
   <div class="lexeme">
     {{ la.lexeme }}
   </div>
