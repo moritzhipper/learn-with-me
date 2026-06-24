@@ -2,7 +2,6 @@ import { BankShareBaseSchema } from '@shared/schemas'
 import {
   BankShareBase,
   BankUser,
-  Collection,
   LearnableBase,
   LearnableWithId,
   UserLearnable
@@ -31,16 +30,12 @@ export const mapBankToShareable = (bank: BankUser, onlyCollectionIDs?: string[])
       translation: l.translation,
       type: l.type,
       id: l.id,
-      notes: l.notes
+      notes: l.notes,
+      createdAt: l.createdAt
     }))
 
   // Map collections with only the cardIds that are being exported
   const exportedLearnableIds = new Set(learnables.map((l) => l.id))
-  const collections: Collection[] = collectionsToExport.map((c) => ({
-    name: c.name,
-    id: c.id,
-    cardIds: c.cardIds.filter((cardId) => exportedLearnableIds.has(cardId))
-  }))
 
   const name = bank.collections.length === 1 ? bank.collections[0].name : bank.name
 
@@ -48,7 +43,7 @@ export const mapBankToShareable = (bank: BankUser, onlyCollectionIDs?: string[])
     name,
     language: bank.language,
     learnables,
-    collections
+    collections: collectionsToExport
   }
 }
 

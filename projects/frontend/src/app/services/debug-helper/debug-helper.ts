@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core'
-import { LearnablesStore } from '../../store/learnablesStore'
+import { LearnablesStore } from '../../store/learnables-store'
 import { buildDebugBank } from './debug-utils'
 
 @Injectable({

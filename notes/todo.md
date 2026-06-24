@@ -2,15 +2,15 @@
 
 ## Sunday
 
-- cleanup store, make actions atomar
-  - crud per resource, with object as config (update for coll has: addIds, removeIds, updateName)
-  - import learnables (rotateIDs option)
-  - add collection
-  - add cards to collection
-  - remove cards from collection
-  - actions return id(s) of created items, to allow follow up
-  - do multiple actions concurrently in app code
-  - then add to bank and to collection to translate thing
+- keep created at on exported card
+- dont overwrite
+- add created add to with id schema
+
+##
+
+Allow to put in german or dutch, making the card always be correct and translation working
+
+- > add switch icon to center
 
 # right now: Stats
 

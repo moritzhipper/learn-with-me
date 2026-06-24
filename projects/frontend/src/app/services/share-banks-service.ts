@@ -2,7 +2,7 @@ import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
 import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
-import { LearnablesStore } from '../store/learnablesStore'
+import { LearnablesStore } from '../store/learnables-store'
 import { ImportStrategy } from '../types/types'
 import {
   mapBankToShareable,
@@ -153,19 +153,15 @@ export class ShareBanksService {
 
   async finalizeImport(bank: BankShareBase, importStrategy: ImportStrategy): Promise<void> {
     if (importStrategy === 'new') {
-      this.store.saveBankAsNewBank(bank)
-      this.toastService.showToast({
-        header: 'Imported Bank',
-        message: `Select it from your settings to start learning.`,
-        type: 'info'
-      })
+      this.store.importBank(bank)
     } else {
-      const summary = this.store.mergeBankIntoActiveBank(bank)
-      this.toastService.showToast({
-        header: 'Imported Bank',
-        message: `${summary.newCount} new learnables added, ${summary.mergedCount} learnables merged.`,
-        type: 'info'
-      })
+      this.store.mergeIntoActiveBank(bank)
     }
+
+    this.toastService.showToast({
+      header: 'Imported Bank',
+      message: `Select it from your settings to start learning.`,
+      type: 'info'
+    })
   }
 }

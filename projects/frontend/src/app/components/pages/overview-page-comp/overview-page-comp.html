@@ -6,7 +6,7 @@
     <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="1" />
     <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />
     @if (selectedCollectionId()) {
-      <app-bubble config="remove" (select)="removeSelectionFromCollection()" [animateIndex]="3" />
+      <app-bubble config="remove" (select)="removeFromCollection()" [animateIndex]="3" />
     }
     <app-bubble
       config="trash"
@@ -39,7 +39,6 @@
       @for (learnable of visibleLearnables(); track learnable.id) {
         <app-learnable-comp
           [learnable]="learnable"
-          [showNewBadge]="isLastAdded(learnable.id)"
           [isSelected]="isSelected(learnable.id)"
           (onSelect)="toggleLearnableSelection(learnable.id)"
         />
@@ -52,7 +51,6 @@
       @for (learnable of unsortedCards(); track learnable.id) {
         <app-learnable-comp
           [learnable]="learnable"
-          [showNewBadge]="isLastAdded(learnable.id)"
           [isSelected]="isSelected(learnable.id)"
           (onSelect)="toggleLearnableSelection(learnable.id)"
         />

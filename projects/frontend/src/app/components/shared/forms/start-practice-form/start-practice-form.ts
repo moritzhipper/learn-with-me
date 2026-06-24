@@ -18,9 +18,9 @@ export type StartPracticeFormConf = {
 export class StartPracticeForm extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)
   form = this._fb.group<Pick<StartPracticeFormConf, 'direction'>>({
-    direction: 'forward'
+    direction: 'guessTranslation'
   })
 
   direction = input.required<PracticeConfig['direction']>()
-  hasActicePractice = input<boolean>()
+  hasActivePractice = input<boolean>()
 }

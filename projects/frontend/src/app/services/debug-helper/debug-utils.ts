@@ -1,6 +1,6 @@
 import {
   BankUser,
-  CollectionUser,
+  Collection,
   Guess,
   Guessable,
   PracticeActive,
@@ -66,7 +66,7 @@ const toGuessables = (ids: string[], offset = 0): Guessable[] =>
   }))
 
 const buildCollectionPractices = (
-  collection: CollectionUser,
+  collection: Collection,
   daysAgoList: number[],
   now: Date
 ): PracticeActive[] =>
@@ -77,7 +77,7 @@ const buildCollectionPractices = (
     guessableIndex: collection.cardIds.length,
     guessables: toGuessables(collection.cardIds, practiceIndex),
     learnableIDs: collection.cardIds,
-    direction: 'forward'
+    direction: 'guessTranslation'
   }))
 
 const buildCustomPractices = (
@@ -91,7 +91,7 @@ const buildCustomPractices = (
     guessableIndex: learnableIds.length,
     guessables: toGuessables(learnableIds, practiceIndex + 1),
     learnableIDs: learnableIds,
-    direction: 'forward'
+    direction: 'guessTranslation'
   }))
 }
 
@@ -105,7 +105,7 @@ export const buildDebugBank = (): BankUser => {
       const learnables = Array.from({ length: colConfig.cardCount }, () =>
         buildLearnable(counter++, now)
       )
-      const collection: CollectionUser = {
+      const collection: Collection = {
         id: crypto.randomUUID(),
         name: colConfig.name,
         cardIds: learnables.map((l) => l.id),
@@ -115,7 +115,7 @@ export const buildDebugBank = (): BankUser => {
       acc.collections.push(collection)
       return acc
     },
-    { collections: [] as CollectionUser[], allLearnables: [] as UserLearnable[] }
+    { collections: [] as Collection[], allLearnables: [] as UserLearnable[] }
   )
 
   const collectionPractices = collections.flatMap((collection, i) =>

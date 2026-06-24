@@ -12,7 +12,7 @@ import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-out
 import { ApiService } from './services/api-service'
 import { ShareBanksService } from './services/share-banks-service'
 import { ToastService } from './services/toast-service'
-import { LearnablesStore } from './store/learnablesStore'
+import { LearnablesStore } from './store/learnables-store'
 
 @Component({
   selector: 'app-root',

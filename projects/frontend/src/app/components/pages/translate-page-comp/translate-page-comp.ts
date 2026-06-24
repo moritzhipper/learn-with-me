@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms'
 import { AnimDelay } from '../../../services/anim-delay'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
@@ -119,10 +119,19 @@ export class TranslatePageComp {
     })
 
     if (result.type === 'cancel') return
-    if (result.value.createName) {
-    }
-    alert('implement crudo store adapters')
 
-    this.toastS.showToast('Cards imported successfully!')
+    // create collection user wishes creation of new one
+    const collectionID =
+      'addToId' in result.value
+        ? result.value.addToId
+        : this.ls.createCollection(result.value.createName)
+
+    // import cards
+    const { idsOfAll: idsOfAllAdded } = this.ls.importCards(selectedCards)
+
+    // add to collection
+    this.ls.updateCollection({ id: collectionID, addIDs: idsOfAllAdded })
+
+    this.toastS.showToast('Card(s) imported successfully!')
   }
 }

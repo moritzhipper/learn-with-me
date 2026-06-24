@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { PracticeActive } from '@shared/types'
-import { LearnablesStore } from '../../../store/learnablesStore'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'

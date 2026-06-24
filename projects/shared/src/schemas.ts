@@ -29,24 +29,21 @@ export const LearnableBaseSchema = LearnableFromAiWithTypeSchema.extend({
 })
 
 export const LearnableWithIdSchema = LearnableBaseSchema.extend({
+  createdAt: z.coerce.date(),
   id: z.uuid()
 })
 
 export const LearnableUserSchema = LearnableWithIdSchema.extend({
-  createdAt: z.coerce.date(),
   guesses: z.object({
     lexeme: z.array(z.boolean()).length(5),
     translation: z.array(z.boolean()).length(5)
   })
 })
 
-export const CollectionBaseSchema = z.object({
+export const CollectionSchema = z.object({
   name: z.string(),
   id: z.string(),
-  cardIds: z.array(z.uuid())
-})
-
-export const CollectionUserSchema = CollectionBaseSchema.extend({
+  cardIds: z.array(z.uuid()),
   createdAt: z.coerce.date()
 })
 
@@ -77,7 +74,7 @@ export const BankUserSchema = BankBaseSchema.extend({
     tone: z.string()
   }),
   learnables: z.array(LearnableUserSchema),
-  collections: z.array(CollectionUserSchema),
+  collections: z.array(CollectionSchema),
   practice: z.object({
     active: PracticeActiveSchema.nullable(),
     history: z.array(PracticeActiveSchema)
@@ -91,7 +88,7 @@ export const BankShareConfigSchema = z.object({
 
 export const BankShareBaseSchema = BankBaseSchema.extend({
   learnables: z.array(LearnableWithIdSchema),
-  collections: z.array(CollectionBaseSchema)
+  collections: z.array(CollectionSchema)
 })
 
 export const BankShareRequestSchema = z.object({

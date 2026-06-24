@@ -27,7 +27,7 @@ import {
   throwError
 } from 'rxjs'
 import z from 'zod'
-import { SettingsStore } from '../../store/settingsStore'
+import { SettingsStore } from '../../store/settings-store'
 import { LearnableCreationConfig, TranslateFastConfig } from '../../types/types'
 import { zodTextFormat } from '../../utils/genaral-utils'
 import { mapPhrasesFromInputToChunks } from './ai-utils'

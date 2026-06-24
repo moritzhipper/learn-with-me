@@ -1,17 +1,19 @@
 <form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
   <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Start new Practice</h2>
-  <div class="warning full fly-in-y" [animDelay]="{ i: 1, size: 5 }">
-    <h3><strong>Practice already in progress </strong></h3>
-    <p>Starting a new practice will discard your current progress.</p>
-  </div>
+  @if (hasActivePractice()) {
+    <div class="warning full fly-in-y" [animDelay]="{ i: 1, size: 5 }">
+      <h3><strong>Practice already in progress </strong></h3>
+      <p>Starting a new practice will discard your current progress.</p>
+    </div>
+  }
   <app-radio-comp
     class="full fly-in-y"
     [animDelay]="{ i: 2, size: 5 }"
     label="Direction"
     formControlName="direction"
     [config]="[
-      { label: 'Forward', value: 'forward' },
-      { label: 'Reverse', value: 'reverse' }
+      { label: 'Forward', value: 'guessTranslation' },
+      { label: 'Reverse', value: 'guessLexeme' }
     ]"
   />
 

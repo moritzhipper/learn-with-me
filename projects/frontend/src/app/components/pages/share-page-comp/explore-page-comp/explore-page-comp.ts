@@ -8,7 +8,7 @@ import { ApiService } from 'projects/frontend/src/app/services/api-service'
 import { ModalService } from 'projects/frontend/src/app/services/modal-service'
 import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
-import { LearnablesStore } from 'projects/frontend/src/app/store/learnablesStore'
+import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from 'projects/frontend/src/app/types/types'
 import { lastValueFrom } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
@@ -42,7 +42,7 @@ export class ExplorePageComp {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly toastS = inject(ToastService)
-  private readonly lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
   private readonly apiS = inject(ApiService)
   private readonly shareBanksS = inject(ShareBanksService)
   private readonly _modalService = inject(ModalService)
@@ -86,7 +86,7 @@ export class ExplorePageComp {
 
       return parsedParams
     } catch {
-      const activeBankLang = this.lStore.activeBank().language
+      const activeBankLang = this.ls.activeBank().language
       return { ...activeBankLang, sortBy: 'top' }
     }
   }

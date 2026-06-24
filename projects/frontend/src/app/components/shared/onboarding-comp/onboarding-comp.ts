@@ -7,8 +7,8 @@ import {
 } from '@angular/forms'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { LearnablesStore } from '../../../store/learnablesStore'
-import { SettingsStore } from '../../../store/settingsStore'
+import { LearnablesStore } from '../../../store/learnables-store'
+import { SettingsStore } from '../../../store/settings-store'
 import { IconComp } from '../icon-comp/icon-comp'
 import { LarryBig } from '../larries/larry-big/larry-big'
 
@@ -21,7 +21,7 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 export class OnboardingComp {
   protected readonly activeIndex = signal(0)
   private readonly _settings = inject(SettingsStore)
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
 
   protected apiKey = this._settings.apiKey
 
@@ -56,6 +56,6 @@ export class OnboardingComp {
       name: 'My First Language Bank',
       language
     }
-    this._lStore.addBank(bank)
+    this.ls.createBank(bank)
   }
 }

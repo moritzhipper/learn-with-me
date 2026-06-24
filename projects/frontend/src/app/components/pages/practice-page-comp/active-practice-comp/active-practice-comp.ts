@@ -1,6 +1,6 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
 import { Guess, PracticeActive } from '@shared/types'
-import { LearnablesStore } from '../../../../store/learnablesStore'
+import { LearnablesStore } from '../../../../store/learnables-store'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
 import { CardViewModel, getCardsViewModel } from './practice-helpers'
@@ -34,7 +34,7 @@ export class ActivePracticeComp {
     }
   }
 
-  private readonly _lStore = inject(LearnablesStore)
+  private readonly ls = inject(LearnablesStore)
 
   protected readonly statsOpen = signal<boolean>(false)
   protected readonly cardState = signal<FocusCardState>('hidden')
@@ -51,7 +51,7 @@ export class ActivePracticeComp {
   currentPractice = input.required<PracticeActive>()
 
   cardViewModel = computed<CardViewModel[]>(() =>
-    getCardsViewModel(this.currentPractice(), this._lStore.activeBank().learnables)
+    getCardsViewModel(this.currentPractice(), this.ls.activeBank().learnables)
   )
 
   stateClasses = computed(() => {
@@ -80,9 +80,12 @@ export class ActivePracticeComp {
   }
 
   setGuess(guess: Guess) {
-    if (this.isFinished()) return
+    const practice = this.currentPractice()
+    const currentCardID = practice.guessables[practice.guessableIndex]?.id
+    if (this.isFinished() || !currentCardID) return
 
-    this._lStore.setGuess(guess)
+    this.ls.setGuessToPractice(guess)
+
     this.lastGuessOutcome.set(guess)
     this.cardState.set('hidden')
     this.statsOpen.set(false)
@@ -90,10 +93,10 @@ export class ActivePracticeComp {
 
   quit() {
     if (this.isFinished()) {
-      this._lStore.quitPractice()
+      this.ls.resetPracticeAndSaveToHistory()
     } else {
       this.lastGuessOutcome.set('wrong')
-      this._lStore.quitPracticePrematurly()
+      this.ls.endPracticePrematurely()
     }
   }
 
@@ -137,7 +140,7 @@ export class ActivePracticeComp {
   }
 
   updateNotes({ id, newNotes }: { id: string; newNotes: string }) {
-    this._lStore.updateLearnables([{ id, notes: newNotes }])
+    this.ls.updateCards([{ id, notes: newNotes }])
   }
 
   trackCard(c: CardViewModel) {
