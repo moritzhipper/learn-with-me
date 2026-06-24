@@ -40,9 +40,11 @@
           <strong> {{ sum.averageConfidence }}% </strong>
           confidence
         </span>
-        <span class="word-list-item">
-          <strong> {{ sum.collectionLess }} </strong> loose cards
-        </span>
+        @if (sum.collectionLess > 0) {
+          <span class="word-list-item">
+            <strong> {{ sum.collectionLess }} </strong> loose cards
+          </span>
+        }
       </p>
     </button>
   }
