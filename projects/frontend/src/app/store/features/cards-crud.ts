@@ -1,13 +1,26 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { Guess, LearnableBase, LearnableBaseWithID, UserLearnable } from '@shared/types'
 import { LearnablesStoreType } from '../../types/types'
-import { updateActiveBank } from '../mutators/mutator-utils'
+import { learnablesMatch, updateActiveBank } from '../mutators/mutator-utils'
 
 type CardUpdater = {
   id: string
   addGuessTranslation?: Guess
   addGuessLexeme?: Guess
 } & Partial<LearnableBase>
+
+type CreateCardsResult = {
+  // IDs for every card referenced by this operation:
+  // - newly added cards
+  // - cards skipped because the ID already exists
+  // - cards skipped because the content already exists
+  // Returning all IDs allows follow-up actions, such as adding cards to collections.
+  // idsOfAllAdded holds new card ids and both duplicate references.
+  idsOfAllAdded: string[]
+
+  idsOfIDDuplicates: string[]
+  idsOfContentDuplicates: string[]
+}
 
 const updateGuesses = (guesses: boolean[], guess?: Guess): boolean[] => {
   if (!guess) return guesses
@@ -18,37 +31,62 @@ export const withCardsCrud = <_>() =>
   signalStoreFeature(
     { state: type<LearnablesStoreType>() },
     withMethods((store) => ({
-      createCards(
-        cards: (LearnableBase | LearnableBaseWithID)[],
-        rotateIDs: boolean = false
-      ): string[] {
-        const importedIDs: string[] = []
+      /**
+       * Imports cards and returns the result of the operation.
+       * @param cards The cards to be imported.
+       * @returns An object containing the IDs of all added cards, ID duplicates, and content duplicates.
+       */
+      importCards(cards: (LearnableBase | LearnableBaseWithID)[]): CreateCardsResult {
+        const addedCardIDs: string[] = []
+        const skippedDupIDs: string[] = []
+        const skippedDupCards: string[] = []
+
         updateActiveBank(store, (bank) => {
           const dateNow = new Date()
 
-          const fullCards: UserLearnable[] = cards.map((l) => {
-            const hasID = 'id' in l && l.id !== undefined
-            const id = hasID && !rotateIDs ? l.id : crypto.randomUUID()
+          const newCards: UserLearnable[] = []
 
-            return {
-              ...l,
+          for (const card of cards) {
+            const id = 'id' in card ? card.id : crypto.randomUUID()
+
+            const idDuplicate = bank.learnables.find((l) => l.id === id)
+            if (idDuplicate) {
+              skippedDupIDs.push(idDuplicate.id)
+              addedCardIDs.push(idDuplicate.id)
+              continue
+            }
+
+            const contentDuplicate = bank.learnables.find((bankCard) =>
+              learnablesMatch(bankCard, card)
+            )
+            if (contentDuplicate) {
+              addedCardIDs.push(contentDuplicate.id)
+              skippedDupCards.push(contentDuplicate.id)
+              continue
+            }
+
+            addedCardIDs.push(id)
+            newCards.push({
+              ...card,
               id,
               createdAt: dateNow,
               guesses: {
                 translation: [false, false, false, false, false],
                 lexeme: [false, false, false, false, false]
               }
-            }
-          })
-
-          importedIDs.push(...fullCards.map((l) => l.id))
+            })
+          }
 
           return {
             ...bank,
-            learnables: [...bank.learnables, ...fullCards]
+            learnables: [...bank.learnables, ...newCards]
           }
         })
-        return importedIDs
+        return {
+          idsOfAllAdded: addedCardIDs,
+          idsOfIDDuplicates: skippedDupIDs,
+          idsOfContentDuplicates: skippedDupCards
+        }
       },
       updateCards(cards: CardUpdater[]): void {
         updateActiveBank(store, (b) => ({

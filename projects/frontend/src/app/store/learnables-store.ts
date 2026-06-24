@@ -48,7 +48,6 @@ export const LearnablesStore = signalStore(
       saveBankAsNewBank(importBank: BankShareBase) {
         patchState(state, saveImportAsNewBank(importBank))
       },
-
       reset() {
         patchState(state, initialState)
       },

@@ -2,12 +2,6 @@
 
 ## Sunday
 
-- move last three methods from facade back to overview page
-
-- cleanup store, make actions atomar
-  - fix export import bank logic, use atomar store actions for this
-  - fix import cards action: checks for duplicates, remaps imported ids on duplicate
-
 ##
 
 Allow to put in german or dutch, making the card always be correct and translation working

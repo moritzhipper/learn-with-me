@@ -152,10 +152,10 @@ export class OverviewComp {
     this.ls.updateCards(update)
     this.ls.deleteCards(deleteIDs)
 
-    const newIds = this.ls.createCards(add)
+    const { idsOfAllAdded } = this.ls.importCards(add)
     const selectedCollection = this.selectedCollection()
     if (selectedCollection) {
-      this.ls.updateCollection({ id: selectedCollection.id, addIDs: newIds })
+      this.ls.updateCollection({ id: selectedCollection.id, addIDs: idsOfAllAdded })
     }
   }
 
