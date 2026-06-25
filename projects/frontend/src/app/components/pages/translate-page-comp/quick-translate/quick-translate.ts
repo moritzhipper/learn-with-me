@@ -69,9 +69,9 @@ export class QuickTranslate {
 
       // Make both lexeme and translation wrapper always same height
       this.adjustHeight(lexemeEl)
+
       if (lexemIn && transOut && transEl) {
-        const biggerHeight = Math.max(lexemeEl.scrollHeight, transEl.scrollHeight)
-        transWrapperEl.style.height = `${biggerHeight}px`
+        transWrapperEl.style.height = `${transEl.scrollHeight}px`
       } else {
         transWrapperEl.style.height = '0px'
       }
