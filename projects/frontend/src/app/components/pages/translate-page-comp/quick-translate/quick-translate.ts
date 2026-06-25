@@ -40,6 +40,7 @@ export class QuickTranslate {
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
+  protected readonly invertDirection = signal<boolean>(false)
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
@@ -103,17 +104,23 @@ export class QuickTranslate {
       const language = this.activeBank().language
       const text = this.lexemeInput()
       const tone = this.tone()
+      const invertDirection = this.invertDirection()
 
-      if (!language || !text) return null
+      if (!text) return null
 
       return {
         language,
         text,
-        tone
+        tone,
+        invertDirection
       }
     },
     {
-      equal: (a, b) => a?.language === b?.language && a?.text === b?.text && a?.tone === b?.tone
+      equal: (a, b) =>
+        a?.language === b?.language &&
+        a?.text === b?.text &&
+        a?.tone === b?.tone &&
+        a?.invertDirection === b?.invertDirection
     }
   )
 
@@ -136,13 +143,19 @@ export class QuickTranslate {
           filter((ev): ev is ResponseTextDoneEvent => {
             const isFinishedEvent = ev.type === 'response.output_text.done'
             const isCurrentUserInput =
-              config.text === this.lexemeInput() && config.tone === this.tone()
+              config.text === this.lexemeInput() &&
+              config.tone === this.tone() &&
+              config.invertDirection === this.invertDirection()
             return isFinishedEvent && isCurrentUserInput
           }),
-          map((ev) => ({
-            lexeme: config.text,
-            translation: ev.text
-          })),
+          map((ev) => {
+            const lexeme = config.invertDirection ? ev.text : config.text
+            const translation = config.invertDirection ? config.text : ev.text
+            return {
+              lexeme,
+              translation
+            }
+          }),
           switchMap((learnable) =>
             from(this.aiService.categorizeCard(learnable)).pipe(
               map((category) => ({
@@ -183,5 +196,9 @@ export class QuickTranslate {
       this.lastTranslation = event.text
       this.translation.set(this.lastTranslation)
     }
+  }
+
+  toggleDirection() {
+    this.invertDirection.update((prev) => !prev)
   }
 }

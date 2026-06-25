@@ -8,7 +8,7 @@
 
   <div class="separator">
     <div class="line"></div>
-    <button class="switch silent">
+    <button class="switch silent" [disabled]="!translation()" (click)="toggleDirection()">
       <app-icon-comp type="left-right" />
     </button>
     <div class="line"></div>
