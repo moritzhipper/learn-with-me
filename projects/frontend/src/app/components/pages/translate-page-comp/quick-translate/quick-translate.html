@@ -9,7 +9,7 @@
   <div class="separator">
     <div class="line"></div>
     <button class="switch silent" [disabled]="!translation()" (click)="toggleDirection()">
-      <app-icon-comp type="left-right" />
+      <app-icon-comp type="left-right" class="icon" [class.rotated]="invertDirection()" />
     </button>
     <div class="line"></div>
   </div>

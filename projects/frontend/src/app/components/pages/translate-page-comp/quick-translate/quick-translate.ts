@@ -200,5 +200,9 @@ export class QuickTranslate {
 
   toggleDirection() {
     this.invertDirection.update((prev) => !prev)
+    const { learning, speaking } = this.activeBank().language
+    const lang = this.invertDirection() ? speaking : learning
+
+    this.toastService.showToast(`Translating to ${lang}.`)
   }
 }
