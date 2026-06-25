@@ -46,6 +46,7 @@ export type IconType =
   | 'drop'
   | 'drop-fill'
   | 'checkbox-multiple'
+  | 'left-right'
 
 @Component({
   selector: 'app-icon-comp',

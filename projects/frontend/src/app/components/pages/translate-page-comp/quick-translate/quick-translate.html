@@ -5,6 +5,14 @@
   [class.small-text]="showSmallText()"
 >
   <textarea #lexemeEl placeholder="Type to translate" [(ngModel)]="lexemeInput"></textarea>
+
+  <div class="separator">
+    <div class="line"></div>
+    <button class="switch silent">
+      <app-icon-comp type="left-right" />
+    </button>
+    <div class="line"></div>
+  </div>
   <p class="translation" #translationWrapperEl>
     <span #translationEl>
       {{ translation() }}

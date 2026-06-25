@@ -2,7 +2,9 @@
 
 ##
 
-Allow to put in german or dutch, making the card always be correct and translation working
+- only do automatic resizing on mobile
+- on desktop and long text, no resizing, just deepl like view
+  Allow to put in german or dutch, making the card always be correct and translation working
 
 - > add switch icon to center
 

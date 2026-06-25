@@ -19,10 +19,11 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
+import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [FormsModule],
+  imports: [FormsModule, IconComp],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
