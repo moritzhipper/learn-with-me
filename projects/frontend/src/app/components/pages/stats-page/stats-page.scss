@@ -1,11 +1,10 @@
 @use '../../../../style/mixins.scss' as *;
-:host {
-  padding-bottom: 180px;
-}
+
 .history {
   display: flex;
   flex-direction: column;
   gap: var(--distance-5);
+  padding-bottom: 150px;
 
   strong {
     color: currentColor;
@@ -73,10 +72,4 @@ app-practice-timeline {
   left: 0;
   position: fixed;
   box-sizing: border-box;
-}
-
-@include isPhone {
-  .stats {
-    margin-left: auto;
-  }
 }

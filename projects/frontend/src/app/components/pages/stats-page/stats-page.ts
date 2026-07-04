@@ -90,4 +90,6 @@ export class StatsPage {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
+
+  protected onScroll() {}
 }
