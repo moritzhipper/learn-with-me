@@ -11,6 +11,10 @@
     min-width: 0;
   }
 
+  .header {
+    min-width: 0;
+  }
+
   &:not(.full-screen) {
     overflow-x: auto;
 

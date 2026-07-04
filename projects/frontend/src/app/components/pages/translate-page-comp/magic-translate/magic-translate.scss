@@ -1,115 +1,111 @@
 @use '../../../../../style/mixins.scss' as *;
 
 :host {
-  display: flex;
-  flex-direction: column;
+  display: contents;
 }
-.header-section {
-  display: flex;
-  justify-content: center;
 
-  form {
+form {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  width: var(--medium-width);
+  max-width: 100%;
+  gap: var(--distance-4);
+
+  .config {
     display: grid;
-    grid-template-rows: 1fr auto;
-    width: var(--medium-width);
-    gap: var(--distance-4);
+  }
 
-    .config {
-      display: grid;
+  .image-preview,
+  .image-input,
+  textarea {
+    grid-area: 1 / 1;
+  }
+  textarea,
+  .image-preview {
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+  }
+
+  .image-preview {
+    border-radius: var(--radius-1);
+    display: grid;
+    place-items: stretch;
+
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    img {
+      position: absolute;
+      transition: opacity var(--duration-2);
+      opacity: 1;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
     }
 
-    .image-preview,
-    .image-input,
-    textarea {
+    .image-delete {
+      z-index: 2;
+      margin: var(--distance-3);
+      padding: var(--distance-2) var(--distance-3);
+      place-self: end;
+      background-color: var(--col-accent);
+      box-shadow: var(--shadow-big);
+    }
+  }
+
+  .image-input {
+    display: grid;
+    place-self: end end;
+
+    input,
+    label {
+      place-self: stretch;
+      padding: 0;
+      border-radius: var(--radius-1);
       grid-area: 1 / 1;
+      cursor: pointer;
     }
+
+    input {
+      overflow: hidden;
+      opacity: 0;
+      width: 0;
+    }
+
+    app-icon-comp {
+      height: 32px;
+      width: 32px;
+      padding: var(--distance-4);
+    }
+
+    label {
+      width: min-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      outline: 0px solid transparent;
+      transition: outline var(--duration-0);
+    }
+    input:focus-visible + label {
+      outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+    }
+  }
+
+  &.converting {
     textarea,
     .image-preview {
-      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-    }
+      --bg1: rgb(from var(--col-accent) r g b / var(--opacity-0));
+      --bg2: rgb(from var(--col-primary) r g b / var(--opacity-1));
 
-    .image-preview {
-      border-radius: var(--radius-1);
-      display: grid;
-      place-items: stretch;
-
-      overflow: hidden;
-      position: relative;
-      height: 100%;
-
-      box-sizing: border-box;
+      background: linear-gradient(-45deg, var(--bg1) 35%, var(--bg2) 50%, var(--bg1) 55%);
+      background-size: 280% 280%;
+      animation: converting 4s infinite;
 
       img {
-        position: absolute;
-        transition: opacity var(--duration-2);
-        opacity: 1;
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-      }
-
-      .image-delete {
-        z-index: 2;
-        margin: var(--distance-3);
-        padding: var(--distance-2) var(--distance-3);
-        place-self: end;
-        background-color: var(--col-accent);
-        box-shadow: var(--shadow-big);
-      }
-    }
-
-    .image-input {
-      display: grid;
-      place-self: end end;
-
-      input,
-      label {
-        place-self: stretch;
-        padding: 0;
-        border-radius: var(--radius-1);
-        grid-area: 1 / 1;
-        cursor: pointer;
-      }
-
-      input {
-        overflow: hidden;
-        opacity: 0;
-        width: 0;
-      }
-
-      app-icon-comp {
-        height: 32px;
-        width: 32px;
-        padding: var(--distance-4);
-      }
-
-      label {
-        width: min-content;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        outline: 0px solid transparent;
-        transition: outline var(--duration-0);
-      }
-      input:focus-visible + label {
-        outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
-      }
-    }
-
-    &.converting {
-      textarea,
-      .image-preview {
-        --bg1: rgb(from var(--col-accent) r g b / var(--opacity-0));
-        --bg2: rgb(from var(--col-primary) r g b / var(--opacity-1));
-
-        background: linear-gradient(-45deg, var(--bg1) 35%, var(--bg2) 50%, var(--bg1) 55%);
-        background-size: 280% 280%;
-        animation: converting 4s infinite;
-
-        img {
-          opacity: var(--opacity-1);
-        }
+        opacity: var(--opacity-1);
       }
     }
   }
@@ -117,7 +113,6 @@
 
 @include isDesktop() {
   form {
-    padding: 5vh 0;
     height: 400px;
 
     .config {
@@ -131,7 +126,7 @@
 }
 @include isPhone() {
   form {
-    height: 75vh;
+    height: 70vh;
     .config {
       grid-template-columns: 1fr;
       gap: var(--distance-4);

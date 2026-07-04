@@ -37,11 +37,18 @@ export class TranslatePageComp {
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
 
-  translations = computed(() => this.ls.activeBank().translations)
+  cards = computed(() => {
+    if (this.selectedMode() === 'translate') {
+      return this.ls.activeBank().translations.history
+    }
+    return this.ls.activeBank().translations.magicTranslateCards
+  })
+
+  tone = computed(() => this.ls.activeBank().translations.tone)
 
   protected async setTone() {
     const result = await this.modalService.open<string>('text-input', {
-      preset: this.translations().tone
+      preset: this.tone()
     })
     if (result.type === 'cancel') return
 
@@ -84,11 +91,7 @@ export class TranslatePageComp {
   }
 
   selectAll() {
-    const visibleCards =
-      this.selectedMode() === 'translate'
-        ? this.translations().history
-        : this.translations().magicTranslateCards
-    const allIds = visibleCards.map((c) => c.id)
+    const allIds = this.cards().map((c) => c.id)
     this.selectedCardsIds.set(new Set(allIds))
   }
 
@@ -103,11 +106,7 @@ export class TranslatePageComp {
   }
 
   async importCards() {
-    const visibleCards =
-      this.selectedMode() === 'translate'
-        ? this.translations().history
-        : this.translations().magicTranslateCards
-    const selectedCards = visibleCards.filter((c) => this.selectedCardsIds().has(c.id))
+    const selectedCards = this.cards().filter((c) => this.selectedCardsIds().has(c.id))
     if (!selectedCards.length) return
 
     const collections = this.ls.activeBank().collections
