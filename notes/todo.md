@@ -1,9 +1,29 @@
 # ToDo
 
-# CLeanup
+# CLeanup Layout
+
+- Header always full left
+- settings always full right
+- all layout styles in there, not spread through stylefiles
+- padding und stuff nur dort
+
+- page-types
+  - both
+    - content always same width
+    - has icon
+    - content does not cut off stuff
+    - page-icon as input
+  - full
+    - no overscroll,
+    - no scroll,
+    - no header,
+  - scrollable
+    - page header possible
 
 - make header and stuff align on desktop
 - clean up dashboard: umrude ganz
+- use page-padding var for negative margins
+- put translate tone to left left?
 
 # right now: Stats
 
