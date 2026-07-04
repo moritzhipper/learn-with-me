@@ -15,8 +15,8 @@ import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
@@ -37,13 +37,12 @@ import { OverviewPageFacade } from './overview-page-facade'
     IconComp,
     FormsModule,
     PageHeaderComp,
-    PageIconComp,
     FilterComp,
     PagePlaceholderComp,
     Bubbles,
-    Bubble
-  ],
-  host: { class: 'page mid' }
+    Bubble,
+    PageWrapper
+  ]
 })
 export class OverviewComp {
   private readonly ls = inject(LearnablesStore)

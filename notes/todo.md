@@ -1,19 +1,12 @@
 # ToDo
 
-## Sunday
-
-- keep created at on exported card
-- dont overwrite
-- add created add to with id schema
-
-##
-
-Allow to put in german or dutch, making the card always be correct and translation working
-
-- > add switch icon to center
+- clean up dashboard: umrude ganz
+- use page-padding var for negative margins
+- put empty state into page wrapper -> use on shared pages and overview page
 
 # right now: Stats
 
+- put upcoming on dashboard?
 - put end of practice stickers somewhere prominent on ollection
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
 - confidence = confidence per cards = higher score, higher impressiveness!

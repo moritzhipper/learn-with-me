@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { AnimDelay } from '../../../services/anim-delay'
 import { ModalService } from '../../../services/modal-service'
@@ -8,15 +8,14 @@ import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { MagicTranslate } from './magic-translate/magic-translate'
 import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
   imports: [
-    PageIconComp,
     FormsModule,
     QuickTranslate,
     MagicTranslate,
@@ -24,11 +23,11 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     Bubble,
     LearnableComp,
     AnimDelay,
-    IconComp
+    IconComp,
+    PageWrapper
   ],
   templateUrl: './translate-page-comp.html',
-  styleUrl: './translate-page-comp.scss',
-  host: { class: 'page mid' }
+  styleUrl: './translate-page-comp.scss'
 })
 export class TranslatePageComp {
   selectedMode = signal<'translate' | 'magic'>('translate')
@@ -38,11 +37,20 @@ export class TranslatePageComp {
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
 
-  translations = computed(() => this.ls.activeBank().translations)
+  private cardsWrapper = viewChild<ElementRef<HTMLElement>>('cardsWrapper')
+
+  protected cards = computed(() => {
+    if (this.selectedMode() === 'translate') {
+      return this.ls.activeBank().translations.history
+    }
+    return this.ls.activeBank().translations.magicTranslateCards
+  })
+
+  protected tone = computed(() => this.ls.activeBank().translations.tone)
 
   protected async setTone() {
     const result = await this.modalService.open<string>('text-input', {
-      preset: this.translations().tone
+      preset: this.tone()
     })
     if (result.type === 'cancel') return
 
@@ -85,11 +93,7 @@ export class TranslatePageComp {
   }
 
   selectAll() {
-    const visibleCards =
-      this.selectedMode() === 'translate'
-        ? this.translations().history
-        : this.translations().magicTranslateCards
-    const allIds = visibleCards.map((c) => c.id)
+    const allIds = this.cards().map((c) => c.id)
     this.selectedCardsIds.set(new Set(allIds))
   }
 
@@ -104,11 +108,7 @@ export class TranslatePageComp {
   }
 
   async importCards() {
-    const visibleCards =
-      this.selectedMode() === 'translate'
-        ? this.translations().history
-        : this.translations().magicTranslateCards
-    const selectedCards = visibleCards.filter((c) => this.selectedCardsIds().has(c.id))
+    const selectedCards = this.cards().filter((c) => this.selectedCardsIds().has(c.id))
     if (!selectedCards.length) return
 
     const collections = this.ls.activeBank().collections
@@ -133,5 +133,11 @@ export class TranslatePageComp {
     this.ls.updateCollection({ id: collectionID, addIDs: idsOfAllAdded })
 
     this.toastS.showToast('Card(s) imported successfully!')
+  }
+
+  scrollToCards() {
+    setTimeout(() => {
+      this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 300)
   }
 }

@@ -33,10 +33,7 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
     AnimDelay
   ],
   templateUrl: './explore-page-comp.html',
-  styleUrl: './explore-page-comp.scss',
-  host: {
-    class: 'page mid'
-  }
+  styleUrl: './explore-page-comp.scss'
 })
 export class ExplorePageComp {
   private readonly route = inject(ActivatedRoute)

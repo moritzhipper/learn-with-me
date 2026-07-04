@@ -9,8 +9,40 @@
   position: relative;
   width: 100%;
 
+  .separator {
+    display: flex;
+    height: 0px;
+    transition-property: opacity, width;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    gap: var(--distance-4);
+    opacity: 0;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    button {
+      opacity: var(--opacity-1);
+      .icon {
+        transition: rotate var(--duration-0) ease-out;
+        rotate: 90deg;
+        &.rotated {
+          rotate: -90deg;
+        }
+      }
+    }
+
+    .line {
+      flex: 1;
+      border-top: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+    }
+  }
+
   textarea,
-  .translation {
+  .translation,
+  .separator {
     // height animations
     transition-duration: var(--debounce-duration);
     transition-timing-function: var(--soft-ease);
@@ -46,17 +78,19 @@
     transition-property: height;
     font-style: italic;
     overflow: hidden;
+    .switch {
+      position: absolute;
+    }
 
     span {
       display: block;
-      border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
-      border-width: 1px 0 0 0;
       transition-property: opacity;
     }
   }
 
   &.show-translation {
-    .translation span {
+    .translation span,
+    .separator {
       transition-delay: var(--debounce-duration);
       opacity: 1;
     }
@@ -91,37 +125,14 @@
 
 @include isPhone() {
   .translate {
+    height: 40vh;
+
     min-height: 300px;
   }
 }
 @include isDesktop() {
   .translate {
-    height: 60vh;
-    min-height: 330px;
-    align-self: center;
-    &:not(.small-text) {
-      textarea,
-      .translation {
-        width: var(--medium-width);
-      }
-    }
-
-    &.small-text {
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-      place-items: stretch;
-      width: 100%;
-
-      textarea {
-        padding: 0px;
-        padding-right: var(--distance-5);
-      }
-      .translation span {
-        padding: 0px;
-        padding-left: var(--distance-5);
-        border-width: 0 0 0 1px;
-      }
-    }
+    height: 50vh;
+    min-height: 350px;
   }
 }

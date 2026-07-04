@@ -6,18 +6,20 @@
 }
 
 .tone-wrapper {
+  margin-bottom: var(--page-padding);
   opacity: var(--opacity-1);
   align-self: start;
   padding-top: var(--distance-1);
   padding-right: var(--distance-7);
   overflow: hidden;
-  max-width: 100%;
+  width: 100%;
 
   .label {
     display: inline-flex;
     align-items: center;
     gap: var(--distance-1);
   }
+
   .tone {
     font-weight: var(--font-weight-bold);
   }

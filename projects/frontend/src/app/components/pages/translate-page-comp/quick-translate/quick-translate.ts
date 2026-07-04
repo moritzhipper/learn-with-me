@@ -19,10 +19,11 @@ import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
 import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
+import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [FormsModule],
+  imports: [FormsModule, IconComp],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
@@ -39,6 +40,7 @@ export class QuickTranslate {
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
+  protected readonly invertDirection = signal<boolean>(false)
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
@@ -68,9 +70,9 @@ export class QuickTranslate {
 
       // Make both lexeme and translation wrapper always same height
       this.adjustHeight(lexemeEl)
+
       if (lexemIn && transOut && transEl) {
-        const biggerHeight = Math.max(lexemeEl.scrollHeight, transEl.scrollHeight)
-        transWrapperEl.style.height = `${biggerHeight}px`
+        transWrapperEl.style.height = `${transEl.scrollHeight}px`
       } else {
         transWrapperEl.style.height = '0px'
       }
@@ -102,17 +104,23 @@ export class QuickTranslate {
       const language = this.activeBank().language
       const text = this.lexemeInput()
       const tone = this.tone()
+      const invertDirection = this.invertDirection()
 
-      if (!language || !text) return null
+      if (!text) return null
 
       return {
         language,
         text,
-        tone
+        tone,
+        invertDirection
       }
     },
     {
-      equal: (a, b) => a?.language === b?.language && a?.text === b?.text && a?.tone === b?.tone
+      equal: (a, b) =>
+        a?.language === b?.language &&
+        a?.text === b?.text &&
+        a?.tone === b?.tone &&
+        a?.invertDirection === b?.invertDirection
     }
   )
 
@@ -135,13 +143,19 @@ export class QuickTranslate {
           filter((ev): ev is ResponseTextDoneEvent => {
             const isFinishedEvent = ev.type === 'response.output_text.done'
             const isCurrentUserInput =
-              config.text === this.lexemeInput() && config.tone === this.tone()
+              config.text === this.lexemeInput() &&
+              config.tone === this.tone() &&
+              config.invertDirection === this.invertDirection()
             return isFinishedEvent && isCurrentUserInput
           }),
-          map((ev) => ({
-            lexeme: config.text,
-            translation: ev.text
-          })),
+          map((ev) => {
+            const lexeme = config.invertDirection ? ev.text : config.text
+            const translation = config.invertDirection ? config.text : ev.text
+            return {
+              lexeme,
+              translation
+            }
+          }),
           switchMap((learnable) =>
             from(this.aiService.categorizeCard(learnable)).pipe(
               map((category) => ({
@@ -182,5 +196,13 @@ export class QuickTranslate {
       this.lastTranslation = event.text
       this.translation.set(this.lastTranslation)
     }
+  }
+
+  toggleDirection() {
+    this.invertDirection.update((prev) => !prev)
+    const { learning, speaking } = this.activeBank().language
+    const lang = this.invertDirection() ? speaking : learning
+
+    this.toastService.showToast(`Translating to ${lang}.`)
   }
 }

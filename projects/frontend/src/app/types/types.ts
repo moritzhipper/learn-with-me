@@ -8,6 +8,7 @@ export type LearnablesStoreType = {
 export type TranslateFastConfig = {
   text: string
   tone: string
+  invertDirection: boolean
   language: LanguageConfig
 }
 

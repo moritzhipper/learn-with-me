@@ -1,70 +1,60 @@
-<div class="header-section">
-  <form [formGroup]="form" (ngSubmit)="translate()" [class.converting]="isConverting()">
-    @if (formSignal().mode === 'extract') {
-      @if (imagePreview(); as img) {
-        <div class="image-preview">
-          <img [src]="img" alt="Preview" />
-          <button
-            type="button"
-            class="small image-delete has-icon"
-            (click)="imagePreview.set(null)"
-          >
-            Remove Image
-          </button>
-        </div>
-      } @else {
-        <textarea
-          placeholder="Paste notes, articles, or any other text here and press Generate"
-          formControlName="source"
-        ></textarea>
-        <div class="image-input">
-          <input
-            id="image"
-            type="file"
-            accept="image/*;capture=camera"
-            (change)="onFileChange($event)"
-          />
-          <label for="image">
-            <app-icon-comp type="image" />
-          </label>
-        </div>
-      }
+<form [formGroup]="form" (ngSubmit)="translate()" [class.converting]="isConverting()">
+  @if (formSignal().mode === 'extract') {
+    @if (imagePreview(); as img) {
+      <div class="image-preview">
+        <img [src]="img" alt="Preview" />
+        <button type="button" class="small image-delete has-icon" (click)="imagePreview.set(null)">
+          Remove Image
+        </button>
+      </div>
     } @else {
       <textarea
-        placeholder="Describe what you want to learn and press Generate. For example: 'Describing time management'"
+        placeholder="Paste notes, articles, or any other text here and press Generate"
         formControlName="source"
       ></textarea>
+      <div class="image-input">
+        <input
+          id="image"
+          type="file"
+          accept="image/*;capture=camera"
+          (change)="onFileChange($event)"
+        />
+        <label for="image">
+          <app-icon-comp type="image" />
+        </label>
+      </div>
     }
+  } @else {
+    <textarea
+      placeholder="Describe what you want to learn and press Generate. For example: 'Describing time management'"
+      formControlName="source"
+    ></textarea>
+  }
 
-    <div class="config">
-      <app-radio-comp
-        [darkMode]="true"
-        [config]="[
-          { value: 'extract', label: 'Extract' },
-          { value: 'generate', label: 'Generate' }
-        ]"
-        formControlName="mode"
-        class="type"
-      />
-      <app-radio-comp
-        [darkMode]="true"
-        [config]="[
-          { value: 'word', label: 'Words' },
-          { value: 'phrase', label: 'Phrases' },
-          { value: 'both', label: 'Both' }
-        ]"
-        formControlName="cardType"
-        class="type"
-      />
+  <div class="config">
+    <app-radio-comp
+      [darkMode]="true"
+      [config]="[
+        { value: 'extract', label: 'Extract' },
+        { value: 'generate', label: 'Generate' }
+      ]"
+      formControlName="mode"
+      class="type"
+    />
+    <app-radio-comp
+      [darkMode]="true"
+      [config]="[
+        { value: 'word', label: 'Words' },
+        { value: 'phrase', label: 'Phrases' },
+        { value: 'both', label: 'Both' }
+      ]"
+      formControlName="cardType"
+      class="type"
+    />
 
-      <button
-        type="submit"
-        class="has-icon"
-        [disabled]="isConverting() || !createLearnablesConfig()"
-      >
-        Do the Magic
-        <app-icon-comp type="magic" [size]="24" />
-      </button>
-    </div>
-  </form>
-</div>
+    <button type="submit" class="has-icon" [disabled]="isConverting() || !createLearnablesConfig()">
+      Do the Magic
+      <app-icon-comp type="magic" [size]="24" />
+    </button>
+  </div>
+</form>

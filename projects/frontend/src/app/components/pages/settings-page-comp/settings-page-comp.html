@@ -1,49 +1,50 @@
-<app-page-icon-comp type="settings" />
-<app-page-header-comp title="Settings" />
+<app-page-wrapper icon="settings">
+  <app-page-header-comp title="Settings" />
 
-<p class="stats size-2">
-  You created <strong>{{ stats().banks }} </strong> holding
-  <strong>{{ stats().collections }} </strong> having a total of
-  <strong>{{ stats().learnables }}</strong
-  >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
-</p>
-<h2 class="indent">Banks</h2>
-<div class="caroussel-wrapper">
-  @for (bank of banks(); track bank.id) {
-    <app-bank-settings-card
-      [bank]="bank"
-      [isActive]="activeBankId() === bank.id"
-      (setActive)="setActiveBank(bank.id)"
-      (delete)="deleteBank(bank.id)"
-      (download)="downloadBank(bank)"
-      (edit)="editBank(bank)"
-      (share)="shareBank(bank)"
-      class="caroussel-item"
-    />
-  }
-  <button class="add-bank caroussel-item" (click)="createNewBank()">
-    <span>Create new Bank</span>
-    <app-icon-comp type="add" size="auto" />
-  </button>
-</div>
-<h2 class="indent">Application Settings</h2>
-<div class="items">
-  <app-settings-item-comp header="AI Provider">
-    <p class="description">
-      Add your OpenAI API key here to use AI based features such as automatic creation of
-      learnables.
-    </p>
-    <label class="input">
-      <span> OpenAI API-key </span>
-      <input type="password" [value]="apiKey()" (input)="updateKey($event)" />
-    </label>
-  </app-settings-item-comp>
+  <p class="stats size-2">
+    You created <strong>{{ stats().banks }} </strong> holding
+    <strong>{{ stats().collections }} </strong> having a total of
+    <strong>{{ stats().learnables }}</strong
+    >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
+  </p>
+  <h2 class="indent">Banks</h2>
+  <div class="caroussel-wrapper">
+    @for (bank of banks(); track bank.id) {
+      <app-bank-settings-card
+        [bank]="bank"
+        [isActive]="activeBankId() === bank.id"
+        (setActive)="setActiveBank(bank.id)"
+        (delete)="deleteBank(bank.id)"
+        (download)="downloadBank(bank)"
+        (edit)="editBank(bank)"
+        (share)="shareBank(bank)"
+        class="caroussel-item"
+      />
+    }
+    <button class="add-bank caroussel-item" (click)="createNewBank()">
+      <span>Create new Bank</span>
+      <app-icon-comp type="add" size="auto" />
+    </button>
+  </div>
+  <h2 class="indent">Application Settings</h2>
+  <div class="items">
+    <app-settings-item-comp header="AI Provider">
+      <p class="description">
+        Add your OpenAI API key here to use AI based features such as automatic creation of
+        learnables.
+      </p>
+      <label class="input">
+        <span> OpenAI API-key </span>
+        <input type="password" [value]="apiKey()" (input)="updateKey($event)" />
+      </label>
+    </app-settings-item-comp>
 
-  <app-settings-item-comp header="Reset">
-    <p class="description">
-      Delete all of your data from this device. Data you shared with the community will remain.
-    </p>
-    <button class="primary big delete input" (click)="reset()">Reset all data</button>
-  </app-settings-item-comp>
-</div>
-<button class="debug" (click)="addDebug()">add debug</button>
+    <app-settings-item-comp header="Reset">
+      <p class="description">
+        Delete all of your data from this device. Data you shared with the community will remain.
+      </p>
+      <button class="primary big delete input" (click)="reset()">Reset all data</button>
+    </app-settings-item-comp>
+  </div>
+  <button class="debug" (click)="addDebug()">add debug</button>
+</app-page-wrapper>

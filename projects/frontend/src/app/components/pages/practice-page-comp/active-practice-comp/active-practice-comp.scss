@@ -1,8 +1,6 @@
 @use '../../../../../style/mixins.scss' as *;
 
 :host {
-  place-self: stretch;
-
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 1fr auto;

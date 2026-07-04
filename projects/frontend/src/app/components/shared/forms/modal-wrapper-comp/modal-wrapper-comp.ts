@@ -57,12 +57,8 @@ export class ModalWrapperComp {
 
       untracked(() => {
         if (instance) {
-          this.document.body.style.overflow = 'hidden'
-          this._submitSubscription = instance.resolve.subscribe(
-            this.formResolve
-          )
+          this._submitSubscription = instance.resolve.subscribe(this.formResolve)
         } else {
-          this.document.body.style.overflow = 'auto'
           this._submitSubscription?.unsubscribe()
           this._submitSubscription = null
         }

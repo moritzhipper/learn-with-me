@@ -10,23 +10,22 @@ import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { BankSettingsComp } from './bank-settings-comp/bank-settings-comp'
 import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
 
 @Component({
-  selector: 'app-settings.comp',
+  selector: 'app-settings-comp',
   imports: [
     ReactiveFormsModule,
     BankSettingsComp,
     IconComp,
     PageHeaderComp,
-    PageIconComp,
-    SettingsItemComp
+    SettingsItemComp,
+    PageWrapper
   ],
   templateUrl: './settings-page-comp.html',
-  styleUrl: './settings-page-comp.scss',
-  host: { class: 'page mid' }
+  styleUrl: './settings-page-comp.scss'
 })
 export class SettingsComp {
   private readonly _settingsS = inject(SettingsStore)

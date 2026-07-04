@@ -5,8 +5,8 @@ import { LearnablesStore } from '../../../store/learnables-store'
 import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { PracticeTimeline } from '../../shared/practice-timeline/practice-timeline'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 
 type PracticeHistoryDay = {
   day: number
@@ -27,10 +27,9 @@ type PracticeHistoryDaySummary = {
 
 @Component({
   selector: 'app-stats-page',
-  imports: [PageHeaderComp, PageIconComp, DatePipe, IconComp, PracticeTimeline],
+  imports: [PageHeaderComp, DatePipe, IconComp, PracticeTimeline, PageWrapper],
   templateUrl: './stats-page.html',
-  styleUrl: './stats-page.scss',
-  host: { class: 'page mid' }
+  styleUrl: './stats-page.scss'
 })
 export class StatsPage {
   private readonly ls = inject(LearnablesStore)
@@ -88,7 +87,7 @@ export class StatsPage {
   protected scrollToDay(day: number): void {
     const element = document.getElementById(`day-${day}`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 }

@@ -197,6 +197,9 @@ export class AiService {
   translateFastStream$(config: TranslateFastConfig): Observable<ResponseStreamEvent> {
     return defer(() => {
       const controller = new AbortController()
+      const translateToLang = config.invertDirection
+        ? config.language.speaking
+        : config.language.learning
 
       return from(
         this.oAi().responses.create(
@@ -205,7 +208,7 @@ export class AiService {
             input: [
               {
                 role: 'system',
-                content: getQuickTranslatePrompt(config.language.learning, config.tone)
+                content: getQuickTranslatePrompt(translateToLang, config.tone)
               },
               { role: 'user', content: config.text }
             ],

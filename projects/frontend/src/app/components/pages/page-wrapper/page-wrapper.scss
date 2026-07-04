@@ -1,0 +1,36 @@
+:host {
+  display: grid;
+  padding: var(--page-padding);
+  gap: var(--page-padding);
+  width: 100vw;
+  box-sizing: border-box;
+  max-height: var(--app-height);
+
+  .content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    min-width: 0;
+    opacity: calc(1 - var(--scroll));
+    translate: 0 calc(-1 * var(--distance-8) * var(--scroll));
+  }
+
+  &:not(.full-screen) {
+    overflow-x: auto;
+
+    .content {
+      justify-self: center;
+      max-width: var(--max-width);
+    }
+  }
+
+  &.full-screen {
+    overflow: hidden;
+    overscroll-behavior: none;
+    height: var(--app-height);
+  }
+}

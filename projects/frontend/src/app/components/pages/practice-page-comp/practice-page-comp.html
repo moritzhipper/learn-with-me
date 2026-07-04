@@ -1,11 +1,13 @@
-<app-page-icon-comp type="learn" />
-
-@if (currentPractice(); as currP) {
-  <app-active-practice-comp
-    [currentPractice]="currP"
-    animate.leave="fly-out"
-    animate.enter="fly-in-y-wide"
-  />
-} @else {
-  <app-configure-practice-comp animate.leave="fly-out" animate.enter="fly-in-y-wide" />
-}
+<app-page-wrapper icon="learn" fullScreen>
+  <div class="views">
+    @if (currentPractice(); as currP) {
+      <app-active-practice-comp
+        [currentPractice]="currP"
+        animate.leave="fly-out"
+        animate.enter="fly-in-y-wide"
+      />
+    } @else {
+      <app-configure-practice-comp animate.leave="fly-out" animate.enter="fly-in-y-wide" />
+    }
+  </div>
+</app-page-wrapper>

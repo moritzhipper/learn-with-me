@@ -10,9 +10,6 @@
   box-sizing: border-box;
   transform-origin: top left;
 
-  // accomondates for page-padding
-  padding-bottom: var(--distance-4);
-
   h1 {
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--distance-1);
@@ -56,6 +53,6 @@
   :host {
     padding-left: var(--distance-6);
     white-space: nowrap;
-    // transform: rotate(-4deg);
+    transform: rotate(-5deg);
   }
 }
