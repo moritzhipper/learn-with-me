@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { AnimDelay } from '../../../services/anim-delay'
 import { ModalService } from '../../../services/modal-service'
@@ -37,14 +37,16 @@ export class TranslatePageComp {
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
 
-  cards = computed(() => {
+  private cardsWrapper = viewChild<ElementRef<HTMLElement>>('cardsWrapper')
+
+  protected cards = computed(() => {
     if (this.selectedMode() === 'translate') {
       return this.ls.activeBank().translations.history
     }
     return this.ls.activeBank().translations.magicTranslateCards
   })
 
-  tone = computed(() => this.ls.activeBank().translations.tone)
+  protected tone = computed(() => this.ls.activeBank().translations.tone)
 
   protected async setTone() {
     const result = await this.modalService.open<string>('text-input', {
@@ -131,5 +133,11 @@ export class TranslatePageComp {
     this.ls.updateCollection({ id: collectionID, addIDs: idsOfAllAdded })
 
     this.toastS.showToast('Card(s) imported successfully!')
+  }
+
+  scrollToCards() {
+    setTimeout(() => {
+      this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 300)
   }
 }

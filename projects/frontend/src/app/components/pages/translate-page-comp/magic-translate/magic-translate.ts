@@ -1,8 +1,9 @@
-import { Component, computed, inject, model, signal } from '@angular/core'
+import { Component, computed, inject, model, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
+import { LearnableBase } from '@shared/types'
 import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
 import { ToastService } from 'projects/frontend/src/app/services/toast-service'
 import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
@@ -28,6 +29,8 @@ export class MagicTranslate {
   private readonly ls = inject(LearnablesStore)
   private readonly aiService = inject(AiService)
   private readonly toastService = inject(ToastService)
+
+  newCardsCreated = output<void>()
 
   isConverting = signal(false)
 
@@ -96,13 +99,18 @@ export class MagicTranslate {
         return from(this.aiService.createLearnables(config)).pipe(
           tap(() => this.isConverting.set(false)),
           tapResponse({
-            next: (learnables) => this.ls.setMagicTranslateCards(learnables),
+            next: (learnables) => this.cardCreationSuccess(learnables),
             error: (e) => this.toastService.showHttpErrorToast(e)
           })
         )
       })
     )
   )
+
+  private cardCreationSuccess(learnable: LearnableBase[]) {
+    this.ls.setMagicTranslateCards(learnable)
+    this.newCardsCreated.emit()
+  }
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement

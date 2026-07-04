@@ -24,12 +24,18 @@
         margin: 0;
       }
 
+      .stats {
+        margin-left: auto;
+        line-height: var(--line-height-2);
+        align-self: end;
+      }
+
       app-icon-comp {
         width: var(--font-size-3);
         aspect-ratio: 1 / 1;
         color: var(--col-accent-2);
         rotate: 180deg;
-        translate: 0 1px;
+        translate: 0.5px 1px;
       }
     }
 

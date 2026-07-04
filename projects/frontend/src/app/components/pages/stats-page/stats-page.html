@@ -9,7 +9,9 @@
         <div class="header">
           <app-icon-comp type="drop-fill" />
           <h2>
-            {{ entry.day | date: 'mediumDate' }}
+            <span>
+              {{ entry.day | date: 'mediumDate' }}
+            </span>
           </h2>
           <p class="stats">
             <strong> {{ entry.summary.totalGuesses }} </strong> guesses

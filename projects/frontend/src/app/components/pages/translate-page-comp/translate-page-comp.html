@@ -20,25 +20,27 @@
     @if (selectedMode() === 'translate') {
       <app-quick-translate />
     } @else {
-      <app-magic-translate [(preset)]="magicPreset" />
+      <app-magic-translate [(preset)]="magicPreset" (newCardsCreated)="scrollToCards()" />
     }
   </div>
 
-  @if (selectedMode() === 'translate') {
-    <h2 class="indent fly-in-y-wide">History</h2>
-  } @else {
-    <h2 class="indent fly-in-y-wide">Extracted Cards</h2>
-  }
-  @let transCount = cards().length;
-  <div class="cards">
-    @for (card of cards(); track card.id) {
-      <app-learnable-comp
-        class="fly-in-y-wide"
-        [animDelay]="{ i: $index + 1, size: transCount }"
-        [learnable]="card"
-        (onSelect)="toggleSelection(card.id)"
-        [isSelected]="isSelected(card.id)"
-      />
+  <div class="cards-wrapper" #cardsWrapper>
+    @if (selectedMode() === 'translate') {
+      <h2 class="indent fly-in-y-wide">History</h2>
+    } @else {
+      <h2 class="indent first fly-in-y-wide">Extracted Cards</h2>
     }
+    @let transCount = cards().length;
+    <div class="cards">
+      @for (card of cards(); track card.id) {
+        <app-learnable-comp
+          class="fly-in-y-wide"
+          [animDelay]="{ i: $index + 1, size: transCount }"
+          [learnable]="card"
+          (onSelect)="toggleSelection(card.id)"
+          [isSelected]="isSelected(card.id)"
+        />
+      }
+    </div>
   </div>
 </app-page-wrapper>

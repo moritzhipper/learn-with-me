@@ -87,9 +87,7 @@ export class StatsPage {
   protected scrollToDay(day: number): void {
     const element = document.getElementById(`day-${day}`)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
-
-  protected onScroll() {}
 }

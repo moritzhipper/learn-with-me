@@ -1,7 +1,8 @@
 @use '../../../../../style/mixins.scss' as *;
 
 :host {
-  display: contents;
+  display: flex;
+  justify-content: center;
 }
 
 form {
@@ -114,6 +115,7 @@ form {
 @include isDesktop() {
   form {
     height: 400px;
+    padding: var(--distance-8) 0;
 
     .config {
       grid-template-columns: 1fr 1fr;
