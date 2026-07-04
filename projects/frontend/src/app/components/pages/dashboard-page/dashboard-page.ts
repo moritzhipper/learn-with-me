@@ -5,23 +5,22 @@ import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/cards-quick-selector/cards-quick-selector'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { PracticeQuickActions } from '../../shared/practice-quick-actions/practice-quick-actions'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared-bank-comp'
 
 @Component({
   selector: 'app-dashboard-page',
   imports: [
     PageHeaderComp,
-    PageIconComp,
     HeaderLink,
     PracticeQuickActions,
     CardsQuickSelector,
-    SharedBankComp
+    SharedBankComp,
+    PageWrapper
   ],
   templateUrl: './dashboard-page.html',
-  styleUrl: './dashboard-page.scss',
-  host: { class: 'page mid' }
+  styleUrl: './dashboard-page.scss'
 })
 export class DashboardPage {
   private readonly apiS = inject(ApiService)

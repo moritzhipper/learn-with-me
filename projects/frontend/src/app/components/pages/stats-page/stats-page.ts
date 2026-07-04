@@ -29,8 +29,7 @@ type PracticeHistoryDaySummary = {
   selector: 'app-stats-page',
   imports: [PageHeaderComp, PageIconComp, DatePipe, IconComp, PracticeTimeline],
   templateUrl: './stats-page.html',
-  styleUrl: './stats-page.scss',
-  host: { class: 'page mid' }
+  styleUrl: './stats-page.scss'
 })
 export class StatsPage {
   private readonly ls = inject(LearnablesStore)

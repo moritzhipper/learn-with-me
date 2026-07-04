@@ -1,14 +1,16 @@
-:host {
+.views {
+  height: 100%;
   display: grid;
-}
 
-app-active-practice-comp,
-app-configure-practice-comp {
-  grid-area: 1 / 1;
-}
+  app-active-practice-comp,
+  app-configure-practice-comp {
+    grid-area: 1 / 1;
+  }
 
-.fly-out {
-  animation: fly-out var(--duration-1);
+  .fly-out {
+    z-index: 0;
+    animation: fly-out var(--duration-1);
+  }
 }
 
 @keyframes fly-out {

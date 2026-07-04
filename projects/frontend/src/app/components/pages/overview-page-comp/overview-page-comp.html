@@ -15,59 +15,59 @@
     />
   }
 </app-bubbles>
-
-<app-page-icon-comp type="card" />
-<app-page-header-comp
-  [title]="selectedCollection()?.name || 'All Cards'"
-  backLink="/"
-  backLinkText="Home"
->
-  <app-collection-info-comp [config]="headerConfig()" />
-</app-page-header-comp>
-@if (userHasCards()) {
-  @if (collections().length !== 0) {
-    <app-filter-comp
-      [collections]="collections()"
-      [(selectedCollectionId)]="selectedCollectionId"
-      (onAction)="handleFilterAction($event)"
-    />
-  }
-  @if (collectionIsEmpty()) {
-    <p>collection is empty</p>
+<app-page-wrapper icon="card">
+  <app-page-header-comp
+    [title]="selectedCollection()?.name || 'All Cards'"
+    backLink="/"
+    backLinkText="Home"
+  >
+    <app-collection-info-comp [config]="headerConfig()" />
+  </app-page-header-comp>
+  @if (userHasCards()) {
+    @if (collections().length !== 0) {
+      <app-filter-comp
+        [collections]="collections()"
+        [(selectedCollectionId)]="selectedCollectionId"
+        (onAction)="handleFilterAction($event)"
+      />
+    }
+    @if (collectionIsEmpty()) {
+      <p>collection is empty</p>
+    } @else {
+      <div class="learnables">
+        @for (learnable of visibleLearnables(); track learnable.id) {
+          <app-learnable-comp
+            [learnable]="learnable"
+            [isSelected]="isSelected(learnable.id)"
+            (onSelect)="toggleLearnableSelection(learnable.id)"
+          />
+        }
+      </div>
+    }
+    @if (unsortedCards().length > 0) {
+      <h2>Unsorted Cards</h2>
+      <div class="learnables">
+        @for (learnable of unsortedCards(); track learnable.id) {
+          <app-learnable-comp
+            [learnable]="learnable"
+            [isSelected]="isSelected(learnable.id)"
+            (onSelect)="toggleLearnableSelection(learnable.id)"
+          />
+        }
+      </div>
+    }
   } @else {
-    <div class="learnables">
-      @for (learnable of visibleLearnables(); track learnable.id) {
-        <app-learnable-comp
-          [learnable]="learnable"
-          [isSelected]="isSelected(learnable.id)"
-          (onSelect)="toggleLearnableSelection(learnable.id)"
-        />
-      }
-    </div>
+    <app-page-placeholder-comp title="Add cards to start learning">
+      <p>
+        Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
+        to magically extract them from your notes, articles, single sentences or words you want to
+        learn.
+      </p>
+      <p>
+        Click
+        <app-icon-comp type="pen" [inline]="true" [size]="20" />
+        to create them manually or edit them after creation.
+      </p>
+    </app-page-placeholder-comp>
   }
-  @if (unsortedCards().length > 0) {
-    <h2>Unsorted Cards</h2>
-    <div class="learnables">
-      @for (learnable of unsortedCards(); track learnable.id) {
-        <app-learnable-comp
-          [learnable]="learnable"
-          [isSelected]="isSelected(learnable.id)"
-          (onSelect)="toggleLearnableSelection(learnable.id)"
-        />
-      }
-    </div>
-  }
-} @else {
-  <app-page-placeholder-comp title="Add cards to start learning">
-    <p>
-      Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
-      to magically extract them from your notes, articles, single sentences or words you want to
-      learn.
-    </p>
-    <p>
-      Click
-      <app-icon-comp type="pen" [inline]="true" [size]="20" />
-      to create them manually or edit them after creation.
-    </p>
-  </app-page-placeholder-comp>
-}
+</app-page-wrapper>

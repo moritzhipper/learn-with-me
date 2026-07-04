@@ -1,16 +1,13 @@
 # ToDo
 
-##
+# CLeanup
 
-- only do automatic resizing on mobile
-
-- on desktop: only do long text layout. no auto resize and stuff. use and long text, no resizing, just deepl like view
-  Allow to put in german or dutch, making the card always be correct and translation working
-
-- > add switch icon to center
+- make header and stuff align on desktop
+- clean up dashboard: umrude ganz
 
 # right now: Stats
 
+- put upcoming on dashboard?
 - put end of practice stickers somewhere prominent on ollection
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
 - confidence = confidence per cards = higher score, higher impressiveness!

@@ -1,9 +1,5 @@
 @use '../../../../style/mixins.scss' as *;
 
-:host {
-  box-sizing: border-box;
-}
-
 .sections {
   display: grid;
   gap: var(--distance-5);

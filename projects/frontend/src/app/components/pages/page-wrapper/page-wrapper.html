@@ -1,0 +1,7 @@
+<app-page-icon-comp [type]="icon()" />
+@if (!fullScreen()) {
+  <ng-content select="app-page-header-comp" />
+}
+<div class="content">
+  <ng-content />
+</div>

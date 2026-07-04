@@ -8,15 +8,14 @@ import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
+import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { MagicTranslate } from './magic-translate/magic-translate'
 import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
   imports: [
-    PageIconComp,
     FormsModule,
     QuickTranslate,
     MagicTranslate,
@@ -24,11 +23,11 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     Bubble,
     LearnableComp,
     AnimDelay,
-    IconComp
+    IconComp,
+    PageWrapper
   ],
   templateUrl: './translate-page-comp.html',
-  styleUrl: './translate-page-comp.scss',
-  host: { class: 'page mid' }
+  styleUrl: './translate-page-comp.scss'
 })
 export class TranslatePageComp {
   selectedMode = signal<'translate' | 'magic'>('translate')

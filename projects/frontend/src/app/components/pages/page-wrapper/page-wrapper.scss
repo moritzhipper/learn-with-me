@@ -1,0 +1,34 @@
+@use '../../../../style/mixins' as *;
+
+:host {
+  display: grid;
+  padding: var(--page-padding);
+  gap: var(--page-padding);
+  width: 100vw;
+  box-sizing: border-box;
+  max-height: var(--app-height);
+
+  .content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  &:not(.full-screen) {
+    overflow-x: auto;
+
+    .content {
+      justify-self: center;
+      max-width: var(--max-width);
+    }
+  }
+
+  &.full-screen {
+    overflow: hidden;
+    overscroll-behavior: none;
+    height: var(--app-height);
+
+    .content {
+      place-self: stretch;
+    }
+  }
+}

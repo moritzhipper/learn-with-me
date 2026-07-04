@@ -47,10 +47,7 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     AnimDelay
   ],
   templateUrl: './share-page-comp.html',
-  styleUrl: './share-page-comp.scss',
-  host: {
-    class: 'page mid'
-  }
+  styleUrl: './share-page-comp.scss'
 })
 export class SharePageComp {
   private readonly _toastS = inject(ToastService)
