@@ -1,8 +1,8 @@
 # ToDo
 
-- clean up dashboard: umrude ganz
-- use page-padding var for negative margins
+- clean up dashboard (like netflix, stats, translate quick and magic als quicklinks at top
 - put empty state into page wrapper -> use on shared pages and overview page
+- share, import/export von file und online -> write tests
 
 # right now: Stats
 
@@ -12,8 +12,6 @@
 - confidence = confidence per cards = higher score, higher impressiveness!
 
 ## General
-
-- use display content for main layout or pages to align stuff
 
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
@@ -34,7 +32,6 @@
 
 Create better reusable styles (import styles per form), holding:
 
-- Header Style (no margin on h2, allowing h2 + description) -> See add to collection form
 - Description style
 - maybe just creat form header component?
 - Create Info Card style, like start new practice and stuff

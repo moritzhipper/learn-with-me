@@ -138,7 +138,7 @@
     &.index-0 {
       transform: translate(0%);
       translate: calc(var(--swipe-prog) * 1px) max(calc(var(--swipe-prog) * -0.1px), 0px);
-      rotate: calc(var(--swipe-prog) * 0.02deg);
+      rotate: calc(var(--swipe-prog) * 0.03deg);
     }
 
     &.index-1 {
