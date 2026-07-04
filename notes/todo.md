@@ -24,6 +24,7 @@
 - clean up dashboard: umrude ganz
 - use page-padding var for negative margins
 - put translate tone to left left?
+- put empty state into page wrapper -> use on shared pages and overview page
 
 # right now: Stats
 

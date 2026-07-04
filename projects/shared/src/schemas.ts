@@ -60,6 +60,7 @@ export const BankBaseSchema = z.object({
 })
 
 export const Guess = z.literal(['right', 'wrong', 'unanswered'])
+
 export const GuessableSchema = z.object({
   id: z.string(),
   guess: Guess

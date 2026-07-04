@@ -12,7 +12,7 @@
 </app-bubbles>
 
 <app-page-wrapper icon="translate">
-  <button class="tone-wrapper silent" (click)="setTone()">
+  <button class="tone-wrapper silent" (click)="setTone()" header>
     <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
     <p class="tone size-2 ellipsis">{{ translations().tone || 'Neutral' }}</p>
   </button>

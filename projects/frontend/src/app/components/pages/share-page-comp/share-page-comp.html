@@ -1,69 +1,73 @@
-<app-page-icon-comp type="share-network-fill" />
-<app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
-
-<div class="preview-sections">
-  @for (section of previewBanks(); track section.title) {
-    <div
-      class="preview-section fly-in-y-wide"
-      [animDelay]="{ i: $index, list: previewBanks() ?? [] }"
-    >
-      @if (section.type === 'community') {
-        <app-header-link
-          [label]="section.title"
-          [route]="'/community/explore'"
-          [queryParams]="section.params"
-        />
-
-        <div class="collections community">
-          @for (bank of section.banks; track bank.id) {
-            <app-shared-bank-comp
-              class="stacked-shadow"
-              [bank]="bank"
-              (copyId)="copyLink(bank)"
-              (importBank)="importBank(bank)"
-              [isCommunityBank]="true"
-            />
-          }
-
-          <a
-            class="silent see-more stacked-shadow"
-            routerLink="/community/explore"
+<app-page-wrapper icon="share-network-fill">
+  <app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
+  <div class="preview-sections">
+    @for (section of previewBanks(); track section.title) {
+      <div
+        class="preview-section fly-in-y-wide"
+        [animDelay]="{ i: $index, list: previewBanks() ?? [] }"
+      >
+        @if (section.type === 'community') {
+          <app-header-link
+            [label]="section.title"
+            [route]="'/community/explore'"
             [queryParams]="section.params"
-          >
-            <span> Explore more </span>
-            <app-icon-comp type="chevron" size="auto" />
-          </a>
-        </div>
-      } @else {
-        <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
-        <div class="collections user">
-          @for (bank of section.banks; track bank.id) {
-            <app-shared-bank-comp class="stacked-shadow" [bank]="bank" (copyId)="copyLink(bank)" />
-          }
-        </div>
-      }
-    </div>
-  }
-</div>
+          />
 
-@if (fetchState() === 'no-data') {
-  <app-page-placeholder-comp title="No shared banks available">
-    <p>As soon as you or other users share banks, they will appear here.</p>
-  </app-page-placeholder-comp>
-}
+          <div class="collections community">
+            @for (bank of section.banks; track bank.id) {
+              <app-shared-bank-comp
+                class="stacked-shadow"
+                [bank]="bank"
+                (copyId)="copyLink(bank)"
+                (importBank)="importBank(bank)"
+                [isCommunityBank]="true"
+              />
+            }
 
-<div class="state-indicator">
-  @switch (fetchState()) {
-    @case ('loading') {
-      <app-loading-spinner class="fly-in-y-wide" />
-    }
-    @case ('error') {
-      <div class="error-wrapper fly-in-y-wide">
-        <p class="error">
-          <strong> Error loading Previews </strong>
-        </p>
-        <button class="big" (click)="fetchBankPreviews()">Retry</button>
+            <a
+              class="silent see-more stacked-shadow"
+              routerLink="/community/explore"
+              [queryParams]="section.params"
+            >
+              <span> Explore more </span>
+              <app-icon-comp type="chevron" size="auto" />
+            </a>
+          </div>
+        } @else {
+          <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
+          <div class="collections user">
+            @for (bank of section.banks; track bank.id) {
+              <app-shared-bank-comp
+                class="stacked-shadow"
+                [bank]="bank"
+                (copyId)="copyLink(bank)"
+              />
+            }
+          </div>
+        }
       </div>
     }
+  </div>
+
+  @if (fetchState() === 'no-data') {
+    <app-page-placeholder-comp title="No shared banks available">
+      <p>As soon as you or other users share banks, they will appear here.</p>
+    </app-page-placeholder-comp>
   }
-</div>
+
+  <div class="state-indicator">
+    @switch (fetchState()) {
+      @case ('loading') {
+        <app-loading-spinner class="fly-in-y-wide" />
+      }
+      @case ('error') {
+        <div class="error-wrapper fly-in-y-wide">
+          <p class="error">
+            <strong> Error loading Previews </strong>
+          </p>
+          <button class="big" (click)="fetchBankPreviews()">Retry</button>
+        </div>
+      }
+    }
+  </div>
+</app-page-wrapper>

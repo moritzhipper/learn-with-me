@@ -26,9 +26,5 @@
     overflow: hidden;
     overscroll-behavior: none;
     height: var(--app-height);
-
-    .content {
-      place-self: stretch;
-    }
   }
 }
