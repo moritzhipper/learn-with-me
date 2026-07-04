@@ -8,7 +8,7 @@
 </button>
 
 @if (isOpen()) {
-  <div class="navigation" animate.enter="main-enter" animate.leave="main-leave">
+  <nav class="navigation" animate.enter="main-enter" animate.leave="main-leave">
     <div class="entry header">{{ appName }}</div>
     <div class="entry language ellipsis">
       <span class="ellipsis">
@@ -50,5 +50,5 @@
       <app-icon-comp type="info" />
       <span>About</span>
     </a>
-  </div>
+  </nav>
 }

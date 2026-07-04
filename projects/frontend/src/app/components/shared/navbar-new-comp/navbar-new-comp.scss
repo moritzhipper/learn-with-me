@@ -1,13 +1,16 @@
+:host {
+  display: contents;
+}
+
 .toggle {
+  margin: var(--distance-5);
   position: fixed;
   top: 0;
   right: 0;
   z-index: 20;
   display: block;
-  background-color: var(--col-accent);
   border-radius: var(--radius-3);
   padding: var(--distance-3);
-  margin: var(--distance-5);
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
   background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
   backdrop-filter: blur(5px);

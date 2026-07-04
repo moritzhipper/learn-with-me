@@ -1,24 +1,33 @@
 @use './mixins';
 
 .page {
-  box-sizing: border-box;
-  overflow: clip;
-  max-width: 100vw;
-  padding: var(--distance-5);
+  display: grid;
 
-  @include mixins.isPhone() {
+  &.full-screen {
+    height: var(--app-height);
   }
 
-  @include mixins.isDesktop() {
-    &.mid {
-      align-self: start;
-      justify-self: center;
-      width: 100%;
-      max-width: var(--max-width);
-    }
-    &.full {
-      width: 100vw;
-      height: var(--app-height);
-    }
+  &.scrollable {
   }
+
+  .content {
+    width: var(--max-width);
+    max-width: 100%;
+  }
+
+  // @include mixins.isPhone() {
+  // }
+
+  // @include mixins.isDesktop() {
+  //   &.mid {
+  //     align-self: start;
+  //     justify-self: center;
+  //     width: 100%;
+  //     max-width: var(--max-width);
+  //   }
+  //   &.full {
+  //     width: 100vw;
+  //     height: var(--app-height);
+  //   }
+  // }
 }
