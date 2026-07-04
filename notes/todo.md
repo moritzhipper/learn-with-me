@@ -3,6 +3,15 @@
 - clean up dashboard (like netflix, stats, translate quick and magic als quicklinks at top
 - put empty state into page wrapper -> use on shared pages and overview page
 - share, import/export von file und online -> write tests
+- fix prompts: shorter notes. let gemini do that
+
+## Modal Forms
+
+Create better reusable styles (import styles per form), holding:
+
+- Description style
+- maybe just creat form header component?
+- Create Info Card style, like start new practice and stuff
 
 # right now: Stats
 
@@ -27,14 +36,6 @@
 - make more obvious what the count is
 - add weekly average cards guessed
 - addd dayly average cards guessed
-
-## Modal Forms
-
-Create better reusable styles (import styles per form), holding:
-
-- Description style
-- maybe just creat form header component?
-- Create Info Card style, like start new practice and stuff
 
 ## Dashboard
 

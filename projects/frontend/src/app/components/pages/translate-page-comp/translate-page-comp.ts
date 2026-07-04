@@ -138,6 +138,6 @@ export class TranslatePageComp {
   scrollToCards() {
     setTimeout(() => {
       this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 300)
+    }, 100)
   }
 }
