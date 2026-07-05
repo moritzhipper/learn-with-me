@@ -1,19 +1,35 @@
 <app-page-wrapper icon="dashboard">
   <app-page-header-comp title="Home" />
   <div class="sections">
-    <section class="wide">
+    <section class="wide quick-links full-width-scroll">
+      <a class="quick-link translate" routerLink="/translate">
+        Translate
+
+        <app-icon-comp type="translate" />
+      </a>
+      <a class="quick-link translate" routerLink="/generate">
+        Generate
+        <app-icon-comp type="magic" />
+      </a>
+      <a class="quick-link stats" routerLink="/stats">
+        Stats
+
+        <app-icon-comp type="donut-chart-fill" />
+      </a>
+    </section>
+    <section class="quick-actions">
       <app-header-link label="Practice" route="practice" />
       <div class="caroussel-wrapper">
         <app-practice-quick-actions />
       </div>
     </section>
-    <section>
+    <section class="quick-actions">
       <app-header-link label="My Cards" route="cards" />
       <div class="caroussel-wrapper">
         <app-cards-quick-selector />
       </div>
     </section>
-    <section>
+    <section class="quick-actions">
       <app-header-link label="Community Banks" route="community" />
       <div class="caroussel-wrapper">
         @if (sharedBanks.hasValue() && sharedBanks.value().length > 0) {
@@ -24,10 +40,6 @@
           <p>Shared banks are not available right now. Try again later.</p>
         }
       </div>
-    </section>
-    <section class="wide">
-      <app-header-link label="Stats" route="stats" />
-      <p>See your practice history and track your progress over time.</p>
     </section>
   </div>
 </app-page-wrapper>

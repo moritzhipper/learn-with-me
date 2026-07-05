@@ -1,5 +1,6 @@
 # ToDo
 
+- make caroussel-wrapper align on desktop too
 - clean up dashboard (like netflix, stats, translate quick and magic als quicklinks at top
 - put empty state into page wrapper -> use on shared pages and overview page
 - share, import/export von file und online -> write tests
