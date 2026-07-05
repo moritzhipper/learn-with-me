@@ -10,9 +10,9 @@
   opacity: var(--opacity-1);
   align-self: start;
   padding-top: var(--distance-1);
-  padding-right: var(--distance-7);
   overflow: hidden;
-  width: 100%;
+  width: calc(100% - var(--distance-7));
+  max-width: 600px;
 
   .label {
     display: inline-flex;
