@@ -3,6 +3,7 @@
 @use './style/animations';
 @use './style/page-sizes';
 @use './style/typography';
+@use './style/scroll-lists';
 
 html {
   background-color: var(--col-bg);
