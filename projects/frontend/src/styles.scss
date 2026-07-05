@@ -1,8 +1,9 @@
 @use './style/theme';
 @use './style/reusable';
 @use './style/animations';
-@use './style/page-sizes';
 @use './style/typography';
+@use './style/scroll-lists';
+@use './style/responsive';
 
 html {
   background-color: var(--col-bg);
@@ -11,13 +12,6 @@ html {
 
 body {
   margin: 0;
-}
-
-* {
-  scrollbar-color: rgb(from var(--col-accent) r g b / var(--opacity-1))
-    rgb(from var(--col-accent) r g b / var(--opacity-0));
-
-  scrollbar-width: thin;
 }
 
 button,

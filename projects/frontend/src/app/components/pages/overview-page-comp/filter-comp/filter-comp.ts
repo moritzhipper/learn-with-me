@@ -10,7 +10,10 @@ export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
   selector: 'app-filter-comp',
   imports: [IconComp, FormsModule, AnimDelay],
   templateUrl: './filter-comp.html',
-  styleUrl: './filter-comp.scss'
+  styleUrl: './filter-comp.scss',
+  host: {
+    class: 'full-width-scroll'
+  }
 })
 export class FilterComp {
   selectedCollectionId = model.required<string | null>()

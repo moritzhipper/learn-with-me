@@ -1,8 +1,33 @@
 # ToDo
 
-- clean up dashboard: umrude ganz
-- use page-padding var for negative margins
+## Today
+
+- caroussel wrapper
+- info-card-comp
+- import / export / share store based
+
+- make caroussel-wrapper align on desktop too
+- clean up dashboard (like netflix, stats, translate quick and magic als quicklinks at top
 - put empty state into page wrapper -> use on shared pages and overview page
+- share, import/export von file und online -> write tests
+- fix prompts: shorter notes. let gemini do that
+- create info-card-comp (info, warning), use as empty state for:
+  - no history cards
+  - no generated cards
+  - empty page (overview, collection)
+  - community not available
+  - use in start practice modal
+  - create layot helper for flex center?
+
+- add make text smaller functionalty to practice cards to accomondate for long text?
+
+## Modal Forms
+
+Create better reusable styles (import styles per form), holding:
+
+- Description style
+- maybe just creat form header component?
+- Create Info Card style, like start new practice and stuff
 
 # right now: Stats
 
@@ -13,8 +38,7 @@
 
 ## General
 
-- use display content for main layout or pages to align stuff
-
+- allow opening generate whenever cards are selected
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
 - add automatism that automatically selects the worst direction?
@@ -29,15 +53,6 @@
 - make more obvious what the count is
 - add weekly average cards guessed
 - addd dayly average cards guessed
-
-## Modal Forms
-
-Create better reusable styles (import styles per form), holding:
-
-- Header Style (no margin on h2, allowing h2 + description) -> See add to collection form
-- Description style
-- maybe just creat form header component?
-- Create Info Card style, like start new practice and stuff
 
 ## Dashboard
 

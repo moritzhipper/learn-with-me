@@ -5,6 +5,7 @@
   gap: var(--distance-4);
   overflow-x: auto;
   scrollbar-width: none;
+  margin-bottom: var(--distance-4);
 }
 
 button.small {
@@ -63,9 +64,6 @@ button.icon-only {
 
 @include isPhone() {
   :host {
-    margin: calc(-1 * var(--distance-4));
-    margin-bottom: 0;
-    padding: var(--distance-4);
   }
   .chip {
     flex: 1;
@@ -73,9 +71,6 @@ button.icon-only {
 }
 
 @include isDesktop() {
-  :host {
-    margin-bottom: var(--distance-4);
-  }
   .chip {
     padding: 0 var(--distance-5);
   }

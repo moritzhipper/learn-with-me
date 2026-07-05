@@ -5,6 +5,7 @@
   width: 100vw;
   box-sizing: border-box;
   max-height: var(--app-height);
+  scroll-timeline: --main-timeline;
 
   .content {
     width: 100%;
@@ -15,8 +16,9 @@
     position: sticky;
     top: 0;
     min-width: 0;
-    opacity: calc(1 - var(--scroll));
-    translate: 0 calc(-1 * var(--distance-8) * var(--scroll));
+    animation: hide ease-out both;
+    animation-range: 0px var(--headerHeight);
+    animation-timeline: --main-timeline;
   }
 
   &:not(.full-screen) {
@@ -32,5 +34,18 @@
     overflow: hidden;
     overscroll-behavior: none;
     height: var(--app-height);
+  }
+}
+
+@keyframes hide {
+  30% {
+    scale: 0.95;
+    opacity: var(--opacity-1);
+  }
+
+  to {
+    scale: 0.95;
+    translate: 0 calc(var(--headerHeight) / -2);
+    opacity: 0;
   }
 }

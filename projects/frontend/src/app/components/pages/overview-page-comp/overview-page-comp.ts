@@ -20,7 +20,6 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
-import { OverviewPageFacade } from './overview-page-facade'
 
 /**
  * Overview page component.
@@ -46,7 +45,6 @@ import { OverviewPageFacade } from './overview-page-facade'
 })
 export class OverviewComp {
   private readonly ls = inject(LearnablesStore)
-  private readonly _facade = inject(OverviewPageFacade)
   private readonly router = inject(Router)
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
@@ -202,10 +200,7 @@ export class OverviewComp {
 
     if (result.type !== 'confirm') return
 
-    const collectionID =
-      'addToId' in result.value
-        ? result.value.addToId
-        : this.ls.createCollection(result.value.createName)
+    const collectionID = result.value.addToId ?? this.ls.createCollection(result.value.createName)
 
     this.ls.updateCollection({ id: collectionID, addIDs: learnableIds })
     this.selectedLearnableIds.set([])

@@ -1,0 +1,49 @@
+@use './mixins' as *;
+
+// makes lists horizontally scrollable, snaps their position on item start
+// responsively makes the items
+// On Mobile:
+//  - items are 100% wrapper width
+// On Desktop
+//  - dynamic shadow is applied on scrolling side on wich the items overflow
+.caroussel-wrapper {
+  display: grid;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  grid-auto-flow: column;
+  gap: var(--distance-4);
+  position: relative;
+  padding: 0 var(--page-padding);
+  margin: 0 calc(-1 * var(--page-padding));
+  scroll-padding-left: var(--page-padding);
+
+  .caroussel-item {
+    scroll-snap-align: start;
+  }
+
+  @include isDesktop {
+    grid-auto-columns: 300px;
+    scrollbar-width: thin;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--col-text) var(--page-padding),
+      var(--col-text) calc(100% - var(--page-padding)),
+      transparent 100%
+    );
+  }
+
+  @include isPhone {
+    grid-auto-columns: 100%;
+    scrollbar-width: none;
+  }
+}
+
+// fill-width-scrollable
+.full-width-scroll {
+  @include isPhone {
+    padding: 0 var(--page-padding);
+    margin: 0 calc(-1 * var(--page-padding));
+    scrollbar-width: none;
+  }
+}

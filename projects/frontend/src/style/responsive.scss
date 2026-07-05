@@ -1,0 +1,18 @@
+@use './mixins' as *;
+
+// contains styles making the mobile experience as mobile app like as possible and the desktop experience as desktop app like as possible
+
+@include isDesktop {
+  * {
+    scrollbar-color: rgb(from var(--col-accent) r g b / var(--opacity-1))
+      rgb(from var(--col-accent) r g b / var(--opacity-0));
+    scrollbar-width: thin;
+  }
+}
+
+@include isPhone {
+  * {
+    scrollbar-color: rgb(from var(--col-primary) r g b / var(--opacity-0)) transparent;
+    scrollbar-width: thin;
+  }
+}

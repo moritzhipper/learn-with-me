@@ -21,7 +21,7 @@ export class NavbarNewComp {
   protected readonly hasActivePractice = computed(() => !!this.ls.activeBank().practice.active)
 
   @HostListener('mouseleave', [])
-  onleave() {
+  protected onleave() {
     if (!this.isMobileView) {
       this.isOpen.set(false)
     }
