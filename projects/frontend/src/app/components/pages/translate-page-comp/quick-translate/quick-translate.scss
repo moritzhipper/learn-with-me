@@ -19,10 +19,6 @@
     gap: var(--distance-4);
     opacity: 0;
 
-    &.visible {
-      opacity: 1;
-    }
-
     button {
       opacity: var(--opacity-1);
       .icon {

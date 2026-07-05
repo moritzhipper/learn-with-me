@@ -8,7 +8,7 @@
   <app-icon-comp type="share-network" />
 </button>
 <div class="details">
-  <p class="counts size-0">
+  <p class="size-0">
     <span class="word-list-item"> {{ b.collections.length }} collections </span>
     <span class="word-list-item"> {{ b.learnables.length }} learnables </span>
   </p>
@@ -17,7 +17,7 @@
     <app-icon-comp type="left-right" [size]="12" />
     {{ b.language.speaking }}
   </p>
-  <p class="created size-0">{{ b.createdAt | date: 'mediumDate' }}</p>
+  <p class="size-0">{{ b.createdAt | date: 'mediumDate' }}</p>
 </div>
 
 <button class="small delete" (click)="delete.emit()">delete</button>

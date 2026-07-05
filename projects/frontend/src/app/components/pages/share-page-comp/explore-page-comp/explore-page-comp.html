@@ -1,19 +1,18 @@
 <app-page-icon-comp type="compass" />
 <app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
   <h2 class="language">
-    <div class="speaking ellipsis">{{ params().speaking ?? 'All languages' }}</div>
-    <app-icon-comp class="icon arrows" type="left-right" [size]="20" />
-    <div class="learning ellipsis">{{ params().learning ?? 'All languages' }}</div>
+    <div class="ellipsis">{{ params().speaking ?? 'All languages' }}</div>
+    <app-icon-comp class="icon" type="left-right" [size]="20" />
+    <div class="ellipsis">{{ params().learning ?? 'All languages' }}</div>
   </h2>
 </app-page-header-comp>
 
 <div class="params-config">
   <button class="small change has-icon" (click)="changeLanguageMatch()">
     <span> Change Match </span>
-    <app-icon-comp class="icon pen" type="pen" [size]="16" />
+    <app-icon-comp class="icon" type="pen" [size]="16" />
   </button>
   <app-radio-comp
-    class="category"
     [config]="[
       { value: 'top', label: 'Top' },
       { value: 'new', label: 'New' }
@@ -49,12 +48,12 @@
       <app-loading-spinner />
     }
     @case ('all-loaded') {
-      <p class="all-there">
+      <p>
         <strong> You looked at all of the Banks</strong>
       </p>
     }
     @case ('error') {
-      <p class="error">
+      <p>
         <strong> Error loading Previews </strong>
       </p>
       <button class="big">Retry</button>

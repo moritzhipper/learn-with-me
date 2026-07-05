@@ -1,7 +1,7 @@
 @if (showFilter()) {
   <form [formGroup]="form" animate.enter="enter" animate.leave="leave">
     <div class="wrapper">
-      <label class="search">
+      <label>
         <span>search</span>
         <input type="text" formControlName="search" />
       </label>
@@ -12,7 +12,6 @@
         label="type"
       />
       <app-radio-comp
-        class="confidence"
         [config]="[{ value: null, label: 'all' }, { value: 'low' }, { value: 'medium' }]"
         formControlName="confidence"
         label="max confidence"
@@ -54,6 +53,6 @@
   </button>
   @if (!isInitialValue()) {
     <button class="silent reset" (click)="reset()">Reset filter</button>
-    <button class="silent select" (click)="onSelectVisible()">Select visible</button>
+    <button class="silent" (click)="onSelectVisible()">Select visible</button>
   }
 </div>

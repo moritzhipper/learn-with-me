@@ -1,13 +1,6 @@
 form {
   grid-template-rows: 1fr auto;
 
-  .preview-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--distance-4);
-    justify-content: center;
-  }
-
   .preview {
     position: relative;
     max-width: var(--medium-width);

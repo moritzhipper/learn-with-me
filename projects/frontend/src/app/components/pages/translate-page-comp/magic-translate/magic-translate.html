@@ -39,7 +39,6 @@
         { value: 'generate', label: 'Generate' }
       ]"
       formControlName="mode"
-      class="type"
     />
     <app-radio-comp
       [darkMode]="true"
@@ -49,7 +48,6 @@
         { value: 'both', label: 'Both' }
       ]"
       formControlName="cardType"
-      class="type"
     />
 
     <button type="submit" class="has-icon" [disabled]="isConverting() || !createLearnablesConfig()">

@@ -28,16 +28,16 @@
       <app-icon-comp type="dashboard" />
       <span>Home</span>
     </a>
-    <a class="entry big practice" routerLink="practice" routerLinkActive="active">
+    <a class="entry big" routerLink="practice" routerLinkActive="active">
       <app-icon-comp type="learn" />
       <span>
         <span> Practice </span>
         @if (hasActivePractice()) {
-          <span class="indicator">•</span>
+          <span>•</span>
         }
       </span>
     </a>
-    <a class="entry big practice" routerLink="translate" routerLinkActive="active">
+    <a class="entry big" routerLink="translate" routerLinkActive="active">
       <app-icon-comp type="translate" />
       <span>Translate</span>
     </a>
@@ -46,7 +46,7 @@
       <app-icon-comp type="settings" />
       <span>Settings</span>
     </a>
-    <a routerLink="about" class="entry small about" routerLinkActive="active">
+    <a routerLink="about" class="entry small" routerLinkActive="active">
       <app-icon-comp type="info" />
       <span>About</span>
     </a>

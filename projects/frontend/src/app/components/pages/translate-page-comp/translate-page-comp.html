@@ -12,7 +12,7 @@
 </app-bubbles>
 
 <app-page-wrapper icon="translate">
-  <div class="header" header>
+  <div header>
     <button class="tone-wrapper silent" (click)="setTone()">
       <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
       <p class="tone size-2 ellipsis">{{ tone() || 'Neutral' }}</p>
@@ -24,7 +24,7 @@
     }
   </div>
 
-  <div class="cards-wrapper" #cardsWrapper>
+  <div #cardsWrapper>
     @if (selectedMode() === 'translate') {
       <h2 class="indent fly-in-y-wide">History</h2>
     } @else {

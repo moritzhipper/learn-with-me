@@ -2,10 +2,7 @@
   <app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
   <div class="preview-sections">
     @for (section of previewBanks(); track section.title) {
-      <div
-        class="preview-section fly-in-y-wide"
-        [animDelay]="{ i: $index, list: previewBanks() ?? [] }"
-      >
+      <div class="fly-in-y-wide" [animDelay]="{ i: $index, list: previewBanks() ?? [] }">
         @if (section.type === 'community') {
           <app-header-link
             [label]="section.title"
@@ -13,7 +10,7 @@
             [queryParams]="section.params"
           />
 
-          <div class="collections community">
+          <div class="collections">
             @for (bank of section.banks; track bank.id) {
               <app-shared-bank-comp
                 class="stacked-shadow"
@@ -35,7 +32,7 @@
           </div>
         } @else {
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
-          <div class="collections user">
+          <div class="collections">
             @for (bank of section.banks; track bank.id) {
               <app-shared-bank-comp
                 class="stacked-shadow"
@@ -62,7 +59,7 @@
       }
       @case ('error') {
         <div class="error-wrapper fly-in-y-wide">
-          <p class="error">
+          <p>
             <strong> Error loading Previews </strong>
           </p>
           <button class="big" (click)="fetchBankPreviews()">Retry</button>
