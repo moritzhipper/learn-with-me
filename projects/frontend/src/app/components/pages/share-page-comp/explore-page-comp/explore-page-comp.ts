@@ -12,10 +12,10 @@ import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-stor
 import { ApiFetchState, ExplorePageCategoryConfig } from 'projects/frontend/src/app/types/types'
 import { lastValueFrom } from 'rxjs'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
 import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
-import { PagePlaceholderComp } from '../../../shared/page-placeholder-comp/page-placeholder-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
@@ -29,8 +29,8 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
     IconComp,
     RadioComp,
     FormsModule,
-    PagePlaceholderComp,
-    AnimDelay
+    AnimDelay,
+    InfoCard
   ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'

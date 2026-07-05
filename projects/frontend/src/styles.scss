@@ -4,6 +4,7 @@
 @use './style/typography';
 @use './style/scroll-lists';
 @use './style/responsive';
+@use './style/layout';
 
 html {
   background-color: var(--col-bg);

@@ -32,12 +32,25 @@
     <section class="quick-actions">
       <app-header-link label="Community Banks" route="community" />
       <div class="caroussel-wrapper">
-        @if (sharedBanks.hasValue() && sharedBanks.value().length > 0) {
-          @for (bank of sharedBanks.value(); track bank.id) {
-            <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
+        @if (sharedBanks.hasValue()) {
+          @if (sharedBanks.value().length > 0) {
+            @for (bank of sharedBanks.value(); track bank.id) {
+              <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
+            }
+          } @else {
+            <liz-info-card title="No shared banks available">
+              <p>
+                Banks will appear as soon as other users share banks with your language pairing.
+              </p>
+            </liz-info-card>
           }
-        } @else {
-          <p>Shared banks are not available right now. Try again later.</p>
+        } @else if (sharedBanks.error()) {
+          <liz-info-card title="Error loading Banks" type="warn">
+            <p>
+              Either larry is having a bad day or your internet is down. Either way, please try
+              again later.
+            </p>
+          </liz-info-card>
         }
       </div>
     </section>

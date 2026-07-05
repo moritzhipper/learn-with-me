@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PagePlaceholderComp } from './page-placeholder-comp';
+import { InfoCard } from './info-card';
 
-describe('PagePlaceholderComp', () => {
-  let component: PagePlaceholderComp;
-  let fixture: ComponentFixture<PagePlaceholderComp>;
+describe('InfoCard', () => {
+  let component: InfoCard;
+  let fixture: ComponentFixture<InfoCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PagePlaceholderComp]
+      imports: [InfoCard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PagePlaceholderComp);
+    fixture = TestBed.createComponent(InfoCard);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -8,6 +8,7 @@ import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../shared/info-card/info-card'
 import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { MagicTranslate } from './magic-translate/magic-translate'
@@ -24,7 +25,8 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     LearnableComp,
     AnimDelay,
     IconComp,
-    PageWrapper
+    PageWrapper,
+    InfoCard
   ],
   templateUrl: './translate-page-comp.html',
   styleUrl: './translate-page-comp.scss'
@@ -63,6 +65,7 @@ export class TranslatePageComp {
     this.ls.updateTranslateTone(result.value)
   }
 
+  // toggles mode, puts selected cards as preset for magic mode should they be selected
   toggleMode() {
     if (this.selectedMode() === 'translate') {
       const selectedCardsText = this.ls

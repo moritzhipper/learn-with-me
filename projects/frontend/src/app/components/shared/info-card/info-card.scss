@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2);
+
+  padding: var(--distance-4);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  &.info {
+    border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+
+    app-icon-comp {
+      color: rgb(from var(--col-accent) r g b / var(--opacity-1));
+    }
+  }
+
+  &.warn {
+    border: 1px solid var(--col-warning);
+    background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
+
+    app-icon-comp {
+      color: var(--col-warning);
+    }
+  }
+
+  &.full-page {
+    margin: var(--distance-7) auto;
+    max-width: 500px;
+  }
+
+  app-icon-comp {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    top: -10px;
+    right: -12px;
+    rotate: 3deg;
+  }
+}

@@ -12,9 +12,9 @@ import { LearnablesStore } from '../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
@@ -41,10 +41,10 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     IconComp,
     RouterLink,
     LoadingSpinner,
-    PagePlaceholderComp,
     HeaderLink,
     AnimDelay,
-    PageWrapper
+    PageWrapper,
+    InfoCard
   ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss'

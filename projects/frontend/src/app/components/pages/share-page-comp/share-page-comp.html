@@ -47,24 +47,25 @@
   </div>
 
   @if (fetchState() === 'no-data') {
-    <app-page-placeholder-comp title="No shared banks available">
+    <liz-info-card title="No shared banks available" fullPage>
       <p>As soon as you or other users share banks, they will appear here.</p>
-    </app-page-placeholder-comp>
+    </liz-info-card>
   }
 
-  <div class="state-indicator">
-    @switch (fetchState()) {
-      @case ('loading') {
+  @switch (fetchState()) {
+    @case ('loading') {
+      <div class="state-indicator">
         <app-loading-spinner class="fly-in-y-wide" />
-      }
-      @case ('error') {
-        <div class="error-wrapper fly-in-y-wide">
-          <p>
-            <strong> Error loading Previews </strong>
-          </p>
-          <button class="big" (click)="fetchBankPreviews()">Retry</button>
-        </div>
-      }
+      </div>
     }
-  </div>
+    @case ('error') {
+      <liz-info-card title="Error loading Previews" type="warn" fullPage>
+        <p class="pb-4">
+          Either larry is having a bad day or your internet is down. Either way, please try again
+          later.
+        </p>
+        <button class="big" (click)="fetchBankPreviews()">Retry now</button>
+      </liz-info-card>
+    }
+  }
 </app-page-wrapper>

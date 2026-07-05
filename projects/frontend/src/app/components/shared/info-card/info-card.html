@@ -1,0 +1,10 @@
+@if (type() === 'info') {
+  <app-icon-comp type="info" />
+} @else {
+  <app-icon-comp type="warn" />
+}
+
+@if (title(); as title) {
+  <h3 class="pb-4">{{ title }}</h3>
+}
+<ng-content />

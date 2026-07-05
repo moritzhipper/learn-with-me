@@ -37,26 +37,31 @@
 </div>
 
 @if (fetchState() === 'no-data') {
-  <app-page-placeholder-comp title="No shared Banks available for this Match">
+  <liz-info-card title="No shared Banks available for this Match" fullPage>
     <p>Your search may be too exotic. Try variations or create and share some banks!</p>
-  </app-page-placeholder-comp>
+  </liz-info-card>
 }
 
-<div class="state-indicator fly-in-y-wide">
-  @switch (fetchState()) {
-    @case ('loading') {
+@switch (fetchState()) {
+  @case ('loading') {
+    <div class="state-indicator fly-in-y-wide">
       <app-loading-spinner />
-    }
-    @case ('all-loaded') {
-      <p>
-        <strong> You looked at all of the Banks</strong>
-      </p>
-    }
-    @case ('error') {
-      <p>
-        <strong> Error loading Previews </strong>
-      </p>
-      <button class="big">Retry</button>
-    }
+    </div>
   }
-</div>
+  @case ('all-loaded') {
+    <liz-info-card title="That's it" fullPage>
+      <p>
+        You looked through all of the shared banks for this language pair. Maybe its time to share
+        some of yours!
+      </p>
+    </liz-info-card>
+  }
+  @case ('error') {
+    <liz-info-card title="Error loading Previews" type="warn" fullPage>
+      <p class="pb-4">
+        Either larry is having a bad day or your internet is down. Either way, please try again
+        later.
+      </p>
+    </liz-info-card>
+  }
+}

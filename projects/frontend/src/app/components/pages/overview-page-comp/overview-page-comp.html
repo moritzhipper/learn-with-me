@@ -32,7 +32,9 @@
       />
     }
     @if (collectionIsEmpty()) {
-      <p>collection is empty</p>
+      <liz-info-card title="Collection is empty" fullPage>
+        <p>Add unsorted cards or select some from another collection.</p>
+      </liz-info-card>
     } @else {
       <div class="learnables">
         @for (learnable of visibleLearnables(); track learnable.id) {
@@ -45,7 +47,7 @@
       </div>
     }
     @if (unsortedCards().length > 0) {
-      <h2>Unsorted Cards</h2>
+      <h2 class="indent">Unsorted Cards</h2>
       <div class="learnables">
         @for (learnable of unsortedCards(); track learnable.id) {
           <app-learnable-comp
@@ -57,17 +59,17 @@
       </div>
     }
   } @else {
-    <app-page-placeholder-comp title="Add cards to start learning">
-      <p>
-        Click <app-icon-comp type="magic" [inline]="true" [size]="20" />
+    <liz-info-card title="Add cards to start learning" fullPage>
+      <p class="pb-3">
+        Click <app-icon-comp type="magic" inline [size]="20" />
         to magically extract them from your notes, articles, single sentences or words you want to
         learn.
       </p>
       <p>
         Click
-        <app-icon-comp type="pen" [inline]="true" [size]="20" />
+        <app-icon-comp type="pen" inline [size]="20" />
         to create them manually or edit them after creation.
       </p>
-    </app-page-placeholder-comp>
+    </liz-info-card>
   }
 </app-page-wrapper>

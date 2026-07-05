@@ -14,8 +14,8 @@ import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-com
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { PagePlaceholderComp } from '../../shared/page-placeholder-comp/page-placeholder-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
@@ -37,10 +37,10 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
     FormsModule,
     PageHeaderComp,
     FilterComp,
-    PagePlaceholderComp,
     Bubbles,
     Bubble,
-    PageWrapper
+    PageWrapper,
+    InfoCard
   ]
 })
 export class OverviewComp {
@@ -200,8 +200,7 @@ export class OverviewComp {
 
     if (result.type !== 'confirm') return
 
-    const collectionID = result.value.addToId ?? this.ls.createCollection(result.value.createName)
-
+    const collectionID = result.value.addToId || this.ls.createCollection(result.value.createName)
     this.ls.updateCollection({ id: collectionID, addIDs: learnableIds })
     this.selectedLearnableIds.set([])
     this.toastService.showToast('Added cards to collection.')

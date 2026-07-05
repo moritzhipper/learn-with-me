@@ -2,23 +2,10 @@
 
 ## Today
 
-- caroussel wrapper
-- info-card-comp
+- create empty dashboard state
+  - dont show practice and cards section, when none of those are available yet
+
 - import / export / share store based
-
-- make caroussel-wrapper align on desktop too
-- clean up dashboard (like netflix, stats, translate quick and magic als quicklinks at top
-- put empty state into page wrapper -> use on shared pages and overview page
-- share, import/export von file und online -> write tests
-- fix prompts: shorter notes. let gemini do that
-- create info-card-comp (info, warning), use as empty state for:
-  - no history cards
-  - no generated cards
-  - empty page (overview, collection)
-  - community not available
-  - use in start practice modal
-  - create layot helper for flex center?
-
 - add make text smaller functionalty to practice cards to accomondate for long text?
 
 ## Modal Forms
@@ -31,6 +18,7 @@ Create better reusable styles (import styles per form), holding:
 
 # right now: Stats
 
+- make community banks on dashboard page infinity scroll
 - put upcoming on dashboard?
 - put end of practice stickers somewhere prominent on ollection
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence

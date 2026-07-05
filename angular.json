@@ -15,7 +15,7 @@
       },
       "root": "projects/frontend",
       "sourceRoot": "projects/frontend/src",
-      "prefix": "app",
+      "prefix": "liz",
       "architect": {
         "build": {
           "builder": "@angular/build:application",

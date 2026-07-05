@@ -24,23 +24,28 @@
     }
   </div>
 
-  <div #cardsWrapper>
-    @if (selectedMode() === 'translate') {
+  @if (cards().length !== 0) {
+    <div #cardsWrapper>
       <h2 class="indent fly-in-y-wide">History</h2>
-    } @else {
-      <h2 class="indent first fly-in-y-wide">Extracted Cards</h2>
-    }
-    @let transCount = cards().length;
-    <div class="cards">
-      @for (card of cards(); track card.id) {
-        <app-learnable-comp
-          class="fly-in-y-wide"
-          [animDelay]="{ i: $index + 1, size: transCount }"
-          [learnable]="card"
-          (onSelect)="toggleSelection(card.id)"
-          [isSelected]="isSelected(card.id)"
-        />
-      }
+      @let transCount = cards().length;
+      <div class="cards">
+        @for (card of cards(); track card.id) {
+          <app-learnable-comp
+            class="fly-in-y-wide"
+            [animDelay]="{ i: $index + 1, size: transCount }"
+            [learnable]="card"
+            (onSelect)="toggleSelection(card.id)"
+            [isSelected]="isSelected(card.id)"
+          />
+        }
+      </div>
     </div>
-  </div>
+  } @else {
+    <liz-info-card title="No history available yet" fullPage class="fly-in-y-wide">
+      <p>
+        Your history will appear here once you use the translate tools. Then you can import the
+        cards into your collections.
+      </p>
+    </liz-info-card>
+  }
 </app-page-wrapper>

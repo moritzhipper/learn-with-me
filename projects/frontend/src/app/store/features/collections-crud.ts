@@ -15,7 +15,6 @@ export const withCollectionsCrud = <_>() =>
     withMethods((store) => ({
       createCollection(name: string): string {
         const newId = crypto.randomUUID()
-        debugger
         updateActiveBank(store, (b) => ({
           ...b,
           collections: [
@@ -28,6 +27,7 @@ export const withCollectionsCrud = <_>() =>
             }
           ]
         }))
+        debugger
         return newId
       },
       updateCollection(update: CollectionUpdater) {

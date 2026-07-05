@@ -19,9 +19,11 @@
   &.small {
     padding: var(--distance-2);
   }
+
   &:not(.trash) {
     background-color: var(--col-primary);
   }
+
   &.trash {
     background-color: var(--col-warning);
   }

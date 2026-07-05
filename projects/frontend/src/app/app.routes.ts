@@ -1,13 +1,9 @@
 import { Routes } from '@angular/router'
-import { AboutPageComp } from './components/pages/about-page-comp/about-page-comp'
 import { DashboardPage } from './components/pages/dashboard-page/dashboard-page'
 import { OverviewComp } from './components/pages/overview-page-comp/overview-page-comp'
 import { PracticeComp } from './components/pages/practice-page-comp/practice-page-comp'
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
-import { ExplorePageComp } from './components/pages/share-page-comp/explore-page-comp/explore-page-comp'
-import { SharePageComp } from './components/pages/share-page-comp/share-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
-import { TranslatePageComp } from './components/pages/translate-page-comp/translate-page-comp'
 
 export const routes: Routes = [
   {
@@ -26,17 +22,9 @@ export const routes: Routes = [
     title: 'lingolizard | Practice'
   },
   {
-    component: TranslatePageComp,
-    path: 'translate',
-    title: 'lingolizard | Translate'
-  },
-  {
-    path: 'community',
-    title: 'lingolizard | Community',
-    children: [
-      { path: '', component: SharePageComp },
-      { path: 'explore', component: ExplorePageComp }
-    ]
+    component: SettingsComp,
+    path: 'settings',
+    title: 'lingolizard | Settings'
   },
   {
     component: StatsPage,
@@ -44,15 +32,38 @@ export const routes: Routes = [
     path: 'stats'
   },
   {
-    component: AboutPageComp,
+    loadComponent: () =>
+      import('./components/pages/about-page-comp/about-page-comp').then((m) => m.AboutPageComp),
     path: 'about',
     title: 'lingolizard | About'
   },
   {
-    component: SettingsComp,
-    path: 'settings',
-    title: 'lingolizard | Settings'
+    loadComponent: () =>
+      import('./components/pages/translate-page-comp/translate-page-comp').then(
+        (m) => m.TranslatePageComp
+      ),
+    path: 'translate',
+    title: 'lingolizard | Translate'
   },
+  {
+    path: 'community',
+    title: 'lingolizard | Community',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./components/pages/share-page-comp/share-page-comp').then((m) => m.SharePageComp)
+      },
+      {
+        path: 'explore',
+        loadComponent: () =>
+          import('./components/pages/share-page-comp/explore-page-comp/explore-page-comp').then(
+            (m) => m.ExplorePageComp
+          )
+      }
+    ]
+  },
+
   {
     path: '**',
     redirectTo: 'cards',

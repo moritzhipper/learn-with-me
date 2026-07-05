@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { booleanAttribute, Component, input } from '@angular/core'
 
 export type IconType =
   | 'settings'
@@ -61,5 +61,5 @@ export type IconType =
 export class IconComp {
   type = input.required<IconType>()
   size = input<number | 'auto'>(24)
-  inline = input<boolean>(false)
+  inline = input(false, { transform: booleanAttribute })
 }

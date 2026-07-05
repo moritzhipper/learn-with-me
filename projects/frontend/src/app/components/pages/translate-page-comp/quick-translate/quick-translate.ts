@@ -200,6 +200,7 @@ export class QuickTranslate {
 
   toggleDirection() {
     this.invertDirection.update((prev) => !prev)
+    this.translation.set('...')
     const { learning, speaking } = this.activeBank().language
     const lang = this.invertDirection() ? speaking : learning
 

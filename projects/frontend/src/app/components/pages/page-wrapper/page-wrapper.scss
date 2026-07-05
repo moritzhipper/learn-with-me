@@ -17,7 +17,7 @@
     top: 0;
     min-width: 0;
     animation: hide ease-out both;
-    animation-range: 0px var(--headerHeight);
+    animation-range: 0px var(--header-height);
     animation-timeline: --main-timeline;
   }
 
@@ -38,14 +38,14 @@
 }
 
 @keyframes hide {
-  30% {
+  40% {
     scale: 0.95;
     opacity: var(--opacity-1);
   }
 
   to {
     scale: 0.95;
-    translate: 0 calc(var(--headerHeight) / -2);
+    translate: 0 calc(var(--header-height) / -2);
     opacity: 0;
   }
 }

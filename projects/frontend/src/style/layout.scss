@@ -1,0 +1,19 @@
+@for $i from 0 through 8 {
+  .p-#{$i} {
+    padding: var(--distance-#{$i});
+  }
+  .pb-#{$i} {
+    padding-bottom: var(--distance-#{$i});
+  }
+  .pt-#{$i} {
+    padding-top: var(--distance-#{$i});
+  }
+  .px-#{$i} {
+    padding-left: var(--distance-#{$i});
+    padding-right: var(--distance-#{$i});
+  }
+  .py-#{$i} {
+    padding-top: var(--distance-#{$i});
+    padding-bottom: var(--distance-#{$i});
+  }
+}
