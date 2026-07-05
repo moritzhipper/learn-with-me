@@ -125,7 +125,6 @@ export class TranslatePageComp {
     })
 
     if (result.type === 'cancel') return
-    debugger
 
     // create collection user wishes creation of new one
     const collectionID = result.value.addToId || this.ls.createCollection(result.value.createName)
