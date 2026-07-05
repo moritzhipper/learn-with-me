@@ -24,47 +24,18 @@
   @include isDesktop {
     grid-auto-columns: 300px;
     scrollbar-width: thin;
-
-    --double-page: calc(2 * var(--page-padding));
-    mask-size: calc(100% + var(--double-page)) 100%;
-    mask-position: calc(-1 * var(--double-page));
-    mask-repeat: no-repeat;
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      var(--col-text) var(--double-page),
-      var(--col-text) calc(100% - var(--double-page)),
+      var(--col-text) var(--page-padding),
+      var(--col-text) calc(100% - var(--page-padding)),
       transparent 100%
     );
-
-    animation: mask-slide linear both;
-    animation-timeline: scroll(self x);
   }
 
   @include isPhone {
     grid-auto-columns: 100%;
     scrollbar-width: none;
-  }
-}
-
-@keyframes mask-slide {
-  0% {
-    mask-position: calc(-1 * var(--double-page));
-    mask-size: calc(100% + var(--double-page)) 100%;
-  }
-  2% {
-    mask-position: 0;
-    mask-size: 100% 100%;
-  }
-
-  98% {
-    mask-position: 0;
-    mask-size: 100% 100%;
-  }
-
-  100% {
-    mask-position: 0;
-    mask-size: calc(100% + var(--double-page)) 100%;
   }
 }
 
