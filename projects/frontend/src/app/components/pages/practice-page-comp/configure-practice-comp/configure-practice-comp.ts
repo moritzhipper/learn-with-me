@@ -85,10 +85,4 @@ export class ConfigurePracticeComp {
 
     return [allOption].concat(collectionOptions)
   })
-
-  calculateAverageConfidence(learnableIds: string[]): number {
-    const learnables = this.ls.learnables().filter((l) => learnableIds.includes(l.id))
-
-    return calculateAverageConfidencePercent(learnables)
-  }
 }
