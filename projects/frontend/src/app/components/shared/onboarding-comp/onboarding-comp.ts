@@ -56,6 +56,7 @@ export class OnboardingComp {
       name: 'My First Language Bank',
       language
     }
-    this.ls.createBank(bank)
+    const id = this.ls.createBank(bank)
+    this.ls.setActiveBank(id)
   }
 }

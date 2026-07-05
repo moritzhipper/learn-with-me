@@ -5,6 +5,12 @@
 - put empty state into page wrapper -> use on shared pages and overview page
 - share, import/export von file und online -> write tests
 - fix prompts: shorter notes. let gemini do that
+- create info-card-comp (info, warning), use as empty state for:
+  - no history cards
+  - no generated cards
+  - empty page (overview, collection)
+  - community not available
+  - use in start practice modal
 
 ## Modal Forms
 

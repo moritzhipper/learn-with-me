@@ -93,7 +93,7 @@ export class PracticeQuickActions {
 
   protected async selectAction(action: QuickAction) {
     // if no active practice continue, else verify quitting it using modal
-    if (action.type === 'continue' || action.type === 'customize') {
+    if (action.type === 'continue') {
       this.router.navigate(['practice'])
       return
     }
@@ -103,6 +103,7 @@ export class PracticeQuickActions {
     const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
       hasActivePractice
     })
+
     if (response.type === 'cancel') return
 
     if (hasActivePractice) {
