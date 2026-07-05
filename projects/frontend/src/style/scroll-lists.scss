@@ -7,6 +7,9 @@
   grid-auto-flow: column;
   gap: var(--distance-4);
   position: relative;
+  padding: 0 var(--page-padding);
+  margin: 0 calc(-1 * var(--page-padding));
+  scroll-padding-left: var(--page-padding);
 
   .caroussel-item {
     scroll-snap-align: start;
@@ -14,24 +17,46 @@
 
   @include isDesktop {
     grid-auto-columns: 300px;
-    scroll-padding-left: var(--page-padding);
     scrollbar-width: thin;
+
+    --double-page: calc(2 * var(--page-padding));
+    mask-size: calc(100% + var(--double-page)) 100%;
+    mask-repeat: no-repeat;
 
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      var(--col-bg) var(--page-padding),
-      var(--col-bg) calc(100% - var(--page-padding)),
+      var(--col-bg) var(--double-page),
+      var(--col-bg) calc(100% - var(--double-page)),
       transparent 100%
     );
+
+    animation: dynamic-mask-slide linear both;
+    animation-timeline: scroll(self x);
   }
 
-  padding: 0 var(--page-padding);
-  margin: 0 calc(-1 * var(--page-padding));
   @include isPhone {
-    scroll-padding-left: var(--page-padding);
     grid-auto-columns: 100%;
     scrollbar-width: none;
+  }
+}
+
+@keyframes dynamic-mask-slide {
+  0% {
+    mask-position: calc(-1 * var(--double-page));
+    mask-size: calc(100% + var(--double-page)) 100%;
+  }
+  2% {
+    mask-position: 0;
+    mask-size: 100% 100%;
+  }
+
+  98% {
+    mask-size: 100% 100%;
+  }
+
+  100% {
+    mask-size: calc(100% + var(--double-page)) 100%;
   }
 }
 
