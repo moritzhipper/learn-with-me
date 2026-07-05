@@ -1,5 +1,11 @@
 @use './mixins' as *;
 
+// makes lists horizontally scrollable, snaps their position on item start
+// responsively makes the items
+// On Mobile:
+//  - items are 100% wrapper width
+// On Desktop
+//  - dynamic shadow is applied on scrolling side on wich the items overflow
 .caroussel-wrapper {
   display: grid;
   overflow-x: auto;
@@ -21,17 +27,17 @@
 
     --double-page: calc(2 * var(--page-padding));
     mask-size: calc(100% + var(--double-page)) 100%;
+    mask-position: calc(-1 * var(--double-page));
     mask-repeat: no-repeat;
-
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      var(--col-bg) var(--double-page),
-      var(--col-bg) calc(100% - var(--double-page)),
+      var(--col-text) var(--double-page),
+      var(--col-text) calc(100% - var(--double-page)),
       transparent 100%
     );
 
-    animation: dynamic-mask-slide linear both;
+    animation: mask-slide linear both;
     animation-timeline: scroll(self x);
   }
 
@@ -41,7 +47,7 @@
   }
 }
 
-@keyframes dynamic-mask-slide {
+@keyframes mask-slide {
   0% {
     mask-position: calc(-1 * var(--double-page));
     mask-size: calc(100% + var(--double-page)) 100%;
@@ -52,10 +58,12 @@
   }
 
   98% {
+    mask-position: 0;
     mask-size: 100% 100%;
   }
 
   100% {
+    mask-position: 0;
     mask-size: calc(100% + var(--double-page)) 100%;
   }
 }
