@@ -1,0 +1,5 @@
+- Positive reinforcement first: statistic 'guesses' is what counts
+- trying to create app that fits into the alltag and allows learning alltagsdinge through translate -> card -> practice
+- ease of use first
+  - using app teaches app
+  - tried making design as close as possible to physical thing
