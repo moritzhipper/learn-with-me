@@ -4,13 +4,10 @@ import { Collection } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
-export type ConfirmCollectionAddType =
-  | {
-      createName: string
-    }
-  | {
-      addToId: string
-    }
+export type ConfirmCollectionAddType = {
+  createName: string
+  addToId: string
+}
 
 type CollectionVM = Collection & {
   cardsWillBeAddedCount: number

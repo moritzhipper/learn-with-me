@@ -125,12 +125,10 @@ export class TranslatePageComp {
     })
 
     if (result.type === 'cancel') return
+    debugger
 
     // create collection user wishes creation of new one
-    const collectionID =
-      'addToId' in result.value
-        ? result.value.addToId
-        : this.ls.createCollection(result.value.createName)
+    const collectionID = result.value.addToId || this.ls.createCollection(result.value.createName)
 
     // import cards
     const { idsOfAll: idsOfAllAdded } = this.ls.importCards(selectedCards)
@@ -144,6 +142,6 @@ export class TranslatePageComp {
   protected scrollToCards() {
     setTimeout(() => {
       this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 100)
+    }, 50)
   }
 }
