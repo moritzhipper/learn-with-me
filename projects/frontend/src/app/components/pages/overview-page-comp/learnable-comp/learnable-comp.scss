@@ -16,9 +16,21 @@
   height: 150px;
   place-items: center start;
 
+  .lexeme,
+  .translation,
+  .notes {
+    overflow: hidden;
+    line-clamp: 2;
+
+    // backwards compatibility hack
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
   .lexeme {
     grid-column: span 2;
     font-weight: var(--font-weight-bold);
+    overflow: hidden;
   }
   .translation {
     font-style: italic;

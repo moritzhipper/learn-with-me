@@ -29,51 +29,42 @@ Anti-Patterns (DO NOT DO THIS):
 export const wordCardStylePrompt = `
 ## Word Card Requirements
 
-Word cards focus on isolated, foundational vocabulary. They must strictly adhere to the following rules:
+Generate isolated vocabulary cards. Output must be extremely concise to minimize tokens and support rapid spaced-repetition learning.
 
 ### 1. Content & Formatting
-- Single Concept: Contain exactly one standalone word (or a recognized compound word treated as a single concept).
-- Contextual Extraction: If extracting directly from a source text, capture the lexeme and translation in its exact contextual form (e.g., conjugated verb, inflected noun, inflected adjective).
-- Articles for Nouns: ALWAYS include the correct definite article in parentheses BEFORE the lexeme and translation if the word is a noun (including abstract nouns). This is critical for learning grammatical gender.
-- Clean Text: Follow exact capitalization rules for standalone words in the target language. Never include phrases, secondary words, or punctuation marks (like quotation marks or periods).
+- **Single Concept:** Output strictly the target word and its translation. Strip all punctuation, quotation marks, and secondary phrases.
+- **Noun Articles:** Always prepend the definite article in parentheses for nouns, e.g., "(the) house / (la) casa".
 
-### 2. Mandatory Notes (Grammar & Morphology)
-To support language learning best practices, the 'notes' attribute MUST capture essential morphological paradigms based on the word's part of speech. Keep these notes concise and formatted predictably.
+### 2. Concise Morphology Notes
+Use standard linguistic abbreviations (e.g., 3sg pres, acc pl, nom). Do not write conversational sentences. Do not use repetitive labels like "Singular:" or "Infinitive:".
 
-A. Contextual Form (If applicable):
-If the extracted lexeme is NOT in its base dictionary form (lemma), you MUST start the note by specifying its exact grammatical morphology in the text (e.g., tense, mood, person, case, plurality) followed by 'of [lemma]'.
-Example: '3rd person singular present indicative of to walk / caminar.' or 'Accusative plural of (the) card.'
-
-B. Essential Morphological Paradigms (ALWAYS REQUIRED):
-After defining the contextual form (or immediately, if the word is already a lemma), you MUST include the following base paradigms depending on the word's lexical category:
-- Nouns (Substantives): ALWAYS list the nominative singular and nominative plural forms. (Format: 'Singular: X, Plural: Y')
-- Verbs: ALWAYS list the infinitive. If the verb is irregular in the target language, also list its preterite and past participle forms. (Format: 'Infinitive: X, Preterite: Y, Past Participle: Z')
-- Adjectives/Adverbs: ALWAYS list the positive degree. If it possesses irregular gradations, list them. (Format: 'Positive: X, Comparative: Y, Superlative: Z')
-- Other Lexical Categories: Leave the notes completely empty unless step A (Contextual Form) applies.
+Apply these rules strictly based on lexical category:
+- **Contextual Form:** If the word is inflected, write '[Abbrev. form] of [Base lemma / translation]'.
+- **Nouns:** Append '(pl: [plural form])'.
+- **Verbs:** If irregular, append '(irreg: [preterite], [past part])'. Omit paradigms if regular.
+- **Adjectives/Adverbs:** If irregularly graded, append '(comp: [comparative], sup: [superlative])'. Omit paradigms if regular.
+- **Other:** Leave notes empty.
 
 ---
 
-### Examples of Word Cards (Format: Lexeme / Translation [Notes])
+### Examples
 
-- walks / camina 
-  [Notes: 3rd person singular present indicative of 'to walk / caminar'. Infinitive: walk, Preterite: walked, Past Participle: walked]
+- walks / camina
+  [Notes: 3sg pres ind of walk / caminar]
 
-- (the) cards / (die) Karten 
-  [Notes: Accusative plural of '(the) card / (die) Karte'. Singular: (the) card, Plural: (the) cards]
+- (the) cards / (die) Karten
+  [Notes: acc pl of (the) card / (die) Karte (pl: die Karten)]
 
-- went / fue 
-  [Notes: 3rd person singular preterite indicative of 'to go / ir'. Infinitive: go, Preterite: went, Past Participle: gone]
+- went / fue
+  [Notes: 3sg pret of go / ir (irreg: went, gone)]
 
-- (the) improvement / (die) Verbesserung 
-  [Notes: Singular: (the) improvement, Plural: (the) improvements]
+- (the) improvement / (die) Verbesserung
+  [Notes: (pl: die Verbesserungen)]
 
 - better / mejor
-  [Notes: Comparative degree of 'good / bueno'. Positive: good, Comparative: better, Superlative: best]
+  [Notes: comp of good / bueno (sup: best)]
 
-- quickly / rápidamente 
-  [Notes: Positive: quickly]
-
-- with / con
+- quickly / rápidamente
   [Notes: ]
 `
 
