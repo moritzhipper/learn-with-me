@@ -39,6 +39,12 @@ export class TranslatePageComp {
 
   private cardsWrapper = viewChild<ElementRef<HTMLElement>>('cardsWrapper')
 
+  constructor() {
+    if (history.state?.mode === 'magic') {
+      this.selectedMode.set('magic')
+    }
+  }
+
   protected cards = computed(() => {
     if (this.selectedMode() === 'translate') {
       return this.ls.activeBank().translations.history
@@ -135,7 +141,7 @@ export class TranslatePageComp {
     this.toastS.showToast('Card(s) imported successfully!')
   }
 
-  scrollToCards() {
+  protected scrollToCards() {
     setTimeout(() => {
       this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 100)

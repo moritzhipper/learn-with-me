@@ -23,6 +23,7 @@ Create better reusable styles (import styles per form), holding:
 
 ## General
 
+- allow opening generate whenever cards are selected
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
 - add automatism that automatically selects the worst direction?
