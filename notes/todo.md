@@ -4,9 +4,14 @@
 
 - create empty dashboard state
   - dont show practice and cards section, when none of those are available yet
+- clean up shared bank loading state (and center spinner)
 
 - import / export / share store based
 - add make text smaller functionalty to practice cards to accomondate for long text?
+- paste images
+- put direction into store
+
+count letters, make smaller per one more
 
 ## Modal Forms
 
