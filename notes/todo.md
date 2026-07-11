@@ -2,11 +2,18 @@
 
 ## Today
 
-- create empty dashboard state
-  - dont show practice and cards section, when none of those are available yet
-
 - import / export / share store based
+
 - add make text smaller functionalty to practice cards to accomondate for long text?
+- paste images
+- put direction into store
+- clean up shared bank loading state (and center spinner)
+
+count letters, make smaller per one more
+
+- put cute lizard with ! or ? on page wide empty states
+- make collection be subpage
+- make coll select and stuff adapt quick links format
 
 ## Modal Forms
 
@@ -26,6 +33,7 @@ Create better reusable styles (import styles per form), holding:
 
 ## General
 
+- make grid auto columns classes?
 - allow opening generate whenever cards are selected
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
@@ -62,6 +70,10 @@ Create better reusable styles (import styles per form), holding:
 - store, relevant for magic add:
   - adding cards with creating new collection not yet possible
 - somehow streamline the notifications after adding learnables -> shared facade service?
+
+# layout
+
+- flex grid distance
 
 # Infra
 

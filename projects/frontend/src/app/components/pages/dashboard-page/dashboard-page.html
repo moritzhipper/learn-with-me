@@ -1,58 +1,62 @@
 <app-page-wrapper icon="dashboard">
   <app-page-header-comp title="Home" />
-  <div class="sections">
-    <section class="quick-links full-width-scroll">
-      <a class="quick-link translate" routerLink="/translate">
-        Translate
+  @if (bankHasCards()) {
+    <div class="sections">
+      <section class="quick-links full-width-scroll">
+        <liz-quick-links [types]="['translate', 'generate', 'stats']" />
+      </section>
 
-        <app-icon-comp type="translate" />
-      </a>
-      <a class="quick-link translate" routerLink="/translate" [state]="{ mode: 'magic' }">
-        Generate
-        <app-icon-comp type="magic" />
-      </a>
-      <a class="quick-link stats" routerLink="/stats">
-        Stats
-
-        <app-icon-comp type="donut-chart-fill" />
-      </a>
-    </section>
-    <section class="quick-actions">
-      <app-header-link label="Practice" route="practice" />
-      <div class="caroussel-wrapper">
-        <app-practice-quick-actions />
-      </div>
-    </section>
-    <section class="quick-actions">
-      <app-header-link label="My Cards" route="cards" />
-      <div class="caroussel-wrapper">
-        <app-cards-quick-selector />
-      </div>
-    </section>
-    <section class="quick-actions">
-      <app-header-link label="Community Banks" route="community" />
-      <div class="caroussel-wrapper">
-        @if (sharedBanks.hasValue()) {
-          @if (sharedBanks.value().length > 0) {
-            @for (bank of sharedBanks.value(); track bank.id) {
-              <app-shared-bank-comp class="caroussel-item" [bank]="bank" [isCommunityBank]="true" />
+      <section class="quick-actions">
+        <app-header-link label="Practice" route="practice" />
+        <div class="caroussel-wrapper">
+          <app-practice-quick-actions />
+        </div>
+      </section>
+      <section class="quick-actions">
+        <app-header-link label="My Cards" route="cards" />
+        <div class="caroussel-wrapper">
+          <app-cards-quick-selector />
+        </div>
+      </section>
+      <section class="quick-actions">
+        <app-header-link label="Community Banks" route="community" />
+        <div class="caroussel-wrapper">
+          @if (sharedBanks.hasValue()) {
+            @if (sharedBanks.value().length > 0) {
+              @for (bank of sharedBanks.value(); track bank.id) {
+                <app-shared-bank-comp
+                  class="caroussel-item"
+                  [bank]="bank"
+                  [isCommunityBank]="true"
+                />
+              }
+            } @else {
+              <liz-info-card title="No shared banks available">
+                <p>
+                  Banks will appear as soon as other users share banks with your language pairing.
+                </p>
+              </liz-info-card>
             }
-          } @else {
-            <liz-info-card title="No shared banks available">
+          } @else if (sharedBanks.error()) {
+            <liz-info-card title="Error loading Banks" type="warn">
               <p>
-                Banks will appear as soon as other users share banks with your language pairing.
+                Either larry is having a bad day or your internet is down. Either way, please try
+                again later.
               </p>
             </liz-info-card>
           }
-        } @else if (sharedBanks.error()) {
-          <liz-info-card title="Error loading Banks" type="warn">
-            <p>
-              Either larry is having a bad day or your internet is down. Either way, please try
-              again later.
-            </p>
-          </liz-info-card>
-        }
+        </div>
+      </section>
+    </div>
+  } @else {
+    <liz-info-card title="Add cards to start learning" fullPage>
+      <p>
+        Find a bank to learn in the community section, import cards from your translation history or
+        create your own.
+      </p>
+      <div class="quick-links pt-4">
+        <liz-quick-links [types]="['create', 'community', 'translate', 'generate']" />
       </div>
-    </section>
-  </div>
+    </liz-info-card>
+  }
 </app-page-wrapper>

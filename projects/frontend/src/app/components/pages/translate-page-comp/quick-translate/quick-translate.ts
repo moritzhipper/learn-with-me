@@ -41,6 +41,10 @@ export class QuickTranslate {
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
   protected readonly invertDirection = signal<boolean>(false)
+  protected readonly targetLanguage = computed(() => {
+    const { learning, speaking } = this.activeBank().language
+    return this.invertDirection() ? speaking : learning
+  })
 
   lexemeEl = viewChild.required<ElementRef<HTMLTextAreaElement>>('lexemeEl')
   translationWrapperEl = viewChild.required<ElementRef<HTMLDivElement>>('translationWrapperEl')
@@ -201,9 +205,7 @@ export class QuickTranslate {
   toggleDirection() {
     this.invertDirection.update((prev) => !prev)
     this.translation.set('...')
-    const { learning, speaking } = this.activeBank().language
-    const lang = this.invertDirection() ? speaking : learning
 
-    this.toastService.showToast(`Translating to ${lang}.`)
+    this.toastService.showToast(`Translating to ${this.targetLanguage()}.`)
   }
 }

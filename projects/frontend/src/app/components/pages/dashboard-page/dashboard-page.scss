@@ -1,45 +1,29 @@
 @use '../../../../style/mixins.scss' as *;
 
 .sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-6);
+
+  .quick-links {
+    display: flex;
+    gap: var(--distance-4);
+    overflow-x: auto;
+  }
+}
+liz-info-card .quick-links {
   display: grid;
-  gap: var(--distance-5);
-  section {
-    &.quick-actions {
-      display: grid;
-      min-width: 0px;
-    }
+  gap: var(--distance-3);
+}
 
-    &.quick-links {
-      display: flex;
-      gap: var(--distance-4);
-      overflow-x: auto;
-
-      .quick-link {
-        display: flex;
-        align-items: center;
-        position: relative;
-        border-radius: var(--radius-2);
-        padding: var(--distance-3) 60px var(--distance-3) var(--distance-6);
-        overflow: hidden;
-        min-width: max-content;
-
-        &.translate {
-          background-color: rgb(from var(--col-primary) r g b / var(--opacity-0));
-        }
-
-        &.stats {
-          background-color: rgb(from var(--col-accent-2) r g b / var(--opacity-0));
-        }
-
-        app-icon-comp {
-          position: absolute;
-          right: -10px;
-          top: -20px;
-          width: 60px;
-          height: 60px;
-          opacity: var(--opacity-1);
-        }
-      }
-    }
+@include isDesktop {
+  liz-info-card .quick-links {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@include isPhone {
+  liz-info-card .quick-links {
+    grid-template-columns: 1fr;
+    place-items: stretch;
   }
 }

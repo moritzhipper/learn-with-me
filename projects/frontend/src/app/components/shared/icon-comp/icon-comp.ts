@@ -47,6 +47,10 @@ export type IconType =
   | 'drop-fill'
   | 'checkbox-multiple'
   | 'left-right'
+  | 'calendar'
+  | 'up-arrow'
+  | 'gear'
+  | 'speed'
 
 @Component({
   selector: 'app-icon-comp',

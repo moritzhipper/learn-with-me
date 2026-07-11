@@ -8,15 +8,15 @@
   }"
   (click)="onSelect.emit()"
 >
-  <div class="lexeme">
+  <p class="lexeme">
     {{ la.lexeme }}
-  </div>
-  <div class="translation">
+  </p>
+  <p class="translation">
     {{ la.translation }}
-  </div>
-  <div class="notes">
+  </p>
+  <p class="notes">
     {{ la.notes }}
-  </div>
+  </p>
   <div class="info">
     <span class="word-list-item"> {{ la.createdAt | date: 'mediumDate' }} </span>
     <span class="word-list-item">

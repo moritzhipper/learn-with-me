@@ -158,21 +158,23 @@ export class PracticeQuickActions {
       }
     })
 
-    return Array.from(dateAddedLearnableMap.entries()).map(([dayCardsAddedUTC, learnables]) => {
-      const averageScore = calculateAverageConfidencePercent(learnables)
-      const practiceDates = history
-        .filter((h) => h.type === 'added-on-day')
-        .filter((h) => h.dayCardsAddedUTC === dayCardsAddedUTC)
-        .map((h) => h.dayCardsAddedUTC)
+    return Array.from(dateAddedLearnableMap.entries())
+      .map<AddedOnDayQuickAction>(([dayCardsAddedUTC, learnables]) => {
+        const averageScore = calculateAverageConfidencePercent(learnables)
+        const practiceDates = history
+          .filter((h) => h.type === 'added-on-day')
+          .filter((h) => h.dayCardsAddedUTC === dayCardsAddedUTC)
+          .map((h) => h.dayCardsAddedUTC)
 
-      return {
-        type: 'added-on-day',
-        learnableIDs: learnables.map((l) => l.id),
-        dayCardsAddedUTC,
-        practiceDates,
-        averageScore
-      }
-    })
+        return {
+          type: 'added-on-day',
+          learnableIDs: learnables.map((l) => l.id),
+          dayCardsAddedUTC,
+          practiceDates,
+          averageScore
+        }
+      })
+      .filter((action) => action.learnableIDs.length > 10)
   }
 
   private deductActionsFromCollections(

@@ -2,10 +2,12 @@
   <button class="silent quick caroussel-item" (click)="selectAction(action)">
     @switch (action.type) {
       @case ('continue') {
+        <app-icon-comp type="speed" class="type" />
         <h3>Continue practice</h3>
-        <p>{{ action.cardsLeft }} cards left until you're done!</p>
+        <p class="mt-auto">{{ action.cardsLeft }} cards left until you're done!</p>
       }
       @case ('collection') {
+        <app-icon-comp type="collection" class="type" />
         <h3>
           {{ action.collection.name }}
         </h3>
@@ -21,12 +23,8 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-on-day') {
-        <h3>
-          Added By Day
-          <span class="type">
-            {{ action.dayCardsAddedUTC | date: 'mediumDate' }}
-          </span>
-        </h3>
+        <app-icon-comp type="calendar" class="type" />
+        <h3>Added on {{ action.dayCardsAddedUTC | date: 'mediumDate' }}</h3>
         <p>
           <span class="word-list-item">
             <strong>{{ action.learnableIDs.length }}</strong> cards
@@ -41,6 +39,7 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('worst-cards') {
+        <app-icon-comp type="up-arrow" class="type" />
         <h3>Most potential</h3>
         <p>
           <span class="word-list-item">
@@ -55,10 +54,11 @@
         </p>
       }
       @case ('customize') {
+        <app-icon-comp type="gear" class="type" />
         <h3>Customize everything</h3>
-        <p>Set up the practice session exactly how you want to.</p>
+        <p class="mt-auto">Set up the practice session exactly how you want to.</p>
       }
     }
-    <app-icon-comp type="learn" />
+    <app-icon-comp type="learn" class="background" />
   </button>
 }

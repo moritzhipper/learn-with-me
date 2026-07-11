@@ -46,7 +46,7 @@ h3 {
 h2,
 .h2 {
   margin: 0;
-  line-height: var(--font-size-3);
+  line-height: var(--font-size-2);
   font-size: var(--font-size-2);
 
   &.indent {
@@ -54,7 +54,7 @@ h2,
   }
 
   &.first {
-    margin-top: 0;
+    margin-top: 0px;
   }
 }
 

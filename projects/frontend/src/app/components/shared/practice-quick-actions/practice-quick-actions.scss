@@ -17,11 +17,6 @@ button.quick {
     margin: 0;
     color: currentColor;
     display: inline-flex;
-
-    .type {
-      margin-left: auto;
-      opacity: var(--opacity-1);
-    }
   }
 
   strong {
@@ -29,13 +24,27 @@ button.quick {
   }
 
   app-icon-comp {
-    position: absolute;
-    height: 100%;
-    width: auto;
-    aspect-ratio: 1 / 1;
-    right: var(--distance-2);
-    opacity: var(--opacity-0);
-    bottom: 0px;
+    &.background {
+      position: absolute;
+      height: 100%;
+      width: auto;
+      aspect-ratio: 1 / 1;
+      right: var(--distance-4);
+      opacity: var(--opacity-0);
+      top: 0;
+    }
+
+    &.type {
+      margin: var(--distance-3);
+      width: 28px;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      position: absolute;
+      opacity: var(--opacity-1);
+
+      right: 0;
+      top: 0;
+    }
   }
 
   app-spaced-repetition-timeline {
