@@ -2,7 +2,6 @@
 
 ## Today
 
-- make quick links get array as input, keep sort of array
 - import / export / share store based
 
 - add make text smaller functionalty to practice cards to accomondate for long text?
