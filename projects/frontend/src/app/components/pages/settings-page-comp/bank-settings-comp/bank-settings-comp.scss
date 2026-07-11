@@ -45,6 +45,9 @@
 .activate {
   grid-column: span 3;
 }
+.small {
+  padding: var(--distance-2) var(--distance-3);
+}
 
 button.activate {
   &.active {

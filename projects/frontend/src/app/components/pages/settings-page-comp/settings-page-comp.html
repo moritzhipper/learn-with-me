@@ -1,13 +1,6 @@
 <app-page-wrapper icon="settings">
   <app-page-header-comp title="Settings" />
-
-  <p class="stats size-2">
-    You created <strong>{{ stats().banks }} </strong> holding
-    <strong>{{ stats().collections }} </strong> having a total of
-    <strong>{{ stats().learnables }}</strong
-    >. You also spent <strong>{{ tokensUsed() }} tokens </strong> generating cards.
-  </p>
-  <h2 class="indent">My Banks</h2>
+  <h2 class="indent first">My Banks</h2>
   <div class="caroussel-wrapper">
     @for (bank of banks(); track bank.id) {
       <app-bank-settings-card
@@ -45,6 +38,13 @@
       </p>
       <button class="primary big delete input" (click)="reset()">Reset all data</button>
     </app-settings-item-comp>
+
+    <app-settings-item-comp header="Debug">
+      <p class="description">
+        For development purposes only. Creates a bank containing a few cards and a few practice
+        runs.
+      </p>
+      <button class="primary big input" (click)="addDebug()">Create debug bank</button>
+    </app-settings-item-comp>
   </div>
-  <button class="debug" (click)="addDebug()">add debug</button>
 </app-page-wrapper>

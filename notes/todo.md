@@ -71,6 +71,10 @@ Create better reusable styles (import styles per form), holding:
   - adding cards with creating new collection not yet possible
 - somehow streamline the notifications after adding learnables -> shared facade service?
 
+# layout
+
+- flex grid distance
+
 # Infra
 
 - CD: Create folder per succesfull deployment to allow rollback to date
