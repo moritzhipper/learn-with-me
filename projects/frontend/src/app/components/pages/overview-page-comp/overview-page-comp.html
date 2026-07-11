@@ -1,20 +1,26 @@
-<app-bubbles>
-  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
-  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+@if (userHasCards()) {
+  <app-bubbles>
+    <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+    <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
 
-  @if (selectedLearnableIds().length !== 0) {
-    <app-bubble config="reset-selection" (select)="resetLearnableSelection()" [animateIndex]="1" />
-    <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />
-    @if (selectedCollectionId()) {
-      <app-bubble config="remove" (select)="removeFromCollection()" [animateIndex]="3" />
+    @if (selectedLearnableIds().length !== 0) {
+      <app-bubble
+        config="reset-selection"
+        (select)="resetLearnableSelection()"
+        [animateIndex]="1"
+      />
+      <app-bubble config="move" (select)="addToCollection()" [animateIndex]="2" />
+      @if (selectedCollectionId()) {
+        <app-bubble config="remove" (select)="removeFromCollection()" [animateIndex]="3" />
+      }
+      <app-bubble
+        config="trash"
+        (select)="deleteSelection()"
+        [animateIndex]="selectedCollectionId() ? 4 : 3"
+      />
     }
-    <app-bubble
-      config="trash"
-      (select)="deleteSelection()"
-      [animateIndex]="selectedCollectionId() ? 4 : 3"
-    />
-  }
-</app-bubbles>
+  </app-bubbles>
+}
 <app-page-wrapper icon="card">
   <app-page-header-comp
     [title]="selectedCollection()?.name || 'All Cards'"
@@ -60,16 +66,16 @@
     }
   } @else {
     <liz-info-card title="Add cards to start learning" fullPage>
-      <p class="pb-3">
-        Click <app-icon-comp type="magic" inline [size]="20" />
-        to magically extract them from your notes, articles, single sentences or words you want to
-        learn.
-      </p>
       <p>
-        Click
-        <app-icon-comp type="pen" inline [size]="20" />
-        to create them manually or edit them after creation.
+        Find a bank to learn in the community section, import cards from your translation history or
+        create your own.
       </p>
+      <div class="quick-links pt-4">
+        <liz-quick-link type="create" />
+        <liz-quick-link type="community" />
+        <liz-quick-link type="translate" />
+        <liz-quick-link type="generate" />
+      </div>
     </liz-info-card>
   }
 </app-page-wrapper>

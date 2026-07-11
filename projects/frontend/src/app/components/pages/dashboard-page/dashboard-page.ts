@@ -1,16 +1,15 @@
-import { Component, inject } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
-import { RouterLink } from '@angular/router'
 import { ApiService } from '../../../services/api-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/cards-quick-selector/cards-quick-selector'
 import { HeaderLink } from '../../shared/header-link/header-link'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PracticeQuickActions } from '../../shared/practice-quick-actions/practice-quick-actions'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared-bank-comp'
+import { QuickLink } from './quick-links/quick-link'
 
 @Component({
   selector: 'app-dashboard-page',
@@ -21,9 +20,8 @@ import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared
     CardsQuickSelector,
     SharedBankComp,
     PageWrapper,
-    IconComp,
-    RouterLink,
-    InfoCard
+    InfoCard,
+    QuickLink
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'
@@ -31,6 +29,7 @@ import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared
 export class DashboardPage {
   private readonly apiS = inject(ApiService)
   private readonly ls = inject(LearnablesStore)
+  protected bankHasCards = computed(() => this.ls.activeBank().learnables.length !== 0)
 
   sharedBanks = rxResource({
     params: () => this.ls.activeBank().language,

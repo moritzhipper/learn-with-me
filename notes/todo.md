@@ -2,7 +2,7 @@
 
 ## Today
 
-- make collection ids sets
+- align card overview and dashboard emtpy states?
 - create empty dashboard state
   - dont show practice and cards section, when none of those are available yet
 - clean up shared bank loading state (and center spinner)
@@ -13,6 +13,8 @@
 - put direction into store
 
 count letters, make smaller per one more
+
+- put cute lizard with ! or ? on page wide empty states
 
 ## Modal Forms
 
@@ -32,6 +34,7 @@ Create better reusable styles (import styles per form), holding:
 
 ## General
 
+- make grid auto columns classes?
 - allow opening generate whenever cards are selected
 - colors: cards, practice, community -> create named accent variables!
 - replace single confidence with both directions confidenc to allow user deciding on direction before start
