@@ -22,7 +22,7 @@
   }
 
   @include isDesktop {
-    grid-auto-columns: 300px;
+    grid-auto-columns: 350px;
     scrollbar-width: thin;
     mask-image: linear-gradient(
       to right,

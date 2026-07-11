@@ -9,7 +9,7 @@ import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PracticeQuickActions } from '../../shared/practice-quick-actions/practice-quick-actions'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { SharedBankComp } from '../share-page-comp/shared-collection-comp/shared-bank-comp'
-import { QuickLink } from './quick-links/quick-link'
+import { QuickLinks } from './quick-links/quick-links'
 
 @Component({
   selector: 'app-dashboard-page',
@@ -21,7 +21,7 @@ import { QuickLink } from './quick-links/quick-link'
     SharedBankComp,
     PageWrapper,
     InfoCard,
-    QuickLink
+    QuickLinks
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'

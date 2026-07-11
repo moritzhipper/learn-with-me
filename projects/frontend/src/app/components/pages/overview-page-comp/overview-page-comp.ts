@@ -15,7 +15,7 @@ import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { QuickLink } from '../dashboard-page/quick-links/quick-link'
+import { QuickLinks } from '../dashboard-page/quick-links/quick-links'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
@@ -40,7 +40,7 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
     Bubble,
     PageWrapper,
     InfoCard,
-    QuickLink
+    QuickLinks
   ]
 })
 export class OverviewComp {

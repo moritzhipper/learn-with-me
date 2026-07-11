@@ -8,13 +8,13 @@ import { IconComp } from '../../../shared/icon-comp/icon-comp'
 type QuickLinkType = 'create' | 'community' | 'generate' | 'translate' | 'stats'
 
 @Component({
-  selector: 'liz-quick-link',
+  selector: 'liz-quick-links',
   imports: [IconComp, RouterLink],
-  templateUrl: './quick-link.html',
-  styleUrl: './quick-link.scss'
+  templateUrl: './quick-links.html',
+  styleUrl: './quick-links.scss'
 })
-export class QuickLink {
-  readonly type = input.required<QuickLinkType>()
+export class QuickLinks {
+  readonly types = input.required<QuickLinkType[]>()
   readonly ls = inject(LearnablesStore)
   readonly modalService = inject(ModalService)
 

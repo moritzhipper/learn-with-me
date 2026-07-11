@@ -3,9 +3,7 @@
   @if (bankHasCards()) {
     <div class="sections">
       <section class="quick-links full-width-scroll">
-        <liz-quick-link type="translate" />
-        <liz-quick-link type="generate" />
-        <liz-quick-link type="stats" />
+        <liz-quick-links [types]="['translate', 'generate', 'stats']" />
       </section>
 
       <section class="quick-actions">
@@ -57,10 +55,7 @@
         create your own.
       </p>
       <div class="quick-links pt-4">
-        <liz-quick-link type="create" />
-        <liz-quick-link type="community" />
-        <liz-quick-link type="translate" />
-        <liz-quick-link type="generate" />
+        <liz-quick-links [types]="['create', 'community', 'translate', 'generate']" />
       </div>
     </liz-info-card>
   }

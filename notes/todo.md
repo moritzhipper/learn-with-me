@@ -2,15 +2,13 @@
 
 ## Today
 
-- align card overview and dashboard emtpy states?
-- create empty dashboard state
-  - dont show practice and cards section, when none of those are available yet
-- clean up shared bank loading state (and center spinner)
-
+- make quick links get array as input, keep sort of array
 - import / export / share store based
+
 - add make text smaller functionalty to practice cards to accomondate for long text?
 - paste images
 - put direction into store
+- clean up shared bank loading state (and center spinner)
 
 count letters, make smaller per one more
 

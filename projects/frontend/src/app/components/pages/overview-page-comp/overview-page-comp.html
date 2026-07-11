@@ -71,10 +71,7 @@
         create your own.
       </p>
       <div class="quick-links pt-4">
-        <liz-quick-link type="create" />
-        <liz-quick-link type="community" />
-        <liz-quick-link type="translate" />
-        <liz-quick-link type="generate" />
+        <liz-quick-links [types]="['create', 'community', 'translate', 'generate']" />
       </div>
     </liz-info-card>
   }
