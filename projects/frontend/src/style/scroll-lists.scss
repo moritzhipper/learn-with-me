@@ -27,8 +27,8 @@
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      var(--col-text) var(--page-padding),
-      var(--col-text) calc(100% - var(--page-padding)),
+      var(--col-bg) var(--page-padding),
+      var(--col-bg) calc(100% - var(--page-padding)),
       transparent 100%
     );
   }

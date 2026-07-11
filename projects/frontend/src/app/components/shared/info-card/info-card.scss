@@ -44,12 +44,6 @@
 
 @include isDesktop {
   :host.full-page {
-    margin: var(--distance-7) auto;
-  }
-}
-
-@include isPhone {
-  :host.full-page {
-    margin: var(--distance-5) auto;
+    margin: var(--distance-7) auto 0 auto;
   }
 }

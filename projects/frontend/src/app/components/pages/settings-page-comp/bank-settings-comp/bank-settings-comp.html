@@ -20,7 +20,7 @@
   <p class="size-0">{{ b.createdAt | date: 'mediumDate' }}</p>
 </div>
 
-<button class="small delete" (click)="delete.emit()">delete</button>
+<button class="small delete" (click)="delete.emit()">Delete</button>
 <button class="small download" (click)="download.emit()">Download</button>
 <button class="small edit" (click)="edit.emit()">Edit</button>
 <button class="small activate" [class.active]="isActive()" (click)="setActive.emit()">
