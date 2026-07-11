@@ -52,6 +52,10 @@ h2,
   &.indent {
     margin: var(--distance-6) 0 var(--distance-3) var(--distance-3);
   }
+
+  &.first {
+    margin-top: 0px;
+  }
 }
 
 textarea {
