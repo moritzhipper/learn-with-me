@@ -12,6 +12,8 @@
 count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
+- make collection be subpage
+- make coll select and stuff adapt quick links format
 
 ## Modal Forms
 
