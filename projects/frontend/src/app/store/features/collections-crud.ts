@@ -35,12 +35,17 @@ export const withCollectionsCrud = <_>() =>
           ...b,
           collections: b.collections.map((c) => {
             if (c.id !== update.id) return c
+            const withAdded = c.cardIds.concat(update.addIDs ?? [])
+
+            const deletetIDs = update.deleteIDs ?? []
+            const withoutDeleted = withAdded.filter((id) => !deletetIDs.includes(id))
+
+            const newCardIdsSet = new Set(withoutDeleted)
+
             return {
               ...c,
               name: update.name ?? c.name,
-              cardIds: [...new Set([...(update.addIDs ?? []), ...c.cardIds])].filter(
-                (id) => !(update.deleteIDs ?? []).includes(id)
-              )
+              cardIds: Array.from(newCardIdsSet)
             }
           })
         }))

@@ -2,6 +2,7 @@
 
 ## Today
 
+- make collection ids sets
 - create empty dashboard state
   - dont show practice and cards section, when none of those are available yet
 - clean up shared bank loading state (and center spinner)
