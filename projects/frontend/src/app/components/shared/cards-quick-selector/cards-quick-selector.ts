@@ -39,7 +39,7 @@ export class CardsQuickSelector {
       type: 'collection',
       averageConfidence: calculateAverageConfidencePercent(
         allCards.filter((card) => coll.cardIds.includes(card.id))
-      )
+      ).all
     }))
 
     const collectionIds = collections.flatMap((c) => c.cardIds)
@@ -49,7 +49,7 @@ export class CardsQuickSelector {
       type: 'all',
       allCardsCount: allCards.length,
       collectionCount: collections.length,
-      averageConfidence: calculateAverageConfidencePercent(allCards),
+      averageConfidence: calculateAverageConfidencePercent(allCards).all,
       collectionLess: collectionLessCards.length
     }
 

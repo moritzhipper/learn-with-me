@@ -109,14 +109,14 @@ export class OverviewComp {
       return {
         header: coll.name,
         cardCount: this._collectionLearnables().length,
-        averageConfidence: calculateAverageConfidencePercent(this._collectionLearnables()),
+        averageConfidence: calculateAverageConfidencePercent(this._collectionLearnables()).all,
         date: 'created' in coll ? coll.createdAt : undefined
       }
     }
     return {
       header: 'All Cards',
       cardCount: this.learnables().length,
-      averageConfidence: calculateAverageConfidencePercent(this.learnables())
+      averageConfidence: calculateAverageConfidencePercent(this.learnables()).all
     }
   })
 

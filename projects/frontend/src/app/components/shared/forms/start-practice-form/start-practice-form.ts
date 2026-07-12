@@ -1,7 +1,8 @@
 import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { PracticeConfig } from '@shared/types'
+import { LanguageConfig, PracticeConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
+import { ConfidenceAggregate } from 'projects/frontend/src/app/utils/genaral-utils'
 import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
@@ -11,11 +12,9 @@ export type StartPracticeFormResult = {
 }
 
 export type StartPracticeFormConfig = {
-  guessableField: PracticeConfig['guessableField']
-  confidence: {
-    translation: number
-    lexeme: number
-  }
+  hasActivePractice?: boolean
+  confidence?: ConfidenceAggregate
+  languageConfig: LanguageConfig
 }
 
 @Component({
@@ -30,6 +29,5 @@ export class StartPracticeForm extends BaseModalDirective {
     guessableField: 'translation'
   })
 
-  guessableField = input.required<PracticeConfig['guessableField']>()
-  hasActivePractice = input<boolean>()
+  config = input.required<StartPracticeFormConfig>()
 }

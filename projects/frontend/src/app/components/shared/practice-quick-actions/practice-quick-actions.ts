@@ -6,9 +6,13 @@ import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import {
   calculateAverageConfidencePercent,
+  ConfidenceAggregate,
   convertToDayPrecisionUTCDate
 } from '../../../utils/genaral-utils'
-import { StartPracticeFormResult } from '../forms/start-practice-form/start-practice-form'
+import {
+  StartPracticeFormConfig,
+  StartPracticeFormResult
+} from '../forms/start-practice-form/start-practice-form'
 import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
@@ -18,30 +22,34 @@ type PracticeConfigQuickAction<T extends PracticeConfig['type']> = {
 
 type CollectionQuickAction = PracticeConfigQuickAction<'collection'> & {
   collection: Collection
-  averageScore: number
+  averageScore: ConfidenceAggregate
   practiceDates: Date[]
 }
 
 type AddedOnDayQuickAction = PracticeConfigQuickAction<'added-on-day'> & {
   dayCardsAddedUTC: number
-  averageScore: number
+  averageScore: ConfidenceAggregate
   practiceDates: number[]
   learnableIDs: string[]
 }
 
+type WorstCardsQuickAction = {
+  type: 'worst-cards'
+  learnableIDs: string[]
+  averageScore: ConfidenceAggregate
+}
+
+type ContinueQuickAction = {
+  type: 'continue'
+  cardsLeft: number
+}
+
 type QuickAction =
-  | {
-      type: 'continue'
-      cardsLeft: number
-    }
   | {
       type: 'customize'
     }
-  | {
-      type: 'worst-cards'
-      learnableIDs: string[]
-      averageScore: number
-    }
+  | ContinueQuickAction
+  | WorstCardsQuickAction
   | CollectionQuickAction
   | AddedOnDayQuickAction
 
@@ -100,17 +108,27 @@ export class PracticeQuickActions {
 
     const hasActivePractice = !!this.ls.activeBank().practice.active
 
-    const response = await this.modalService.open<StartPracticeFormResult>('start-practice', {
-      hasActivePractice
-    })
+    const confidence = this.getConfidenceFromQuickAction(action, this.ls.activeBank().learnables)
 
-    if (response.type === 'cancel') return
+    const modalConfig: StartPracticeFormConfig = {
+      confidence,
+      languageConfig: this.ls.activeBank().language,
+      hasActivePractice
+    }
+    const resetAndDirectionConfirmChoice = await this.modalService.open<StartPracticeFormResult>(
+      'start-practice',
+      {
+        config: modalConfig
+      }
+    )
+
+    if (resetAndDirectionConfirmChoice.type === 'cancel') return
 
     if (hasActivePractice) {
       this.ls.resetPracticeAndSaveToHistory()
     }
 
-    const guessableField = response.value.guessableField
+    const guessableField = resetAndDirectionConfirmChoice.value.guessableField
 
     // Start new with action config, then redirect
     // Just redirect, when customize or continue selected
@@ -206,23 +224,30 @@ export class PracticeQuickActions {
   private deductWorstCardsAction(learnables: UserLearnable[]): QuickAction[] {
     // do bad learnable cascade
     // return empty when all learnables better than 80%
-    let worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.2)
+    let worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.2)
     if (worstLearnables.length === 0) {
-      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.6)
+      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.6)
     } else if (worstLearnables.length === 0) {
-      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]) < 0.8)
+      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.8)
     }
 
-    if (worstLearnables.length === 0) {
-      return []
-    } else {
-      return [
-        {
-          type: 'worst-cards',
-          learnableIDs: worstLearnables.map((l) => l.id),
-          averageScore: calculateAverageConfidencePercent(worstLearnables)
-        }
-      ]
-    }
+    if (worstLearnables.length === 0) return []
+
+    return [
+      {
+        type: 'worst-cards',
+        learnableIDs: worstLearnables.map((l) => l.id),
+        averageScore: calculateAverageConfidencePercent(worstLearnables)
+      }
+    ]
+  }
+
+  private getConfidenceFromQuickAction(
+    action: QuickAction,
+    learnables: UserLearnable[]
+  ): ConfidenceAggregate | undefined {
+    if (action.type === 'customize' || action.type === 'continue') return undefined
+    const ids = action.type === 'collection' ? action.collection.cardIds : action.learnableIDs
+    return calculateAverageConfidencePercent(learnables.filter((l) => ids.includes(l.id)))
   }
 }

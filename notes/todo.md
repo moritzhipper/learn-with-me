@@ -6,6 +6,8 @@
 - ids are only rotated on api upload
 - allow selection: export cards or explore also practice and translations
 
+- show confidence everywhere the same: learning, lexeme, general
+
 ## Today
 
 - add make text smaller functionalty to practice cards to accomondate for long text?

@@ -73,12 +73,13 @@ export class ConfigurePracticeComp {
 
     const allOption: SelectOption = {
       label: 'All Cards',
-      confidence: calculateAverageConfidencePercent(learnables),
+      confidence: calculateAverageConfidencePercent(learnables).all,
       id: null
     }
+
     const collectionOptions: SelectOption[] = collections.map((c) => {
       const cards = learnables.filter((l) => c.cardIds.includes(l.id))
-      const confidence = calculateAverageConfidencePercent(cards)
+      const confidence = calculateAverageConfidencePercent(cards).all
 
       return { label: c.name, id: c.id, confidence }
     })

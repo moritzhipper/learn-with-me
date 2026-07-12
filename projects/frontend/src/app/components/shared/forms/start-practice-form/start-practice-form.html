@@ -1,26 +1,37 @@
+@let conf = config();
+
 <form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
   <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Start new Practice</h2>
-  @if (hasActivePractice()) {
+  @if (conf.hasActivePractice) {
     <liz-info-card
       class="fly-in-y full"
       [animDelay]="{ i: 1, size: 5 }"
       type="warn"
       title="Practice already in progress"
     >
-      <p>Starting a new practice will discard your current progress.</p>
+      <p>Starting a new one will end your current run.</p>
     </liz-info-card>
   }
+  @if (conf.confidence) {
+    <div class="fly-in-y full confidence" [animDelay]="{ i: 1, size: 5 }">
+      <p>Your confidence of the selected cards</p>
+
+      {{ conf.confidence.translation }}% {{ conf.languageConfig.learning }} |
+      {{ conf.confidence.lexeme }}% {{ conf.languageConfig.speaking }} | {{ conf.confidence.all }}%
+      overall
+    </div>
+  }
+
   <app-radio-comp
     class="full fly-in-y"
     [animDelay]="{ i: 2, size: 5 }"
-    label="Guessable field"
+    label="Guess"
     formControlName="guessableField"
     [config]="[
-      { label: 'Translation', value: 'translation' },
-      { label: 'Lexeme', value: 'lexeme' }
+      { label: conf.languageConfig.learning, value: 'translation' },
+      { label: conf.languageConfig.speaking, value: 'lexeme' }
     ]"
   />
-
   <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }">
     Cancel
   </button>
