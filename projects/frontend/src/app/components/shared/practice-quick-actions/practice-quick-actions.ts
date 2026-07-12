@@ -100,13 +100,13 @@ export class PracticeQuickActions {
   })
 
   protected async selectAction(action: QuickAction) {
+    const hasActivePractice = !!this.ls.activeBank().practice.active
+
     // if no active practice continue, else verify quitting it using modal
-    if (action.type === 'continue') {
+    if (action.type === 'continue' || (action.type === 'customize' && !hasActivePractice)) {
       this.router.navigate(['practice'])
       return
     }
-
-    const hasActivePractice = !!this.ls.activeBank().practice.active
 
     const confidence = this.getConfidenceFromQuickAction(action, this.ls.activeBank().learnables)
 
@@ -115,6 +115,7 @@ export class PracticeQuickActions {
       languageConfig: this.ls.activeBank().language,
       hasActivePractice
     }
+
     const resetAndDirectionConfirmChoice = await this.modalService.open<StartPracticeFormResult>(
       'start-practice',
       {

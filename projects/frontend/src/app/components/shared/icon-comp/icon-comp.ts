@@ -51,6 +51,8 @@ export type IconType =
   | 'up-arrow'
   | 'gear'
   | 'speed'
+  | 'speaking'
+  | 'understand'
 
 @Component({
   selector: 'app-icon-comp',

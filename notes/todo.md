@@ -18,6 +18,8 @@
     - all have small icons
   - idea 2
     - stats component: input: cards, output: this list thing wich is everywhere
+  - idea 3
+    - also circles, but they can be filled partially
 
 ## Today
 

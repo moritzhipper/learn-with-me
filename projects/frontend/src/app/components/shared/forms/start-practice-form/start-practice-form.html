@@ -12,21 +12,12 @@
       <p>Starting a new one will end your current run.</p>
     </liz-info-card>
   }
-  @if (conf.confidence) {
-    <div class="fly-in-y full confidence" [animDelay]="{ i: 1, size: 5 }">
-      <p>Your confidence of the selected cards</p>
-      <p>
-        <span class="word-list-item">
-          <strong> {{ conf.confidence.translation }}% </strong> {{ conf.languageConfig.learning }}
-        </span>
-        <span class="word-list-item">
-          <strong> {{ conf.confidence.lexeme }}% </strong> {{ conf.languageConfig.speaking }}
-        </span>
-        <span class="word-list-item">
-          <strong> {{ conf.confidence.all }}% </strong> overall
-        </span>
-      </p>
-    </div>
+  @if (conf.confidence; as confidence) {
+    <liz-confidence-dots
+      [confidence]="conf.confidence"
+      class="fly-in-y full"
+      [animDelay]="{ i: 1, size: 5 }"
+    />
   }
 
   <app-radio-comp
@@ -35,8 +26,8 @@
     label="Guess"
     formControlName="guessableField"
     [config]="[
-      { label: conf.languageConfig.learning, value: 'translation' },
-      { label: conf.languageConfig.speaking, value: 'lexeme' }
+      { label: conf.languageConfig.speaking, value: 'lexeme' },
+      { label: conf.languageConfig.learning, value: 'translation' }
     ]"
   />
   <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }">
