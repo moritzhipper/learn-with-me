@@ -9,6 +9,7 @@ import {
   ConfidenceAggregate,
   convertToDayPrecisionUTCDate
 } from '../../../utils/genaral-utils'
+import { ConfidenceStats } from '../confidence/confidence-stats/confidence-stats'
 import {
   StartPracticeFormConfig,
   StartPracticeFormResult
@@ -55,7 +56,7 @@ type QuickAction =
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp, DatePipe, SpacedRepetitionTimeline],
+  imports: [IconComp, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })

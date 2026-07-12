@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core'
-import { ConfidenceAggregate } from '../../../utils/genaral-utils'
-import { IconComp } from '../icon-comp/icon-comp'
+import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
+import { IconComp } from '../../icon-comp/icon-comp'
 
 type ConfidenceDotsConfig = ConfidenceAggregate
 

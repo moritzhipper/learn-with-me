@@ -3,24 +3,28 @@ import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnables-store'
-import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
+import {
+  calculateAverageConfidencePercent,
+  ConfidenceAggregate
+} from '../../../utils/genaral-utils'
+import { ConfidenceStats } from '../confidence/confidence-stats/confidence-stats'
 
 type AllCardsSummary = {
   type: 'all'
   allCardsCount: number
   collectionCount: number
-  averageConfidence: number
+  averageConfidence: ConfidenceAggregate
   collectionLess: number
 }
 
 type CollectionSummary = Collection & {
   type: 'collection'
-  averageConfidence: number
+  averageConfidence: ConfidenceAggregate
 }
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [DatePipe],
+  imports: [DatePipe, ConfidenceStats],
   templateUrl: './cards-quick-selector.html',
   styleUrl: './cards-quick-selector.scss'
 })
@@ -39,7 +43,7 @@ export class CardsQuickSelector {
       type: 'collection',
       averageConfidence: calculateAverageConfidencePercent(
         allCards.filter((card) => coll.cardIds.includes(card.id))
-      ).all
+      )
     }))
 
     const collectionIds = collections.flatMap((c) => c.cardIds)
@@ -49,7 +53,7 @@ export class CardsQuickSelector {
       type: 'all',
       allCardsCount: allCards.length,
       collectionCount: collections.length,
-      averageConfidence: calculateAverageConfidencePercent(allCards).all,
+      averageConfidence: calculateAverageConfidencePercent(allCards),
       collectionLess: collectionLessCards.length
     }
 
