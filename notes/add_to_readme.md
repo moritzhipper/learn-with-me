@@ -5,3 +5,4 @@
   - tried making design as close as possible to physical thing
 - explain banks vs collections
 - quick practice presets
+  - how to read cards (with spaced rep timeline)

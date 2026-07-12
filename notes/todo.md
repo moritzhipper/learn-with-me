@@ -10,6 +10,14 @@
   - works inline
   - communicates user and learning lang without needing language conf
   - can be used in those word lists
+  - idea 1
+    - small: like the cards have
+    - create badges for: card count, confidence (short, long, big)
+      - short is all, long is both, big is with label
+    - creation date
+    - all have small icons
+  - idea 2
+    - stats component: input: cards, output: this list thing wich is everywhere
 
 ## Today
 
