@@ -15,10 +15,17 @@
   @if (conf.confidence) {
     <div class="fly-in-y full confidence" [animDelay]="{ i: 1, size: 5 }">
       <p>Your confidence of the selected cards</p>
-
-      {{ conf.confidence.translation }}% {{ conf.languageConfig.learning }} |
-      {{ conf.confidence.lexeme }}% {{ conf.languageConfig.speaking }} | {{ conf.confidence.all }}%
-      overall
+      <p>
+        <span class="word-list-item">
+          <strong> {{ conf.confidence.translation }}% </strong> {{ conf.languageConfig.learning }}
+        </span>
+        <span class="word-list-item">
+          <strong> {{ conf.confidence.lexeme }}% </strong> {{ conf.languageConfig.speaking }}
+        </span>
+        <span class="word-list-item">
+          <strong> {{ conf.confidence.all }}% </strong> overall
+        </span>
+      </p>
     </div>
   }
 

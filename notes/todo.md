@@ -6,7 +6,10 @@
 - ids are only rotated on api upload
 - allow selection: export cards or explore also practice and translations
 
-- show confidence everywhere the same: learning, lexeme, general
+- show confidence everywhere the same: learning, lexeme, general -> come up with design, that
+  - works inline
+  - communicates user and learning lang without needing language conf
+  - can be used in those word lists
 
 ## Today
 
