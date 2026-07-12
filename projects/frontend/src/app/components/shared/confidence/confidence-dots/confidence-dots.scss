@@ -1,13 +1,21 @@
 :host {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--distance-1);
+  gap: var(--distance-3);
   color: var(--col-primary);
 }
 
-p {
-  opacity: var(--opacity-0);
+.center {
+  display: flex;
+  gap: var(--distance-1);
+
+  app-icon-comp {
+    opacity: var(--opacity-1);
+  }
+  p {
+    opacity: var(--opacity-0);
+  }
 }
 
 .confidence {
@@ -15,14 +23,17 @@ p {
   --mask-dark: rgb(0, 0, 0, var(--opacity-0));
 
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--distance-1);
-  width: min-content;
   flex: 1;
+  height: 100%;
 
   .dot {
     background-color: var(--col-primary);
-    flex: 1;
-    height: auto;
+    flex: 0 0 auto;
+    height: 100%;
+    max-height: 30px;
     aspect-ratio: 1 / 1;
     border-radius: 100%;
   }

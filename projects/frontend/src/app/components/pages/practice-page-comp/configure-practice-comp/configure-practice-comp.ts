@@ -6,6 +6,7 @@ import { LearnablesStore } from '../../../../store/learnables-store'
 import { LearnablesFilterConfig } from '../../../../types/types'
 import { calculateAverageConfidencePercent } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
+import { ConfidenceDots } from '../../../shared/confidence/confidence-dots/confidence-dots'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
 type SelectOption = {
@@ -16,7 +17,7 @@ type SelectOption = {
 
 @Component({
   selector: 'app-configure-practice-comp',
-  imports: [RadioComp, ReactiveFormsModule],
+  imports: [RadioComp, ReactiveFormsModule, ConfidenceDots],
   templateUrl: './configure-practice-comp.html',
   styleUrl: './configure-practice-comp.scss'
 })
@@ -39,7 +40,7 @@ export class ConfigurePracticeComp {
     initialValue: this.form.value
   })
 
-  protected readonly selectedLearnableIds = computed(() => {
+  protected readonly selectedLearnables = computed(() => {
     const formValue = this._formSignal()
 
     const filter = {
@@ -53,13 +54,15 @@ export class ConfigurePracticeComp {
     const collection = this.collections().find(
       (c) => c.id === (formValue.collectionIdentifier as string | null)
     )
-    if (!collection) return filteredLearnables.map((l) => l.id)
+    if (!collection) return filteredLearnables
 
-    return filteredLearnables.filter((l) => collection.cardIds.includes(l.id)).map((l) => l.id)
+    return filteredLearnables.filter((l) => collection.cardIds.includes(l.id))
   })
 
+  confidence = computed(() => calculateAverageConfidencePercent(this.selectedLearnables()))
+
   start() {
-    const iDs = this.selectedLearnableIds()
+    const iDs = this.selectedLearnables().map((l) => l.id)
     const guessableField = this.form.value.guessableField as PracticeActive['guessableField']
     this.ls.startPractice({
       type: 'custom',

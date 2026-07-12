@@ -1,9 +1,10 @@
 <div class="counter">
   <span class="count">
-    {{ selectedLearnableIds().length }}
+    {{ selectedLearnables().length }}
   </span>
   <span class="label">Cards in set</span>
 </div>
+<liz-confidence-dots [confidence]="confidence()" />
 
 <form [formGroup]="form" (ngSubmit)="start()">
   <app-radio-comp
@@ -43,7 +44,7 @@
       }
     </select>
   </label>
-  <button type="submit" class="icon" [disabled]="selectedLearnableIds().length === 0">
+  <button type="submit" class="icon" [disabled]="selectedLearnables().length === 0">
     Start Practice
   </button>
 </form>
