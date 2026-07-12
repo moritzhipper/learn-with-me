@@ -6,10 +6,6 @@
   color: var(--col-primary);
 }
 
-p {
-  opacity: var(--opacity-0);
-}
-
 .confidence {
   --mask-light: rgb(0, 0, 0);
   --mask-dark: rgb(0, 0, 0, var(--opacity-0));
@@ -24,7 +20,7 @@ p {
     flex: 1;
     height: auto;
     aspect-ratio: 1 / 1;
-    border-radius: var(--radius-2);
+    border-radius: 100%;
   }
 
   &.translation {

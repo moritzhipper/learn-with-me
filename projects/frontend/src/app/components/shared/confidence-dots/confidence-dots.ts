@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core'
 import { ConfidenceAggregate } from '../../../utils/genaral-utils'
 import { IconComp } from '../icon-comp/icon-comp'
 
-type ConfidenceDotsConfig = Pick<ConfidenceAggregate, 'translation' | 'lexeme'>
+type ConfidenceDotsConfig = ConfidenceAggregate
 
 @Component({
   selector: 'liz-confidence-dots',
