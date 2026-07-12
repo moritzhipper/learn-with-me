@@ -6,6 +6,10 @@
   color: var(--col-primary);
 }
 
+p {
+  opacity: var(--opacity-0);
+}
+
 .confidence {
   --mask-light: rgb(0, 0, 0);
   --mask-dark: rgb(0, 0, 0, var(--opacity-0));
