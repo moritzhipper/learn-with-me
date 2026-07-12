@@ -1,4 +1,4 @@
-@let guessTranslation = direction() === 'guessTranslation';
+@let guessTranslation = guessableField() === 'translation';
 @let card = learnable();
 <div class="wrapper">
   <p class="top size-3">{{ guessTranslation ? card.lexeme : card.translation }}</p>

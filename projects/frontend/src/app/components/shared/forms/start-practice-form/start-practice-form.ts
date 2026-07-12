@@ -6,8 +6,16 @@ import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
-export type StartPracticeFormConf = {
-  direction: PracticeConfig['direction']
+export type StartPracticeFormResult = {
+  guessableField: PracticeConfig['guessableField']
+}
+
+export type StartPracticeFormConfig = {
+  guessableField: PracticeConfig['guessableField']
+  confidence: {
+    translation: number
+    lexeme: number
+  }
 }
 
 @Component({
@@ -18,10 +26,10 @@ export type StartPracticeFormConf = {
 })
 export class StartPracticeForm extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)
-  form = this._fb.group<Pick<StartPracticeFormConf, 'direction'>>({
-    direction: 'guessTranslation'
+  form = this._fb.group<Pick<StartPracticeFormResult, 'guessableField'>>({
+    guessableField: 'translation'
   })
 
-  direction = input.required<PracticeConfig['direction']>()
+  guessableField = input.required<PracticeConfig['guessableField']>()
   hasActivePractice = input<boolean>()
 }

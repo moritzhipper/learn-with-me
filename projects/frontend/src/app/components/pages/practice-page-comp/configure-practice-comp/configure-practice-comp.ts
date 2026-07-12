@@ -32,7 +32,7 @@ export class ConfigurePracticeComp {
     type: null,
     collectionIdentifier: null,
     confidence: undefined,
-    direction: 'forward'
+    guessableField: 'translation'
   })
 
   private readonly _formSignal = toSignal(this.form.valueChanges, {
@@ -60,11 +60,11 @@ export class ConfigurePracticeComp {
 
   start() {
     const iDs = this.selectedLearnableIds()
-    const direction = this.form.value.direction as PracticeActive['direction']
+    const guessableField = this.form.value.guessableField as PracticeActive['guessableField']
     this.ls.startPractice({
       type: 'custom',
       learnableIDs: iDs,
-      direction
+      guessableField
     })
   }
 

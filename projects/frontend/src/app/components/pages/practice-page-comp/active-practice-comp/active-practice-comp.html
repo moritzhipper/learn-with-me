@@ -19,7 +19,7 @@
       [concealed]="entry.viewIndex > 0"
       [learnable]="entry.content"
       [allowEdit]="cardState() === 'editing' && entry.viewIndex === 0"
-      [direction]="currentPractice().direction"
+      [guessableField]="currentPractice().guessableField"
       (updateNotes)="updateNotes($event)"
     />
   } @else if (!('id' in entry.content)) {

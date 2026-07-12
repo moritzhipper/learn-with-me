@@ -1,8 +1,12 @@
 # ToDo
 
-## Today
+## Import / export
 
 - import / export / share store based
+- ids are only rotated on api upload
+- allow selection: export cards or explore also practice and translations
+
+## Today
 
 - add make text smaller functionalty to practice cards to accomondate for long text?
 - paste images

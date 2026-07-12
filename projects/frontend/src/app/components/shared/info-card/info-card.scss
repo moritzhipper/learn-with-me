@@ -28,10 +28,6 @@
     }
   }
 
-  &.full-page {
-    max-width: 500px;
-  }
-
   app-icon-comp {
     position: absolute;
     width: 64px;
@@ -45,5 +41,11 @@
 @include isDesktop {
   :host.full-page {
     margin: var(--distance-7) auto 0 auto;
+    max-width: 500px;
+  }
+}
+@include isPhone {
+  :host.full-page {
+    width: contain;
   }
 }

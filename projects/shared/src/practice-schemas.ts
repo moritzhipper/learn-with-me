@@ -2,7 +2,7 @@ import z from 'zod'
 import { GuessableSchema } from './schemas'
 
 export const PracticeConfigBaseSchema = z.object({
-  direction: z.literal(['guessTranslation', 'guessLexeme']),
+  guessableField: z.literal(['translation', 'lexeme']),
   learnableIDs: z.array(z.string())
 })
 

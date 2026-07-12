@@ -8,7 +8,7 @@ import {
   calculateAverageConfidencePercent,
   convertToDayPrecisionUTCDate
 } from '../../../utils/genaral-utils'
-import { StartPracticeFormConf } from '../forms/start-practice-form/start-practice-form'
+import { StartPracticeFormResult } from '../forms/start-practice-form/start-practice-form'
 import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
@@ -100,7 +100,7 @@ export class PracticeQuickActions {
 
     const hasActivePractice = !!this.ls.activeBank().practice.active
 
-    const response = await this.modalService.open<StartPracticeFormConf>('start-practice', {
+    const response = await this.modalService.open<StartPracticeFormResult>('start-practice', {
       hasActivePractice
     })
 
@@ -110,7 +110,7 @@ export class PracticeQuickActions {
       this.ls.resetPracticeAndSaveToHistory()
     }
 
-    const direction = response.value.direction
+    const guessableField = response.value.guessableField
 
     // Start new with action config, then redirect
     // Just redirect, when customize or continue selected
@@ -119,20 +119,20 @@ export class PracticeQuickActions {
         type: 'collection',
         collectionId: action.collection.id,
         learnableIDs: action.collection.cardIds,
-        direction
+        guessableField: guessableField
       })
     } else if (action.type === 'worst-cards') {
       this.ls.startPractice({
         type: 'custom',
         learnableIDs: action.learnableIDs,
-        direction
+        guessableField: guessableField
       })
     } else if (action.type === 'added-on-day') {
       this.ls.startPractice({
         type: 'added-on-day',
         dayCardsAddedUTC: action.dayCardsAddedUTC,
         learnableIDs: action.learnableIDs,
-        direction
+        guessableField: guessableField
       })
     }
     this.router.navigate(['practice'])

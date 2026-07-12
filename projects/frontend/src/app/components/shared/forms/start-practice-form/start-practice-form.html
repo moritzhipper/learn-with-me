@@ -13,11 +13,11 @@
   <app-radio-comp
     class="full fly-in-y"
     [animDelay]="{ i: 2, size: 5 }"
-    label="Direction"
-    formControlName="direction"
+    label="Guessable field"
+    formControlName="guessableField"
     [config]="[
-      { label: 'Forward', value: 'guessTranslation' },
-      { label: 'Reverse', value: 'guessLexeme' }
+      { label: 'Translation', value: 'translation' },
+      { label: 'Lexeme', value: 'lexeme' }
     ]"
   />
 

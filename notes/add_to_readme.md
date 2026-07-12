@@ -3,3 +3,5 @@
 - ease of use first
   - using app teaches app
   - tried making design as close as possible to physical thing
+- explain banks vs collections
+- quick practice presets
