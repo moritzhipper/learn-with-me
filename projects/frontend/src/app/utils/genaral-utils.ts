@@ -29,6 +29,7 @@ export type ConfidenceAggregate = {
   translation: number
   lexeme: number
   all: number
+  cardCount: number
 }
 
 export const calculateAverageConfidencePercent = (
@@ -48,7 +49,8 @@ export const calculateAverageConfidencePercent = (
   return {
     translation: getAvg(allTranslationGuesses),
     lexeme: getAvg(allLexemeGuesses),
-    all: getAvg(allGuesses)
+    all: getAvg(allGuesses),
+    cardCount: learnables.length
   }
 }
 

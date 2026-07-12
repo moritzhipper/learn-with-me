@@ -6,10 +6,14 @@ import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
-import { calculateAverageConfidencePercent } from '../../../utils/genaral-utils'
+import {
+  calculateAverageConfidencePercent,
+  ConfidenceAggregate
+} from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
+import { ConfidenceStats } from '../../shared/confidence/confidence-stats/confidence-stats'
 import { ConfirmationType } from '../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../shared/forms/delete-collection-comp/delete-collection-comp'
@@ -17,7 +21,6 @@ import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { QuickLinks } from '../dashboard-page/quick-links/quick-links'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
-import { CollectionInfoComp } from './collection-info-comp/collection-info-comp'
 import { FilterAction, FilterComp } from './filter-comp/filter-comp'
 import { LearnableComp } from './learnable-comp/learnable-comp'
 
@@ -30,7 +33,6 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
   templateUrl: './overview-page-comp.html',
   styleUrl: './overview-page-comp.scss',
   imports: [
-    CollectionInfoComp,
     ReactiveFormsModule,
     LearnableComp,
     FormsModule,
@@ -40,7 +42,8 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
     Bubble,
     PageWrapper,
     InfoCard,
-    QuickLinks
+    QuickLinks,
+    ConfidenceStats
   ]
 })
 export class OverviewComp {
@@ -102,23 +105,9 @@ export class OverviewComp {
     filterLearnables(this._collectionLearnables(), { orderBy: 'created' })
   )
 
-  readonly headerConfig = computed(() => {
-    const coll = this.selectedCollection()
-
-    if (coll) {
-      return {
-        header: coll.name,
-        cardCount: this._collectionLearnables().length,
-        averageConfidence: calculateAverageConfidencePercent(this._collectionLearnables()).all,
-        date: 'created' in coll ? coll.createdAt : undefined
-      }
-    }
-    return {
-      header: 'All Cards',
-      cardCount: this.learnables().length,
-      averageConfidence: calculateAverageConfidencePercent(this.learnables()).all
-    }
-  })
+  readonly headerConfig = computed<ConfidenceAggregate>(() =>
+    calculateAverageConfidencePercent(this._collectionLearnables())
+  )
 
   async handleFilterAction(action: FilterAction) {
     const collection = this.selectedCollection()
