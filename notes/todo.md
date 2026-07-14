@@ -6,21 +6,6 @@
 - ids are only rotated on api upload
 - allow selection: export cards or explore also practice and translations
 
-- show confidence everywhere the same: learning, lexeme, general -> come up with design, that
-  - works inline
-  - communicates user and learning lang without needing language conf
-  - can be used in those word lists
-  - idea 1
-    - small: like the cards have
-    - create badges for: card count, confidence (short, long, big)
-      - short is all, long is both, big is with label
-    - creation date
-    - all have small icons
-  - idea 2
-    - stats component: input: cards, output: this list thing wich is everywhere
-  - idea 3
-    - also circles, but they can be filled partially
-
 ## Today
 
 - add make text smaller functionalty to practice cards to accomondate for long text?
