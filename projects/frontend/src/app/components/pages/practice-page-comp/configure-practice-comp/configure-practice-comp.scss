@@ -23,8 +23,9 @@
     justify-self: center;
     align-self: start;
     margin-top: 25vh;
+    position: relative;
     .counter {
-      translate: -80px;
+      translate: -70px 0px;
       align-self: end;
       .count {
         font-size: 150px;
@@ -39,10 +40,11 @@
       }
     }
     liz-confidence-dots {
-      translate: -20px;
-
-      width: 80%;
-      padding-top: var(--distance-1);
+      position: absolute;
+      top: var(--distance-6);
+      right: 0px;
+      width: 50%;
+      rotate: 4deg;
       padding-bottom: var(--distance-5);
     }
     form {
@@ -84,7 +86,7 @@
     }
   }
   form {
-    gap: var(--distance-2);
+    gap: var(--distance-3);
   }
 
   liz-confidence-dots {
