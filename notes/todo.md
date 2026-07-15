@@ -4,7 +4,13 @@
 
 - import / export / share store based
 - ids are only rotated on api upload
-- allow selection: export cards or explore also practice and translations
+- allow selection:
+  - export cards or explore also practice and translations
+  - in export modal, ask for userdata inclusion
+- import: build merge functionality for scenarios
+  - same languages, but inverter
+  - same languages
+  - 'different' languages -> remap
 
 ## Today
 

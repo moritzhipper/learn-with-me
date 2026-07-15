@@ -8,6 +8,7 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
+import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -108,8 +109,11 @@ export class SettingsComp {
     this.ls.deleteBank(id)
   }
 
-  downloadBank(bank: BankUser) {
-    this._sharedBankS.exportBank(bank)
+  async downloadBank(bank: BankUser) {
+    const result = await this._modalService.open<ExportBankLocalFormResult>('export-bank-local')
+    if (result.type !== 'confirm') return
+
+    this._sharedBankS.exportBank(bank, result.value)
   }
 
   protected updateKey(event: Event) {

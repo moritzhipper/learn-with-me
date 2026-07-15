@@ -5,8 +5,9 @@ import { ImportFormResult } from '../components/shared/forms/import-form-comp/im
 import { LearnablesStore } from '../store/learnables-store'
 import { ImportStrategy } from '../types/types'
 import {
-  mapBankToShareable,
-  parseFileImportString,
+  BankExportOptions,
+  mapBankToExportable,
+  parseBankImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
 import { ApiService } from './api-service'
@@ -25,8 +26,8 @@ export class ShareBanksService {
   private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  exportBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
-    const bankExport = mapBankToShareable(bank, onlyForCollectionIds)
+  exportBank(bank: BankUser, options?: BankExportOptions): void {
+    const bankExport = mapBankToExportable(bank, options)
 
     URL.revokeObjectURL(this._blobUrl)
 
@@ -60,7 +61,7 @@ export class ShareBanksService {
       fileReader.onload = (e: ProgressEvent<FileReader>) => {
         try {
           const content = e.target?.result as string
-          const imported = parseFileImportString(content)
+          const imported = parseBankImportString(content)
           if (imported.learnables.length === 0) throw new Error('File contains no learnables')
 
           resolve(imported)
@@ -99,7 +100,7 @@ export class ShareBanksService {
   async shareBank(bank: BankUser, onlyForCollectionIds?: string[]): Promise<void> {
     const result = await this.modalService.open<BankShareConfig>('bank-share', { bank })
     if (result.type !== 'confirm') return
-    const mappedBank = mapBankToShareable(bank, onlyForCollectionIds)
+    const mappedBank = mapBankToExportable(bank, { onlyForCollectionIds, includeUserData: false })
 
     try {
       const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })

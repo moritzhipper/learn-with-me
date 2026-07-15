@@ -118,7 +118,7 @@ export class OverviewComp {
     } else if (action === 'share') {
       await this.shareBanksS.shareBank(this.bank(), [collection.id])
     } else if (action === 'download') {
-      this.shareBanksS.exportBank(this.ls.activeBank(), [collection.id])
+      this.shareBanksS.exportBank(this.ls.activeBank(), { onlyForCollectionIds: [collection.id] })
     } else if (action === 'delete') {
       await this.deleteCollection(collection)
     }
