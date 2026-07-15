@@ -1,11 +1,10 @@
 @let sum = summary();
-@let hasOnlyOneColl = sum.collectionsCount > 1;
-@let langMatch = languagesMatch();
-@let animSize = 5 + (hasOnlyOneColl ? 1 : 0) + (langMatch ? 2 : 0);
+@let hasOnlyOneColl = sum.collectionsCount === 1;
+@let animSize = 6;
 
 <form (ngSubmit)="confirm(form.value)" class="modal" [formGroup]="form">
   <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: animSize }">Import {{ bank().name }}?</h2>
-  @if (hasOnlyOneColl) {
+  @if (!hasOnlyOneColl) {
     <div class="preview full fly-in-y" [animDelay]="{ i: 1, size: animSize }">
       <h3>Collections</h3>
       <p>
@@ -32,35 +31,33 @@
     </p>
   </div>
 
-  @if (!langMatch) {
-    <liz-info-card class="warning full fly-in-y" [animDelay]="{ i: 2, size: animSize }">
-      <p>
-        Your active Banks' languages and this shared Bank's languages are different. Would you like
-        to merge the cards into your active Bank or create a new one?
-      </p>
-      <app-radio-comp
-        class="fly-in-y"
-        [animDelay]="{ i: 3, size: animSize }"
-        formControlName="strategy"
-        label="Strategy"
-        [config]="[
-          { value: 'merge', label: 'Merge' },
-          { value: 'new', label: 'Add new Bank' }
-        ]"
-      />
-    </liz-info-card>
-  }
-
+  <p class="full">
+    show here which language will be mapped on wich when languages divert. be specific about
+    learning and speaking
+  </p>
   <app-radio-comp
-    class="fly-in-y"
-    [animDelay]="{ i: 4, size: animSize }"
-    formControlName="invertLanguageDirection"
-    label="Strategy"
+    class="full"
+    formControlName="strategy"
+    label="Import Strategy"
+    darkMode
     [config]="[
       { value: 'merge', label: 'Merge' },
       { value: 'new', label: 'Add new Bank' }
     ]"
   />
+
+  <app-radio-comp
+    class="fly-in-y full"
+    [animDelay]="{ i: 4, size: animSize }"
+    formControlName="invertLanguageDirection"
+    darkMode
+    label="Switch direction?"
+    [config]="[
+      { value: false, label: 'Keep' },
+      { value: true, label: 'Invert' }
+    ]"
+  />
+
   <button
     type="button"
     class="big fly-in-y"

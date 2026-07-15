@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core'
+import { booleanAttribute, Component, forwardRef, input } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 type RadioCompValueType = string | number | boolean | null
@@ -26,7 +26,7 @@ export type RadioCompInputConfig = {
 export class RadioComp implements ControlValueAccessor {
   config = input.required<RadioCompInputConfig>()
   label = input<string>()
-  darkMode = input<boolean>(false)
+  darkMode = input(false, { transform: booleanAttribute })
 
   value: RadioCompValueType = null
 

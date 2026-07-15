@@ -19,9 +19,10 @@ export class DebugHelper {
   async triggerImportBankForm(type: 'single' | 'multiple') {
     const userBank = buildDebugBank()
     const firstCollectionID = userBank.collections[0].id
+
     const bank =
       type === 'single'
-        ? mapBankToExportable(buildDebugBank(), { onlyForCollectionIds: [firstCollectionID] })
+        ? mapBankToExportable(userBank, { onlyForCollectionIds: [firstCollectionID] })
         : mapBankToExportable(userBank)
 
     const lang: LanguageConfig = {

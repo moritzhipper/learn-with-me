@@ -15,7 +15,6 @@ import { BaseModalDirective } from '../base-modal-directive'
 })
 export class ImportFormComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)
-
   bank = input.required<BankShareBase>()
   activeBankLanguage = input.required<LanguageConfig>()
 
@@ -42,16 +41,30 @@ export class ImportFormComp extends BaseModalDirective {
     }
   })
 
-  languagesMatch = computed(() => {
+  langMatch = computed(() => {
     const bankL = this.bank().language
     const activeL = this.activeBankLanguage()
 
     const strip = (str: string) => str.trim().toLowerCase()
     return (
-      strip(bankL.learning) === strip(activeL.learning) ||
-      strip(bankL.speaking) === strip(activeL.speaking)
+      this.compare(bankL.learning, activeL.learning) &&
+      this.compare(bankL.speaking, activeL.speaking)
     )
   })
+
+  invertedLangMatch = computed(() => {
+    const bankL = this.bank().language
+    const activeL = this.activeBankLanguage()
+
+    return (
+      this.compare(bankL.learning, activeL.speaking) &&
+      this.compare(bankL.speaking, activeL.learning)
+    )
+  })
+
+  private compare(a: string, b: string) {
+    return a.trim().toLowerCase() === b.trim().toLowerCase()
+  }
 
   form = this._fb.group<BankImportOptions>({
     strategy: 'merge',

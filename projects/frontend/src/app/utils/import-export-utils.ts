@@ -40,7 +40,6 @@ export const mapBankToExportable = (
   const exportedCards = bank.learnables.filter((l) =>
     collectionsToExport.some((c) => c.cardIds.includes(l.id))
   )
-
   // return full bank including history and stuff
   if (options?.includeUserData) {
     return {
