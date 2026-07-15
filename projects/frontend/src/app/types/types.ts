@@ -26,7 +26,10 @@ export type SettingsStoreType = {
   userID: string
 }
 
-export type ImportStrategy = 'merge' | 'new'
+export type BankImportOptions = {
+  strategy: 'merge' | 'new'
+  invertLanguageDirection: boolean
+}
 
 type Optional<T> = { [K in keyof T]?: T[K] | null }
 

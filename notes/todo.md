@@ -4,13 +4,19 @@
 
 - import / export / share store based
 - ids are only rotated on api upload
-- allow selection:
-  - export cards or explore also practice and translations
-  - in export modal, ask for userdata inclusion
 - import: build merge functionality for scenarios
-  - same languages, but inverter
-  - same languages
-  - 'different' languages -> remap
+  - use remap on import from file and import from online
+  - Import form
+    - active bank and same languages, but inverted
+      - preset invertLangs, make disabled
+      - show strategy
+    - active bank and different languages
+      - show strategy and invertlangs,
+      - provide 'xy will be mapped top y' on merge selected
+
+  - result of remapChoices FOrm: invertLanguages, importStrategy merge or new
+    - in form, show always strategy and direction of imported languages option
+  - do import as one single store method as bank child, with the strategy as option
 
 ## Today
 

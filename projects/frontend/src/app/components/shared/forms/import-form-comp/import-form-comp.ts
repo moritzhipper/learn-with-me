@@ -1,22 +1,21 @@
-import { Component, computed, input } from '@angular/core'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Component, computed, inject, input } from '@angular/core'
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { ImportStrategy } from 'projects/frontend/src/app/types/types'
+import { BankImportOptions } from 'projects/frontend/src/app/types/types'
+import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
-export type ImportFormResult = {
-  importStrategy: ImportStrategy
-}
-
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelay, InfoCard],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })
 export class ImportFormComp extends BaseModalDirective {
+  private readonly _fb = inject(NonNullableFormBuilder)
+
   bank = input.required<BankShareBase>()
   activeBankLanguage = input.required<LanguageConfig>()
 
@@ -43,21 +42,19 @@ export class ImportFormComp extends BaseModalDirective {
     }
   })
 
-  differentLanguages = computed(() => {
+  languagesMatch = computed(() => {
     const bankL = this.bank().language
     const activeL = this.activeBankLanguage()
 
+    const strip = (str: string) => str.trim().toLowerCase()
     return (
-      bankL.learning.toLowerCase() !== activeL.learning.toLowerCase() ||
-      bankL.speaking.toLowerCase() !== activeL.speaking.toLowerCase()
+      strip(bankL.learning) === strip(activeL.learning) ||
+      strip(bankL.speaking) === strip(activeL.speaking)
     )
   })
 
-  form = new FormGroup({
-    importStrategy: new FormControl<ImportStrategy>('merge')
+  form = this._fb.group<BankImportOptions>({
+    strategy: 'merge',
+    invertLanguageDirection: false
   })
-
-  onSubmit() {
-    this.confirm(this.form.value)
-  }
 }

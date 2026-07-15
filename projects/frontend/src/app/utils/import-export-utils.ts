@@ -89,6 +89,17 @@ export const verifiyImportedFileValidity = (file: File): void => {
   }
 }
 
+type BankRemapOptions = {
+  invertLanguages: boolean
+}
+
+export const remapImportedBankLanguages = <T = BankShareBase | BankUser>(
+  bank: T,
+  options: BankRemapOptions
+): T => {
+  throw new Error('Not implemented yet')
+}
+
 export const filterDoubleEntries = (
   newLearnables: LearnableBase[],
   existingLearnables: UserLearnable[]

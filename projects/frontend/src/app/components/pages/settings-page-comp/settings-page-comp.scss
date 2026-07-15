@@ -42,7 +42,11 @@ app-settings-item-comp {
 .delete {
   background-color: var(--col-warning);
 }
-
+.debug {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--distance-3);
+}
 .items {
   display: grid;
   gap: var(--distance-4);

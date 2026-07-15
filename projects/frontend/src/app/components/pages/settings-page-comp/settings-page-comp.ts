@@ -52,7 +52,10 @@ export class SettingsComp {
     }
   })
 
-  addDebug = () => this.debugHelper.seedDebugBank()
+  addDebug = () => this.debugHelper.addDebugBank()
+  triggerImportBankForm = (type: 'single' | 'multiple') =>
+    this.debugHelper.triggerImportBankForm(type)
+  triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
 
   async reset() {
     const { banks, collections, learnables } = this.stats()

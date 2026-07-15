@@ -1,9 +1,8 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
-import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnables-store'
-import { ImportStrategy } from '../types/types'
+import { BankImportOptions } from '../types/types'
 import {
   BankExportOptions,
   mapBankToExportable,
@@ -121,7 +120,7 @@ export class ShareBanksService {
 
   async importOnlineBank(bank: BankShareViaDB): Promise<void> {
     const activeBankLanguage = this.store.activeBank().language
-    const result = await this.modalService.open<ImportFormResult>('bank-import', {
+    const result = await this.modalService.open<BankImportOptions>('bank-import', {
       activeBankLanguage,
       bank
     })
@@ -129,20 +128,20 @@ export class ShareBanksService {
     if (result.type !== 'confirm') return
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-    this.finalizeImport(bank, result.value.importStrategy)
+    this.finalizeImport(bank, result.value.strategy)
   }
 
   async importBankFromFile(file: File): Promise<void> {
     try {
       const bank = await this.readFile(file)
       const activeBankLanguage = this.store.activeBank().language
-      const result = await this.modalService.open<ImportFormResult>('bank-import', {
+      const result = await this.modalService.open<BankImportOptions>('bank-import', {
         activeBankLanguage,
         bank
       })
 
       if (result.type !== 'confirm') return
-      this.finalizeImport(bank, result.value.importStrategy)
+      this.finalizeImport(bank, result.value.strategy)
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
@@ -152,11 +151,18 @@ export class ShareBanksService {
     }
   }
 
-  async finalizeImport(bank: BankShareBase, importStrategy: ImportStrategy): Promise<void> {
+  private async validateLanguageDirection<T = BankShareBase | BankUser>(bank: T): Promise<T> {
+    throw new Error('Not implemented yet')
+  }
+
+  async finalizeImport(
+    bank: BankShareBase,
+    importStrategy: BankImportOptions['strategy']
+  ): Promise<void> {
     if (importStrategy === 'new') {
       this.store.importBank(bank)
     } else {
-      this.store.mergeIntoActiveBank(bank)
+      this.store.importBank(bank)
     }
 
     this.toastService.showToast({

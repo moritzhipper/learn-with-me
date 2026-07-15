@@ -1,6 +1,6 @@
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { BankBase, BankShareBase, BankUser, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
+import { BankImportOptions, LearnablesStoreType } from '../../types/types'
 import { initialGuesses, initialPractice, initialTranslations } from '../initial-states'
 
 export const withBankCrud = <_>() =>
@@ -24,7 +24,7 @@ export const withBankCrud = <_>() =>
 
         return newBank.id
       },
-      importBank(bank: BankUser | BankShareBase): string {
+      importBank(bank: BankUser | BankShareBase, options?: BankImportOptions): string {
         const newID = crypto.randomUUID()
 
         const isUserBank = 'practice' in bank

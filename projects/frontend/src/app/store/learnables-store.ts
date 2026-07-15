@@ -1,7 +1,6 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit'
 import { computed } from '@angular/core'
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
-import { BankShareBase, BankUser } from '@shared/types'
 import { withBankCrud } from './features/bank-crud'
 import { withCardsCrud } from './features/cards-crud'
 import { withCollectionsCrud } from './features/collections-crud'
@@ -33,32 +32,8 @@ export const LearnablesStore = signalStore(
   withTranslateFeature(),
   withBankCrud(),
   withMethods((state) => ({
-    mergeIntoActiveBank(bankShareBase: BankShareBase) {
-      const cards = bankShareBase.learnables
-      const collections = bankShareBase.collections
-      const { idsOfDuplicates } = state.importCards(cards)
-      // add collections
-      // replace duplicate card ids with existing ids, so the collection stays intact but links the existing cards
-
-      for (const collection of collections) {
-        const id = state.createCollection(collection.name)
-        const addIDs = collection.cardIds.map((cardId) => {
-          const duplicate = idsOfDuplicates.find((d) => d.importedID === cardId)
-          return duplicate?.duplicateID ?? cardId
-        })
-
-        state.updateCollection({ id, addIDs })
-      }
-    },
     reset() {
       patchState(state, initialState)
-    },
-    addBankForDebug(bank: BankUser) {
-      patchState(state, (state) => ({
-        ...state,
-        banks: [...state.banks, bank],
-        activeBankId: bank.id
-      }))
     }
   }))
 )
