@@ -1,36 +1,16 @@
-@let sum = summary();
-@let hasOnlyOneColl = sum.collectionsCount === 1;
 @let animSize = 6;
 
 <form (ngSubmit)="confirm(form.value)" class="modal" [formGroup]="form">
-  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: animSize }">Import {{ bank().name }}?</h2>
-  @if (!hasOnlyOneColl) {
-    <div class="preview full fly-in-y" [animDelay]="{ i: 1, size: animSize }">
-      <h3>Collections</h3>
-      <p>
-        @for (coll of sum.previewCollections; track coll.id) {
-          <span class="word-list-item">
-            {{ coll.name }}
-          </span>
-        }
-        @if (sum.collectionsCountHidden > 0) {
-          <span class="word-list-item">{{ sum.collectionsCountHidden }} more</span>
-        }
-      </p>
-    </div>
-  }
-  <div class="preview full fly-in-y" [animDelay]="{ i: 1, size: animSize }">
-    <h3>Cards</h3>
-    <p>
-      @for (learnable of sum.previewCards; track learnable) {
-        <span class="word-list-item">{{ learnable.translation }}</span>
-      }
-      @if (sum.cardsCountHidden > 0) {
-        <span class="word-list-item">{{ sum.cardsCountHidden }} more</span>
-      }
-    </p>
-  </div>
+  <div class="header full fly-in-y">
+    <h2 [animDelay]="{ i: 0, size: animSize }">Import {{ bank().name }}</h2>
 
+    <div class="description">
+      @if (bank().collections.length > 1) {
+        <span class="word-list-item"> {{ bank().collections.length }} collections</span>
+      }
+      <span class="word-list-item"> {{ bank().learnables.length }} cards</span>
+    </div>
+  </div>
   <p class="full">
     show here which language will be mapped on wich when languages divert. be specific about
     learning and speaking

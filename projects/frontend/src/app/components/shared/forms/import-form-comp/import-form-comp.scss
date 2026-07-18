@@ -1,23 +1,13 @@
 form {
   grid-template-rows: 1fr auto;
 
-  .preview {
-    position: relative;
-    max-width: var(--medium-width);
-    width: 100%;
+  .header {
+    place-self: center;
+    text-align: center;
 
-    h3 {
-      margin: 0 0 var(--distance-2) 0;
-      font-size: var(--font-size-0);
+    .description {
+      padding-top: var(--distance-4);
       opacity: var(--opacity-1);
-      font-weight: var(--font-weight-bold);
-      width: 100%;
     }
-  }
-
-  .warning {
-    padding: var(--distance-4);
-    background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
-    border-radius: var(--radius-2);
   }
 }
