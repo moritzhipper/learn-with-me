@@ -69,12 +69,16 @@ button {
     border-radius: var(--radius-1);
     box-shadow: var(--shadow-small);
   }
-
   &[disabled] {
-    opacity: var(--opacity-1);
-    cursor: not-allowed;
     box-shadow: none;
   }
+}
+
+[disabled] {
+  opacity: var(--opacity-1);
+  cursor: not-allowed;
+  box-shadow: none;
+  user-select: none;
 }
 
 a[download] {

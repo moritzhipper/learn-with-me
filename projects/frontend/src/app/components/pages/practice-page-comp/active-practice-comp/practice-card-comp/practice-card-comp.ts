@@ -14,7 +14,7 @@ import { PracticeActive, UserLearnable } from '@shared/types'
 export class PracticeCardComp {
   concealed = input<boolean>(true)
   learnable = input.required<UserLearnable>()
-  direction = input.required<PracticeActive['direction']>()
+  guessableField = input.required<PracticeActive['guessableField']>()
   updateNotes = output<{ id: string; newNotes: string }>()
   allowEdit = input<boolean>(false)
 

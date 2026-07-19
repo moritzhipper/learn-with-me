@@ -46,11 +46,13 @@ export type IconType =
   | 'drop'
   | 'drop-fill'
   | 'checkbox-multiple'
-  | 'left-right'
   | 'calendar'
   | 'up-arrow'
   | 'gear'
   | 'speed'
+  | 'speaking'
+  | 'understand'
+  | 'arrow-right'
 
 @Component({
   selector: 'app-icon-comp',

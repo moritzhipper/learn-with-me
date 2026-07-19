@@ -27,7 +27,7 @@
     backLink="/"
     backLinkText="Home"
   >
-    <app-collection-info-comp [config]="headerConfig()" />
+    <liz-confidence-stats [confidence]="headerConfig()" />
   </app-page-header-comp>
   @if (userHasCards()) {
     @if (collections().length !== 0) {

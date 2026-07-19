@@ -77,7 +77,7 @@ const buildCollectionPractices = (
     guessableIndex: collection.cardIds.length,
     guessables: toGuessables(collection.cardIds, practiceIndex),
     learnableIDs: collection.cardIds,
-    direction: 'guessTranslation'
+    guessableField: 'translation'
   }))
 
 const buildCustomPractices = (
@@ -91,7 +91,7 @@ const buildCustomPractices = (
     guessableIndex: learnableIds.length,
     guessables: toGuessables(learnableIds, practiceIndex + 1),
     learnableIDs: learnableIds,
-    direction: 'guessTranslation'
+    guessableField: 'translation'
   }))
 }
 
@@ -132,7 +132,7 @@ export const buildDebugBank = (): BankUser => {
     name: config.name,
     createdAt: now,
     language: { speaking: config.speaking, learning: config.learning },
-    translations: { magicTranslateCards: [], history: [], tone: 'neutral' },
+    translations: { magicTranslateCards: [], history: [], tone: 'neutral', invertDirection: false },
     learnables: allLearnables,
     collections,
     practice: {

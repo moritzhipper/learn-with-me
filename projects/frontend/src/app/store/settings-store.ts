@@ -1,6 +1,6 @@
 import { withStorageSync } from '@angular-architects/ngrx-toolkit'
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals'
-import type { SettingsStoreType } from '../types/types'
+import { SettingsStoreType } from '../types/store-types'
 import { initialSettings } from './initial-states'
 
 export const SettingsStore = signalStore(

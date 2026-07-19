@@ -8,6 +8,7 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
+import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -51,7 +52,8 @@ export class SettingsComp {
     }
   })
 
-  addDebug = () => this.debugHelper.seedDebugBank()
+  triggerImportBankForm = this.debugHelper.triggerImportBankForm.bind(this.debugHelper)
+  triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
 
   async reset() {
     const { banks, collections, learnables } = this.stats()
@@ -91,25 +93,27 @@ export class SettingsComp {
   }
 
   async deleteBank(id: string) {
-    if (this.ls.banks().length === 1) {
-      this._toastS.showToast({
-        type: 'error',
-        message: `You can not delete the only Bank.`
-      })
-      return
-    }
-
     const result = await this._modalService.open('confirm', {
-      message: `Are you sure you want to delete this Bank?`
+      message: `Delete this Bank?`
     })
 
     if (result.type !== 'confirm') return
 
-    this.ls.deleteBank(id)
+    try {
+      this.ls.deleteBank(id)
+    } catch (error) {
+      this._toastS.showToast({
+        message: (error as Error).message || 'Failed to delete Bank.',
+        type: 'error'
+      })
+    }
   }
 
-  downloadBank(bank: BankUser) {
-    this._sharedBankS.exportBank(bank)
+  async downloadBank(bank: BankUser) {
+    const result = await this._modalService.open<ExportBankLocalFormResult>('export-bank-local')
+    if (result.type !== 'confirm') return
+
+    this._sharedBankS.exportBank(bank, result.value)
   }
 
   protected updateKey(event: Event) {

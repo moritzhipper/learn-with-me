@@ -10,52 +10,74 @@ import { config } from '../../config'
 
 // #region Export Functions
 
+export type BankExportOptions = {
+  onlyForCollectionIds?: string[]
+  includeUserData?: boolean
+}
+
 /**
  * Maps the learnables and collections to a format suitable to put into a file for export.
+ *
+ * Maps name of aisgns bank the collection name if only one collection is selected
  */
-export const mapBankToShareable = (bank: BankUser, onlyCollectionIDs?: string[]): BankShareBase => {
-  // Get collections to export
-  const collectionsToExport = bank.collections.filter((c) =>
-    onlyCollectionIDs ? onlyCollectionIDs.includes(c.id) : true
-  )
+export const mapBankToExportable = (
+  bank: BankUser,
+  options?: BankExportOptions
+): BankShareBase | BankUser => {
+  // Filter collections to export
+  const collectionsToExport = bank.collections.filter((c) => {
+    const collIDs = options?.onlyForCollectionIds
+    if (!collIDs || collIDs.length === 0) return true
+    return collIDs.includes(c.id)
+  })
 
   // Get all card IDs that belong to the collections being exported
-  const cardIdsInExportedCollections = new Set(collectionsToExport.flatMap((c) => c.cardIds))
+
+  // Assign bank the collection name if only one collection is being exported
+  const bankName = collectionsToExport.length === 1 ? collectionsToExport[0].name : bank.name
 
   // Filter learnables: if exporting specific collections, only include cards in those collections
-  const learnables: LearnableWithId[] = bank.learnables
-    .filter((l) => (onlyCollectionIDs ? cardIdsInExportedCollections.has(l.id) : true))
-    .map((l) => ({
-      lexeme: l.lexeme,
-      translation: l.translation,
-      type: l.type,
-      id: l.id,
-      notes: l.notes,
-      createdAt: l.createdAt
-    }))
+  const exportedCards = bank.learnables.filter((l) =>
+    collectionsToExport.some((c) => c.cardIds.includes(l.id))
+  )
+  // return full bank including history and stuff
+  if (options?.includeUserData) {
+    return {
+      ...bank,
+      name: bankName,
+      learnables: exportedCards,
+      collections: collectionsToExport
+    }
+  }
 
-  // Map collections with only the cardIds that are being exported
-  const exportedLearnableIds = new Set(learnables.map((l) => l.id))
+  // return 'anonymized' bank only holding cards and banks and nothing more
 
-  const name = bank.collections.length === 1 ? bank.collections[0].name : bank.name
+  const learnablesWithoutGuesses: LearnableWithId[] = exportedCards.map((l) => ({
+    lexeme: l.lexeme,
+    translation: l.translation,
+    type: l.type,
+    id: l.id,
+    notes: l.notes,
+    createdAt: l.createdAt
+  }))
 
   return {
-    name,
+    name: bankName,
     language: bank.language,
-    learnables,
+    learnables: learnablesWithoutGuesses,
     collections: collectionsToExport
   }
 }
 
 // #region Import Functions
 
-export const parseFileImportString = (fileAsString: string): BankShareBase => {
-  try {
-    return BankShareBaseSchema.parse(JSON.parse(fileAsString))
-  } catch (e) {
-    console.error('Failed to parse learnables from file:', e)
-    throw new Error('Invalid file format')
-  }
+export const parseBankImportString = (fileAsString: string): BankShareBase | BankUser => {
+  const userBank = BankShareBaseSchema.safeParse(JSON.parse(fileAsString))
+  const baseBank = BankShareBaseSchema.safeParse(JSON.parse(fileAsString))
+
+  if (userBank.success) return userBank.data
+  if (baseBank.success) return baseBank.data
+  throw new Error('Invalid file format')
 }
 
 export const verifiyImportedFileValidity = (file: File): void => {
@@ -64,6 +86,17 @@ export const verifiyImportedFileValidity = (file: File): void => {
   if (!fileSuffixIsCorrect) {
     throw new Error('Wrong file extension.')
   }
+}
+
+type BankRemapOptions = {
+  invertLanguages: boolean
+}
+
+export const remapImportedBankLanguages = <T = BankShareBase | BankUser>(
+  bank: T,
+  options: BankRemapOptions
+): T => {
+  throw new Error('Not implemented yet')
 }
 
 export const filterDoubleEntries = (

@@ -11,28 +11,15 @@
         <h3>
           {{ action.collection.name }}
         </h3>
-        <p>
-          <span class="word-list-item">
-            <strong>{{ action.collection.cardIds.length }}</strong> cards
-          </span>
-          <span class="word-list-item">
-            <strong> {{ action.averageScore }}% </strong> confidence
-          </span>
-        </p>
+        <liz-confidence-stats [confidence]="action.averageScore" />
 
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-on-day') {
         <app-icon-comp type="calendar" class="type" />
         <h3>Added on {{ action.dayCardsAddedUTC | date: 'mediumDate' }}</h3>
-        <p>
-          <span class="word-list-item">
-            <strong>{{ action.learnableIDs.length }}</strong> cards
-          </span>
-          <span class="word-list-item">
-            <strong> {{ action.averageScore }}% </strong> confidence
-          </span>
-        </p>
+        <liz-confidence-stats [confidence]="action.averageScore" />
+
         <p class="size-0">
           Maximize effectiveness by catching the spaced repetition interval exactly.
         </p>
@@ -41,14 +28,8 @@
       @case ('worst-cards') {
         <app-icon-comp type="up-arrow" class="type" />
         <h3>Most potential</h3>
-        <p>
-          <span class="word-list-item">
-            <strong>{{ action.learnableIDs.length }}</strong> cards
-          </span>
-          <span class="word-list-item">
-            <strong> {{ action.averageScore }}% </strong> confidence
-          </span>
-        </p>
+        <liz-confidence-stats [confidence]="action.averageScore" />
+
         <p class="size-0">
           Focus on the cards with the lowest average score to boost your overall confidence.
         </p>

@@ -1,0 +1,15 @@
+<div class="confidence translation" [style.--confidence.%]="confidence().translation">
+  @for (dot of dotsArray; track dot) {
+    <div class="dot"></div>
+  }
+</div>
+<div class="center">
+  <app-icon-comp type="understand" [size]="20" />
+  <p class="size-0">/</p>
+  <app-icon-comp type="speaking" [size]="20" />
+</div>
+<div class="confidence lexeme" [style.--confidence.%]="confidence().lexeme">
+  @for (dot of dotsArray; track dot) {
+    <div class="dot"></div>
+  }
+</div>

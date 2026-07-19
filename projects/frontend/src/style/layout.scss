@@ -16,6 +16,24 @@
     padding-top: var(--distance-#{$i});
     padding-bottom: var(--distance-#{$i});
   }
+
+  .m-#{$i} {
+    margin: var(--distance-#{$i});
+  }
+  .mb-#{$i} {
+    margin-bottom: var(--distance-#{$i});
+  }
+  .mt-#{$i} {
+    margin-top: var(--distance-#{$i});
+  }
+  .mx-#{$i} {
+    margin-left: var(--distance-#{$i});
+    margin-right: var(--distance-#{$i});
+  }
+  .my-#{$i} {
+    margin-top: var(--distance-#{$i});
+    margin-bottom: var(--distance-#{$i});
+  }
 }
 
 .mt-auto {

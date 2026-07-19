@@ -25,15 +25,33 @@ export function zodTextFormat<ZodInput extends z.ZodType>(
   )
 }
 
-export const calculateAverageConfidencePercent = (learnables: UserLearnable[]): number => {
-  const allGuesses = learnables.flatMap((l) => [...l.guesses.lexeme, ...l.guesses.translation])
+export type ConfidenceAggregate = {
+  translation: number
+  lexeme: number
+  all: number
+  cardCount: number
+}
 
-  if (allGuesses.length === 0) return 0
+export const calculateAverageConfidencePercent = (
+  learnables: UserLearnable[]
+): ConfidenceAggregate => {
+  const allTranslationGuesses = learnables.flatMap((l) => l.guesses.translation)
+  const allLexemeGuesses = learnables.flatMap((l) => l.guesses.lexeme)
+  const allGuesses = [...allTranslationGuesses, ...allLexemeGuesses]
 
-  const trueGuesses = allGuesses.filter(Boolean).length
-  const confidencePercent = trueGuesses / allGuesses.length
+  const getAvg = (guesses: boolean[]): number => {
+    if (guesses.length === 0) return 0
+    const trueGuesses = guesses.filter(Boolean).length
+    const confPerc = trueGuesses / guesses.length
+    return Math.round(confPerc * 100)
+  }
 
-  return Math.round(confidencePercent * 100)
+  return {
+    translation: getAvg(allTranslationGuesses),
+    lexeme: getAvg(allLexemeGuesses),
+    all: getAvg(allGuesses),
+    cardCount: learnables.length
+  }
 }
 
 export const removeDuplicates = (array: string[]): string[] => {

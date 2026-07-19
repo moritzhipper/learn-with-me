@@ -1,63 +1,93 @@
-import { Component, computed, input } from '@angular/core'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { Component, computed, effect, inject, input } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { ImportStrategy } from 'projects/frontend/src/app/types/types'
+import { map } from 'rxjs'
+import { IconComp } from '../../icon-comp/icon-comp'
+import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
-export type ImportFormResult = {
-  importStrategy: ImportStrategy
+export type BankImportOptions = {
+  strategy: 'merge' | 'new'
+  invertLanguageDirection: boolean
 }
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelay, InfoCard, IconComp],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })
 export class ImportFormComp extends BaseModalDirective {
+  private readonly _fb = inject(NonNullableFormBuilder)
   bank = input.required<BankShareBase>()
   activeBankLanguage = input.required<LanguageConfig>()
 
-  summary = computed(() => {
-    const b = this.bank()
-    const maxPreviewCards = 10
-    const maxPreviewCollections = 20
+  form = this._fb.group<BankImportOptions>({
+    strategy: 'merge',
+    invertLanguageDirection: false
+  })
 
-    const cardsCount = b.learnables.length
-    const previewCards = b.learnables.slice(0, maxPreviewCards)
-    const cardsCountHidden = cardsCount - previewCards.length
+  private formSignal = toSignal(this.form.valueChanges.pipe(map(() => this.form.getRawValue())), {
+    initialValue: this.form.getRawValue()
+  })
 
-    const collectionsCount = b.collections.length
-    const previewCollections = b.collections.slice(0, maxPreviewCollections)
-    const collectionsCountHidden = collectionsCount - previewCollections.length
+  constructor() {
+    super()
+    effect(() => {
+      const invertMatch = this.LangMatchInvertDir()
+      const match = this.langMatchDefaultDir()
+      if (invertMatch) {
+        this.form.controls.invertLanguageDirection.setValue(true)
+      } else if (!invertMatch && !match) {
+        this.form.controls.strategy.setValue('new')
+      }
+    })
+  }
+
+  protected strategy = computed(() => this.formSignal().strategy)
+  protected importLanguagesMatch = computed(() => {
+    const invertSelected = this.formSignal().invertLanguageDirection
+    return (
+      (this.langMatchDefaultDir() && !invertSelected) ||
+      (this.LangMatchInvertDir() && invertSelected)
+    )
+  })
+
+  protected importLangAfterImport = computed<LanguageConfig>(() => {
+    const { speaking, learning } = this.bank().language
+    const invert = this.formSignal().invertLanguageDirection
 
     return {
-      cardsCount,
-      previewCards,
-      cardsCountHidden,
-      collectionsCount,
-      previewCollections,
-      collectionsCountHidden
+      speaking: invert ? learning : speaking,
+      learning: invert ? speaking : learning
     }
   })
 
-  differentLanguages = computed(() => {
+  private langMatchDefaultDir = computed(() => {
+    const bankL = this.bank().language
+    const activeL = this.activeBankLanguage()
+
+    const strip = (str: string) => str.trim().toLowerCase()
+    return (
+      this.compare(bankL.learning, activeL.learning) &&
+      this.compare(bankL.speaking, activeL.speaking)
+    )
+  })
+
+  private LangMatchInvertDir = computed(() => {
     const bankL = this.bank().language
     const activeL = this.activeBankLanguage()
 
     return (
-      bankL.learning.toLowerCase() !== activeL.learning.toLowerCase() ||
-      bankL.speaking.toLowerCase() !== activeL.speaking.toLowerCase()
+      this.compare(bankL.learning, activeL.speaking) &&
+      this.compare(bankL.speaking, activeL.learning)
     )
   })
 
-  form = new FormGroup({
-    importStrategy: new FormControl<ImportStrategy>('merge')
-  })
-
-  onSubmit() {
-    this.confirm(this.form.value)
+  private compare(a: string, b: string) {
+    return a.trim().toLowerCase() === b.trim().toLowerCase()
   }
 }

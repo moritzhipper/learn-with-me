@@ -1,5 +1,5 @@
 import { BankUser, GuessHistory } from '@shared/types'
-import { LearnablesStoreType, SettingsStoreType } from '../types/types'
+import { LearnablesStoreType, SettingsStoreType } from '../types/store-types'
 
 export const initialState: LearnablesStoreType = {
   banks: [],
@@ -15,7 +15,8 @@ export const initialSettings: SettingsStoreType = {
 export const initialTranslations: BankUser['translations'] = {
   history: [],
   magicTranslateCards: [],
-  tone: ''
+  tone: '',
+  invertDirection: false
 }
 
 export const initialPractice: BankUser['practice'] = {

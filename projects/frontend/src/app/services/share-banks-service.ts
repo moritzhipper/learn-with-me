@@ -1,12 +1,12 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
-import { ImportFormResult } from '../components/shared/forms/import-form-comp/import-form-comp'
+import { BankImportOptions } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnables-store'
-import { ImportStrategy } from '../types/types'
 import {
-  mapBankToShareable,
-  parseFileImportString,
+  BankExportOptions,
+  mapBankToExportable,
+  parseBankImportString,
   verifiyImportedFileValidity
 } from '../utils/import-export-utils'
 import { ApiService } from './api-service'
@@ -25,8 +25,8 @@ export class ShareBanksService {
   private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  exportBank(bank: BankUser, onlyForCollectionIds?: string[]): void {
-    const bankExport = mapBankToShareable(bank, onlyForCollectionIds)
+  exportBank(bank: BankUser, options?: BankExportOptions): void {
+    const bankExport = mapBankToExportable(bank, options)
 
     URL.revokeObjectURL(this._blobUrl)
 
@@ -60,7 +60,7 @@ export class ShareBanksService {
       fileReader.onload = (e: ProgressEvent<FileReader>) => {
         try {
           const content = e.target?.result as string
-          const imported = parseFileImportString(content)
+          const imported = parseBankImportString(content)
           if (imported.learnables.length === 0) throw new Error('File contains no learnables')
 
           resolve(imported)
@@ -99,7 +99,7 @@ export class ShareBanksService {
   async shareBank(bank: BankUser, onlyForCollectionIds?: string[]): Promise<void> {
     const result = await this.modalService.open<BankShareConfig>('bank-share', { bank })
     if (result.type !== 'confirm') return
-    const mappedBank = mapBankToShareable(bank, onlyForCollectionIds)
+    const mappedBank = mapBankToExportable(bank, { onlyForCollectionIds, includeUserData: false })
 
     try {
       const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })
@@ -120,28 +120,28 @@ export class ShareBanksService {
 
   async importOnlineBank(bank: BankShareViaDB): Promise<void> {
     const activeBankLanguage = this.store.activeBank().language
-    const result = await this.modalService.open<ImportFormResult>('bank-import', {
+    const result = await this.modalService.open<BankImportOptions>('bank-import', {
       activeBankLanguage,
       bank
     })
 
     if (result.type !== 'confirm') return
+    this.finalizeImport(bank, result.value)
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-    this.finalizeImport(bank, result.value.importStrategy)
   }
 
   async importBankFromFile(file: File): Promise<void> {
     try {
       const bank = await this.readFile(file)
       const activeBankLanguage = this.store.activeBank().language
-      const result = await this.modalService.open<ImportFormResult>('bank-import', {
+      const result = await this.modalService.open<BankImportOptions>('bank-import', {
         activeBankLanguage,
         bank
       })
 
       if (result.type !== 'confirm') return
-      this.finalizeImport(bank, result.value.importStrategy)
+      this.finalizeImport(bank, result.value)
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
@@ -151,17 +151,21 @@ export class ShareBanksService {
     }
   }
 
-  async finalizeImport(bank: BankShareBase, importStrategy: ImportStrategy): Promise<void> {
-    if (importStrategy === 'new') {
-      this.store.importBank(bank)
-    } else {
-      this.store.mergeIntoActiveBank(bank)
-    }
+  async finalizeImport(bank: BankShareBase, options: BankImportOptions): Promise<void> {
+    const invertDirection = options.invertLanguageDirection
+    if (options.strategy === 'new') {
+      this.store.importBankAsNew(bank, invertDirection)
 
-    this.toastService.showToast({
-      header: 'Imported Bank',
-      message: `Select it from your settings to start learning.`,
-      type: 'info'
-    })
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `Select it from your settings to start learning.`,
+        type: 'info'
+      })
+    } else {
+      const result = this.store.mergeBankIntoActive(bank, invertDirection)
+      console.log('merge result', result)
+
+      this.toastService.showToast('Merged Bank into active Bank.')
+    }
   }
 }

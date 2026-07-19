@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--distance-3);
+  width: 100%;
+  min-width: 0;
+  color: var(--col-primary);
+  box-sizing: border-box;
+}
+
+.center {
+  display: flex;
+  gap: var(--distance-1);
+  flex: 0 0 auto;
+
+  app-icon-comp {
+    opacity: var(--opacity-1);
+  }
+  p {
+    opacity: var(--opacity-0);
+  }
+}
+
+.confidence {
+  --mask-light: rgb(0, 0, 0);
+  --mask-dark: rgb(0, 0, 0, var(--opacity-0));
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--distance-1);
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+
+  .dot {
+    background-color: var(--col-primary);
+    flex: 1 1 0;
+    // min-width: 0;
+    max-width: 35px;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+  }
+
+  &.translation {
+    --invert-conf: calc(100% - var(--confidence));
+    mask-image: linear-gradient(
+      to right,
+      var(--mask-dark) var(--invert-conf),
+      var(--mask-light) var(--invert-conf)
+    );
+  }
+
+  &.lexeme {
+    mask-image: linear-gradient(
+      to right,
+      var(--mask-light) var(--confidence),
+      var(--mask-dark) var(--confidence)
+    );
+  }
+}

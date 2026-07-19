@@ -72,7 +72,8 @@ export const BankUserSchema = BankBaseSchema.extend({
   translations: z.object({
     magicTranslateCards: z.array(LearnableWithIdSchema),
     history: z.array(LearnableWithIdSchema),
-    tone: z.string()
+    tone: z.string(),
+    invertDirection: z.boolean()
   }),
   learnables: z.array(LearnableUserSchema),
   collections: z.array(CollectionSchema),

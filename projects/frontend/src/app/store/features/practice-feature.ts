@@ -1,6 +1,6 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { Guess, Guessable, PracticeConfig, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
+import type { LearnablesStoreType } from '../../types/store-types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 const schwarzianShuffle = <T>(array: T[]): T[] => {
@@ -13,9 +13,9 @@ const schwarzianShuffle = <T>(array: T[]): T[] => {
 const updateGuesses = (
   guess: Guess,
   toUpdate: UserLearnable['guesses'],
-  direction: PracticeConfig['direction']
+  guessableField: PracticeConfig['guessableField']
 ): UserLearnable['guesses'] => {
-  if (direction === 'guessTranslation')
+  if (guessableField === 'translation')
     return {
       ...toUpdate,
       translation: [...toUpdate.translation.slice(1), guess === 'right']
@@ -43,7 +43,7 @@ export const withPracticeFeature = <_>() =>
             guessables,
             guessableIndex: 0,
             createdAt: new Date(),
-            direction: config.direction,
+            guessableField: config.guessableField,
             learnableIDs: config.learnableIDs,
             type: config.type
           }
@@ -123,7 +123,7 @@ export const withPracticeFeature = <_>() =>
 
             return {
               ...l,
-              guesses: updateGuesses(guess, l.guesses, currentPractice.direction)
+              guesses: updateGuesses(guess, l.guesses, currentPractice.guessableField)
             }
           })
 

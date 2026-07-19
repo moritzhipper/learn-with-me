@@ -2,18 +2,18 @@
 
 ## Today
 
-- import / export / share store based
+- make collection be subpages on own overview and on shared page
+- on shared page: make collections su
+- align all modals (header, description, distances of controls and stuff)
 
-- add make text smaller functionalty to practice cards to accomondate for long text?
 - paste images
-- put direction into store
+- add make text smaller functionalty to practice cards to accomondate for long text?
+- use dark theme toggles in modal forms?
 - clean up shared bank loading state (and center spinner)
 
 count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
-- make collection be subpage
-- make coll select and stuff adapt quick links format
 
 ## Modal Forms
 
@@ -21,7 +21,8 @@ Create better reusable styles (import styles per form), holding:
 
 - Description style
 - maybe just creat form header component?
-- Create Info Card style, like start new practice and stuff
+- create shared style scss wich is imported
+- align with the pattern of import form: header, description (opaque), controls, host content form main thing, form max widht and stuff (small gap)
 
 # right now: Stats
 
@@ -33,12 +34,10 @@ Create better reusable styles (import styles per form), holding:
 
 ## General
 
+- ids are only rotated on api upload
 - make grid auto columns classes?
 - allow opening generate whenever cards are selected
 - colors: cards, practice, community -> create named accent variables!
-- replace single confidence with both directions confidenc to allow user deciding on direction before start
-- add automatism that automatically selects the worst direction?
-- create component to show confidence (general %, forward, backwards)
 - streamline colors, give practice, collection and cards on color wich is not UI color
 - use caroussel on shared page
 - use ng-icon instead of my custom solution
@@ -54,22 +53,11 @@ Create better reusable styles (import styles per form), holding:
 
 ### Practice handling
 
-- automatically start the correct direction based on progress
-- add: add select all option to magic generate
-- use: shared, cards collection select
-
-- add practice history
-
 - on practice config: show, instead of the select, the same categories as on dashboard page
+- make cards fly in left and right on configure practice?
 
 - filter doppelresponses aus preview
-- selektiere zom importieren / importiere alle bubbles oder button
 - tokenuse digram in stats
-- handle exporting and import bank not working:
-  - imported bank keeps name, but does not keep collection if languages divert
-- store, relevant for magic add:
-  - adding cards with creating new collection not yet possible
-- somehow streamline the notifications after adding learnables -> shared facade service?
 
 # layout
 
@@ -127,12 +115,7 @@ only put hat on big larry, remove from logo
 
 # write tests
 
-- create two users -> shared banks only displayed for correct user
-- filter by languages works
-  - correct dir
-  - reverse dir
-  - one empty correct dir
-  - one empty reverse dir
+- import export
 
 ## frontend
 

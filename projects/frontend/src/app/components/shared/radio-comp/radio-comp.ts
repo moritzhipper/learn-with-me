@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core'
+import { booleanAttribute, Component, forwardRef, input, signal } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 type RadioCompValueType = string | number | boolean | null
@@ -20,13 +20,15 @@ export type RadioCompInputConfig = {
     }
   ],
   host: {
-    '[class.dark-mode]': 'darkMode()'
+    '[class.dark-mode]': 'darkMode()',
+    '[class.disabled]': 'isDisabled()'
   }
 })
 export class RadioComp implements ControlValueAccessor {
   config = input.required<RadioCompInputConfig>()
   label = input<string>()
-  darkMode = input<boolean>(false)
+  darkMode = input(false, { transform: booleanAttribute })
+  isDisabled = signal(false)
 
   value: RadioCompValueType = null
 
@@ -51,5 +53,9 @@ export class RadioComp implements ControlValueAccessor {
     this.writeValue(normalized)
     this.onChange(normalized)
     this.onTouched()
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled.set(isDisabled)
   }
 }

@@ -38,9 +38,11 @@ export class QuickTranslate {
   private readonly activeBank = this.ls.activeBank
 
   protected readonly tone = computed(() => this.ls.activeBank().translations.tone)
+  protected readonly invertDirection = computed(
+    () => this.ls.activeBank().translations.invertDirection
+  )
   protected readonly lexemeInput = signal<string>('')
   protected readonly translation = signal<string>('')
-  protected readonly invertDirection = signal<boolean>(false)
   protected readonly targetLanguage = computed(() => {
     const { learning, speaking } = this.activeBank().language
     return this.invertDirection() ? speaking : learning
@@ -203,7 +205,7 @@ export class QuickTranslate {
   }
 
   toggleDirection() {
-    this.invertDirection.update((prev) => !prev)
+    this.ls.updateInvertTranslateDirection(!this.invertDirection())
     this.translation.set('...')
 
     this.toastService.showToast(`Translating to ${this.targetLanguage()}.`)

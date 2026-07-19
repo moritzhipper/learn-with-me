@@ -40,11 +40,25 @@
     </app-settings-item-comp>
 
     <app-settings-item-comp header="Debug">
-      <p class="description">
-        For development purposes only. Creates a bank containing a few cards and a few practice
-        runs.
-      </p>
-      <button class="primary big input" (click)="addDebug()">Create debug bank</button>
+      <p class="description">For development purposes only.</p>
+      <div class="input debug">
+        <button class="primary small" (click)="triggerImportBankForm('single')">
+          Trigger single bank import
+        </button>
+        <button class="primary small" (click)="triggerImportBankForm('multiple')">
+          Trigger multi bank import
+        </button>
+        <button class="primary small" (click)="triggerImportBankForm('multiple', 'invert-match')">
+          Trigger invert match import
+        </button>
+        <button class="primary small" (click)="triggerImportBankForm('multiple', 'no-match')">
+          Trigger non match import
+        </button>
+        <button class="primary small" (click)="triggerImportBankForm('multiple', 'match')">
+          Trigger match import
+        </button>
+        <button class="primary small" (click)="triggerExportBankForm()">Trigger export bank</button>
+      </div>
     </app-settings-item-comp>
   </div>
 </app-page-wrapper>

@@ -4,40 +4,18 @@
       <h3>
         {{ sum.name }}
       </h3>
-      <p>
-        <span class="word-list-item">
-          <strong>
-            {{ sum.cardIds.length }}
-          </strong>
-          cards
-        </span>
-        <span class="word-list-item">
-          <strong> {{ sum.averageConfidence }}% </strong>
-          confidence
-        </span>
-      </p>
+      <liz-confidence-stats [confidence]="sum.averageConfidence" />
+
       <p class="size-0 bottom">{{ sum.createdAt | date: 'mediumDate' }}</p>
     </button>
   } @else {
     <button class="silent quick all caroussel-item" (click)="openLink()">
       <h3>All Cards</h3>
-      <p class="all">
-        <span class="word-list-item">
-          <strong>
-            {{ sum.allCardsCount }}
-          </strong>
-          cards
-        </span>
-        <span class="word-list-item">
-          <strong>
-            {{ sum.collectionCount }}
-          </strong>
-          collections
-        </span>
-      </p>
+      <liz-confidence-stats [confidence]="sum.averageConfidence" />
+
       <p class="size-0 bottom">
         <span class="word-list-item">
-          <strong> {{ sum.averageConfidence }}% </strong>
+          <strong> {{ sum.averageConfidence.all }}% </strong>
           confidence
         </span>
         @if (sum.collectionLess > 0) {

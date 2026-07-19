@@ -4,6 +4,7 @@ import { PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PracticeTimeline } from '../../shared/practice-timeline/practice-timeline'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -27,7 +28,7 @@ type PracticeHistoryDaySummary = {
 
 @Component({
   selector: 'app-stats-page',
-  imports: [PageHeaderComp, DatePipe, IconComp, PracticeTimeline, PageWrapper],
+  imports: [PageHeaderComp, DatePipe, IconComp, PracticeTimeline, PageWrapper, InfoCard],
   templateUrl: './stats-page.html',
   styleUrl: './stats-page.scss'
 })
