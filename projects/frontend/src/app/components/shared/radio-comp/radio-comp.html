@@ -6,6 +6,7 @@
   @for (option of config(); track option) {
     <label>
       <input
+        [disabled]="isDisabled()"
         type="radio"
         [checked]="option.value === value"
         (change)="setValue(option.value)"

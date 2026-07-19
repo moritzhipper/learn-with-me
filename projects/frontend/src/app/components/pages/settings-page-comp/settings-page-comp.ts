@@ -53,8 +53,7 @@ export class SettingsComp {
   })
 
   addDebug = () => this.debugHelper.addDebugBank()
-  triggerImportBankForm = (type: 'single' | 'multiple') =>
-    this.debugHelper.triggerImportBankForm(type)
+  triggerImportBankForm = this.debugHelper.triggerImportBankForm.bind(this.debugHelper)
   triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
 
   async reset() {

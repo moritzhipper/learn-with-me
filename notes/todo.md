@@ -6,17 +6,13 @@
 - ids are only rotated on api upload
 - import: build merge functionality for scenarios
   - use remap on import from file and import from online
-  - Import form
-    - active bank and same languages, but inverted
-      - preset invertLangs, make disabled
-      - show strategy
-    - active bank and different languages
-      - show strategy and invertlangs,
-      - provide 'xy will be mapped top y' on merge selected
 
   - result of remapChoices FOrm: invertLanguages, importStrategy merge or new
     - in form, show always strategy and direction of imported languages option
   - do import as one single store method as bank child, with the strategy as option
+  - finish store api
+    - ensure merge bank and add new bank are resolved by store
+    - unsure card imports hare handled using the import cards methodology rekaying import stats like duplicated and stuff, then send toast?
 
 ## Today
 
@@ -24,6 +20,7 @@
 - paste images
 - put direction into store
 - clean up shared bank loading state (and center spinner)
+- use dark theme toggles in modal forms?
 
 count letters, make smaller per one more
 
@@ -37,7 +34,8 @@ Create better reusable styles (import styles per form), holding:
 
 - Description style
 - maybe just creat form header component?
-- Create Info Card style, like start new practice and stuff
+- create shared style scss wich is imported
+- align with the pattern of import form: header, description (opaque), controls, host content form main thing, form max widht and stuff (small gap)
 
 # right now: Stats
 

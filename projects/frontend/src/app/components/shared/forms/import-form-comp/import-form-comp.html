@@ -1,8 +1,8 @@
 @let animSize = 6;
 
 <form (ngSubmit)="confirm(form.value)" class="modal" [formGroup]="form">
-  <div class="header full fly-in-y">
-    <h2 [animDelay]="{ i: 0, size: animSize }">Import {{ bank().name }}</h2>
+  <div class="header full fly-in-y" [animDelay]="{ i: 0, size: animSize }">
+    <h2>Import {{ bank().name }}</h2>
 
     <div class="description">
       @if (bank().collections.length > 1) {
@@ -11,32 +11,83 @@
       <span class="word-list-item"> {{ bank().learnables.length }} cards</span>
     </div>
   </div>
-  <p class="full">
-    show here which language will be mapped on wich when languages divert. be specific about
-    learning and speaking
-  </p>
-  <app-radio-comp
-    class="full"
-    formControlName="strategy"
-    label="Import Strategy"
-    darkMode
-    [config]="[
-      { value: 'merge', label: 'Merge' },
-      { value: 'new', label: 'Add new Bank' }
-    ]"
-  />
 
-  <app-radio-comp
-    class="fly-in-y full"
-    [animDelay]="{ i: 4, size: animSize }"
-    formControlName="invertLanguageDirection"
-    darkMode
-    label="Switch direction?"
-    [config]="[
-      { value: false, label: 'Keep' },
-      { value: true, label: 'Invert' }
-    ]"
-  />
+  @if (!importLanguageMatch()) {
+    <liz-info-card
+      type="warn"
+      title="Language mismatch!"
+      class="fly-in-y full"
+      [animDelay]="{ i: 1, size: animSize }"
+    >
+      @if (strategy() === 'merge') {
+        <p>
+          The languages do not align with your current bank, resulting in the following mapping:
+        </p>
+
+        <div class="mapping-wrapper">
+          <div class="mapping-header">
+            <p class="size-0 bold">Imported</p>
+            <p class="size-0 bold">Current</p>
+          </div>
+
+          <div class="row">
+            <app-icon-comp type="speaking" class="type" />
+            <div>
+              {{ importLangAfterImport().speaking }}
+            </div>
+            <app-icon-comp type="arrow-right" />
+            <div>
+              {{ activeBankLanguage().speaking }}
+            </div>
+          </div>
+
+          <div class="row">
+            <app-icon-comp type="understand" class="understand type" />
+            <div>
+              {{ importLangAfterImport().learning }}
+            </div>
+            <app-icon-comp type="arrow-right" />
+            <div>
+              {{ activeBankLanguage().learning }}
+            </div>
+          </div>
+        </div>
+      } @else if (strategy() === 'new') {
+        <p>
+          The languages do not align with your current bank. The added bank will assume you
+          <strong>speak {{ importLangAfterImport().speaking }}</strong>
+          and want to
+          <strong> learn {{ importLangAfterImport().learning }}. </strong>
+        </p>
+      }
+    </liz-info-card>
+  }
+
+  <div class="controls full">
+    <app-radio-comp
+      class="fly-in-y"
+      [animDelay]="{ i: 3, size: animSize }"
+      formControlName="strategy"
+      label="Import strategy"
+      darkMode
+      [config]="[
+        { value: 'merge', label: 'Merge Banks' },
+        { value: 'new', label: 'Add as new' }
+      ]"
+    />
+
+    <app-radio-comp
+      class="fly-in-y"
+      [animDelay]="{ i: 4, size: animSize }"
+      formControlName="invertLanguageDirection"
+      darkMode
+      label="Language direction"
+      [config]="[
+        { value: false, label: 'Keep' },
+        { value: true, label: 'Invert' }
+      ]"
+    />
+  </div>
 
   <button
     type="button"

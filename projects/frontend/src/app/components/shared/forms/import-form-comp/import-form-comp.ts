@@ -1,14 +1,18 @@
-import { Component, computed, inject, input } from '@angular/core'
+import { Component, computed, effect, inject, input } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
 import { BankImportOptions } from 'projects/frontend/src/app/types/types'
+import { map } from 'rxjs'
+import { IconComp } from '../../icon-comp/icon-comp'
+import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelay, InfoCard, IconComp],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })
@@ -16,6 +20,46 @@ export class ImportFormComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)
   bank = input.required<BankShareBase>()
   activeBankLanguage = input.required<LanguageConfig>()
+
+  form = this._fb.group<BankImportOptions>({
+    strategy: 'merge',
+    invertLanguageDirection: false
+  })
+
+  formSignal = toSignal(this.form.valueChanges.pipe(map(() => this.form.getRawValue())), {
+    initialValue: this.form.getRawValue()
+  })
+
+  constructor() {
+    super()
+    effect(() => {
+      const invertMatch = this.invertedLangMatch()
+      const match = this.langMatch()
+      if (invertMatch) {
+        this.form.controls.invertLanguageDirection.setValue(true)
+      } else if (!invertMatch && !match) {
+        this.form.controls.strategy.setValue('new')
+      }
+    })
+  }
+
+  importLanguageMatch = computed(() => {
+    const invertSelected = this.formSignal().invertLanguageDirection
+    return (this.langMatch() && !invertSelected) || (this.invertedLangMatch() && invertSelected)
+  })
+
+  invertDirection = computed(() => this.formSignal().invertLanguageDirection === true)
+  strategy = computed(() => this.formSignal().strategy)
+
+  importLangAfterImport = computed<LanguageConfig>(() => {
+    const { speaking, learning } = this.bank().language
+    const invert = this.formSignal().invertLanguageDirection
+
+    return {
+      speaking: invert ? learning : speaking,
+      learning: invert ? speaking : learning
+    }
+  })
 
   langMatch = computed(() => {
     const bankL = this.bank().language
@@ -41,9 +85,4 @@ export class ImportFormComp extends BaseModalDirective {
   private compare(a: string, b: string) {
     return a.trim().toLowerCase() === b.trim().toLowerCase()
   }
-
-  form = this._fb.group<BankImportOptions>({
-    strategy: 'merge',
-    invertLanguageDirection: false
-  })
 }
