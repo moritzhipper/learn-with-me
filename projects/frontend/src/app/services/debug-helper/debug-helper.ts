@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { BankUser, LanguageConfig } from '@shared/types'
+import { BankImportOptions } from '../../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../../store/learnables-store'
 import { mapBankToExportable } from '../../utils/import-export-utils'
 import { ModalService } from '../modal-service'
@@ -26,10 +27,6 @@ const langConfig2: LanguageConfig = {
 export class DebugHelper {
   private readonly ls = inject(LearnablesStore)
   private readonly ms = inject(ModalService)
-
-  addDebugBank() {
-    this.ls.importBank(buildDebugBank())
-  }
 
   async triggerImportBankForm(
     type: 'single' | 'multiple',
@@ -58,11 +55,21 @@ export class DebugHelper {
       learning: 'Dutch'
     }
 
-    this.ms.open('bank-import', {
+    const result = await this.ms.open<BankImportOptions>('bank-import', {
       bank,
       activeBankLanguage: activeBankLang
     })
+
+    if (result.type !== 'confirm') return
+
+    if (result.value.strategy === 'new') {
+      this.ls.importBankAsNew(bank, result.value.invertLanguageDirection)
+    } else {
+      const mergeResult = this.ls.mergeBankIntoActive(bank, result.value.invertLanguageDirection)
+      console.log('merge result', mergeResult)
+    }
   }
+
   async triggerExportBankForm() {
     this.ms.open('export-bank-local')
   }

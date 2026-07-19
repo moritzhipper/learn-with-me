@@ -52,7 +52,6 @@ export class SettingsComp {
     }
   })
 
-  addDebug = () => this.debugHelper.addDebugBank()
   triggerImportBankForm = this.debugHelper.triggerImportBankForm.bind(this.debugHelper)
   triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
 
@@ -94,21 +93,20 @@ export class SettingsComp {
   }
 
   async deleteBank(id: string) {
-    if (this.ls.banks().length === 1) {
-      this._toastS.showToast({
-        type: 'error',
-        message: `You can not delete the only Bank.`
-      })
-      return
-    }
-
     const result = await this._modalService.open('confirm', {
-      message: `Are you sure you want to delete this Bank?`
+      message: `Delete this Bank?`
     })
 
     if (result.type !== 'confirm') return
 
-    this.ls.deleteBank(id)
+    try {
+      this.ls.deleteBank(id)
+    } catch (error) {
+      this._toastS.showToast({
+        message: (error as Error).message || 'Failed to delete Bank.',
+        type: 'error'
+      })
+    }
   }
 
   async downloadBank(bank: BankUser) {

@@ -3,12 +3,16 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { BankImportOptions } from 'projects/frontend/src/app/types/types'
 import { map } from 'rxjs'
 import { IconComp } from '../../icon-comp/icon-comp'
 import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
+
+export type BankImportOptions = {
+  strategy: 'merge' | 'new'
+  invertLanguageDirection: boolean
+}
 
 @Component({
   selector: 'app-import-form-comp',

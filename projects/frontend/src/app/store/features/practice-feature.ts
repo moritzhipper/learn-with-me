@@ -1,6 +1,6 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { Guess, Guessable, PracticeConfig, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
+import type { LearnablesStoreType } from '../../types/store-types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 const schwarzianShuffle = <T>(array: T[]): T[] => {

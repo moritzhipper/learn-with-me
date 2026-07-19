@@ -4,6 +4,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/frontend",
+    "rootDir": "..",
     "types": []
   },
   "include": ["src/**/*.ts"],

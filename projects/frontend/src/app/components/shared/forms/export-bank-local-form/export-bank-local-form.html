@@ -3,17 +3,17 @@
 
   <liz-info-card title="Include history?" class="full fly-in-y" [animDelay]="{ i: 1, size: 4 }">
     <p>You can include your practice history, translation history and stats in the export.</p>
+    <app-radio-comp
+      class="pt-3"
+      [animDelay]="{ i: 2, size: 4 }"
+      [config]="[
+        { value: false, label: 'Exclude' },
+        { value: true, label: 'Include' }
+      ]"
+      formControlName="includeUserData"
+    />
   </liz-info-card>
 
-  <app-radio-comp
-    class="full fly-in-y"
-    [animDelay]="{ i: 2, size: 4 }"
-    [config]="[
-      { value: false, label: 'Exclude' },
-      { value: true, label: 'Include' }
-    ]"
-    formControlName="includeUserData"
-  />
   <button
     class="big secondary fly-in-y"
     type="button"

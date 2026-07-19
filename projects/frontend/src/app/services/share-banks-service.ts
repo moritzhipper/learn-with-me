@@ -1,8 +1,8 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core'
 import { BankShareBase, BankShareConfig, BankShareViaDB, BankUser } from '@shared/types'
 import { config } from '../../config'
+import { BankImportOptions } from '../components/shared/forms/import-form-comp/import-form-comp'
 import { LearnablesStore } from '../store/learnables-store'
-import { BankImportOptions } from '../types/types'
 import {
   BankExportOptions,
   mapBankToExportable,
@@ -126,9 +126,9 @@ export class ShareBanksService {
     })
 
     if (result.type !== 'confirm') return
+    this.finalizeImport(bank, result.value)
     // dont await
     this.apiService.increaseBankDownloadCount(bank.id)
-    this.finalizeImport(bank, result.value.strategy)
   }
 
   async importBankFromFile(file: File): Promise<void> {
@@ -141,7 +141,7 @@ export class ShareBanksService {
       })
 
       if (result.type !== 'confirm') return
-      this.finalizeImport(bank, result.value.strategy)
+      this.finalizeImport(bank, result.value)
     } catch (error) {
       this.toastService.showToast({
         header: 'Error',
@@ -151,24 +151,21 @@ export class ShareBanksService {
     }
   }
 
-  private async validateLanguageDirection<T = BankShareBase | BankUser>(bank: T): Promise<T> {
-    throw new Error('Not implemented yet')
-  }
+  async finalizeImport(bank: BankShareBase, options: BankImportOptions): Promise<void> {
+    const invertDirection = options.invertLanguageDirection
+    if (options.strategy === 'new') {
+      this.store.importBankAsNew(bank, invertDirection)
 
-  async finalizeImport(
-    bank: BankShareBase,
-    importStrategy: BankImportOptions['strategy']
-  ): Promise<void> {
-    if (importStrategy === 'new') {
-      this.store.importBank(bank)
+      this.toastService.showToast({
+        header: 'Imported Bank',
+        message: `Select it from your settings to start learning.`,
+        type: 'info'
+      })
     } else {
-      this.store.importBank(bank)
-    }
+      const result = this.store.mergeBankIntoActive(bank, invertDirection)
+      console.log('merge result', result)
 
-    this.toastService.showToast({
-      header: 'Imported Bank',
-      message: `Select it from your settings to start learning.`,
-      type: 'info'
-    })
+      this.toastService.showToast('Merged Bank into active Bank.')
+    }
   }
 }

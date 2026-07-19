@@ -1,9 +1,4 @@
-import { BankRequestConfig, BankUser, LanguageConfig, LanguageConfigRequest } from '@shared/types'
-
-export type LearnablesStoreType = {
-  banks: BankUser[]
-  activeBankId: string | null
-}
+import { BankRequestConfig, LanguageConfig, LanguageConfigRequest } from '@shared/types'
 
 export type TranslateFastConfig = {
   text: string
@@ -18,17 +13,6 @@ export type LearnableCreationConfig = {
   sourceType: 'text' | 'prompt' | 'image'
   source: string
   tone: string
-}
-
-export type SettingsStoreType = {
-  apiKey: string
-  tokensUsed: number
-  userID: string
-}
-
-export type BankImportOptions = {
-  strategy: 'merge' | 'new'
-  invertLanguageDirection: boolean
 }
 
 type Optional<T> = { [K in keyof T]?: T[K] | null }

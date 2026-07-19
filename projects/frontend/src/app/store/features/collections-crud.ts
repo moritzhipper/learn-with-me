@@ -1,5 +1,5 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { LearnablesStoreType } from '../../types/types'
+import type { LearnablesStoreType } from '../../types/store-types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 export type CollectionUpdater = {
@@ -15,40 +15,48 @@ export const withCollectionsCrud = <_>() =>
     withMethods((store) => ({
       createCollection(name: string): string {
         const newId = crypto.randomUUID()
-        updateActiveBank(store, (b) => ({
-          ...b,
-          collections: [
-            ...b.collections,
-            {
-              id: newId,
-              createdAt: new Date(),
-              name,
-              cardIds: []
-            }
-          ]
-        }))
-        debugger
+
+        updateActiveBank(store, (b) => {
+          const collectionNames = b.collections.map((c) => c.name)
+          const makeNameUnique = (name: string): string =>
+            collectionNames.includes(name) ? `${name} (new)` : name
+
+          return {
+            ...b,
+            collections: [
+              ...b.collections,
+              {
+                id: newId,
+                createdAt: new Date(),
+                name: makeNameUnique(name),
+                cardIds: []
+              }
+            ]
+          }
+        })
         return newId
       },
       updateCollection(update: CollectionUpdater) {
-        updateActiveBank(store, (b) => ({
-          ...b,
-          collections: b.collections.map((c) => {
-            if (c.id !== update.id) return c
-            const withAdded = c.cardIds.concat(update.addIDs ?? [])
+        updateActiveBank(store, (b) => {
+          return {
+            ...b,
+            collections: b.collections.map((c) => {
+              if (c.id !== update.id) return c
+              const withAdded = c.cardIds.concat(update.addIDs ?? [])
 
-            const deletetIDs = update.deleteIDs ?? []
-            const withoutDeleted = withAdded.filter((id) => !deletetIDs.includes(id))
+              const deletetIDs = update.deleteIDs ?? []
+              const withoutDeleted = withAdded.filter((id) => !deletetIDs.includes(id))
 
-            const newCardIdsSet = new Set(withoutDeleted)
+              const newCardIdsSet = new Set(withoutDeleted)
 
-            return {
-              ...c,
-              name: update.name ?? c.name,
-              cardIds: Array.from(newCardIdsSet)
-            }
-          })
-        }))
+              return {
+                ...c,
+                name: update.name ?? c.name,
+                cardIds: Array.from(newCardIdsSet)
+              }
+            })
+          }
+        })
       },
       deleteCollection(id: string) {
         updateActiveBank(store, (b) => ({

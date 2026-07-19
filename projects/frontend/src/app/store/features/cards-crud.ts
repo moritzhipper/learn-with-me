@@ -1,13 +1,14 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guess, LearnableBase, LearnableBaseWithID, UserLearnable } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
+import { LearnableBase, LearnableBaseWithID, UserLearnable } from '@shared/types'
+import type { LearnablesStoreType } from '../../types/store-types'
+import { initialGuesses } from '../initial-states'
 import { learnablesMatch, updateActiveBank } from '../mutators/mutator-utils'
 
 type CardUpdater = {
   id: string
 } & Partial<LearnableBase>
 
-type CreateCardsResult = {
+export type ImportCardsResult = {
   // IDs for every card referenced by this operation:
   // - newly added cards
   // - cards skipped because the ID already exists
@@ -16,12 +17,7 @@ type CreateCardsResult = {
   // idsOfAllAdded holds new card ids and both duplicate references.
   idsOfAll: string[]
   idsOfNewlyAdded: string[]
-  idsOfDuplicates: { importedID: string; duplicateID: string; reason: 'id' | 'content' }[]
-}
-
-const updateGuesses = (guesses: boolean[], guess?: Guess): boolean[] => {
-  if (!guess) return guesses
-  return [...guesses.slice(1), guess === 'right']
+  idsOfDuplicates: { importedID: string; existingDuplicateID: string; reason: 'id' | 'content' }[]
 }
 
 export const withCardsCrud = <_>() =>
@@ -33,9 +29,11 @@ export const withCardsCrud = <_>() =>
        * @param cards The cards to be imported.
        * @returns An object containing the IDs of all added cards, ID duplicates, and content duplicates.
        */
-      importCards(cards: (LearnableBase | LearnableBaseWithID)[]): CreateCardsResult {
+      importCards(
+        cards: (LearnableBase | LearnableBaseWithID | UserLearnable)[]
+      ): ImportCardsResult {
         const newCardIDs: string[] = []
-        const duplicates: CreateCardsResult['idsOfDuplicates'] = []
+        const duplicates: ImportCardsResult['idsOfDuplicates'] = []
 
         updateActiveBank(store, (bank) => {
           const dateNow = new Date()
@@ -47,7 +45,7 @@ export const withCardsCrud = <_>() =>
 
             const idDuplicate = bank.learnables.find((l) => l.id === id)
             if (idDuplicate) {
-              duplicates.push({ importedID: id, duplicateID: idDuplicate.id, reason: 'id' })
+              duplicates.push({ importedID: id, existingDuplicateID: idDuplicate.id, reason: 'id' })
               continue
             }
 
@@ -58,21 +56,22 @@ export const withCardsCrud = <_>() =>
             if (contentDuplicate) {
               duplicates.push({
                 importedID: id,
-                duplicateID: contentDuplicate.id,
+                existingDuplicateID: contentDuplicate.id,
                 reason: 'content'
               })
               continue
             }
 
             newCardIDs.push(id)
+
+            const guesses: UserLearnable['guesses'] =
+              'guesses' in card ? card.guesses : { ...initialGuesses }
+
             newCards.push({
               ...card,
               id,
-              createdAt: dateNow,
-              guesses: {
-                translation: [false, false, false, false, false],
-                lexeme: [false, false, false, false, false]
-              }
+              guesses,
+              createdAt: dateNow
             })
           }
 
@@ -83,7 +82,7 @@ export const withCardsCrud = <_>() =>
         })
 
         return {
-          idsOfAll: [...newCardIDs, ...duplicates.map((d) => d.duplicateID)],
+          idsOfAll: [...newCardIDs, ...duplicates.map((d) => d.existingDuplicateID)],
           idsOfNewlyAdded: newCardIDs,
           idsOfDuplicates: duplicates
         }

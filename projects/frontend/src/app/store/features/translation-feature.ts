@@ -1,6 +1,6 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { LearnableBase, LearnableWithId } from '@shared/types'
-import { LearnablesStoreType } from '../../types/types'
+import type { LearnablesStoreType } from '../../types/store-types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 export const withTranslateFeature = <_>() =>
