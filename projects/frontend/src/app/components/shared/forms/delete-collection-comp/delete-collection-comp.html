@@ -1,13 +1,13 @@
 <form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 4 }">dissolve collection?</h2>
+  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 4 }">Delete collection?</h2>
 
   <app-radio-comp
     class="fly-in-y full"
     [animDelay]="{ i: 1, size: 4 }"
     formControlName="deletionType"
     [config]="[
-      { value: 'dissolve', label: 'keep cards' },
-      { value: 'remove', label: 'remove cards' }
+      { value: 'dissolve', label: 'Keep cards' },
+      { value: 'remove', label: 'Remove cards' }
     ]"
   />
 

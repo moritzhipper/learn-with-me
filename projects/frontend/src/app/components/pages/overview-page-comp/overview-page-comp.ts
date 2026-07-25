@@ -1,6 +1,6 @@
 import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { Collection } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -48,7 +48,6 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
 })
 export class OverviewComp {
   private readonly ls = inject(LearnablesStore)
-  private readonly router = inject(Router)
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
   private readonly shareBanksS = inject(ShareBanksService)

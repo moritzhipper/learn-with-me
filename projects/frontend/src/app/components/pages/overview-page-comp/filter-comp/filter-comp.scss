@@ -8,12 +8,13 @@
   margin-bottom: var(--distance-4);
 }
 
-button.small {
-  white-space: nowrap;
+app-icon-comp {
+  width: var(--line-height-1);
+  height: var(--line-height-1);
 }
 
 .pseudo-select,
-.close {
+.all {
   position: sticky;
   left: 0;
   backdrop-filter: blur(20px);
@@ -21,24 +22,45 @@ button.small {
 }
 
 .pseudo-select,
-select,
-button.icon-only {
+select {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-1);
-  padding: 0;
+  border-radius: var(--radius-2);
+  height: 38px;
+  width: 38px;
+  aspect-ratio: 1 / 1;
 }
 
-// collection selected
-
 .chip {
-  display: grid;
+  display: flex;
+  gap: var(--distance-2);
   place-items: center;
   background-color: var(--col-accent);
+  background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
+  white-space: nowrap;
+  border-radius: var(--radius-2);
+  font-weight: var(--font-weight-bold);
+  background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+  font-size: var(--font-size-1);
+  line-height: var(--line-height-1);
+
+  padding: var(--distance-2) var(--distance-5);
+
   &.delete {
-    background-color: var(--col-warning);
+    background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
+  }
+
+  &.icon-only {
+    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-5);
+  }
+
+  &.all {
+    gap: var(--distance-1);
+    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-2);
+
+    .chevron {
+      rotate: -90deg;
+    }
   }
 }
 
@@ -66,12 +88,12 @@ button.icon-only {
   :host {
   }
   .chip {
-    flex: 1;
+    // flex: 1;
   }
 }
 
 @include isDesktop() {
   .chip {
-    padding: 0 var(--distance-5);
+    // padding: 0 var(--distance-5);
   }
 }

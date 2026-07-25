@@ -22,15 +22,14 @@
   </app-bubbles>
 }
 <app-page-wrapper icon="card">
-  @if (selectedCollection(); as coll) {
-    <app-page-header-comp [title]="coll.name" backLink="/cards" backLinkText="All Cards">
-      <liz-confidence-stats [confidence]="confidenceAgg()" />
-    </app-page-header-comp>
-  } @else {
-    <app-page-header-comp title="All Cards" backLink="/" backLinkText="Home">
-      <liz-confidence-stats [confidence]="confidenceAgg()" />
-    </app-page-header-comp>
-  }
+  <app-page-header-comp
+    [title]="selectedCollection()?.name ?? `All Cards`"
+    backLink="/"
+    backLinkText="Home"
+  >
+    <liz-confidence-stats [confidence]="confidenceAgg()" />
+  </app-page-header-comp>
+
   @if (userHasCards()) {
     @if (collections().length !== 0) {
       <app-filter-comp
