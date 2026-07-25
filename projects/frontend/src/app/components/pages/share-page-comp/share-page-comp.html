@@ -13,7 +13,7 @@
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
               <app-shared-bank-comp
-                class="stacked-shadow caroussel-item"
+                class="caroussel-item"
                 [bank]="bank"
                 (copyId)="copyLink(bank)"
                 (importBank)="importBank(bank)"
@@ -22,7 +22,7 @@
             }
 
             <a
-              class="silent see-more stacked-shadow caroussel-item"
+              class="silent see-more caroussel-item"
               routerLink="/community/explore"
               [queryParams]="section.params"
             >

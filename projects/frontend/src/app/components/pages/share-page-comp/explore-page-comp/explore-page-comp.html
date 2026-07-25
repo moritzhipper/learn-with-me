@@ -27,7 +27,7 @@
   <div class="banks">
     @for (bank of visibleBanks(); track bank.id) {
       <app-shared-bank-comp
-        class="stacked-shadow fly-in-y-wide"
+        class="fly-in-y-wide"
         [bank]="bank"
         [isCommunityBank]="true"
         [animDelay]="{ i: $index, list: visibleBanks() }"
@@ -50,12 +50,12 @@
       </div>
     }
     @case ('all-loaded') {
-      <liz-info-card title="That's it" fullPage>
-        <p>
+      <div class="state-indicator fly-in-y-wide">
+        <p class="light">
           You looked through all of the shared banks for this language pair. Maybe its time to share
-          some of yours!
+          some of yours?
         </p>
-      </liz-info-card>
+      </div>
     }
     @case ('error') {
       <liz-info-card title="Error loading Previews" type="warn" fullPage>

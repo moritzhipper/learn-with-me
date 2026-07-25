@@ -37,10 +37,11 @@ a.see-more {
 
   app-icon-comp {
     position: absolute;
-    right: -100px;
+    right: -35%;
     color: var(--col-text);
-    width: 400px;
-    height: 400px;
+    width: auto;
+    height: 250%;
+    aspect-ratio: 1 / 1;
     rotate: 90deg;
     opacity: var(--opacity-0);
   }

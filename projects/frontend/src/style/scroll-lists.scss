@@ -1,5 +1,11 @@
 @use './mixins' as *;
 
+.caroussel-wrapper,
+.full-width-scroll {
+  padding: var(--distance-3) var(--page-padding);
+  margin: calc(-1 * var(--distance-3)) calc(-1 * var(--page-padding));
+}
+
 // makes lists horizontally scrollable, snaps their position on item start
 // responsively makes the items
 // On Mobile:
@@ -10,6 +16,8 @@
   display: grid;
   scroll-snap-type: x mandatory;
   grid-auto-flow: column;
+  scrollbar-width: none;
+  overflow-x: auto;
   gap: var(--distance-4);
   position: relative;
   scroll-padding-left: var(--page-padding);
@@ -37,11 +45,8 @@
 }
 
 // fill-width-scrollable
-.full-width-scroll,
-.caroussel-wrapper {
+.full-width-scroll {
   @include isPhone {
-    padding: var(--distance-2) var(--page-padding);
-    margin: calc(-1 * var(--distance-2)) calc(-1 * var(--page-padding));
     scrollbar-width: none;
     overflow-x: auto;
   }

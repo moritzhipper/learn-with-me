@@ -1,5 +1,3 @@
-@let _c = counter();
-
 <div class="header">
   <div class="name">{{ bank().name }}</div>
   @if (!ttl().isExpired) {
@@ -20,15 +18,8 @@
     {{ bank().language.learning }}
   </span>
   <app-icon-comp type="left-right" [size]="16" />
-
   <span> {{ bank().language.speaking }} </span>
 </p>
 
 <p class="shared size-0">{{ bank().createdAt | date: 'mediumDate' }}</p>
 <p class="ttl size-0">{{ ttl().label }}</p>
-@if (isCommunityBank()) {
-  <div class="counter">
-    {{ _c.cards }}
-    <div class="wrapper"></div>
-  </div>
-}
