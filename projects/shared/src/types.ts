@@ -1,5 +1,10 @@
 import z from 'zod'
-import { PracticeActiveSchema, PracticeConfigSchema } from './practice-schemas'
+import {
+  Guess,
+  GuessableSchema,
+  PracticeActiveSchema,
+  PracticeConfigSchema
+} from './practice-schemas'
 import {
   BankShareBaseSchema,
   BankShareConfigSchema,
@@ -9,8 +14,6 @@ import {
   BanksRequestSchema,
   BankUserSchema,
   CollectionSchema,
-  Guess,
-  GuessableSchema,
   LanguageConfigRequestSchema,
   LanguageConfigSchema,
   LearnableBaseSchema,
