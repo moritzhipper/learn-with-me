@@ -4,10 +4,9 @@
 
 - make collection be subpages on own overview and on shared page
 - allow import of single cards on collection with language match
-- on shared page: make collections su
-- align all modals (header, description, distances of controls and stuff)
 
 - paste images
+- align all modals (header, description, distances of controls and stuff)
 - add make text smaller functionalty to practice cards to accomondate for long text?
 - use dark theme toggles in modal forms?
 - clean up shared bank loading state (and center spinner)
