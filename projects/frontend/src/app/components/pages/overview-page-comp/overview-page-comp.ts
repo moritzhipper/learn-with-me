@@ -1,6 +1,6 @@
 import { Component, computed, inject, linkedSignal } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { Router } from '@angular/router'
 import { Collection } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -51,13 +51,14 @@ export class OverviewComp {
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
   private readonly shareBanksS = inject(ShareBanksService)
-  private readonly activeRoute = inject(ActivatedRoute)
+  private readonly router = inject(Router)
 
   constructor() {
-    const collectionIDfromRouter = this.activeRoute.snapshot.paramMap.get('collectionID')
-    const hasCollection = this.collections().some((c) => c.id === collectionIDfromRouter)
-
-    if (hasCollection) this.selectedCollectionId.set(collectionIDfromRouter)
+    const collectionIDfromRouter = this.router.currentNavigation()?.extras.state?.['collectionID']
+    const isValid =
+      typeof collectionIDfromRouter === 'string' &&
+      this.collections().some((c) => c.id === collectionIDfromRouter)
+    if (isValid) this.selectedCollectionId.set(collectionIDfromRouter)
   }
 
   // Component state management
