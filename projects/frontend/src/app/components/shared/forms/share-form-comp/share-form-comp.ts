@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareConfig, BankUser } from '@shared/types'
-import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
+import { AnimDelay } from '../../../../services/anim-delay'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 

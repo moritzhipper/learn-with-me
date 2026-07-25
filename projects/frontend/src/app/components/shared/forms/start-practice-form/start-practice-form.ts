@@ -1,8 +1,9 @@
 import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig, PracticeConfig } from '@shared/types'
-import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { ConfidenceAggregate } from 'projects/frontend/src/app/utils/genaral-utils'
+
+import { AnimDelay } from '../../../../services/anim-delay'
+import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 import { ConfidenceDots } from '../../confidence/confidence-dots/confidence-dots'
 import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
 import { InfoCard } from '../../info-card/info-card'

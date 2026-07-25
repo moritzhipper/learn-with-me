@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core'
-import { ConfidenceAggregate } from 'projects/frontend/src/app/utils/genaral-utils'
+import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 
 @Component({
   selector: 'liz-confidence-stats',

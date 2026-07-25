@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { config } from 'projects/frontend/src/config'
+import { config } from '../../../../config'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 

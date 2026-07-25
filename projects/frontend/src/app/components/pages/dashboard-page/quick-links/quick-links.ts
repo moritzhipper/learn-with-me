@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { ModalService } from 'projects/frontend/src/app/services/modal-service'
-import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
+import { ModalService } from '../../../../services/modal-service'
+import { LearnablesStore } from '../../../../store/learnables-store'
 import { ConfirmationType } from '../../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 

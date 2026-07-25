@@ -1,5 +1,4 @@
 @let hasSelected = selectedCollectionId() !== null;
-
 @if (!hasSelected) {
   <div class="pseudo-select" [class.user-selected]="selectedCollectionId() !== null">
     <select [(ngModel)]="selectedCollectionId">
@@ -10,7 +9,7 @@
     </select>
     <app-icon-comp type="chevron" [size]="30" />
   </div>
-  @for (coll of collections(); track coll.id) {
+  <!-- @for (coll of collections(); track coll.id) {
     <button
       (click)="selectedCollectionId.set(coll.id)"
       class="small fly-in-x-wide"
@@ -18,7 +17,7 @@
     >
       {{ coll.name }}
     </button>
-  }
+  } -->
 } @else {
   <button (click)="selectedCollectionId.set(null)" class="small icon-only close">
     <app-icon-comp class="icon" type="close" [size]="28" />
