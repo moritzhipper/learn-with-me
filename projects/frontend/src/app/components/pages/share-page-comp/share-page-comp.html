@@ -10,10 +10,10 @@
             [queryParams]="section.params"
           />
 
-          <div class="collections">
+          <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
               <app-shared-bank-comp
-                class="stacked-shadow"
+                class="stacked-shadow caroussel-item"
                 [bank]="bank"
                 (copyId)="copyLink(bank)"
                 (importBank)="importBank(bank)"
@@ -22,7 +22,7 @@
             }
 
             <a
-              class="silent see-more stacked-shadow"
+              class="silent see-more stacked-shadow caroussel-item"
               routerLink="/community/explore"
               [queryParams]="section.params"
             >
@@ -32,10 +32,10 @@
           </div>
         } @else {
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
-          <div class="collections">
+          <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
               <app-shared-bank-comp
-                class="stacked-shadow"
+                class="caroussel-item"
                 [bank]="bank"
                 (copyId)="copyLink(bank)"
               />

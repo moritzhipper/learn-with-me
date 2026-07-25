@@ -17,7 +17,8 @@
         { value: 'top', label: 'Top' },
         { value: 'new', label: 'New' }
       ]"
-      [darkMode]="true"
+      darkMode
+      size="medium"
       [ngModel]="params().sortBy"
       (ngModelChange)="updateCategory($event)"
     />

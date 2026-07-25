@@ -30,7 +30,7 @@ export class RadioComp implements ControlValueAccessor {
   label = input<string>()
   darkMode = input(false, { transform: booleanAttribute })
   isDisabled = signal(false)
-  size = input<'small' | 'medium'>('medium')
+  size = input<'small' | 'medium'>('small')
 
   value: RadioCompValueType = null
 

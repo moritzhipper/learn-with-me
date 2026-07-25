@@ -8,13 +8,10 @@
 //  - dynamic shadow is applied on scrolling side on wich the items overflow
 .caroussel-wrapper {
   display: grid;
-  overflow-x: auto;
   scroll-snap-type: x mandatory;
   grid-auto-flow: column;
   gap: var(--distance-4);
   position: relative;
-  padding: 0 var(--page-padding);
-  margin: 0 calc(-1 * var(--page-padding));
   scroll-padding-left: var(--page-padding);
 
   .caroussel-item {
@@ -40,10 +37,12 @@
 }
 
 // fill-width-scrollable
-.full-width-scroll {
+.full-width-scroll,
+.caroussel-wrapper {
   @include isPhone {
-    padding: 0 var(--page-padding);
-    margin: 0 calc(-1 * var(--page-padding));
+    padding: var(--distance-2) var(--page-padding);
+    margin: calc(-1 * var(--distance-2)) calc(-1 * var(--page-padding));
     scrollbar-width: none;
+    overflow-x: auto;
   }
 }
