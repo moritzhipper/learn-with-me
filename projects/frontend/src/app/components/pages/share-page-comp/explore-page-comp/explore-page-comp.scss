@@ -1,6 +1,6 @@
 @use '../../../../../style/mixins.scss' as *;
 
-h2.language {
+.language {
   display: flex;
   gap: var(--distance-2);
   align-items: center;

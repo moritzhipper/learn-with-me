@@ -1,67 +1,68 @@
-<app-page-icon-comp type="compass" />
-<app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
-  <h2 class="language">
-    <div class="ellipsis">{{ params().speaking ?? 'All languages' }}</div>
-    <app-icon-comp class="icon" type="left-right" [size]="20" />
-    <div class="ellipsis">{{ params().learning ?? 'All languages' }}</div>
-  </h2>
-</app-page-header-comp>
-
-<div class="params-config">
-  <button class="small change has-icon" (click)="changeLanguageMatch()">
-    <span> Change Match </span>
-    <app-icon-comp class="icon" type="pen" [size]="16" />
-  </button>
-  <app-radio-comp
-    [config]="[
-      { value: 'top', label: 'Top' },
-      { value: 'new', label: 'New' }
-    ]"
-    [darkMode]="true"
-    [ngModel]="params().sortBy"
-    (ngModelChange)="updateCategory($event)"
-  />
-</div>
-
-<div class="banks">
-  @for (bank of visibleBanks(); track bank.id) {
-    <app-shared-bank-comp
-      class="stacked-shadow fly-in-y-wide"
-      [bank]="bank"
-      [isCommunityBank]="true"
-      [animDelay]="{ i: $index, list: visibleBanks() }"
-      (copyId)="copyBankId(bank)"
-      (importBank)="importBank(bank)"
-    />
-  }
-</div>
-
-@if (fetchState() === 'no-data') {
-  <liz-info-card title="No shared Banks available for this Match" fullPage>
-    <p>Your search may be too exotic. Try variations or create and share some banks!</p>
-  </liz-info-card>
-}
-
-@switch (fetchState()) {
-  @case ('loading') {
-    <div class="state-indicator fly-in-y-wide">
-      <app-loading-spinner />
+<app-page-wrapper icon="compass">
+  <app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
+    <div class="language">
+      <div class="ellipsis">{{ params().speaking || 'All languages' }}</div>
+      <app-icon-comp class="icon" type="left-right" [size]="20" />
+      <div class="ellipsis">{{ params().learning || 'All languages' }}</div>
     </div>
-  }
-  @case ('all-loaded') {
-    <liz-info-card title="That's it" fullPage>
-      <p>
-        You looked through all of the shared banks for this language pair. Maybe its time to share
-        some of yours!
-      </p>
+  </app-page-header-comp>
+
+  <div class="params-config">
+    <button class="small change has-icon" (click)="changeLanguageMatch()">
+      <span> Change pair </span>
+      <app-icon-comp class="icon" type="pen" [size]="16" />
+    </button>
+    <app-radio-comp
+      [config]="[
+        { value: 'top', label: 'Top' },
+        { value: 'new', label: 'New' }
+      ]"
+      [darkMode]="true"
+      [ngModel]="params().sortBy"
+      (ngModelChange)="updateCategory($event)"
+    />
+  </div>
+
+  <div class="banks">
+    @for (bank of visibleBanks(); track bank.id) {
+      <app-shared-bank-comp
+        class="stacked-shadow fly-in-y-wide"
+        [bank]="bank"
+        [isCommunityBank]="true"
+        [animDelay]="{ i: $index, list: visibleBanks() }"
+        (copyId)="copyBankId(bank)"
+        (importBank)="importBank(bank)"
+      />
+    }
+  </div>
+
+  @if (fetchState() === 'no-data') {
+    <liz-info-card title="No shared Banks available for this Match" fullPage>
+      <p>Your search may be too exotic. Try variations or create and share some banks!</p>
     </liz-info-card>
   }
-  @case ('error') {
-    <liz-info-card title="Error loading Previews" type="warn" fullPage>
-      <p class="pb-4">
-        Either larry is having a bad day or your internet is down. Either way, please try again
-        later.
-      </p>
-    </liz-info-card>
+
+  @switch (fetchState()) {
+    @case ('loading') {
+      <div class="state-indicator fly-in-y-wide">
+        <app-loading-spinner />
+      </div>
+    }
+    @case ('all-loaded') {
+      <liz-info-card title="That's it" fullPage>
+        <p>
+          You looked through all of the shared banks for this language pair. Maybe its time to share
+          some of yours!
+        </p>
+      </liz-info-card>
+    }
+    @case ('error') {
+      <liz-info-card title="Error loading Previews" type="warn" fullPage>
+        <p class="pb-4">
+          Either larry is having a bad day or your internet is down. Either way, please try again
+          later.
+        </p>
+      </liz-info-card>
+    }
   }
-}
+</app-page-wrapper>

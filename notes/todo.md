@@ -2,6 +2,7 @@
 
 ## Today
 
+- make overview filter comp and share page use small icons as page header
 - make collection be subpages on own overview and on shared page
 - allow import of single cards on collection with language match
 

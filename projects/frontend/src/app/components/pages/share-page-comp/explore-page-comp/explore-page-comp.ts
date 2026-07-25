@@ -15,14 +15,13 @@ import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
+import { PageWrapper } from '../../page-wrapper/page-wrapper'
 import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
 
 @Component({
   selector: 'app-explore-page-comp',
   imports: [
-    PageIconComp,
     PageHeaderComp,
     SharedBankComp,
     LoadingSpinner,
@@ -30,7 +29,8 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
     RadioComp,
     FormsModule,
     AnimDelay,
-    InfoCard
+    InfoCard,
+    PageWrapper
   ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'

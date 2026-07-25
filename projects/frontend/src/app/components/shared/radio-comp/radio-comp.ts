@@ -21,7 +21,8 @@ export type RadioCompInputConfig = {
   ],
   host: {
     '[class.dark-mode]': 'darkMode()',
-    '[class.disabled]': 'isDisabled()'
+    '[class.disabled]': 'isDisabled()',
+    '[class]': 'size()'
   }
 })
 export class RadioComp implements ControlValueAccessor {
@@ -29,6 +30,7 @@ export class RadioComp implements ControlValueAccessor {
   label = input<string>()
   darkMode = input(false, { transform: booleanAttribute })
   isDisabled = signal(false)
+  size = input<'small' | 'medium'>('medium')
 
   value: RadioCompValueType = null
 
