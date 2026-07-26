@@ -1,8 +1,6 @@
 :host {
-  display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: min-content 1fr;
-  gap: var(--distance-2) 0;
 
   .header {
     grid-column: span 2;

@@ -8,7 +8,10 @@ import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-st
   selector: '[liz-user-collection]',
   imports: [ConfidenceStats, DatePipe],
   templateUrl: './user-collection.html',
-  styleUrls: ['./user-collection.scss', '../banks-and-collections.scss']
+  styleUrls: ['./user-collection.scss', '../banks-and-collections.scss'],
+  host: {
+    class: 'cards-stack-wrapper'
+  }
 })
 export class UserCollection {
   collection = input.required<Collection>()

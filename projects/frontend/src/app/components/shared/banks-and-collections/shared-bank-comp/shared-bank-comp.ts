@@ -17,7 +17,8 @@ type Counter = {
   templateUrl: './shared-bank-comp.html',
   styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   host: {
-    '[class.community]': 'isCommunityBank()'
+    '[class.community]': 'isCommunityBank()',
+    class: 'cards-stack-wrapper'
   }
 })
 export class SharedBankComp implements OnDestroy {

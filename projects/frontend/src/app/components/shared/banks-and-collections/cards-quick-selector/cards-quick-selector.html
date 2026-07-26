@@ -1,21 +1,14 @@
 @for (sum of summaries(); track $index) {
   @if (sum.type === 'collection') {
-    <button class="silent quick caroussel-item" (click)="openLink(sum.id)">
-      <h3>
-        {{ sum.name }}
-      </h3>
-      <liz-confidence-stats [confidence]="sum.averageConfidence" />
-
-      <p class="size-0 bottom">{{ sum.createdAt | date: 'mediumDate' }}</p>
-    </button>
     <button
+      class="caroussel-item"
       liz-user-collection
       [collection]="sum"
       [confidence]="sum.averageConfidence"
-      class="caroussel-item"
+      (click)="openLink(sum.id)"
     ></button>
   } @else {
-    <button class="silent quick all caroussel-item" (click)="openLink()">
+    <button class="cards-stack-wrapper caroussel-item" (click)="openLink()">
       <h3>All Cards</h3>
       <liz-confidence-stats [confidence]="sum.averageConfidence" />
 
