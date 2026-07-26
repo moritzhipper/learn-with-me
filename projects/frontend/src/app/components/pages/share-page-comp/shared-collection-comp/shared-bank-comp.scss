@@ -21,10 +21,11 @@
     z-index: -1;
   }
   &:before {
+    transform-origin: top left;
     z-index: -1;
-    top: 2px;
-    left: 4px;
-    rotate: 4deg;
+    top: calc(-1 * var(--distance-2));
+    left: var(--distance-2);
+    rotate: 3deg;
   }
 
   .header {
