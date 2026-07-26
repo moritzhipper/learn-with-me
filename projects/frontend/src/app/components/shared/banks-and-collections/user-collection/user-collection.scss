@@ -2,3 +2,14 @@
   grid-template: min-content min-content / 1fr;
   gap: var(--distance-2) 0;
 }
+.rating-wrapper {
+  color: var(--col-bg);
+  display: grid;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  opacity: var(--opacity-0);
+}

@@ -1,8 +1,6 @@
 import { PracticeActive, UserLearnable } from '@shared/types'
-import {
-  ActivePracticeSummary,
-  PracticeRating
-} from './practice-summary-card/practice-summary-card'
+import { mapConfidencePercentToRating } from '../../../../utils/genaral-utils'
+import { ActivePracticeSummary } from './practice-summary-card/practice-summary-card'
 
 // do this
 // then add classes to parent
@@ -107,14 +105,6 @@ const createSummary = (practice: PracticeActive): ActivePracticeSummary => {
     unansweredGuesses,
     guessedRightPercent,
 
-    rating: getRating(guessedRightPercent)
+    rating: mapConfidencePercentToRating(guessedRightPercent)
   }
-}
-
-const getRating = (guessedRightPercent: number): PracticeRating => {
-  if (guessedRightPercent === 100) return 'excellent'
-  if (guessedRightPercent >= 80) return 'good'
-  if (guessedRightPercent >= 50) return 'okay'
-  if (guessedRightPercent >= 20) return 'atleast'
-  return 'noteven'
 }
