@@ -8,6 +8,12 @@
 
       <p class="size-0 bottom">{{ sum.createdAt | date: 'mediumDate' }}</p>
     </button>
+    <button
+      liz-user-collection
+      [collection]="sum"
+      [confidence]="sum.averageConfidence"
+      class="caroussel-item"
+    ></button>
   } @else {
     <button class="silent quick all caroussel-item" (click)="openLink()">
       <h3>All Cards</h3>

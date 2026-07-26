@@ -10,13 +10,13 @@ import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
+import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
-import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
 type PrefetchSectionProxy =
   | {

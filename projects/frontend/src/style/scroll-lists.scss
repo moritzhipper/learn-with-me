@@ -18,6 +18,7 @@
   grid-auto-flow: column;
   scrollbar-width: none;
   overflow-x: auto;
+  max-width: 100%;
   gap: var(--distance-4);
   position: relative;
   scroll-padding-left: var(--page-padding);

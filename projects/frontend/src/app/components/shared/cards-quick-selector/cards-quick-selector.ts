@@ -7,6 +7,7 @@ import {
   calculateAverageConfidencePercent,
   ConfidenceAggregate
 } from '../../../utils/genaral-utils'
+import { UserCollection } from '../banks-and-collections/user-collection/user-collection'
 import { ConfidenceStats } from '../confidence/confidence-stats/confidence-stats'
 
 type AllCardsSummary = {
@@ -24,7 +25,7 @@ type CollectionSummary = Collection & {
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [DatePipe, ConfidenceStats],
+  imports: [DatePipe, ConfidenceStats, UserCollection],
   templateUrl: './cards-quick-selector.html',
   styleUrl: './cards-quick-selector.scss'
 })

@@ -9,14 +9,14 @@
   max-width: 100%;
   box-sizing: border-box;
   transform-origin: top left;
+
   .full-width-scroll {
     display: flex;
-    max-width: 100%;
   }
 
   h1 {
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--distance-1);
+    margin-bottom: var(--distance-2);
 
     word-break: keep-all;
     white-space: nowrap;

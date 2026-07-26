@@ -3,30 +3,6 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: min-content 1fr;
   gap: var(--distance-2) 0;
-  position: relative;
-  padding: var(--distance-4);
-
-  box-sizing: border-box;
-
-  &:after,
-  &:before {
-    border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 100%;
-    border-radius: var(--radius-2);
-    box-sizing: border-box;
-    background-color: var(--col-bg);
-    z-index: -1;
-  }
-  &:before {
-    transform-origin: top left;
-    z-index: -1;
-    top: calc(-1 * var(--distance-2));
-    left: var(--distance-2);
-    rotate: 3deg;
-  }
 
   .header {
     grid-column: span 2;

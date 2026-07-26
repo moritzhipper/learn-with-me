@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common'
 import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
 import { BankShareViaDB } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { IconComp } from '../../icon-comp/icon-comp'
 
 type Counter = {
   cards: number
@@ -15,7 +15,7 @@ type Counter = {
   selector: 'app-shared-bank-comp',
   imports: [IconComp, DatePipe],
   templateUrl: './shared-bank-comp.html',
-  styleUrl: './shared-bank-comp.scss',
+  styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   host: {
     '[class.community]': 'isCommunityBank()'
   }
