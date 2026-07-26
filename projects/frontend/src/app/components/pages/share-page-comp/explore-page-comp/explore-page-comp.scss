@@ -1,11 +1,5 @@
 @use '../../../../../style/mixins.scss' as *;
 
-.language {
-  display: flex;
-  gap: var(--distance-2);
-  align-items: center;
-  margin: var(--distance-0) 0 0 0;
-}
 .params-config {
   display: flex;
   gap: var(--distance-4);

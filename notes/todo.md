@@ -3,6 +3,8 @@
 ## Today
 
 - finish the language pair comp impl, remove stray styles
+  - unsure it is as high as its containing text
+- use compass also on community
 - create shared collection comp showing cards
   - make shard collection entries bey buttons too
   - show on shared collection buttons with icons like on own collection

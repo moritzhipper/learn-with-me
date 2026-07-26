@@ -15,16 +15,16 @@ import { IconComp } from '../icon-comp/icon-comp'
         translate: -1px 3px;
         padding: 0 var(--distance-0);
         gap: var(--distance-0);
+        margin: -6px 0;
 
         app-icon-comp {
-          margin: -8px 0;
           width: var(--font-size-1);
-          height: var(--line-height-0);
+          height: var(--font-size-1);
         }
 
         .dash {
           font-size: var(--font-size-0);
-          opacity: var(--opacity-1);
+          opacity: var(--opacity-0);
         }
       }
     }
