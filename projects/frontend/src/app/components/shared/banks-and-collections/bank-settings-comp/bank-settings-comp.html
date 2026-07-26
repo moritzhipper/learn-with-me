@@ -8,14 +8,10 @@
   <app-icon-comp type="share-network" />
 </button>
 <div class="details">
+  <liz-language-match [languageConfig]="b.language" />
   <p class="size-0">
     <span class="word-list-item"> {{ b.collections.length }} collections </span>
     <span class="word-list-item"> {{ b.learnables.length }} learnables </span>
-  </p>
-  <p class="language size-0">
-    {{ b.language.learning }}
-    <app-icon-comp type="left-right" [size]="12" />
-    {{ b.language.speaking }}
   </p>
   <p class="size-0">{{ b.createdAt | date: 'mediumDate' }}</p>
 </div>

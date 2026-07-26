@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
+import { AnimDelay } from '../../../../services/anim-delay'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 

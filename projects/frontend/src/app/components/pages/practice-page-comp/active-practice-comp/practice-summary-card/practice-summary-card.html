@@ -1,7 +1,7 @@
 @let sum = summary();
 
 <div class="wrapper">
-  <app-practice-rating-comp [rating]="sum.rating" />
+  <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
 
   <div class="stats">
     <h2>You got {{ sum.guessedRightPercent }}% right</h2>

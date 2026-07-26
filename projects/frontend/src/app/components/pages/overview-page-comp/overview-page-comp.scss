@@ -16,6 +16,7 @@
     gap: var(--distance-3);
   }
 }
+
 @include isPhone {
   .quick-links {
     grid-template-columns: 1fr;

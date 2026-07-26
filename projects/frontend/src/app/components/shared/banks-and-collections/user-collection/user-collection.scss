@@ -1,0 +1,15 @@
+:host {
+  grid-template: min-content min-content / 1fr;
+  gap: var(--distance-2) 0;
+}
+
+app-practice-rating-comp {
+  position: absolute;
+  color: var(--col-bg);
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  opacity: var(--opacity-0);
+}

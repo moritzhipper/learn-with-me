@@ -19,6 +19,7 @@ export const fetchBanks = async (
     )
     .limit(req.query.limit)
     .offset(req.query.offset || 0)
+  // debugger
 
   return result.map(mapResultToBankShareViaDB)
 }

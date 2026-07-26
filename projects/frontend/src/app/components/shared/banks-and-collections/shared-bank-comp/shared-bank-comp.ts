@@ -2,10 +2,11 @@ import { DatePipe } from '@angular/common'
 import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
 import { BankShareViaDB } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { IconComp } from '../../icon-comp/icon-comp'
+import { LanguageMatch } from '../../language-match/language-match'
 
 type Counter = {
-  cards: number
+  cards: string
   words: string
   phrases: string
   collections: string
@@ -13,11 +14,12 @@ type Counter = {
 
 @Component({
   selector: 'app-shared-bank-comp',
-  imports: [IconComp, DatePipe],
+  imports: [IconComp, DatePipe, LanguageMatch],
   templateUrl: './shared-bank-comp.html',
-  styleUrl: './shared-bank-comp.scss',
+  styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   host: {
-    '[class.community]': 'isCommunityBank()'
+    class: 'cards-stack-wrapper outline',
+    '[class.small]': '!isCommunityBank()'
   }
 })
 export class SharedBankComp implements OnDestroy {
@@ -39,7 +41,7 @@ export class SharedBankComp implements OnDestroy {
     const { collections, learnables } = this.bank()
 
     return {
-      cards: learnables.length,
+      cards: pluralize(learnables.length, 'card'),
       words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
       phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
       collections: pluralize(collections.length, 'collection')

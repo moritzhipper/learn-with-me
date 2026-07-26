@@ -1,0 +1,48 @@
+:host {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content min-content 1fr;
+  gap: var(--distance-2) 0;
+
+  .header {
+    grid-column: span 2;
+    display: flex;
+
+    gap: var(--distance-4);
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-bold);
+
+    .name {
+      margin-right: auto;
+    }
+  }
+
+  .info {
+    grid-column: span 2;
+    opacity: var(--opacity-1);
+  }
+
+  .copy {
+    opacity: var(--opacity-1);
+  }
+
+  .copy,
+  .import {
+    align-self: start;
+  }
+
+  .shared,
+  .ttl,
+  .info {
+    z-index: 1;
+    opacity: var(--opacity-1);
+  }
+  .ttl {
+    place-self: end;
+  }
+  .count-wrapper {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}

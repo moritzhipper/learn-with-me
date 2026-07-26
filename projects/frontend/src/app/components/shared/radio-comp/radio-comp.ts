@@ -1,15 +1,17 @@
 import { booleanAttribute, Component, forwardRef, input, signal } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
+import { IconComp, IconType } from '../icon-comp/icon-comp'
 
 type RadioCompValueType = string | number | boolean | null
 export type RadioCompInputConfig = {
   label?: string
+  icon?: IconType
   value: RadioCompValueType
 }[]
 
 @Component({
   selector: 'app-radio-comp',
-  imports: [],
+  imports: [IconComp],
   templateUrl: './radio-comp.html',
   styleUrl: './radio-comp.scss',
   providers: [
@@ -21,7 +23,8 @@ export type RadioCompInputConfig = {
   ],
   host: {
     '[class.dark-mode]': 'darkMode()',
-    '[class.disabled]': 'isDisabled()'
+    '[class.disabled]': 'isDisabled()',
+    '[class]': 'size()'
   }
 })
 export class RadioComp implements ControlValueAccessor {
@@ -29,6 +32,7 @@ export class RadioComp implements ControlValueAccessor {
   label = input<string>()
   darkMode = input(false, { transform: booleanAttribute })
   isDisabled = signal(false)
+  size = input<'small' | 'medium'>('small')
 
   value: RadioCompValueType = null
 

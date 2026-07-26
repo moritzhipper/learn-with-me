@@ -15,9 +15,9 @@
     "target": "ES2022",
     "module": "preserve",
     "lib": ["ES2023", "DOM"],
-    "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@shared/*": ["projects/shared/src/*"]
+      "@shared/*": ["./projects/shared/src/*"]
     }
   },
   "angularCompilerOptions": {

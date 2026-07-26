@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms'
 import { BankBase, LanguageConfig } from '@shared/types'
-import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
+import { AnimDelay } from '../../../services/anim-delay'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { IconComp } from '../icon-comp/icon-comp'

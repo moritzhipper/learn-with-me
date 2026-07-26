@@ -8,11 +8,11 @@ import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
+import { BankSettingsComp } from '../../shared/banks-and-collections/bank-settings-comp/bank-settings-comp'
 import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
-import { BankSettingsComp } from './bank-settings-comp/bank-settings-comp'
 import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
 
 @Component({

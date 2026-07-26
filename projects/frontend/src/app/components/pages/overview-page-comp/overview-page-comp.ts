@@ -48,10 +48,10 @@ import { LearnableComp } from './learnable-comp/learnable-comp'
 })
 export class OverviewComp {
   private readonly ls = inject(LearnablesStore)
-  private readonly router = inject(Router)
   private readonly toastService = inject(ToastService)
   private readonly modalService = inject(ModalService)
   private readonly shareBanksS = inject(ShareBanksService)
+  private readonly router = inject(Router)
 
   constructor() {
     const collectionIDfromRouter = this.router.currentNavigation()?.extras.state?.['collectionID']
@@ -105,7 +105,7 @@ export class OverviewComp {
     filterLearnables(this._collectionLearnables(), { orderBy: 'created' })
   )
 
-  readonly headerConfig = computed<ConfidenceAggregate>(() =>
+  readonly confidenceAgg = computed<ConfidenceAggregate>(() =>
     calculateAverageConfidencePercent(this._collectionLearnables())
   )
 

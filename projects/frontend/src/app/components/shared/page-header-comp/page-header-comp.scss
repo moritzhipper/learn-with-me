@@ -10,15 +10,23 @@
   box-sizing: border-box;
   transform-origin: top left;
 
+  .full-width-scroll {
+    display: flex;
+  }
+
   h1 {
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--distance-1);
-    word-break: break-word;
+    margin-bottom: var(--distance-2);
+
+    word-break: keep-all;
+    white-space: nowrap;
+    line-height: var(--line-height-4);
     font-size: var(--font-size-4);
   }
   a {
     display: flex;
     align-items: center;
+    z-index: 2;
 
     span,
     .icon {

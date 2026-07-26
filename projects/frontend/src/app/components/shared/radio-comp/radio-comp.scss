@@ -12,16 +12,25 @@
   grid-auto-flow: column;
   gap: var(--distance-1);
   border-radius: var(--radius-1);
+  padding: var(--distance-1);
 
   span {
-    padding: var(--distance-1) var(--distance-3);
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-0);
+
+    app-icon-comp {
+      width: var(--font-size-1);
+      height: var(--font-size-1);
+      margin: -8px 0;
+    }
+
+    &:has(app-icon-comp) {
+      padding-left: var(--distance-4);
+    }
   }
 
   label {
     user-select: none;
-
     text-align: center;
 
     input[type='radio'] {
@@ -42,7 +51,6 @@
 
     span {
       opacity: 1;
-
       border-radius: var(--radius-0);
       display: block;
     }
@@ -53,14 +61,22 @@
   &.dark-mode {
     .values {
       background-color: rgb(from var(--col-background) r g b / var(--opacity-0));
-      padding: var(--distance-1);
     }
   }
 
   &:not(.dark-mode) {
     .values {
       background-color: var(--col-background);
-      padding: var(--distance-1);
+    }
+  }
+  &.small {
+    span {
+      padding: var(--distance-1) var(--distance-2);
+    }
+  }
+  &.medium {
+    span {
+      padding: var(--distance-2) var(--distance-3);
     }
   }
   &.disabled {

@@ -1,13 +1,13 @@
-import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { Collection } from '@shared/types'
-import { LearnablesStore } from '../../../store/learnables-store'
+import { LearnablesStore } from '../../../../store/learnables-store'
 import {
   calculateAverageConfidencePercent,
   ConfidenceAggregate
-} from '../../../utils/genaral-utils'
-import { ConfidenceStats } from '../confidence/confidence-stats/confidence-stats'
+} from '../../../../utils/genaral-utils'
+import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
+import { UserCollection } from '../user-collection/user-collection'
 
 type AllCardsSummary = {
   type: 'all'
@@ -24,9 +24,9 @@ type CollectionSummary = Collection & {
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [DatePipe, ConfidenceStats],
+  imports: [ConfidenceStats, UserCollection],
   templateUrl: './cards-quick-selector.html',
-  styleUrl: './cards-quick-selector.scss'
+  styleUrls: ['./cards-quick-selector.scss', '../banks-and-collections.scss']
 })
 export class CardsQuickSelector {
   private readonly ls = inject(LearnablesStore)

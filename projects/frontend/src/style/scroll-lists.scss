@@ -1,5 +1,11 @@
 @use './mixins' as *;
 
+.caroussel-wrapper,
+.full-width-scroll {
+  padding: var(--distance-3) var(--page-padding);
+  margin: calc(-1 * var(--distance-3)) calc(-1 * var(--page-padding));
+}
+
 // makes lists horizontally scrollable, snaps their position on item start
 // responsively makes the items
 // On Mobile:
@@ -8,13 +14,14 @@
 //  - dynamic shadow is applied on scrolling side on wich the items overflow
 .caroussel-wrapper {
   display: grid;
-  overflow-x: auto;
   scroll-snap-type: x mandatory;
   grid-auto-flow: column;
+  scrollbar-width: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
   gap: var(--distance-4);
   position: relative;
-  padding: 0 var(--page-padding);
-  margin: 0 calc(-1 * var(--page-padding));
   scroll-padding-left: var(--page-padding);
 
   .caroussel-item {
@@ -42,8 +49,7 @@
 // fill-width-scrollable
 .full-width-scroll {
   @include isPhone {
-    padding: 0 var(--page-padding);
-    margin: 0 calc(-1 * var(--page-padding));
     scrollbar-width: none;
+    overflow-x: auto;
   }
 }

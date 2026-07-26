@@ -1,5 +1,4 @@
 import z from 'zod'
-import { GuessableSchema } from './schemas'
 
 export const PracticeConfigBaseSchema = z.object({
   guessableField: z.literal(['translation', 'lexeme']),
@@ -27,6 +26,13 @@ export const PracticeConfigSchema = z
     PracticeConfigAddedOnDaySchema
   ])
   .and(PracticeConfigBaseSchema)
+
+export const Guess = z.literal(['right', 'wrong', 'unanswered'])
+
+export const GuessableSchema = z.object({
+  id: z.string(),
+  guess: Guess
+})
 
 export const PracticeActiveSchema = z
   .object({

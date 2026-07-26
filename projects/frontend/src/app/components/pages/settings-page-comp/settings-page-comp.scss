@@ -1,7 +1,6 @@
 @use '../../../../style/mixins.scss' as *;
 
 .add-bank,
-app-bank-settings-card,
 app-settings-item-comp {
   border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
   border-radius: var(--radius-2);

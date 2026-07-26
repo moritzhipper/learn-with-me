@@ -13,7 +13,12 @@
         (blur)="onTouched()"
       />
 
-      <span>{{ option.label || option.value }}</span>
+      <span
+        >{{ option.label || option.value }}
+        @if (option.icon; as icon) {
+          <app-icon-comp [type]="icon" inline />
+        }
+      </span>
     </label>
   }
 </div>

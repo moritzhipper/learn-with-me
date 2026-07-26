@@ -1,18 +1,19 @@
 @use '../../../../style/mixins.scss' as *;
 
-.collections {
-  gap: var(--distance-4);
-}
-
 .preview-sections {
   display: flex;
   flex-direction: column;
   gap: var(--distance-5);
 }
 
+.user-shares {
+  display: flex;
+  flex-direction: row;
+}
+
 a.see-more {
   display: grid;
-  border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+  border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
   border-radius: var(--radius-2);
   background-color: var(--col-bg);
   place-items: center;
@@ -32,10 +33,11 @@ a.see-more {
 
   app-icon-comp {
     position: absolute;
-    right: -100px;
-    color: var(--col-text);
-    width: 400px;
-    height: 400px;
+    right: -35%;
+    color: var(--col-accent);
+    width: auto;
+    height: 250%;
+    aspect-ratio: 1 / 1;
     rotate: 90deg;
     opacity: var(--opacity-0);
   }
@@ -47,29 +49,6 @@ a.see-more {
     }
     span {
       translate: -40px;
-    }
-  }
-}
-
-@include isDesktop() {
-  .collections {
-    display: grid;
-    grid-template-columns: var(--grid-auto-columns);
-    grid-auto-rows: 1fr;
-  }
-}
-
-@include isPhone() {
-  .collections {
-    overflow-x: auto;
-    display: flex;
-    margin: calc(var(--distance-4) * -1);
-    scrollbar-width: none;
-    padding: var(--distance-4);
-
-    app-shared-bank-comp,
-    .see-more {
-      flex: 0 0 340px;
     }
   }
 }

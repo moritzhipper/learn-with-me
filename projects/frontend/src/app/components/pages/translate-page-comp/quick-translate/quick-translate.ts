@@ -14,11 +14,11 @@ import {
   ResponseStreamEvent,
   ResponseTextDoneEvent
 } from 'openai/resources/responses/responses.mjs'
-import { AiService } from 'projects/frontend/src/app/services/ai/ai.service'
-import { ToastService } from 'projects/frontend/src/app/services/toast-service'
-import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
-import { TranslateFastConfig } from 'projects/frontend/src/app/types/types'
 import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
+import { AiService } from '../../../../services/ai/ai.service'
+import { ToastService } from '../../../../services/toast-service'
+import { LearnablesStore } from '../../../../store/learnables-store'
+import { TranslateFastConfig } from '../../../../types/types'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({

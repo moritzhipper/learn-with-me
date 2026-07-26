@@ -1,28 +1,28 @@
-import { Component, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
+import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
-import { AnimDelay } from 'projects/frontend/src/app/services/anim-delay'
-import { ApiService } from 'projects/frontend/src/app/services/api-service'
-import { ModalService } from 'projects/frontend/src/app/services/modal-service'
-import { ShareBanksService } from 'projects/frontend/src/app/services/share-banks-service'
-import { ToastService } from 'projects/frontend/src/app/services/toast-service'
-import { LearnablesStore } from 'projects/frontend/src/app/store/learnables-store'
-import { ApiFetchState, ExplorePageCategoryConfig } from 'projects/frontend/src/app/types/types'
 import { lastValueFrom } from 'rxjs'
+import { AnimDelay } from '../../../../services/anim-delay'
+import { ApiService } from '../../../../services/api-service'
+import { ModalService } from '../../../../services/modal-service'
+import { ShareBanksService } from '../../../../services/share-banks-service'
+import { ToastService } from '../../../../services/toast-service'
+import { LearnablesStore } from '../../../../store/learnables-store'
+import { ApiFetchState, ExplorePageCategoryConfig } from '../../../../types/types'
+import { SharedBankComp } from '../../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../../shared/info-card/info-card'
+import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
-import { PageIconComp } from '../../../shared/page-icon-comp/page-icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
-import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
+import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'app-explore-page-comp',
   imports: [
-    PageIconComp,
     PageHeaderComp,
     SharedBankComp,
     LoadingSpinner,
@@ -30,7 +30,9 @@ import { SharedBankComp } from '../shared-collection-comp/shared-bank-comp'
     RadioComp,
     FormsModule,
     AnimDelay,
-    InfoCard
+    InfoCard,
+    PageWrapper,
+    LanguageMatch
   ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'
@@ -53,6 +55,14 @@ export class ExplorePageComp {
 
   protected readonly visibleBanks = signal<BankShareViaDB[]>([])
   params = signal<ExplorePageCategoryConfig>(this.initParams())
+
+  selectedPair = computed<LanguageConfig>(() => {
+    const params = this.params()
+    return {
+      speaking: params.speaking || 'All languages',
+      learning: params.learning || 'All languages'
+    }
+  })
 
   document = inject(DOCUMENT)
 

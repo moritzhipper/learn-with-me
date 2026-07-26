@@ -24,10 +24,10 @@ app.setSerializerCompiler(serializerCompiler)
 app.withTypeProvider<ZodTypeProvider>()
 
 app.register(sensible)
+app.setErrorHandler(errorHandler)
 app.register(healthHandler)
 app.register(validateUserheader)
 app.register(banksHandler)
-app.setErrorHandler(errorHandler)
 
 const start = async () => {
   try {

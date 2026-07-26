@@ -3,6 +3,8 @@ import { AutoParseableTextFormat, makeParseableTextFormat } from 'openai/lib/par
 import { ResponseFormatTextJSONSchemaConfig } from 'openai/resources/responses/responses.mjs'
 import z from 'zod'
 
+export type PracticeRating = 'noteven' | 'atleast' | 'okay' | 'good' | 'excellent'
+
 /**
  *
  * necessary to use zod with openai responses. zod 4 introduces a bug with. the openai helper package which is not fixed yet.
@@ -52,6 +54,14 @@ export const calculateAverageConfidencePercent = (
     all: getAvg(allGuesses),
     cardCount: learnables.length
   }
+}
+
+export const mapConfidencePercentToRating = (confidencePercent: number): PracticeRating => {
+  if (confidencePercent === 100) return 'excellent'
+  if (confidencePercent >= 80) return 'good'
+  if (confidencePercent >= 50) return 'okay'
+  if (confidencePercent >= 20) return 'atleast'
+  return 'noteven'
 }
 
 export const removeDuplicates = (array: string[]): string[] => {

@@ -59,13 +59,6 @@ export const BankBaseSchema = z.object({
   name: z.string()
 })
 
-export const Guess = z.literal(['right', 'wrong', 'unanswered'])
-
-export const GuessableSchema = z.object({
-  id: z.string(),
-  guess: Guess
-})
-
 export const BankUserSchema = BankBaseSchema.extend({
   id: z.string(),
   createdAt: z.coerce.date(),
@@ -104,7 +97,7 @@ export const ObjectWithIdSchema = z.object({
 
 export const BankShareViaDBSchema = BankShareBaseSchema.extend({
   id: z.string(),
-  createdAt: z.coerce.date(),
+  createdAt: z.date(),
   expires: z.coerce.date().nullable(),
   isCommunityBank: z.boolean(),
   downloads: z.number()

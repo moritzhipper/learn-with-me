@@ -23,12 +23,14 @@
 }
 <app-page-wrapper icon="card">
   <app-page-header-comp
-    [title]="selectedCollection()?.name || 'All Cards'"
+    [title]="selectedCollection()?.name ?? `All Cards`"
     backLink="/"
     backLinkText="Home"
   >
-    <liz-confidence-stats [confidence]="headerConfig()" />
+    <liz-confidence-stats [confidence]="confidenceAgg()" />
+    <div class="flex"></div>
   </app-page-header-comp>
+
   @if (userHasCards()) {
     @if (collections().length !== 0) {
       <app-filter-comp

@@ -1,4 +1,4 @@
-import { LearnableCreationConfig } from 'projects/frontend/src/app/types/types'
+import { LearnableCreationConfig } from '../../../../types/types'
 
 const imageSourcePrompt = `
 ## Task: Image-Based Extraction

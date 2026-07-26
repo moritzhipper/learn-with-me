@@ -10,13 +10,13 @@ import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
+import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
-import { SharedBankComp } from './shared-collection-comp/shared-bank-comp'
 
 type PrefetchSectionProxy =
   | {
@@ -76,17 +76,17 @@ export class SharePageComp {
   private readonly prefetchSectionsConfig = computed<PrefetchSectionProxy[]>(() => [
     { title: 'You shared', type: 'user' },
     {
-      title: 'Popular for your active match',
+      title: 'Popular for your pair',
       params: { ...this.bankLanguage(), sortBy: 'new' },
       type: 'community'
     },
     {
-      title: 'New for your active match',
+      title: 'New for your pair',
       params: { ...this.bankLanguage(), sortBy: 'top' },
       type: 'community'
     },
-    { title: 'Popular on lingolizard', params: { sortBy: 'top' }, type: 'community' },
-    { title: 'New on lingolizard', params: { sortBy: 'new' }, type: 'community' }
+    { title: 'Popular', params: { sortBy: 'top' }, type: 'community' },
+    { title: 'New', params: { sortBy: 'new' }, type: 'community' }
   ])
 
   protected readonly previewBanks = signal<BanksPreviewSection[] | null>(null)

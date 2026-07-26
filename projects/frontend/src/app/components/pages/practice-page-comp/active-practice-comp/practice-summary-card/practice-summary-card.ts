@@ -1,8 +1,7 @@
 import { Component, computed, input } from '@angular/core'
+import { PracticeRating } from '../../../../../utils/genaral-utils'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
-import { PracticeRatingComp } from '../practice-rating-comp/practice-rating-comp'
-
-export type PracticeRating = 'noteven' | 'atleast' | 'okay' | 'good' | 'excellent'
+import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
 
 export type ActivePracticeSummary = {
   correctGuesses: number

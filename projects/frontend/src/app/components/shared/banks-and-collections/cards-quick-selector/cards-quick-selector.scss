@@ -1,0 +1,8 @@
+:host {
+  display: contents;
+}
+
+.all {
+  grid-template-rows: min-content min-content 1fr;
+  gap: var(--distance-2);
+}
