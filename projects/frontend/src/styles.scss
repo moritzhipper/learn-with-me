@@ -101,12 +101,11 @@ select {
 button,
 select {
   &.silent {
-    all: unset;
-    // border-radius: var(--radius-1);
-    // font-size: inherit;
-    // text-align: inherit;
-    // margin: 0;
-    // padding: 0;
+    border-radius: var(--radius-1);
+    font-size: inherit;
+    text-align: inherit;
+    margin: 0;
+    padding: 0;
   }
 }
 
