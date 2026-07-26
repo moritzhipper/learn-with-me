@@ -2,7 +2,13 @@
 
 ## Today
 
-- make overview filter comp and share page use small icons as page header
+- finish the language pair comp impl, remove stray styles
+- create shared collection comp showing cards
+  - make shard collection entries bey buttons too
+  - show on shared collection buttons with icons like on own collection
+  - create fast entry: if no collection and whatever set, allow direct import of bank as start
+    - somehow handle onboarding then
+
 - make collection be subpages on own overview and on shared page
 - allow import of single cards on collection with language match
 

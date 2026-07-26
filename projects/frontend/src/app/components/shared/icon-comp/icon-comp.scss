@@ -2,10 +2,9 @@
   display: grid;
   place-items: center;
 
+  flex: none;
   height: var(--dimension);
   width: var(--dimension);
-
-  flex: none;
 
   &.inline {
     display: inline-flex;

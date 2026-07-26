@@ -4,7 +4,6 @@
   text-align: inherit;
 
   display: grid;
-  gap: var(--distance-2) 0;
   padding: var(--distance-4);
 
   position: relative;
@@ -29,7 +28,7 @@
     rotate: 3deg;
   }
 
-  &.shared {
+  &.outline {
     &:after {
       box-sizing: border-box;
       border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
@@ -41,7 +40,7 @@
     }
   }
 
-  &:not(.shared) {
+  &:not(.outline) {
     &:before {
       background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
     }

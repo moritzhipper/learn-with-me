@@ -1,10 +1,6 @@
 <app-page-wrapper icon="compass">
   <app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
-    <div class="language">
-      <div class="ellipsis">{{ params().speaking || 'All languages' }}</div>
-      <app-icon-comp class="icon" type="left-right" [size]="20" />
-      <div class="ellipsis">{{ params().learning || 'All languages' }}</div>
-    </div>
+    <liz-language-match [languageConfig]="selectedPair()" />
   </app-page-header-comp>
 
   <div class="params-config">

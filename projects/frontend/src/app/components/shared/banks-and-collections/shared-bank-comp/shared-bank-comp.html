@@ -13,14 +13,6 @@
   }
 </div>
 
-<p class="info languages">
-  <span>
-    {{ bank().language.learning }}
-  </span>
-  <app-icon-comp type="left-right" [size]="16" />
-  <span> {{ bank().language.speaking }} </span>
-</p>
-
 @if (isCommunityBank()) {
   <p class="info">
     <span class="word-list-item">
@@ -34,6 +26,7 @@
     </span>
   </p>
 }
+<liz-language-match [languageConfig]="bank().language" class="info" />
 
 <p class="shared size-0 mt-auto">{{ bank().createdAt | date: 'mediumDate' }}</p>
 <p class="ttl size-0">{{ ttl().label }}</p>

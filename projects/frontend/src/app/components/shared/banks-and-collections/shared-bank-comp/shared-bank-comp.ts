@@ -3,6 +3,7 @@ import { Component, computed, input, OnDestroy, output, signal } from '@angular/
 import { BankShareViaDB } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
 import { IconComp } from '../../icon-comp/icon-comp'
+import { LanguageMatch } from '../../language-match/language-match'
 
 type Counter = {
   cards: string
@@ -13,11 +14,11 @@ type Counter = {
 
 @Component({
   selector: 'app-shared-bank-comp',
-  imports: [IconComp, DatePipe],
+  imports: [IconComp, DatePipe, LanguageMatch],
   templateUrl: './shared-bank-comp.html',
   styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   host: {
-    class: 'cards-stack-wrapper shared',
+    class: 'cards-stack-wrapper outline',
     '[class.small]': '!isCommunityBank()'
   }
 })

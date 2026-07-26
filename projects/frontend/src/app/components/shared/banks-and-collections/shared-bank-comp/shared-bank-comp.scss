@@ -1,6 +1,7 @@
 :host {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: min-content min-content 1fr;
+  gap: var(--distance-2) 0;
 
   .header {
     grid-column: span 2;
@@ -17,13 +18,7 @@
 
   .info {
     grid-column: span 2;
-
-    &.languages {
-      display: flex;
-      align-items: center;
-      align-self: start;
-      gap: var(--distance-1);
-    }
+    opacity: var(--opacity-1);
   }
 
   .copy {
