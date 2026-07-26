@@ -33,8 +33,8 @@
       label="Guess"
       formControlName="guessableField"
       [config]="[
-        { label: conf.languageConfig.speaking, value: 'lexeme' },
-        { label: conf.languageConfig.learning, value: 'translation' }
+        { value: 'translation', label: conf.languageConfig.speaking, icon: 'understand' },
+        { value: 'lexeme', label: conf.languageConfig.learning, icon: 'speaking' }
       ]"
     />
   </div>

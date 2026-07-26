@@ -27,8 +27,8 @@
   />
   <app-radio-comp
     [config]="[
-      { value: 'translation', label: bank().language.speaking },
-      { value: 'lexeme', label: bank().language.learning }
+      { value: 'translation', label: bank().language.speaking, icon: 'understand' },
+      { value: 'lexeme', label: bank().language.learning, icon: 'speaking' }
     ]"
     label="Guess"
     formControlName="guessableField"

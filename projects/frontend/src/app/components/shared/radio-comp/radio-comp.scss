@@ -17,6 +17,16 @@
   span {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-0);
+
+    app-icon-comp {
+      width: var(--font-size-1);
+      height: var(--font-size-1);
+      margin: -8px 0;
+    }
+
+    &:has(app-icon-comp) {
+      padding-left: var(--distance-4);
+    }
   }
 
   label {
