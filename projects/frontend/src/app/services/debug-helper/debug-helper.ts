@@ -48,7 +48,7 @@ export class DebugHelper {
     const bank =
       type === 'single'
         ? mapBankToExportable(userBank, { onlyForCollectionIds: [firstCollectionID] })
-        : mapBankToExportable(userBank)
+        : mapBankToExportable(userBank, { includeUserData: true })
 
     const activeBankLang: LanguageConfig = {
       speaking: 'German',
