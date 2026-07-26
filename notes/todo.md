@@ -2,9 +2,15 @@
 
 ## Today
 
-- finish the language pair comp impl, remove stray styles
-  - unsure it is as high as its containing text
-- use compass also on community
+- creat collection overview comp for user and shared
+- create cards overview page shwoing collection and unsorted cards
+- hlds router outlet for overview and collection page
+- coll comp user also shows 'practice' button
+- unsorted and all cards always visible
+- on collection page: collection cards and unsorted visible? but unsorted cards always below
+- be more strict in wich practice suggestions to show to not show collections as duplicate
+  - dont show > 80 % collections
+
 - create shared collection comp showing cards
   - make shard collection entries bey buttons too
   - show on shared collection buttons with icons like on own collection

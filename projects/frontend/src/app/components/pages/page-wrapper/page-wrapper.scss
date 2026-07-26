@@ -7,6 +7,9 @@
   max-height: var(--app-height);
   scroll-timeline: --main-timeline;
 
+  // use 'none' if this doesnt fix it
+  overscroll-behavior-y: contain;
+
   .content {
     width: 100%;
     min-width: 0;

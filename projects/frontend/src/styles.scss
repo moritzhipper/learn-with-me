@@ -29,6 +29,11 @@ select {
   line-height: var(--line-height-1);
 }
 
+// disable square opaque highlight when elemnts on mobile hold touch focus
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 button {
   transition-property:
     background-color, opacity, outline, color, box-shadow, padding, rotate, border;
