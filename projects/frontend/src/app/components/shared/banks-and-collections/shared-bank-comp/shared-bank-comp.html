@@ -13,7 +13,7 @@
   }
 </div>
 
-<p class="info languages size-0">
+<p class="info languages">
   <span>
     {{ bank().language.learning }}
   </span>
@@ -21,5 +21,16 @@
   <span> {{ bank().language.speaking }} </span>
 </p>
 
-<p class="shared size-0">{{ bank().createdAt | date: 'mediumDate' }}</p>
+@if (isCommunityBank()) {
+  <p class="info">
+    <span class="word-list-item">
+      {{ counter().collections }}
+    </span>
+    <span class="word-list-item">
+      {{ counter().cards }}
+    </span>
+  </p>
+}
+
+<p class="shared size-0 mt-auto">{{ bank().createdAt | date: 'mediumDate' }}</p>
 <p class="ttl size-0">{{ ttl().label }}</p>

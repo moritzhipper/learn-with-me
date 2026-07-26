@@ -9,10 +9,6 @@
 .user-shares {
   display: flex;
   flex-direction: row;
-  max-width: 100%;
-  app-shared-bank-comp {
-    flex: 0 0 300px;
-  }
 }
 
 a.see-more {

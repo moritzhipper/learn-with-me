@@ -1,6 +1,6 @@
 :host {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content min-content 1fr;
 
   .header {
     grid-column: span 2;
@@ -44,8 +44,10 @@
   .ttl {
     place-self: end;
   }
-
-  &.community {
-    height: 200px;
+  .count-wrapper {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }

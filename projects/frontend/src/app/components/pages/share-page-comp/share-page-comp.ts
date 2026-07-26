@@ -76,17 +76,17 @@ export class SharePageComp {
   private readonly prefetchSectionsConfig = computed<PrefetchSectionProxy[]>(() => [
     { title: 'You shared', type: 'user' },
     {
-      title: 'Popular for your active match',
+      title: 'Popular for your pair',
       params: { ...this.bankLanguage(), sortBy: 'new' },
       type: 'community'
     },
     {
-      title: 'New for your active match',
+      title: 'New for your pair',
       params: { ...this.bankLanguage(), sortBy: 'top' },
       type: 'community'
     },
-    { title: 'Popular on lingolizard', params: { sortBy: 'top' }, type: 'community' },
-    { title: 'New on lingolizard', params: { sortBy: 'new' }, type: 'community' }
+    { title: 'Popular', params: { sortBy: 'top' }, type: 'community' },
+    { title: 'New', params: { sortBy: 'new' }, type: 'community' }
   ])
 
   protected readonly previewBanks = signal<BanksPreviewSection[] | null>(null)

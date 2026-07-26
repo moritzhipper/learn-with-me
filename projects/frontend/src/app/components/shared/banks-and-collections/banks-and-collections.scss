@@ -8,17 +8,15 @@
   padding: var(--distance-4);
 
   position: relative;
-  box-sizing: border-box;
+  border-radius: var(--radius-2);
 
   &:after,
   &:before {
-    border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
     position: absolute;
     content: '';
     height: 100%;
     width: 100%;
     border-radius: var(--radius-2);
-    box-sizing: border-box;
     background-color: var(--col-bg);
     z-index: -1;
   }
@@ -29,5 +27,30 @@
     top: calc(-1 * var(--distance-2));
     left: var(--distance-2);
     rotate: 3deg;
+  }
+
+  &.shared {
+    &:after {
+      box-sizing: border-box;
+      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    }
+    &:before {
+      background-color: var(--col-bg);
+      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+      box-sizing: border-box;
+    }
+  }
+
+  &:not(.shared) {
+    &:before {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
+    }
+    &:after {
+      background-color: var(--col-accent);
+    }
+  }
+
+  &:not(.small) {
+    height: 200px;
   }
 }

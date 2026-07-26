@@ -5,7 +5,7 @@ import { pluralize } from '../../../../utils/genaral-utils'
 import { IconComp } from '../../icon-comp/icon-comp'
 
 type Counter = {
-  cards: number
+  cards: string
   words: string
   phrases: string
   collections: string
@@ -17,8 +17,8 @@ type Counter = {
   templateUrl: './shared-bank-comp.html',
   styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   host: {
-    '[class.community]': 'isCommunityBank()',
-    class: 'cards-stack-wrapper'
+    class: 'cards-stack-wrapper shared',
+    '[class.small]': '!isCommunityBank()'
   }
 })
 export class SharedBankComp implements OnDestroy {
@@ -40,7 +40,7 @@ export class SharedBankComp implements OnDestroy {
     const { collections, learnables } = this.bank()
 
     return {
-      cards: learnables.length,
+      cards: pluralize(learnables.length, 'card'),
       words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
       phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
       collections: pluralize(collections.length, 'collection')
