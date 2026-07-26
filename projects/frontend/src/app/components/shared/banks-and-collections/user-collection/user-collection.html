@@ -1,6 +1,4 @@
 <h3>{{ collection().name }}</h3>
 <liz-confidence-stats [confidence]="confidence()" />
 <p class="size-0 light mt-auto">{{ collection().createdAt | date: 'mediumDate' }}</p>
-<div class="rating-wrapper">
-  <app-practice-rating-comp [confidence]="confidence().all" />
-</div>
+<app-practice-rating-comp [confidence]="confidence().all" />

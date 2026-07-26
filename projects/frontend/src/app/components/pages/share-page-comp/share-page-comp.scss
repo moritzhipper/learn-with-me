@@ -13,7 +13,7 @@
 
 a.see-more {
   display: grid;
-  border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+  border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
   border-radius: var(--radius-2);
   background-color: var(--col-bg);
   place-items: center;
@@ -34,7 +34,7 @@ a.see-more {
   app-icon-comp {
     position: absolute;
     right: -35%;
-    color: var(--col-text);
+    color: var(--col-accent);
     width: auto;
     height: 250%;
     aspect-ratio: 1 / 1;

@@ -2,10 +2,10 @@
   grid-template: min-content min-content / 1fr;
   gap: var(--distance-2) 0;
 }
-.rating-wrapper {
-  color: var(--col-bg);
-  display: grid;
+
+app-practice-rating-comp {
   position: absolute;
+  color: var(--col-bg);
   top: 0;
   right: 0;
   height: 100%;
