@@ -22,7 +22,7 @@ jobs:
       #   run: |
       #     npm test
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci -f # remove as soon as ngrx is officially angular 22 compatible
       - name: Build Frontend
         run: npm run build:fe:prod
       - name: Build Backend
