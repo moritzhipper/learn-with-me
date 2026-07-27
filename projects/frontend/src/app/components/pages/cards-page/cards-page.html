@@ -1,0 +1,16 @@
+<app-page-wrapper icon="card">
+  <app-page-header-comp title="Cards" backLink="/" backLinkText="Home" />
+  <div class="content">
+    <div class="collections">
+      @for (coll of collectionsWithConfidence(); track coll.collection.id) {
+        <a
+          liz-user-collection
+          class="caroussel-item"
+          [collection]="coll.collection"
+          [confidence]="coll.confidence"
+          [routerLink]="['/cards', coll.collection.id]"
+        ></a>
+      }
+    </div>
+  </div>
+</app-page-wrapper>

@@ -1,0 +1,44 @@
+<app-page-wrapper icon="card">
+  <app-page-header-comp
+    [title]="collection()?.name || 'Not found'"
+    backLink="/cards"
+    backLinkText="Cards"
+  >
+    <div class="sub-title">
+      <liz-confidence-stats [confidence]="confidence()" />
+      <app-practice-rating-comp [confidence]="confidence().all" />
+    </div>
+  </app-page-header-comp>
+  <div class="content">
+    <div class="action-buttons full-width-scroll">
+      <button class="silent action" (click)="practice()">
+        Practice
+        <app-icon-comp type="learn" class="icon" />
+      </button>
+      <button class="silent action" (click)="share()">
+        Share
+
+        <app-icon-comp type="share-network" class="icon" />
+      </button>
+      <button class="silent action" (click)="renameCollection()">
+        Edit
+
+        <app-icon-comp type="edit" class="icon" />
+      </button>
+      <button class="silent action" (click)="export()">
+        Download
+
+        <app-icon-comp type="share" class="icon" />
+      </button>
+      <button class="silent remove" (click)="deleteCollection()">
+        Remove
+        <app-icon-comp type="trash" class="icon" />
+      </button>
+    </div>
+    <div class="cards">
+      @for (card of cards(); track card.id) {
+        <app-learnable-comp [learnable]="card" />
+      }
+    </div>
+  </div>
+</app-page-wrapper>

@@ -1,0 +1,41 @@
+.sub-title {
+  display: grid;
+  position: relative;
+  width: auto;
+  app-practice-rating-comp {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    translate: 0px 50px;
+    place-self: center;
+    opacity: var(--opacity-0);
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--distance-4);
+
+  button {
+    align-items: center;
+    display: flex;
+    gap: var(--distance-3);
+    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-5);
+    border-radius: var(--radius-2);
+    font-size: var(--font-size-1);
+    line-height: var(--line-height-1);
+
+    &.action {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    }
+    &.remove {
+      background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
+    }
+  }
+}
+.cards {
+  display: grid;
+  grid-template-columns: var(--grid-auto-columns);
+  gap: var(--distance-4);
+  padding-top: var(--distance-4);
+}
