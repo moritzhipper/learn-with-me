@@ -4,12 +4,16 @@
 
 - creat collection overview comp for user and shared
 - create cards overview page shwoing collection and unsorted cards
-- hlds router outlet for overview and collection page
 - coll comp user also shows 'practice' button
 - unsorted and all cards always visible
 - on collection page: collection cards and unsorted visible? but unsorted cards always below
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
+- merge practice quick actions and user collection page start practice function
+- remove old cards page
+
+- add route param to input sync
+  - use on user collection and shared pages
 
 - create shared collection comp showing cards
   - make shard collection entries bey buttons too

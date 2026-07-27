@@ -10,7 +10,8 @@ textarea {
   color: var(--col-text);
 }
 
-p {
+p,
+.text {
   font-size: var(--font-size-1);
   line-height: var(--line-height-1);
   margin: 0;

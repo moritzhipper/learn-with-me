@@ -34,9 +34,7 @@ export type ConfidenceAggregate = {
   cardCount: number
 }
 
-export const calculateAverageConfidencePercent = (
-  learnables: UserLearnable[]
-): ConfidenceAggregate => {
+export const aggregateConfidence = (learnables: UserLearnable[]): ConfidenceAggregate => {
   const allTranslationGuesses = learnables.flatMap((l) => l.guesses.translation)
   const allLexemeGuesses = learnables.flatMap((l) => l.guesses.lexeme)
   const allGuesses = [...allTranslationGuesses, ...allLexemeGuesses]

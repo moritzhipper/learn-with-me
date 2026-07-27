@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router'
+import { CardsPage } from './components/pages/cards-page/cards-page'
+import { UserCollectionPage } from './components/pages/cards-page/user-collection-page/user-collection-page'
 import { DashboardPage } from './components/pages/dashboard-page/dashboard-page'
 import { OverviewComp } from './components/pages/overview-page-comp/overview-page-comp'
 import { PracticeComp } from './components/pages/practice-page-comp/practice-page-comp'
@@ -13,8 +15,17 @@ export const routes: Routes = [
   },
   {
     component: OverviewComp,
+    path: 'cardsold',
+    title: 'LingoLizard | Cards'
+  },
+  {
+    component: CardsPage,
     path: 'cards',
     title: 'LingoLizard | Cards'
+  },
+  {
+    path: 'cards/:id',
+    component: UserCollectionPage
   },
   {
     component: PracticeComp,

@@ -4,7 +4,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { LearnablesFilterConfig } from '../../../../types/types'
-import { calculateAverageConfidencePercent } from '../../../../utils/genaral-utils'
+import { aggregateConfidence } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
 import { ConfidenceDots } from '../../../shared/confidence/confidence-dots/confidence-dots'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
@@ -59,7 +59,7 @@ export class ConfigurePracticeComp {
     return filteredLearnables.filter((l) => collection.cardIds.includes(l.id))
   })
 
-  confidence = computed(() => calculateAverageConfidencePercent(this.selectedLearnables()))
+  confidence = computed(() => aggregateConfidence(this.selectedLearnables()))
 
   start() {
     const iDs = this.selectedLearnables().map((l) => l.id)
@@ -76,13 +76,13 @@ export class ConfigurePracticeComp {
 
     const allOption: SelectOption = {
       label: 'All Cards',
-      confidence: calculateAverageConfidencePercent(learnables).all,
+      confidence: aggregateConfidence(learnables).all,
       id: null
     }
 
     const collectionOptions: SelectOption[] = collections.map((c) => {
       const cards = learnables.filter((l) => c.cardIds.includes(l.id))
-      const confidence = calculateAverageConfidencePercent(cards).all
+      const confidence = aggregateConfidence(cards).all
 
       return { label: c.name, id: c.id, confidence }
     })

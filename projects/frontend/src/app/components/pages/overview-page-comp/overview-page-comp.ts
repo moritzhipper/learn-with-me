@@ -6,10 +6,7 @@ import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
-import {
-  calculateAverageConfidencePercent,
-  ConfidenceAggregate
-} from '../../../utils/genaral-utils'
+import { aggregateConfidence, ConfidenceAggregate } from '../../../utils/genaral-utils'
 import { filterLearnables } from '../../../utils/learnables-filter'
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
@@ -106,7 +103,7 @@ export class OverviewComp {
   )
 
   readonly confidenceAgg = computed<ConfidenceAggregate>(() =>
-    calculateAverageConfidencePercent(this._collectionLearnables())
+    aggregateConfidence(this._collectionLearnables())
   )
 
   async handleFilterAction(action: FilterAction) {
