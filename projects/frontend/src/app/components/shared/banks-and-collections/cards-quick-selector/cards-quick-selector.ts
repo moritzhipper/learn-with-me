@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence, ConfidenceAggregate } from '../../../../utils/genaral-utils'
@@ -21,7 +21,7 @@ type CollectionSummary = Collection & {
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [ConfidenceStats, UserCollection],
+  imports: [ConfidenceStats, UserCollection, RouterLink],
   templateUrl: './cards-quick-selector.html',
   styleUrls: ['./cards-quick-selector.scss', '../banks-and-collections.scss']
 })

@@ -2,6 +2,8 @@
 
 ## Today
 
+- align cards quick selector and cards overview
+
 - creat collection overview comp for user and shared
 - create cards overview page shwoing collection and unsorted cards
 - coll comp user also shows 'practice' button

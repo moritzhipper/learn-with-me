@@ -4,8 +4,8 @@ import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { aggregateConfidence, ConfidenceAggregate } from '../../../utils/genaral-utils'
 import { UserCollection } from '../../shared/banks-and-collections/user-collection/user-collection'
+import { ConfidenceStats } from '../../shared/confidence/confidence-stats/confidence-stats'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
-import { LearnableComp } from '../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 
 type CollectionWithConfidence = {
@@ -15,14 +15,14 @@ type CollectionWithConfidence = {
 
 @Component({
   selector: 'liz-cards-page',
-  imports: [PageWrapper, PageHeaderComp, UserCollection, RouterLink, LearnableComp],
+  imports: [PageWrapper, PageHeaderComp, UserCollection, RouterLink, ConfidenceStats],
   templateUrl: './cards-page.html',
   styleUrl: './cards-page.scss'
 })
 export class CardsPage {
   private readonly ls = inject(LearnablesStore)
 
-  collectionsWithConfidence = computed<CollectionWithConfidence[]>(() => {
+  protected collectionsWithConfidence = computed<CollectionWithConfidence[]>(() => {
     const collections = this.ls.collections()
     const allCards = this.ls.learnables()
 
@@ -31,5 +31,19 @@ export class CardsPage {
       const confidence = aggregateConfidence(cardsInCollection)
       return { collection, confidence }
     })
+  })
+
+  protected allCardsWithConfidence = computed(() => {
+    const confidence = aggregateConfidence(this.ls.learnables())
+    const collectionLessCount = this.ls
+      .learnables()
+      .filter(
+        (card) => !this.ls.collections().some((collection) => collection.cardIds.includes(card.id))
+      ).length
+
+    return {
+      confidence,
+      collectionLessCount
+    }
   })
 }

@@ -11,38 +11,36 @@
   </app-page-header-comp>
   <div class="content">
     <div class="action-buttons full-width-scroll">
-      <button class="silent action" (click)="practice()">
+      <button class="action" (click)="practice()">
         Practice
         <app-icon-comp type="learn" class="icon" />
       </button>
 
       @if (collection(); as coll) {
-        <button class="silent action" (click)="share()">
+        <button class="action" (click)="share()">
           Share
           <app-icon-comp type="share-network" class="icon" />
         </button>
 
-        <button class="silent action" (click)="renameCollection(coll)">
+        <button class="action" (click)="renameCollection(coll)">
           Edit
           <app-icon-comp type="edit" class="icon" />
         </button>
-        <button class="silent action" (click)="export(coll.id)">
+        <button class="action" (click)="export(coll.id)">
           Download
           <app-icon-comp type="share" class="icon" />
         </button>
-        <button class="silent remove" (click)="deleteCollection(coll)">
+        <button class="remove ml-auto" (click)="deleteCollection(coll)">
           Remove
           <app-icon-comp type="trash" class="icon" />
         </button>
       }
     </div>
-    <div class="cards pt-4">
+    <div class="cards">
       @for (card of sortedCards(); track card.id) {
         <app-learnable-comp [learnable]="card" />
       }
     </div>
-    <!-- only show unsorted header if ther are sorted cards -->
-
     @if (unsortedCards().length > 0) {
       <h2 class="indent">Unsorted Cards</h2>
       <div class="cards">

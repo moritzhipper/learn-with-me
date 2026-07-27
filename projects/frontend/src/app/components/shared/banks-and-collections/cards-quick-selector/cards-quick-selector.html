@@ -1,14 +1,14 @@
 @for (sum of summaries(); track $index) {
   @if (sum.type === 'collection') {
-    <button
-      class="caroussel-item"
+    <a
       liz-user-collection
+      class="caroussel-item"
       [collection]="sum"
       [confidence]="sum.averageConfidence"
-      (click)="openLink(sum.id)"
-    ></button>
+      [routerLink]="['/cards', sum.id]"
+    ></a>
   } @else {
-    <button class="cards-stack-wrapper caroussel-item all" (click)="openLink()">
+    <a class="cards-stack-wrapper caroussel-item all" [routerLink]="['/cards', 'all']">
       <h3>All Cards</h3>
       <liz-confidence-stats [confidence]="sum.averageConfidence" />
 
@@ -19,6 +19,6 @@
           </span>
         }
       </p>
-    </button>
+    </a>
   }
 }

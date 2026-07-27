@@ -35,6 +35,7 @@
 }
 
 .cards {
+  padding-top: var(--distance-4);
   display: grid;
   grid-template-columns: var(--grid-auto-columns);
   gap: var(--distance-4);
