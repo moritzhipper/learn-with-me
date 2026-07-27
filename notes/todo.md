@@ -12,6 +12,12 @@
 - merge practice quick actions and user collection page start practice function
 - remove old cards page
 
+- cards page
+  - when no collection, just show all cards
+  - when collection, show collection and unsorted
+  - collection page
+    - show collection cards, below unsorted cards
+
 - add route param to input sync
   - use on user collection and shared pages
 

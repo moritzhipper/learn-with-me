@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Collection } from '@shared/types'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
@@ -45,62 +46,63 @@ export class UserCollectionPage {
     this.shareBanksS.shareBank(this.ls.activeBank(), [collection.id])
   }
 
-  export() {
-    const collection = this.collection()
-    if (!collection) return
-
-    this.shareBanksS.exportBank(this.ls.activeBank(), { onlyForCollectionIds: [collection.id] })
+  export(id: string) {
+    this.shareBanksS.exportBank(this.ls.activeBank(), { onlyForCollectionIds: [id] })
   }
 
-  protected confidence = computed(() => aggregateConfidence(this.cards()))
+  protected confidence = computed(() => {
+    if (this.collection()) return aggregateConfidence(this.sortedCards())
+
+    return aggregateConfidence(this.ls.learnables())
+  })
 
   protected collection = computed(() => {
     const collectionId = this.activatedRoute.snapshot.paramMap.get('id')
     return this.ls.collections().find((c) => c.id === collectionId)
   })
 
-  protected cards = computed(() => {
+  protected sortedCards = computed(() => {
     const collection = this.collection()
-    return collection
-      ? this.ls.learnables().filter((card) => collection.cardIds.includes(card.id))
-      : []
+    const cards = this.ls.learnables()
+    if (collection) {
+      return cards.filter((card) => collection.cardIds.includes(card.id))
+    }
+    const collections = this.ls.collections()
+    return cards.filter((card) => collections.some((c) => !c.cardIds.includes(card.id)))
   })
 
-  async renameCollection(): Promise<void> {
-    const collection = this.collection()
-    if (!collection) return
+  protected unsortedCards = computed(() => {
+    const collectionIds = this.ls.collections().flatMap((c) => c.cardIds)
+    return this.ls.learnables().filter((c) => !collectionIds.includes(c.id))
+  })
+
+  async renameCollection(coll: Collection): Promise<void> {
     const result = await this.modalService.open<string>('collection-rename', {
-      name: collection.name
+      name: coll.name
     })
 
     if (result.type !== 'confirm') return
 
     this.ls.updateCollection({
-      id: collection.id,
+      id: coll.id,
       name: result.value
     })
     this.toastService.showToast(`Collection renamed to ${result.value}.`)
   }
 
-  async deleteCollection(): Promise<void> {
-    const collection = this.collection()
-    if (!collection) return
-
+  async deleteCollection(coll: Collection): Promise<void> {
     const result = await this.modalService.open<ConfirmCollectionDeletionType>('collection-delete')
 
     if (result.type !== 'confirm') return
 
-    if (result.value.deletionType === 'remove') this.ls.deleteCards(collection.cardIds)
-    this.ls.deleteCollection(collection.id)
+    if (result.value.deletionType === 'remove') this.ls.deleteCards(coll.cardIds)
+    this.ls.deleteCollection(coll.id)
 
-    this.toastService.showToast(`Collection ${collection.name} deleted.`)
+    this.toastService.showToast(`Collection ${coll.name} deleted.`)
   }
 
   async practice() {
     const confidence = this.confidence()
-    const collection = this.collection()
-
-    if (!confidence || !collection) return
 
     const hasActivePractice = !!this.ls.activeBank().practice.active
 
@@ -125,14 +127,22 @@ export class UserCollectionPage {
 
     const guessableField = resetAndDirectionConfirmChoice.value.guessableField
 
-    // Start new with action config, then redirect
-    // Just redirect, when customize or continue selected
-    this.ls.startPractice({
-      type: 'collection',
-      collectionId: collection.id,
-      learnableIDs: collection.cardIds,
-      guessableField
-    })
+    const collection = this.collection()
+    if (collection) {
+      this.ls.startPractice({
+        type: 'collection',
+        collectionId: collection.id,
+        learnableIDs: collection.cardIds,
+        guessableField
+      })
+    } else {
+      const learnableIDs = this.ls.learnables().map((c) => c.id)
+      this.ls.startPractice({
+        type: 'custom',
+        learnableIDs,
+        guessableField
+      })
+    }
 
     this.router.navigate(['/practice'])
   }

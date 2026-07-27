@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core'
+import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareConfig, BankUser } from '@shared/types'
 import { AnimDelay } from '../../../../services/anim-delay'
@@ -19,4 +19,9 @@ export class ShareFormComp extends BaseModalDirective {
   })
 
   bank = input.required<BankUser>()
+
+  title = computed(() => {
+    const bank = this.bank()
+    return bank.collections.length === 1 ? bank.collections[0].name : bank.name
+  })
 }
