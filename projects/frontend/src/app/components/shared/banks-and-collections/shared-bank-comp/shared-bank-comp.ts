@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
+import { RouterLink } from '@angular/router'
 import { BankShareViaDB } from '@shared/types'
 import { pluralize } from '../../../../utils/genaral-utils'
-import { IconComp } from '../../icon-comp/icon-comp'
 import { LanguageMatch } from '../../language-match/language-match'
 
 type Counter = {
@@ -13,10 +13,11 @@ type Counter = {
 }
 
 @Component({
-  selector: 'app-shared-bank-comp',
-  imports: [IconComp, DatePipe, LanguageMatch],
+  selector: 'a[app-shared-bank-comp]',
+  imports: [DatePipe, LanguageMatch],
   templateUrl: './shared-bank-comp.html',
   styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
+  hostDirectives: [RouterLink],
   host: {
     class: 'cards-stack-wrapper outline',
     '[class.small]': '!isCommunityBank()'
@@ -48,6 +49,7 @@ export class SharedBankComp implements OnDestroy {
     }
   })
 
+  // user browser relative time
   protected readonly ttl = computed(() => {
     const expiry = this.bank().expires
 

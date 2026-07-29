@@ -22,14 +22,15 @@
 
   <div class="banks">
     @for (bank of visibleBanks(); track bank.id) {
-      <app-shared-bank-comp
+      <a
+        app-shared-bank-comp
         class="fly-in-y-wide"
         [bank]="bank"
         [isCommunityBank]="true"
         [animDelay]="{ i: $index, list: visibleBanks() }"
         (copyId)="copyBankId(bank)"
         (importBank)="importBank(bank)"
-      />
+      ></a>
     }
   </div>
 

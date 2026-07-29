@@ -24,11 +24,12 @@
           @if (sharedBanks.hasValue()) {
             @if (sharedBanks.value().length > 0) {
               @for (bank of sharedBanks.value(); track bank.id) {
-                <app-shared-bank-comp
+                <a
+                  app-shared-bank-comp
                   class="caroussel-item"
                   [bank]="bank"
                   [isCommunityBank]="true"
-                />
+                ></a>
               }
             } @else {
               <liz-info-card title="No shared banks available">

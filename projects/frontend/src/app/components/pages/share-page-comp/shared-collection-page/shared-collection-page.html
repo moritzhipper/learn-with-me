@@ -1,0 +1,34 @@
+@if (collection.hasValue()) {
+  @let coll = collection.value();
+  <app-page-wrapper icon="share-network-fill">
+    <app-page-header-comp [title]="coll.name" backLink="/community" backLinkText="Community">
+      <p>
+        <span class="word-list-item">Expires then</span>
+        <span class="word-list-item">{{ coll.downloads }} downloads</span>
+      </p>
+      <liz-language-match [languageConfig]="coll.language" />
+    </app-page-header-comp>
+
+    <div class="content">
+      <div class="full-width-scroll action-buttons">
+        <button (click)="import(coll)">
+          Import
+          <app-icon-comp type="add-fill" class="icon" />
+        </button>
+        <button (click)="copyLink(coll)">
+          Copy link
+          <app-icon-comp type="copy" class="icon" />
+        </button>
+        <button>
+          Download
+          <app-icon-comp type="share" class="icon" />
+        </button>
+      </div>
+      <div class="cards">
+        @for (card of collection.value().learnables; track card.id) {
+          <button app-learnable-comp [learnable]="card"></button>
+        }
+      </div>
+    </div>
+  </app-page-wrapper>
+}

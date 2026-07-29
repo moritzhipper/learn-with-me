@@ -8,5 +8,5 @@ export const hasCardsGuard: CanActivateFn & CanActivateChildFn = (route, state) 
   const hasCards = ls.learnables().length > 0
   if (hasCards) return true
 
-  return router.parseUrl('/cards')
+  return router.parseUrl('')
 }

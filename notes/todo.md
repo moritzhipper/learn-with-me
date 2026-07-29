@@ -2,6 +2,8 @@
 
 ## Today
 
+- move is expired to outside of comp.
+
 - add empty states back
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
@@ -19,6 +21,7 @@
   - when collection, show collection and unsorted
   - collection page
     - show collection cards, below unsorted cards
+  - merge action button styles on collection pages (shared, user)
 
 - add route param to input sync
   - use on user collection and shared pages
@@ -41,6 +44,9 @@
 count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
+- migrate rest of app to the router inputs
+- create quickstart, when user is new but came from link
+- increase imports in db on download and import
 
 ## Modal Forms
 

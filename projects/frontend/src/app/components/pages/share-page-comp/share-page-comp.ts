@@ -44,7 +44,8 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     HeaderLink,
     AnimDelay,
     PageWrapper,
-    InfoCard
+    InfoCard,
+    RouterLink
   ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss'

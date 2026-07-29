@@ -1,17 +1,7 @@
-<div class="header">
-  <div class="name">{{ bank().name }}</div>
-  @if (!ttl().isExpired) {
-    <button class="silent copy" (click)="copyId.emit()">
-      <app-icon-comp type="copy" />
-    </button>
-
-    @if (isCommunityBank()) {
-      <button class="silent import" (click)="importBank.emit()">
-        <app-icon-comp type="add" />
-      </button>
-    }
-  }
-</div>
+<h3>
+  {{ bank().name }}
+</h3>
+<p class="light ml-auto">{{ ttl().label }}</p>
 
 @if (isCommunityBank()) {
   <p class="info">
@@ -29,4 +19,4 @@
 <liz-language-match [languageConfig]="bank().language" class="info" />
 
 <p class="shared size-0 mt-auto">{{ bank().createdAt | date: 'mediumDate' }}</p>
-<p class="ttl size-0">{{ ttl().label }}</p>
+<p class="size-0 light ml-auto">100000 downloads</p>

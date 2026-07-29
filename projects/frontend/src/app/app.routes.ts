@@ -13,17 +13,20 @@ export const routes: Routes = [
     component: DashboardPage,
     title: 'LingoLizard | Dashboard'
   },
-
   {
-    component: CardsPage,
     path: 'cards',
     title: 'LingoLizard | Cards',
-    canActivate: [hasCardsGuard]
-  },
-  {
-    path: 'cards/:id',
-    component: UserCollectionPage,
-    canActivate: [hasCardsGuard]
+    canActivate: [hasCardsGuard],
+    children: [
+      {
+        component: CardsPage,
+        path: ''
+      },
+      {
+        path: ':id',
+        component: UserCollectionPage
+      }
+    ]
   },
   {
     component: PracticeComp,
@@ -68,6 +71,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/pages/share-page-comp/explore-page-comp/explore-page-comp').then(
             (m) => m.ExplorePageComp
+          )
+      },
+      {
+        path: 'bank/:id',
+        loadComponent: () =>
+          import('./components/pages/share-page-comp/shared-collection-page/shared-collection-page').then(
+            (m) => m.SharedCollectionPage
           )
       }
     ]
