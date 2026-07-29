@@ -3,13 +3,12 @@
 .sub-title {
   display: grid;
   position: relative;
-
+  width: fit-content;
   app-practice-rating-comp {
     position: absolute;
 
     place-self: center;
     opacity: var(--opacity-1);
-    animation: popin 1s var(--duration-0) var(--overshot) both;
   }
 }
 
@@ -52,6 +51,7 @@
       height: 70px;
       translate: 0px 50px;
       place-self: center;
+      animation: popin 1s var(--duration-0) var(--overshot) both;
     }
   }
 }
@@ -60,7 +60,7 @@
   app-practice-rating-comp {
     width: 70px;
     height: 70px;
-    translate: 40px;
+    translate: 120px;
   }
 }
 

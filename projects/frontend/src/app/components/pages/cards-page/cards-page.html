@@ -2,27 +2,7 @@
   <app-page-header-comp title="Cards" backLink="/" backLinkText="Home" />
   <div class="content">
     <div class="collections">
-      @for (coll of collectionsWithConfidence(); track coll.collection.id) {
-        <a
-          liz-user-collection
-          class="caroussel-item"
-          [collection]="coll.collection"
-          [confidence]="coll.confidence"
-          [routerLink]="['/cards', coll.collection.id]"
-        ></a>
-      }
-      <a class="cards-stack-wrapper caroussel-item all" [routerLink]="['/cards', 'all']">
-        @let sum = allCardsWithConfidence();
-        <h3>All Cards</h3>
-        <liz-confidence-stats [confidence]="sum.confidence" />
-        @if (sum.collectionLessCount > 0) {
-          <p class="mt-auto">
-            <span class="word-list-item">
-              <strong> {{ sum.collectionLessCount }} </strong> loose cards
-            </span>
-          </p>
-        }
-      </a>
+      <app-cards-quick-selector />
     </div>
   </div>
 </app-page-wrapper>

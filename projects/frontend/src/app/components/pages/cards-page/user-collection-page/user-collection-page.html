@@ -44,7 +44,7 @@
       </div>
     }
     @if (unsortedCards().length > 0) {
-      <h2 class="indent">Unsorted Cards</h2>
+      <h2 class="indent">Loose Cards</h2>
       <div class="cards">
         @for (card of unsortedCards(); track card.id) {
           <app-learnable-comp [learnable]="card" />
