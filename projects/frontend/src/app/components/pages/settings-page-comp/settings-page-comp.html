@@ -38,28 +38,31 @@
       </p>
       <button class="primary big delete input" (click)="reset()">Reset all data</button>
     </app-settings-item-comp>
+    @if (isProduction === false) {
+      <app-settings-item-comp header="Debug">
+        <p class="description">For development purposes only.</p>
+        <div class="input debug">
+          <button class="primary small" (click)="triggerImportBankForm('single')">
+            Trigger single bank import
+          </button>
+          <button class="primary small" (click)="triggerImportBankForm('multiple')">
+            Trigger multi bank import
+          </button>
+          <button class="primary small" (click)="triggerImportBankForm('multiple', 'invert-match')">
+            Trigger invert match import
+          </button>
+          <button class="primary small" (click)="triggerImportBankForm('multiple', 'no-match')">
+            Trigger non match import
+          </button>
+          <button class="primary small" (click)="triggerImportBankForm('multiple', 'match')">
+            Trigger match import
+          </button>
 
-    <app-settings-item-comp header="Debug">
-      <p class="description">For development purposes only.</p>
-      <div class="input debug">
-        <button class="primary small" (click)="triggerImportBankForm('single')">
-          Trigger single bank import
-        </button>
-        <button class="primary small" (click)="triggerImportBankForm('multiple')">
-          Trigger multi bank import
-        </button>
-        <button class="primary small" (click)="triggerImportBankForm('multiple', 'invert-match')">
-          Trigger invert match import
-        </button>
-        <button class="primary small" (click)="triggerImportBankForm('multiple', 'no-match')">
-          Trigger non match import
-        </button>
-        <button class="primary small" (click)="triggerImportBankForm('multiple', 'match')">
-          Trigger match import
-        </button>
-
-        <button class="primary small" (click)="triggerExportBankForm()">Trigger export bank</button>
-      </div>
-    </app-settings-item-comp>
+          <button class="primary small" (click)="triggerExportBankForm()">
+            Trigger export bank
+          </button>
+        </div>
+      </app-settings-item-comp>
+    }
   </div>
 </app-page-wrapper>

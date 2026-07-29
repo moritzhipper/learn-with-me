@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BankBase, BankUser } from '@shared/types'
+import { environment } from '../../../../environments/environment'
 import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -35,6 +36,8 @@ export class SettingsComp {
   private readonly _toastS = inject(ToastService)
   private readonly _sharedBankS = inject(ShareBanksService)
   private readonly debugHelper = inject(DebugHelper)
+
+  protected isProduction = environment.isProd
 
   protected tokensUsed = this._settingsS.tokensUsed
   protected apiKey = this._settingsS.apiKey

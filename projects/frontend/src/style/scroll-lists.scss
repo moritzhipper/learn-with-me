@@ -29,7 +29,7 @@
 
   @include isDesktop {
     gap: var(--distance-6);
-    grid-auto-columns: 350px;
+    grid-auto-columns: 380px;
     scrollbar-width: thin;
     mask-image: linear-gradient(
       to right,
