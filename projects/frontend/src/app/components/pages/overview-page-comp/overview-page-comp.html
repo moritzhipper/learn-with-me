@@ -46,11 +46,12 @@
     } @else {
       <div class="learnables">
         @for (learnable of visibleLearnables(); track learnable.id) {
-          <app-learnable-comp
+          <button
+            app-learnable-comp
             [learnable]="learnable"
             [isSelected]="isSelected(learnable.id)"
             (onSelect)="toggleLearnableSelection(learnable.id)"
-          />
+          ></button>
         }
       </div>
     }
@@ -58,11 +59,12 @@
       <h2 class="indent">Unsorted Cards</h2>
       <div class="learnables">
         @for (learnable of unsortedCards(); track learnable.id) {
-          <app-learnable-comp
+          <button
+            app-learnable-comp
             [learnable]="learnable"
             [isSelected]="isSelected(learnable.id)"
             (onSelect)="toggleLearnableSelection(learnable.id)"
-          />
+          ></button>
         }
       </div>
     }

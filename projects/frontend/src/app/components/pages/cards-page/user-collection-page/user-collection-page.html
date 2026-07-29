@@ -6,7 +6,9 @@
   >
     <div class="sub-title">
       <liz-confidence-stats [confidence]="confidence()" />
-      <app-practice-rating-comp [confidence]="confidence().all" />
+      @if (collection()) {
+        <app-practice-rating-comp [confidence]="confidence().all" />
+      }
     </div>
   </app-page-header-comp>
   <div class="content">
@@ -39,7 +41,12 @@
     @if (sortedCards().length > 0) {
       <div class="cards sorted">
         @for (card of sortedCards(); track card.id) {
-          <app-learnable-comp [learnable]="card" />
+          <button
+            app-learnable-comp
+            [learnable]="card"
+            (click)="selector.toggle(card.id)"
+            [isSelected]="selector.selected().has(card.id)"
+          ></button>
         }
       </div>
     }
@@ -47,7 +54,12 @@
       <h2 class="indent">Loose Cards</h2>
       <div class="cards">
         @for (card of unsortedCards(); track card.id) {
-          <app-learnable-comp [learnable]="card" />
+          <button
+            app-learnable-comp
+            [learnable]="card"
+            (click)="selector.toggle(card.id)"
+            [isSelected]="selector.selected().has(card.id)"
+          ></button>
         }
       </div>
     }

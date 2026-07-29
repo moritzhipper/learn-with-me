@@ -1,6 +1,7 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { AnimDelay } from '../../../services/anim-delay'
+import { CardsSelector } from '../../../services/cards-selector'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
@@ -16,6 +17,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
+  providers: [CardsSelector],
   imports: [
     FormsModule,
     QuickTranslate,
@@ -34,10 +36,11 @@ import { QuickTranslate } from './quick-translate/quick-translate'
 export class TranslatePageComp {
   selectedMode = signal<'translate' | 'magic'>('translate')
   magicPreset = signal<string>('')
-  selectedCardsIds = signal<Set<string>>(new Set())
   private readonly ls = inject(LearnablesStore)
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
+
+  protected selector = inject(CardsSelector)
 
   private cardsWrapper = viewChild<ElementRef<HTMLElement>>('cardsWrapper')
 
@@ -70,7 +73,7 @@ export class TranslatePageComp {
     if (this.selectedMode() === 'translate') {
       const selectedCardsText = this.ls
         .activeBank()
-        .translations.history.filter((l) => this.selectedCardsIds().has(l.id))
+        .translations.history.filter((l) => this.selector.selected().has(l.id))
         .map((c) => c.lexeme)
         .join('/n')
       this.magicPreset.set(selectedCardsText)
@@ -79,36 +82,17 @@ export class TranslatePageComp {
       this.selectedMode.set('translate')
       this.magicPreset.set('')
     }
-    this.selectedCardsIds.set(new Set())
-  }
-
-  toggleSelection(cardId: string) {
-    this.selectedCardsIds.update((ids) => {
-      if (ids.has(cardId)) {
-        ids.delete(cardId)
-      } else {
-        ids.add(cardId)
-      }
-      return ids
-    })
-  }
-
-  isSelected(cardId: string) {
-    return this.selectedCardsIds().has(cardId)
-  }
-
-  resetSelection() {
-    this.selectedCardsIds.set(new Set())
+    this.selector.reset()
   }
 
   selectAll() {
     const allIds = this.cards().map((c) => c.id)
-    this.selectedCardsIds.set(new Set(allIds))
+    this.selector.select(allIds)
   }
 
   deleteSelection() {
-    const selectedIds = [...this.selectedCardsIds()]
-    this.resetSelection()
+    const selectedIds = [...this.selector.selected()]
+    this.selector.reset()
     if (this.selectedMode() === 'translate') {
       this.ls.deleteTranslationHistoryItems(selectedIds)
     } else {
@@ -117,7 +101,7 @@ export class TranslatePageComp {
   }
 
   async importCards() {
-    const selectedCards = this.cards().filter((c) => this.selectedCardsIds().has(c.id))
+    const selectedCards = this.cards().filter((c) => this.selector.selected().has(c.id))
     if (!selectedCards.length) return
 
     const collections = this.ls.activeBank().collections

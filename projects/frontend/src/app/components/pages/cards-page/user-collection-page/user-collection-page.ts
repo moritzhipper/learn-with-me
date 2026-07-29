@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from '@shared/types'
+import { CardsSelector } from '../../../../services/cards-selector'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
@@ -28,6 +29,7 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     PracticeRatingComp,
     IconComp
   ],
+  providers: [CardsSelector],
   templateUrl: './user-collection-page.html',
   styleUrl: './user-collection-page.scss'
 })
@@ -38,6 +40,7 @@ export class UserCollectionPage {
   private readonly toastService = inject(ToastService)
   private readonly shareBanksS = inject(ShareBanksService)
   private router = inject(Router)
+  protected readonly selector = inject(CardsSelector)
 
   share() {
     const collection = this.collection()
@@ -61,6 +64,7 @@ export class UserCollectionPage {
     return this.ls.collections().find((c) => c.id === collectionId)
   })
 
+  // holds cards of collection or all cards having a collectio
   protected sortedCards = computed(() => {
     const collection = this.collection()
     const cards = this.ls.learnables()
@@ -68,7 +72,7 @@ export class UserCollectionPage {
       return cards.filter((card) => collection.cardIds.includes(card.id))
     }
     const collections = this.ls.collections()
-    return cards.filter((card) => collections.some((c) => !c.cardIds.includes(card.id)))
+    return cards.filter((card) => collections.some((c) => c.cardIds.includes(card.id)))
   })
 
   protected unsortedCards = computed(() => {
