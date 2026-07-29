@@ -4,8 +4,11 @@
       <h2>
         {{ message }}
       </h2>
-    } @else {
-      <ng-content />
+    }
+    @if (description(); as description) {
+      <p class="light pt-3">
+        {{ description }}
+      </p>
     }
   </div>
 

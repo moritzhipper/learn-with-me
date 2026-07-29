@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
   <div class="header full">
     <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Add to collection</h2>
-    <p class="fly-in-y light" [animDelay]="{ i: 0, size: 5 }">
+    <p class="fly-in-y light pt-3" [animDelay]="{ i: 0, size: 5 }">
       {{ cardIds().length }} cards selected
     </p>
   </div>

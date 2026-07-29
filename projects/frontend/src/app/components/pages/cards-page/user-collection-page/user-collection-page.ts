@@ -10,6 +10,8 @@ import { aggregateConfidence } from '../../../../utils/genaral-utils'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
 import { ConfidenceStats } from '../../../shared/confidence/confidence-stats/confidence-stats'
+import { ConfirmationType } from '../../../shared/forms/bulk-add-comp/bulk-edit-comp'
+import { ConfirmCollectionAddType } from '../../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../../shared/forms/delete-collection-comp/delete-collection-comp'
 import {
   StartPracticeFormConfig,
@@ -159,5 +161,78 @@ export class UserCollectionPage {
 
   selectAll() {
     this.selector.select(this.sortedCards().map((c) => c.id))
+  }
+
+  async deleteSelection() {
+    const learnableIds = [...this.selector.selected()]
+
+    const result = await this.modalService.open<ConfirmationType>('confirm', {
+      message: 'Delete cards',
+      description: 'They will be permanently removed from your device'
+    })
+
+    if (result.type !== 'confirm') return
+    this.ls.deleteCards(learnableIds)
+    this.toastService.showToast(`Removed ${learnableIds.length} cards.`)
+    this.selector.reset()
+  }
+
+  //  Collection Operations
+  async addToCollection() {
+    const learnableIds = [...this.selector.selected()]
+
+    const result = await this.modalService.open<ConfirmCollectionAddType>('collection-add', {
+      collections: this.ls.collections(),
+      cardIds: learnableIds
+    })
+
+    if (result.type !== 'confirm') return
+
+    const collectionID = result.value.addToId || this.ls.createCollection(result.value.createName)
+    this.ls.updateCollection({ id: collectionID, addIDs: learnableIds })
+    this.selector.reset()
+    this.toastService.showToast('Added cards to collection.')
+  }
+
+  async removeFromCollection() {
+    const collection = this.collection()
+    if (!collection) return
+
+    const result = await this.modalService.open('confirm', {
+      message: 'Remove from collection',
+      description: `Your cards will remain in your bank`
+    })
+
+    if (result.type !== 'confirm') return
+
+    const deleteIDs = [...this.selector.selected()]
+    this.ls.updateCollection({
+      id: collection.id,
+      deleteIDs
+    })
+
+    this.toastService.showToast(`Removed ${deleteIDs.length} cards from collection.`)
+    this.selector.reset()
+  }
+
+  async bulkEdit() {
+    const selected = this.selector.selected()
+    const learnables = this.ls.learnables().filter((l) => selected.has(l.id))
+
+    const result = await this.modalService.open<ConfirmationType>('bulk-edit', {
+      learnables
+    })
+
+    if (result.type !== 'confirm') return
+
+    const { update, deleteIDs, add } = result.value
+    this.ls.updateCards(update)
+    this.ls.deleteCards(deleteIDs)
+
+    const { idsOfAll: idsOfAllAdded } = this.ls.importCards(add)
+    const collection = this.collection()
+    if (collection) {
+      this.ls.updateCollection({ id: collection.id, addIDs: idsOfAllAdded })
+    }
   }
 }

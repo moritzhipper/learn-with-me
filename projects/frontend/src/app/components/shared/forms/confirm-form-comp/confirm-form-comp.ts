@@ -11,6 +11,7 @@ import { BaseModalDirective } from '../base-modal-directive'
 })
 export class ConfirmFormComp extends BaseModalDirective {
   message = input<string | null>(null)
+  description = input<string>()
   label = input<string>('confirm')
   form = new FormGroup({})
 }

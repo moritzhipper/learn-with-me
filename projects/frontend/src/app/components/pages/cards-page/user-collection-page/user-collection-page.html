@@ -1,15 +1,15 @@
 @if (userHasCards()) {
   <app-bubbles>
-    <app-bubble config="bulk-edit" size="big" />
+    <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
     <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
 
     @if (!selector.isEmpty()) {
       <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
-      <app-bubble config="move" [animateIndex]="2" />
+      <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
       @if (collection()) {
-        <app-bubble config="remove" [animateIndex]="3" />
+        <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
       }
-      <app-bubble config="trash" (select)="selector.reset()" [animateIndex]="true ? 4 : 3" />
+      <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
     }
   </app-bubbles>
 }
