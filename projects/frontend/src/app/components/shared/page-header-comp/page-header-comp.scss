@@ -7,8 +7,10 @@
   height: 250px;
 
   max-width: 100%;
+  width: fit-content;
   box-sizing: border-box;
   transform-origin: top left;
+  position: relative;
 
   .full-width-scroll {
     display: flex;

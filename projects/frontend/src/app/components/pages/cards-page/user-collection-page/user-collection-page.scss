@@ -1,15 +1,15 @@
+@use '../../../../../style/mixins' as *;
+
 .sub-title {
   display: grid;
   position: relative;
 
   app-practice-rating-comp {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    translate: 0px 50px;
+
     place-self: center;
     opacity: var(--opacity-1);
-    animation: popin 1s var(--overshot);
+    animation: popin 1s var(--duration-0) var(--overshot) both;
   }
 }
 
@@ -45,10 +45,28 @@
   }
 }
 
+@include isPhone {
+  .sub-title {
+    app-practice-rating-comp {
+      width: 70px;
+      height: 70px;
+      translate: 0px 50px;
+      place-self: center;
+    }
+  }
+}
+
+@include isDesktop {
+  app-practice-rating-comp {
+    width: 70px;
+    height: 70px;
+    translate: 40px;
+  }
+}
+
 @keyframes popin {
   from {
-    translate: 0;
     opacity: 0;
-    scale: 0.2;
+    scale: 0.5;
   }
 }
