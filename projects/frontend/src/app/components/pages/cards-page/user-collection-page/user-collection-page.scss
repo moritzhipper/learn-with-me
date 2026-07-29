@@ -9,6 +9,7 @@
     translate: 0px 50px;
     place-self: center;
     opacity: var(--opacity-1);
+    animation: popin 1s var(--overshot);
   }
 }
 
@@ -35,8 +36,19 @@
 }
 
 .cards {
-  padding-top: var(--distance-4);
   display: grid;
   grid-template-columns: var(--grid-auto-columns);
   gap: var(--distance-4);
+
+  &.sorted {
+    padding-top: var(--distance-4);
+  }
+}
+
+@keyframes popin {
+  from {
+    translate: 0;
+    opacity: 0;
+    scale: 0.2;
+  }
 }
