@@ -20,7 +20,6 @@
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  gap: var(--distance-4);
   position: relative;
   scroll-padding-left: var(--page-padding);
 
@@ -29,6 +28,7 @@
   }
 
   @include isDesktop {
+    gap: var(--distance-6);
     grid-auto-columns: 350px;
     scrollbar-width: thin;
     mask-image: linear-gradient(
@@ -41,6 +41,7 @@
   }
 
   @include isPhone {
+    gap: var(--distance-4);
     grid-auto-columns: 100%;
     scrollbar-width: none;
   }
