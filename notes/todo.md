@@ -2,13 +2,10 @@
 
 ## Today
 
-- add card selection back
-- add bubbles back
 - add empty states back
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
-- use cards selector service everywhere
+
 - creat collection overview comp for shared, align with user
-- on collection page: collection cards and unsorted visible? but unsorted cards always below
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - merge practice quick actions and user collection page start practice function
