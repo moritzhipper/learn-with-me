@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
+import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/banks-and-collections/cards-quick-selector/cards-quick-selector'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -9,4 +10,7 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
   templateUrl: './cards-page.html',
   styleUrl: './cards-page.scss'
 })
-export class CardsPage {}
+export class CardsPage {
+  private readonly ls = inject(LearnablesStore)
+  userHasCards = computed(() => this.ls.learnables().length > 0)
+}

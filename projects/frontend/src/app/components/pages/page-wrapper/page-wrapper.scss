@@ -1,3 +1,5 @@
+@use '../../../../style/mixins' as *;
+
 :host {
   display: grid;
   padding: var(--page-padding);
@@ -41,14 +43,20 @@
 }
 
 @keyframes hide {
-  40% {
-    scale: 0.95;
+  20% {
+    scale: 0.92;
     opacity: var(--opacity-1);
   }
 
   to {
-    scale: 0.95;
+    scale: 0.92;
     translate: 0 calc(var(--header-height) / -2);
     opacity: 0;
+  }
+}
+
+@include isDesktop {
+  .header {
+    transform-origin: left;
   }
 }

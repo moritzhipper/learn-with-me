@@ -48,8 +48,6 @@ export class UserCollectionPage {
   private router = inject(Router)
   protected readonly selector = inject(CardsSelector)
 
-  userHasCards = computed(() => this.ls.learnables().length > 0)
-
   share() {
     const collection = this.collection()
     if (!collection) return

@@ -5,11 +5,14 @@
 - add empty states back
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
+- make scroll list cutoff hard -> fade off way softer and only visible on very big view
 - creat collection overview comp for shared, align with user
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - merge practice quick actions and user collection page start practice function
 - remove old cards page
+
+- show other language cards on dashboard of no same language matches
 
 - cards page
   - when no collection, just show all cards

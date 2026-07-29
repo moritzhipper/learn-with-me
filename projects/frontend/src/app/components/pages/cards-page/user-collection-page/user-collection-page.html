@@ -1,18 +1,16 @@
-@if (userHasCards()) {
-  <app-bubbles>
-    <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
-    <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+<app-bubbles>
+  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
 
-    @if (!selector.isEmpty()) {
-      <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
-      <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
-      @if (collection()) {
-        <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
-      }
-      <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
+  @if (!selector.isEmpty()) {
+    <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
+    <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
+    @if (collection()) {
+      <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
     }
-  </app-bubbles>
-}
+    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
+  }
+</app-bubbles>
 
 <app-page-wrapper icon="card">
   <app-page-header-comp
