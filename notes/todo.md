@@ -2,12 +2,12 @@
 
 ## Today
 
-- align cards quick selector and cards overview
-
-- creat collection overview comp for user and shared
-- create cards overview page shwoing collection and unsorted cards
-- coll comp user also shows 'practice' button
-- unsorted and all cards always visible
+- add card selection back
+- add bubbles back
+- add empty states back
+- add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
+- use cards selector service everywhere
+- creat collection overview comp for shared, align with user
 - on collection page: collection cards and unsorted visible? but unsorted cards always below
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections

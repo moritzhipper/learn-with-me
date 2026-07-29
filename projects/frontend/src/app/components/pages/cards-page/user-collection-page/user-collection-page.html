@@ -1,3 +1,19 @@
+@if (userHasCards()) {
+  <app-bubbles>
+    <app-bubble config="bulk-edit" size="big" />
+    <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+
+    @if (!selector.isEmpty()) {
+      <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
+      <app-bubble config="move" [animateIndex]="2" />
+      @if (collection()) {
+        <app-bubble config="remove" [animateIndex]="3" />
+      }
+      <app-bubble config="trash" (select)="selector.reset()" [animateIndex]="true ? 4 : 3" />
+    }
+  </app-bubbles>
+}
+
 <app-page-wrapper icon="card">
   <app-page-header-comp
     [title]="collection()?.name || 'All Cards'"
@@ -23,7 +39,6 @@
           Share
           <app-icon-comp type="share-network" class="icon" />
         </button>
-
         <button class="action" (click)="renameCollection(coll)">
           Edit
           <app-icon-comp type="edit" class="icon" />

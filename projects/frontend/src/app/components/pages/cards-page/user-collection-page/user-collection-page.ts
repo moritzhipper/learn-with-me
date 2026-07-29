@@ -7,6 +7,8 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
+import { Bubble } from '../../../shared/bubbles/bubble/bubble'
+import { Bubbles } from '../../../shared/bubbles/bubbles'
 import { ConfidenceStats } from '../../../shared/confidence/confidence-stats/confidence-stats'
 import { ConfirmCollectionDeletionType } from '../../../shared/forms/delete-collection-comp/delete-collection-comp'
 import {
@@ -27,7 +29,9 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     LearnableComp,
     ConfidenceStats,
     PracticeRatingComp,
-    IconComp
+    IconComp,
+    Bubbles,
+    Bubble
   ],
   providers: [CardsSelector],
   templateUrl: './user-collection-page.html',
@@ -41,6 +45,8 @@ export class UserCollectionPage {
   private readonly shareBanksS = inject(ShareBanksService)
   private router = inject(Router)
   protected readonly selector = inject(CardsSelector)
+
+  userHasCards = computed(() => this.ls.learnables().length > 0)
 
   share() {
     const collection = this.collection()
@@ -149,5 +155,9 @@ export class UserCollectionPage {
     }
 
     this.router.navigate(['/practice'])
+  }
+
+  selectAll() {
+    this.selector.select(this.sortedCards().map((c) => c.id))
   }
 }
