@@ -8,6 +8,7 @@
   background-color: var(--col-accent);
   border-radius: var(--radius-2);
   border: 2px solid var(--col-accent);
+  user-select: none;
 
   height: 150px;
   place-items: center start;
@@ -62,9 +63,11 @@
         border-radius: 100%;
         background-color: var(--col-primary);
       }
+
       .wrong {
         opacity: var(--opacity-0);
       }
+
       .right {
         opacity: var(--opacity-1);
       }

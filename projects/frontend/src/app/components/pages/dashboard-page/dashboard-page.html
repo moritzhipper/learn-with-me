@@ -29,6 +29,7 @@
                   class="caroussel-item"
                   [bank]="bank"
                   [isCommunityBank]="true"
+                  [routerLink]="['/community/bank', bank.id]"
                 ></a>
               }
             } @else {

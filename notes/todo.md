@@ -2,43 +2,25 @@
 
 ## Today
 
-- somehow show collections in a bank same way in shared and user -> maybe stacks atop?
 - move is expired to outside of comp.
 
 - add empty states back
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
-- make scroll list cutoff hard -> fade off way softer and only visible on very big view
-- creat collection overview comp for shared, align with user
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
-- merge practice quick actions and user collection page start practice function
 - remove old cards page
-
 - show other language cards on dashboard of no same language matches
-
-- cards page
-  - when no collection, just show all cards
-  - when collection, show collection and unsorted
-  - collection page
-    - show collection cards, below unsorted cards
-  - merge action button styles on collection pages (shared, user)
 
 - add route param to input sync
   - use on user collection and shared pages
 
 - create shared collection comp showing cards
-  - make shard collection entries bey buttons too
-  - show on shared collection buttons with icons like on own collection
   - create fast entry: if no collection and whatever set, allow direct import of bank as start
     - somehow handle onboarding then
 
-- make collection be subpages on own overview and on shared page
-- allow import of single cards on collection with language match
-
 - paste images
 - align all modals (header, description, distances of controls and stuff)
-- add make text smaller functionalty to practice cards to accomondate for long text?
 - use dark theme toggles in modal forms?
 - clean up shared bank loading state (and center spinner)
 

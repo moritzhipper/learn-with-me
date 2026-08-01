@@ -16,8 +16,6 @@
                 app-shared-bank-comp
                 class="caroussel-item"
                 [bank]="bank"
-                (copyId)="copyLink(bank)"
-                (importBank)="importBank(bank)"
                 [isCommunityBank]="true"
                 [routerLink]="['/community/bank', bank.id]"
               ></a>
@@ -36,12 +34,12 @@
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
-              <a
+              <button
                 app-shared-bank-comp
                 class="caroussel-item"
                 [bank]="bank"
-                (copyId)="copyLink(bank)"
-              ></a>
+                (click)="copyLink(bank)"
+              ></button>
             }
           </div>
         }

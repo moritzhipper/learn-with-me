@@ -34,6 +34,40 @@ export type ConfidenceAggregate = {
   cardCount: number
 }
 
+/**
+ * Return string representation of how long until expiry or if already expired.
+ */
+export const dateToTTLTerm = (expiry: Date | null, now: number): string => {
+  if (!expiry) return 'never expires'
+  const expires = new Date(expiry)
+
+  const diffMs = expires.getTime() - now
+
+  // If already expired
+  if (diffMs <= 0) return 'expired'
+
+  const diffSeconds = Math.floor(diffMs / 1000)
+  const diffMinutes = Math.floor(diffSeconds / 60)
+  const diffHours = Math.floor(diffMinutes / 60)
+  const diffDays = Math.floor(diffHours / 24)
+
+  let ttlString = ''
+  // More than a week: show the date
+  if (diffDays > 7) {
+    ttlString = expires.toLocaleDateString()
+  } else if (diffDays > 0) {
+    ttlString = pluralize(diffDays, 'day')
+  } else if (diffHours > 0) {
+    ttlString = pluralize(diffHours, 'hour')
+  } else if (diffMinutes > 0) {
+    ttlString = pluralize(diffMinutes, 'minute')
+  } else {
+    ttlString = pluralize(diffSeconds, 'second')
+  }
+
+  return `expires in ${ttlString}`
+}
+
 export const aggregateConfidence = (learnables: UserLearnable[]): ConfidenceAggregate => {
   const allTranslationGuesses = learnables.flatMap((l) => l.guesses.translation)
   const allLexemeGuesses = learnables.flatMap((l) => l.guesses.lexeme)

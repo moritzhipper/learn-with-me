@@ -1,8 +1,10 @@
 import { Component, computed, inject, input, signal } from '@angular/core'
-import { rxResource } from '@angular/core/rxjs-interop'
+import { rxResource, toSignal } from '@angular/core/rxjs-interop'
 import { BankShareViaDB, Collection, LearnableBaseWithID } from '@shared/types'
+import { interval, map } from 'rxjs'
 import { ApiService } from '../../../../services/api-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
+import { dateToTTLTerm } from '../../../../utils/genaral-utils'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
@@ -25,6 +27,15 @@ export class SharedCollectionPage {
   bank = rxResource({
     params: this.id,
     stream: ({ params }) => this.apiS.getBankByID(params)
+  })
+
+  private readonly currentTime = toSignal(interval(1000).pipe(map(() => Date.now())), {
+    initialValue: Date.now()
+  })
+
+  protected readonly ttl = computed(() => {
+    const expires = this.bank.hasValue() ? this.bank.value().expires : null
+    return dateToTTLTerm(expires, this.currentTime())
   })
 
   protected selectedCollection = signal<Collection | null>(null)

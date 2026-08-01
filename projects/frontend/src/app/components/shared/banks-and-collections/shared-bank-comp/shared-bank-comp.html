@@ -1,7 +1,7 @@
 <h3>
   {{ bank().name }}
 </h3>
-<p class="light ml-auto">{{ ttl().label }}</p>
+<p class="light ml-auto">{{ ttl() }}</p>
 
 @if (isCommunityBank()) {
   <p class="info">
@@ -19,4 +19,6 @@
 <liz-language-match [languageConfig]="bank().language" class="info" />
 
 <p class="shared size-0 mt-auto">{{ bank().createdAt | date: 'mediumDate' }}</p>
-<p class="size-0 light ml-auto">100000 downloads</p>
+<p class="size-0 light ml-auto">
+  {{ bank().downloads }} {{ bank().downloads === 1 ? 'download' : 'downloads' }}
+</p>

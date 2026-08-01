@@ -22,6 +22,7 @@
   max-width: 100%;
   position: relative;
   scroll-padding-left: var(--page-padding);
+  scrollbar-width: none;
 
   .caroussel-item {
     scroll-snap-align: start;
@@ -30,7 +31,7 @@
   @include isDesktop {
     gap: var(--distance-6);
     grid-auto-columns: 380px;
-    scrollbar-width: thin;
+
     mask-image: linear-gradient(
       to right,
       transparent 0%,
@@ -43,7 +44,6 @@
   @include isPhone {
     gap: var(--distance-4);
     grid-auto-columns: 100%;
-    scrollbar-width: none;
   }
 }
 

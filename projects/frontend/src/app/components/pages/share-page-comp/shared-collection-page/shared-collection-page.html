@@ -2,17 +2,17 @@
   @let ban = bank.value();
   <app-page-wrapper icon="share-network-fill">
     <app-page-header-comp [title]="ban.name" backLink="/community" backLinkText="Community">
-      <p class="pb-1">
-        <span class="word-list-item">Expires then</span>
+      <liz-language-match [languageConfig]="ban.language" big />
+      <p class="pt-2">
+        <span class="word-list-item">{{ ttl() }}</span>
         <span class="word-list-item">{{ ban.downloads }} downloads</span>
       </p>
-      <liz-language-match [languageConfig]="ban.language" />
     </app-page-header-comp>
 
     <div class="content">
       <div class="full-width-scroll action-buttons">
         @if (selectedCollection()) {
-          <button (click)="selectedCollection.set(null)" class="header-action all">
+          <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
             <app-icon-comp type="chevron" />
             All cards
           </button>
@@ -31,7 +31,6 @@
           </button>
           @if (ban.collections.length > 1) {
             <div class="separator ml-auto"></div>
-
             @for (coll of ban.collections; track coll.id) {
               <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
                 {{ coll.name }}
@@ -42,7 +41,7 @@
       </div>
       <div class="cards">
         @for (card of visibleCards(); track card.id) {
-          <button app-learnable-comp [learnable]="card"></button>
+          <div app-learnable-comp [learnable]="card"></div>
         }
       </div>
     </div>

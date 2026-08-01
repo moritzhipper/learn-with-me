@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
+import { RouterLink } from '@angular/router'
 import { ApiService } from '../../../services/api-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/banks-and-collections/cards-quick-selector/cards-quick-selector'
@@ -21,7 +22,8 @@ import { QuickLinks } from './quick-links/quick-links'
     SharedBankComp,
     PageWrapper,
     InfoCard,
-    QuickLinks
+    QuickLinks,
+    RouterLink
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'

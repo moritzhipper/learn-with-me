@@ -7,15 +7,15 @@
 
   .separator {
     background-color: var(--col-accent);
-    //   border-radius: 100%;
-    //   min-width: 10px;
-    //   height: 10px;
-    // opacity: var(--opacity-0);
   }
 
   button.all {
     gap: var(--distance-1);
     padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-2);
+    position: sticky;
+    left: 0;
+    backdrop-filter: blur(20px);
+    z-index: 2;
 
     app-icon-comp {
       rotate: -90deg;
@@ -28,6 +28,10 @@
   grid-template-columns: var(--grid-auto-columns);
   gap: var(--distance-4);
   padding-top: var(--distance-4);
+
+  [app-learnable-comp] {
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+  }
 }
 
 @include isDesktop {
