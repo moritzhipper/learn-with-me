@@ -6,7 +6,6 @@
   width: fit-content;
   app-practice-rating-comp {
     position: absolute;
-
     place-self: center;
     opacity: var(--opacity-1);
   }
@@ -15,6 +14,17 @@
 .action-buttons {
   display: flex;
   gap: var(--distance-4);
+  align-items: center;
+
+  .separator {
+    width: 100%;
+    flex: 1;
+    border-radius: 4px;
+    height: 6px;
+    min-width: 6px;
+    opacity: var(--opacity-0);
+    background-color: var(--col-accent);
+  }
 
   button.remove {
     background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
