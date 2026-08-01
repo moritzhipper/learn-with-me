@@ -2,11 +2,11 @@
   @let ban = bank.value();
   <app-page-wrapper icon="share-network-fill">
     <app-page-header-comp [title]="ban.name" backLink="/community" backLinkText="Community">
-      <liz-language-match [languageConfig]="ban.language" big />
-      <p class="pt-2">
+      <p class="pb-1">
         <span class="word-list-item">{{ ttl() }}</span>
         <span class="word-list-item">{{ ban.downloads }} downloads</span>
       </p>
+      <liz-language-match [languageConfig]="ban.language" />
     </app-page-header-comp>
 
     <div class="content">
