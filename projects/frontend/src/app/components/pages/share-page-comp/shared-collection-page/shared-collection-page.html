@@ -12,31 +12,31 @@
     <div class="content">
       <div class="full-width-scroll action-buttons">
         @if (selectedCollection()) {
-          <button (click)="selectedCollection.set(null)">
-            <app-icon-comp type="chevron" class="icon chevron" />
-            All Cards
+          <button (click)="selectedCollection.set(null)" class="header-action all">
+            <app-icon-comp type="chevron" />
+            All cards
           </button>
         } @else {
-          <button (click)="import(ban)">
+          <button (click)="import(ban)" class="header-action">
             Import
-            <app-icon-comp type="add-fill" class="icon" />
+            <app-icon-comp type="add-fill" />
           </button>
-          <button (click)="copyLink(ban)">
+          <button (click)="copyLink(ban)" class="header-action">
             Copy link
-            <app-icon-comp type="copy" class="icon" />
+            <app-icon-comp type="copy" />
           </button>
-          <button>
+          <button class="header-action">
             Download
-            <app-icon-comp type="share" class="icon" (click)="download(ban)" />
+            <app-icon-comp type="share" (click)="download(ban)" />
           </button>
-        }
-        @if (ban.collections.length > 1) {
-          <div class="separator"></div>
+          @if (ban.collections.length > 1) {
+            <div class="separator"></div>
 
-          @for (coll of ban.collections; track coll.id) {
-            <button class="coll" (click)="selectedCollection.set(coll)">
-              {{ coll.name }}
-            </button>
+            @for (coll of ban.collections; track coll.id) {
+              <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
+                {{ coll.name }}
+              </button>
+            }
           }
         }
       </div>

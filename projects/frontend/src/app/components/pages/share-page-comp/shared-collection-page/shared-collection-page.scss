@@ -1,26 +1,7 @@
-// merge with use collection -> put in button styles
 .action-buttons {
   display: flex;
   gap: var(--distance-4);
   align-items: center;
-  white-space: nowrap;
-
-  button {
-    border-radius: var(--radius-2);
-    font-size: var(--font-size-1);
-    line-height: var(--line-height-1);
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-
-    &:not(.coll) {
-      align-items: center;
-      display: flex;
-      gap: var(--distance-3);
-      padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-5);
-    }
-    &.coll {
-      padding: var(--distance-2) var(--distance-5);
-    }
-  }
 
   .separator {
     background-color: var(--col-text);
@@ -29,8 +10,13 @@
     height: 10px;
     opacity: var(--opacity-1);
   }
-  .chevron {
-    rotate: -90deg;
+  button.all {
+    gap: var(--distance-1);
+    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-2);
+
+    app-icon-comp {
+      rotate: -90deg;
+    }
   }
 }
 

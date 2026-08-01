@@ -16,21 +16,8 @@
   display: flex;
   gap: var(--distance-4);
 
-  button {
-    display: flex;
-    gap: var(--distance-3);
-    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-5);
-    border-radius: var(--radius-2);
-    font-size: var(--font-size-1);
-    line-height: var(--line-height-1);
-    align-items: center;
-
-    &.action {
-      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-    }
-    &.remove {
-      background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
-    }
+  button.remove {
+    background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
   }
 }
 
