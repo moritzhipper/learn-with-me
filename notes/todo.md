@@ -2,6 +2,7 @@
 
 ## Today
 
+- somehow show collections in a bank same way in shared and user -> maybe stacks atop?
 - move is expired to outside of comp.
 
 - add empty states back

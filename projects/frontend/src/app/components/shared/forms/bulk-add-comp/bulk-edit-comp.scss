@@ -18,7 +18,7 @@ form {
     border-radius: var(--radius-1);
 
     gap: var(--distance-4);
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .empty {
       grid-row: 1 / -1;
