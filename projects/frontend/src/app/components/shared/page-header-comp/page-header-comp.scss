@@ -47,6 +47,9 @@
       }
     }
   }
+  .content {
+    padding-top: var(--distance-2);
+  }
 }
 
 @include isPhone() {

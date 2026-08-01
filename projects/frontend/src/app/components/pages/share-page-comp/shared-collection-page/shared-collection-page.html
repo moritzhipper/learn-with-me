@@ -2,7 +2,7 @@
   @let ban = bank.value();
   <app-page-wrapper icon="share-network-fill">
     <app-page-header-comp [title]="ban.name" backLink="/community" backLinkText="Community">
-      <p>
+      <p class="pb-1">
         <span class="word-list-item">Expires then</span>
         <span class="word-list-item">{{ ban.downloads }} downloads</span>
       </p>
@@ -30,7 +30,7 @@
             <app-icon-comp type="share" (click)="download(ban)" />
           </button>
           @if (ban.collections.length > 1) {
-            <div class="separator"></div>
+            <div class="separator ml-auto"></div>
 
             @for (coll of ban.collections; track coll.id) {
               <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
