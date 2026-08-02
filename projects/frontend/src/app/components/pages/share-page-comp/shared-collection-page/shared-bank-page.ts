@@ -5,6 +5,7 @@ import { interval, map } from 'rxjs'
 import { ApiService } from '../../../../services/api-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { dateToTTLTerm } from '../../../../utils/genaral-utils'
+import { SharedBankHeader } from '../../../shared/banks-and-collections/shared-bank-header/shared-bank-header'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
@@ -12,12 +13,12 @@ import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
-  selector: 'liz-shared-collection-page',
-  imports: [PageWrapper, PageHeaderComp, IconComp, LearnableComp, LanguageMatch],
-  templateUrl: './shared-collection-page.html',
-  styleUrl: './shared-collection-page.scss'
+  selector: 'liz-shared-bank-page',
+  imports: [PageWrapper, PageHeaderComp, IconComp, LearnableComp, LanguageMatch, SharedBankHeader],
+  templateUrl: './shared-bank-page.html',
+  styleUrl: './shared-bank-page.scss'
 })
-export class SharedCollectionPage {
+export class SharedBankPage {
   private readonly apiS = inject(ApiService)
   private readonly shareBankS = inject(ShareBanksService)
 

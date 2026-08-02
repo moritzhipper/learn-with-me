@@ -1,0 +1,6 @@
+@let ba = bank();
+<h1>
+  {{ ba.name }}
+</h1>
+<liz-shared-bank-stats [bank]="ba" />
+<liz-language-match [languageConfig]="ba.language" />

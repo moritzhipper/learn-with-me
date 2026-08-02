@@ -6,6 +6,7 @@ import { BankShareViaDB } from '@shared/types'
 import { interval, map } from 'rxjs'
 import { dateToTTLTerm, pluralize } from '../../../../utils/genaral-utils'
 import { LanguageMatch } from '../../language-match/language-match'
+import { SharedBankStats } from '../shared-bank-stats/shared-bank-stats'
 
 type Counter = {
   cards: string
@@ -16,7 +17,7 @@ type Counter = {
 
 @Component({
   selector: '[app-shared-bank-comp]',
-  imports: [DatePipe, LanguageMatch],
+  imports: [DatePipe, LanguageMatch, SharedBankStats],
   templateUrl: './shared-bank-comp.html',
   styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
   hostDirectives: [RouterLink],

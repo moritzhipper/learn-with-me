@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SharedCollectionPage } from './shared-collection-page'
+import { SharedBankStats } from './shared-bank-stats'
 
-describe('SharedCollectionPage', () => {
-  let component: SharedCollectionPage
-  let fixture: ComponentFixture<SharedCollectionPage>
+describe('SharedBankStats', () => {
+  let component: SharedBankStats
+  let fixture: ComponentFixture<SharedBankStats>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedCollectionPage]
+      imports: [SharedBankStats]
     }).compileComponents()
 
-    fixture = TestBed.createComponent(SharedCollectionPage)
+    fixture = TestBed.createComponent(SharedBankStats)
     component = fixture.componentInstance
     await fixture.whenStable()
   })

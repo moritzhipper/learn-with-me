@@ -76,8 +76,8 @@ export const routes: Routes = [
       {
         path: 'bank/:id',
         loadComponent: () =>
-          import('./components/pages/share-page-comp/shared-collection-page/shared-collection-page').then(
-            (m) => m.SharedCollectionPage
+          import('./components/pages/share-page-comp/shared-collection-page/shared-bank-page').then(
+            (m) => m.SharedBankPage
           )
       }
     ]

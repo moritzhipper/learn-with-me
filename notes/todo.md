@@ -2,9 +2,9 @@
 
 ## Today
 
-- move is expired to outside of comp.
+- add empty states back to cards pages
+- align bank content page headers with cards? -> duplicate info
 
-- add empty states back
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
 - be more strict in wich practice suggestions to show to not show collections as duplicate
@@ -23,6 +23,8 @@
 - align all modals (header, description, distances of controls and stuff)
 - use dark theme toggles in modal forms?
 - clean up shared bank loading state (and center spinner)
+- make user bank overview stacks bigger and centered on desktop
+- put automatic breadcrumbs on every page header
 
 count letters, make smaller per one more
 
