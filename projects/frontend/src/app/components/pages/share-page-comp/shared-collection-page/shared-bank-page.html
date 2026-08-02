@@ -1,13 +1,6 @@
 @if (bank.hasValue()) {
   @let ban = bank.value();
   <app-page-wrapper icon="share-network-fill">
-    <!-- <app-page-header-comp [title]="ban.name" backLink="/community" backLinkText="Community">
-      <p class="pb-1">
-        <span class="word-list-item">{{ ttl() }}</span>
-        <span class="word-list-item">{{ ban.downloads }} downloads</span>
-      </p>
-      <liz-language-match [languageConfig]="ban.language" />
-    </app-page-header-comp> -->
     <liz-shared-bank-header [bank]="ban" header />
 
     <div class="content">

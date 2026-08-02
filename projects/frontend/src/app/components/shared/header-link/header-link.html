@@ -1,6 +1,13 @@
-<a [routerLink]="route()" [queryParams]="queryParams()">
-  <h2>
-    {{ label() }}
-  </h2>
-  <app-icon-comp type="chevron" [size]="24" />
+<a [routerLink]="route()" [queryParams]="queryParams()" [class.eyebrow]="eyebrow()">
+  @if (eyebrow()) {
+    <app-icon-comp type="chevron" [size]="20" />
+    <div class="text">
+      {{ label() }}
+    </div>
+  } @else {
+    <h2>
+      {{ label() }}
+    </h2>
+    <app-icon-comp type="chevron" [size]="24" />
+  }
 </a>

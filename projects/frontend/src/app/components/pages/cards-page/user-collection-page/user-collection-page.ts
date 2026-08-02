@@ -7,9 +7,9 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
+import { UserCollectionHeader } from '../../../shared/banks-and-collections/user-collection-header/user-collection-header'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
-import { ConfidenceStats } from '../../../shared/confidence/confidence-stats/confidence-stats'
 import { ConfirmationType } from '../../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../../shared/forms/delete-collection-comp/delete-collection-comp'
@@ -18,23 +18,12 @@ import {
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
-import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
-import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'liz-user-collection-page',
-  imports: [
-    PageHeaderComp,
-    PageWrapper,
-    LearnableComp,
-    ConfidenceStats,
-    PracticeRatingComp,
-    IconComp,
-    Bubbles,
-    Bubble
-  ],
+  imports: [PageWrapper, LearnableComp, IconComp, Bubbles, Bubble, UserCollectionHeader],
   providers: [CardsSelector],
   templateUrl: './user-collection-page.html',
   styleUrl: './user-collection-page.scss'

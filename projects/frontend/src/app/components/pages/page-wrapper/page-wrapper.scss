@@ -15,6 +15,7 @@
   .content {
     width: 100%;
     min-width: 0;
+    z-index: 10;
   }
 
   .header {
@@ -27,7 +28,7 @@
   }
 
   &:not(.full-screen) {
-    overflow-x: auto;
+    overflow-x: hidden;
 
     .content {
       justify-self: center;

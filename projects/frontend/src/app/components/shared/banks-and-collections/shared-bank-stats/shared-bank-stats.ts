@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common'
-import { Component, computed, input } from '@angular/core'
+import { booleanAttribute, Component, computed, input } from '@angular/core'
 import { BankShareViaDB } from '@shared/types'
 
 @Component({
@@ -10,6 +10,8 @@ import { BankShareViaDB } from '@shared/types'
 })
 export class SharedBankStats {
   bank = input.required<BankShareViaDB>()
+  hideCounts = input(false, { transform: booleanAttribute })
+  hideGeneral = input(false, { transform: booleanAttribute })
 
   protected counts = computed(() => {
     const words = this.bank().learnables.filter((l) => l.type === 'word').length

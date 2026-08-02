@@ -4,17 +4,7 @@
 <p class="light ml-auto">{{ ttl() }}</p>
 
 @if (isCommunityBank()) {
-  <p class="info">
-    <span class="word-list-item">
-      {{ counter().collections }}
-    </span>
-    <span class="word-list-item">
-      {{ counter().words }}
-    </span>
-    <span class="word-list-item">
-      {{ counter().phrases }}
-    </span>
-  </p>
+  <liz-shared-bank-stats [bank]="bank()" class="info" hideCounts />
 }
 <liz-language-match [languageConfig]="bank().language" class="info" />
 

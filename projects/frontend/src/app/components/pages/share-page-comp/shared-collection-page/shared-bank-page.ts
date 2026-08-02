@@ -7,14 +7,12 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { dateToTTLTerm } from '../../../../utils/genaral-utils'
 import { SharedBankHeader } from '../../../shared/banks-and-collections/shared-bank-header/shared-bank-header'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
-import { LanguageMatch } from '../../../shared/language-match/language-match'
-import { PageHeaderComp } from '../../../shared/page-header-comp/page-header-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'liz-shared-bank-page',
-  imports: [PageWrapper, PageHeaderComp, IconComp, LearnableComp, LanguageMatch, SharedBankHeader],
+  imports: [PageWrapper, IconComp, LearnableComp, SharedBankHeader],
   templateUrl: './shared-bank-page.html',
   styleUrl: './shared-bank-page.scss'
 })

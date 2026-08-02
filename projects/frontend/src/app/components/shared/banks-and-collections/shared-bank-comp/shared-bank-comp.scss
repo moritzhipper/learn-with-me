@@ -10,7 +10,9 @@
       margin-right: auto;
     }
   }
-
+  .wide {
+    grid-column: span 2;
+  }
   .info {
     grid-column: span 2;
     opacity: var(--opacity-1);

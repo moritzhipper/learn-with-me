@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { RouterLink } from '@angular/router'
 import { BankShareViaDB } from '@shared/types'
 import { interval, map } from 'rxjs'
-import { dateToTTLTerm, pluralize } from '../../../../utils/genaral-utils'
+import { dateToTTLTerm } from '../../../../utils/genaral-utils'
 import { LanguageMatch } from '../../language-match/language-match'
 import { SharedBankStats } from '../shared-bank-stats/shared-bank-stats'
 
@@ -34,19 +34,4 @@ export class SharedBankComp {
     initialValue: Date.now()
   })
   protected readonly ttl = computed(() => dateToTTLTerm(this.bank().expires, this.currentTime()))
-
-  protected readonly hasMultipleCollections = computed(() => this.bank().collections.length > 1)
-
-  protected readonly counter = computed<Counter>(() => {
-    const { collections, learnables } = this.bank()
-
-    return {
-      cards: pluralize(learnables.length, 'card'),
-      words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
-      phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
-      collections: pluralize(collections.length, 'collection')
-    }
-  })
-
-  // user browser relative time
 }

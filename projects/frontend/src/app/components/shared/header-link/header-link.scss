@@ -3,11 +3,10 @@
 a {
   display: flex;
   align-items: center;
-  gap: var(--distance-1);
-  margin: 0 var(--distance-2) var(--distance-3) var(--distance-3);
 
   h2,
-  app-icon-comp {
+  app-icon-comp,
+  .text {
     transition: translate var(--duration-1);
   }
   h2 {
@@ -15,17 +14,40 @@ a {
     margin: 0;
   }
 
-  app-icon-comp {
-    rotate: 90deg;
+  &:not(.eyebrow) {
+    gap: var(--distance-1);
+    margin: 0 var(--distance-2) var(--distance-3) var(--distance-3);
+    app-icon-comp {
+      rotate: 90deg;
+    }
+    &:hover,
+    &:focus-visible {
+      app-icon-comp {
+        translate: var(--distance-2);
+      }
+      h2 {
+        translate: var(--distance-1);
+      }
+    }
   }
 
-  &:hover,
-  &:focus-visible {
+  &.eyebrow {
+    font-weight: bold;
+    gap: var(--distance-0);
+    opacity: var(--opacity-1);
+
     app-icon-comp {
-      translate: var(--distance-2);
+      rotate: -90deg;
     }
-    h2 {
-      translate: var(--distance-1);
+    &:hover,
+    &:focus-visible {
+      app-icon-comp {
+        translate: calc(-1 * var(--distance-2));
+      }
+
+      .text {
+        translate: calc(-1 * var(--distance-1));
+      }
     }
   }
 }

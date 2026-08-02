@@ -20,7 +20,7 @@ import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
   }
 })
 export class PageWrapper {
-  readonly icon = input.required<IconType>()
+  readonly icon = input<IconType>()
   readonly fullScreen = input(false, { transform: booleanAttribute })
 
   private header = viewChild<ElementRef>('header')

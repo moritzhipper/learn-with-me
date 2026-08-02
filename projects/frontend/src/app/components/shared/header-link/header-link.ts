@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { booleanAttribute, Component, input } from '@angular/core'
 import { Params, RouterLink } from '@angular/router'
 import { IconComp } from '../icon-comp/icon-comp'
 
@@ -12,4 +12,6 @@ export class HeaderLink {
   label = input.required<string>()
   route = input.required<string>()
   queryParams = input<Params>()
+
+  eyebrow = input(false, { transform: booleanAttribute })
 }
