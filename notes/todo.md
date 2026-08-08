@@ -2,12 +2,8 @@
 
 ## Today
 
-- anim wrapper doesnt work for lazy loaded stuff -> see explore page
-- remove collection and shared header
 - add empty states back to cards pages
-- add card header to all user cards
-- align bank content page headers with cards? -> duplicate info
-- make the card header links navigate back (not to overview)
+- add selected count on bubble when cards selected: then add count to translation bubble to show you can add selected to magic
 
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
@@ -15,6 +11,8 @@
   - dont show > 80 % collections
 - remove old cards page
 - show other language cards on dashboard of no same language matches
+
+- remove those verview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
 - add route param to input sync
   - use on user collection and shared pages
