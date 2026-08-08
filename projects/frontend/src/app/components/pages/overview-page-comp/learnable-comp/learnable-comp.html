@@ -10,12 +10,12 @@
   {{ la.notes }}
 </p>
 @if (isUserlearnable) {
-  <div class="info">
+  <p class="info">
     <span class="word-list-item"> {{ la.createdAt | date: 'mediumDate' }} </span>
     <span class="word-list-item">
       {{ la.type }}
     </span>
-  </div>
+  </p>
   <div class="last-guesses">
     <div class="guesses lexeme">
       @for (guess of la.guesses.lexeme; track $index) {
@@ -37,7 +37,7 @@
     </div>
   </div>
 } @else {
-  <div class="info">
+  <p class="info">
     {{ la.type }}
-  </div>
+  </p>
 }

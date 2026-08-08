@@ -15,6 +15,7 @@ import { LearnableWithId, UserLearnable } from '@shared/types'
 export class LearnableComp {
   learnable = input.required<UserLearnable | LearnableWithId>()
   isSelected = input<boolean>(false)
+
   protected hasManyLetters = computed(() => {
     const lexemeLengt = this.learnable().lexeme.length
     const translationLength = this.learnable().translation.length
