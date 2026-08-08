@@ -5,6 +5,7 @@
   padding: var(--page-padding);
   gap: var(--page-padding);
   width: 100vw;
+  min-height: 100dvh;
   box-sizing: border-box;
   max-height: var(--app-height);
   scroll-timeline: --main-timeline;

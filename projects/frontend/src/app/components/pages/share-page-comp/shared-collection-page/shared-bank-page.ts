@@ -2,6 +2,7 @@ import { Component, computed, inject, input, signal } from '@angular/core'
 import { rxResource, toSignal } from '@angular/core/rxjs-interop'
 import { BankShareViaDB, Collection, LearnableBaseWithID } from '@shared/types'
 import { interval, map } from 'rxjs'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { ApiService } from '../../../../services/api-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { dateToTTLTerm } from '../../../../utils/genaral-utils'
@@ -14,9 +15,10 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'liz-shared-bank-page',
-  imports: [PageWrapper, IconComp, LearnableComp, PageHeaderCards, SharedBankStats, LanguageMatch],
+  imports: [PageWrapper, AnimDelayWrapper, IconComp, LearnableComp, PageHeaderCards, SharedBankStats, LanguageMatch],
   templateUrl: './shared-bank-page.html',
-  styleUrl: './shared-bank-page.scss'
+  styleUrl: './shared-bank-page.scss',
+
 })
 export class SharedBankPage {
   private readonly apiS = inject(ApiService)
