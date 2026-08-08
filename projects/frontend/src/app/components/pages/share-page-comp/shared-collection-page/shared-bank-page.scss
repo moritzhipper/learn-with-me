@@ -33,7 +33,8 @@
   gap: var(--distance-4);
   padding-top: var(--distance-4);
 
-  [app-learnable-comp] {
+  app-learnable-comp {
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    border: 1px solid var(--col-accent);
   }
 }

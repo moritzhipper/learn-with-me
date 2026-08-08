@@ -3,7 +3,7 @@ import { Component, computed, input } from '@angular/core'
 import { LearnableWithId, UserLearnable } from '@shared/types'
 
 @Component({
-  selector: '[app-learnable-comp]',
+  selector: '[app-learnable-comp], app-learnable-comp',
   imports: [DatePipe],
   templateUrl: './learnable-comp.html',
   styleUrl: './learnable-comp.scss',
