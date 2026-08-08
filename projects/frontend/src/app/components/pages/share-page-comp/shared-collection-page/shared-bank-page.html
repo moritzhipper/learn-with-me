@@ -1,7 +1,11 @@
 @if (bank.hasValue()) {
   @let ban = bank.value();
   <app-page-wrapper>
-    <liz-shared-bank-header [bank]="ban" header />
+    <liz-page-header-cards header [title]="ban.name" outline>
+      <liz-shared-bank-stats [bank]="ban" hideCounts class="text size-2" />
+      <liz-shared-bank-stats [bank]="ban" hideGeneral class="text light" />
+      <liz-language-match [languageConfig]="ban.language" class="text light" />
+    </liz-page-header-cards>
 
     <div class="content">
       <div class="full-width-scroll action-buttons">

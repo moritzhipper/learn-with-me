@@ -5,14 +5,16 @@ import { interval, map } from 'rxjs'
 import { ApiService } from '../../../../services/api-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { dateToTTLTerm } from '../../../../utils/genaral-utils'
-import { SharedBankHeader } from '../../../shared/banks-and-collections/shared-bank-header/shared-bank-header'
+import { PageHeaderCards } from '../../../shared/banks-and-collections/page-header-cards/page-header-cards'
+import { SharedBankStats } from '../../../shared/banks-and-collections/shared-bank-stats/shared-bank-stats'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'liz-shared-bank-page',
-  imports: [PageWrapper, IconComp, LearnableComp, SharedBankHeader],
+  imports: [PageWrapper, IconComp, LearnableComp, PageHeaderCards, SharedBankStats, LanguageMatch],
   templateUrl: './shared-bank-page.html',
   styleUrl: './shared-bank-page.scss'
 })

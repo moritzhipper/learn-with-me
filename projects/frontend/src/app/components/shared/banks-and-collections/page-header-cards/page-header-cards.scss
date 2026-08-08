@@ -10,6 +10,18 @@
   transform-origin: top left;
   position: relative;
 
+  .back {
+    display: flex;
+    align-items: center;
+
+    flex-direction: row;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--distance-0);
+  }
+
   .bg-wrapper {
     display: grid;
     position: absolute;

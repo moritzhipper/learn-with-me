@@ -2,4 +2,11 @@
   <div class="card-bg two"></div>
   <div class="card-bg"></div>
 </div>
-<app-header-link [route]="'/community'" label="Community" eyebrow class="pb-4" />
+<button class="silent text size-0 bold light back" (click)="browserBack()">
+  <app-icon-comp type="close" class="icon" />
+  <span> Close </span>
+</button>
+<h1 class="py-3">{{ title() }}</h1>
+<div class="content">
+  <ng-content />
+</div>

@@ -32,6 +32,10 @@ p,
   &.light {
     opacity: var(--opacity-1);
   }
+
+  &.bold {
+    font-weight: var(--font-weight-bold);
+  }
 }
 
 h1 {

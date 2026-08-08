@@ -2,6 +2,7 @@
 
 ## Today
 
+- remove collection and shared header
 - add empty states back to cards pages
 - add card header to all user cards
 - align bank content page headers with cards? -> duplicate info

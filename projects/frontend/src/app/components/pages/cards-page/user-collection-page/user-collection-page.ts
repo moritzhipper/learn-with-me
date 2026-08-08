@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from '@shared/types'
@@ -8,9 +9,9 @@ import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
 import { PageHeaderCards } from '../../../shared/banks-and-collections/page-header-cards/page-header-cards'
-import { UserCollectionHeader } from '../../../shared/banks-and-collections/user-collection-header/user-collection-header'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
+import { ConfidenceStats } from '../../../shared/confidence/confidence-stats/confidence-stats'
 import { ConfirmationType } from '../../../shared/forms/bulk-add-comp/bulk-edit-comp'
 import { ConfirmCollectionAddType } from '../../../shared/forms/collection-add-comp/collection-add-comp'
 import { ConfirmCollectionDeletionType } from '../../../shared/forms/delete-collection-comp/delete-collection-comp'
@@ -19,6 +20,7 @@ import {
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
@@ -30,8 +32,10 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     IconComp,
     Bubbles,
     Bubble,
-    UserCollectionHeader,
-    PageHeaderCards
+    PageHeaderCards,
+    ConfidenceStats,
+    PracticeRatingComp,
+    DatePipe
   ],
   providers: [CardsSelector],
   templateUrl: './user-collection-page.html',

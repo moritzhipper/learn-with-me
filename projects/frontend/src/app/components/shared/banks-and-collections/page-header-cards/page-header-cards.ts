@@ -1,9 +1,10 @@
-import { booleanAttribute, Component, input } from '@angular/core'
-import { HeaderLink } from '../../header-link/header-link'
+import { Location } from '@angular/common'
+import { booleanAttribute, Component, inject, input } from '@angular/core'
+import { IconComp } from '../../icon-comp/icon-comp'
 
 @Component({
   selector: 'liz-page-header-cards',
-  imports: [HeaderLink],
+  imports: [IconComp],
   templateUrl: './page-header-cards.html',
   styleUrl: './page-header-cards.scss',
   host: {
@@ -12,4 +13,11 @@ import { HeaderLink } from '../../header-link/header-link'
 })
 export class PageHeaderCards {
   outline = input(false, { transform: booleanAttribute })
+  title = input.required<string>()
+
+  private readonly location = inject(Location)
+
+  browserBack() {
+    this.location.back()
+  }
 }
