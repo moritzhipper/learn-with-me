@@ -4,6 +4,7 @@ import { Collection } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence, ConfidenceAggregate } from '../../../../utils/genaral-utils'
 import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
+import { CardsStack } from '../cards-stack/cards-stack'
 import { UserCollection } from '../user-collection/user-collection'
 
 type CollectionWithConfidence = {
@@ -13,7 +14,7 @@ type CollectionWithConfidence = {
 
 @Component({
   selector: 'app-cards-quick-selector',
-  imports: [ConfidenceStats, UserCollection, RouterLink],
+  imports: [ConfidenceStats, UserCollection, RouterLink, CardsStack],
   templateUrl: './cards-quick-selector.html',
   styleUrls: ['./cards-quick-selector.scss', '../banks-and-collections.scss']
 })

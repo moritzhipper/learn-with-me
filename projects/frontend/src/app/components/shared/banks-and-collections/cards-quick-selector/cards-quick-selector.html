@@ -6,6 +6,8 @@
     [confidence]="collConf.confidence"
     [routerLink]="['/cards', collConf.collection.id]"
   ></a>
+
+  <a liz-cards-stack outline>hi </a>
 }
 @let allConf = allCardsWithConfidence();
 <a class="cards-stack-wrapper caroussel-item all" [routerLink]="['/cards', 'all']">
