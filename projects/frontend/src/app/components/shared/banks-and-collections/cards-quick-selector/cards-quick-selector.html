@@ -1,16 +1,11 @@
 @for (collConf of collectionsWithConfidence(); track $index) {
-  <a
-    liz-user-collection
-    class="caroussel-item"
-    [collection]="collConf.collection"
-    [confidence]="collConf.confidence"
-    [routerLink]="['/cards', collConf.collection.id]"
-  ></a>
-
-  <a liz-cards-stack outline>hi </a>
+  <a liz-cards-stack class="caroussel-item" [routerLink]="['/cards', collConf.collection.id]">
+    <liz-user-collection [collection]="collConf.collection" [confidence]="collConf.confidence">
+    </liz-user-collection>
+  </a>
 }
 @let allConf = allCardsWithConfidence();
-<a class="cards-stack-wrapper caroussel-item all" [routerLink]="['/cards', 'all']">
+<a liz-cards-stack class="caroussel-item all" [routerLink]="['/cards', 'all']">
   <h3>All Cards</h3>
   <liz-confidence-stats [confidence]="allConf.confidence" />
 

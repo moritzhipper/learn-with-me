@@ -3,9 +3,7 @@
 </h3>
 <p class="light ml-auto">{{ ttl() }}</p>
 
-@if (isCommunityBank()) {
-  <liz-shared-bank-stats [bank]="bank()" class="info" hideCounts />
-}
+<liz-shared-bank-stats [bank]="bank()" class="info" hideCounts />
 <liz-language-match [languageConfig]="bank().language" class="info" />
 
 <p class="shared size-0 mt-auto">{{ bank().createdAt | date: 'mediumDate' }}</p>

@@ -10,6 +10,7 @@ import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
 import { BankSettingsComp } from '../../shared/banks-and-collections/bank-settings-comp/bank-settings-comp'
+import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -24,7 +25,8 @@ import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
     IconComp,
     PageHeaderComp,
     SettingsItemComp,
-    PageWrapper
+    PageWrapper,
+    CardsStack
   ],
   templateUrl: './settings-page-comp.html',
   styleUrl: './settings-page-comp.scss'

@@ -22,7 +22,9 @@
 
   <div class="banks">
     @for (bank of visibleBanks(); track bank.id) {
-      <a app-shared-bank-comp [bank]="bank" [isCommunityBank]="true" #animItem></a>
+      <a #animItem>
+        <app-shared-bank-comp [bank]="bank" />
+      </a>
     }
   </div>
 

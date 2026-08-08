@@ -8,7 +8,8 @@ import { LanguageMatch } from '../../language-match/language-match'
   selector: 'app-bank-settings-card',
   imports: [IconComp, DatePipe, LanguageMatch],
   templateUrl: './bank-settings-comp.html',
-  styleUrls: ['../banks-and-collections.scss', './bank-settings-comp.scss'],
+  styleUrls: ['./bank-settings-comp.scss'],
+
   host: {
     class: 'cards-stack-wrapper outline'
   }

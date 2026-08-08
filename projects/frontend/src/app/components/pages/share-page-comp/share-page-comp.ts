@@ -10,6 +10,7 @@ import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
+import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { IconComp } from '../../shared/icon-comp/icon-comp'
@@ -45,7 +46,8 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     AnimDelayWrapper,
     PageWrapper,
     InfoCard,
-    RouterLink
+    RouterLink,
+    CardsStack
   ],
   templateUrl: './share-page-comp.html',
   styleUrl: './share-page-comp.scss'

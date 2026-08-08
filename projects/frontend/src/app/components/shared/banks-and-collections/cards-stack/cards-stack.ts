@@ -1,7 +1,7 @@
 import { booleanAttribute, Component, input } from '@angular/core'
 
 @Component({
-  selector: '[liz-cards-stack]',
+  selector: '[liz-cards-stack], liz-cards-stack',
   imports: [],
   templateUrl: './cards-stack.html',
   styleUrl: './cards-stack.scss',

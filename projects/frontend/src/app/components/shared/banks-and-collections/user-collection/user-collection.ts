@@ -6,13 +6,10 @@ import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-st
 import { PracticeRatingComp } from '../../practice-rating-comp/practice-rating-comp'
 
 @Component({
-  selector: '[liz-user-collection]',
+  selector: 'liz-user-collection',
   imports: [ConfidenceStats, DatePipe, PracticeRatingComp],
   templateUrl: './user-collection.html',
-  styleUrls: ['./user-collection.scss', '../banks-and-collections.scss'],
-  host: {
-    class: 'cards-stack-wrapper'
-  }
+  styleUrls: ['./user-collection.scss']
 })
 export class UserCollection {
   collection = input.required<Collection>()

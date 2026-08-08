@@ -3,16 +3,18 @@
   <h2 class="indent first">My Banks</h2>
   <div class="caroussel-wrapper">
     @for (bank of banks(); track bank.id) {
-      <app-bank-settings-card
-        [bank]="bank"
-        [isActive]="activeBankId() === bank.id"
-        (setActive)="setActiveBank(bank.id)"
-        (delete)="deleteBank(bank.id)"
-        (download)="downloadBank(bank)"
-        (edit)="editBank(bank)"
-        (share)="shareBank(bank)"
-        class="caroussel-item"
-      />
+      <liz-cards-stack>
+        <app-bank-settings-card
+          [bank]="bank"
+          [isActive]="activeBankId() === bank.id"
+          (setActive)="setActiveBank(bank.id)"
+          (delete)="deleteBank(bank.id)"
+          (download)="downloadBank(bank)"
+          (edit)="editBank(bank)"
+          (share)="shareBank(bank)"
+          class="caroussel-item"
+        />
+      </liz-cards-stack>
     }
     <button class="add-bank caroussel-item" (click)="createNewBank()">
       <span>Create new Bank</span>

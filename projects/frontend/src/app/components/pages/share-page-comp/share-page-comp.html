@@ -13,12 +13,13 @@
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
               <a
-                app-shared-bank-comp
                 class="caroussel-item"
-                [bank]="bank"
-                [isCommunityBank]="true"
                 [routerLink]="['/community/bank', bank.id]"
-              ></a>
+                liz-cards-stack
+                outline
+              >
+                <app-shared-bank-comp [bank]="bank" />
+              </a>
             }
 
             <a
@@ -35,11 +36,13 @@
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
               <button
-                app-shared-bank-comp
-                class="caroussel-item"
-                [bank]="bank"
+                class="silent caroussel-item"
                 (click)="copyLink(bank)"
-              ></button>
+                liz-cards-stack
+                outline
+              >
+                <app-shared-bank-comp [bank]="bank" />
+              </button>
             }
           </div>
         }

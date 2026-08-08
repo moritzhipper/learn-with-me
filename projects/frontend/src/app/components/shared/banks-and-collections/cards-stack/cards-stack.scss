@@ -4,7 +4,11 @@
   position: relative;
   display: block;
 
-  &:hover {
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    outline: none;
     .content {
       translate: calc(-1 * var(--distance-2)) calc(-1 * var(--distance-2));
     }
@@ -30,6 +34,8 @@
 }
 
 .content {
+  display: grid;
+
   font-size: inherit;
   text-align: inherit;
   padding: var(--distance-4);

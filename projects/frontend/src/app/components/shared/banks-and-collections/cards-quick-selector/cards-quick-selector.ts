@@ -16,7 +16,7 @@ type CollectionWithConfidence = {
   selector: 'app-cards-quick-selector',
   imports: [ConfidenceStats, UserCollection, RouterLink, CardsStack],
   templateUrl: './cards-quick-selector.html',
-  styleUrls: ['./cards-quick-selector.scss', '../banks-and-collections.scss']
+  styleUrls: ['./cards-quick-selector.scss']
 })
 export class CardsQuickSelector {
   private readonly ls = inject(LearnablesStore)
