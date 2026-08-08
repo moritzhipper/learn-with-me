@@ -3,7 +3,9 @@
 ## Today
 
 - add empty states back to cards pages
+- add card header to all user cards
 - align bank content page headers with cards? -> duplicate info
+- make the card header links navigate back (not to overview)
 
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 

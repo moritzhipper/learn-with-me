@@ -7,6 +7,7 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
+import { PageHeaderCards } from '../../../shared/banks-and-collections/page-header-cards/page-header-cards'
 import { UserCollectionHeader } from '../../../shared/banks-and-collections/user-collection-header/user-collection-header'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
@@ -23,7 +24,15 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
   selector: 'liz-user-collection-page',
-  imports: [PageWrapper, LearnableComp, IconComp, Bubbles, Bubble, UserCollectionHeader],
+  imports: [
+    PageWrapper,
+    LearnableComp,
+    IconComp,
+    Bubbles,
+    Bubble,
+    UserCollectionHeader,
+    PageHeaderCards
+  ],
   providers: [CardsSelector],
   templateUrl: './user-collection-page.html',
   styleUrl: './user-collection-page.scss'

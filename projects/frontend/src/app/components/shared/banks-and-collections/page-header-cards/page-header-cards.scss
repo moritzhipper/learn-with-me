@@ -1,0 +1,64 @@
+@use '../../../../../style/mixins' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: var(--page-padding) 0 calc(var(--page-padding) * 2) 0;
+
+  box-sizing: border-box;
+  rotate: -4deg;
+  transform-origin: top left;
+  position: relative;
+
+  .bg-wrapper {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    align-items: end;
+    top: 0;
+    left: 0;
+
+    .card-bg {
+      grid-area: 1 / 1;
+      z-index: -1;
+      width: 140%;
+      height: 130%;
+      content: '';
+
+      border-radius: var(--radius-2);
+      box-sizing: border-box;
+
+      &.two {
+        width: 100%;
+        translate: 0px 10px;
+        rotate: 6deg;
+        opacity: var(--opacity-1);
+      }
+    }
+  }
+
+  &:not(.outline) .card-bg {
+    background-color: var(--col-accent);
+  }
+
+  &.outline .card-bg {
+    background-color: var(--col-bg);
+    border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+  }
+}
+
+@include isDesktop {
+  :host {
+    width: fit-content;
+    min-width: 400px;
+    margin-bottom: var(--distance-7);
+    padding-bottom: var(--distance-7);
+    padding-right: var(--distance-8);
+
+    .card-bg {
+      justify-self: end;
+    }
+  }
+}

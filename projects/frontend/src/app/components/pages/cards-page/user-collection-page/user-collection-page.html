@@ -14,7 +14,8 @@
 
 <app-page-wrapper>
   @if (collection(); as coll) {
-    <liz-user-collection-header [collection]="coll" header [confidence]="confidence()" />
+    <liz-page-header-cards header />
+    <!-- <liz-user-collection-header [collection]="coll" header [confidence]="confidence()" /> -->
   }
   <div class="content">
     <div class="action-buttons full-width-scroll">

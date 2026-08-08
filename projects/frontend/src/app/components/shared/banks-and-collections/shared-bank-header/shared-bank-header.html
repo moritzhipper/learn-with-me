@@ -3,11 +3,11 @@
   <div class="card-bg one"></div>
 </div>
 @let ba = bank();
-<app-header-link [route]="'/routelin'" label="test" eyebrow class="pb-4" />
+<app-header-link [route]="'/community'" label="Community" eyebrow class="pb-4" />
 
 <h1>
   {{ ba.name }}
 </h1>
 <liz-shared-bank-stats [bank]="ba" hideCounts class="pt-4 text size-2" />
 <liz-shared-bank-stats [bank]="ba" hideGeneral class="pt-2 text light" />
-<liz-language-match [languageConfig]="ba.language" class="pt-1 text light" />
+<liz-language-match [languageConfig]="ba.language" class="pt-2 text light" />
