@@ -5,9 +5,9 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 animItem>Select language pair</h2>
+  <h2 #animItem>Select language pair</h2>
 
-  <div class="inputs full" animItem>
+  <div class="inputs full" #animItem>
     <label>
       <span>Base language</span>
       <input type="text" formControlName="speaking" placeholder="All languages" />
@@ -18,6 +18,6 @@
       <input type="text" formControlName="learning" placeholder="All languages" />
     </label>
   </div>
-  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
-  <button type="submit" [disabled]="form.invalid" class="big" animItem>Confirm</button>
+  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
+  <button type="submit" [disabled]="form.invalid" class="big" #animItem>Confirm</button>
 </form>

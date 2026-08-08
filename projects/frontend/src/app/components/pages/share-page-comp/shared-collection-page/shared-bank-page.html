@@ -1,14 +1,14 @@
 @if (bank.hasValue()) {
   @let ban = bank.value();
   <app-page-wrapper lizAnimDelayWrapper>
-    <liz-page-header-cards header [title]="ban.name" outline animItem class="fly-in-y-wide-rev">
+    <liz-page-header-cards header [title]="ban.name" outline #animItem class="fly-in-y-wide-rev">
       <liz-shared-bank-stats [bank]="ban" hideCounts class="text size-2" />
       <liz-shared-bank-stats [bank]="ban" hideGeneral class="text light" />
       <liz-language-match [languageConfig]="ban.language" class="text light" />
     </liz-page-header-cards>
 
     <div class="content">
-      <div class="full-width-scroll action-buttons fly-in-y-wide" animItem>
+      <div class="full-width-scroll action-buttons fly-in-y-wide" #animItem>
         @if (selectedCollection()) {
           <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
             <app-icon-comp type="chevron" />
@@ -39,7 +39,7 @@
       </div>
       <div class="cards">
         @for (card of visibleCards(); track card.id) {
-          <div app-learnable-comp [learnable]="card" animItem class="fly-in-y-wide"></div>
+          <div app-learnable-comp [learnable]="card" #animItem class="fly-in-y-wide"></div>
         }
       </div>
     </div>

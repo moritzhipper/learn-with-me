@@ -5,8 +5,8 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 animItem>edit card</h2>
-  <div class="fake-card full" animItem>
+  <h2 #animItem>edit card</h2>
+  <div class="fake-card full" #animItem>
     <app-radio-comp
       formControlName="type"
       [config]="[{ value: 'word' }, { value: 'phrase' }]"
@@ -17,6 +17,6 @@
     <input formControlName="notes" class="notes full" placeholder="( notes )" />
   </div>
 
-  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
-  <button type="submit" animItem [disabled]="form.invalid">Save</button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem [disabled]="form.invalid">Save</button>
 </form>

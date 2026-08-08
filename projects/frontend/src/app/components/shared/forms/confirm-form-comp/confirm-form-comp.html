@@ -5,7 +5,7 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <div class="content" animItem>
+  <div class="content" #animItem>
     @if (message(); as message) {
       <h2>
         {{ message }}
@@ -18,8 +18,8 @@
     }
   </div>
 
-  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
-  <button type="submit" animItem>
+  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
+  <button type="submit" #animItem>
     {{ label() }}
   </button>
 </form>

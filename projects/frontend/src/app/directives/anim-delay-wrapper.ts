@@ -1,31 +1,29 @@
-import { afterNextRender, Directive, ElementRef, inject, input } from '@angular/core'
+import { afterRenderEffect, contentChildren, Directive, ElementRef, input } from '@angular/core'
 import { mapToAnimDelay } from './anim-delay-utils'
 
 @Directive({
   selector: '[lizAnimDelayWrapper]'
 })
 export class AnimDelayWrapper {
-  private readonly defaultSelector = '[animItem]'
-  /**
-   * Applies animation delay to children matching this element selector
-   */
-  readonly selectors = input<string>(this.defaultSelector)
+  readonly items = contentChildren<unknown, ElementRef<HTMLElement>>('animItem', {
+    descendants: true,
+    read: ElementRef
+  })
 
   /**
    * Applies class to every child with #animItem template ref
    */
   readonly applyClass = input<string>()
 
-  private readonly hostEl: ElementRef<HTMLElement> = inject(ElementRef)
+  readonly duration = input<number>(0.2)
 
   constructor() {
-    afterNextRender(() => {
-      const items: NodeListOf<HTMLElement> = this.hostEl.nativeElement.querySelectorAll(
-        this.selectors()
-      )
+    afterRenderEffect(() => {
+      const items = this.items().map((item) => item.nativeElement)
+      const duration = this.duration()
 
       items.forEach((item, i) => {
-        const delay = mapToAnimDelay({ i, size: items.length })
+        const delay = mapToAnimDelay({ i, size: items.length, duration })
         const applyClass = this.applyClass()
 
         if (applyClass) {

@@ -3,11 +3,11 @@
     @case (0) {
       <app-larry-big class="larry fly-in-y-wide" />
       <div>
-        <p animItem>Welcome to</p>
-        <h1 animItem>lingolizard</h1>
+        <p #animItem>Welcome to</p>
+        <h1 #animItem>lingolizard</h1>
       </div>
-      <p animItem>Create, practice and share learning cards and collections.</p>
-      <p class="pb-4" animItem>
+      <p #animItem>Create, practice and share learning cards and collections.</p>
+      <p class="pb-4" #animItem>
         Prepare for conversations in other languages, slang, dialects or situations. Your
         imagination is the limit!
       </p>
@@ -61,7 +61,7 @@
     </button>
     <button
       class="big next"
-      animItem
+      #animItem
       [disabled]="activeIndex() === 3 && languageForm.invalid"
       (click)="next()"
     >

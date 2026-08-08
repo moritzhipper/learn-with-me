@@ -6,11 +6,11 @@
   applyClass="fly-in-y"
 >
   <div class="header full">
-    <h2 animItem>Add to collection</h2>
-    <p class="light pt-3" animItem>{{ cardIds().length }} cards selected</p>
+    <h2 #animItem>Add to collection</h2>
+    <p class="light pt-3" #animItem>{{ cardIds().length }} cards selected</p>
   </div>
 
-  <div class="collections" animItem>
+  <div class="collections" #animItem>
     @for (collectionVM of collectionsVM(); track collectionVM.id) {
       <label class="radio">
         <input type="radio" [value]="collectionVM.id" formControlName="addToId" />
@@ -27,7 +27,7 @@
       </label>
     }
   </div>
-  <label animItem>
+  <label #animItem>
     <span>Create new</span>
     <input
       type="text"
@@ -38,8 +38,8 @@
       (click)="resetCollectionSelection()"
     />
   </label>
-  <button class="big" animItem type="button" (click)="cancel()">Cancel</button>
-  <button type="submit" [disabled]="!form.value.createName && !form.value.addToId" animItem>
+  <button class="big" #animItem type="button" (click)="cancel()">Cancel</button>
+  <button type="submit" [disabled]="!form.value.createName && !form.value.addToId" #animItem>
     Confirm
   </button>
 </form>

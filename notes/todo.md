@@ -2,6 +2,7 @@
 
 ## Today
 
+- anim wrapper doesnt work for lazy loaded stuff -> see explore page
 - remove collection and shared header
 - add empty states back to cards pages
 - add card header to all user cards

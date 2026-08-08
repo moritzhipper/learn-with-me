@@ -7,7 +7,7 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <div class="header full" animItem>
+  <div class="header full" #animItem>
     <h2>Start new Practice</h2>
     @if (conf.confidence; as confidence) {
       <liz-confidence-stats [confidence]="confidence" />
@@ -16,17 +16,17 @@
 
   <div class="content full">
     @if (conf.hasActivePractice) {
-      <liz-info-card class="mb-5" animItem type="warn" title="Practice already in progress">
+      <liz-info-card class="mb-5" #animItem type="warn" title="Practice already in progress">
         <p>Starting a new one will end your current run.</p>
       </liz-info-card>
     }
     @if (conf.confidence; as confidence) {
-      <liz-confidence-dots [confidence]="conf.confidence" animItem />
+      <liz-confidence-dots [confidence]="conf.confidence" #animItem />
     }
 
     <app-radio-comp
       class="mt-3"
-      animItem
+      #animItem
       label="Guess"
       formControlName="guessableField"
       [config]="[
@@ -35,6 +35,6 @@
       ]"
     />
   </div>
-  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
-  <button type="submit" animItem>Start</button>
+  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
+  <button type="submit" #animItem>Start</button>
 </form>

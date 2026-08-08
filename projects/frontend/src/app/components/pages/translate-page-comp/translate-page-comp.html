@@ -26,12 +26,12 @@
 
   @if (cards().length !== 0) {
     <div #cardsWrapper lizAnimDelayWrapper applyClass="fly-in-y-wide">
-      <h2 class="indent" animItem>History</h2>
+      <h2 class="indent" #animItem>History</h2>
       <div class="cards">
         @for (card of cards(); track card.id) {
           <button
             app-learnable-comp
-            animItem
+            #animItem
             [learnable]="card"
             (click)="selector.toggle(card.id)"
             [isSelected]="selector.selected().has(card.id)"

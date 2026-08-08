@@ -5,18 +5,18 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 animItem>Tone</h2>
+  <h2 #animItem>Tone</h2>
 
-  <p class="full" animItem>
+  <p class="full" #animItem>
     Set a single word or a short description of the tone or context you want to use the translations
     in.
   </p>
   <textarea
     class="full"
-    animItem
+    #animItem
     formControlName="text"
     placeholder="Casual, Formal, Adressing an arch enemy, etc."
   ></textarea>
-  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
-  <button type="submit" animItem>Submit</button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem>Submit</button>
 </form>

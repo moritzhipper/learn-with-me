@@ -16,7 +16,7 @@
   <liz-page-header-cards
     header
     [title]="collection()?.name ?? 'All cards'"
-    animItem
+    #animItem
     class="fly-in-y-wide-rev"
   >
     <liz-confidence-stats [confidence]="confidence()" class="pb-0 text size-2" />
@@ -26,7 +26,7 @@
     <app-practice-rating-comp [confidence]="confidence().all" />
   </liz-page-header-cards>
   <div class="content">
-    <div class="action-buttons full-width-scroll fly-in-y-wide" animItem>
+    <div class="action-buttons full-width-scroll fly-in-y-wide" #animItem>
       <button class="header-action" (click)="practice()">
         Practice
         <app-icon-comp type="learn" class="icon" />
@@ -57,7 +57,7 @@
         @for (card of sortedCards(); track card.id) {
           <button
             class="fly-in-y-wide"
-            animItem
+            #animItem
             app-learnable-comp
             [learnable]="card"
             (click)="selector.toggle(card.id)"
@@ -67,11 +67,11 @@
       </div>
     }
     @if (unsortedCards().length > 0) {
-      <h2 class="indent fly-in-y-wide" animItem>Loose Cards</h2>
+      <h2 class="indent fly-in-y-wide" #animItem>Loose Cards</h2>
       <div class="cards">
         @for (card of unsortedCards(); track card.id) {
           <button
-            animItem
+            #animItem
             class="fly-in-y-wide"
             app-learnable-comp
             [learnable]="card"

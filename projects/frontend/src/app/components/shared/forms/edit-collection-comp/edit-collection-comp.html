@@ -5,12 +5,12 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 animItem>Edit collection</h2>
-  <label animItem>
+  <h2 #animItem>Edit collection</h2>
+  <label #animItem>
     <span> name </span>
     <input type="text" formControlName="name" />
   </label>
 
-  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
-  <button type="submit" animItem [disabled]="form.invalid">Save</button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem [disabled]="form.invalid">Save</button>
 </form>

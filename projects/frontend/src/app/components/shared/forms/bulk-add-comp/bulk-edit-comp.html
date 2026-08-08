@@ -5,7 +5,7 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <div formArrayName="learnables" class="learnables" animItem>
+  <div formArrayName="learnables" class="learnables" #animItem>
     @for (learnable of learnablesFormArray.controls; track learnable.value; let i = $index) {
       <div class="learnable" [formGroupName]="i">
         <app-radio-comp
@@ -65,16 +65,16 @@
       (click)="addLearnable()"
       [disabled]="!learnablesForm.valid"
       class="add big"
-      animItem
+      #animItem
     >
       Add
       <app-icon-comp type="add" [size]="20" />
     </button>
-    <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
+    <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
     <button
       type="submit"
       class="submit"
-      animItem
+      #animItem
       [disabled]="
         !learnablesForm.valid ||
         (learnablesFormArray.controls.length === 0 && deletedLIDs().length === 0)

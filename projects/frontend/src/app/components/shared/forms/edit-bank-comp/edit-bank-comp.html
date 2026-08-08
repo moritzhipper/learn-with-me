@@ -5,14 +5,14 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 class="full" animItem>
+  <h2 class="full" #animItem>
     @if (preset()) {
       Edit Bank
     } @else {
       Create new Bank
     }
   </h2>
-  <div class="inputs full" animItem>
+  <div class="inputs full" #animItem>
     <label>
       <span>Bank Name </span>
       <input formControlName="name" />
@@ -27,8 +27,8 @@
     </label>
   </div>
 
-  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
-  <button type="submit" animItem [disabled]="form.invalid">
+  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
+  <button type="submit" #animItem [disabled]="form.invalid">
     @if (preset()) {
       Save
     } @else {

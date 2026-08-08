@@ -5,7 +5,7 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <div class="header full" animItem>
+  <div class="header full" #animItem>
     <h2>Import {{ bank().name }}</h2>
 
     <div class="description">
@@ -17,7 +17,7 @@
   </div>
 
   @if (!importLanguagesMatch()) {
-    <liz-info-card type="warn" title="Language mismatch!" class="full" animItem>
+    <liz-info-card type="warn" title="Language mismatch!" class="full" #animItem>
       @if (strategy() === 'merge') {
         <p>
           The languages do not align with your current bank, resulting in the following mapping:
@@ -64,7 +64,7 @@
 
   <div class="controls full">
     <app-radio-comp
-      animItem
+      #animItem
       formControlName="strategy"
       label="Import strategy"
       darkMode
@@ -75,7 +75,7 @@
     />
 
     <app-radio-comp
-      animItem
+      #animItem
       formControlName="invertLanguageDirection"
       darkMode
       label="Language direction"
@@ -86,6 +86,6 @@
     />
   </div>
 
-  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
-  <button type="submit" animItem>Import</button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem>Import</button>
 </form>
