@@ -4,10 +4,8 @@
   display: grid;
   grid-template-rows: 1fr auto;
 
-  .counter {
-    .count {
-      font-weight: var(--font-weight-bold);
-    }
+  .counter .count {
+    font-weight: var(--font-weight-bold);
   }
 
   form {
@@ -79,6 +77,7 @@
 
     .count {
       font-size: 100px;
+      line-height: 100px;
     }
     .label {
       font-size: var(--font-size-3);

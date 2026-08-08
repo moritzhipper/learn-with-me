@@ -5,9 +5,9 @@
   padding: var(--page-padding);
   gap: var(--page-padding);
   width: 100vw;
-  min-height: 100dvh;
   box-sizing: border-box;
-  max-height: var(--app-height);
+
+  height: var(--app-height);
   scroll-timeline: --main-timeline;
 
   // use 'none' if this doesnt fix it
@@ -30,6 +30,7 @@
 
   &:not(.full-screen) {
     overflow-x: hidden;
+    grid-template-rows: auto 1fr;
 
     .content {
       justify-self: center;
@@ -40,7 +41,6 @@
   &.full-screen {
     overflow: hidden;
     overscroll-behavior: none;
-    height: var(--app-height);
   }
 }
 
