@@ -51,30 +51,3 @@ app-practice-rating-comp {
     padding-top: var(--distance-4);
   }
 }
-
-@include isPhone {
-  .sub-title {
-    app-practice-rating-comp {
-      width: 70px;
-      height: 70px;
-      translate: 0px 50px;
-      place-self: center;
-      animation: popin 1s var(--duration-0) var(--overshot) both;
-    }
-  }
-}
-
-@include isDesktop {
-  app-practice-rating-comp {
-    width: 70px;
-    height: 70px;
-    translate: 120px;
-  }
-}
-
-@keyframes popin {
-  from {
-    opacity: 0;
-    scale: 0.5;
-  }
-}
