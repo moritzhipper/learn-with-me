@@ -1,12 +1,12 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig } from '@shared/types'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-select-language-match-comp',
-  imports: [ReactiveFormsModule, AnimDelay],
+  imports: [ReactiveFormsModule, AnimDelayWrapper],
   templateUrl: './select-language-match-comp.html',
   styleUrl: './select-language-match-comp.scss'
 })

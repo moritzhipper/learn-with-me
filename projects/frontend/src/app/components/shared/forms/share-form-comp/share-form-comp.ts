@@ -1,13 +1,13 @@
 import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareConfig, BankUser } from '@shared/types'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-share-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper],
   templateUrl: './share-form-comp.html',
   styleUrl: './share-form-comp.scss'
 })

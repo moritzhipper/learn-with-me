@@ -1,14 +1,14 @@
 import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Collection } from '@shared/types'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
 
 @Component({
   selector: 'app-filter-comp',
-  imports: [IconComp, FormsModule, AnimDelay],
+  imports: [IconComp, FormsModule, AnimDelayWrapper],
   templateUrl: './filter-comp.html',
   styleUrl: './filter-comp.scss',
   host: {

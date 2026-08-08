@@ -1,12 +1,18 @@
-<form class="modal" (ngSubmit)="submit()" [formGroup]="form">
-  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: 4 }">
+<form
+  class="modal"
+  (ngSubmit)="submit()"
+  [formGroup]="form"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <h2 class="full" animItem>
     @if (preset()) {
       Edit Bank
     } @else {
       Create new Bank
     }
   </h2>
-  <div class="inputs full fly-in-y" [animDelay]="{ i: 1, size: 4 }">
+  <div class="inputs full" animItem>
     <label>
       <span>Bank Name </span>
       <input formControlName="name" />
@@ -21,10 +27,10 @@
     </label>
   </div>
 
-  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }">
+  <button type="button" (click)="cancel()" class="big" animItem>
     Cancel
   </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 3, size: 4 }" [disabled]="form.invalid">
+  <button type="submit" animItem [disabled]="form.invalid">
     @if (preset()) {
       Save
     } @else {

@@ -4,7 +4,7 @@ import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
-import { AnimDelay } from '../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { ApiService } from '../../../services/api-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -42,7 +42,7 @@ type BanksPreviewSection = PrefetchSectionProxy & {
     RouterLink,
     LoadingSpinner,
     HeaderLink,
-    AnimDelay,
+    AnimDelayWrapper,
     PageWrapper,
     InfoCard,
     RouterLink

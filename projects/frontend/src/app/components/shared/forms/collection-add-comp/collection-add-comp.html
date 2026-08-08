@@ -1,12 +1,18 @@
-<form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm(form.value)"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
   <div class="header full">
-    <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 5 }">Add to collection</h2>
-    <p class="fly-in-y light pt-3" [animDelay]="{ i: 0, size: 5 }">
+    <h2 animItem>Add to collection</h2>
+    <p class="light pt-3" animItem>
       {{ cardIds().length }} cards selected
     </p>
   </div>
 
-  <div class="collections fly-in-y" [animDelay]="{ i: 1, size: 5 }">
+  <div class="collections" animItem>
     @for (collectionVM of collectionsVM(); track collectionVM.id) {
       <label class="radio">
         <input type="radio" [value]="collectionVM.id" formControlName="addToId" />
@@ -23,7 +29,7 @@
       </label>
     }
   </div>
-  <label class="fly-in-y" [animDelay]="{ i: 2, size: 5 }">
+  <label animItem>
     <span>Create new</span>
     <input
       type="text"
@@ -34,14 +40,13 @@
       (click)="resetCollectionSelection()"
     />
   </label>
-  <button class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }" type="button" (click)="cancel()">
+  <button class="big" animItem type="button" (click)="cancel()">
     Cancel
   </button>
   <button
     type="submit"
     [disabled]="!form.value.createName && !form.value.addToId"
-    class="fly-in-y"
-    [animDelay]="{ i: 4, size: 5 }"
+    animItem
   >
     Confirm
   </button>

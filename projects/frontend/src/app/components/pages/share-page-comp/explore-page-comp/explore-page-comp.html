@@ -20,14 +20,13 @@
     />
   </div>
 
-  <div class="banks">
+  <div class="banks" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     @for (bank of visibleBanks(); track bank.id) {
       <a
         app-shared-bank-comp
-        class="fly-in-y-wide"
         [bank]="bank"
         [isCommunityBank]="true"
-        [animDelay]="{ i: $index, list: visibleBanks() }"
+        animItem
         (copyId)="copyBankId(bank)"
         (importBank)="importBank(bank)"
       ></a>

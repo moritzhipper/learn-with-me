@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { Collection } from '@shared/types'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type ConfirmCollectionAddType = {
@@ -15,7 +15,7 @@ type CollectionVM = Collection & {
 
 @Component({
   selector: 'app-collection-add-comp',
-  imports: [ReactiveFormsModule, AnimDelay],
+  imports: [ReactiveFormsModule, AnimDelayWrapper],
   templateUrl: './collection-add-comp.html',
   styleUrl: './collection-add-comp.scss'
 })

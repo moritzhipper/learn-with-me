@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { ApiService } from '../../../../services/api-service'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
@@ -29,7 +29,7 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     IconComp,
     RadioComp,
     FormsModule,
-    AnimDelay,
+    AnimDelayWrapper,
     InfoCard,
     PageWrapper,
     LanguageMatch

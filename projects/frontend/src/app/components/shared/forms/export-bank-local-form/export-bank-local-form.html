@@ -1,11 +1,17 @@
-<form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="full fly-in-y" [animDelay]="{ i: 0, size: 4 }">Export Bank</h2>
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm(form.value)"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <h2 class="full" animItem>Export Bank</h2>
 
-  <liz-info-card title="Include history?" class="full fly-in-y" [animDelay]="{ i: 1, size: 4 }">
+  <liz-info-card title="Include history?" class="full" animItem>
     <p>You can include your practice history, translation history and stats in the export.</p>
     <app-radio-comp
       class="pt-3"
-      [animDelay]="{ i: 2, size: 4 }"
+      animItem
       [config]="[
         { value: false, label: 'Exclude' },
         { value: true, label: 'Include' }
@@ -15,12 +21,12 @@
   </liz-info-card>
 
   <button
-    class="big secondary fly-in-y"
+    class="big secondary"
     type="button"
     (click)="cancel()"
-    [animDelay]="{ i: 3, size: 4 }"
+    animItem
   >
     Cancel
   </button>
-  <button class="big fly-in-y" type="submit" [animDelay]="{ i: 4, size: 4 }">Export</button>
+  <button class="big" type="submit" animItem>Export</button>
 </form>

@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { AnimDelay } from '../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { CardsSelector } from '../../../services/cards-selector'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
@@ -25,7 +25,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     Bubbles,
     Bubble,
     LearnableComp,
-    AnimDelay,
+    AnimDelayWrapper,
     IconComp,
     PageWrapper,
     InfoCard

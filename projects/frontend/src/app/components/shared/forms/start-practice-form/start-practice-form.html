@@ -1,7 +1,13 @@
 @let conf = config();
 
-<form class="modal" (ngSubmit)="confirm(form.value)" [formGroup]="form">
-  <div class="header fly-in-y full" [animDelay]="{ i: 0, size: 5 }">
+<form
+  class="modal"
+  (ngSubmit)="confirm(form.value)"
+  [formGroup]="form"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <div class="header full" animItem>
     <h2>Start new Practice</h2>
     @if (conf.confidence; as confidence) {
       <liz-confidence-stats [confidence]="confidence" />
@@ -11,8 +17,8 @@
   <div class="content full">
     @if (conf.hasActivePractice) {
       <liz-info-card
-        class="fly-in-y mb-5"
-        [animDelay]="{ i: 1, size: 5 }"
+        class="mb-5"
+        animItem
         type="warn"
         title="Practice already in progress"
       >
@@ -20,16 +26,12 @@
       </liz-info-card>
     }
     @if (conf.confidence; as confidence) {
-      <liz-confidence-dots
-        [confidence]="conf.confidence"
-        class="fly-in-y"
-        [animDelay]="{ i: 1, size: 5 }"
-      />
+      <liz-confidence-dots [confidence]="conf.confidence" animItem />
     }
 
     <app-radio-comp
-      class="fly-in-y mt-3"
-      [animDelay]="{ i: 2, size: 5 }"
+      class="mt-3"
+      animItem
       label="Guess"
       formControlName="guessableField"
       [config]="[
@@ -38,8 +40,8 @@
       ]"
     />
   </div>
-  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 3, size: 5 }">
+  <button type="button" (click)="cancel()" class="big" animItem>
     Cancel
   </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 4, size: 5 }">Start</button>
+  <button type="submit" animItem>Start</button>
 </form>

@@ -25,15 +25,13 @@
   </div>
 
   @if (cards().length !== 0) {
-    <div #cardsWrapper>
-      <h2 class="indent fly-in-y-wide">History</h2>
-      @let transCount = cards().length;
+    <div #cardsWrapper lizAnimDelayWrapper applyClass="fly-in-y-wide">
+      <h2 class="indent" animItem>History</h2>
       <div class="cards">
         @for (card of cards(); track card.id) {
           <button
             app-learnable-comp
-            class="fly-in-y-wide"
-            [animDelay]="{ i: $index + 1, size: transCount }"
+            animItem
             [learnable]="card"
             (click)="selector.toggle(card.id)"
             [isSelected]="selector.selected().has(card.id)"

@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core'
 import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { AnimDelay } from '../../../../directives/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-confirm-form-comp',
-  imports: [ReactiveFormsModule, AnimDelay],
+  imports: [ReactiveFormsModule, AnimDelayWrapper],
   templateUrl: './confirm-form-comp.html',
   styleUrl: './confirm-form-comp.scss'
 })

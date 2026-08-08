@@ -5,10 +5,10 @@
   lizAnimDelayWrapper
   applyClass="fly-in-y"
 >
-  <h2 delayItem>Delete collection?</h2>
+  <h2 animItem>Delete collection?</h2>
 
   <app-radio-comp
-    delayItem
+    animItem
     formControlName="deletionType"
     [config]="[
       { value: 'dissolve', label: 'Keep cards' },
@@ -16,6 +16,6 @@
     ]"
   />
 
-  <button type="button" delayItem (click)="cancel()">Cancel</button>
-  <button type="submit" delayItem>Confirm</button>
+  <button type="button" animItem (click)="cancel()">Cancel</button>
+  <button type="submit" animItem>Confirm</button>
 </form>

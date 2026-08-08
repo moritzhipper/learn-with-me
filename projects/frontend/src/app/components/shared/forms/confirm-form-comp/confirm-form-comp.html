@@ -1,5 +1,11 @@
-<form class="modal" (ngSubmit)="confirm()" [formGroup]="form">
-  <div class="content fly-in-y" [animDelay]="{ i: 0, size: 3 }">
+<form
+  class="modal"
+  (ngSubmit)="confirm()"
+  [formGroup]="form"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <div class="content" animItem>
     @if (message(); as message) {
       <h2>
         {{ message }}
@@ -12,10 +18,10 @@
     }
   </div>
 
-  <button type="button" (click)="cancel()" class="big fly-in-y" [animDelay]="{ i: 1, size: 3 }">
+  <button type="button" (click)="cancel()" class="big" animItem>
     Cancel
   </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 2, size: 3 }">
+  <button type="submit" animItem>
     {{ label() }}
   </button>
 </form>
