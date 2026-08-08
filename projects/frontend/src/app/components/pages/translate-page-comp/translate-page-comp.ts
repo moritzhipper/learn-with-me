@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { AnimDelay } from '../../../services/anim-delay'
+import { AnimDelay } from '../../../directives/anim-delay'
 import { CardsSelector } from '../../../services/cards-selector'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'

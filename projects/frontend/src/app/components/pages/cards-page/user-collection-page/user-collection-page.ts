@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from '@shared/types'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { CardsSelector } from '../../../../services/cards-selector'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
@@ -35,8 +36,10 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     PageHeaderCards,
     ConfidenceStats,
     PracticeRatingComp,
-    DatePipe
+    DatePipe,
+    AnimDelayWrapper
   ],
+
   providers: [CardsSelector],
   templateUrl: './user-collection-page.html',
   styleUrl: './user-collection-page.scss'

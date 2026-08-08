@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core'
 import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelay } from '../../../../directives/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({

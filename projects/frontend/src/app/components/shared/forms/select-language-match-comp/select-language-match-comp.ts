@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig } from '@shared/types'
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelay } from '../../../../directives/anim-delay'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({

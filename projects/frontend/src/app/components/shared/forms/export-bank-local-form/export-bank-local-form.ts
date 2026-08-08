@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelay } from '../../../../directives/anim-delay'
 import { BankExportOptions } from '../../../../utils/import-export-utils'
 import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'

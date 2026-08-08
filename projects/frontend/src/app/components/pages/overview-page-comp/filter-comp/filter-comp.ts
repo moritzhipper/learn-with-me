@@ -1,7 +1,7 @@
 import { Component, input, model, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Collection } from '@shared/types'
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelay } from '../../../../directives/anim-delay'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 export type FilterAction = 'edit' | 'share' | 'download' | 'delete'
