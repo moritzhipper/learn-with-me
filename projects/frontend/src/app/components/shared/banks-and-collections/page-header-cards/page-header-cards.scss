@@ -13,9 +13,9 @@
   .back {
     display: flex;
     align-items: center;
-
     flex-direction: row;
   }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -34,13 +34,11 @@
 
     .card-bg {
       grid-area: 1 / 1;
-      z-index: -1;
       width: 140%;
       height: 130%;
-      content: '';
-
       border-radius: var(--radius-2);
       box-sizing: border-box;
+      z-index: -1;
 
       &.two {
         width: 100%;
