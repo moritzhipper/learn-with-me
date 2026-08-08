@@ -11,10 +11,6 @@
     <input type="text" formControlName="name" />
   </label>
 
-  <button type="button" class="big" animItem (click)="cancel()">
-    Cancel
-  </button>
-  <button type="submit" animItem [disabled]="form.invalid">
-    Save
-  </button>
+  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
+  <button type="submit" animItem [disabled]="form.invalid">Save</button>
 </form>

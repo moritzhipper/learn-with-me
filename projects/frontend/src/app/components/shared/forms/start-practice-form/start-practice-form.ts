@@ -22,7 +22,14 @@ export type StartPracticeFormConfig = {
 
 @Component({
   selector: 'app-start-practice-form',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper, InfoCard, ConfidenceDots, ConfidenceStats],
+  imports: [
+    ReactiveFormsModule,
+    RadioComp,
+    AnimDelayWrapper,
+    InfoCard,
+    ConfidenceDots,
+    ConfidenceStats
+  ],
   templateUrl: './start-practice-form.html',
   styleUrl: './start-practice-form.scss'
 })

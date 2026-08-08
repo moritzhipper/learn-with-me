@@ -18,15 +18,6 @@
       <input type="text" formControlName="learning" placeholder="All languages" />
     </label>
   </div>
-  <button type="button" (click)="cancel()" class="big" animItem>
-    Cancel
-  </button>
-  <button
-    type="submit"
-    [disabled]="form.invalid"
-    class="big"
-    animItem
-  >
-    Confirm
-  </button>
+  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
+  <button type="submit" [disabled]="form.invalid" class="big" animItem>Confirm</button>
 </form>

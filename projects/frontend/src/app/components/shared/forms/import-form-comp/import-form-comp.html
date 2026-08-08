@@ -17,12 +17,7 @@
   </div>
 
   @if (!importLanguagesMatch()) {
-    <liz-info-card
-      type="warn"
-      title="Language mismatch!"
-      class="full"
-      animItem
-    >
+    <liz-info-card type="warn" title="Language mismatch!" class="full" animItem>
       @if (strategy() === 'merge') {
         <p>
           The languages do not align with your current bank, resulting in the following mapping:
@@ -91,15 +86,6 @@
     />
   </div>
 
-  <button
-    type="button"
-    class="big"
-    animItem
-    (click)="cancel()"
-  >
-    Cancel
-  </button>
-  <button type="submit" animItem>
-    Import
-  </button>
+  <button type="button" class="big" animItem (click)="cancel()">Cancel</button>
+  <button type="submit" animItem>Import</button>
 </form>

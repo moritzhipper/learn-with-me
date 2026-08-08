@@ -6,9 +6,7 @@
         <p animItem>Welcome to</p>
         <h1 animItem>lingolizard</h1>
       </div>
-      <p animItem>
-        Create, practice and share learning cards and collections.
-      </p>
+      <p animItem>Create, practice and share learning cards and collections.</p>
       <p class="pb-4" animItem>
         Prepare for conversations in other languages, slang, dialects or situations. Your
         imagination is the limit!
@@ -61,7 +59,12 @@
     <button class="silent back" [disabled]="activeIndex() === 0" (click)="back()">
       <app-icon-comp type="chevron" />
     </button>
-    <button class="big next" animItem [disabled]="activeIndex() === 3 && languageForm.invalid" (click)="next()">
+    <button
+      class="big next"
+      animItem
+      [disabled]="activeIndex() === 3 && languageForm.invalid"
+      (click)="next()"
+    >
       @if (activeIndex() === 3) {
         Lets go!
       } @else {

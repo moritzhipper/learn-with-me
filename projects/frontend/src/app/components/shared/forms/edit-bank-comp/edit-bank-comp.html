@@ -27,9 +27,7 @@
     </label>
   </div>
 
-  <button type="button" (click)="cancel()" class="big" animItem>
-    Cancel
-  </button>
+  <button type="button" (click)="cancel()" class="big" animItem>Cancel</button>
   <button type="submit" animItem [disabled]="form.invalid">
     @if (preset()) {
       Save
