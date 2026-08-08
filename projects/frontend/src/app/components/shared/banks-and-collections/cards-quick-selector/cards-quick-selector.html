@@ -5,15 +5,17 @@
   </a>
 }
 @let allConf = allCardsWithConfidence();
-<a liz-cards-stack class="caroussel-item all" [routerLink]="['/cards', 'all']">
-  <h3>All Cards</h3>
-  <liz-confidence-stats [confidence]="allConf.confidence" />
+<a liz-cards-stack class="caroussel-item" [routerLink]="['/cards', 'all']">
+  <div class="all">
+    <h3>All Cards</h3>
+    <liz-confidence-stats [confidence]="allConf.confidence" />
 
-  <p class="mt-auto">
-    @if (allConf.collectionLessCount > 0) {
-      <span class="word-list-item">
-        <strong> {{ allConf.collectionLessCount }} </strong> loose cards
-      </span>
-    }
-  </p>
+    <p class="mt-auto">
+      @if (allConf.collectionLessCount > 0) {
+        <span class="word-list-item">
+          <strong> {{ allConf.collectionLessCount }} </strong> loose cards
+        </span>
+      }
+    </p>
+  </div>
 </a>
