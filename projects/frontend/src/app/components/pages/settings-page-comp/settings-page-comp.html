@@ -3,7 +3,7 @@
   <h2 class="indent first">My Banks</h2>
   <div class="caroussel-wrapper">
     @for (bank of banks(); track bank.id) {
-      <liz-cards-stack>
+      <liz-cards-stack class="caroussel-item" outline>
         <app-bank-settings-card
           [bank]="bank"
           [isActive]="activeBankId() === bank.id"
@@ -12,7 +12,6 @@
           (download)="downloadBank(bank)"
           (edit)="editBank(bank)"
           (share)="shareBank(bank)"
-          class="caroussel-item"
         />
       </liz-cards-stack>
     }

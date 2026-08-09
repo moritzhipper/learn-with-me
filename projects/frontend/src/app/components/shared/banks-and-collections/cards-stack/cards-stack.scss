@@ -6,15 +6,17 @@
 
   outline: none;
 
-  &:hover,
-  &:focus-visible {
-    outline: none;
-    .content {
-      translate: calc(-1 * var(--distance-2)) calc(-1 * var(--distance-2));
-    }
-    .card-bg {
-      rotate: 0deg;
-      translate: var(--distance-2) var(--distance-2);
+  &:is(a) {
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      .content {
+        translate: calc(-1 * var(--distance-2)) calc(-1 * var(--distance-2));
+      }
+      .card-bg {
+        rotate: 0deg;
+        translate: var(--distance-2) var(--distance-2);
+      }
     }
   }
 }
