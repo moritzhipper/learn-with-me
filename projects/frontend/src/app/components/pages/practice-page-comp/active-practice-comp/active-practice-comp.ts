@@ -82,6 +82,7 @@ export class ActivePracticeComp {
   setGuess(guess: Guess) {
     const practice = this.currentPractice()
     const currentCardID = practice.guessables[practice.guessableIndex]?.id
+    debugger
     if (this.isFinished() || !currentCardID) return
 
     this.ls.setGuessToPractice(guess)
