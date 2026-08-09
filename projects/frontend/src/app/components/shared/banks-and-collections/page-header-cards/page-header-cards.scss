@@ -93,14 +93,14 @@
 }
 
 :host {
-  animation: host-fly-in var(--duration-2) var(--soft-ease);
+  animation: header-fly-in var(--duration-2) var(--soft-ease);
 
   .card-bg.two {
     animation: card-fly-in var(--duration-2) var(--soft-ease);
   }
 }
 
-@keyframes host-fly-in {
+@keyframes header-fly-in {
   from {
     opacity: 0;
     translate: 0px -70px;
