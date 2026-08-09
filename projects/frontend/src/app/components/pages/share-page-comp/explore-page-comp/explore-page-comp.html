@@ -22,7 +22,7 @@
 
   <div class="banks">
     @for (bank of visibleBanks(); track bank.id) {
-      <a #animItem>
+      <a #animItem liz-cards-stack outline [routerLink]="['/community/bank', bank.id]">
         <app-shared-bank-comp [bank]="bank" />
       </a>
     }

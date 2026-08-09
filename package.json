@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start:fe": "ng serve",
+    "start:fe:lan": "ng serve --host 0.0.0.0 --ssl",
     "start:be": "tsx watch projects/backend/src/app.ts",
     "test:fe": "ng test",
     "test:be": "npm run build:be && tsc -p projects/backend/tsconfig.test.json && cd projects/backend && c8 node --test -r ts-node/register \"test/**/*.ts\"",
