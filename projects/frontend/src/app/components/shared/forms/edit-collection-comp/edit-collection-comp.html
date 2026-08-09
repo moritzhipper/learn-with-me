@@ -1,14 +1,16 @@
-<form [formGroup]="form" (ngSubmit)="confirm(form.value.name)" class="modal">
-  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 4 }">Edit collection</h2>
-  <label class="fly-in-y" [animDelay]="{ i: 1, size: 4 }">
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm(form.value.name)"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <h2 #animItem>Edit collection</h2>
+  <label #animItem>
     <span> name </span>
     <input type="text" formControlName="name" />
   </label>
 
-  <button type="button" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }" (click)="cancel()">
-    Cancel
-  </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 3, size: 4 }" [disabled]="form.invalid">
-    Save
-  </button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem [disabled]="form.invalid">Save</button>
 </form>

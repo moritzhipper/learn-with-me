@@ -19,16 +19,19 @@
         </div>
       </section>
       <section class="quick-actions">
-        <app-header-link label="Community Banks" route="community" />
+        <app-header-link label="Community Cards" route="community" />
         <div class="caroussel-wrapper">
           @if (sharedBanks.hasValue()) {
             @if (sharedBanks.value().length > 0) {
               @for (bank of sharedBanks.value(); track bank.id) {
-                <app-shared-bank-comp
+                <a
                   class="caroussel-item"
-                  [bank]="bank"
-                  [isCommunityBank]="true"
-                />
+                  liz-cards-stack
+                  outline
+                  [routerLink]="['/community/bank', bank.id]"
+                >
+                  <app-shared-bank-comp [bank]="bank" />
+                </a>
               }
             } @else {
               <liz-info-card title="No shared banks available">

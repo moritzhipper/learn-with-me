@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { booleanAttribute, Component, input } from '@angular/core'
 import { LanguageConfig } from '@shared/types'
 import { IconComp } from '../icon-comp/icon-comp'
 
@@ -6,7 +6,6 @@ import { IconComp } from '../icon-comp/icon-comp'
   selector: 'liz-language-match',
   imports: [IconComp],
   templateUrl: './language-match.html',
-  styleUrl: './language-match.scss',
   styles: `
     p {
       .icons {
@@ -18,8 +17,8 @@ import { IconComp } from '../icon-comp/icon-comp'
         margin: -6px 0;
 
         app-icon-comp {
-          width: var(--font-size-1);
-          height: var(--font-size-1);
+          width: 1em;
+          height: 1em;
         }
 
         .dash {
@@ -32,4 +31,5 @@ import { IconComp } from '../icon-comp/icon-comp'
 })
 export class LanguageMatch {
   languageConfig = input.required<LanguageConfig>()
+  big = input(false, { transform: booleanAttribute })
 }

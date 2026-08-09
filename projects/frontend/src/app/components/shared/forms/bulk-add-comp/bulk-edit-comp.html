@@ -1,5 +1,11 @@
-<form [formGroup]="learnablesForm" (ngSubmit)="confirmForm()" class="modal">
-  <div formArrayName="learnables" class="learnables fly-in-y" [animDelay]="{ i: 0, size: 4 }">
+<form
+  [formGroup]="learnablesForm"
+  (ngSubmit)="confirmForm()"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <div formArrayName="learnables" class="learnables" #animItem>
     @for (learnable of learnablesFormArray.controls; track learnable.value; let i = $index) {
       <div class="learnable" [formGroupName]="i">
         <app-radio-comp
@@ -58,19 +64,17 @@
       type="button"
       (click)="addLearnable()"
       [disabled]="!learnablesForm.valid"
-      class="add big fly-in-y"
-      [animDelay]="{ i: 1, size: 4 }"
+      class="add big"
+      #animItem
     >
       Add
       <app-icon-comp type="add" [size]="20" />
     </button>
-    <button type="button" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }" (click)="cancel()">
-      Cancel
-    </button>
+    <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
     <button
       type="submit"
-      class="submit fly-in-y"
-      [animDelay]="{ i: 3, size: 4 }"
+      class="submit"
+      #animItem
       [disabled]="
         !learnablesForm.valid ||
         (learnablesFormArray.controls.length === 0 && deletedLIDs().length === 0)

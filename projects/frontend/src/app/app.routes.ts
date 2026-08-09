@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router'
+import { CardsPage } from './components/pages/cards-page/cards-page'
+import { UserCollectionPage } from './components/pages/cards-page/user-collection-page/user-collection-page'
 import { DashboardPage } from './components/pages/dashboard-page/dashboard-page'
-import { OverviewComp } from './components/pages/overview-page-comp/overview-page-comp'
 import { PracticeComp } from './components/pages/practice-page-comp/practice-page-comp'
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
+import { hasCardsGuard } from './guards/has-cards-guard'
 
 export const routes: Routes = [
   {
@@ -12,9 +14,19 @@ export const routes: Routes = [
     title: 'LingoLizard | Dashboard'
   },
   {
-    component: OverviewComp,
     path: 'cards',
-    title: 'LingoLizard | Cards'
+    title: 'LingoLizard | Cards',
+    canActivate: [hasCardsGuard],
+    children: [
+      {
+        component: CardsPage,
+        path: ''
+      },
+      {
+        path: ':id',
+        component: UserCollectionPage
+      }
+    ]
   },
   {
     component: PracticeComp,
@@ -22,14 +34,14 @@ export const routes: Routes = [
     title: 'lingolizard | Practice'
   },
   {
-    component: SettingsComp,
-    path: 'settings',
-    title: 'lingolizard | Settings'
-  },
-  {
     component: StatsPage,
     title: 'lingolizard | Statis',
     path: 'stats'
+  },
+  {
+    component: SettingsComp,
+    path: 'settings',
+    title: 'lingolizard | Settings'
   },
   {
     loadComponent: () =>
@@ -59,6 +71,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/pages/share-page-comp/explore-page-comp/explore-page-comp').then(
             (m) => m.ExplorePageComp
+          )
+      },
+      {
+        path: 'bank/:id',
+        loadComponent: () =>
+          import('./components/pages/share-page-comp/shared-collection-page/shared-bank-page').then(
+            (m) => m.SharedBankPage
           )
       }
     ]

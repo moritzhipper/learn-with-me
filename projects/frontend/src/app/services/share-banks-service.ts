@@ -97,9 +97,10 @@ export class ShareBanksService {
   }
 
   async shareBank(bank: BankUser, onlyForCollectionIds?: string[]): Promise<void> {
-    const result = await this.modalService.open<BankShareConfig>('bank-share', { bank })
-    if (result.type !== 'confirm') return
     const mappedBank = mapBankToExportable(bank, { onlyForCollectionIds, includeUserData: false })
+    const result = await this.modalService.open<BankShareConfig>('bank-share', { bank: mappedBank })
+
+    if (result.type !== 'confirm') return
 
     try {
       const response = await this.apiService.shareBank({ bank: mappedBank, config: result.value })

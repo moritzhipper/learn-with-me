@@ -1,6 +1,12 @@
-<form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 4 }">edit card</h2>
-  <div class="fake-card full fly-in-y" [animDelay]="{ i: 1, size: 4 }">
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm(form.value)"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <h2 #animItem>edit card</h2>
+  <div class="fake-card full" #animItem>
     <app-radio-comp
       formControlName="type"
       [config]="[{ value: 'word' }, { value: 'phrase' }]"
@@ -11,10 +17,6 @@
     <input formControlName="notes" class="notes full" placeholder="( notes )" />
   </div>
 
-  <button type="button" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }" (click)="cancel()">
-    Cancel
-  </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 3, size: 4 }" [disabled]="form.invalid">
-    Save
-  </button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem [disabled]="form.invalid">Save</button>
 </form>

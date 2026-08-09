@@ -1,15 +1,13 @@
-<div class="wrapper">
+<div class="wrapper" lizAnimDelayWrapper applyClass="fly-in-xy">
   @switch (activeIndex()) {
     @case (0) {
       <app-larry-big class="larry fly-in-y-wide" />
       <div>
-        <p class="fly-in-xy" [animDelay]="{ i: 0, size: 13 }">Welcome to</p>
-        <h1 class="fly-in-xy" [animDelay]="{ i: 1, size: 13 }">lingolizard</h1>
+        <p #animItem>Welcome to</p>
+        <h1 #animItem>lingolizard</h1>
       </div>
-      <p class="fly-in-xy" [animDelay]="{ i: 2, size: 13 }">
-        Create, practice and share learning cards and collections.
-      </p>
-      <p class="pb-4 fly-in-xy" [animDelay]="{ i: 3, size: 13 }">
+      <p #animItem>Create, practice and share learning cards and collections.</p>
+      <p class="pb-4" #animItem>
         Prepare for conversations in other languages, slang, dialects or situations. Your
         imagination is the limit!
       </p>
@@ -62,8 +60,8 @@
       <app-icon-comp type="chevron" />
     </button>
     <button
-      class="big next fly-in-xy"
-      [animDelay]="{ i: 12, size: 13 }"
+      class="big next"
+      #animItem
       [disabled]="activeIndex() === 3 && languageForm.invalid"
       (click)="next()"
     >

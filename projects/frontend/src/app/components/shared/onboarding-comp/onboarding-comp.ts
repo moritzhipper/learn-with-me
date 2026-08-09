@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms'
 import { BankBase, LanguageConfig } from '@shared/types'
-import { AnimDelay } from '../../../services/anim-delay'
+import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { IconComp } from '../icon-comp/icon-comp'
@@ -14,7 +14,7 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 
 @Component({
   selector: 'app-onboarding-comp',
-  imports: [IconComp, FormsModule, ReactiveFormsModule, LarryBig, AnimDelay],
+  imports: [IconComp, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })

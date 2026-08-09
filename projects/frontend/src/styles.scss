@@ -13,6 +13,8 @@ html {
 
 body {
   margin: 0;
+  font-size: var(--font-size-1);
+  line-height: var(--line-height-1);
 }
 
 button,
@@ -55,6 +57,23 @@ button {
     font-size: var(--font-size-1);
     padding: var(--distance-3) var(--distance-5);
     font-weight: var(--font-weight-bold);
+  }
+
+  &.header-action {
+    display: flex;
+    gap: var(--distance-3);
+    align-items: center;
+    border-radius: var(--radius-2);
+    font-size: var(--font-size-1);
+    line-height: var(--line-height-1);
+    white-space: nowrap;
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    padding: var(--distance-2) var(--distance-5);
+
+    app-icon-comp {
+      width: var(--line-height-1);
+      height: var(--line-height-1);
+    }
   }
 
   &.has-icon {

@@ -47,6 +47,7 @@
   transform-origin: top left;
   box-sizing: border-box;
   margin-right: var(--moveX);
+  font-weight: var(--font-weight-bold);
 
   &.header,
   &.language {

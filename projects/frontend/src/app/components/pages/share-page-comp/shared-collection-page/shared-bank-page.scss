@@ -1,0 +1,40 @@
+.action-buttons {
+  display: flex;
+  gap: var(--distance-4);
+  align-items: center;
+
+  .separator {
+    width: 100%;
+    flex: 1;
+    border-radius: 4px;
+    height: 6px;
+    min-width: 6px;
+    opacity: var(--opacity-0);
+    background-color: var(--col-accent);
+  }
+
+  button.all {
+    gap: var(--distance-1);
+    padding: var(--distance-2) var(--distance-4) var(--distance-2) var(--distance-2);
+    position: sticky;
+    left: 0;
+    backdrop-filter: blur(20px);
+    z-index: 2;
+
+    app-icon-comp {
+      rotate: -90deg;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: var(--grid-auto-columns);
+  gap: var(--distance-4);
+  padding-top: var(--distance-4);
+
+  app-learnable-comp {
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    border: 1px solid var(--col-accent);
+  }
+}

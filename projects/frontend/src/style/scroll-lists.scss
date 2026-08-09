@@ -20,29 +20,32 @@
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  gap: var(--distance-4);
   position: relative;
   scroll-padding-left: var(--page-padding);
+  scrollbar-width: none;
 
   .caroussel-item {
     scroll-snap-align: start;
   }
 
   @include isDesktop {
-    grid-auto-columns: 350px;
-    scrollbar-width: thin;
+    gap: var(--distance-6);
+    grid-auto-columns: 380px;
+
+    border-radius: var(--radius-3);
+
     mask-image: linear-gradient(
       to right,
-      transparent 0%,
+      rgb(0, 0, 0, var(--opacity-0)) 0%,
       var(--col-bg) var(--page-padding),
       var(--col-bg) calc(100% - var(--page-padding)),
-      transparent 100%
+      rgb(0, 0, 0, var(--opacity-1)) 100%
     );
   }
 
   @include isPhone {
+    gap: var(--distance-4);
     grid-auto-columns: 100%;
-    scrollbar-width: none;
   }
 }
 

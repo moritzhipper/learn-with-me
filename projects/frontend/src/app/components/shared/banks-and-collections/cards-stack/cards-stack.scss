@@ -1,0 +1,85 @@
+@use '../../../../../style/mixins' as *;
+
+:host {
+  position: relative;
+  display: block;
+
+  outline: none;
+
+  &:is(a) {
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      .content {
+        translate: calc(-1 * var(--distance-2)) calc(-1 * var(--distance-2));
+      }
+      .card-bg {
+        rotate: 0deg;
+        translate: var(--distance-2) var(--distance-2);
+      }
+    }
+  }
+}
+
+:host,
+.content,
+.card-bg {
+  box-sizing: border-box;
+  border-radius: var(--radius-2);
+}
+
+.content,
+.card-bg {
+  transition-duration: var(--duration-0);
+  transition-property: rotate, translate;
+  transition-timing-function: ease;
+}
+
+.content {
+  display: grid;
+
+  font-size: inherit;
+  text-align: inherit;
+  padding: var(--distance-4);
+  position: relative;
+  height: 100%;
+
+  &:not(.community) {
+    min-height: 200px;
+  }
+}
+
+.card-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform-origin: top left;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  translate: var(--distance-2) calc(-1 * var(--distance-2));
+  rotate: 3deg;
+}
+
+:host {
+  &:not(.outline) {
+    .content {
+      background-color: var(--col-accent);
+    }
+    .card-bg {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
+    }
+  }
+
+  &.outline {
+    .content {
+      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+      background-color: var(--col-bg);
+    }
+
+    .card-bg {
+      background-color: var(--col-bg);
+      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    }
+  }
+}

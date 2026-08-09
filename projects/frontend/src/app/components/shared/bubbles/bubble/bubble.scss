@@ -32,13 +32,13 @@
 @for $i from 1 through 4 {
   :host.fly-in-bubble-#{$i} {
     z-index: -1;
-    animation: fly-in-bubble var(--duration-3) var(--overshot) backwards;
+    animation: fly-in-bubble var(--duration-3) var(--overshot) both;
     animation-delay: calc(0.05s * #{$i});
   }
 
   :host.fly-out-bubble-#{$i} {
     z-index: -1;
-    animation: fly-out-bubble var(--duration-0) backwards;
+    animation: fly-out-bubble var(--duration-0) both;
     animation-delay: calc(0.1s - 0.03s * #{$i});
   }
 }

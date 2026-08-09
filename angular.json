@@ -51,12 +51,24 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/frontend/src/environments/environment.ts",
+                  "with": "projects/frontend/src/environments/environment.development.ts"
+                }
+              ]
             },
             "static": {
               "baseHref": "https://moritzhipper.me/learn-with-me/",
               "outputMode": "static",
-              "optimization": true
+              "optimization": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/frontend/src/environments/environment.ts",
+                  "with": "projects/frontend/src/environments/environment.static.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

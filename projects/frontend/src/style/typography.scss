@@ -10,9 +10,8 @@ textarea {
   color: var(--col-text);
 }
 
-p {
-  font-size: var(--font-size-1);
-  line-height: var(--line-height-1);
+p,
+.text {
   margin: 0;
 
   &.size-0 {
@@ -33,6 +32,10 @@ p {
   &.light {
     opacity: var(--opacity-1);
   }
+
+  &.bold {
+    font-weight: var(--font-weight-bold);
+  }
 }
 
 h1 {
@@ -46,7 +49,6 @@ h3 {
 h2,
 .h2 {
   margin: 0;
-
   line-height: var(--line-height-2);
   font-size: var(--font-size-2);
 
@@ -71,5 +73,4 @@ strong {
 
 a {
   text-decoration: none;
-  font-weight: var(--font-weight-bold);
 }

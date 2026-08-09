@@ -1,10 +1,13 @@
+@use '../../../../style/mixins' as *;
+
 :host {
   display: grid;
   padding: var(--page-padding);
   gap: var(--page-padding);
   width: 100vw;
   box-sizing: border-box;
-  max-height: var(--app-height);
+
+  height: var(--app-height);
   scroll-timeline: --main-timeline;
 
   // use 'none' if this doesnt fix it
@@ -13,6 +16,7 @@
   .content {
     width: 100%;
     min-width: 0;
+    z-index: 10;
   }
 
   .header {
@@ -25,7 +29,8 @@
   }
 
   &:not(.full-screen) {
-    overflow-x: auto;
+    overflow-x: hidden;
+    grid-template-rows: auto 1fr;
 
     .content {
       justify-self: center;
@@ -36,19 +41,24 @@
   &.full-screen {
     overflow: hidden;
     overscroll-behavior: none;
-    height: var(--app-height);
   }
 }
 
 @keyframes hide {
   40% {
-    scale: 0.95;
+    scale: 0.92;
     opacity: var(--opacity-1);
   }
 
   to {
-    scale: 0.95;
+    scale: 0.92;
     translate: 0 calc(var(--header-height) / -2);
     opacity: 0;
+  }
+}
+
+@include isDesktop {
+  .header {
+    transform-origin: left;
   }
 }

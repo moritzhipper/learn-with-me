@@ -1,9 +1,14 @@
-<form [formGroup]="form" (ngSubmit)="confirm(form.value)" class="modal">
-  <h2 class="fly-in-y" [animDelay]="{ i: 0, size: 4 }">Delete collection?</h2>
+<form
+  [formGroup]="form"
+  (ngSubmit)="confirm(form.value)"
+  class="modal"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <h2 #animItem>Delete collection?</h2>
 
   <app-radio-comp
-    class="fly-in-y full"
-    [animDelay]="{ i: 1, size: 4 }"
+    #animItem
     formControlName="deletionType"
     [config]="[
       { value: 'dissolve', label: 'Keep cards' },
@@ -11,8 +16,6 @@
     ]"
   />
 
-  <button type="button" class="big fly-in-y" [animDelay]="{ i: 2, size: 4 }" (click)="cancel()">
-    Cancel
-  </button>
-  <button type="submit" class="fly-in-y" [animDelay]="{ i: 3, size: 4 }">Confirm</button>
+  <button type="button" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem>Confirm</button>
 </form>

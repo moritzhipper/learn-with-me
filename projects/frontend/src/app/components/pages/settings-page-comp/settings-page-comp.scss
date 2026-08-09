@@ -43,18 +43,17 @@ app-settings-item-comp {
 }
 .debug {
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: scroll;
   gap: var(--distance-3);
+
+  button {
+    min-width: 200px;
+  }
 }
 .items {
   display: grid;
   gap: var(--distance-4);
-}
-
-@include isDesktop() {
-  .items {
-    grid-template-columns: var(--grid-auto-columns-wide);
-  }
+  grid-template-columns: var(--grid-auto-columns);
 }
 
 @include isPhone() {

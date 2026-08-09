@@ -7,8 +7,10 @@
   height: 250px;
 
   max-width: 100%;
+  width: fit-content;
   box-sizing: border-box;
   transform-origin: top left;
+  position: relative;
 
   .full-width-scroll {
     display: flex;
@@ -16,8 +18,6 @@
 
   h1 {
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--distance-2);
-
     word-break: keep-all;
     white-space: nowrap;
     line-height: var(--line-height-4);
@@ -46,6 +46,9 @@
         translate: calc(-1 * var(--distance-2));
       }
     }
+  }
+  .content {
+    padding-top: var(--distance-2);
   }
 }
 

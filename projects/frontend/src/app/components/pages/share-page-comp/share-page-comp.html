@@ -1,8 +1,8 @@
 <app-page-wrapper icon="share-network-fill">
   <app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
-  <div class="preview-sections">
+  <div class="preview-sections" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     @for (section of previewBanks(); track section.title) {
-      <div class="fly-in-y-wide" [animDelay]="{ i: $index, list: previewBanks() ?? [] }">
+      <div #animItem>
         @if (section.type === 'community') {
           <app-header-link
             [label]="section.title"
@@ -12,13 +12,14 @@
 
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
-              <app-shared-bank-comp
+              <a
                 class="caroussel-item"
-                [bank]="bank"
-                (copyId)="copyLink(bank)"
-                (importBank)="importBank(bank)"
-                [isCommunityBank]="true"
-              />
+                [routerLink]="['/community/bank', bank.id]"
+                liz-cards-stack
+                outline
+              >
+                <app-shared-bank-comp [bank]="bank" />
+              </a>
             }
 
             <a
@@ -34,11 +35,14 @@
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
-              <app-shared-bank-comp
-                class="caroussel-item"
-                [bank]="bank"
-                (copyId)="copyLink(bank)"
-              />
+              <button
+                class="silent caroussel-item"
+                (click)="copyLink(bank)"
+                liz-cards-stack
+                outline
+              >
+                <app-shared-bank-comp [bank]="bank" />
+              </button>
             }
           </div>
         }

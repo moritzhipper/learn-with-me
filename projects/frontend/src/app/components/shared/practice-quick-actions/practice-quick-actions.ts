@@ -5,7 +5,7 @@ import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shar
 import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import {
-  calculateAverageConfidencePercent,
+  aggregateConfidence,
   ConfidenceAggregate,
   convertToDayPrecisionUTCDate
 } from '../../../utils/genaral-utils'
@@ -180,7 +180,7 @@ export class PracticeQuickActions {
 
     return Array.from(dateAddedLearnableMap.entries())
       .map<AddedOnDayQuickAction>(([dayCardsAddedUTC, learnables]) => {
-        const averageScore = calculateAverageConfidencePercent(learnables)
+        const averageScore = aggregateConfidence(learnables)
         const practiceDates = history
           .filter((h) => h.type === 'added-on-day')
           .filter((h) => h.dayCardsAddedUTC === dayCardsAddedUTC)
@@ -210,7 +210,7 @@ export class PracticeQuickActions {
         .filter((h) => h.collectionId === collection.id)
         .map((h) => h.createdAt)
 
-      const averageScore = calculateAverageConfidencePercent(
+      const averageScore = aggregateConfidence(
         learnables.filter((l) => collection.cardIds.includes(l.id))
       )
 
@@ -226,11 +226,11 @@ export class PracticeQuickActions {
   private deductWorstCardsAction(learnables: UserLearnable[]): QuickAction[] {
     // do bad learnable cascade
     // return empty when all learnables better than 80%
-    let worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.2)
+    let worstLearnables = learnables.filter((l) => aggregateConfidence([l]).all < 0.2)
     if (worstLearnables.length === 0) {
-      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.6)
+      worstLearnables = learnables.filter((l) => aggregateConfidence([l]).all < 0.6)
     } else if (worstLearnables.length === 0) {
-      worstLearnables = learnables.filter((l) => calculateAverageConfidencePercent([l]).all < 0.8)
+      worstLearnables = learnables.filter((l) => aggregateConfidence([l]).all < 0.8)
     }
 
     if (worstLearnables.length === 0) return []
@@ -239,7 +239,7 @@ export class PracticeQuickActions {
       {
         type: 'worst-cards',
         learnableIDs: worstLearnables.map((l) => l.id),
-        averageScore: calculateAverageConfidencePercent(worstLearnables)
+        averageScore: aggregateConfidence(worstLearnables)
       }
     ]
   }
@@ -250,6 +250,6 @@ export class PracticeQuickActions {
   ): ConfidenceAggregate | undefined {
     if (action.type === 'customize' || action.type === 'continue') return undefined
     const ids = action.type === 'collection' ? action.collection.cardIds : action.learnableIDs
-    return calculateAverageConfidencePercent(learnables.filter((l) => ids.includes(l.id)))
+    return aggregateConfidence(learnables.filter((l) => ids.includes(l.id)))
   }
 }

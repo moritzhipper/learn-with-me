@@ -4,7 +4,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection
 } from '@angular/core'
-import { provideRouter } from '@angular/router'
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router'
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { provideServiceWorker } from '@angular/service-worker'
@@ -15,7 +15,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withComponentInputBinding(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled'
+      })
+    ),
     provideHttpClient(withInterceptors([userInterceptor])),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),

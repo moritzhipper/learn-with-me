@@ -1,0 +1,79 @@
+<app-bubbles>
+  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
+
+  @if (!selector.isEmpty()) {
+    <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
+    <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
+    @if (collection()) {
+      <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
+    }
+    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
+  }
+</app-bubbles>
+
+<app-page-wrapper>
+  <liz-page-header-cards header [title]="collection()?.name ?? 'All cards'">
+    <liz-confidence-stats [confidence]="confidence()" class="pb-0 text size-2" />
+    @if (collection(); as coll) {
+      <p class="light">{{ coll.createdAt | date: 'mediumDate' }}</p>
+    }
+    <app-practice-rating-comp [confidence]="confidence().all" />
+  </liz-page-header-cards>
+  <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
+    <div class="action-buttons full-width-scroll" #animItem>
+      <button class="header-action" (click)="practice()">
+        Practice
+        <app-icon-comp type="learn" class="icon" />
+      </button>
+
+      @if (collection(); as coll) {
+        <button class="header-action" (click)="share()">
+          Share
+          <app-icon-comp type="share-network" class="icon" />
+        </button>
+        <button class="header-action" (click)="renameCollection(coll)">
+          Edit
+          <app-icon-comp type="edit" class="icon" />
+        </button>
+        <button class="header-action" (click)="export(coll.id)">
+          Download
+          <app-icon-comp type="share" class="icon" />
+        </button>
+        <div class="separator"></div>
+        <button class="header-action remove ml-auto" (click)="deleteCollection(coll)">
+          Remove
+          <app-icon-comp type="trash" class="icon" />
+        </button>
+      }
+    </div>
+    @if (sortedCards().length > 0) {
+      <div class="cards sorted">
+        @for (card of sortedCards(); track card.id) {
+          <button
+            #animItem
+            app-learnable-comp
+            [learnable]="card"
+            (click)="selector.toggle(card.id)"
+            [isSelected]="selector.selected().has(card.id)"
+          ></button>
+        }
+      </div>
+    }
+    @if (unsortedCards().length > 0) {
+      <h2 class="indent fly-in-y-wide" #animItem>Loose Cards</h2>
+      <div class="cards">
+        @for (card of unsortedCards(); track card.id) {
+          <button
+            #animItem
+            class="fly-in-y-wide"
+            app-learnable-comp
+            [learnable]="card"
+            (click)="selector.toggle(card.id)"
+            [isSelected]="selector.selected().has(card.id)"
+          ></button>
+        }
+      </div>
+    }
+  </div>
+</app-page-wrapper>

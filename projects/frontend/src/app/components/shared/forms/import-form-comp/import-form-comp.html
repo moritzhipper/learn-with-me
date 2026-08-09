@@ -1,7 +1,11 @@
-@let animSize = 6;
-
-<form (ngSubmit)="confirm(form.value)" class="modal" [formGroup]="form">
-  <div class="header full fly-in-y" [animDelay]="{ i: 0, size: animSize }">
+<form
+  (ngSubmit)="confirm(form.value)"
+  class="modal"
+  [formGroup]="form"
+  lizAnimDelayWrapper
+  applyClass="fly-in-y"
+>
+  <div class="header full" #animItem>
     <h2>Import {{ bank().name }}</h2>
 
     <div class="description">
@@ -13,12 +17,7 @@
   </div>
 
   @if (!importLanguagesMatch()) {
-    <liz-info-card
-      type="warn"
-      title="Language mismatch!"
-      class="fly-in-y full"
-      [animDelay]="{ i: 1, size: animSize }"
-    >
+    <liz-info-card type="warn" title="Language mismatch!" class="full" #animItem>
       @if (strategy() === 'merge') {
         <p>
           The languages do not align with your current bank, resulting in the following mapping:
@@ -65,8 +64,7 @@
 
   <div class="controls full">
     <app-radio-comp
-      class="fly-in-y"
-      [animDelay]="{ i: 3, size: animSize }"
+      #animItem
       formControlName="strategy"
       label="Import strategy"
       darkMode
@@ -77,8 +75,7 @@
     />
 
     <app-radio-comp
-      class="fly-in-y"
-      [animDelay]="{ i: 4, size: animSize }"
+      #animItem
       formControlName="invertLanguageDirection"
       darkMode
       label="Language direction"
@@ -89,25 +86,6 @@
     />
   </div>
 
-  <button
-    type="button"
-    class="big fly-in-y"
-    [animDelay]="{
-      i: 5,
-      size: animSize
-    }"
-    (click)="cancel()"
-  >
-    Cancel
-  </button>
-  <button
-    type="submit"
-    class="fly-in-y"
-    [animDelay]="{
-      i: 6,
-      size: animSize
-    }"
-  >
-    Import
-  </button>
+  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
+  <button type="submit" #animItem>Import</button>
 </form>

@@ -1,0 +1,43 @@
+@let la = learnable();
+@let isUserlearnable = 'guesses' in la;
+<p class="lexeme">
+  {{ la.lexeme }}
+</p>
+<p class="translation">
+  {{ la.translation }}
+</p>
+<p class="notes">
+  {{ la.notes }}
+</p>
+@if (isUserlearnable) {
+  <p class="info">
+    <span class="word-list-item"> {{ la.createdAt | date: 'mediumDate' }} </span>
+    <span class="word-list-item">
+      {{ la.type }}
+    </span>
+  </p>
+  <div class="last-guesses">
+    <div class="guesses lexeme">
+      @for (guess of la.guesses.lexeme; track $index) {
+        @if (guess) {
+          <div class="right"></div>
+        } @else {
+          <div class="wrong"></div>
+        }
+      }
+    </div>
+    <div class="guesses translation">
+      @for (guess of la.guesses.translation; track $index) {
+        @if (guess) {
+          <div class="right"></div>
+        } @else {
+          <div class="wrong"></div>
+        }
+      }
+    </div>
+  </div>
+} @else {
+  <p class="info">
+    {{ la.type }}
+  </p>
+}

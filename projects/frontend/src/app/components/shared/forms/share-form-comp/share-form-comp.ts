@@ -1,13 +1,13 @@
-import { Component, inject, input } from '@angular/core'
+import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareConfig, BankUser } from '@shared/types'
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { RadioComp } from '../../radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-share-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper],
   templateUrl: './share-form-comp.html',
   styleUrl: './share-form-comp.scss'
 })
@@ -19,4 +19,9 @@ export class ShareFormComp extends BaseModalDirective {
   })
 
   bank = input.required<BankUser>()
+
+  title = computed(() => {
+    const bank = this.bank()
+    return bank.collections.length === 1 ? bank.collections[0].name : bank.name
+  })
 }

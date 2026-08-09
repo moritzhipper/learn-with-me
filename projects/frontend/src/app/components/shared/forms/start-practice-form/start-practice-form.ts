@@ -2,7 +2,7 @@ import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig, PracticeConfig } from '@shared/types'
 
-import { AnimDelay } from '../../../../services/anim-delay'
+import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 import { ConfidenceDots } from '../../confidence/confidence-dots/confidence-dots'
 import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
@@ -22,7 +22,14 @@ export type StartPracticeFormConfig = {
 
 @Component({
   selector: 'app-start-practice-form',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelay, InfoCard, ConfidenceDots, ConfidenceStats],
+  imports: [
+    ReactiveFormsModule,
+    RadioComp,
+    AnimDelayWrapper,
+    InfoCard,
+    ConfidenceDots,
+    ConfidenceStats
+  ],
   templateUrl: './start-practice-form.html',
   styleUrl: './start-practice-form.scss'
 })

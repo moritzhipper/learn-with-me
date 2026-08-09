@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common'
-import { Component, computed, input, OnDestroy, output, signal } from '@angular/core'
+import { booleanAttribute, Component, computed, input } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
-import { pluralize } from '../../../../utils/genaral-utils'
-import { IconComp } from '../../icon-comp/icon-comp'
+import { interval, map } from 'rxjs'
+import { dateToTTLTerm } from '../../../../utils/genaral-utils'
 import { LanguageMatch } from '../../language-match/language-match'
+import { SharedBankStats } from '../shared-bank-stats/shared-bank-stats'
 
 type Counter = {
   cards: string
@@ -14,86 +16,17 @@ type Counter = {
 
 @Component({
   selector: 'app-shared-bank-comp',
-  imports: [IconComp, DatePipe, LanguageMatch],
+  imports: [DatePipe, LanguageMatch, SharedBankStats],
   templateUrl: './shared-bank-comp.html',
-  styleUrls: ['../banks-and-collections.scss', './shared-bank-comp.scss'],
-  host: {
-    class: 'cards-stack-wrapper outline',
-    '[class.small]': '!isCommunityBank()'
-  }
+  styleUrls: ['./shared-bank-comp.scss']
 })
-export class SharedBankComp implements OnDestroy {
+export class SharedBankComp {
   bank = input.required<BankShareViaDB>()
-  copyId = output<void>()
-  importBank = output<void>()
+  communityBank = input(false, { transform: booleanAttribute })
 
-  isCommunityBank = input<boolean>(false)
-
-  protected readonly hasMultipleCollections = computed(() => this.bank().collections.length > 1)
-
-  private readonly currentTime = signal(Date.now())
-
-  private timeInterval = setInterval(() => {
-    this.currentTime.set(Date.now())
-  }, 1000)
-
-  protected readonly counter = computed<Counter>(() => {
-    const { collections, learnables } = this.bank()
-
-    return {
-      cards: pluralize(learnables.length, 'card'),
-      words: pluralize(learnables.filter((l) => l.type === 'word').length, 'word'),
-      phrases: pluralize(learnables.filter((l) => l.type === 'phrase').length, 'phrase'),
-      collections: pluralize(collections.length, 'collection')
-    }
+  private readonly currentTime = toSignal(interval(1000).pipe(map(() => Date.now())), {
+    initialValue: Date.now()
   })
 
-  protected readonly ttl = computed(() => {
-    const expiry = this.bank().expires
-
-    if (!expiry) {
-      return {
-        label: 'never expires',
-        isExpired: false
-      }
-    }
-
-    const expires = new Date(expiry)
-    const diffMs = expires.getTime() - this.currentTime()
-    // If already expired
-    if (diffMs <= 0) {
-      return {
-        label: 'expired',
-        isExpired: true
-      }
-    }
-
-    const diffSeconds = Math.floor(diffMs / 1000)
-    const diffMinutes = Math.floor(diffSeconds / 60)
-    const diffHours = Math.floor(diffMinutes / 60)
-    const diffDays = Math.floor(diffHours / 24)
-
-    let ttlString = ''
-    // More than a week: show the date
-    if (diffDays > 7) {
-      ttlString = expires.toLocaleDateString()
-    } else if (diffDays > 0) {
-      ttlString = pluralize(diffDays, 'day')
-    } else if (diffHours > 0) {
-      ttlString = pluralize(diffHours, 'hour')
-    } else if (diffMinutes > 0) {
-      ttlString = pluralize(diffMinutes, 'minute')
-    } else {
-      ttlString = pluralize(diffSeconds, 'second')
-    }
-
-    return {
-      label: `expires in ${ttlString}`,
-      isExpired: false
-    }
-  })
-
-  ngOnDestroy(): void {
-    clearInterval(this.timeInterval)
-  }
+  protected readonly ttl = computed(() => dateToTTLTerm(this.bank().expires, this.currentTime()))
 }

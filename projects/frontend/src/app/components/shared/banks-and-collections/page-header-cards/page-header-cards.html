@@ -1,0 +1,12 @@
+<div class="bg-wrapper">
+  <div class="card-bg two"></div>
+  <div class="card-bg"></div>
+</div>
+<button class="silent text size-0 bold light back" (click)="browserBack()">
+  <app-icon-comp type="close" class="icon" />
+  <span> Close </span>
+</button>
+<h1 class="py-4">{{ title() }}</h1>
+<div class="content">
+  <ng-content />
+</div>

@@ -1,0 +1,15 @@
+@let ba = bank();
+@if (!hideGeneral()) {
+  <p>
+    <span class="word-list-item"> {{ ba.collections.length }} collections </span>
+    <span class="word-list-item"> {{ counts().words }} words </span>
+    <span class="word-list-item"> {{ counts().phrases }} phrases </span>
+  </p>
+}
+@if (!hideCounts()) {
+  <p>
+    <span class="word-list-item"> {{ ba.createdAt | date: 'mediumDate' }} </span>
+    <span class="word-list-item"> expires {{ ba.expires }} </span>
+    <span class="word-list-item"> {{ ba.downloads }} downloads </span>
+  </p>
+}

@@ -1,0 +1,47 @@
+@if (bank.hasValue()) {
+  @let ban = bank.value();
+  <app-page-wrapper>
+    <liz-page-header-cards header [title]="ban.name" outline #animItem>
+      <liz-shared-bank-stats [bank]="ban" hideCounts class="text size-2" />
+      <liz-shared-bank-stats [bank]="ban" hideGeneral class="text light" />
+      <liz-language-match [languageConfig]="ban.language" class="text light" />
+    </liz-page-header-cards>
+
+    <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
+      <div class="full-width-scroll action-buttons" #animItem>
+        @if (selectedCollection()) {
+          <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
+            <app-icon-comp type="chevron" />
+            All cards
+          </button>
+        } @else {
+          <button (click)="import(ban)" class="header-action">
+            Import
+            <app-icon-comp type="add-fill" />
+          </button>
+          <button (click)="copyLink(ban)" class="header-action">
+            Copy link
+            <app-icon-comp type="copy" />
+          </button>
+          <button class="header-action">
+            Download
+            <app-icon-comp type="share" (click)="download(ban)" />
+          </button>
+          @if (ban.collections.length > 1) {
+            <div class="separator ml-auto"></div>
+            @for (coll of ban.collections; track coll.id) {
+              <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
+                {{ coll.name }}
+              </button>
+            }
+          }
+        }
+      </div>
+      <div class="cards">
+        @for (card of visibleCards(); track card.id) {
+          <app-learnable-comp [learnable]="card" #animItem />
+        }
+      </div>
+    </div>
+  </app-page-wrapper>
+}

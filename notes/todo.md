@@ -2,33 +2,35 @@
 
 ## Today
 
-- creat collection overview comp for user and shared
-- create cards overview page shwoing collection and unsorted cards
-- hlds router outlet for overview and collection page
-- coll comp user also shows 'practice' button
-- unsorted and all cards always visible
-- on collection page: collection cards and unsorted visible? but unsorted cards always below
+- add selected count on bubble when cards selected: then add count to translation bubble to show you can add selected to magic
+- add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
+
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
+- show other language cards on dashboard of no same language matches
+
+- remove those verview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
+
+- add route param to input sync
+  - use on user collection and shared pages
 
 - create shared collection comp showing cards
-  - make shard collection entries bey buttons too
-  - show on shared collection buttons with icons like on own collection
   - create fast entry: if no collection and whatever set, allow direct import of bank as start
     - somehow handle onboarding then
 
-- make collection be subpages on own overview and on shared page
-- allow import of single cards on collection with language match
-
 - paste images
 - align all modals (header, description, distances of controls and stuff)
-- add make text smaller functionalty to practice cards to accomondate for long text?
 - use dark theme toggles in modal forms?
 - clean up shared bank loading state (and center spinner)
+- make user bank overview stacks bigger and centered on desktop
+- put automatic breadcrumbs on every page header
 
 count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
+- migrate rest of app to the router inputs
+- create quickstart, when user is new but came from link
+- increase imports in db on download and import
 
 ## Modal Forms
 

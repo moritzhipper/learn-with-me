@@ -1,24 +1,21 @@
-@for (sum of summaries(); track $index) {
-  @if (sum.type === 'collection') {
-    <button
-      class="caroussel-item"
-      liz-user-collection
-      [collection]="sum"
-      [confidence]="sum.averageConfidence"
-      (click)="openLink(sum.id)"
-    ></button>
-  } @else {
-    <button class="cards-stack-wrapper caroussel-item all" (click)="openLink()">
-      <h3>All Cards</h3>
-      <liz-confidence-stats [confidence]="sum.averageConfidence" />
-
-      <p class="mt-auto">
-        @if (sum.collectionLess > 0) {
-          <span class="word-list-item">
-            <strong> {{ sum.collectionLess }} </strong> loose cards
-          </span>
-        }
-      </p>
-    </button>
-  }
+@for (collConf of collectionsWithConfidence(); track $index) {
+  <a liz-cards-stack class="caroussel-item" [routerLink]="['/cards', collConf.collection.id]">
+    <liz-user-collection [collection]="collConf.collection" [confidence]="collConf.confidence">
+    </liz-user-collection>
+  </a>
 }
+@let allConf = allCardsWithConfidence();
+<a liz-cards-stack class="caroussel-item" [routerLink]="['/cards', 'all']">
+  <div class="all">
+    <h3>All Cards</h3>
+    <liz-confidence-stats [confidence]="allConf.confidence" />
+
+    <p class="mt-auto">
+      @if (allConf.collectionLessCount > 0) {
+        <span class="word-list-item">
+          <strong> {{ allConf.collectionLessCount }} </strong> loose cards
+        </span>
+      }
+    </p>
+  </div>
+</a>
