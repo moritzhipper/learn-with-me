@@ -13,7 +13,8 @@ export class AnimDelayWrapper {
    * Applies class to every child with #animItem template ref
    */
   readonly applyClass = input<string>()
-  readonly duration = input<number>(0.2)
+  readonly duration = input<number>(0.3)
+  readonly maxIntervall = input<number>(0.08)
 
   constructor() {
     afterRenderEffect(() => {
@@ -36,7 +37,8 @@ export class AnimDelayWrapper {
   }
 
   private mapToDelay(i: number, size: number, duration: number) {
-    const intervalDelay = duration / size
+    const intervalDelay = Math.min(duration / size, this.maxIntervall())
+
     return i * intervalDelay
   }
 }
