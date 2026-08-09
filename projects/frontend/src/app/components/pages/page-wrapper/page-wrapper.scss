@@ -9,7 +9,6 @@
 
   height: var(--app-height);
   scroll-timeline: --main-timeline;
-
   overscroll-behavior: none;
 
   .content {
@@ -44,13 +43,13 @@
 }
 
 @keyframes hide {
-  40% {
-    scale: 0.92;
+  50% {
+    scale: 0.95;
     opacity: var(--opacity-1);
   }
 
   to {
-    scale: 0.92;
+    scale: 0.95;
     translate: 0 calc(var(--header-height) / -2);
     opacity: 0;
   }
