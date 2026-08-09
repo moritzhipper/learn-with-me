@@ -2,6 +2,7 @@
 
 ## Today
 
+- page height fix not working
 - add selected count on bubble when cards selected: then add count to translation bubble to show you can add selected to magic
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 

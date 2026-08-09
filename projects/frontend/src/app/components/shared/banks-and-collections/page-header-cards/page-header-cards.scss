@@ -58,18 +58,26 @@
         width: 100%;
         translate: 0px 10px;
         rotate: 6deg;
-        opacity: var(--opacity-1);
       }
     }
   }
 
   &:not(.outline) .card-bg {
     background-color: var(--col-accent);
+
+    &.two {
+      opacity: var(--opacity-1);
+    }
   }
 
   &.outline .card-bg {
-    background-color: var(--col-bg);
     border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    &.one {
+      background-color: var(--col-bg);
+    }
+    &.two {
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    }
   }
 }
 
@@ -93,14 +101,14 @@
 }
 
 :host {
-  animation: host-fly-in var(--duration-2) var(--soft-ease);
+  animation: header-fly-in var(--duration-2) var(--soft-ease);
 
   .card-bg.two {
     animation: card-fly-in var(--duration-2) var(--soft-ease);
   }
 }
 
-@keyframes host-fly-in {
+@keyframes header-fly-in {
   from {
     opacity: 0;
     translate: 0px -70px;

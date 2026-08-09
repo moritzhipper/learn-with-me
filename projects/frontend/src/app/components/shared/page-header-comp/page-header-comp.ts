@@ -1,10 +1,9 @@
 import { Component, input } from '@angular/core'
-import { RouterLink } from '@angular/router'
-import { IconComp } from '../icon-comp/icon-comp'
+import { HeaderLink } from '../header-link/header-link'
 
 @Component({
   selector: 'app-page-header-comp',
-  imports: [RouterLink, IconComp],
+  imports: [HeaderLink],
   templateUrl: './page-header-comp.html',
   styleUrl: './page-header-comp.scss'
 })

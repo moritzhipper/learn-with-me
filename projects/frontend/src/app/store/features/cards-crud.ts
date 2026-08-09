@@ -41,7 +41,7 @@ export const withCardsCrud = <_>() =>
           const newCards: UserLearnable[] = []
 
           for (const card of cards) {
-            const id = 'id' in card ? card.id : crypto.randomUUID()
+            const id = 'id' in card && !!card.id ? card.id : crypto.randomUUID()
 
             const idDuplicate = bank.learnables.find((l) => l.id === id)
             if (idDuplicate) {

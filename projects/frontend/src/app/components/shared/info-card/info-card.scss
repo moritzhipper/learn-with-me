@@ -41,7 +41,7 @@
 
 @include isDesktop {
   :host.full-page {
-    margin: var(--distance-7) auto 0 auto;
+    margin: var(--distance-7) auto;
     max-width: 500px;
   }
 }

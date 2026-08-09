@@ -1,6 +1,6 @@
 import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
@@ -11,6 +11,7 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../../types/types'
+import { CardsStack } from '../../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../../shared/info-card/info-card'
@@ -32,7 +33,9 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     AnimDelayWrapper,
     InfoCard,
     PageWrapper,
-    LanguageMatch
+    LanguageMatch,
+    CardsStack,
+    RouterLink
   ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'

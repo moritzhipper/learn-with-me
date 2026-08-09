@@ -3,8 +3,8 @@
 :host {
   position: relative;
   display: block;
-
   outline: none;
+  min-height: 200px;
 
   &:is(a) {
     &:hover,
@@ -43,10 +43,6 @@
   padding: var(--distance-4);
   position: relative;
   height: 100%;
-
-  &:not(.community) {
-    min-height: 200px;
-  }
 }
 
 .card-bg {
@@ -78,7 +74,7 @@
     }
 
     .card-bg {
-      background-color: var(--col-bg);
+      background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
       border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
     }
   }

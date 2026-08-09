@@ -32,7 +32,7 @@ a {
   }
 
   &.eyebrow {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     gap: var(--distance-0);
     opacity: var(--opacity-1);
 
