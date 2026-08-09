@@ -12,7 +12,6 @@
 
 @include isPhone {
   * {
-    scrollbar-color: rgb(from var(--col-primary) r g b / var(--opacity-0)) transparent;
-    scrollbar-width: thin;
+    scrollbar-width: none;
   }
 }
