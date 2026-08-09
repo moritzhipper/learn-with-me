@@ -9,6 +9,7 @@ import { ShareBanksService } from '../../../../services/share-banks-service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
+import { LearnableComp } from '../../../shared/banks-and-collections/learnable-comp/learnable-comp'
 import { PageHeaderCards } from '../../../shared/banks-and-collections/page-header-cards/page-header-cards'
 import { Bubble } from '../../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../../shared/bubbles/bubbles'
@@ -22,7 +23,6 @@ import {
 } from '../../../shared/forms/start-practice-form/start-practice-form'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
-import { LearnableComp } from '../../overview-page-comp/learnable-comp/learnable-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
