@@ -10,6 +10,7 @@
   height: var(--app-height);
   scroll-timeline: --main-timeline;
   overflow-y: auto;
+  animation-composition: add;
 
   // use 'none' if this doesnt fix it
   overscroll-behavior-y: contain;
