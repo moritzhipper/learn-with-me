@@ -17,19 +17,21 @@ export class AnimDelayWrapper {
 
   constructor() {
     afterRenderEffect(() => {
-      const items = this.items().map((item) => item.nativeElement)
+      const items = this.items()
       const duration = this.duration()
       const size = items.length
 
-      items.forEach((item, i) => {
-        const delay = this.mapToDelay(i, size, duration)
-        item.style.setProperty('animation-delay', `${delay}s`)
+      items
+        .map((item) => item.nativeElement)
+        .forEach((item, i) => {
+          const delay = this.mapToDelay(i, size, duration)
+          item.style.setProperty('animation-delay', `${delay}s`)
 
-        const applyClass = this.applyClass()
-        if (applyClass) {
-          item.classList.add(applyClass)
-        }
-      })
+          const applyClass = this.applyClass()
+          if (applyClass) {
+            item.classList.add(applyClass)
+          }
+        })
     })
   }
 
