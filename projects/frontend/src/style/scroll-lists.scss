@@ -32,12 +32,14 @@
     gap: var(--distance-6);
     grid-auto-columns: 380px;
 
+    border-radius: var(--radius-3);
+
     mask-image: linear-gradient(
       to right,
-      transparent 0%,
+      rgb(0, 0, 0, var(--opacity-0)) 0%,
       var(--col-bg) var(--page-padding),
       var(--col-bg) calc(100% - var(--page-padding)),
-      transparent 100%
+      rgb(0, 0, 0, var(--opacity-1)) 100%
     );
   }
 
