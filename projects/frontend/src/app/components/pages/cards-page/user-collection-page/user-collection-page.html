@@ -1,14 +1,17 @@
 <app-bubbles>
-  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
-  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
-
+  <app-bubble
+    config="bulk-edit"
+    size="big"
+    (select)="bulkEdit()"
+    [count]="selector.selected().size"
+  />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="toggleAll()" />
   @if (!selector.isEmpty()) {
-    <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
-    <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
+    <app-bubble config="move" [animateIndex]="1" (select)="addToCollection()" />
     @if (collection()) {
-      <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
+      <app-bubble config="remove" [animateIndex]="2" (select)="removeFromCollection()" />
     }
-    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
+    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="3" />
   }
 </app-bubbles>
 

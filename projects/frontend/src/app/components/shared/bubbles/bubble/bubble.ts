@@ -9,7 +9,7 @@ export type BubbleConfig =
   | 'import'
   | 'move'
   | 'trash'
-  | 'reset-selection'
+  | 'checkbox-multiple-blank-line'
   | 'checkbox-multiple'
 
 @Component({
@@ -27,4 +27,5 @@ export class Bubble {
   size = input<'big' | 'medium' | 'small'>('small')
   select = output<void>()
   animateIndex = input<number>(0)
+  count = input<number>(0)
 }

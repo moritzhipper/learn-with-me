@@ -18,6 +18,15 @@ export class CardsSelector {
     })
   }
 
+  toggleAll(allIds: string[]) {
+    const count = this._selectedCards().size
+    if (count !== allIds.length) {
+      this.select(allIds)
+    } else if (count === allIds.length) {
+      this.reset()
+    }
+  }
+
   select(selection: string | string[]) {
     this._selectedCards.update((prev) => {
       const selections = Array.isArray(selection) ? selection : [selection]

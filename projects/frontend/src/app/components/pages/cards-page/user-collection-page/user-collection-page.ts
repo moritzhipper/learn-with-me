@@ -162,10 +162,6 @@ export class UserCollectionPage {
     this.router.navigate(['/practice'])
   }
 
-  selectAll() {
-    this.selector.select(this.sortedCards().map((c) => c.id))
-  }
-
   async deleteSelection() {
     const learnableIds = [...this.selector.selected()]
 
@@ -237,5 +233,10 @@ export class UserCollectionPage {
     if (collection) {
       this.ls.updateCollection({ id: collection.id, addIDs: idsOfAllAdded })
     }
+  }
+
+  toggleAll() {
+    const allIds = [...this.sortedCards(), ...this.unsortedCards()].map((c) => c.id)
+    this.selector.toggleAll(allIds)
   }
 }

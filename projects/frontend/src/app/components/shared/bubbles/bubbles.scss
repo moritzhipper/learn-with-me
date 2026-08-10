@@ -6,6 +6,6 @@
   flex-direction: row-reverse;
   align-items: end;
   gap: var(--distance-3);
-  padding: var(--page-padding);
+  padding: 0 var(--page-padding) var(--page-padding) 0;
   z-index: 25;
 }

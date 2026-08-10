@@ -75,7 +75,7 @@ export class TranslatePageComp {
         .activeBank()
         .translations.history.filter((l) => this.selector.selected().has(l.id))
         .map((c) => c.lexeme)
-        .join('/n')
+        .join('\n')
       this.magicPreset.set(selectedCardsText)
       this.selectedMode.set('magic')
     } else {
@@ -83,11 +83,6 @@ export class TranslatePageComp {
       this.magicPreset.set('')
     }
     this.selector.reset()
-  }
-
-  selectAll() {
-    const allIds = this.cards().map((c) => c.id)
-    this.selector.select(allIds)
   }
 
   deleteSelection() {
@@ -129,5 +124,10 @@ export class TranslatePageComp {
     setTimeout(() => {
       this.cardsWrapper()?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 50)
+  }
+
+  toggleAll() {
+    const allIds = this.cards().map((c) => c.id)
+    this.selector.toggleAll(allIds)
   }
 }

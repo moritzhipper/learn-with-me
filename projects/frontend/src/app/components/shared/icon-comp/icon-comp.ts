@@ -53,6 +53,7 @@ export type IconType =
   | 'speaking'
   | 'understand'
   | 'arrow-right'
+  | 'checkbox-multiple-blank-line'
 
 @Component({
   selector: 'app-icon-comp',
