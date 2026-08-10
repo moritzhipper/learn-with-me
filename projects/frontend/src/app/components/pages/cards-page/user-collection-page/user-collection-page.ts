@@ -22,6 +22,7 @@ import {
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
@@ -37,7 +38,8 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     ConfidenceStats,
     PracticeRatingComp,
     DatePipe,
-    AnimDelayWrapper
+    AnimDelayWrapper,
+    InfoCard
   ],
 
   providers: [CardsSelector],

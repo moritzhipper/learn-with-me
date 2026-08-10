@@ -101,17 +101,17 @@
 }
 
 :host {
-  animation: header-fly-in var(--duration-2) var(--soft-ease);
+  animation: header-fly-in var(--duration-3) var(--soft-ease);
 
   .card-bg.two {
-    animation: card-fly-in var(--duration-2) var(--soft-ease);
+    animation: card-fly-in var(--duration-3) var(--soft-ease);
   }
 }
 
 @keyframes header-fly-in {
   from {
     opacity: 0;
-    translate: 0px -70px;
+    translate: 0px -100px;
   }
 }
 
