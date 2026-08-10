@@ -7,6 +7,7 @@
   box-shadow: var(--shadow-big);
   color: var(--col-bg);
   transition-property: outline;
+  position: relative;
 
   &.big {
     padding: var(--distance-4);
@@ -27,6 +28,17 @@
   &.trash {
     background-color: var(--col-warning);
   }
+  .count {
+    position: absolute;
+    top: calc(-1 * var(--distance-1));
+    right: calc(-1 * var(--distance-1));
+
+    color: var(--col-bg);
+    background-color: var(--col-primary);
+    border-radius: var(--radius-0);
+    box-shadow: var(--shadow-small);
+    padding: 0 var(--distance-1);
+  }
 }
 
 @for $i from 1 through 4 {
@@ -41,6 +53,14 @@
     animation: fly-out-bubble var(--duration-0) both;
     animation-delay: calc(0.1s - 0.03s * #{$i});
   }
+}
+
+.pop-in {
+  animation: fly-out-bubble var(--duration-0) ease reverse;
+}
+
+.pop-out {
+  animation: fly-out-bubble var(--duration-0);
 }
 
 @keyframes fly-in-bubble {

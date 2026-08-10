@@ -22,6 +22,7 @@ import {
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
+import { InfoCard } from '../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
@@ -37,7 +38,8 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     ConfidenceStats,
     PracticeRatingComp,
     DatePipe,
-    AnimDelayWrapper
+    AnimDelayWrapper,
+    InfoCard
   ],
 
   providers: [CardsSelector],
@@ -162,10 +164,6 @@ export class UserCollectionPage {
     this.router.navigate(['/practice'])
   }
 
-  selectAll() {
-    this.selector.select(this.sortedCards().map((c) => c.id))
-  }
-
   async deleteSelection() {
     const learnableIds = [...this.selector.selected()]
 
@@ -237,5 +235,10 @@ export class UserCollectionPage {
     if (collection) {
       this.ls.updateCollection({ id: collection.id, addIDs: idsOfAllAdded })
     }
+  }
+
+  toggleAll() {
+    const allIds = [...this.sortedCards(), ...this.unsortedCards()].map((c) => c.id)
+    this.selector.toggleAll(allIds)
   }
 }

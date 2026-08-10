@@ -3,7 +3,6 @@
 ## Today
 
 - page height fix not working
-- add selected count on bubble when cards selected: then add count to translation bubble to show you can add selected to magic
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
 - be more strict in wich practice suggestions to show to not show collections as duplicate
@@ -52,6 +51,7 @@ Create better reusable styles (import styles per form), holding:
 
 ## General
 
+- when fetchin collections from be, parse schemas in array, log warnings for failed ones
 - ids are only rotated on api upload
 - make grid auto columns classes?
 - allow opening generate whenever cards are selected

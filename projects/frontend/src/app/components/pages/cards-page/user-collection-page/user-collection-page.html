@@ -1,14 +1,17 @@
 <app-bubbles>
-  <app-bubble config="bulk-edit" size="big" (select)="bulkEdit()" />
-  <app-bubble config="checkbox-multiple" size="medium" (select)="selectAll()" />
-
+  <app-bubble
+    config="bulk-edit"
+    size="big"
+    (select)="bulkEdit()"
+    [count]="selector.selected().size"
+  />
+  <app-bubble config="checkbox-multiple" size="medium" (select)="toggleAll()" />
   @if (!selector.isEmpty()) {
-    <app-bubble config="reset-selection" [animateIndex]="1" (select)="selector.reset()" />
-    <app-bubble config="move" [animateIndex]="2" (select)="addToCollection()" />
+    <app-bubble config="move" [animateIndex]="1" (select)="addToCollection()" />
     @if (collection()) {
-      <app-bubble config="remove" [animateIndex]="3" (select)="removeFromCollection()" />
+      <app-bubble config="remove" [animateIndex]="2" (select)="removeFromCollection()" />
     }
-    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="true ? 4 : 3" />
+    <app-bubble config="trash" (select)="deleteSelection()" [animateIndex]="3" />
   }
 </app-bubbles>
 
@@ -22,13 +25,14 @@
   </liz-page-header-cards>
   <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     <div class="action-buttons full-width-scroll" #animItem>
-      <button class="header-action" (click)="practice()">
+      @let isEmpty = sortedCards().length === 0;
+      <button class="header-action" (click)="practice()" [disabled]="isEmpty">
         Practice
         <app-icon-comp type="learn" class="icon" />
       </button>
 
       @if (collection(); as coll) {
-        <button class="header-action" (click)="share()">
+        <button class="header-action" (click)="share()" [disabled]="isEmpty">
           Share
           <app-icon-comp type="share-network" class="icon" />
         </button>
@@ -36,7 +40,7 @@
           Edit
           <app-icon-comp type="edit" class="icon" />
         </button>
-        <button class="header-action" (click)="export(coll.id)">
+        <button class="header-action" (click)="export(coll.id)" [disabled]="isEmpty">
           Download
           <app-icon-comp type="share" class="icon" />
         </button>
@@ -59,6 +63,8 @@
           ></button>
         }
       </div>
+    } @else {
+      <p class="light bold my-7 center" #animItem>This collection is empty.</p>
     }
     @if (unsortedCards().length > 0) {
       <h2 class="indent fly-in-y-wide" #animItem>Loose Cards</h2>

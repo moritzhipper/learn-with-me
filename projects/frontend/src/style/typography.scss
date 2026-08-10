@@ -36,6 +36,9 @@ p,
   &.bold {
     font-weight: var(--font-weight-bold);
   }
+  &.center {
+    text-align: center;
+  }
 }
 
 h1 {

@@ -26,11 +26,16 @@
     @case ('trash') {
       <app-icon-comp type="trash" />
     }
-    @case ('reset-selection') {
-      <app-icon-comp type="reset" />
+    @case ('checkbox-multiple-blank-line') {
+      <app-icon-comp type="checkbox-multiple-blank-line" />
     }
     @case ('checkbox-multiple') {
       <app-icon-comp type="checkbox-multiple" />
     }
+  }
+  @if (count(); as c) {
+    <div class="count text body size-0 bold" animate.enter="pop-in" animate.leave="pop-out">
+      {{ c }}
+    </div>
   }
 </button>
