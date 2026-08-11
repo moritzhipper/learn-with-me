@@ -98,14 +98,6 @@ export class SharePageComp {
     this.fetchBankPreviews()
   }
 
-  protected async copyLink(bank: BankShareViaDB) {
-    this._shareBanksS.copyLinkToClipboard(bank.id, bank.name)
-  }
-
-  protected async importBank(bank: BankShareViaDB) {
-    await this._shareBanksS.importOnlineBank(bank)
-  }
-
   private getFetchBankPreviesObs(): Observable<BankShareViaDB[][]> {
     const sections = this.prefetchSectionsConfig().map((section) => {
       if (section.type === 'community') {

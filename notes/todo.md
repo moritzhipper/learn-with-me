@@ -2,6 +2,9 @@
 
 ## Today
 
+- stats page:
+  - always show at least one week in timeline, starting with monday
+  - prevents weird empty state
 - page height fix not working
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
@@ -10,9 +13,6 @@
 - show other language cards on dashboard of no same language matches
 
 - remove those verview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
-
-- add route param to input sync
-  - use on user collection and shared pages
 
 - create shared collection comp showing cards
   - create fast entry: if no collection and whatever set, allow direct import of bank as start
@@ -28,7 +28,6 @@
 count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
-- migrate rest of app to the router inputs
 - create quickstart, when user is new but came from link
 - increase imports in db on download and import
 

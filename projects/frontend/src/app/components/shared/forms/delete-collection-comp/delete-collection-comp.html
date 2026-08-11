@@ -10,12 +10,14 @@
   <app-radio-comp
     #animItem
     formControlName="deletionType"
+    class="full"
+    darkMode
     [config]="[
       { value: 'dissolve', label: 'Keep cards' },
       { value: 'remove', label: 'Remove cards' }
     ]"
   />
 
-  <button type="button" #animItem (click)="cancel()">Cancel</button>
+  <button type="button" #animItem (click)="cancel()" class="big">Cancel</button>
   <button type="submit" #animItem>Confirm</button>
 </form>

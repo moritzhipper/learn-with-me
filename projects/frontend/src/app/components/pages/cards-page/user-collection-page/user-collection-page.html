@@ -25,14 +25,14 @@
   </liz-page-header-cards>
   <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     <div class="action-buttons full-width-scroll" #animItem>
-      @let isEmpty = sortedCards().length === 0;
-      <button class="header-action" (click)="practice()" [disabled]="isEmpty">
+      @let noSortedCards = sortedCards().length === 0;
+      <button class="header-action" (click)="practice()" [disabled]="noSortedCards && collection()">
         Practice
         <app-icon-comp type="learn" class="icon" />
       </button>
 
       @if (collection(); as coll) {
-        <button class="header-action" (click)="share()" [disabled]="isEmpty">
+        <button class="header-action" (click)="share()" [disabled]="noSortedCards">
           Share
           <app-icon-comp type="share-network" class="icon" />
         </button>
@@ -40,7 +40,7 @@
           Edit
           <app-icon-comp type="edit" class="icon" />
         </button>
-        <button class="header-action" (click)="export(coll.id)" [disabled]="isEmpty">
+        <button class="header-action" (click)="export(coll.id)" [disabled]="noSortedCards">
           Download
           <app-icon-comp type="share" class="icon" />
         </button>
@@ -63,7 +63,7 @@
           ></button>
         }
       </div>
-    } @else {
+    } @else if (collection()) {
       <p class="light bold my-7 center" #animItem>This collection is empty.</p>
     }
     @if (unsortedCards().length > 0) {

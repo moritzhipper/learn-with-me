@@ -35,14 +35,14 @@
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
           <div class="caroussel-wrapper">
             @for (bank of section.banks; track bank.id) {
-              <button
+              <a
                 class="silent caroussel-item user"
-                (click)="copyLink(bank)"
                 liz-cards-stack
                 outline
+                [routerLink]="['/community/bank', bank.id]"
               >
                 <app-shared-bank-comp [bank]="bank" />
-              </button>
+              </a>
             }
           </div>
         }

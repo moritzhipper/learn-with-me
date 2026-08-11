@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
-import { Component, computed, inject } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Component, computed, inject, input } from '@angular/core'
+import { Router } from '@angular/router'
 import { Collection } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { CardsSelector } from '../../../../services/cards-selector'
@@ -45,13 +45,15 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   styleUrl: './user-collection-page.scss'
 })
 export class UserCollectionPage {
-  private readonly activatedRoute = inject(ActivatedRoute)
   private readonly ls = inject(LearnablesStore)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)
   private readonly shareBanksS = inject(ShareBanksService)
   private router = inject(Router)
   protected readonly selector = inject(CardsSelector)
+
+  // url segment
+  readonly id = input.required<string>()
 
   share() {
     const collection = this.collection()
@@ -66,13 +68,11 @@ export class UserCollectionPage {
 
   protected confidence = computed(() => {
     if (this.collection()) return aggregateConfidence(this.sortedCards())
-
     return aggregateConfidence(this.ls.learnables())
   })
 
   protected collection = computed(() => {
-    const collectionId = this.activatedRoute.snapshot.paramMap.get('id')
-    return this.ls.collections().find((c) => c.id === collectionId)
+    return this.ls.collections().find((c) => c.id === this.id())
   })
 
   // holds cards of collection or all cards having a collectio
@@ -112,8 +112,8 @@ export class UserCollectionPage {
 
     if (result.value.deletionType === 'remove') this.ls.deleteCards(coll.cardIds)
     this.ls.deleteCollection(coll.id)
-
     this.toastService.showToast(`Collection ${coll.name} deleted.`)
+    this.router.navigate(['/cards'])
   }
 
   async practice() {
