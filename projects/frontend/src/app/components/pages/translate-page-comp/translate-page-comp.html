@@ -1,6 +1,6 @@
 <app-bubbles>
   <app-bubble
-    [config]="selectedMode()"
+    [config]="bubbleIconConfig()"
     size="big"
     (select)="toggleMode()"
     [count]="selector.selected().size"

@@ -44,6 +44,12 @@ export class TranslatePageComp {
 
   private cardsWrapper = viewChild<ElementRef<HTMLElement>>('cardsWrapper')
 
+  bubbleIconConfig = computed(() => {
+    const currentMode = this.selectedMode()
+    if (currentMode === 'magic') return 'translate'
+    return 'magic'
+  })
+
   constructor() {
     if (history.state?.mode === 'magic') {
       this.selectedMode.set('magic')
