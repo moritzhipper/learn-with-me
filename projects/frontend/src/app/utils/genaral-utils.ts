@@ -107,11 +107,11 @@ export const pluralize = (count: number, unit: string): string => {
 
 // time utils
 
-export const calcDaysDifference = (date1: Date | number, date2: Date | number): number => {
-  const nowDate = new Date(date1)
-  const dateObj = new Date(date2)
+export const calcMsDifference = (date1: Date | number, date2: Date | number): number => {
+  const d1 = new Date(date1)
+  const d2 = new Date(date2)
   const msInDay = 1000 * 60 * 60 * 24
-  return (nowDate.getTime() - dateObj.getTime()) / msInDay
+  return (d2.getTime() - d1.getTime()) / msInDay
 }
 
 export const convertToDayPrecisionUTCDate = (date: Date | number): number => {
@@ -124,3 +124,12 @@ export const convertToDayPrecisionUTCDate = (date: Date | number): number => {
 
 export const isSameDay = (date1: Date | number, date2: Date | number): boolean =>
   convertToDayPrecisionUTCDate(date1) === convertToDayPrecisionUTCDate(date2)
+
+export const dateComparator = (d1: Date | number, d2: Date | number): number => {
+  const dt1 = new Date(d1).getTime()
+  const dt2 = new Date(d2).getTime()
+
+  if (dt1 > dt2) return 1
+  if (dt1 < dt2) return -1
+  return 0
+}

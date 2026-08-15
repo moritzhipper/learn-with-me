@@ -2,9 +2,6 @@
 
 ## Today
 
-- stats page:
-  - always show at least one week in timeline, starting with monday
-  - prevents weird empty state
 - page height fix not working
 - add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
 
