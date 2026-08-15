@@ -26,6 +26,12 @@
     }
   }
 }
+.center {
+  display: flex;
+  justify-content: center;
+  height: var(--app-height);
+  align-items: center;
+}
 
 .cards {
   display: grid;

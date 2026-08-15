@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core'
 
 @Component({
   selector: 'app-loading-spinner',
   imports: [],
   templateUrl: './loading-spinner.html',
-  styleUrl: './loading-spinner.scss',
+  styleUrl: './loading-spinner.scss'
 })
 export class LoadingSpinner {
-
+  label = input<string>()
 }

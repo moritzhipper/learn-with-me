@@ -1,4 +1,4 @@
-@if (bank.hasValue()) {
+@if (bank.hasValue() && false) {
   @let ban = bank.value();
   <app-page-wrapper>
     <liz-page-header-cards header [title]="ban.name" outline #animItem>
@@ -44,4 +44,8 @@
       </div>
     </div>
   </app-page-wrapper>
+} @else {
+  <div class="center">
+    <app-loading-spinner label="Loading bank" />
+  </div>
 }

@@ -1,12 +1,22 @@
 :host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  --appear-delay: 0.5s;
+  --duration: 1.3s;
+}
+
+p {
+  animation: slow-fade-in var(--duration) var(--duration) both;
+}
+
+.animation {
   width: 50px;
   height: 50px;
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-  --appear-delay: 0.5s;
-  --duration: 1s;
 }
 
 .a,
@@ -64,5 +74,11 @@
   100% {
     opacity: 0;
     transform: translate(-50%, -20%) rotate(-20deg);
+  }
+}
+
+@keyframes slow-fade-in {
+  from {
+    opacity: 0;
   }
 }

@@ -11,6 +11,7 @@ import { PageHeaderCards } from '../../../shared/banks-and-collections/page-head
 import { SharedBankStats } from '../../../shared/banks-and-collections/shared-bank-stats/shared-bank-stats'
 import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
+import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
 @Component({
@@ -22,7 +23,8 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     LearnableComp,
     PageHeaderCards,
     SharedBankStats,
-    LanguageMatch
+    LanguageMatch,
+    LoadingSpinner
   ],
   templateUrl: './shared-bank-page.html',
   styleUrl: './shared-bank-page.scss'
