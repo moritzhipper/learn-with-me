@@ -25,6 +25,10 @@
   }
 }
 
+[header] {
+  margin-bottom: var(--distance-5);
+}
+
 .cards {
   display: grid;
   gap: var(--distance-4);
