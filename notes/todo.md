@@ -2,21 +2,19 @@
 
 ## Today
 
+- restore scroll state
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - show other language cards on dashboard of no same language matches
 
-- remove those verview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
+- remove those overview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
 ## Onboarding
 
 - create fast entry: if no collection and whatever set, allow direct import of bank as start
   - somehow handle onboarding then
 
-- clean up shared bank loading state (and center spinner)
 - align all modals (header, description, distances of controls and stuff)
-- make user bank overview stacks bigger and centered on desktop
-- put automatic breadcrumbs on every page header
 - paste images
 
 count letters, make smaller per one more

@@ -4,6 +4,15 @@
   align-items: center;
   --appear-delay: 0.5s;
   --duration: 1.3s;
+
+  &.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 p {
