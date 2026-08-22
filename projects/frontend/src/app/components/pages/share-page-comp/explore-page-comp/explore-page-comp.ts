@@ -1,6 +1,8 @@
 import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixPencilFill } from '@ng-icons/remixicon'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
@@ -13,7 +15,6 @@ import { LearnablesStore } from '../../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../../types/types'
 import { CardsStack } from '../../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../../shared/info-card/info-card'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
@@ -27,7 +28,7 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     PageHeaderComp,
     SharedBankComp,
     LoadingSpinner,
-    IconComp,
+    NgIcon,
     RadioComp,
     FormsModule,
     AnimDelayWrapper,
@@ -37,6 +38,7 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     CardsStack,
     RouterLink
   ],
+  providers: [provideIcons({ remixPencilFill })],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'
 })

@@ -1,5 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixArrowDownSLine } from '@ng-icons/remixicon'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
@@ -13,7 +15,6 @@ import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
 import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -36,10 +37,11 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 
 @Component({
   selector: 'app-share-page-comp',
+  providers: [provideIcons({ remixArrowDownSLine })],
   imports: [
     PageHeaderComp,
     SharedBankComp,
-    IconComp,
+    NgIcon,
     RouterLink,
     LoadingSpinner,
     HeaderLink,

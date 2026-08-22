@@ -1,12 +1,14 @@
 import { booleanAttribute, Component, input } from '@angular/core'
 import { Params, RouterLink } from '@angular/router'
-import { IconComp } from '../icon-comp/icon-comp'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixArrowDownSLine } from '@ng-icons/remixicon'
 
 @Component({
   selector: 'app-header-link',
   templateUrl: './header-link.html',
   styleUrl: './header-link.scss',
-  imports: [IconComp, RouterLink]
+  imports: [NgIcon, RouterLink],
+  providers: [provideIcons({ remixArrowDownSLine })]
 })
 export class HeaderLink {
   label = input.required<string>()

@@ -1,10 +1,12 @@
 import { Component, input, model, output } from '@angular/core'
-import { IconComp } from '../../../../shared/icon-comp/icon-comp'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixArrowDownSLine } from '@ng-icons/remixicon'
 import { FocusCardState } from '../active-practice-comp'
 
 @Component({
   selector: 'app-practice-stats-bar-comp',
-  imports: [IconComp],
+  imports: [NgIcon],
+  providers: [provideIcons({ remixArrowDownSLine })],
   templateUrl: './practice-stats-bar-comp.html',
   styleUrl: './practice-stats-bar-comp.scss'
 })

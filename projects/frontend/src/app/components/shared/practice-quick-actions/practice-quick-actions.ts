@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixBug2Fill } from '@ng-icons/remixicon'
 import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnables-store'
@@ -56,7 +58,8 @@ type QuickAction =
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
+  imports: [IconComp, NgIcon, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
+  providers: [provideIcons({ remixBug2Fill })],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })

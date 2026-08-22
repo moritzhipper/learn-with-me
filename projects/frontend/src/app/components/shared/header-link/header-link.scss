@@ -17,12 +17,12 @@ a {
   &:not(.eyebrow) {
     gap: var(--distance-1);
     margin: 0 var(--distance-2) var(--distance-3) var(--distance-3);
-    app-icon-comp {
-      rotate: 90deg;
+    ng-icon {
+      rotate: -90deg;
     }
     &:hover,
     &:focus-visible {
-      app-icon-comp {
+      ng-icon {
         translate: var(--distance-2);
       }
       h2 {
@@ -36,12 +36,12 @@ a {
     gap: var(--distance-0);
     opacity: var(--opacity-1);
 
-    app-icon-comp {
-      rotate: -90deg;
+    ng-icon {
+      rotate: 90deg;
     }
     &:hover,
     &:focus-visible {
-      app-icon-comp {
+      ng-icon {
         translate: calc(-1 * var(--distance-2));
       }
 

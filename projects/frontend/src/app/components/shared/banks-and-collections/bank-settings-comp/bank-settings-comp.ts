@@ -1,12 +1,14 @@
 import { DatePipe } from '@angular/common'
 import { Component, input, output } from '@angular/core'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixShareFill } from '@ng-icons/remixicon'
 import { BankUser } from '@shared/types'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LanguageMatch } from '../../language-match/language-match'
 
 @Component({
   selector: 'app-bank-settings-card',
-  imports: [IconComp, DatePipe, LanguageMatch],
+  imports: [NgIcon, DatePipe, LanguageMatch],
+  providers: [provideIcons({ remixShareFill })],
   templateUrl: './bank-settings-comp.html',
   styleUrls: ['./bank-settings-comp.scss'],
 

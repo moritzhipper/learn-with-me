@@ -18,7 +18,7 @@
 <app-page-wrapper icon="translate">
   <div header>
     <button class="tone-wrapper silent" (click)="setTone()">
-      <p class="label size-0">Tone <app-icon-comp type="pen" [size]="16" /></p>
+      <p class="label size-0">Tone <ng-icon name="remixPencilFill" /></p>
       <p class="tone size-2 ellipsis">{{ tone() || 'Neutral' }}</p>
     </button>
     @if (selectedMode() === 'translate') {

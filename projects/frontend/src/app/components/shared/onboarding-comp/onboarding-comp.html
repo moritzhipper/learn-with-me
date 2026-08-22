@@ -22,7 +22,7 @@
       </p>
     }
     @case (2) {
-      <app-icon-comp type="magic" class="icon-big fly-in-y-wide" />
+      <ng-icon name="remixMagicFill" class="icon-big fly-in-y-wide" />
       <h2>AI?</h2>
       <p class="pb-4">
         Of course there is AI! But you don't have to use it. You could use it to convert your notes
@@ -36,7 +36,7 @@
     }
 
     @case (3) {
-      <app-icon-comp type="info" class="icon-big fly-in-y-wide" />
+      <ng-icon name="remixInformationFill" class="icon-big fly-in-y-wide" />
       <h2>Ready to start?</h2>
       <p class="pb-4">
         It's nice that you are, but we need to know what you want to learn before the fun can begin.
@@ -57,7 +57,7 @@
   }
   <div class="buttons">
     <button class="silent back" [disabled]="activeIndex() === 0" (click)="back()">
-      <app-icon-comp type="chevron" />
+      <ng-icon name="remixArrowDownSLine" />
     </button>
     <button
       class="big next"

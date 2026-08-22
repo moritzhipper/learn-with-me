@@ -23,7 +23,8 @@ button.quick {
     color: var(--col-bg);
   }
 
-  app-icon-comp {
+  app-icon-comp,
+  ng-icon {
     &.background {
       position: absolute;
       height: 100%;

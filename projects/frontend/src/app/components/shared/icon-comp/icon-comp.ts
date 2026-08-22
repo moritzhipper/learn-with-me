@@ -40,6 +40,7 @@ export type IconType =
   | 'drop-fill'
   | 'checkbox-multiple'
   | 'calendar'
+  | 'up-arrow'
   | 'gear'
   | 'speed'
   | 'speaking'

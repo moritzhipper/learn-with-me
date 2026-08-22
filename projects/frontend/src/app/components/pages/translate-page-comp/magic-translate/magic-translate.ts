@@ -1,6 +1,8 @@
 import { Component, computed, inject, model, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixMagicFill } from '@ng-icons/remixicon'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
@@ -20,7 +22,8 @@ type FormType = {
 
 @Component({
   selector: 'app-magic-translate',
-  imports: [IconComp, RadioComp, ReactiveFormsModule],
+  imports: [IconComp, NgIcon, RadioComp, ReactiveFormsModule],
+  providers: [provideIcons({ remixMagicFill })],
   templateUrl: './magic-translate.html',
   styleUrl: './magic-translate.scss'
 })

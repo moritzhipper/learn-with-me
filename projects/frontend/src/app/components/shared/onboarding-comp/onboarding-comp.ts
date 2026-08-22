@@ -5,6 +5,8 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixArrowDownSLine, remixInformationFill, remixMagicFill } from '@ng-icons/remixicon'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { LearnablesStore } from '../../../store/learnables-store'
@@ -14,7 +16,8 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 
 @Component({
   selector: 'app-onboarding-comp',
-  imports: [IconComp, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
+  imports: [IconComp, NgIcon, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
+  providers: [provideIcons({ remixMagicFill, remixInformationFill, remixArrowDownSLine })],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })
