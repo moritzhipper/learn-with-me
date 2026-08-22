@@ -9,10 +9,9 @@ import {
   Validators
 } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixDeleteBin6Line } from '@ng-icons/remixicon'
+import { remixAddCircleFill, remixDeleteBin6Line } from '@ng-icons/remixicon'
 import { LearnableBase, UserLearnable, UserLearnablePartial } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
@@ -24,8 +23,8 @@ export type ConfirmationType = {
 
 @Component({
   selector: 'app-bulk-edit-comp',
-  imports: [ReactiveFormsModule, CommonModule, RadioComp, IconComp, NgIcon, AnimDelayWrapper],
-  providers: [provideIcons({ remixDeleteBin6Line })],
+  imports: [ReactiveFormsModule, CommonModule, RadioComp, NgIcon, AnimDelayWrapper],
+  providers: [provideIcons({ remixAddCircleFill, remixDeleteBin6Line })],
   templateUrl: './bulk-edit-comp.html',
   styleUrl: './bulk-edit-comp.scss'
 })

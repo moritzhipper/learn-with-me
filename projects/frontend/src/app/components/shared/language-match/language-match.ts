@@ -1,10 +1,12 @@
 import { booleanAttribute, Component, input } from '@angular/core'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixUserFollowLine, remixUserVoiceLine } from '@ng-icons/remixicon'
 import { LanguageConfig } from '@shared/types'
-import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({
   selector: 'liz-language-match',
-  imports: [IconComp],
+  imports: [NgIcon],
+  providers: [provideIcons({ remixUserFollowLine, remixUserVoiceLine })],
   templateUrl: './language-match.html',
   styles: `
     p {
@@ -16,7 +18,7 @@ import { IconComp } from '../icon-comp/icon-comp'
         gap: var(--distance-0);
         margin: -6px 0;
 
-        app-icon-comp {
+        ng-icon {
           width: 1em;
           height: 1em;
         }

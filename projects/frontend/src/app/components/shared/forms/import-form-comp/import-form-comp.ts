@@ -1,6 +1,8 @@
 import { Component, computed, effect, inject, input } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixUserFollowLine, remixUserVoiceLine } from '@ng-icons/remixicon'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { map } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
@@ -16,7 +18,8 @@ export type BankImportOptions = {
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper, InfoCard, IconComp],
+  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper, InfoCard, IconComp, NgIcon],
+  providers: [provideIcons({ remixUserFollowLine, remixUserVoiceLine })],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })
