@@ -1,10 +1,12 @@
 import { Component, input } from '@angular/core'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixHeartsFill, remixMeteorFill, remixStarFill, remixStarLine } from '@ng-icons/remixicon'
 import { mapConfidencePercentToRating, PracticeRating } from '../../../utils/genaral-utils'
-import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({
   selector: 'app-practice-rating-comp',
-  imports: [IconComp],
+  imports: [NgIcon],
+  providers: [provideIcons({ remixHeartsFill, remixMeteorFill, remixStarFill, remixStarLine })],
   templateUrl: './practice-rating-comp.html',
   styleUrl: './practice-rating-comp.scss',
   host: {

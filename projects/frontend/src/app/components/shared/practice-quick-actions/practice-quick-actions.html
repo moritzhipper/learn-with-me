@@ -2,12 +2,12 @@
   <button class="silent quick caroussel-item" (click)="selectAction(action)">
     @switch (action.type) {
       @case ('continue') {
-        <app-icon-comp type="speed" class="type" />
+        <ng-icon name="remixSpeedFill" class="type" />
         <h3>Continue practice</h3>
         <p class="mt-auto">{{ action.cardsLeft }} cards left until you're done!</p>
       }
       @case ('collection') {
-        <ng-icon name="remixPantoneFill" class="type" />
+        <ng-icon name="remixFolder5Fill" class="type" />
         <h3>
           {{ action.collection.name }}
         </h3>
@@ -26,7 +26,7 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('worst-cards') {
-        <app-icon-comp type="up-arrow" class="type" />
+        <ng-icon name="remixArrowUpCircleFill" class="type" />
         <h3>Most potential</h3>
         <liz-confidence-stats [confidence]="action.averageScore" />
 

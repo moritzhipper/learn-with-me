@@ -3,10 +3,12 @@ import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgIcon, provideIcons } from '@ng-icons/core'
 import {
+  remixArrowUpCircleFill,
   remixBug2Fill,
   remixCalendarScheduleFill,
   remixFolder5Fill,
-  remixSettings3Fill
+  remixSettings3Fill,
+  remixSpeedFill
 } from '@ng-icons/remixicon'
 import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import { ModalService } from '../../../services/modal-service'
@@ -21,7 +23,6 @@ import {
   StartPracticeFormConfig,
   StartPracticeFormResult
 } from '../forms/start-practice-form/start-practice-form'
-import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
 type PracticeConfigQuickAction<T extends PracticeConfig['type']> = {
@@ -63,13 +64,15 @@ type QuickAction =
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp, NgIcon, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
+  imports: [NgIcon, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
   providers: [
     provideIcons({
+      remixArrowUpCircleFill,
       remixBug2Fill,
       remixCalendarScheduleFill,
       remixSettings3Fill,
-      remixFolder5Fill
+      remixFolder5Fill,
+      remixSpeedFill
     })
   ],
   templateUrl: './practice-quick-actions.html',

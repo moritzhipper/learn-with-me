@@ -6,18 +6,24 @@ import {
   Validators
 } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixArrowDownSLine, remixInformationFill, remixMagicFill } from '@ng-icons/remixicon'
+import {
+  remixArrowDownSLine,
+  remixHeartsFill,
+  remixInformationFill,
+  remixMagicFill
+} from '@ng-icons/remixicon'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
-import { IconComp } from '../icon-comp/icon-comp'
 import { LarryBig } from '../larries/larry-big/larry-big'
 
 @Component({
   selector: 'app-onboarding-comp',
-  imports: [IconComp, NgIcon, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
-  providers: [provideIcons({ remixMagicFill, remixInformationFill, remixArrowDownSLine })],
+  imports: [NgIcon, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
+  providers: [
+    provideIcons({ remixArrowDownSLine, remixHeartsFill, remixInformationFill, remixMagicFill })
+  ],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })
