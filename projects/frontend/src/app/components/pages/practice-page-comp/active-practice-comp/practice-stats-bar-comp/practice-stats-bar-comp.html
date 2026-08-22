@@ -4,7 +4,7 @@
   (click)="toggle()"
   [disabled]="isFinished() || cardState() === 'editing'"
 >
-  <ng-icon name="remixArrowDownSLine" size="50" class="icon" />
+  <ng-icon [svg]="collapseIcon" size="50" class="icon" />
 </button>
 
 @if (isOpen() || isFinished()) {

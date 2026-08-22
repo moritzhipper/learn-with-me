@@ -8,10 +8,10 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixAddCircleFill, remixDeleteBin6Line } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { LearnableBase, UserLearnable, UserLearnablePartial } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { addIcon, removeIcon } from '../../../../icon-registry'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 import { BaseModalDirective } from '../base-modal-directive'
 
@@ -24,11 +24,14 @@ export type ConfirmationType = {
 @Component({
   selector: 'app-bulk-edit-comp',
   imports: [ReactiveFormsModule, CommonModule, RadioComp, NgIcon, AnimDelayWrapper],
-  providers: [provideIcons({ remixAddCircleFill, remixDeleteBin6Line })],
   templateUrl: './bulk-edit-comp.html',
   styleUrl: './bulk-edit-comp.scss'
 })
 export class BulkEditComp extends BaseModalDirective {
+  protected readonly icons = {
+    addIcon,
+    removeIcon
+  }
   private readonly _fb = inject(NonNullableFormBuilder)
 
   learnables = input<UserLearnable[]>()

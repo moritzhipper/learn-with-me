@@ -5,15 +5,10 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import {
-  remixArrowDownSLine,
-  remixHeartsFill,
-  remixInformationFill,
-  remixMagicFill
-} from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
+import { aboutPageIcon, collapseIcon, favoriteIcon, magicIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { LarryBig } from '../larries/larry-big/larry-big'
@@ -21,13 +16,16 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 @Component({
   selector: 'app-onboarding-comp',
   imports: [NgIcon, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
-  providers: [
-    provideIcons({ remixArrowDownSLine, remixHeartsFill, remixInformationFill, remixMagicFill })
-  ],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })
 export class OnboardingComp {
+  protected readonly icons = {
+    aboutPageIcon,
+    collapseIcon,
+    favoriteIcon,
+    magicIcon
+  }
   protected readonly activeIndex = signal(0)
   private readonly _settings = inject(SettingsStore)
   private readonly ls = inject(LearnablesStore)

@@ -6,26 +6,26 @@
 >
   @switch (config()) {
     @case ('magic') {
-      <ng-icon name="remixMagicFill" />
+      <ng-icon [svg]="icons.magicIcon" />
     }
     @case ('bulk-edit') {
-      <ng-icon name="remixPencilFill" />
+      <ng-icon [svg]="icons.editIcon" />
     }
     @case ('translate') {
-      <ng-icon name="remixTranslate" />
+      <ng-icon [svg]="icons.translatePageIcon" />
     }
     @case ('remove') {
-      <ng-icon name="remixFolderReduceLine" />
+      <ng-icon [svg]="icons.removeFromCollectionIcon" />
     }
     @case ('move') {
-      <ng-icon name="remixFolderAddLine" />
+      <ng-icon [svg]="icons.addToCollectionIcon" />
     }
     @case ('trash') {
-      <ng-icon name="remixDeleteBin5Line" />
+      <ng-icon [svg]="icons.trashIcon" />
     }
 
     @case ('checkbox-multiple') {
-      <ng-icon name="remixCheckboxMultipleLine" />
+      <ng-icon [svg]="icons.multiSelectIcon" />
     }
   }
   @if (count(); as c) {

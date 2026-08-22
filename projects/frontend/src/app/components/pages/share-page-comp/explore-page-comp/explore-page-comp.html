@@ -1,4 +1,4 @@
-<app-page-wrapper [icon]="shareIcon" lizAnimDelayWrapper applyClass="fly-in-y-wide">
+<app-page-wrapper [icon]="icons.shareIcon" lizAnimDelayWrapper applyClass="fly-in-y-wide">
   <app-page-header-comp title="Explore" backLink="/community" backLinkText="Community">
     <liz-language-match [languageConfig]="selectedPair()" />
   </app-page-header-comp>
@@ -6,7 +6,7 @@
   <div class="params-config" #animItem>
     <button class="small change has-icon" (click)="changeLanguageMatch()">
       <span> Change pair </span>
-      <ng-icon class="icon" name="remixPencilFill" />
+      <ng-icon class="icon" [svg]="icons.editIcon" />
     </button>
     <app-radio-comp
       [config]="[

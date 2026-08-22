@@ -1,4 +1,4 @@
-<app-page-wrapper icon="settings" [icon]="cogwheelIcon">
+<app-page-wrapper icon="settings" [icon]="icons.settingsPageIcon">
   <app-page-header-comp title="Settings" />
   <h2 class="indent first">My Banks</h2>
   <div class="caroussel-wrapper">
@@ -17,7 +17,7 @@
     }
     <button class="add-bank caroussel-item" (click)="createNewBank()">
       <span>Create new Bank</span>
-      <ng-icon name="remixAddCircleFill" />
+      <ng-icon [svg]="icons.addIcon" />
     </button>
   </div>
   <h2 class="indent">General Settings</h2>

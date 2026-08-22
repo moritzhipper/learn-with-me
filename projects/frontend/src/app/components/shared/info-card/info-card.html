@@ -1,7 +1,7 @@
 @if (type() === 'info') {
-  <ng-icon name="remixInformationFill" />
+  <ng-icon [svg]="icons.aboutPageIcon" />
 } @else {
-  <ng-icon name="remixErrorWarningFill" />
+  <ng-icon [svg]="icons.warningIcon" />
 }
 
 @if (title(); as title) {

@@ -1,7 +1,7 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixCheckboxCircleFill, remixCloseCircleFill } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive } from '@shared/types'
+import { correctAnswerIcon, incorrectAnswerIcon } from '../../../../icon-registry'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
 import { CardViewModel, getCardsViewModel } from './practice-helpers'
@@ -14,7 +14,6 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
 @Component({
   selector: 'app-active-practice-comp',
   imports: [PracticeStatsBarComp, PracticeCardComp, PracticeSummaryCard, NgIcon],
-  providers: [provideIcons({ remixCheckboxCircleFill, remixCloseCircleFill })],
   templateUrl: './active-practice-comp.html',
   styleUrls: ['./active-practice-comp.scss', './card-animations.scss'],
   host: {
@@ -24,6 +23,10 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
   }
 })
 export class ActivePracticeComp {
+  protected readonly icons = {
+    correctAnswerIcon,
+    incorrectAnswerIcon
+  }
   @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
     if (this.cardState() === 'hidden' && event.key === 'ArrowUp') {
       this.reveal()

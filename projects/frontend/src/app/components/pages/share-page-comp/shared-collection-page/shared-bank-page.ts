@@ -1,15 +1,10 @@
 import { Component, computed, inject, input, signal } from '@angular/core'
 import { rxResource, toSignal } from '@angular/core/rxjs-interop'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import {
-  remixAddCircleFill,
-  remixArrowDownSLine,
-  remixFileCopyLine,
-  remixFolderDownloadLine
-} from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { BankShareViaDB, Collection, LearnableBaseWithID } from '@shared/types'
 import { interval, map } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { addIcon, collapseIcon, copyIcon, downloadIcon } from '../../../../icon-registry'
 import { ApiService } from '../../../../services/api-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
 import { dateToTTLTerm } from '../../../../utils/genaral-utils'
@@ -32,18 +27,16 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     LoadingSpinner,
     NgIcon
   ],
-  providers: [
-    provideIcons({
-      remixArrowDownSLine,
-      remixAddCircleFill,
-      remixFileCopyLine,
-      remixFolderDownloadLine
-    })
-  ],
   templateUrl: './shared-bank-page.html',
   styleUrl: './shared-bank-page.scss'
 })
 export class SharedBankPage {
+  protected readonly icons = {
+    addIcon,
+    collapseIcon,
+    copyIcon,
+    downloadIcon
+  }
   private readonly apiS = inject(ApiService)
   private readonly shareBankS = inject(ShareBanksService)
 

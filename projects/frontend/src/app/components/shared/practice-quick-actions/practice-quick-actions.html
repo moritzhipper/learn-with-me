@@ -2,12 +2,12 @@
   <button class="silent quick caroussel-item" (click)="selectAction(action)">
     @switch (action.type) {
       @case ('continue') {
-        <ng-icon name="remixSpeedFill" class="type" />
+        <ng-icon [svg]="icons.practiceSpeedIcon" class="type" />
         <h3>Continue practice</h3>
         <p class="mt-auto">{{ action.cardsLeft }} cards left until you're done!</p>
       }
       @case ('collection') {
-        <ng-icon name="remixFolder5Fill" class="type" />
+        <ng-icon [svg]="icons.collectionIcon" class="type" />
         <h3>
           {{ action.collection.name }}
         </h3>
@@ -16,7 +16,7 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-on-day') {
-        <ng-icon name="remixCalendarScheduleFill" class="type" />
+        <ng-icon [svg]="icons.practiceScheduleIcon" class="type" />
         <h3>Added on {{ action.dayCardsAddedUTC | date: 'mediumDate' }}</h3>
         <liz-confidence-stats [confidence]="action.averageScore" />
 
@@ -26,7 +26,7 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('worst-cards') {
-        <ng-icon name="remixArrowUpCircleFill" class="type" />
+        <ng-icon [svg]="icons.continuePracticeIcon" class="type" />
         <h3>Most potential</h3>
         <liz-confidence-stats [confidence]="action.averageScore" />
 
@@ -35,11 +35,11 @@
         </p>
       }
       @case ('customize') {
-        <ng-icon name="remixSettings3Fill" class="type" />
+        <ng-icon [svg]="icons.settingsPageIcon" class="type" />
         <h3>Customize everything</h3>
         <p class="mt-auto">Set up the practice session exactly how you want to.</p>
       }
     }
-    <ng-icon name="remixBug2Fill" class="background" />
+    <ng-icon [svg]="icons.practicePageIcon" class="background" />
   </button>
 }

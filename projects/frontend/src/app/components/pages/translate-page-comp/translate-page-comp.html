@@ -15,10 +15,10 @@
   }
 </app-bubbles>
 
-<app-page-wrapper [icon]="translateIcon">
+<app-page-wrapper [icon]="icons.translatePageIcon">
   <div header>
     <button class="tone-wrapper silent" (click)="setTone()">
-      <p class="label size-0">Tone <ng-icon name="remixPencilFill" /></p>
+      <p class="label size-0">Tone <ng-icon [svg]="icons.editIcon" /></p>
       <p class="tone size-2 ellipsis">{{ tone() || 'Neutral' }}</p>
     </button>
     @if (selectedMode() === 'translate') {

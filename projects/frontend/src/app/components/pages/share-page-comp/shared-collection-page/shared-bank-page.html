@@ -11,21 +11,21 @@
       <div class="full-width-scroll action-buttons" #animItem>
         @if (selectedCollection()) {
           <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
-            <ng-icon name="remixArrowDownSLine" />
+            <ng-icon [svg]="icons.collapseIcon" />
             All cards
           </button>
         } @else {
           <button (click)="import(ban)" class="header-action">
             Import
-            <ng-icon name="remixAddCircleFill" />
+            <ng-icon [svg]="icons.addIcon" />
           </button>
           <button (click)="copyLink(ban)" class="header-action">
             Copy link
-            <ng-icon name="remixFileCopyLine" />
+            <ng-icon [svg]="icons.copyIcon" />
           </button>
           <button class="header-action" (click)="download(ban)">
             Download
-            <ng-icon name="remixFolderDownloadLine" />
+            <ng-icon [svg]="icons.downloadIcon" />
           </button>
           @if (ban.collections.length > 1) {
             <div class="separator ml-auto"></div>

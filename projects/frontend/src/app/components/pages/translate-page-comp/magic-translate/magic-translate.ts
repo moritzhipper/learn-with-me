@@ -1,12 +1,12 @@
 import { Component, computed, inject, model, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixCamera4Fill } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
 import { from, map, pipe, switchMap, tap } from 'rxjs'
+import { imageExtractIcon, magicIcon } from '../../../../icon-registry'
 import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
@@ -22,11 +22,14 @@ type FormType = {
 @Component({
   selector: 'app-magic-translate',
   imports: [NgIcon, RadioComp, ReactiveFormsModule],
-  providers: [provideIcons({ remixCamera4Fill })],
   templateUrl: './magic-translate.html',
   styleUrl: './magic-translate.scss'
 })
 export class MagicTranslate {
+  protected readonly icons = {
+    imageExtractIcon,
+    magicIcon
+  }
   private readonly _fb = inject(NonNullableFormBuilder)
   private readonly ls = inject(LearnablesStore)
   private readonly aiService = inject(AiService)

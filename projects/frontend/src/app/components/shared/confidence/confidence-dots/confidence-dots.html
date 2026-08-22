@@ -4,9 +4,9 @@
   }
 </div>
 <div class="center">
-  <ng-icon name="remixUserFollowLine" size="20" />
+  <ng-icon [svg]="icons.learnLanguageIcon" size="20" />
   <p class="size-0">/</p>
-  <ng-icon name="remixUserVoiceLine" size="20" />
+  <ng-icon [svg]="icons.speakLanguageIcon" size="20" />
 </div>
 <div class="confidence lexeme" [style.--confidence.%]="confidence().lexeme">
   @for (dot of dotsArray; track dot) {

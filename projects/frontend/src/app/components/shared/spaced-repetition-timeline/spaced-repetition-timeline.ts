@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixDropFill, remixDropLine } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
+import { completedTimelineIcon, pendingTimelineIcon } from '../../../icon-registry'
 import { calcMsDifference } from '../../../utils/genaral-utils'
 
 type TimeMarker = {
@@ -11,16 +11,14 @@ type TimeMarker = {
 @Component({
   selector: 'app-spaced-repetition-timeline',
   imports: [NgIcon],
-  providers: [
-    provideIcons({
-      remixDropFill,
-      remixDropLine
-    })
-  ],
   templateUrl: './spaced-repetition-timeline.html',
   styleUrl: './spaced-repetition-timeline.scss'
 })
 export class SpacedRepetitionTimeline {
+  protected readonly icons = {
+    completedTimelineIcon,
+    pendingTimelineIcon
+  }
   readonly dates = input.required<TimeMarker[], Date[] | number[]>({ transform: this.mapToMarkers })
 
   protected readonly SPACED_REP_INTERVALS = [1, 3, 7, 14, 30, 60]

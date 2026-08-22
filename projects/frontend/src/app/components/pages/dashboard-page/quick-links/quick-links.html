@@ -4,31 +4,31 @@
       <a class="quick-link" routerLink="/translate" #translate>
         Translate
 
-        <ng-icon name="remixTranslate" />
+        <ng-icon [svg]="icons.translatePageIcon" />
       </a>
     }
     @case ('generate') {
       <a class="quick-link" routerLink="/translate" [state]="{ mode: 'magic' }">
         Generate
-        <ng-icon name="remixMagicFill" />
+        <ng-icon [svg]="icons.magicIcon" />
       </a>
     }
     @case ('create') {
       <button class="silent quick-link" (click)="createCards()">
         Create
-        <ng-icon name="remixPencilFill" />
+        <ng-icon [svg]="icons.editIcon" />
       </button>
     }
     @case ('community') {
       <a class="quick-link" routerLink="/community">
         Community
-        <ng-icon name="remixShareFill" />
+        <ng-icon [svg]="icons.shareIcon" />
       </a>
     }
     @case ('stats') {
       <a class="quick-link stats" routerLink="/stats">
         Stats
-        <ng-icon name="remixDonutChartFill" />
+        <ng-icon [svg]="icons.statsIcon" />
       </a>
     }
   }

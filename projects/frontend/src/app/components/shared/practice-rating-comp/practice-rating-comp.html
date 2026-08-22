@@ -1,23 +1,23 @@
 @switch (confidence()) {
   @case ('noteven') {
-    <ng-icon name="remixHeartsFill" />
+    <ng-icon [svg]="icons.favoriteIcon" />
   }
   @case ('atleast') {
-    <ng-icon name="remixStarFill" />
-    <ng-icon name="remixStarLine" />
-    <ng-icon name="remixStarLine" />
+    <ng-icon [svg]="icons.starRatingIcon" />
+    <ng-icon [svg]="icons.emptyStarRatingIcon" />
+    <ng-icon [svg]="icons.emptyStarRatingIcon" />
   }
   @case ('okay') {
-    <ng-icon name="remixStarFill" />
-    <ng-icon name="remixStarLine" />
-    <ng-icon name="remixStarFill" />
+    <ng-icon [svg]="icons.starRatingIcon" />
+    <ng-icon [svg]="icons.emptyStarRatingIcon" />
+    <ng-icon [svg]="icons.starRatingIcon" />
   }
   @case ('good') {
-    <ng-icon name="remixStarFill" />
-    <ng-icon name="remixStarFill" />
-    <ng-icon name="remixStarFill" />
+    <ng-icon [svg]="icons.starRatingIcon" />
+    <ng-icon [svg]="icons.starRatingIcon" />
+    <ng-icon [svg]="icons.starRatingIcon" />
   }
   @case ('excellent') {
-    <ng-icon name="remixMeteorFill" />
+    <ng-icon [svg]="icons.meteorRatingIcon" />
   }
 }

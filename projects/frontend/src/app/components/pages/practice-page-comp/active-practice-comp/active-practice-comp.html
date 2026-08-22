@@ -1,6 +1,6 @@
 <div class="vote-overlay">
-  <ng-icon name="remixCheckboxCircleFill" class="icon right" size="220" />
-  <ng-icon name="remixCloseCircleFill" class="icon wrong" size="220" />
+  <ng-icon [svg]="icons.correctAnswerIcon" class="icon right" size="220" />
+  <ng-icon [svg]="icons.incorrectAnswerIcon" class="icon wrong" size="220" />
 </div>
 @if (cardState() !== 'editing') {
   <div

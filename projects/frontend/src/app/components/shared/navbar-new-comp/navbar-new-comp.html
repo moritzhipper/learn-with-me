@@ -4,7 +4,7 @@
   [class.open]="isOpen()"
   [class.dim]="isOnDimmablePage() && !isOpen()"
 >
-  <ng-icon name="remixMenuUnfold2Line" />
+  <ng-icon [svg]="icons.navigationMenuIcon" />
 </button>
 
 @if (isOpen()) {
@@ -14,7 +14,7 @@
       <span class="ellipsis">
         {{ language().learning }}
       </span>
-      <ng-icon name="remixArrowLeftRightLine" />
+      <ng-icon [svg]="icons.languageSwapIcon" />
       <span class="ellipsis">
         {{ language().speaking }}
       </span>
@@ -25,11 +25,11 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <ng-icon name="remixBookMarkedFill" />
+      <ng-icon [svg]="icons.dashboardPageIcon" />
       <span>Home</span>
     </a>
     <a class="entry big" routerLink="practice" routerLinkActive="active">
-      <ng-icon name="remixBug2Fill" />
+      <ng-icon [svg]="icons.practicePageIcon" />
 
       <span>
         <span> Practice </span>
@@ -39,17 +39,17 @@
       </span>
     </a>
     <a class="entry big" routerLink="translate" routerLinkActive="active">
-      <ng-icon name="remixTranslate" />
+      <ng-icon [svg]="icons.translatePageIcon" />
 
       <span>Translate</span>
     </a>
 
     <a routerLink="settings" class="entry small" routerLinkActive="active">
-      <ng-icon name="remixSettings3Fill" />
+      <ng-icon [svg]="icons.settingsPageIcon" />
       <span>Settings</span>
     </a>
     <a routerLink="about" class="entry small" routerLinkActive="active">
-      <ng-icon name="remixInformationFill" />
+      <ng-icon [svg]="icons.aboutPageIcon" />
 
       <span>About</span>
     </a>

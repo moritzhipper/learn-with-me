@@ -1,12 +1,12 @@
 import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixPencilFill, remixShareFill } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { editIcon, shareIcon } from '../../../../icon-registry'
 import { ApiService } from '../../../../services/api-service'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
@@ -38,16 +38,14 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     CardsStack,
     RouterLink
   ],
-  providers: [
-    provideIcons({
-      remixPencilFill,
-      remixShareFill
-    })
-  ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'
 })
 export class ExplorePageComp {
+  protected readonly icons = {
+    editIcon,
+    shareIcon
+  }
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly toastS = inject(ToastService)
@@ -55,8 +53,6 @@ export class ExplorePageComp {
   private readonly apiS = inject(ApiService)
   private readonly shareBanksS = inject(ShareBanksService)
   private readonly _modalService = inject(ModalService)
-
-  shareIcon = remixShareFill
 
   private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 800
 

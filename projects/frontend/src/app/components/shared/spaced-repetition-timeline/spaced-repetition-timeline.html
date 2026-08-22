@@ -2,9 +2,9 @@
   @for (marker of dates(); track marker) {
     <div class="marker" [style.--days-ago]="marker.intervall">
       @if (marker.type === 'practice') {
-        <ng-icon name="remixDropFill" />
+        <ng-icon [svg]="icons.completedTimelineIcon" />
       } @else {
-        <ng-icon name="remixDropLine" />
+        <ng-icon [svg]="icons.pendingTimelineIcon" />
       }
     </div>
   }

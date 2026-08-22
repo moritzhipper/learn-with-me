@@ -1,4 +1,4 @@
-<app-page-wrapper [icon]="shareIcon">
+<app-page-wrapper [icon]="icons.shareIcon">
   <app-page-header-comp title="Community" backLink="/" backLinkText="Home" />
   <div class="preview-sections" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     @for (section of previewBanks(); track section.title) {
@@ -28,7 +28,7 @@
               [queryParams]="section.params"
             >
               <span> Explore more </span>
-              <ng-icon name="remixArrowDownSLine" />
+              <ng-icon [svg]="icons.collapseIcon" />
             </a>
           </div>
         } @else {

@@ -1,17 +1,12 @@
 import { Location } from '@angular/common'
 import { booleanAttribute, Component, inject, input } from '@angular/core'
 import { Router } from '@angular/router'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixCloseLine } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
+import { closeIcon } from '../../../../icon-registry'
 
 @Component({
   selector: 'liz-page-header-cards',
   imports: [NgIcon],
-  providers: [
-    provideIcons({
-      remixCloseLine
-    })
-  ],
   templateUrl: './page-header-cards.html',
   styleUrl: './page-header-cards.scss',
   host: {
@@ -19,6 +14,7 @@ import { remixCloseLine } from '@ng-icons/remixicon'
   }
 })
 export class PageHeaderCards {
+  protected readonly closeIcon = closeIcon
   outline = input(false, { transform: booleanAttribute })
   title = input.required<string>()
 

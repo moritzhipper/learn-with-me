@@ -5,7 +5,7 @@
 </div>
 
 <button class="silent share" (click)="share.emit()">
-  <ng-icon name="remixShareFill" />
+  <ng-icon [svg]="shareIcon" />
 </button>
 <div class="details">
   <liz-language-match [languageConfig]="b.language" />

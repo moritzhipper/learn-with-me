@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core'
-import { provideIcons } from '@ng-icons/core'
-import { remixPantoneFill } from '@ng-icons/remixicon'
+import { cardsPageIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/banks-and-collections/cards-quick-selector/cards-quick-selector'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -9,11 +8,6 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
 @Component({
   selector: 'liz-cards-page',
   imports: [PageWrapper, PageHeaderComp, CardsQuickSelector],
-  providers: [
-    provideIcons({
-      remixPantoneFill
-    })
-  ],
   templateUrl: './cards-page.html',
   styleUrl: './cards-page.scss'
 })
@@ -21,5 +15,5 @@ export class CardsPage {
   private readonly ls = inject(LearnablesStore)
   userHasCards = computed(() => this.ls.learnables().length > 0)
 
-  cardsIcon = remixPantoneFill
+  protected readonly cardsIcon = cardsPageIcon
 }

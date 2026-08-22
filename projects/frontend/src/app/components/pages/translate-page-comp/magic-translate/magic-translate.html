@@ -20,7 +20,7 @@
           (change)="onFileChange($event)"
         />
         <label for="image">
-          <ng-icon name="remixCamera4Fill" />
+          <ng-icon [svg]="icons.imageExtractIcon" />
         </label>
       </div>
     }
@@ -52,7 +52,7 @@
 
     <button type="submit" class="has-icon" [disabled]="isConverting() || !createLearnablesConfig()">
       Do the Magic
-      <ng-icon name="remixMagicFill" size="24" />
+      <ng-icon [svg]="icons.magicIcon" size="24" />
     </button>
   </div>
 </form>

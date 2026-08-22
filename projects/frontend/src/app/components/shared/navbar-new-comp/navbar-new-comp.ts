@@ -1,33 +1,22 @@
 import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import {
-  remixArrowLeftRightLine,
-  remixBookMarkedFill,
-  remixBug2Fill,
-  remixInformationFill,
-  remixMenuUnfold2Line,
-  remixSettings3Fill,
-  remixTranslate
-} from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { config } from '../../../../config'
+import {
+  aboutPageIcon,
+  dashboardPageIcon,
+  languageSwapIcon,
+  navigationMenuIcon,
+  practicePageIcon,
+  settingsPageIcon,
+  translatePageIcon
+} from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 
 @Component({
   selector: 'app-navbar-new-comp',
   imports: [RouterLink, RouterLinkActive, NgIcon],
-  providers: [
-    provideIcons({
-      remixSettings3Fill,
-      remixArrowLeftRightLine,
-      remixBug2Fill,
-      remixBookMarkedFill,
-      remixTranslate,
-      remixInformationFill,
-      remixMenuUnfold2Line
-    })
-  ],
   templateUrl: './navbar-new-comp.html',
   styleUrls: ['./navbar-new-comp.scss', './phone.scss', './desktop.scss']
 })
@@ -35,6 +24,15 @@ export class NavbarNewComp {
   private body = inject(DOCUMENT).body
 
   protected readonly appName = config.appNameLong
+  protected readonly icons = {
+    aboutPageIcon,
+    dashboardPageIcon,
+    languageSwapIcon,
+    navigationMenuIcon,
+    practicePageIcon,
+    settingsPageIcon,
+    translatePageIcon
+  }
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
   protected readonly ls = inject(LearnablesStore)

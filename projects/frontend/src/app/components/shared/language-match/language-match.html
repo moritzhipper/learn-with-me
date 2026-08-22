@@ -3,9 +3,9 @@
     {{ languageConfig().speaking }}
   </span>
   <span class="icons">
-    <ng-icon name="remixUserFollowLine" />
+    <ng-icon [svg]="icons.learnLanguageIcon" />
     <span class="dash">/</span>
-    <ng-icon name="remixUserVoiceLine" />
+    <ng-icon [svg]="icons.speakLanguageIcon" />
   </span>
   <span>
     {{ languageConfig().learning }}

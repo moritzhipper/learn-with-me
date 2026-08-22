@@ -1,6 +1,6 @@
 <a [routerLink]="route()" [queryParams]="queryParams()" [class.eyebrow]="eyebrow()">
   @if (eyebrow()) {
-    <ng-icon name="remixArrowDownSLine" />
+    <ng-icon [svg]="collapseIcon" />
     <div class="text">
       {{ label() }}
     </div>
@@ -8,6 +8,6 @@
     <h2>
       {{ label() }}
     </h2>
-    <ng-icon name="remixArrowDownSLine" />
+    <ng-icon [svg]="collapseIcon" />
   }
 </a>

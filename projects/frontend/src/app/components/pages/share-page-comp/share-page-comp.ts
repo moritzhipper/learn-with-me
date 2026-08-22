@@ -1,12 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixArrowDownSLine, remixShareFill } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
+import { collapseIcon, shareIcon } from '../../../icon-registry'
 import { ApiService } from '../../../services/api-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -37,12 +37,6 @@ type BanksPreviewSection = PrefetchSectionProxy & {
 
 @Component({
   selector: 'app-share-page-comp',
-  providers: [
-    provideIcons({
-      remixArrowDownSLine,
-      remixShareFill
-    })
-  ],
   imports: [
     PageHeaderComp,
     SharedBankComp,
@@ -67,7 +61,10 @@ export class SharePageComp {
   private readonly bankLanguage = computed(() => this.ls.activeBank().language)
   protected readonly MAX_PREVIEW_BANKS = 8
 
-  shareIcon = remixShareFill
+  protected readonly icons = {
+    collapseIcon,
+    shareIcon
+  }
 
   protected fetchState = signal<ApiFetchState>('idle')
 

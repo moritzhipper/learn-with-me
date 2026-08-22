@@ -1,9 +1,9 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
-import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixAddCircleFill, remixSettings3Fill } from '@ng-icons/remixicon'
+import { NgIcon } from '@ng-icons/core'
 import { BankBase, BankUser } from '@shared/types'
 import { environment } from '../../../../environments/environment'
+import { addIcon, settingsPageIcon } from '../../../icon-registry'
 import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -29,12 +29,6 @@ import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
     CardsStack,
     NgIcon
   ],
-  providers: [
-    provideIcons({
-      remixAddCircleFill,
-      remixSettings3Fill
-    })
-  ],
   templateUrl: './settings-page-comp.html',
   styleUrl: './settings-page-comp.scss'
 })
@@ -46,7 +40,10 @@ export class SettingsComp {
   private readonly _sharedBankS = inject(ShareBanksService)
   private readonly debugHelper = inject(DebugHelper)
 
-  cogwheelIcon = remixSettings3Fill
+  protected readonly icons = {
+    settingsPageIcon,
+    addIcon
+  }
 
   protected isProduction = environment.isProd
 
