@@ -1,5 +1,7 @@
 # ToDo
 
+## Replace icons
+
 ## Today
 
 - be more strict in wich practice suggestions to show to not show collections as duplicate

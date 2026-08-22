@@ -42,6 +42,8 @@
     "@angular/service-worker": "^22.0.8",
     "@fastify/autoload": "^6.4.0",
     "@fastify/sensible": "^6.0.4",
+    "@ng-icons/core": "^35.0.1",
+    "@ng-icons/remixicon": "^35.0.1",
     "@ngrx/operators": "^21.1.1",
     "@ngrx/signals": "^21.1.1",
     "dotenv": "^17.4.2",
