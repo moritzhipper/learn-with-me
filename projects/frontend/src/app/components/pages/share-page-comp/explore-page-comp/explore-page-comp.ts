@@ -2,7 +2,7 @@ import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } f
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixPencilFill } from '@ng-icons/remixicon'
+import { remixPencilFill, remixShareFill } from '@ng-icons/remixicon'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
@@ -38,7 +38,12 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     CardsStack,
     RouterLink
   ],
-  providers: [provideIcons({ remixPencilFill })],
+  providers: [
+    provideIcons({
+      remixPencilFill,
+      remixShareFill
+    })
+  ],
   templateUrl: './explore-page-comp.html',
   styleUrl: './explore-page-comp.scss'
 })
@@ -50,6 +55,8 @@ export class ExplorePageComp {
   private readonly apiS = inject(ApiService)
   private readonly shareBanksS = inject(ShareBanksService)
   private readonly _modalService = inject(ModalService)
+
+  shareIcon = remixShareFill
 
   private readonly LOAD_MORE_SCROLL_THRESHOLD_PX = 800
 

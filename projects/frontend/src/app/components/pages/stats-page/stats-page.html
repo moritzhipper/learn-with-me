@@ -1,4 +1,4 @@
-<app-page-wrapper icon="donut-chart-fill">
+<app-page-wrapper [icon]="donutIcon">
   <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 
   @if (practiceHistory().length === 0) {
@@ -14,7 +14,7 @@
       @for (entry of practiceHistoryDays(); track entry.day) {
         <div class="day" [id]="'day-' + entry.day">
           <div class="header">
-            <app-icon-comp type="drop-fill" />
+            <ng-icon name="remixDropFill" />
             <h2>
               <span>
                 {{ entry.day | date: 'mediumDate' }}

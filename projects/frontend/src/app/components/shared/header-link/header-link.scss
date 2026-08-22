@@ -17,6 +17,7 @@ a {
   &:not(.eyebrow) {
     gap: var(--distance-1);
     margin: 0 var(--distance-2) var(--distance-3) var(--distance-3);
+
     ng-icon {
       rotate: -90deg;
     }

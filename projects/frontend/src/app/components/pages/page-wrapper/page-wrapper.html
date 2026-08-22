@@ -1,5 +1,5 @@
 @if (icon(); as icon) {
-  <app-page-icon-comp [type]="icon" />
+  <ng-icon [svg]="icon" />
 }
 @if (!fullScreen()) {
   <div class="header" #header [style.--header-height.px]="headerHeight()">

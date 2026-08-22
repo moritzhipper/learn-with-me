@@ -20,10 +20,9 @@
     height: var(--distance-4);
 
     .marker {
-      app-icon-comp {
+      ng-icon {
         rotate: 180deg;
-        width: var(--distance-3);
-        height: var(--distance-3);
+        font-size: var(--distance-3);
         color: rgb(from var(--col-bg) r g b / var(--opacity-1));
       }
     }

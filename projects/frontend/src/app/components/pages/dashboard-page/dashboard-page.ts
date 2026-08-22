@@ -1,6 +1,8 @@
 import { Component, computed, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { RouterLink } from '@angular/router'
+import { provideIcons } from '@ng-icons/core'
+import { remixBookMarkedFill } from '@ng-icons/remixicon'
 import { ApiService } from '../../../services/api-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/banks-and-collections/cards-quick-selector/cards-quick-selector'
@@ -27,6 +29,11 @@ import { QuickLinks } from './quick-links/quick-links'
     RouterLink,
     CardsStack
   ],
+  providers: [
+    provideIcons({
+      remixBookMarkedFill
+    })
+  ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'
 })
@@ -34,6 +41,8 @@ export class DashboardPage {
   private readonly apiS = inject(ApiService)
   private readonly ls = inject(LearnablesStore)
   protected bankHasCards = computed(() => this.ls.activeBank().learnables.length !== 0)
+
+  bookIcon = remixBookMarkedFill
 
   sharedBanks = rxResource({
     params: () => this.ls.activeBank().language,

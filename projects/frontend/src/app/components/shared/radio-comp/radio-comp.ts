@@ -1,6 +1,6 @@
 import { booleanAttribute, Component, forwardRef, input, signal } from '@angular/core'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
-import { IconComp, IconType } from '../icon-comp/icon-comp'
+import { IconType, NgIcon } from '@ng-icons/core'
 
 type RadioCompValueType = string | number | boolean | null
 export type RadioCompInputConfig = {
@@ -11,7 +11,7 @@ export type RadioCompInputConfig = {
 
 @Component({
   selector: 'app-radio-comp',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './radio-comp.html',
   styleUrl: './radio-comp.scss',
   providers: [

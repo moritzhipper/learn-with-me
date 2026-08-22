@@ -2,7 +2,7 @@ import { Component, computed, inject, model, output, signal } from '@angular/cor
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixMagicFill } from '@ng-icons/remixicon'
+import { remixCamera4Fill } from '@ng-icons/remixicon'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { LearnableBase } from '@shared/types'
@@ -11,7 +11,6 @@ import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { LearnableCreationConfig } from '../../../../types/types'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
 
 type FormType = {
@@ -22,8 +21,8 @@ type FormType = {
 
 @Component({
   selector: 'app-magic-translate',
-  imports: [IconComp, NgIcon, RadioComp, ReactiveFormsModule],
-  providers: [provideIcons({ remixMagicFill })],
+  imports: [NgIcon, RadioComp, ReactiveFormsModule],
+  providers: [provideIcons({ remixCamera4Fill })],
   templateUrl: './magic-translate.html',
   styleUrl: './magic-translate.scss'
 })

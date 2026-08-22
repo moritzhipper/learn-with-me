@@ -30,9 +30,10 @@
         align-self: end;
       }
 
-      app-icon-comp {
+      ng-icon {
+        display: block;
         width: var(--font-size-3);
-        aspect-ratio: 1 / 1;
+        height: var(--font-size-3);
         color: var(--col-accent-2);
         rotate: 180deg;
         translate: 0.5px 1px;

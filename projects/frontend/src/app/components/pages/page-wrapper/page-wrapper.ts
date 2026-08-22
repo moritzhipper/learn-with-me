@@ -7,12 +7,11 @@ import {
   signal,
   viewChild
 } from '@angular/core'
-import { IconType } from '../../shared/icon-comp/icon-comp'
-import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
+import { IconType, NgIcon } from '@ng-icons/core'
 
 @Component({
   selector: 'app-page-wrapper',
-  imports: [PageIconComp],
+  imports: [NgIcon],
   templateUrl: './page-wrapper.html',
   styleUrl: './page-wrapper.scss',
   host: {

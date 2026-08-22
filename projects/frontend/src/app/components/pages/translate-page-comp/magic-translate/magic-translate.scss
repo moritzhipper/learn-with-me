@@ -75,9 +75,8 @@ form {
       width: 0;
     }
 
-    app-icon-comp {
-      height: 32px;
-      width: 32px;
+    ng-icon {
+      font-size: 32px;
       padding: var(--distance-4);
     }
 

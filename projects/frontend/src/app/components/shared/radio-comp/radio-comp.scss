@@ -17,14 +17,15 @@
   span {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-0);
+    line-height: var(--line-height-0);
 
-    app-icon-comp {
-      width: var(--font-size-1);
-      height: var(--font-size-1);
-      margin: -8px 0;
+    ng-icon {
+      line-height: var(--line-height-0);
+      font-size: var(--font-size-0);
+      margin: -1px 0;
     }
 
-    &:has(app-icon-comp) {
+    &:has(ng-icon) {
       padding-left: var(--distance-4);
     }
   }
@@ -52,7 +53,6 @@
     span {
       opacity: 1;
       border-radius: var(--radius-0);
-      display: block;
     }
   }
 }

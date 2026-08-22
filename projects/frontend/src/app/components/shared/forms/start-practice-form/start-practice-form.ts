@@ -2,6 +2,8 @@ import { Component, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig, PracticeConfig } from '@shared/types'
 
+import { provideIcons } from '@ng-icons/core'
+import { remixUserFollowLine, remixUserVoiceLine } from '@ng-icons/remixicon'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 import { ConfidenceDots } from '../../confidence/confidence-dots/confidence-dots'
@@ -30,6 +32,12 @@ export type StartPracticeFormConfig = {
     ConfidenceDots,
     ConfidenceStats
   ],
+  providers: [
+    provideIcons({
+      remixUserFollowLine,
+      remixUserVoiceLine
+    })
+  ],
   templateUrl: './start-practice-form.html',
   styleUrl: './start-practice-form.scss'
 })
@@ -38,6 +46,9 @@ export class StartPracticeForm extends BaseModalDirective {
   form = this._fb.group<Pick<StartPracticeFormResult, 'guessableField'>>({
     guessableField: 'translation'
   })
+
+  understandIcon = remixUserFollowLine
+  speakingIcon = remixUserVoiceLine
 
   config = input.required<StartPracticeFormConfig>()
 }

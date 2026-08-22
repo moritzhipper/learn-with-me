@@ -1,7 +1,7 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { remixPencilFill } from '@ng-icons/remixicon'
+import { remixPencilFill, remixTranslate } from '@ng-icons/remixicon'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { CardsSelector } from '../../../services/cards-selector'
 import { ModalService } from '../../../services/modal-service'
@@ -18,7 +18,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
 
 @Component({
   selector: 'app-translate-page-comp',
-  providers: [CardsSelector, provideIcons({ remixPencilFill })],
+  providers: [CardsSelector, provideIcons({ remixPencilFill, remixTranslate })],
   imports: [
     FormsModule,
     QuickTranslate,
@@ -40,6 +40,8 @@ export class TranslatePageComp {
   private readonly ls = inject(LearnablesStore)
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
+
+  translateIcon = remixTranslate
 
   protected selector = inject(CardsSelector)
 

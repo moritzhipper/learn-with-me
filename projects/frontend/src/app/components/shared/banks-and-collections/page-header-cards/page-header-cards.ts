@@ -1,11 +1,17 @@
 import { Location } from '@angular/common'
 import { booleanAttribute, Component, inject, input } from '@angular/core'
 import { Router } from '@angular/router'
-import { IconComp } from '../../icon-comp/icon-comp'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixCloseLine } from '@ng-icons/remixicon'
 
 @Component({
   selector: 'liz-page-header-cards',
-  imports: [IconComp],
+  imports: [NgIcon],
+  providers: [
+    provideIcons({
+      remixCloseLine
+    })
+  ],
   templateUrl: './page-header-cards.html',
   styleUrl: './page-header-cards.scss',
   host: {
