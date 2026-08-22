@@ -1,15 +1,31 @@
 import { Component, inject, input } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import {
+  remixDonutChartFill,
+  remixMagicFill,
+  remixPencilFill,
+  remixShareFill,
+  remixTranslate
+} from '@ng-icons/remixicon'
 import { ModalService } from '../../../../services/modal-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { ConfirmationType } from '../../../shared/forms/bulk-add-comp/bulk-edit-comp'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 type QuickLinkType = 'create' | 'community' | 'generate' | 'translate' | 'stats'
 
 @Component({
   selector: 'liz-quick-links',
-  imports: [IconComp, RouterLink],
+  imports: [RouterLink, NgIcon],
+  providers: [
+    provideIcons({
+      remixTranslate,
+      remixMagicFill,
+      remixDonutChartFill,
+      remixShareFill,
+      remixPencilFill
+    })
+  ],
   templateUrl: './quick-links.html',
   styleUrl: './quick-links.scss'
 })

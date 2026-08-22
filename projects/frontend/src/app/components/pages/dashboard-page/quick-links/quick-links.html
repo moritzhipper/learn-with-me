@@ -3,31 +3,32 @@
     @case ('translate') {
       <a class="quick-link" routerLink="/translate" #translate>
         Translate
-        <app-icon-comp type="translate" />
+
+        <ng-icon name="remixTranslate" />
       </a>
     }
     @case ('generate') {
       <a class="quick-link" routerLink="/translate" [state]="{ mode: 'magic' }">
         Generate
-        <app-icon-comp type="magic" />
+        <ng-icon name="remixMagicFill" />
       </a>
     }
     @case ('create') {
       <button class="silent quick-link" (click)="createCards()">
         Create
-        <app-icon-comp type="pen" />
+        <ng-icon name="remixPencilFill" />
       </button>
     }
     @case ('community') {
       <a class="quick-link" routerLink="/community">
         Community
-        <app-icon-comp type="share-network-fill" />
+        <ng-icon name="remixShareFill" />
       </a>
     }
     @case ('stats') {
       <a class="quick-link stats" routerLink="/stats">
         Stats
-        <app-icon-comp type="donut-chart-fill" />
+        <ng-icon name="remixDonutChartFill" />
       </a>
     }
   }
