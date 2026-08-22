@@ -17,7 +17,7 @@
 - align all modals (header, description, distances of controls and stuff)
 - paste images
 
-- count letters, make smaller per one more
+- count letters, make smaller per one more in header
 
 - put cute lizard with ! or ? on page wide empty states
 - increase imports in db on download and import
@@ -53,6 +53,7 @@ Create better reusable styles (import styles per form), holding:
 
 ### Stats
 
+- remove token use from store, because one can not deduct used tokens from canceled requests wich i do
 - make more obvious what the count is
 - add weekly average cards guessed
 - addd dayly average cards guessed
@@ -63,13 +64,7 @@ Create better reusable styles (import styles per form), holding:
 
 - on practice config: show, instead of the select, the same categories as on dashboard page
 - make cards fly in left and right on configure practice?
-
 - filter doppelresponses aus preview
-- tokenuse digram in stats
-
-# layout
-
-- flex grid distance
 
 # Infra
 
@@ -90,9 +85,6 @@ Create better reusable styles (import styles per form), holding:
 
 ## Right Now
 
-- use icons for confidence / percent to be shown everywhere instead of text
-- change translate direction on translate page
-- make error thingy on community same as empty state -> component?
 - write tests for store
   - import
   - merge
@@ -102,25 +94,6 @@ Create better reusable styles (import styles per form), holding:
 
 only put hat on big larry, remove from logo
 
-- show always on bank preview
-  - languages
-  - base + dialect
-- fix download preview view form
-  - return only overview for most bank endpoints
-  - return full bank for download endpoint, increase download count
-
-## How scores are calculated
-
-- save guesses instead of true false on cards
-- let true and false influence, but not guesses yet not
-
-## Store
-
-- Create shared facade, that calls modalService and sends toasts and stuff
-  - on add: allow providing new collection name
-  - show toast: adde, skipped,
-- use on magic add and overvew
-
 # write tests
 
 - import export
@@ -128,7 +101,6 @@ only put hat on big larry, remove from logo
 ## frontend
 
 - check practice process
-- import merge correct
 
 ### Documentation
 
@@ -160,39 +132,26 @@ only put hat on big larry, remove from logo
 
 - unify styles for:
   - tutorial and practice config
-- show in which collections card is in form
 - add state indicator component?
   - handles loading, no-data, error, etc
 - migrate to signal forms, migrate selector thingy to signal input
 - check chrome web manifest warnings -> fix
 - unify big approvable form layout for: practice selector, bank import -> make it soo it looks like intro comp
-- create text classes with line height?
 - move api fetch state indicator of shared and export into component -> double css and fetchState indicator template
 - in overview for every langague in users banks a category
 
 - show 'wiggle' and info toast every x seconds when user doesnt interact for y seconds,
 - swipes count in stats
-- add html lang call to ai service, save it as option in language config.
-- change blobcreation and download to happen on click, not in a reactive manner -> faster
-  - implement in overview, share and settings
 
 - unifiy type setup:
   - clean up overview page and facade thoroughly
   - store, export and import are wordbanks (types and stuff)
-  - collection can have collections
-  - collections can be stacked
-
-- stats page:
-  - has practice history -> you can see cards here, most held card and stuff
 
 ## Later
 
-- how to handle sharing multiple selection
 - stats page with collections, top and worst, most ppracticed, hardest words, progressgraph
-- enter leave directive
-- split create cards exactly like i split phrases
-- erst mal alles bauen, dann capital yo
-- collection ids on cards?
+  - make guesses on cards not bools but 'unanswered | right | wrong' -> then show hardest cards
+  - make the most potential practice quick card hold those?
 - fix openai + zod issue: remove helper function from utils
 - print view
 - implement protected and private corrrectly throughout
