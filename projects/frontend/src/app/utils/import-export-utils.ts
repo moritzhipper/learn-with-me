@@ -1,6 +1,7 @@
 import { BankShareBaseSchema } from '@shared/schemas'
 import {
   BankShareBase,
+  BankShareViaDB,
   BankUser,
   LearnableBase,
   LearnableWithId,
@@ -21,7 +22,7 @@ export type BankExportOptions = {
  * Maps name of aisgns bank the collection name if only one collection is selected
  */
 export const mapBankToExportable = (
-  bank: BankUser,
+  bank: BankUser | BankShareViaDB,
   options?: BankExportOptions
 ): BankShareBase | BankUser => {
   // Filter collections to export
@@ -51,15 +52,7 @@ export const mapBankToExportable = (
   }
 
   // return 'anonymized' bank only holding cards and banks and nothing more
-
-  const learnablesWithoutGuesses: LearnableWithId[] = exportedCards.map((l) => ({
-    lexeme: l.lexeme,
-    translation: l.translation,
-    type: l.type,
-    id: l.id,
-    notes: l.notes,
-    createdAt: l.createdAt
-  }))
+  const learnablesWithoutGuesses: LearnableWithId[] = removeGuessesFromLearnables(exportedCards)
 
   return {
     name: bankName,
@@ -98,6 +91,18 @@ export const remapImportedBankLanguages = <T = BankShareBase | BankUser>(
 ): T => {
   throw new Error('Not implemented yet')
 }
+
+const removeGuessesFromLearnables = (
+  learnables: UserLearnable[] | LearnableWithId[]
+): LearnableWithId[] =>
+  learnables.map((l) => ({
+    lexeme: l.lexeme,
+    translation: l.translation,
+    type: l.type,
+    id: l.id,
+    notes: l.notes,
+    createdAt: l.createdAt
+  }))
 
 export const filterDoubleEntries = (
   newLearnables: LearnableBase[],

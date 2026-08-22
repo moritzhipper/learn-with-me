@@ -2,7 +2,6 @@
 
 ## Today
 
-- restore scroll state
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - show other language cards on dashboard of no same language matches
@@ -12,15 +11,15 @@
 ## Onboarding
 
 - create fast entry: if no collection and whatever set, allow direct import of bank as start
+  - create quickstart, when user is new but came from link
   - somehow handle onboarding then
 
 - align all modals (header, description, distances of controls and stuff)
 - paste images
 
-count letters, make smaller per one more
+- count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
-- create quickstart, when user is new but came from link
 - increase imports in db on download and import
 
 ## Modal Forms
