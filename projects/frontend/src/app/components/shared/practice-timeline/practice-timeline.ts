@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common'
 import {
-  AfterViewInit,
+  afterNextRender,
   Component,
   computed,
   ElementRef,
@@ -10,8 +10,9 @@ import {
 } from '@angular/core'
 import { PracticeActive } from '@shared/types'
 import {
-  calcDaysDifference,
+  calcMsDifference,
   convertToDayPrecisionUTCDate as convertToDayPrecisionUnixDate,
+  dateComparator,
   isSameDay
 } from '../../../utils/genaral-utils'
 
@@ -31,13 +32,19 @@ type PracticeTimelineData = {
     '[style.--max-guesses]': 'maxGuesses()'
   }
 })
-export class PracticeTimeline implements AfterViewInit {
+export class PracticeTimeline {
   selectDay = output<number>()
+
+  constructor() {
+    afterNextRender(() => {
+      this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'smooth' })
+    })
+  }
 
   private host: HTMLElement = inject(ElementRef).nativeElement
 
   readonly practiceHistory = input.required<PracticeTimelineData[], PracticeActive[]>({
-    transform: this.mapToTimeline
+    transform: (prac) => this.mapToTimeline(prac)
   })
 
   protected readonly maxGuesses = computed(() =>
@@ -45,23 +52,43 @@ export class PracticeTimeline implements AfterViewInit {
   )
 
   private mapToTimeline(history: PracticeActive[]): PracticeTimelineData[] {
-    const earliestDate = Math.min(...history.map((h) => convertToDayPrecisionUnixDate(h.createdAt)))
-    const range = calcDaysDifference(new Date(), earliestDate)
+    const { earliestMonday, latestSunday } = this.getDateRange(history.map((h) => h.createdAt))
+
+    const range = calcMsDifference(earliestMonday, latestSunday)
     const oneDayInMs = 1000 * 60 * 60 * 24
 
-    return Array.from({ length: range + 1 }, (_, i) => i * oneDayInMs + earliestDate).map((day) => {
-      const guessed = history
-        .filter((h) => isSameDay(h.createdAt, day))
-        .map((h) => h.guessables.filter((g) => g.guess !== 'unanswered').length)
-        .reduce((acc, val) => acc + val, 0)
+    return Array.from({ length: range + 1 }, (_, i) => i * oneDayInMs + earliestMonday).map(
+      (day) => {
+        const guessed = history
+          .filter((h) => isSameDay(h.createdAt, day))
+          .map((h) => h.guessables.filter((g) => g.guess !== 'unanswered').length)
+          .reduce((acc, val) => acc + val, 0)
 
-      const isFirstDayOfWeek = new Date(day).getDay() === 1
+        const isFirstDayOfWeek = new Date(day).getDay() === 1
 
-      return { day, guessed, isFirstDayOfWeek }
-    })
+        return { day, guessed, isFirstDayOfWeek }
+      }
+    )
   }
 
-  ngAfterViewInit(): void {
-    this.host.scrollTo({ left: this.host.scrollWidth, behavior: 'smooth' })
+  /**
+   * Returns Monday of the Week of the first practice, and sunday of the week of last practice
+   * Ensure that always at least a full week of days is visible
+   */
+  private getDateRange(pracitceDates: Date[]): {
+    earliestMonday: number
+    latestSunday: number
+  } {
+    const sortedPractices = pracitceDates.sort(dateComparator)
+    const earliestDate = new Date(sortedPractices.at(0) || new Date())
+    const latesDate = new Date(sortedPractices.at(-1) || new Date())
+
+    earliestDate.setDate(earliestDate.getDate() - ((earliestDate.getDay() + 6) % 7))
+    latesDate.setDate(latesDate.getDate() + ((7 - latesDate.getDay()) % 7))
+
+    return {
+      earliestMonday: convertToDayPrecisionUnixDate(earliestDate),
+      latestSunday: convertToDayPrecisionUnixDate(latesDate)
+    }
   }
 }

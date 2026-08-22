@@ -6,12 +6,14 @@ import { PracticeComp } from './components/pages/practice-page-comp/practice-pag
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
 import { hasCardsGuard } from './guards/has-cards-guard'
+import { modalOpenGuard } from './guards/modal-open-guard'
 
 export const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
-    title: 'LingoLizard | Dashboard'
+    title: 'LingoLizard | Dashboard',
+    canActivate: [modalOpenGuard]
   },
   {
     path: 'cards',

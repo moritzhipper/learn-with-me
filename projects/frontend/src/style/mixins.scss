@@ -9,3 +9,16 @@
     @content;
   }
 }
+
+// use to apply desktop specific hover effects
+@mixin isNonTouchDevice() {
+  @media (pointer: fine) and (hover: hover) {
+    @content;
+  }
+}
+
+@mixin isTouchDevice() {
+  @media (pointer: coarse) and (hover: none) {
+    @content;
+  }
+}

@@ -27,6 +27,10 @@
   }
 }
 
+.center {
+  height: var(--app-height);
+}
+
 .cards {
   display: grid;
   grid-template-columns: var(--grid-auto-columns);

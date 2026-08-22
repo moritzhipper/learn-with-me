@@ -63,7 +63,7 @@ export class UserCollectionPage {
   }
 
   export(id: string) {
-    this.shareBanksS.exportBank(this.ls.activeBank(), { onlyForCollectionIds: [id] })
+    this.shareBanksS.saveBankToDevice(this.ls.activeBank(), { onlyForCollectionIds: [id] })
   }
 
   protected confidence = computed(() => {

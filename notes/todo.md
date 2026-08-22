@@ -2,33 +2,24 @@
 
 ## Today
 
-- stats page:
-  - always show at least one week in timeline, starting with monday
-  - prevents weird empty state
-- page height fix not working
-- add specific mock env for no card or no unsorted or stuff added automatically as banks on create mock env button
-
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - show other language cards on dashboard of no same language matches
 
-- remove those verview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
+- remove those overview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
-- create shared collection comp showing cards
-  - create fast entry: if no collection and whatever set, allow direct import of bank as start
-    - somehow handle onboarding then
+## Onboarding
 
-- paste images
+- create fast entry: if no collection and whatever set, allow direct import of bank as start
+  - create quickstart, when user is new but came from link
+  - somehow handle onboarding then
+
 - align all modals (header, description, distances of controls and stuff)
-- use dark theme toggles in modal forms?
-- clean up shared bank loading state (and center spinner)
-- make user bank overview stacks bigger and centered on desktop
-- put automatic breadcrumbs on every page header
+- paste images
 
-count letters, make smaller per one more
+- count letters, make smaller per one more
 
 - put cute lizard with ! or ? on page wide empty states
-- create quickstart, when user is new but came from link
 - increase imports in db on download and import
 
 ## Modal Forms

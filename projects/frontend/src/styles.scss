@@ -6,6 +6,13 @@
 @use './style/responsive';
 @use './style/layout';
 
+html,
+body,
+app-page-wrapper {
+  // Prevents page height bug in chrome when installed via PWA
+  // and makes it act more like a native app
+  overscroll-behavior: none;
+}
 html {
   background-color: var(--col-bg);
   overflow: hidden;

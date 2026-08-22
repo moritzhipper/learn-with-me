@@ -118,7 +118,7 @@ export class SettingsComp {
     const result = await this._modalService.open<ExportBankLocalFormResult>('export-bank-local')
     if (result.type !== 'confirm') return
 
-    this._sharedBankS.exportBank(bank, result.value)
+    this._sharedBankS.saveBankToDevice(bank, result.value)
   }
 
   protected updateKey(event: Event) {

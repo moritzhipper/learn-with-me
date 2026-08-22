@@ -34,10 +34,10 @@
 
     mask-image: linear-gradient(
       to right,
-      rgb(0, 0, 0, var(--opacity-0)) 0%,
+      rgb(0, 0, 0, 0.3) 0%,
       var(--col-bg) var(--page-padding),
       var(--col-bg) calc(100% - var(--page-padding)),
-      rgb(0, 0, 0, var(--opacity-1)) 100%
+      rgb(0, 0, 0, 0.3) 100%
     );
   }
 

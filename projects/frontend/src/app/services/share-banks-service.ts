@@ -25,7 +25,7 @@ export class ShareBanksService {
   private readonly document = inject(DOCUMENT)
 
   // use service for this to handle revoking last blob for better memory management
-  exportBank(bank: BankUser, options?: BankExportOptions): void {
+  saveBankToDevice(bank: BankUser | BankShareViaDB, options?: BankExportOptions): void {
     const bankExport = mapBankToExportable(bank, options)
 
     URL.revokeObjectURL(this._blobUrl)
