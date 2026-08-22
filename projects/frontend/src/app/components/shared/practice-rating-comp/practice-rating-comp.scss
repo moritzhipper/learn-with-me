@@ -2,7 +2,7 @@
   border-radius: var(--radius-3);
   box-sizing: border-box;
 
-  .icon {
+  ng-icon {
     color: currentColor;
     width: 100%;
     height: 100%;
@@ -12,7 +12,7 @@
   &.excellent {
     padding: var(--distance-4);
 
-    .icon {
+    ng-icon {
       transform: rotate(4deg);
     }
   }
@@ -24,7 +24,7 @@
     grid-template-columns: 1fr 3fr 1fr;
     padding: var(--distance-2);
 
-    .icon {
+    ng-icon {
       &:nth-child(1) {
         transform: rotate(-10deg) translate(-5%, 20%) scale(1.2);
       }

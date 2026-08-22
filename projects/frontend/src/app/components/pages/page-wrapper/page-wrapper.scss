@@ -26,18 +26,6 @@
     animation-timeline: --main-timeline;
   }
 
-  ng-icon {
-    z-index: -1;
-    position: fixed;
-    left: -150px;
-    top: -150px;
-    color: var(--col-accent);
-    opacity: var(--opacity-0);
-    rotate: -10deg;
-    width: 550px;
-    height: 550px;
-  }
-
   &:not(.full-screen) {
     overflow-x: hidden;
     grid-template-rows: auto 1fr;
