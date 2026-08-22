@@ -7,16 +7,16 @@ import {
   remixBookMarkedFill,
   remixBug2Fill,
   remixInformationFill,
+  remixMenuUnfold2Line,
   remixSettings3Fill,
   remixTranslate
 } from '@ng-icons/remixicon'
 import { config } from '../../../../config'
 import { LearnablesStore } from '../../../store/learnables-store'
-import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({
   selector: 'app-navbar-new-comp',
-  imports: [IconComp, RouterLink, RouterLinkActive, NgIcon],
+  imports: [RouterLink, RouterLinkActive, NgIcon],
   providers: [
     provideIcons({
       remixSettings3Fill,
@@ -24,7 +24,8 @@ import { IconComp } from '../icon-comp/icon-comp'
       remixBug2Fill,
       remixBookMarkedFill,
       remixTranslate,
-      remixInformationFill
+      remixInformationFill,
+      remixMenuUnfold2Line
     })
   ],
   templateUrl: './navbar-new-comp.html',

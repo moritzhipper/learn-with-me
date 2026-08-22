@@ -14,7 +14,6 @@
     border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
 
-    app-icon-comp,
     ng-icon {
       color: rgb(from var(--col-accent) r g b / var(--opacity-1));
     }
@@ -24,13 +23,11 @@
     border: 1px solid var(--col-warning);
     background-color: rgb(from var(--col-warning) r g b / var(--opacity-0));
 
-    app-icon-comp,
     ng-icon {
       color: var(--col-warning);
     }
   }
 
-  app-icon-comp,
   ng-icon {
     position: absolute;
     width: 64px;

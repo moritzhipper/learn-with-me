@@ -17,6 +17,11 @@
   transition: all var(--duration-1);
   box-shadow: var(--shadow-small);
 
+  ng-icon {
+    font-size: 24px;
+    display: block;
+  }
+
   &.open {
     transform: rotate(-10deg);
     background-color: transparent;
@@ -24,7 +29,7 @@
   }
 
   &:not(.open).dim {
-    app-icon-comp {
+    ng-icon {
       opacity: var(--opacity-1);
     }
   }

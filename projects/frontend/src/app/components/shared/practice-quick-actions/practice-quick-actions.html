@@ -7,7 +7,7 @@
         <p class="mt-auto">{{ action.cardsLeft }} cards left until you're done!</p>
       }
       @case ('collection') {
-        <app-icon-comp type="collection" class="type" />
+        <ng-icon name="remixPantoneFill" class="type" />
         <h3>
           {{ action.collection.name }}
         </h3>
@@ -16,7 +16,7 @@
         <app-spaced-repetition-timeline [dates]="action.practiceDates" />
       }
       @case ('added-on-day') {
-        <app-icon-comp type="calendar" class="type" />
+        <ng-icon name="remixCalendarScheduleFill" class="type" />
         <h3>Added on {{ action.dayCardsAddedUTC | date: 'mediumDate' }}</h3>
         <liz-confidence-stats [confidence]="action.averageScore" />
 
@@ -35,7 +35,7 @@
         </p>
       }
       @case ('customize') {
-        <app-icon-comp type="gear" class="type" />
+        <ng-icon name="remixSettings3Fill" class="type" />
         <h3>Customize everything</h3>
         <p class="mt-auto">Set up the practice session exactly how you want to.</p>
       }
