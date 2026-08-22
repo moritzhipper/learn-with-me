@@ -1,22 +1,34 @@
 import { Component, input, output } from '@angular/core'
-import { IconComp } from '../../icon-comp/icon-comp'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import {
+  remixCheckboxMultipleLine,
+  remixDeleteBin5Line,
+  remixFolderAddLine,
+  remixFolderReduceLine,
+  remixMagicFill,
+  remixPencilFill,
+  remixTranslate
+} from '@ng-icons/remixicon'
 
 export type BubbleConfig =
-  | 'magic'
-  | 'translate'
-  | 'remove'
-  | 'bulk-edit'
-  | 'import'
-  | 'move'
-  | 'trash'
-  | 'checkbox-multiple-blank-line'
-  | 'checkbox-multiple'
+  'magic' | 'translate' | 'remove' | 'bulk-edit' | 'move' | 'trash' | 'checkbox-multiple'
 
 @Component({
   selector: 'app-bubble',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './bubble.html',
   styleUrl: './bubble.scss',
+  providers: [
+    provideIcons({
+      remixMagicFill,
+      remixPencilFill,
+      remixTranslate,
+      remixFolderReduceLine,
+      remixCheckboxMultipleLine,
+      remixDeleteBin5Line,
+      remixFolderAddLine
+    })
+  ],
   host: {
     '[animate.enter]': '`fly-in-bubble-${animateIndex()}`',
     '[animate.leave]': '`fly-out-bubble-${animateIndex()}`'

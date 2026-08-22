@@ -29,7 +29,6 @@ import {
   StartPracticeFormConfig,
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
@@ -38,7 +37,6 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   imports: [
     PageWrapper,
     LearnableComp,
-    IconComp,
     Bubbles,
     Bubble,
     PageHeaderCards,
