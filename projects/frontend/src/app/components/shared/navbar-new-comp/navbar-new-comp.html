@@ -14,7 +14,7 @@
       <span class="ellipsis">
         {{ language().learning }}
       </span>
-      <app-icon-comp type="left-right" [size]="16" />
+      <ng-icon name="remixArrowLeftRightLine" />
       <span class="ellipsis">
         {{ language().speaking }}
       </span>
@@ -25,11 +25,12 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <app-icon-comp type="dashboard" />
+      <ng-icon name="remixBookMarkedFill" />
       <span>Home</span>
     </a>
     <a class="entry big" routerLink="practice" routerLinkActive="active">
-      <app-icon-comp type="learn" />
+      <ng-icon name="remixBug2Fill" />
+
       <span>
         <span> Practice </span>
         @if (hasActivePractice()) {
@@ -38,16 +39,18 @@
       </span>
     </a>
     <a class="entry big" routerLink="translate" routerLinkActive="active">
-      <app-icon-comp type="translate" />
+      <ng-icon name="remixTranslate" />
+
       <span>Translate</span>
     </a>
 
     <a routerLink="settings" class="entry small" routerLinkActive="active">
-      <app-icon-comp type="settings" />
+      <ng-icon name="remixSettings3Fill" />
       <span>Settings</span>
     </a>
     <a routerLink="about" class="entry small" routerLinkActive="active">
-      <app-icon-comp type="info" />
+      <ng-icon name="remixInformationFill" />
+
       <span>About</span>
     </a>
   </nav>

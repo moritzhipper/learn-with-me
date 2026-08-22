@@ -1,13 +1,32 @@
 import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import {
+  remixArrowLeftRightLine,
+  remixBookMarkedFill,
+  remixBug2Fill,
+  remixInformationFill,
+  remixSettings3Fill,
+  remixTranslate
+} from '@ng-icons/remixicon'
 import { config } from '../../../../config'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({
   selector: 'app-navbar-new-comp',
-  imports: [IconComp, RouterLink, RouterLinkActive],
+  imports: [IconComp, RouterLink, RouterLinkActive, NgIcon],
+  providers: [
+    provideIcons({
+      remixSettings3Fill,
+      remixArrowLeftRightLine,
+      remixBug2Fill,
+      remixBookMarkedFill,
+      remixTranslate,
+      remixInformationFill
+    })
+  ],
   templateUrl: './navbar-new-comp.html',
   styleUrls: ['./navbar-new-comp.scss', './phone.scss', './desktop.scss']
 })
