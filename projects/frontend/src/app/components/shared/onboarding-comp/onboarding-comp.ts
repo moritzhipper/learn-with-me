@@ -8,7 +8,7 @@ import {
 import { NgIcon } from '@ng-icons/core'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
-import { aboutPageIcon, collapseIcon, favoriteIcon, magicIcon } from '../../../icon-registry'
+import { collapseIcon, favoriteIcon, infoIcon, magicIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { LarryBig } from '../larries/larry-big/larry-big'
@@ -21,7 +21,7 @@ import { LarryBig } from '../larries/larry-big/larry-big'
 })
 export class OnboardingComp {
   protected readonly icons = {
-    aboutPageIcon,
+    aboutPageIcon: infoIcon,
     collapseIcon,
     favoriteIcon,
     magicIcon

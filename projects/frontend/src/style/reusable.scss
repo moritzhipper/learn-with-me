@@ -43,3 +43,19 @@ a.icon {
   opacity: var(--opacity-1);
   content: ' • ';
 }
+
+.flexible-flex-separator {
+  width: 100%;
+  flex: 1;
+  border-radius: 4px;
+  height: 6px;
+  min-width: 6px;
+  background-color: var(--col-accent);
+
+  @include isPhone {
+    opacity: var(--opacity-1);
+  }
+  @include isDesktop {
+    opacity: var(--opacity-0);
+  }
+}

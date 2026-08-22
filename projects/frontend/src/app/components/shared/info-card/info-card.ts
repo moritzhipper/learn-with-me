@@ -1,6 +1,6 @@
 import { booleanAttribute, Component, input } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
-import { aboutPageIcon, warningIcon } from '../../../icon-registry'
+import { infoIcon, warningIcon } from '../../../icon-registry'
 
 @Component({
   selector: 'liz-info-card',
@@ -14,7 +14,7 @@ import { aboutPageIcon, warningIcon } from '../../../icon-registry'
 })
 export class InfoCard {
   protected readonly icons = {
-    aboutPageIcon,
+    aboutPageIcon: infoIcon,
     warningIcon
   }
   type = input<'info' | 'warn'>('info')

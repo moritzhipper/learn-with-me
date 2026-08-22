@@ -6,8 +6,8 @@ import {
   magicIcon,
   multiSelectIcon,
   removeFromCollectionIcon,
-  translatePageIcon,
-  trashIcon
+  removeIcon,
+  translatePageIcon
 } from '../../../../icon-registry'
 
 export type BubbleConfig =
@@ -31,7 +31,7 @@ export class Bubble {
     multiSelectIcon,
     removeFromCollectionIcon,
     translatePageIcon,
-    trashIcon
+    removeIcon
   }
   config = input.required<BubbleConfig>()
   size = input<'big' | 'medium' | 'small'>('small')

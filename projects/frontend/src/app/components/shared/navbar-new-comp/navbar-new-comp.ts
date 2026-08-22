@@ -4,8 +4,8 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/ro
 import { NgIcon } from '@ng-icons/core'
 import { config } from '../../../../config'
 import {
-  aboutPageIcon,
   dashboardPageIcon,
+  infoIcon,
   languageSwapIcon,
   navigationMenuIcon,
   practicePageIcon,
@@ -25,7 +25,7 @@ export class NavbarNewComp {
 
   protected readonly appName = config.appNameLong
   protected readonly icons = {
-    aboutPageIcon,
+    aboutPageIcon: infoIcon,
     dashboardPageIcon,
     languageSwapIcon,
     navigationMenuIcon,

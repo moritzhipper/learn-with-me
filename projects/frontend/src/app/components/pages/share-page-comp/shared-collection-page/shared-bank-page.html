@@ -28,7 +28,7 @@
             <ng-icon [svg]="icons.downloadIcon" />
           </button>
           @if (ban.collections.length > 1) {
-            <div class="separator ml-auto"></div>
+            <div class="flexible-flex-separator ml-auto"></div>
             @for (coll of ban.collections; track coll.id) {
               <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
                 {{ coll.name }}

@@ -5,15 +5,13 @@ import {
   remixArrowRightLine,
   remixArrowUpCircleFill,
   remixBookMarkedFill,
-  remixBug2Fill,
   remixCalendarScheduleFill,
   remixCamera4Fill,
   remixCheckboxCircleFill,
   remixCheckboxMultipleLine,
   remixCloseCircleFill,
   remixCloseLine,
-  remixDeleteBin5Line,
-  remixDeleteBin6Line,
+  remixDeleteBinLine,
   remixDonutChartFill,
   remixDropFill,
   remixDropLine,
@@ -21,8 +19,9 @@ import {
   remixFileCopyLine,
   remixFolder5Fill,
   remixFolderAddLine,
-  remixFolderDownloadLine,
+  remixFolderDownloadFill,
   remixFolderReduceLine,
+  remixGraduationCapFill,
   remixHeartsFill,
   remixInformationFill,
   remixMagicFill,
@@ -49,9 +48,9 @@ export const continuePracticeIcon = remixArrowUpCircleFill
 
 // Navigation
 export const dashboardPageIcon = remixBookMarkedFill
-export const practicePageIcon = remixBug2Fill
+export const practicePageIcon = remixGraduationCapFill
 export const practiceScheduleIcon = remixCalendarScheduleFill
-export const aboutPageIcon = remixInformationFill
+export const infoIcon = remixInformationFill
 export const cardsPageIcon = remixPantoneFill
 export const settingsPageIcon = remixSettings3Fill
 export const translatePageIcon = remixTranslate
@@ -67,12 +66,11 @@ export const speakLanguageIcon = remixUserVoiceLine
 
 // Management
 export const closeIcon = remixCloseLine
-export const trashIcon = remixDeleteBin5Line
-export const removeIcon = remixDeleteBin6Line
+export const removeIcon = remixDeleteBinLine
 export const copyIcon = remixFileCopyLine
 export const collectionIcon = remixFolder5Fill
 export const addToCollectionIcon = remixFolderAddLine
-export const downloadIcon = remixFolderDownloadLine
+export const downloadIcon = remixFolderDownloadFill
 export const removeFromCollectionIcon = remixFolderReduceLine
 export const editIcon = remixPencilFill
 export const shareIcon = remixShareFill
