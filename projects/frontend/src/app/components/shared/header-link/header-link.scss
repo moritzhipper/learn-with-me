@@ -5,10 +5,11 @@ a {
   align-items: center;
 
   h2,
-  app-icon-comp,
+  ng-icon,
   .text {
     transition: translate var(--duration-1);
   }
+
   h2 {
     display: block;
     margin: 0;
@@ -20,7 +21,9 @@ a {
 
     ng-icon {
       rotate: -90deg;
+      font-size: 24px;
     }
+
     &:hover,
     &:focus-visible {
       ng-icon {
@@ -39,7 +42,9 @@ a {
 
     ng-icon {
       rotate: 90deg;
+      font-size: 20px;
     }
+
     &:hover,
     &:focus-visible {
       ng-icon {
