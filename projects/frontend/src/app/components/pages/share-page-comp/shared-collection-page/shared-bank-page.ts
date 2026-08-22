@@ -1,5 +1,12 @@
 import { Component, computed, inject, input, signal } from '@angular/core'
 import { rxResource, toSignal } from '@angular/core/rxjs-interop'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import {
+  remixAddCircleFill,
+  remixArrowDownSLine,
+  remixFileCopyLine,
+  remixFolderDownloadLine
+} from '@ng-icons/remixicon'
 import { BankShareViaDB, Collection, LearnableBaseWithID } from '@shared/types'
 import { interval, map } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
@@ -9,7 +16,6 @@ import { dateToTTLTerm } from '../../../../utils/genaral-utils'
 import { LearnableComp } from '../../../shared/banks-and-collections/learnable-comp/learnable-comp'
 import { PageHeaderCards } from '../../../shared/banks-and-collections/page-header-cards/page-header-cards'
 import { SharedBankStats } from '../../../shared/banks-and-collections/shared-bank-stats/shared-bank-stats'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
@@ -19,12 +25,20 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   imports: [
     PageWrapper,
     AnimDelayWrapper,
-    IconComp,
     LearnableComp,
     PageHeaderCards,
     SharedBankStats,
     LanguageMatch,
-    LoadingSpinner
+    LoadingSpinner,
+    NgIcon
+  ],
+  providers: [
+    provideIcons({
+      remixArrowDownSLine,
+      remixAddCircleFill,
+      remixFileCopyLine,
+      remixFolderDownloadLine
+    })
   ],
   templateUrl: './shared-bank-page.html',
   styleUrl: './shared-bank-page.scss'

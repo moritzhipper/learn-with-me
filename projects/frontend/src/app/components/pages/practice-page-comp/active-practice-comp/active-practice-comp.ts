@@ -1,7 +1,8 @@
 import { Component, computed, HostListener, inject, input, signal } from '@angular/core'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import { remixCheckboxCircleFill, remixCloseCircleFill } from '@ng-icons/remixicon'
 import { Guess, PracticeActive } from '@shared/types'
 import { LearnablesStore } from '../../../../store/learnables-store'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeCardComp } from './practice-card-comp/practice-card-comp'
 import { CardViewModel, getCardsViewModel } from './practice-helpers'
 import { PracticeStatsBarComp } from './practice-stats-bar-comp/practice-stats-bar-comp'
@@ -12,7 +13,8 @@ export type FocusCardState = 'editing' | 'revealed' | 'hidden' | 'swiping'
 
 @Component({
   selector: 'app-active-practice-comp',
-  imports: [PracticeStatsBarComp, PracticeCardComp, PracticeSummaryCard, IconComp],
+  imports: [PracticeStatsBarComp, PracticeCardComp, PracticeSummaryCard, NgIcon],
+  providers: [provideIcons({ remixCheckboxCircleFill, remixCloseCircleFill })],
   templateUrl: './active-practice-comp.html',
   styleUrls: ['./active-practice-comp.scss', './card-animations.scss'],
   host: {

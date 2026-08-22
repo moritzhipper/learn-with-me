@@ -21,8 +21,8 @@
     backdrop-filter: blur(20px);
     z-index: 2;
 
-    app-icon-comp {
-      rotate: -90deg;
+    ng-icon {
+      rotate: 90deg;
     }
   }
 }

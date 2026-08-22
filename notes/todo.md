@@ -3,6 +3,9 @@
 ## Replace icons
 
 - replace remixBug2Fill
+- use noe circle, yes, no for rating on card?
+- find a way to streamline icon -> domain mapping
+- make icons in button bigger
 
 ## Today
 
