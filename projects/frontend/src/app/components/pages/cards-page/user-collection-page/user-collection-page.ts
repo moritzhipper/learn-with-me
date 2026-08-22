@@ -1,6 +1,14 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject, input } from '@angular/core'
 import { Router } from '@angular/router'
+import { NgIcon, provideIcons } from '@ng-icons/core'
+import {
+  remixBug2Fill,
+  remixDeleteBin6Line,
+  remixFolderDownloadLine,
+  remixPencilFill,
+  remixShareFill
+} from '@ng-icons/remixicon'
 import { Collection } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { CardsSelector } from '../../../../services/cards-selector'
@@ -37,10 +45,20 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     ConfidenceStats,
     PracticeRatingComp,
     DatePipe,
-    AnimDelayWrapper
+    AnimDelayWrapper,
+    NgIcon
   ],
 
-  providers: [CardsSelector],
+  providers: [
+    CardsSelector,
+    provideIcons({
+      remixBug2Fill,
+      remixShareFill,
+      remixPencilFill,
+      remixFolderDownloadLine,
+      remixDeleteBin6Line
+    })
+  ],
   templateUrl: './user-collection-page.html',
   styleUrl: './user-collection-page.scss'
 })

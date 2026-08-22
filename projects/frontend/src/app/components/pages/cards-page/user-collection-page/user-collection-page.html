@@ -28,26 +28,26 @@
       @let noSortedCards = sortedCards().length === 0;
       <button class="header-action" (click)="practice()" [disabled]="noSortedCards && collection()">
         Practice
-        <app-icon-comp type="learn" class="icon" />
+        <ng-icon name="remixBug2Fill" />
       </button>
 
       @if (collection(); as coll) {
         <button class="header-action" (click)="share()" [disabled]="noSortedCards">
           Share
-          <app-icon-comp type="share-network" class="icon" />
+          <ng-icon name="remixShareFill" />
         </button>
         <button class="header-action" (click)="renameCollection(coll)">
           Edit
-          <app-icon-comp type="edit" class="icon" />
+          <ng-icon name="remixPencilFill" />
         </button>
         <button class="header-action" (click)="export(coll.id)" [disabled]="noSortedCards">
           Download
-          <app-icon-comp type="share" class="icon" />
+          <ng-icon name="remixFolderDownloadLine" />
         </button>
         <div class="separator"></div>
         <button class="header-action remove ml-auto" (click)="deleteCollection(coll)">
           Remove
-          <app-icon-comp type="trash" class="icon" />
+          <ng-icon name="remixDeleteBin6Line" />
         </button>
       }
     </div>

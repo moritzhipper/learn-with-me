@@ -2,6 +2,8 @@
 
 ## Replace icons
 
+- replace remixBug2Fill
+
 ## Today
 
 - be more strict in wich practice suggestions to show to not show collections as duplicate
