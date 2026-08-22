@@ -16,7 +16,7 @@
       <span
         >{{ option.label || option.value }}
         @if (option.icon; as icon) {
-          <app-icon-comp [type]="icon" inline />
+          <ng-icon [svg]="icon" />
         }
       </span>
     </label>

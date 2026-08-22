@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
+import { NgIcon } from '@ng-icons/core'
 import { PracticeActive } from '@shared/types'
+import { completedTimelineIcon, statsIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PracticeTimeline } from '../../shared/practice-timeline/practice-timeline'
@@ -28,13 +29,18 @@ type PracticeHistoryDaySummary = {
 
 @Component({
   selector: 'app-stats-page',
-  imports: [PageHeaderComp, DatePipe, IconComp, PracticeTimeline, PageWrapper, InfoCard],
+  imports: [PageHeaderComp, DatePipe, PracticeTimeline, PageWrapper, InfoCard, NgIcon],
   templateUrl: './stats-page.html',
   styleUrl: './stats-page.scss'
 })
 export class StatsPage {
   private readonly ls = inject(LearnablesStore)
   protected readonly practiceHistory = computed(() => this.ls.activeBank().practice.history)
+
+  protected readonly icons = {
+    statsIcon,
+    completedTimelineIcon
+  }
 
   protected readonly practiceHistoryDays = computed<PracticeHistoryDay[]>(() => {
     const collections = this.ls.activeBank().collections

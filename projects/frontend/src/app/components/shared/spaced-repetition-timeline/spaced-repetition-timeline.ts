@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core'
+import { NgIcon } from '@ng-icons/core'
+import { completedTimelineIcon, pendingTimelineIcon } from '../../../icon-registry'
 import { calcMsDifference } from '../../../utils/genaral-utils'
-import { IconComp } from '../icon-comp/icon-comp'
 
 type TimeMarker = {
   intervall: number
@@ -9,11 +10,15 @@ type TimeMarker = {
 
 @Component({
   selector: 'app-spaced-repetition-timeline',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './spaced-repetition-timeline.html',
   styleUrl: './spaced-repetition-timeline.scss'
 })
 export class SpacedRepetitionTimeline {
+  protected readonly icons = {
+    completedTimelineIcon,
+    pendingTimelineIcon
+  }
   readonly dates = input.required<TimeMarker[], Date[] | number[]>({ transform: this.mapToMarkers })
 
   protected readonly SPACED_REP_INTERVALS = [1, 3, 7, 14, 30, 60]
@@ -29,7 +34,7 @@ export class SpacedRepetitionTimeline {
     if (dates.length === 0) return [{ intervall: 1, type: 'now' }]
 
     const now = new Date()
-    const daysAgo = dates.map((date) => calcMsDifference(now, date))
+    const daysAgo = dates.map((date) => calcMsDifference(date, now))
 
     // This is days ago +1 for intervall index shift
     const nowInterval = Math.max(...daysAgo) + 1

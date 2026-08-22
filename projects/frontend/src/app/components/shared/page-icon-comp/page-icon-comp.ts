@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core'
-import { IconComp, IconType } from '../icon-comp/icon-comp'
+import { IconType, NgIcon } from '@ng-icons/core'
 
 @Component({
   selector: 'app-page-icon-comp',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './page-icon-comp.html',
   styleUrl: './page-icon-comp.scss'
 })

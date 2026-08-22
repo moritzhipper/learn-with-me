@@ -7,7 +7,7 @@ import {
   signal,
   viewChild
 } from '@angular/core'
-import { IconType } from '../../shared/icon-comp/icon-comp'
+import { IconType } from '@ng-icons/core'
 import { PageIconComp } from '../../shared/page-icon-comp/page-icon-comp'
 
 @Component({

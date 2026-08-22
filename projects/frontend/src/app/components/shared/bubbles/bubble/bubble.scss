@@ -9,6 +9,12 @@
   transition-property: outline;
   position: relative;
 
+  ng-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
   &.big {
     padding: var(--distance-4);
   }

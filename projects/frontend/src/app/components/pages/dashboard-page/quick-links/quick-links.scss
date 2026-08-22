@@ -10,6 +10,8 @@
   padding: var(--distance-3) 60px var(--distance-3) var(--distance-6);
   overflow: hidden;
   min-width: max-content;
+  line-height: var(--line-height-1);
+  font-size: var(--font-size-1);
 
   &:not(.stats) {
     background-color: rgb(from var(--col-primary) r g b / var(--opacity-0));
@@ -19,7 +21,7 @@
     background-color: rgb(from var(--col-accent-2) r g b / var(--opacity-0));
   }
 
-  app-icon-comp {
+  ng-icon {
     position: absolute;
     right: -10px;
     top: -20px;

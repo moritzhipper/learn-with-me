@@ -17,6 +17,11 @@
   transition: all var(--duration-1);
   box-shadow: var(--shadow-small);
 
+  ng-icon {
+    font-size: 24px;
+    display: block;
+  }
+
   &.open {
     transform: rotate(-10deg);
     background-color: transparent;
@@ -24,7 +29,7 @@
   }
 
   &:not(.open).dim {
-    app-icon-comp {
+    ng-icon {
       opacity: var(--opacity-1);
     }
   }
@@ -80,7 +85,8 @@ a.entry {
     translate var(--duration-0),
     padding var(--duration-1),
     margin var(--duration-1),
-    width var(--duration-1);
+    width var(--duration-1),
+    outline var(--duration-1);
 
   &.big {
     color: var(--col-bg);

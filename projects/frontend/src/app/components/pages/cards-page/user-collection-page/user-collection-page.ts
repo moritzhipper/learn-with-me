@@ -1,8 +1,16 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject, input } from '@angular/core'
 import { Router } from '@angular/router'
+import { NgIcon } from '@ng-icons/core'
 import { Collection } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import {
+  downloadIcon,
+  editIcon,
+  practicePageIcon,
+  removeIcon,
+  shareIcon
+} from '../../../../icon-registry'
 import { CardsSelector } from '../../../../services/cards-selector'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
@@ -21,7 +29,6 @@ import {
   StartPracticeFormConfig,
   StartPracticeFormResult
 } from '../../../shared/forms/start-practice-form/start-practice-form'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { PracticeRatingComp } from '../../../shared/practice-rating-comp/practice-rating-comp'
 import { PageWrapper } from '../../page-wrapper/page-wrapper'
 
@@ -30,14 +37,14 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   imports: [
     PageWrapper,
     LearnableComp,
-    IconComp,
     Bubbles,
     Bubble,
     PageHeaderCards,
     ConfidenceStats,
     PracticeRatingComp,
     DatePipe,
-    AnimDelayWrapper
+    AnimDelayWrapper,
+    NgIcon
   ],
 
   providers: [CardsSelector],
@@ -45,6 +52,13 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   styleUrl: './user-collection-page.scss'
 })
 export class UserCollectionPage {
+  protected readonly icons = {
+    downloadIcon,
+    editIcon,
+    practicePageIcon,
+    removeIcon,
+    shareIcon
+  }
   private readonly ls = inject(LearnablesStore)
   private readonly modalService = inject(ModalService)
   private readonly toastService = inject(ToastService)

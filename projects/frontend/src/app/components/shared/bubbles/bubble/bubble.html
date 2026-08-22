@@ -6,31 +6,26 @@
 >
   @switch (config()) {
     @case ('magic') {
-      <app-icon-comp type="magic" />
+      <ng-icon [svg]="icons.magicIcon" />
     }
     @case ('bulk-edit') {
-      <app-icon-comp type="pen" />
+      <ng-icon [svg]="icons.editIcon" />
     }
     @case ('translate') {
-      <app-icon-comp type="translate" />
+      <ng-icon [svg]="icons.translatePageIcon" />
     }
     @case ('remove') {
-      <app-icon-comp type="collection-remove" />
-    }
-    @case ('import') {
-      <app-icon-comp type="import" />
+      <ng-icon [svg]="icons.removeFromCollectionIcon" />
     }
     @case ('move') {
-      <app-icon-comp type="collection-add" />
+      <ng-icon [svg]="icons.addToCollectionIcon" />
     }
     @case ('trash') {
-      <app-icon-comp type="trash" />
+      <ng-icon [svg]="icons.removeIcon" />
     }
-    @case ('checkbox-multiple-blank-line') {
-      <app-icon-comp type="checkbox-multiple-blank-line" />
-    }
+
     @case ('checkbox-multiple') {
-      <app-icon-comp type="checkbox-multiple" />
+      <ng-icon [svg]="icons.multiSelectIcon" />
     }
   }
   @if (count(); as c) {

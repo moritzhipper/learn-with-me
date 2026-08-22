@@ -1,10 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
+import { NgIcon } from '@ng-icons/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
 import { forkJoin, Observable, pipe, switchMap, tap } from 'rxjs'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
+import { collapseIcon, shareIcon } from '../../../icon-registry'
 import { ApiService } from '../../../services/api-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastService } from '../../../services/toast-service'
@@ -13,7 +15,6 @@ import { ApiFetchState, ExplorePageCategoryConfig } from '../../../types/types'
 import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
@@ -39,7 +40,7 @@ type BanksPreviewSection = PrefetchSectionProxy & {
   imports: [
     PageHeaderComp,
     SharedBankComp,
-    IconComp,
+    NgIcon,
     RouterLink,
     LoadingSpinner,
     HeaderLink,
@@ -59,6 +60,11 @@ export class SharePageComp {
   private readonly _apiS = inject(ApiService)
   private readonly bankLanguage = computed(() => this.ls.activeBank().language)
   protected readonly MAX_PREVIEW_BANKS = 8
+
+  protected readonly icons = {
+    collapseIcon,
+    shareIcon
+  }
 
   protected fetchState = signal<ApiFetchState>('idle')
 

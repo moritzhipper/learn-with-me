@@ -1,7 +1,7 @@
 @if (type() === 'info') {
-  <app-icon-comp type="info" />
+  <ng-icon [svg]="icons.aboutPageIcon" />
 } @else {
-  <app-icon-comp type="warn" />
+  <ng-icon [svg]="icons.warningIcon" />
 }
 
 @if (title(); as title) {

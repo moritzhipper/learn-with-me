@@ -1,7 +1,9 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
+import { NgIcon } from '@ng-icons/core'
 import { BankBase, BankUser } from '@shared/types'
 import { environment } from '../../../../environments/environment'
+import { addIcon, settingsPageIcon } from '../../../icon-registry'
 import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -12,7 +14,6 @@ import { pluralize } from '../../../utils/genaral-utils'
 import { BankSettingsComp } from '../../shared/banks-and-collections/bank-settings-comp/bank-settings-comp'
 import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
@@ -22,11 +23,11 @@ import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
   imports: [
     ReactiveFormsModule,
     BankSettingsComp,
-    IconComp,
     PageHeaderComp,
     SettingsItemComp,
     PageWrapper,
-    CardsStack
+    CardsStack,
+    NgIcon
   ],
   templateUrl: './settings-page-comp.html',
   styleUrl: './settings-page-comp.scss'
@@ -38,6 +39,11 @@ export class SettingsComp {
   private readonly _toastS = inject(ToastService)
   private readonly _sharedBankS = inject(ShareBanksService)
   private readonly debugHelper = inject(DebugHelper)
+
+  protected readonly icons = {
+    settingsPageIcon,
+    addIcon
+  }
 
   protected isProduction = environment.isProd
 

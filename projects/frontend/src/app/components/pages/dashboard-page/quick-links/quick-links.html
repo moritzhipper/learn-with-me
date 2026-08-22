@@ -3,31 +3,32 @@
     @case ('translate') {
       <a class="quick-link" routerLink="/translate" #translate>
         Translate
-        <app-icon-comp type="translate" />
+
+        <ng-icon [svg]="icons.translatePageIcon" />
       </a>
     }
     @case ('generate') {
       <a class="quick-link" routerLink="/translate" [state]="{ mode: 'magic' }">
         Generate
-        <app-icon-comp type="magic" />
+        <ng-icon [svg]="icons.magicIcon" />
       </a>
     }
     @case ('create') {
       <button class="silent quick-link" (click)="createCards()">
         Create
-        <app-icon-comp type="pen" />
+        <ng-icon [svg]="icons.editIcon" />
       </button>
     }
     @case ('community') {
       <a class="quick-link" routerLink="/community">
         Community
-        <app-icon-comp type="share-network-fill" />
+        <ng-icon [svg]="icons.shareIcon" />
       </a>
     }
     @case ('stats') {
       <a class="quick-link stats" routerLink="/stats">
         Stats
-        <app-icon-comp type="donut-chart-fill" />
+        <ng-icon [svg]="icons.statsIcon" />
       </a>
     }
   }

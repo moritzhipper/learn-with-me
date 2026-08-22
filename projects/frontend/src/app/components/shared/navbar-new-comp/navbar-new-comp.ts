@@ -1,13 +1,22 @@
 import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core'
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { NgIcon } from '@ng-icons/core'
 import { config } from '../../../../config'
+import {
+  dashboardPageIcon,
+  infoIcon,
+  languageSwapIcon,
+  navigationMenuIcon,
+  practicePageIcon,
+  settingsPageIcon,
+  translatePageIcon
+} from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
-import { IconComp } from '../icon-comp/icon-comp'
 
 @Component({
   selector: 'app-navbar-new-comp',
-  imports: [IconComp, RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NgIcon],
   templateUrl: './navbar-new-comp.html',
   styleUrls: ['./navbar-new-comp.scss', './phone.scss', './desktop.scss']
 })
@@ -15,6 +24,15 @@ export class NavbarNewComp {
   private body = inject(DOCUMENT).body
 
   protected readonly appName = config.appNameLong
+  protected readonly icons = {
+    aboutPageIcon: infoIcon,
+    dashboardPageIcon,
+    languageSwapIcon,
+    navigationMenuIcon,
+    practicePageIcon,
+    settingsPageIcon,
+    translatePageIcon
+  }
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
   protected readonly ls = inject(LearnablesStore)

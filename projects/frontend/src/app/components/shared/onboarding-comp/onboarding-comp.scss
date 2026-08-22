@@ -47,7 +47,8 @@ p {
   gap: var(--distance-5);
   margin-top: var(--distance-1);
 
-  app-icon-comp {
+  app-icon-comp,
+  ng-icon {
     height: 32px;
     width: 32px;
     rotate: -90deg;

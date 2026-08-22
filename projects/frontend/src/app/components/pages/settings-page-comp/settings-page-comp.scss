@@ -20,7 +20,7 @@ app-settings-item-comp {
   font-size: var(--font-size-1);
 
   span,
-  app-icon-comp {
+  ng-icon {
     grid-area: 1 / 1;
   }
 
@@ -30,7 +30,7 @@ app-settings-item-comp {
     translate: -30px;
   }
 
-  app-icon-comp {
+  ng-icon {
     translate: 100px;
     width: 200px;
     height: 200px;

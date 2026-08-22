@@ -30,22 +30,22 @@
           </div>
 
           <div class="row">
-            <app-icon-comp type="speaking" class="type" />
+            <ng-icon [svg]="icons.speakLanguageIcon" class="type" />
             <div>
               {{ importLangAfterImport().speaking }}
             </div>
-            <app-icon-comp type="arrow-right" />
+            <ng-icon [svg]="icons.nextIcon" />
             <div>
               {{ activeBankLanguage().speaking }}
             </div>
           </div>
 
           <div class="row">
-            <app-icon-comp type="understand" class="understand type" />
+            <ng-icon [svg]="icons.learnLanguageIcon" class="understand type" />
             <div>
               {{ importLangAfterImport().learning }}
             </div>
-            <app-icon-comp type="arrow-right" />
+            <ng-icon [svg]="icons.nextIcon" />
             <div>
               {{ activeBankLanguage().learning }}
             </div>

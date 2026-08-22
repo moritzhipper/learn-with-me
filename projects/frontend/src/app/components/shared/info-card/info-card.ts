@@ -1,9 +1,10 @@
 import { booleanAttribute, Component, input } from '@angular/core'
-import { IconComp } from '../icon-comp/icon-comp'
+import { NgIcon } from '@ng-icons/core'
+import { infoIcon, warningIcon } from '../../../icon-registry'
 
 @Component({
   selector: 'liz-info-card',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './info-card.html',
   styleUrl: './info-card.scss',
   host: {
@@ -12,6 +13,10 @@ import { IconComp } from '../icon-comp/icon-comp'
   }
 })
 export class InfoCard {
+  protected readonly icons = {
+    aboutPageIcon: infoIcon,
+    warningIcon
+  }
   type = input<'info' | 'warn'>('info')
   title = input<string>()
   fullPage = input(false, { transform: booleanAttribute })

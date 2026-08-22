@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { RouterLink } from '@angular/router'
+import { dashboardPageIcon } from '../../../icon-registry'
 import { ApiService } from '../../../services/api-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { CardsQuickSelector } from '../../shared/banks-and-collections/cards-quick-selector/cards-quick-selector'
@@ -34,6 +35,8 @@ export class DashboardPage {
   private readonly apiS = inject(ApiService)
   private readonly ls = inject(LearnablesStore)
   protected bankHasCards = computed(() => this.ls.activeBank().learnables.length !== 0)
+
+  protected readonly bookIcon = dashboardPageIcon
 
   sharedBanks = rxResource({
     params: () => this.ls.activeBank().language,

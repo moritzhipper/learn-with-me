@@ -4,7 +4,7 @@
   [class.open]="isOpen()"
   [class.dim]="isOnDimmablePage() && !isOpen()"
 >
-  <app-icon-comp type="menu" />
+  <ng-icon [svg]="icons.navigationMenuIcon" />
 </button>
 
 @if (isOpen()) {
@@ -14,7 +14,7 @@
       <span class="ellipsis">
         {{ language().learning }}
       </span>
-      <app-icon-comp type="left-right" [size]="16" />
+      <ng-icon [svg]="icons.languageSwapIcon" />
       <span class="ellipsis">
         {{ language().speaking }}
       </span>
@@ -25,11 +25,12 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <app-icon-comp type="dashboard" />
+      <ng-icon [svg]="icons.dashboardPageIcon" />
       <span>Home</span>
     </a>
     <a class="entry big" routerLink="practice" routerLinkActive="active">
-      <app-icon-comp type="learn" />
+      <ng-icon [svg]="icons.practicePageIcon" />
+
       <span>
         <span> Practice </span>
         @if (hasActivePractice()) {
@@ -38,16 +39,18 @@
       </span>
     </a>
     <a class="entry big" routerLink="translate" routerLinkActive="active">
-      <app-icon-comp type="translate" />
+      <ng-icon [svg]="icons.translatePageIcon" />
+
       <span>Translate</span>
     </a>
 
     <a routerLink="settings" class="entry small" routerLinkActive="active">
-      <app-icon-comp type="settings" />
+      <ng-icon [svg]="icons.settingsPageIcon" />
       <span>Settings</span>
     </a>
     <a routerLink="about" class="entry small" routerLinkActive="active">
-      <app-icon-comp type="info" />
+      <ng-icon [svg]="icons.aboutPageIcon" />
+
       <span>About</span>
     </a>
   </nav>

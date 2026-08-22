@@ -3,6 +3,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig, PracticeConfig } from '@shared/types'
 
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { learnLanguageIcon, speakLanguageIcon } from '../../../../icon-registry'
 import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 import { ConfidenceDots } from '../../confidence/confidence-dots/confidence-dots'
 import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
@@ -38,6 +39,9 @@ export class StartPracticeForm extends BaseModalDirective {
   form = this._fb.group<Pick<StartPracticeFormResult, 'guessableField'>>({
     guessableField: 'translation'
   })
+
+  understandIcon = learnLanguageIcon
+  speakingIcon = speakLanguageIcon
 
   config = input.required<StartPracticeFormConfig>()
 }

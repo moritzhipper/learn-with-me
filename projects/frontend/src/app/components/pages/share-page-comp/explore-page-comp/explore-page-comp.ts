@@ -1,10 +1,12 @@
 import { Component, computed, DOCUMENT, effect, HostListener, inject, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { NgIcon } from '@ng-icons/core'
 import { BanksRequestSchema } from '@shared/schemas'
 import { BankRequestConfig, BankShareViaDB, LanguageConfig } from '@shared/types'
 import { lastValueFrom } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { editIcon, shareIcon } from '../../../../icon-registry'
 import { ApiService } from '../../../../services/api-service'
 import { ModalService } from '../../../../services/modal-service'
 import { ShareBanksService } from '../../../../services/share-banks-service'
@@ -13,7 +15,6 @@ import { LearnablesStore } from '../../../../store/learnables-store'
 import { ApiFetchState, ExplorePageCategoryConfig } from '../../../../types/types'
 import { CardsStack } from '../../../shared/banks-and-collections/cards-stack/cards-stack'
 import { SharedBankComp } from '../../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../../shared/info-card/info-card'
 import { LanguageMatch } from '../../../shared/language-match/language-match'
 import { LoadingSpinner } from '../../../shared/loading-spinner/loading-spinner'
@@ -27,7 +28,7 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
     PageHeaderComp,
     SharedBankComp,
     LoadingSpinner,
-    IconComp,
+    NgIcon,
     RadioComp,
     FormsModule,
     AnimDelayWrapper,
@@ -41,6 +42,10 @@ import { PageWrapper } from '../../page-wrapper/page-wrapper'
   styleUrl: './explore-page-comp.scss'
 })
 export class ExplorePageComp {
+  protected readonly icons = {
+    editIcon,
+    shareIcon
+  }
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly toastS = inject(ToastService)

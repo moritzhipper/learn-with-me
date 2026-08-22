@@ -78,7 +78,7 @@ button {
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     padding: var(--distance-2) var(--distance-5);
 
-    app-icon-comp {
+    ng-icon {
       width: var(--line-height-1);
       height: var(--line-height-1);
     }

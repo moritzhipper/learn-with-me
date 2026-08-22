@@ -1,7 +1,16 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
+import { NgIcon } from '@ng-icons/core'
 import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
+import {
+  collectionIcon,
+  continuePracticeIcon,
+  practicePageIcon,
+  practiceScheduleIcon,
+  practiceSpeedIcon,
+  settingsPageIcon
+} from '../../../icon-registry'
 import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import {
@@ -14,7 +23,6 @@ import {
   StartPracticeFormConfig,
   StartPracticeFormResult
 } from '../forms/start-practice-form/start-practice-form'
-import { IconComp } from '../icon-comp/icon-comp'
 import { SpacedRepetitionTimeline } from '../spaced-repetition-timeline/spaced-repetition-timeline'
 
 type PracticeConfigQuickAction<T extends PracticeConfig['type']> = {
@@ -56,11 +64,19 @@ type QuickAction =
 
 @Component({
   selector: 'app-practice-quick-actions',
-  imports: [IconComp, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
+  imports: [NgIcon, DatePipe, SpacedRepetitionTimeline, ConfidenceStats],
   templateUrl: './practice-quick-actions.html',
   styleUrl: './practice-quick-actions.scss'
 })
 export class PracticeQuickActions {
+  protected readonly icons = {
+    collectionIcon,
+    continuePracticeIcon,
+    practicePageIcon,
+    practiceScheduleIcon,
+    settingsPageIcon,
+    practiceSpeedIcon
+  }
   private readonly ls = inject(LearnablesStore)
   private readonly modalService = inject(ModalService)
   private readonly router = inject(Router)

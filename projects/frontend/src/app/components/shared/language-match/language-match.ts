@@ -1,10 +1,11 @@
 import { booleanAttribute, Component, input } from '@angular/core'
+import { NgIcon } from '@ng-icons/core'
 import { LanguageConfig } from '@shared/types'
-import { IconComp } from '../icon-comp/icon-comp'
+import { learnLanguageIcon, speakLanguageIcon } from '../../../icon-registry'
 
 @Component({
   selector: 'liz-language-match',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './language-match.html',
   styles: `
     p {
@@ -16,7 +17,7 @@ import { IconComp } from '../icon-comp/icon-comp'
         gap: var(--distance-0);
         margin: -6px 0;
 
-        app-icon-comp {
+        ng-icon {
           width: 1em;
           height: 1em;
         }
@@ -30,6 +31,10 @@ import { IconComp } from '../icon-comp/icon-comp'
   `
 })
 export class LanguageMatch {
+  protected readonly icons = {
+    learnLanguageIcon,
+    speakLanguageIcon
+  }
   languageConfig = input.required<LanguageConfig>()
   big = input(false, { transform: booleanAttribute })
 }

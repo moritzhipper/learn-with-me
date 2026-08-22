@@ -1,20 +1,21 @@
 import { Component, input, output } from '@angular/core'
-import { IconComp } from '../../icon-comp/icon-comp'
+import { NgIcon } from '@ng-icons/core'
+import {
+  addToCollectionIcon,
+  editIcon,
+  magicIcon,
+  multiSelectIcon,
+  removeFromCollectionIcon,
+  removeIcon,
+  translatePageIcon
+} from '../../../../icon-registry'
 
 export type BubbleConfig =
-  | 'magic'
-  | 'translate'
-  | 'remove'
-  | 'bulk-edit'
-  | 'import'
-  | 'move'
-  | 'trash'
-  | 'checkbox-multiple-blank-line'
-  | 'checkbox-multiple'
+  'magic' | 'translate' | 'remove' | 'bulk-edit' | 'move' | 'trash' | 'checkbox-multiple'
 
 @Component({
   selector: 'app-bubble',
-  imports: [IconComp],
+  imports: [NgIcon],
   templateUrl: './bubble.html',
   styleUrl: './bubble.scss',
   host: {
@@ -23,6 +24,15 @@ export type BubbleConfig =
   }
 })
 export class Bubble {
+  protected readonly icons = {
+    addToCollectionIcon,
+    editIcon,
+    magicIcon,
+    multiSelectIcon,
+    removeFromCollectionIcon,
+    translatePageIcon,
+    removeIcon
+  }
   config = input.required<BubbleConfig>()
   size = input<'big' | 'medium' | 'small'>('small')
   select = output<void>()

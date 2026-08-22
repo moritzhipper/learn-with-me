@@ -3,7 +3,7 @@
   <div class="card-bg one"></div>
 </div>
 <button class="silent text size-0 bold light back" (click)="browserBack()">
-  <app-icon-comp type="close" class="icon" />
+  <ng-icon [svg]="closeIcon" />
   <span> Close </span>
 </button>
 <h1 class="py-4">{{ title() }}</h1>

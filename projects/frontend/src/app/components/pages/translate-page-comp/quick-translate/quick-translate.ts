@@ -8,6 +8,7 @@ import {
   viewChild
 } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { NgIcon } from '@ng-icons/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import {
@@ -15,19 +16,20 @@ import {
   ResponseTextDoneEvent
 } from 'openai/resources/responses/responses.mjs'
 import { debounceTime, delay, EMPTY, filter, from, map, pipe, switchMap, tap } from 'rxjs'
+import { languageSwapIcon } from '../../../../icon-registry'
 import { AiService } from '../../../../services/ai/ai.service'
 import { ToastService } from '../../../../services/toast-service'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { TranslateFastConfig } from '../../../../types/types'
-import { IconComp } from '../../../shared/icon-comp/icon-comp'
 
 @Component({
   selector: 'app-quick-translate',
-  imports: [FormsModule, IconComp],
+  imports: [FormsModule, NgIcon],
   templateUrl: './quick-translate.html',
   styleUrl: './quick-translate.scss'
 })
 export class QuickTranslate {
+  protected readonly languageSwapIcon = languageSwapIcon
   protected readonly FAST_TRANSLATION_DEBOUNCE_MS = 400
   protected readonly SMALL_TEXT_THRESHOLD = 70
 

@@ -11,24 +11,24 @@
       <div class="full-width-scroll action-buttons" #animItem>
         @if (selectedCollection()) {
           <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
-            <app-icon-comp type="chevron" />
+            <ng-icon [svg]="icons.collapseIcon" />
             All cards
           </button>
         } @else {
           <button (click)="import(ban)" class="header-action">
             Import
-            <app-icon-comp type="add-fill" />
+            <ng-icon [svg]="icons.addIcon" />
           </button>
           <button (click)="copyLink(ban)" class="header-action">
             Copy link
-            <app-icon-comp type="copy" />
+            <ng-icon [svg]="icons.copyIcon" />
           </button>
-          <button class="header-action">
+          <button class="header-action" (click)="download(ban)">
             Download
-            <app-icon-comp type="share" (click)="download(ban)" />
+            <ng-icon [svg]="icons.downloadIcon" />
           </button>
           @if (ban.collections.length > 1) {
-            <div class="separator ml-auto"></div>
+            <div class="flexible-flex-separator ml-auto"></div>
             @for (coll of ban.collections; track coll.id) {
               <button class="coll" (click)="selectedCollection.set(coll)" class="header-action">
                 {{ coll.name }}

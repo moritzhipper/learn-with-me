@@ -21,7 +21,7 @@
     width: 100%;
     grid-template-columns: 70px 100%;
 
-    app-icon-comp {
+    ng-icon {
       width: 40px;
       height: 40px;
     }
@@ -55,6 +55,7 @@
   }
   .main-leave {
     animation: main-leave var(--duration-3);
+    pointer-events: none;
     .entry:not(.active) {
       animation: entry-leave var(--duration-2) both;
     }

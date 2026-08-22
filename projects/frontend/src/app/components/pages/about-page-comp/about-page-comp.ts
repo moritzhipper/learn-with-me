@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { config } from '../../../../config'
+import { infoIcon } from '../../../icon-registry'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 
@@ -11,4 +12,6 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
 })
 export class AboutPageComp {
   appName = config.appNameLong
+
+  protected readonly infoIcon = infoIcon
 }

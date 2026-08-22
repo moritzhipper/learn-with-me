@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { PracticeActive } from '@shared/types'
+import { learnLanguageIcon, speakLanguageIcon } from '../../../../icon-registry'
 import { LearnablesStore } from '../../../../store/learnables-store'
 import { LearnablesFilterConfig } from '../../../../types/types'
 import { aggregateConfidence } from '../../../../utils/genaral-utils'
@@ -25,6 +26,11 @@ export class ConfigurePracticeComp {
   private readonly _fb = inject(NonNullableFormBuilder)
   private readonly ls = inject(LearnablesStore)
   protected bank = this.ls.activeBank
+
+  icons = {
+    learnLanguageIcon,
+    speakLanguageIcon
+  }
 
   protected collections = this.ls.collections
   protected learnables = this.ls.learnables

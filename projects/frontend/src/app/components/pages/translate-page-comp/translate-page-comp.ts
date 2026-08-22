@@ -1,6 +1,8 @@
 import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+import { NgIcon } from '@ng-icons/core'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
+import { editIcon, translatePageIcon } from '../../../icon-registry'
 import { CardsSelector } from '../../../services/cards-selector'
 import { ModalService } from '../../../services/modal-service'
 import { ToastService } from '../../../services/toast-service'
@@ -9,7 +11,6 @@ import { LearnableComp } from '../../shared/banks-and-collections/learnable-comp
 import { Bubble } from '../../shared/bubbles/bubble/bubble'
 import { Bubbles } from '../../shared/bubbles/bubbles'
 import { ConfirmCollectionAddType } from '../../shared/forms/collection-add-comp/collection-add-comp'
-import { IconComp } from '../../shared/icon-comp/icon-comp'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { MagicTranslate } from './magic-translate/magic-translate'
@@ -26,7 +27,7 @@ import { QuickTranslate } from './quick-translate/quick-translate'
     Bubble,
     LearnableComp,
     AnimDelayWrapper,
-    IconComp,
+    NgIcon,
     PageWrapper,
     InfoCard
   ],
@@ -39,6 +40,11 @@ export class TranslatePageComp {
   private readonly ls = inject(LearnablesStore)
   private readonly toastS = inject(ToastService)
   private readonly modalService = inject(ModalService)
+
+  protected readonly icons = {
+    editIcon,
+    translatePageIcon
+  }
 
   protected selector = inject(CardsSelector)
 

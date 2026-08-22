@@ -19,7 +19,7 @@ a.see-more {
   overflow: hidden;
   position: relative;
 
-  app-icon-comp,
+  ng-icon,
   span {
     transition: translate var(--duration-1);
   }
@@ -30,7 +30,7 @@ a.see-more {
     translate: -30px;
   }
 
-  app-icon-comp {
+  ng-icon {
     position: absolute;
     right: -35%;
     color: var(--col-accent);
@@ -43,7 +43,7 @@ a.see-more {
 
   &:hover,
   &:focus-visible {
-    app-icon-comp {
+    ng-icon {
       translate: 20px;
     }
     span {

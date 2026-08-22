@@ -5,20 +5,27 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
+import { NgIcon } from '@ng-icons/core'
 import { BankBase, LanguageConfig } from '@shared/types'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
+import { collapseIcon, favoriteIcon, infoIcon, magicIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
-import { IconComp } from '../icon-comp/icon-comp'
 import { LarryBig } from '../larries/larry-big/larry-big'
 
 @Component({
   selector: 'app-onboarding-comp',
-  imports: [IconComp, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
+  imports: [NgIcon, FormsModule, ReactiveFormsModule, LarryBig, AnimDelayWrapper],
   templateUrl: './onboarding-comp.html',
   styleUrl: './onboarding-comp.scss'
 })
 export class OnboardingComp {
+  protected readonly icons = {
+    aboutPageIcon: infoIcon,
+    collapseIcon,
+    favoriteIcon,
+    magicIcon
+  }
   protected readonly activeIndex = signal(0)
   private readonly _settings = inject(SettingsStore)
   private readonly ls = inject(LearnablesStore)
