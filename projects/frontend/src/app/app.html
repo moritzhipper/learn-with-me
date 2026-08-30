@@ -1,5 +1,4 @@
 @if (hasBank()) {
-  <!-- <app-navbar-new-comp /> -->
   <app-navbar-new #nav />
   <main [class.nav-open]="nav.isOpen()">
     <router-outlet />
@@ -7,5 +6,5 @@
 } @else {
   <app-onboarding-comp />
 }
-<app-modal-wrapper-comp />
+<liz-modal-outlet />
 <app-toast-outlet-comp />
