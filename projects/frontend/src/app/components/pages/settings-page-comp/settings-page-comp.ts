@@ -83,8 +83,9 @@ export class SettingsComp {
   async reset() {
     const { banks, collections, learnables } = this.stats()
     const result = await this._modalService.open('confirm', {
-      message: `Delete alle Banks, collections, cards and reset this app to default?`,
-      label: 'yup, do it!'
+      message: 'Reset everything',
+      warning: `All cards, banks, collections and cards will be removed from your device.`,
+      label: 'Yup, do it!'
     })
 
     if (result.type !== 'confirm') return

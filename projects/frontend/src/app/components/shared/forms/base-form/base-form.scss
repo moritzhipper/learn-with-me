@@ -4,6 +4,7 @@
   height: 100%;
   box-sizing: border-box;
   padding: var(--page-padding);
+  gap: var(--distance-6);
 }
 
 .header-section {
@@ -29,5 +30,4 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--distance-4);
-  padding-top: var(--distance-6);
 }

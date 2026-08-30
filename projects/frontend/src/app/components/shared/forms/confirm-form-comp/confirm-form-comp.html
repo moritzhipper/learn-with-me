@@ -6,7 +6,20 @@
   [header]="message() ?? 'Confirm'"
   [confirmLabel]="label()"
 >
-  @if (description(); as description) {
-    <p form-description>{{ description }}</p>
+  @if (description(); as des) {
+    <p form-description>
+      {{ des }}
+    </p>
+  }
+
+  @if (warning(); as warning) {
+    <liz-info-card type="warn">
+      <p>{{ warning }}</p>
+    </liz-info-card>
+  }
+  @if (info(); as info) {
+    <liz-info-card type="info">
+      <p>{{ info }}</p>
+    </liz-info-card>
   }
 </form>
