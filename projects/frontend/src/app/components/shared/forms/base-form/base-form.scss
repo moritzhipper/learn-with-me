@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--page-padding);
+}
+
+.header-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--distance-3);
+
+  .description {
+    opacity: var(--opacity-1);
+  }
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-4);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-4);
+  padding-top: var(--distance-6);
+}

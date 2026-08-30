@@ -9,6 +9,7 @@ import { ConfidenceDots } from '../../confidence/confidence-dots/confidence-dots
 import { ConfidenceStats } from '../../confidence/confidence-stats/confidence-stats'
 import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type StartPracticeFormResult = {
@@ -29,7 +30,8 @@ export type StartPracticeFormConfig = {
     AnimDelayWrapper,
     InfoCard,
     ConfidenceDots,
-    ConfidenceStats
+    ConfidenceStats,
+    BaseForm
   ],
   templateUrl: './start-practice-form.html',
   styleUrl: './start-practice-form.scss'
