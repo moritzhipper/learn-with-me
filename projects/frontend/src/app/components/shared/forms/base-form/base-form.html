@@ -1,7 +1,7 @@
 <ng-container lizAnimDelayWrapper applyClass="fly-in-y">
-  <div class="header-section" #animItem>
-    <h2>{{ header() }}</h2>
-    <div class="description">
+  <div class="header-section">
+    <h2 #animItem>{{ header() }}</h2>
+    <div class="description" #animItem>
       <ng-content select="[form-description]" />
     </div>
   </div>
@@ -11,7 +11,7 @@
   </div>
 
   <div class="buttons">
-    <button class="big" type="button" #animItem>{{ cancelLabel() }}</button>
+    <button class="big" type="button" #animItem (click)="cancel.emit()">{{ cancelLabel() }}</button>
     <button class="big" type="submit" #animItem>{{ confirmLabel() }}</button>
   </div>
 </ng-container>

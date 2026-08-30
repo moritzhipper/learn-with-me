@@ -1,6 +1,12 @@
 @let conf = config();
 
-<form (ngSubmit)="confirm(form.value)" [formGroup]="form" liz-base-form header="Start new Practice">
+<form
+  (ngSubmit)="confirm(form.value)"
+  [formGroup]="form"
+  liz-base-form
+  header="Start new Practice"
+  (cancel)="cancel()"
+>
   <div form-description>
     @if (conf.confidence; as confidence) {
       <liz-confidence-stats [confidence]="confidence" />
@@ -27,6 +33,4 @@
       ]"
     />
   </div>
-  <button type="button" (click)="cancel()" class="big">Cancel</button>
-  <button type="submit">Start</button>
 </form>

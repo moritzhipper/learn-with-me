@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { Component, input, output } from '@angular/core'
 import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 
 @Component({
@@ -11,4 +11,6 @@ export class BaseForm {
   readonly header = input.required<string>()
   readonly confirmLabel = input<string>('Confirm')
   readonly cancelLabel = input<string>('Cancel')
+
+  readonly cancel = output<void>()
 }
