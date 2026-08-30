@@ -163,7 +163,7 @@ nav.start-end-style {
     translate: var(--width);
 
     > * {
-      translate: -200px;
+      translate: -200px -10px;
     }
   }
 
@@ -171,7 +171,7 @@ nav.start-end-style {
     translate: var(--width);
 
     > * {
-      translate: -200px;
+      translate: -200px -10px;
     }
   }
 }

@@ -10,7 +10,6 @@ import { ShareBanksService } from '../../../services/share-banks-service'
 import { ToastOptions, ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
-import { pluralize } from '../../../utils/genaral-utils'
 import { BankSettingsComp } from '../../shared/banks-and-collections/bank-settings-comp/bank-settings-comp'
 import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards-stack'
 import { ExportBankLocalFormResult } from '../../shared/forms/export-bank-local-form/export-bank-local-form'
@@ -52,16 +51,6 @@ export class SettingsComp {
 
   protected banks = this.ls.banks
   protected activeBankId = computed(() => this.ls.activeBank().id)
-  protected stats = computed(() => {
-    const banksCount = this.ls.banks().length
-    const collectionsCount = this.ls.banks().reduce((acc, bank) => acc + bank.collections.length, 0)
-    const learnablesCount = this.ls.banks().reduce((acc, bank) => acc + bank.learnables.length, 0)
-    return {
-      banks: pluralize(banksCount, 'bank'),
-      collections: pluralize(collectionsCount, 'collection'),
-      learnables: pluralize(learnablesCount, 'learnable')
-    }
-  })
 
   triggerImportBankForm = this.debugHelper.triggerImportBankForm.bind(this.debugHelper)
   triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
@@ -81,7 +70,6 @@ export class SettingsComp {
   }
 
   async reset() {
-    const { banks, collections, learnables } = this.stats()
     const result = await this._modalService.open('confirm', {
       message: 'Reset everything',
       warning: `All cards, banks, collections and cards will be removed from your device.`,
