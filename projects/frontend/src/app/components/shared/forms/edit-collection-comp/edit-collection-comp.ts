@@ -13,7 +13,7 @@ export class EditCollectionComp extends BaseModalDirective {
   private _fb = inject(NonNullableFormBuilder)
 
   form = this._fb.group({
-    name: ['', Validators.required]
+    name: ['', [Validators.required, Validators.minLength(1)]]
   })
 
   name = input<string>()

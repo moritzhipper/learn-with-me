@@ -29,6 +29,11 @@
   justify-self: end;
   align-self: start;
   opacity: var(--opacity-1);
+
+  ng-icon {
+    display: block;
+    font-size: 24px;
+  }
 }
 
 .download,

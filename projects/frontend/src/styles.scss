@@ -148,7 +148,7 @@ select {
   transition: outline var(--duration-0);
 
   &:focus-visible {
-    outline: 4px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
   }
 }
 

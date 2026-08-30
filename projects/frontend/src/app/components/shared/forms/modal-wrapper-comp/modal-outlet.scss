@@ -25,21 +25,19 @@
 .fake-dialog {
   display: grid;
   box-sizing: border-box;
-  overflow: hidden;
-  place-self: center;
   z-index: 1;
 }
 
 .backdrop {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   z-index: 29;
-  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
-  backdrop-filter: blur(30px);
+  background-color: rgb(from var(--col-bg) r g b / 0.95);
+  backdrop-filter: blur(5px);
 
   &.enter {
-    animation: bd-appear var(--duration-1) ease;
+    animation: bd-appear var(--duration-1) var(--soft-ease);
   }
 
   &.leave {
@@ -54,7 +52,14 @@
 }
 @include isDesktop() {
   .fake-dialog {
-    min-height: 300px;
-    min-width: 450px;
+    place-self: center;
+    border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    border-radius: var(--radius-2);
+  }
+}
+
+@keyframes bd-appear {
+  from {
+    opacity: 0;
   }
 }
