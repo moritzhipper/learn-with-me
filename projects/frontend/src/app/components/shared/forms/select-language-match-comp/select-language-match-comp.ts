@@ -1,14 +1,13 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { LanguageConfig } from '@shared/types'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-select-language-match-comp',
-  imports: [ReactiveFormsModule, AnimDelayWrapper],
-  templateUrl: './select-language-match-comp.html',
-  styleUrl: './select-language-match-comp.scss'
+  imports: [ReactiveFormsModule, BaseForm],
+  templateUrl: './select-language-match-comp.html'
 })
 export class SelectLanguageMatchComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)

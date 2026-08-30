@@ -1,12 +1,12 @@
 <form
   [formGroup]="form"
   (ngSubmit)="confirm(form.value)"
-  class="modal"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  header="Edit card"
+  confirmLabel="Save"
 >
-  <h2 #animItem>edit card</h2>
-  <div class="fake-card full" #animItem>
+  <div class="fake-card full">
     <app-radio-comp
       formControlName="type"
       [config]="[{ value: 'word' }, { value: 'phrase' }]"
@@ -16,7 +16,4 @@
     <input type="text" formControlName="translation" class="translation" />
     <input formControlName="notes" class="notes full" placeholder="( notes )" />
   </div>
-
-  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
-  <button type="submit" #animItem [disabled]="form.invalid">Save</button>
 </form>

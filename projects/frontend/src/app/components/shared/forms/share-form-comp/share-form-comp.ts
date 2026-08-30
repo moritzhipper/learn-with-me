@@ -1,15 +1,14 @@
 import { Component, computed, inject, input } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { BankShareConfig, BankUser } from '@shared/types'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { RadioComp } from '../../radio-comp/radio-comp'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-share-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper],
-  templateUrl: './share-form-comp.html',
-  styleUrl: './share-form-comp.scss'
+  imports: [ReactiveFormsModule, RadioComp, BaseForm],
+  templateUrl: './share-form-comp.html'
 })
 export class ShareFormComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)

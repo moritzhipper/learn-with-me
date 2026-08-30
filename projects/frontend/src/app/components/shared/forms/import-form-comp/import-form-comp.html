@@ -1,23 +1,20 @@
 <form
   (ngSubmit)="confirm(form.value)"
-  class="modal"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  [header]="'Import ' + bank().name"
+  confirmLabel="Import"
 >
-  <div class="header full" #animItem>
-    <h2>Import {{ bank().name }}</h2>
-
-    <div class="description">
-      @if (bank().collections.length > 1) {
-        <span class="word-list-item"> {{ bank().collections.length }} collections</span>
-      }
-      <span class="word-list-item"> {{ bank().learnables.length }} cards</span>
-    </div>
+  <div form-description>
+    @if (bank().collections.length > 1) {
+      <span class="word-list-item"> {{ bank().collections.length }} collections</span>
+    }
+    <span class="word-list-item"> {{ bank().learnables.length }} cards</span>
   </div>
 
   @if (!importLanguagesMatch()) {
-    <liz-info-card type="warn" title="Language mismatch!" class="full" #animItem>
+    <liz-info-card type="warn" title="Language mismatch!">
       @if (strategy() === 'merge') {
         <p>
           The languages do not align with your current bank, resulting in the following mapping:
@@ -62,30 +59,23 @@
     </liz-info-card>
   }
 
-  <div class="controls full">
-    <app-radio-comp
-      #animItem
-      formControlName="strategy"
-      label="Import strategy"
-      darkMode
-      [config]="[
-        { value: 'merge', label: 'Merge Banks' },
-        { value: 'new', label: 'Add as new' }
-      ]"
-    />
+  <app-radio-comp
+    formControlName="strategy"
+    label="Import strategy"
+    darkMode
+    [config]="[
+      { value: 'merge', label: 'Merge Banks' },
+      { value: 'new', label: 'Add as new' }
+    ]"
+  />
 
-    <app-radio-comp
-      #animItem
-      formControlName="invertLanguageDirection"
-      darkMode
-      label="Language direction"
-      [config]="[
-        { value: false, label: 'Keep' },
-        { value: true, label: 'Invert' }
-      ]"
-    />
-  </div>
-
-  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
-  <button type="submit" #animItem>Import</button>
+  <app-radio-comp
+    formControlName="invertLanguageDirection"
+    darkMode
+    label="Language direction"
+    [config]="[
+      { value: false, label: 'Keep' },
+      { value: true, label: 'Invert' }
+    ]"
+  />
 </form>

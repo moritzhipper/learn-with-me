@@ -1,38 +1,20 @@
 <form
-  class="modal"
   (ngSubmit)="submit()"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  [header]="preset() ? 'Edit Bank' : 'Create new Bank'"
 >
-  <h2 class="full" #animItem>
-    @if (preset()) {
-      Edit Bank
-    } @else {
-      Create new Bank
-    }
-  </h2>
-  <div class="inputs full" #animItem>
-    <label>
-      <span>Bank Name </span>
-      <input formControlName="name" />
-    </label>
-    <label>
-      <span> Speaking Language </span>
-      <input formControlName="speaking" />
-    </label>
-    <label>
-      <span> Learning Language </span>
-      <input formControlName="learning" />
-    </label>
-  </div>
-
-  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
-  <button type="submit" #animItem [disabled]="form.invalid">
-    @if (preset()) {
-      Save
-    } @else {
-      Create
-    }
-  </button>
+  <label>
+    <span>Bank Name </span>
+    <input formControlName="name" />
+  </label>
+  <label>
+    <span> Speaking Language </span>
+    <input formControlName="speaking" />
+  </label>
+  <label>
+    <span> Learning Language </span>
+    <input formControlName="learning" />
+  </label>
 </form>

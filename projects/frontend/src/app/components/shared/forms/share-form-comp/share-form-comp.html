@@ -1,15 +1,12 @@
 <form
-  class="modal"
   (ngSubmit)="confirm(form.value)"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  [header]="'Share ' + title() + '?'"
+  confirmLabel="Share"
 >
-  <h2 class="full" #animItem>Share {{ title() }}?</h2>
-
   <app-radio-comp
-    class="full"
-    #animItem
     label="Time online"
     formControlName="ttlMinutes"
     [config]="[
@@ -32,8 +29,6 @@
     ]"
   />
   <app-radio-comp
-    class="full"
-    #animItem
     label="Make community bank"
     formControlName="isCommunityBank"
     [config]="[
@@ -47,6 +42,4 @@
       }
     ]"
   />
-  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
-  <button type="submit" #animItem>Share</button>
 </form>

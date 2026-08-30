@@ -1,25 +1,12 @@
 <form
-  class="modal"
   (ngSubmit)="confirm()"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  [header]="message() ?? 'Confirm'"
+  [confirmLabel]="label()"
 >
-  <div class="content" #animItem>
-    @if (message(); as message) {
-      <h2>
-        {{ message }}
-      </h2>
-    }
-    @if (description(); as description) {
-      <p class="light pt-3">
-        {{ description }}
-      </p>
-    }
-  </div>
-
-  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
-  <button type="submit" #animItem>
-    {{ label() }}
-  </button>
+  @if (description(); as description) {
+    <p form-description>{{ description }}</p>
+  }
 </form>

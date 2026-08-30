@@ -1,23 +1,17 @@
 <form
-  class="modal"
   (ngSubmit)="confirm(form.value)"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  header="Select language pair"
 >
-  <h2 #animItem>Select language pair</h2>
+  <label>
+    <span>Base language</span>
+    <input type="text" formControlName="speaking" placeholder="All languages" />
+  </label>
 
-  <div class="inputs full" #animItem>
-    <label>
-      <span>Base language</span>
-      <input type="text" formControlName="speaking" placeholder="All languages" />
-    </label>
-
-    <label>
-      <span>Translated language</span>
-      <input type="text" formControlName="learning" placeholder="All languages" />
-    </label>
-  </div>
-  <button type="button" (click)="cancel()" class="big" #animItem>Cancel</button>
-  <button type="submit" [disabled]="form.invalid" class="big" #animItem>Confirm</button>
+  <label>
+    <span>Translated language</span>
+    <input type="text" formControlName="learning" placeholder="All languages" />
+  </label>
 </form>

@@ -1,11 +1,11 @@
 import { afterNextRender, Component, input } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-text-input-form',
-  imports: [ReactiveFormsModule, AnimDelayWrapper],
+  imports: [ReactiveFormsModule, BaseForm],
   templateUrl: './set-tone-form.html',
   styleUrl: './set-tone-form.scss'
 })

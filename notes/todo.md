@@ -4,6 +4,7 @@
 
 - migrate forms
 - make the base-form hold animations
+- use export local bank form instead of direct export on user coll export
 
 - pass always all ids to selector helper, then do icon based all non
   - also prevents bug when cards are removed while marked not updating count

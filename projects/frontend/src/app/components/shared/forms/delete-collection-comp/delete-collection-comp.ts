@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type ConfirmCollectionDeletionType = {
@@ -10,7 +10,7 @@ export type ConfirmCollectionDeletionType = {
 
 @Component({
   selector: 'app-delete-collection-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper],
+  imports: [ReactiveFormsModule, RadioComp, BaseForm],
   templateUrl: './delete-collection-comp.html',
   styleUrl: './delete-collection-comp.scss'
 })
