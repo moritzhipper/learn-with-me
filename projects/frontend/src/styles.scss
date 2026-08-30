@@ -101,8 +101,8 @@ button {
     background-color: var(--col-primary);
     color: var(--col-bg);
     border-radius: var(--radius-1);
-    box-shadow: var(--shadow-small);
   }
+
   &[disabled] {
     box-shadow: none;
   }
