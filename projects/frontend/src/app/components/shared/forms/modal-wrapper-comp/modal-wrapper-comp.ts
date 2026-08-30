@@ -2,7 +2,6 @@ import { NgComponentOutlet } from '@angular/common'
 import {
   Component,
   computed,
-  DOCUMENT,
   effect,
   HostListener,
   inject,
@@ -31,7 +30,6 @@ export class ModalWrapperComp {
   private _submitSubscription: OutputRefSubscription | null = null
 
   modalService = inject(ModalService)
-  private document = inject(DOCUMENT)
 
   currentModalConfig = computed(() => {
     const modalConf = this.modalService.currentlyOpenModalConfig()
