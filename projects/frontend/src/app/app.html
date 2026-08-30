@@ -2,9 +2,9 @@
   <app-navbar-new #nav />
   <main [class.nav-open]="nav.isOpen()">
     <router-outlet />
+    <app-toast-outlet-comp />
   </main>
 } @else {
   <app-onboarding-comp />
 }
 <liz-modal-outlet />
-<app-toast-outlet-comp />

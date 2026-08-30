@@ -39,11 +39,6 @@
   margin-top: var(--distance-6);
 }
 
-@include isPhone {
-  :host {
-  }
-}
-
 @include isDesktop() {
   :host {
     min-width: 450px;

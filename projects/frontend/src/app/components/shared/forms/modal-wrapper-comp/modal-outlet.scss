@@ -52,9 +52,24 @@
 }
 @include isDesktop() {
   .fake-dialog {
+    position: relative;
     place-self: center;
-    border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
-    border-radius: var(--radius-2);
+
+    &:before {
+      position: absolute;
+      display: block;
+      content: '';
+      height: 100%;
+      top: 0;
+      left: 0;
+      rotate: -2deg;
+      border-left: 2px solid var(--col-accent);
+
+      transition: translate var(--duration-3) var(--overshot);
+      @starting-style {
+        translate: -20px;
+      }
+    }
   }
 }
 
