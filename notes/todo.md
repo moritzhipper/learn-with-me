@@ -1,10 +1,14 @@
 # ToDo
 
-## Today
+## Onboarding / About
 
-- migrate forms
-- make the base-form hold animations
-- use export local bank form instead of direct export on user coll export
+- create fast entry: if no collection and whatever set, allow direct import of bank as start
+  - create quickstart, when user is new but came from link
+  - somehow handle onboarding then
+- Put what i put in notes on about page
+  -> scenarios, how helps with learning
+
+## Today
 
 - pass always all ids to selector helper, then do icon based all non
   - also prevents bug when cards are removed while marked not updating count
@@ -14,28 +18,12 @@
 
 - remove those overview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
-## Onboarding
-
-- create fast entry: if no collection and whatever set, allow direct import of bank as start
-  - create quickstart, when user is new but came from link
-  - somehow handle onboarding then
-
-- align all modals (header, description, distances of controls and stuff)
 - paste images
 
 - count letters, make smaller per one more in header
 
 - put cute lizard with ! or ? on page wide empty states
 - increase imports in db on download and import
-
-## Modal Forms
-
-Create better reusable styles (import styles per form), holding:
-
-- Description style
-- maybe just creat form header component?
-- create shared style scss wich is imported
-- align with the pattern of import form: header, description (opaque), controls, host content form main thing, form max widht and stuff (small gap)
 
 # right now: Stats
 
