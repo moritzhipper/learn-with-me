@@ -20,10 +20,13 @@
     opacity: 0;
 
     button {
+      font-size: var(--font-size-3);
       opacity: var(--opacity-1);
-      .icon {
+
+      ng-icon {
         transition: rotate var(--duration-0) ease-out;
         rotate: 90deg;
+
         &.rotated {
           rotate: -90deg;
         }

@@ -4,6 +4,7 @@ import { BankImportOptions } from '../../components/shared/forms/import-form-com
 import { LearnablesStore } from '../../store/learnables-store'
 import { mapBankToExportable } from '../../utils/import-export-utils'
 import { ModalService } from '../modal-service'
+import { ToastOptions, ToastService } from '../toast-service'
 import { buildDebugBank } from './debug-utils'
 
 const langConfig1: LanguageConfig = {
@@ -27,6 +28,7 @@ const langConfig2: LanguageConfig = {
 export class DebugHelper {
   private readonly ls = inject(LearnablesStore)
   private readonly ms = inject(ModalService)
+  private readonly ts = inject(ToastService)
 
   async triggerImportBankForm(
     type: 'single' | 'multiple',
@@ -72,5 +74,9 @@ export class DebugHelper {
 
   async triggerExportBankForm() {
     this.ms.open('export-bank-local')
+  }
+
+  triggerToast(config: ToastOptions) {
+    this.ts.showToast(config)
   }
 }

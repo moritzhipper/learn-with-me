@@ -9,6 +9,11 @@
       <p>
         {{ toast.message }}
       </p>
+      @if (toast.type === 'info') {
+        <ng-icon [svg]="icons.infoIcon" />
+      } @else {
+        <ng-icon [svg]="icons.warningIcon" />
+      }
     </div>
   </div>
 }

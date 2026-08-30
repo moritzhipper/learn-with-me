@@ -1,0 +1,62 @@
+<button
+  (click)="toggle()"
+  class="toggle"
+  [class.open]="isOpen()"
+  [class.dim]="isOnDimmablePage() && !isOpen()"
+>
+  <ng-icon [svg]="icons.navigationMenuIcon" />
+</button>
+
+@if (isOpen()) {
+  <nav animate.enter="start-end-style" animate.leave="start-end-style leaving">
+    <p class="fake-shadow-header">
+      {{ appName }}
+    </p>
+    <div class="entry header">
+      {{ appName }}
+    </div>
+    <div class="entry language ellipsis">
+      <span class="ellipsis">
+        {{ language().learning }}
+      </span>
+      <ng-icon [svg]="icons.languageSwapIcon" />
+      <span class="ellipsis">
+        {{ language().speaking }}
+      </span>
+    </div>
+    <a
+      routerLink="/"
+      class="entry big"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <ng-icon [svg]="icons.dashboardPageIcon" />
+      <span>Home</span>
+    </a>
+    <a class="entry big" routerLink="practice" routerLinkActive="active">
+      <ng-icon [svg]="icons.practicePageIcon" />
+
+      <span>
+        <span> Practice </span>
+        @if (hasActivePractice()) {
+          <span>•</span>
+        }
+      </span>
+    </a>
+    <a class="entry big" routerLink="translate" routerLinkActive="active">
+      <ng-icon [svg]="icons.translatePageIcon" />
+
+      <span>Translate</span>
+    </a>
+
+    <a routerLink="settings" class="entry small mt-auto" routerLinkActive="active">
+      <ng-icon [svg]="icons.settingsPageIcon" />
+      <span>Settings</span>
+    </a>
+    <a routerLink="about" class="entry small" routerLinkActive="active">
+      <ng-icon [svg]="icons.aboutPageIcon" />
+
+      <span>About</span>
+    </a>
+  </nav>
+}

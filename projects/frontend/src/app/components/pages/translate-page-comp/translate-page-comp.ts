@@ -130,6 +130,8 @@ export class TranslatePageComp {
     this.ls.updateCollection({ id: collectionID, addIDs: idsOfAllAdded })
 
     this.toastS.showToast('Card(s) imported successfully!')
+
+    this.selector.reset()
   }
 
   protected scrollToCards() {

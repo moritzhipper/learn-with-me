@@ -7,6 +7,7 @@ import z from 'zod'
 import { config } from '../config'
 import { ModalWrapperComp } from './components/shared/forms/modal-wrapper-comp/modal-wrapper-comp'
 import { NavbarNewComp } from './components/shared/navbar-new-comp/navbar-new-comp'
+import { NavbarNew } from './components/shared/navbar-new/navbar-new'
 import { OnboardingComp } from './components/shared/onboarding-comp/onboarding-comp'
 import { ToastOutletComp } from './components/shared/toast-outlet-comp/toast-outlet-comp'
 import { ApiService } from './services/api-service'
@@ -16,7 +17,14 @@ import { LearnablesStore } from './store/learnables-store'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToastOutletComp, ModalWrapperComp, NavbarNewComp, OnboardingComp],
+  imports: [
+    RouterOutlet,
+    ToastOutletComp,
+    ModalWrapperComp,
+    NavbarNewComp,
+    OnboardingComp,
+    NavbarNew
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

@@ -94,12 +94,12 @@
 // Dismissed card exit animations (applies across all states)
 :host.is-last-correct .index--1 {
   transform: translate(100%, 0%);
-  rotate: 10deg;
+  rotate: -10deg;
 }
 
 :host.is-last-wrong .index--1 {
   transform: translate(-100%, 10%);
-  rotate: -10deg;
+  rotate: 10deg;
 }
 
 // -----------------------------------------------------------------------------
@@ -137,8 +137,9 @@
 
     &.index-0 {
       transform: translate(0%);
-      translate: calc(var(--swipe-prog) * 1px) max(calc(var(--swipe-prog) * -0.1px), 0px);
-      rotate: calc(var(--swipe-prog) * 0.03deg);
+      translate: calc(var(--swipe-prog) * 1px) max(calc(var(--swipe-prog) * -0.4px), 0px);
+      rotate: calc(var(--swipe-prog) * -0.03deg);
+      opacity: calc(3 - (0.004 * abs(var(--swipe-prog))));
     }
 
     &.index-1 {

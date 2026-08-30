@@ -1,0 +1,176 @@
+@use '../../../../style/mixins' as *;
+
+:host {
+  overflow: hidden;
+}
+
+.toggle,
+nav,
+nav > * {
+  transition-duration: var(--duration-2);
+  transition-timing-function: var(--soft-ease);
+}
+
+.toggle {
+  margin: var(--distance-4);
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 27;
+  display: block;
+  border-radius: var(--radius-3);
+  padding: var(--distance-3);
+  background-color: rgb(from var(--col-bg) r g b / var(--opacity-1));
+  backdrop-filter: blur(5px);
+  transition-property: all;
+  box-shadow: var(--shadow-small);
+
+  ng-icon {
+    font-size: 24px;
+    display: block;
+  }
+
+  &.open {
+    transform: rotate(-176deg);
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  &:not(.open).dim {
+    ng-icon {
+      opacity: var(--opacity-1);
+    }
+  }
+}
+
+nav {
+  z-index: 25;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: calc(100% + var(--distance-6));
+  padding-bottom: var(--distance-7);
+  background-color: var(--col-bg);
+  border-left: 2px solid var(--col-accent);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  rotate: -4deg;
+  transform-origin: top left;
+  overflow: hidden;
+  box-shadow: inset 75px 0px 37px -75px var(--col-bg);
+  box-sizing: border-box;
+  transition-property: translate;
+
+  > * {
+    transform-origin: top left;
+    rotate: 8deg;
+    transition-property: translate, background-color, outline;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-4);
+    color: var(--col-text);
+    font-weight: var(--font-weight-bold);
+    box-shadow: var(--shadow-big);
+    margin-bottom: var(--distance-5);
+
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+
+    &.active {
+      background-color: var(--col-accent);
+    }
+
+    ng-icon {
+      font-size: 40px;
+    }
+
+    span {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+    }
+
+    &.big {
+      padding: var(--distance-3) var(--distance-5);
+    }
+
+    &.small {
+      padding: var(--distance-1) var(--distance-5);
+    }
+  }
+
+  .header,
+  .language {
+    padding-left: var(--distance-6);
+    font-weight: var(--font-weight-bold);
+    box-sizing: border-box;
+  }
+
+  .header {
+    position: relative;
+    padding-top: var(--distance-6);
+    padding-bottom: var(--distance-0);
+
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-3);
+  }
+
+  .fake-shadow-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: var(--opacity-0);
+    font-size: 120px;
+    line-height: 120px;
+    font-weight: var(--font-weight-bold);
+
+    color: var(--col-accent);
+  }
+
+  .language {
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: var(--distance-6);
+    margin-bottom: var(--distance-4);
+    gap: var(--distance-1);
+  }
+
+  width: var(--width);
+}
+
+@include isPhone {
+  :host {
+    --width: 100vw;
+  }
+}
+@include isDesktop {
+  :host {
+    --width: 400px;
+  }
+}
+@include isNonTouchDevice {
+  a:not(.active):is(:hover, :focus-visible) {
+    translate: -5px -1px;
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
+  }
+}
+
+nav.start-end-style {
+  @starting-style {
+    translate: var(--width);
+
+    > * {
+      translate: -200px -10px;
+    }
+  }
+
+  &.leaving {
+    translate: var(--width);
+
+    > * {
+      translate: -200px -10px;
+    }
+  }
+}

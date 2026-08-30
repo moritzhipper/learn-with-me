@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 20;
+  z-index: 27;
   display: block;
   border-radius: var(--radius-3);
   padding: var(--distance-3);
@@ -37,7 +37,7 @@
 
 .navigation {
   position: fixed;
-  z-index: 19;
+  z-index: 26;
   right: 0;
   top: 0;
   box-sizing: border-box;

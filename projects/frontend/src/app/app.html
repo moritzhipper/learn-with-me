@@ -1,6 +1,7 @@
 @if (hasBank()) {
-  <app-navbar-new-comp />
-  <main>
+  <!-- <app-navbar-new-comp /> -->
+  <app-navbar-new #nav />
+  <main [class.nav-open]="nav.isOpen()">
     <router-outlet />
   </main>
 } @else {

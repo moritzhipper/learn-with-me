@@ -69,9 +69,7 @@ export class SharedBankPage {
 
   download(bank: BankShareViaDB) {
     this.apiS.increaseBankDownloadCount(bank.id)
-
-    alert('Available soon')
-    // this.shareBankS.exportBank(bank)
+    this.shareBankS.saveBankToDevice(bank)
   }
 
   import(bank: BankShareViaDB) {

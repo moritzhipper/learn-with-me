@@ -64,6 +64,19 @@
           </button>
         </div>
       </app-settings-item-comp>
+      <app-settings-item-comp header="Toasts">
+        <p class="description">For development purposes only.</p>
+        <div class="input debug">
+          <button class="primary small" (click)="triggerToast('info')">Trigger info</button>
+          <button class="primary small" (click)="triggerToast('error')">Trigger error</button>
+          <button class="primary small" (click)="triggerToast('info', true)">
+            Trigger info with header
+          </button>
+          <button class="primary small" (click)="triggerToast('error', true)">
+            Trigger error with header
+          </button>
+        </div>
+      </app-settings-item-comp>
     }
   </div>
 </app-page-wrapper>

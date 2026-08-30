@@ -2,6 +2,8 @@
 
 ## Today
 
+- pass always all ids to selector helper, then do icon based all non
+  - also prevents bug when cards are removed while marked not updating count
 - be more strict in wich practice suggestions to show to not show collections as duplicate
   - dont show > 80 % collections
 - show other language cards on dashboard of no same language matches

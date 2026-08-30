@@ -7,7 +7,7 @@ import { addIcon, settingsPageIcon } from '../../../icon-registry'
 import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
-import { ToastService } from '../../../services/toast-service'
+import { ToastOptions, ToastService } from '../../../services/toast-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { pluralize } from '../../../utils/genaral-utils'
@@ -65,6 +65,20 @@ export class SettingsComp {
 
   triggerImportBankForm = this.debugHelper.triggerImportBankForm.bind(this.debugHelper)
   triggerExportBankForm = () => this.debugHelper.triggerExportBankForm()
+  triggerToast(type: ToastOptions['type'], hasHeader = false) {
+    if (hasHeader) {
+      this.debugHelper.triggerToast({
+        message: 'This is a toast with a header.',
+        type,
+        header: 'Header'
+      })
+    } else {
+      this.debugHelper.triggerToast({
+        message: 'This is a toast without a header.',
+        type
+      })
+    }
+  }
 
   async reset() {
     const { banks, collections, learnables } = this.stats()

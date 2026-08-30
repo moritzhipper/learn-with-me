@@ -16,23 +16,42 @@
   min-width: 300px;
   word-break: break-all;
   overflow: hidden;
-  margin-bottom: var(--distance-4);
-  padding: var(--distance-2) var(--distance-4);
+  margin-bottom: var(--distance-3);
+  padding: var(--distance-2) var(--distance-3);
   box-shadow: var(--shadow-big);
-  border-radius: var(--radius-2);
-  color: var(--col-bg);
+  border-radius: var(--radius-1);
+  position: relative;
 
   .header {
     font-weight: var(--font-weight-bold);
     padding-bottom: var(--distance-1);
   }
 
+  ng-icon {
+    font-size: 52px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    translate: 12px -8px;
+    rotate: 6deg;
+    opacity: var(--opacity-1);
+  }
+
   &.error {
     background-color: var(--col-warning);
+    color: var(--col-text);
+    ng-icon {
+      color: var(--col-bg);
+    }
   }
 
   &.info {
     background-color: var(--col-primary);
+    color: var(--col-bg);
+
+    ng-icon {
+      color: var(--col-accent);
+    }
   }
 }
 
