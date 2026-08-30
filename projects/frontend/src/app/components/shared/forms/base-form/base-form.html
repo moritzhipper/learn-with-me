@@ -1,13 +1,13 @@
 <ng-container lizAnimDelayWrapper applyClass="fly-in-y">
-  <div class="header-section">
-    <h2 #animItem>{{ header() }}</h2>
-    <div class="description" #animItem>
+  <div class="header-section" #animItem>
+    <h2>{{ header() }}</h2>
+    <div class="description">
       <ng-content select="[form-description]" />
     </div>
   </div>
 
   <div class="content" #animItem>
-    <ng-content select="[form-content]" />
+    <ng-content />
   </div>
 
   <div class="buttons">

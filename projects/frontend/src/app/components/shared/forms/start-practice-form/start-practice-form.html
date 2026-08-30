@@ -1,36 +1,31 @@
 @let conf = config();
 
 <form
+  liz-base-form
   (ngSubmit)="confirm(form.value)"
   [formGroup]="form"
-  liz-base-form
-  header="Start new Practice"
   (cancel)="cancel()"
+  header="Start new Practice"
 >
-  <div form-description>
-    @if (conf.confidence; as confidence) {
-      <liz-confidence-stats [confidence]="confidence" />
-    }
-  </div>
+  @if (conf.confidence; as confidence) {
+    <liz-confidence-stats form-description [confidence]="confidence" />
+  }
 
-  <div form-content>
-    @if (conf.hasActivePractice) {
-      <liz-info-card class="mb-5" type="warn" title="Practice already in progress">
-        <p>Starting a new one will end your current run.</p>
-      </liz-info-card>
-    }
-    @if (conf.confidence; as confidence) {
-      <liz-confidence-dots class="mb-3" [confidence]="conf.confidence" />
-    }
+  @if (conf.hasActivePractice) {
+    <liz-info-card class="mb-4" type="warn" title="Practice already in progress">
+      <p>Starting a new one will end your current run.</p>
+    </liz-info-card>
+  }
+  @if (conf.confidence; as confidence) {
+    <liz-confidence-dots [confidence]="conf.confidence" />
+  }
 
-    <app-radio-comp
-      class="mt-3"
-      label="Guess"
-      formControlName="guessableField"
-      [config]="[
-        { value: 'translation', label: conf.languageConfig.speaking, icon: understandIcon },
-        { value: 'lexeme', label: conf.languageConfig.learning, icon: speakingIcon }
-      ]"
-    />
-  </div>
+  <app-radio-comp
+    label="Guess"
+    formControlName="guessableField"
+    [config]="[
+      { value: 'translation', label: conf.languageConfig.speaking, icon: understandIcon },
+      { value: 'lexeme', label: conf.languageConfig.learning, icon: speakingIcon }
+    ]"
+  />
 </form>
