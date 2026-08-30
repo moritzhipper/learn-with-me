@@ -1,37 +1,5 @@
 @use './mixins.scss' as *;
 
-form.modal {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  padding: var(--distance-6);
-  box-sizing: border-box;
-  gap: var(--distance-6) var(--distance-4);
-  height: 100%;
-  max-height: var(--app-height);
-  overflow: hidden;
-
-  h2 {
-    grid-column: span 2;
-    place-self: center;
-    text-align: center;
-  }
-  .full {
-    grid-column: span 2;
-  }
-}
-
-button.icon,
-a.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--distance-2);
-
-  app-icon-comp {
-    height: var(--font-size-1);
-  }
-}
-
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;

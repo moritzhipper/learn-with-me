@@ -28,18 +28,19 @@ nav > * {
   ng-icon {
     font-size: 24px;
     display: block;
+    transition: opacity var(--duration-2) var(--soft-ease);
   }
 
   &.open {
     transform: rotate(-176deg);
+    backdrop-filter: blur(0px);
+
     background-color: transparent;
     box-shadow: none;
   }
 
-  &:not(.open).dim {
-    ng-icon {
-      opacity: var(--opacity-1);
-    }
+  &:not(.open).dim ng-icon {
+    opacity: var(--opacity-1);
   }
 }
 
@@ -162,7 +163,7 @@ nav.start-end-style {
     translate: var(--width);
 
     > * {
-      translate: -200px -10px;
+      translate: -200px;
     }
   }
 
@@ -170,7 +171,7 @@ nav.start-end-style {
     translate: var(--width);
 
     > * {
-      translate: -200px -10px;
+      translate: -200px;
     }
   }
 }

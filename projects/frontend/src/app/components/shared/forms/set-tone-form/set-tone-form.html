@@ -1,22 +1,16 @@
 <form
-  class="modal"
   (ngSubmit)="confirm(form.value.text)"
   [formGroup]="form"
-  lizAnimDelayWrapper
-  applyClass="fly-in-y"
+  liz-base-form
+  (cancel)="cancel()"
+  header="Tone"
 >
-  <h2 #animItem>Tone</h2>
-
-  <p class="full" #animItem>
+  <p form-description>
     Set a single word or a short description of the tone or context you want to use the translations
     in.
   </p>
   <textarea
-    class="full"
-    #animItem
     formControlName="text"
     placeholder="Casual, Formal, Adressing an arch enemy, etc."
   ></textarea>
-  <button type="button" class="big" #animItem (click)="cancel()">Cancel</button>
-  <button type="submit" #animItem>Submit</button>
 </form>

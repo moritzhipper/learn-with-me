@@ -1,0 +1,54 @@
+@use '../../../../../style/mixins' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--page-padding);
+}
+
+.header-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--distance-2);
+  margin-bottom: var(--distance-5);
+
+  .description {
+    opacity: var(--opacity-1);
+
+    &:empty {
+      display: none;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-4);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-4);
+  margin-top: var(--distance-6);
+}
+@include isPhone {
+  .header-section {
+    text-align: center;
+  }
+}
+@include isDesktop() {
+  :host {
+    min-width: 450px;
+
+    .header-section {
+      align-items: start;
+    }
+  }
+}

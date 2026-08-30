@@ -2,7 +2,6 @@ import { NgComponentOutlet } from '@angular/common'
 import {
   Component,
   computed,
-  DOCUMENT,
   effect,
   HostListener,
   inject,
@@ -12,26 +11,20 @@ import {
 } from '@angular/core'
 import { ModalService } from '../../../../services/modal-service'
 import { BaseModalDirective } from '../base-modal-directive'
-import { getModalComponent, ModalResult } from '../modal-config'
-
-export abstract class ModalContent {
-  abstract cancel: () => void
-  abstract confirm: () => void
-}
+import { getModalComponent } from '../modal-config'
 
 @Component({
-  selector: 'app-modal-wrapper-comp',
+  selector: 'liz-modal-outlet',
   imports: [NgComponentOutlet],
-  templateUrl: './modal-wrapper-comp.html',
-  styleUrl: './modal-wrapper-comp.scss'
+  templateUrl: './modal-outlet.html',
+  styleUrl: './modal-outlet.scss'
 })
-export class ModalWrapperComp {
+export class ModalOutletComp {
   isOpen = computed(() => !!this.modalService.currentlyOpenModalConfig())
   outlet = viewChild(NgComponentOutlet)
   private _submitSubscription: OutputRefSubscription | null = null
 
   modalService = inject(ModalService)
-  private document = inject(DOCUMENT)
 
   currentModalConfig = computed(() => {
     const modalConf = this.modalService.currentlyOpenModalConfig()
@@ -57,17 +50,15 @@ export class ModalWrapperComp {
 
       untracked(() => {
         if (instance) {
-          this._submitSubscription = instance.resolve.subscribe(this.formResolve)
+          this._submitSubscription = instance.resolve.subscribe(
+            this.modalService.resolveModal.bind(this.modalService)
+          )
         } else {
           this._submitSubscription?.unsubscribe()
           this._submitSubscription = null
         }
       })
     })
-  }
-
-  private formResolve = (result: ModalResult<unknown>): void => {
-    this.modalService.resolveModal(result as ModalResult<unknown>)
   }
 
   @HostListener('window:keydown.escape')

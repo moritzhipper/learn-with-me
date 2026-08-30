@@ -1,3 +1,9 @@
+.flex-col-4 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--distance-4);
+}
+
 @for $i from 0 through 8 {
   .p-#{$i} {
     padding: var(--distance-#{$i});

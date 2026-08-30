@@ -213,7 +213,7 @@ export class UserCollectionPage {
 
     const result = await this.modalService.open('confirm', {
       message: 'Remove from collection',
-      description: `Your cards will remain in your bank`
+      info: `Your cards will remain in your bank`
     })
 
     if (result.type !== 'confirm') return

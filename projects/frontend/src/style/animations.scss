@@ -95,14 +95,6 @@
   }
 }
 
-@keyframes bd-appear {
-  from {
-    opacity: 0;
-    background-color: transparent;
-    backdrop-filter: blur(0px);
-  }
-}
-
 // Enter/leave animations
 .enter,
 .leave {
@@ -112,6 +104,7 @@
     overflow: hidden;
   }
 }
+
 .enter {
   animation: enter var(--duration-2) ease-out;
 }

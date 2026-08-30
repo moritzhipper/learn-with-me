@@ -8,7 +8,11 @@ form {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
-
+  padding: var(--page-padding);
+  box-sizing: border-box;
+  gap: var(--distance-6) var(--distance-4);
+  height: 100%;
+  max-height: var(--app-height);
   overflow: hidden;
 
   .learnables {
@@ -111,6 +115,7 @@ form {
       width: 100%;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     }
+
     .navigation {
       width: 600px;
       place-self: center;

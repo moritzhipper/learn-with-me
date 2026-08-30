@@ -1,14 +1,13 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { BankBase } from '@shared/types'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-edit-bank-comp',
-  imports: [ReactiveFormsModule, AnimDelayWrapper],
-  templateUrl: './edit-bank-comp.html',
-  styleUrl: './edit-bank-comp.scss'
+  imports: [ReactiveFormsModule, BaseForm],
+  templateUrl: './edit-bank-comp.html'
 })
 export class EditBankComp extends BaseModalDirective {
   private readonly _fb = inject(NonNullableFormBuilder)

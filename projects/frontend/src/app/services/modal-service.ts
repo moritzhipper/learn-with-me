@@ -1,14 +1,25 @@
-import { computed, Injectable, signal } from '@angular/core'
+import { computed, inject, Injectable, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { Router } from '@angular/router'
 import { ModalResult, ModalType, OpenModalConfig } from '../components/shared/forms/modal-config'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
+  private readonly router = inject(Router)
+
   private _openModal = signal<OpenModalConfig | null>(null)
   readonly currentlyOpenModalConfig = computed(() => this._openModal())
-
   resolver: ((result: unknown) => void) | null = null
+
+  constructor() {
+    this.router.events.pipe(takeUntilDestroyed()).subscribe(() => {
+      if (this._openModal()) {
+        this.resolveModal({ type: 'cancel' })
+      }
+    })
+  }
 
   async open<T>(type: ModalType, config?: unknown): Promise<ModalResult<T>> {
     this._openModal.set({ type, config })

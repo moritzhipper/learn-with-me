@@ -101,8 +101,8 @@ button {
     background-color: var(--col-primary);
     color: var(--col-bg);
     border-radius: var(--radius-1);
-    box-shadow: var(--shadow-small);
   }
+
   &[disabled] {
     box-shadow: none;
   }
@@ -148,7 +148,7 @@ select {
   transition: outline var(--duration-0);
 
   &:focus-visible {
-    outline: 4px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
   }
 }
 

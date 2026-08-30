@@ -4,10 +4,10 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { NgIcon } from '@ng-icons/core'
 import { BankShareBase, LanguageConfig } from '@shared/types'
 import { map } from 'rxjs'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { learnLanguageIcon, nextIcon, speakLanguageIcon } from '../../../../icon-registry'
 import { InfoCard } from '../../info-card/info-card'
 import { RadioComp } from '../../radio-comp/radio-comp'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 export type BankImportOptions = {
@@ -17,7 +17,7 @@ export type BankImportOptions = {
 
 @Component({
   selector: 'app-import-form-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper, InfoCard, NgIcon],
+  imports: [ReactiveFormsModule, RadioComp, InfoCard, NgIcon, BaseForm],
   templateUrl: './import-form-comp.html',
   styleUrl: './import-form-comp.scss'
 })

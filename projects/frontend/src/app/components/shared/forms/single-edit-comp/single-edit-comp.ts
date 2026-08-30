@@ -1,13 +1,13 @@
 import { Component, effect, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { LearnableBase } from '@shared/types'
-import { AnimDelayWrapper } from '../../../../directives/anim-delay-wrapper'
 import { RadioComp } from '../../radio-comp/radio-comp'
+import { BaseForm } from '../base-form/base-form'
 import { BaseModalDirective } from '../base-modal-directive'
 
 @Component({
   selector: 'app-single-edit-comp',
-  imports: [ReactiveFormsModule, RadioComp, AnimDelayWrapper],
+  imports: [ReactiveFormsModule, RadioComp, BaseForm],
   templateUrl: './single-edit-comp.html',
   styleUrl: './single-edit-comp.scss'
 })

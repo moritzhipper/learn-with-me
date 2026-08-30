@@ -1,0 +1,82 @@
+@use '../../../../../style/mixins.scss' as *;
+
+:host {
+  position: absolute;
+}
+
+.wrapper,
+.backdrop {
+  height: var(--app-height);
+  width: 100vw;
+}
+.wrapper {
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+}
+
+.backdrop,
+.fake-dialog {
+  grid-area: 1 / 1;
+}
+
+.fake-dialog {
+  display: grid;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.backdrop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 29;
+  background-color: rgb(from var(--col-bg) r g b / 0.95);
+  backdrop-filter: blur(5px);
+
+  &.enter {
+    animation: bd-appear var(--duration-1) var(--soft-ease);
+  }
+
+  &.leave {
+    animation: bd-appear var(--duration-1) ease reverse;
+  }
+}
+
+@include isPhone() {
+  .fake-dialog {
+    place-self: stretch;
+  }
+}
+@include isDesktop() {
+  .fake-dialog {
+    position: relative;
+    place-self: center;
+
+    &:before {
+      position: absolute;
+      display: block;
+      content: '';
+      height: 100%;
+      top: 0;
+      left: 0;
+      rotate: -2deg;
+      border-left: 2px solid var(--col-accent);
+      opacity: var(--opacity-1);
+
+      transition: translate var(--duration-3) var(--overshot);
+
+      @starting-style {
+        translate: 20px;
+      }
+    }
+  }
+}
+
+@keyframes bd-appear {
+  from {
+    opacity: 0;
+  }
+}
