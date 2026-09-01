@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { NgIcon } from '@ng-icons/core'
 import { BankBase, BankUser } from '@shared/types'
 import { environment } from '../../../../environments/environment'
-import { addIcon, settingsPageIcon } from '../../../icon-registry'
+import { addIcon, settingsPageIcon, uploadIcon } from '../../../icon-registry'
 import { DebugHelper } from '../../../services/debug-helper/debug-helper'
 import { ModalService } from '../../../services/modal-service'
 import { ShareBanksService } from '../../../services/share-banks-service'
@@ -41,7 +41,8 @@ export class SettingsComp {
 
   protected readonly icons = {
     settingsPageIcon,
-    addIcon
+    addIcon,
+    uploadIcon
   }
 
   protected isProduction = environment.isProd

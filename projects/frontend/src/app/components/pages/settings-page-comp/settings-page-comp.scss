@@ -7,35 +7,10 @@ app-settings-item-comp {
   background-color: var(--col-bg);
 }
 
-.add-bank {
-  box-sizing: border-box;
-  position: relative;
-  display: grid;
-  place-items: center;
-  align-items: center;
-  justify-content: center;
+h2.banks {
+  display: flex;
+  flex-direction: row;
   gap: var(--distance-2);
-  padding: 0 var(--distance-6);
-  overflow: clip;
-  font-size: var(--font-size-1);
-
-  span,
-  ng-icon {
-    grid-area: 1 / 1;
-  }
-
-  span {
-    font-weight: bold;
-    white-space: nowrap;
-    translate: -30px;
-  }
-
-  ng-icon {
-    translate: 100px;
-    width: 200px;
-    height: 200px;
-    opacity: var(--opacity-0);
-  }
 }
 
 .delete {

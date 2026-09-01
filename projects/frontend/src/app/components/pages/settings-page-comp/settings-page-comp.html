@@ -1,6 +1,13 @@
 <app-page-wrapper icon="settings" [icon]="icons.settingsPageIcon">
   <app-page-header-comp title="Settings" />
-  <h2 class="indent first">My Banks</h2>
+  <h2 class="indent first banks">
+    My Banks
+
+    <button class="ml-auto small has-icon">Import <ng-icon [svg]="icons.uploadIcon" /></button>
+    <button class="small has-icon" (click)="createNewBank()">
+      Create <ng-icon [svg]="icons.addIcon" />
+    </button>
+  </h2>
   <div class="caroussel-wrapper">
     @for (bank of banks(); track bank.id) {
       <liz-cards-stack class="caroussel-item" outline>
@@ -15,10 +22,6 @@
         />
       </liz-cards-stack>
     }
-    <button class="add-bank caroussel-item" (click)="createNewBank()">
-      <span>Create new Bank</span>
-      <ng-icon [svg]="icons.addIcon" />
-    </button>
   </div>
   <h2 class="indent">General Settings</h2>
   <div class="items">

@@ -21,6 +21,7 @@ import {
   remixFolderAddLine,
   remixFolderDownloadFill,
   remixFolderReduceLine,
+  remixFolderUploadFill,
   remixGraduationCapFill,
   remixHeartsFill,
   remixInformationFill,
@@ -71,6 +72,7 @@ export const copyIcon = remixFileCopyLine
 export const collectionIcon = remixFolder5Fill
 export const addToCollectionIcon = remixFolderAddLine
 export const downloadIcon = remixFolderDownloadFill
+export const uploadIcon = remixFolderUploadFill
 export const removeFromCollectionIcon = remixFolderReduceLine
 export const editIcon = remixPencilFill
 export const shareIcon = remixShareFill

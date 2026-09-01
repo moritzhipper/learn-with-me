@@ -5,7 +5,7 @@
 
   <div class="params-config" #animItem>
     <button class="small change has-icon" (click)="changeLanguageMatch()">
-      <span> Change pair </span>
+      Change pair
       <ng-icon class="icon" [svg]="icons.editIcon" />
     </button>
     <app-radio-comp
@@ -14,7 +14,6 @@
         { value: 'new', label: 'New' }
       ]"
       darkMode
-      size="medium"
       [ngModel]="params().sortBy"
       (ngModelChange)="updateCategory($event)"
     />
