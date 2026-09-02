@@ -6,6 +6,7 @@
   height: 100%;
   box-sizing: border-box;
   padding: var(--page-padding);
+  gap: var(--distance-6);
 }
 
 .header-section {
@@ -30,8 +31,6 @@
   flex-direction: column;
   gap: var(--distance-4);
 
-  margin-top: var(--distance-5);
-
   &:empty {
     display: none;
   }
@@ -41,7 +40,6 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--distance-4);
-  margin-top: var(--distance-6);
 }
 
 @include isPhone {

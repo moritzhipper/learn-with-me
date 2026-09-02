@@ -23,6 +23,7 @@
   position: relative;
   scroll-padding-left: var(--page-padding);
   scrollbar-width: none;
+  border-radius: 24px;
 
   .caroussel-item {
     scroll-snap-align: start;

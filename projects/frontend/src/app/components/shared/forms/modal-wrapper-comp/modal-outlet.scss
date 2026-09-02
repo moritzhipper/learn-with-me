@@ -69,7 +69,7 @@
       transition: translate var(--duration-3) var(--overshot);
 
       @starting-style {
-        translate: 20px;
+        translate: -30px;
       }
     }
   }

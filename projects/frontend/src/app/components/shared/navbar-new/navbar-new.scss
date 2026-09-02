@@ -59,7 +59,7 @@ nav {
   rotate: -4deg;
   transform-origin: top left;
   overflow: hidden;
-  box-shadow: inset 75px 0px 37px -75px var(--col-bg);
+  box-shadow: inset 75px 0px 37px -75px var(--col-shadow);
   box-sizing: border-box;
   transition-property: translate;
 
@@ -126,7 +126,6 @@ nav {
     font-size: 120px;
     line-height: 120px;
     font-weight: var(--font-weight-bold);
-
     color: var(--col-accent);
   }
 
@@ -151,7 +150,7 @@ nav {
     --width: 400px;
   }
 }
-@include isNonTouchDevice {
+@include isNonTouch {
   a:not(.active):is(:hover, :focus-visible) {
     translate: -5px -1px;
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-1));
