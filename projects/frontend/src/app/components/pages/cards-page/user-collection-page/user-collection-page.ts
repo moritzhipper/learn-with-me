@@ -181,7 +181,7 @@ export class UserCollectionPage {
 
     const result = await this.modalService.open<ConfirmationType>('confirm', {
       message: 'Delete cards',
-      description: 'They will be permanently removed from your device'
+      warning: 'Remove the selection permanently device.'
     })
 
     if (result.type !== 'confirm') return
@@ -213,7 +213,7 @@ export class UserCollectionPage {
 
     const result = await this.modalService.open('confirm', {
       message: 'Remove from collection',
-      info: `Your cards will remain in your bank`
+      info: `The cards will still remain in your active bank.`
     })
 
     if (result.type !== 'confirm') return

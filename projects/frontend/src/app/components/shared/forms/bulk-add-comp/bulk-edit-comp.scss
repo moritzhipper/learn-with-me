@@ -105,10 +105,9 @@ form {
 
 @include isDesktop() {
   form {
-    --big: 90px;
-    height: 100vh;
-    width: 100vw;
-    padding: var(--big) var(--big) var(--distance-5) var(--big);
+    height: 80dvh;
+    width: 80vw;
+    padding: var(--distance-5);
 
     .learnables {
       height: 100%;

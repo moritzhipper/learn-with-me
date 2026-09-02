@@ -81,8 +81,7 @@ button {
     padding: var(--distance-2) var(--distance-5);
 
     ng-icon {
-      width: var(--line-height-1);
-      height: var(--line-height-1);
+      font-size: var(--line-height-1);
     }
   }
 
@@ -145,7 +144,7 @@ select {
 
 * {
   outline: 0px solid transparent;
-  transition: outline var(--duration-0);
+  transition: outline var(--duration-3) ease;
 
   &:focus-visible {
     outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));

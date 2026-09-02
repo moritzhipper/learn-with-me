@@ -21,15 +21,6 @@
                 <app-shared-bank-comp [bank]="bank" />
               </a>
             }
-
-            <a
-              class="silent see-more caroussel-item"
-              routerLink="/community/explore"
-              [queryParams]="section.params"
-            >
-              <span> Explore more </span>
-              <ng-icon [svg]="icons.collapseIcon" />
-            </a>
           </div>
         } @else {
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
