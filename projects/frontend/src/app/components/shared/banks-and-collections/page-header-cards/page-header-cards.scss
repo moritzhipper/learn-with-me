@@ -72,7 +72,7 @@
   }
 
   &.outline .card-bg {
-    border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+    border: 2px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
     &.one {
       background-color: var(--col-bg);
     }

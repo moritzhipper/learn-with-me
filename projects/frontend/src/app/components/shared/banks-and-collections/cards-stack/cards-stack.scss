@@ -71,13 +71,13 @@
 
   &.outline {
     .content {
-      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+      border: 2px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
       background-color: var(--col-bg);
     }
 
     .card-bg {
       background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-      border: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
+      border: 2px solid rgb(from var(--col-accent) r g b / var(--opacity-1));
     }
   }
 }
