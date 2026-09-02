@@ -23,7 +23,6 @@
   position: relative;
   scroll-padding-left: var(--page-padding);
   scrollbar-width: none;
-  border-radius: 24px;
 
   .caroussel-item {
     scroll-snap-align: start;
@@ -32,6 +31,7 @@
   @include isDesktop {
     gap: var(--distance-6);
     grid-auto-columns: 380px;
+    border-radius: 24px;
 
     mask-image: linear-gradient(
       to right,
