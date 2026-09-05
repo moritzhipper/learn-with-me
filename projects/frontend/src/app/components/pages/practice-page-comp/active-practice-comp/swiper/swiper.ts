@@ -5,50 +5,48 @@ import {
   computed,
   DestroyRef,
   DOCUMENT,
-  effect,
   ElementRef,
   inject,
   linkedSignal
 } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
+import { debounceTime, map, Subject } from 'rxjs'
 import { correctAnswerIcon, incorrectAnswerIcon } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
+import { addPositionsToCards, cardBaseLayout } from './swiper-position-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
-  cards: CardVM[]
+  cardVMs: CardVM[]
 }
 
-type CardState = 'activeHidden' | 'activeShown' | Guess
+export type CardState =
+  'activeHidden' | 'activeShown' | 'unansweredShown' | 'unansweredHidden' | Guess
 
-type CardVM = {
+export type CardVM = {
   card: UserLearnable
   guess: Guess
   state: CardState
   index: number
-  position: Position
+  position: CardPosition
 }
 
-type Position = {
+export type Position = {
   x: number
   y: number
 }
 
-// eigentlicht reichen diese hier aus als state
-const cardPositions: Record<CardState, Position> = {
-  right: { x: 200, y: -200 },
-  wrong: { x: -200, y: -200 },
-  activeHidden: { x: 0, y: 100 },
-  activeShown: { x: 0, y: 0 },
-  unanswered: { x: 0, y: 150 }
+export type CardPosition = Position & {
+  rotate: number
 }
 
-type Dimensions = {
-  height: number
+export type GuessState = 'guessing' | 'voting'
+
+export type Dimension = {
   width: number
+  height: number
 }
-
-type GuessState = 'guessing' | 'voting'
 
 /**
  * Rchitectural patterns
@@ -56,7 +54,6 @@ type GuessState = 'guessing' | 'voting'
  * - Use angular lifecycle hooks and effects to update card references and template <-> code linking when practice or other related signals change
  * - Guard Click and swipe interaction effect functions inside of the effect callers, not inside off the effects, e.g.: swiping guard in pointerMove, not in setPosition()
  */
-
 @Component({
   selector: 'liz-swiper',
   imports: [NgIcon],
@@ -72,11 +69,8 @@ export class Swiper {
 
   // Animation related -------------------------------------------
 
-  private readonly LERP_SPEED_FACTOR = 0.1
   private readonly VOTE_THRESHOLD = 150
   private swiping = false
-  private lerping = false
-  private animationFrameID = 0
 
   // Position of activeCard -> will be synced to active card
   position: Position = {
@@ -85,7 +79,7 @@ export class Swiper {
   }
 
   private readonly hostEl = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
-  private readonly document = inject(DOCUMENT)
+  private readonly window = inject(DOCUMENT).defaultView
   private destroyRef = inject(DestroyRef)
   protected swipeableRef: HTMLDivElement | null = null
 
@@ -104,40 +98,49 @@ export class Swiper {
     computation: () => 'guessing'
   })
 
+  // Signal / rerender friendly approach to provide the host dimensions reactively
+  private readonly calcDimSubj$ = new Subject<void>()
+  protected hostDimension = toSignal(
+    this.calcDimSubj$.pipe(
+      debounceTime(100),
+      map(() => ({
+        width: this.hostEl.clientWidth,
+        height: this.hostEl.clientHeight
+      }))
+    )
+  )
+
   vm = computed<PracticeVM | undefined>(() => {
     const practice = this.practice()
-    if (!practice) return
+    const hostDim = this.hostDimension()
+    if (!practice || !hostDim) return
 
     const cards = this.ls.activeBank().learnables
-    let cardsVM: CardVM[] = []
+    let cardVMs: Omit<CardVM, 'position'>[] = []
+    const guessState = this.guessState()
 
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)
       if (!card) return
-      const offset = practice.guessableIndex - index
-      const state = this.getCardState(offset, this.guessState(), guessable.guess)
 
-      cardsVM.push({
+      const offset = practice.guessableIndex - index
+      const cardState = this.getCardState(offset, guessState, guessable.guess)
+
+      cardVMs.push({
         card,
         index,
-        state,
-        guess: guessable.guess,
-        position: this.getCardPosition(state, offset)
+        state: cardState,
+        guess: guessable.guess
       })
     })
 
+    const cardsVMPos = addPositionsToCards(cardVMs, hostDim)
+
     return {
-      cards: cardsVM,
+      cardVMs: cardsVMPos,
       guessableField: practice.guessableField,
       guessableIndex: practice.guessableIndex
     }
-  })
-
-  // used as hook to update the active card ref
-  private readonly guessIndex = computed(() => {
-    const practice = this.practice()
-    if (!practice) return 0
-    return practice.guessableIndex
   })
 
   constructor() {
@@ -145,51 +148,39 @@ export class Swiper {
       this.hostEl.addEventListener('pointerup', this.pointerUp)
       this.hostEl.addEventListener('pointermove', this.pointerMove)
       this.hostEl.addEventListener('pointerdown', this.pointerDown)
-      this.document.addEventListener('keydown', this.keydown)
+
+      this.window?.addEventListener('resize', this.resize)
+      this.window?.addEventListener('keydown', this.keydown)
+
+      this.calcDimSubj$.next()
     })
 
     this.destroyRef.onDestroy(() => {
       this.hostEl.removeEventListener('pointerup', this.pointerUp)
       this.hostEl.removeEventListener('pointermove', this.pointerMove)
       this.hostEl.removeEventListener('pointerdown', this.pointerDown)
-      this.document.removeEventListener('keydown', this.keydown)
 
-      this.cancelLerpLoop()
+      this.window?.removeEventListener('resize', this.resize)
+      this.window?.removeEventListener('keydown', this.keydown)
     })
 
-    // Sets ref to active card when a new card becomes active after a vote was counted
+    // Sets ref to active card when a the viewmodel holding it changes
     afterRenderEffect(() => {
       this.swipeableRef = this.hostEl.querySelector<HTMLDivElement>(
-        `[card-index="${this.guessIndex()}"]`
+        `[card-index="${this.vm()?.guessableIndex ?? 0}"]`
       )
-    })
-
-    // Syncs the local cardRefPointer to the real active card position
-    effect(() => {
-      const activeCardPos = this.vm()?.cards.find((c) => c.state === 'activeShown')?.position
-      if (!activeCardPos) return
-      this.setPosition(activeCardPos)
-    })
-
-    // 'guessing' -> 'voting': Animates active card into revealead position using manual lerp so it can be interrupted by the user through vote or drag
-    // 'voting' -> 'guessing': Stops manual lerp to hand over the animation to guessed card stack to browser renderer
-    effect(() => {
-      const state = this.guessState()
-
-      if (state === 'voting') {
-        this.lerpTo(cardPositions.activeShown)
-      } else {
-        this.cancelLerpLoop()
-      }
     })
   }
 
+  // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     console.log('down')
     if (!this.swiping && this.guessState() === 'voting') {
-      this.hostEl.setPointerCapture(ev.pointerId)
-      this.cancelLerpLoop()
       this.swiping = true
+      this.syncCardPosToLocalPos()
+      this.hostEl.setPointerCapture(ev.pointerId)
+      // manually add and remove class instead of angulaar template binding
+      // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.add('swiping')
     }
   }
@@ -200,7 +191,6 @@ export class Swiper {
         x: this.position.x + ev.movementX,
         y: this.position.y + ev.movementY
       }
-
       this.setPosition(newPos)
       this.castGuessIfThreshold()
     }
@@ -212,7 +202,11 @@ export class Swiper {
       this.swiping = false
       this.hostEl.releasePointerCapture(ev.pointerId)
       this.countGuessIfThreshold()
+
+      // manually add and remove class instead of angulaar template binding
+      // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.remove('swiping')
+      this.setPosition(cardBaseLayout.activeShown)
     } else {
       this.guessState.set('voting')
     }
@@ -229,6 +223,10 @@ export class Swiper {
     }
   }
 
+  private resize = () => {
+    this.calcDimSubj$.next()
+  }
+
   // DANGER: High freqnecy call rate, manipulation can have a high performance and lerp smoothness impact
   private setPosition(pos: Position) {
     this.position = pos
@@ -237,50 +235,23 @@ export class Swiper {
     this.swipeableRef.style.setProperty('--y', `${pos.y}px`)
   }
 
-  // Cancel loop and apply goal when position is reached
-  // Offset is applied as pixel value -> end when applying goal woud not create UI flicker
-  private lerpLoop(pos: Position) {
-    const offset = Math.abs(this.position.x - pos.x + this.position.y - pos.y)
-
-    if (offset < 0.1) {
-      this.setPosition(pos)
-      this.lerping = false
-      console.log('lerp done')
-    } else {
-      const newPos: Position = {
-        x: this.lerp(this.position.x, pos.x),
-        y: this.lerp(this.position.y, pos.y)
-      }
-      this.setPosition(newPos)
-      this.animationFrameID = requestAnimationFrame(() => this.lerpLoop(pos))
-    }
-  }
-  private cancelLerpLoop() {
-    cancelAnimationFrame(this.animationFrameID)
-  }
-
-  private lerpTo(pos: Position) {
-    if (this.lerping) {
-      console.log('lerp interrupted')
-      this.cancelLerpLoop()
-    }
-    console.log('lerp start')
-
-    this.lerping = true
-    this.lerpLoop(pos)
-  }
-
-  private lerp(start: number, end: number): number {
-    return start + (end - start) * this.LERP_SPEED_FACTOR
-  }
-
-  quit() {
+  finish() {
     this.ls.resetPracticeAndSaveToHistory()
+  }
+
+  giveUp() {
+    this.ls.endPracticePrematurely()
   }
 
   castGuessIfThreshold() {
     const guess = this.deductGuessFromOffset(this.position.x)
-    this.castedGuess.set(guess)
+
+    // guard like this, because this funcion is called in high freq pointer move and would otherwise
+    // set a signal in same frequency, leading to higher angular performance overhead.
+    // this approach only casts a guess per state change
+    if (guess !== this.castedGuess()) {
+      this.castedGuess.set(guess)
+    }
   }
 
   countGuessIfThreshold() {
@@ -288,8 +259,6 @@ export class Swiper {
     const guess = this.deductGuessFromOffset(this.position.x)
     if (guess !== 'unanswered') {
       this.guess(guess)
-    } else {
-      this.lerpTo(cardPositions.activeShown)
     }
   }
 
@@ -316,28 +285,20 @@ export class Swiper {
       return 'activeHidden'
     } else if (offset === 0 && guessState === 'voting') {
       return 'activeShown'
+    } else if (offset === -1 && guessState === 'voting') {
+      return 'unansweredShown'
+    } else if (offset === -1 && guessState === 'guessing') {
+      return 'unansweredHidden'
     }
     return 'unanswered'
   }
 
-  private getCardPosition(state: CardState, offset: number): Position {
-    if (state !== 'unanswered' && state !== 'activeShown') {
-      return cardPositions[state]
-    } else if (state === 'activeShown' && this.swipeableRef) {
-      // reads realtime transform values applied by browser, also returns correct values if animation ongoing
+  private syncCardPosToLocalPos() {
+    if (this.swipeableRef) {
       const transform = getComputedStyle(this.swipeableRef).transform
       const matrix = new DOMMatrixReadOnly(transform)
-
       // e and f are indexes of transform translate x and y
-      return { x: matrix.e, y: matrix.f }
-    }
-
-    // spread unanswered cards in direction bottom
-    const { x, y } = cardPositions.unanswered
-
-    return {
-      x,
-      y: y + offset * -20 + 100
+      this.setPosition({ x: matrix.e, y: matrix.f })
     }
   }
 }

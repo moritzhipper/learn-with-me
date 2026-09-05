@@ -1,9 +1,9 @@
 import { UserLearnable } from '@shared/types'
-import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
+import { CardPosition, CardState, CardVM, Dimension } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
-  right: { x: 85, y: -95, rotate: 0 },
-  wrong: { x: -85, y: -95, rotate: 0 },
+  right: { x: 110, y: 50, rotate: -5 },
+  wrong: { x: -110, y: 50, rotate: 5 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
   unansweredHidden: { x: 5, y: 50, rotate: -8 },
@@ -16,7 +16,6 @@ export const cardBaseLayout: Record<CardState, CardPosition> = {
 // last card?
 export const addPositionsToCards = (
   cards: Omit<CardVM, 'position'>[],
-  guessState: GuessState,
   hostDimension: Dimension
 ): CardVM[] => {
   let rightIndex = 0
@@ -33,15 +32,15 @@ export const addPositionsToCards = (
         const { x, y, rotate } = cardBaseLayout.right
         position = {
           x,
-          y,
-          rotate: rotationFromCard(card.card)
+          y: y + --rightIndex * 0.1,
+          rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'wrong') {
         const { x, y, rotate } = cardBaseLayout.wrong
         position = {
           x,
-          y,
-          rotate: rotationFromCard(card.card)
+          y: y + --wrongIndex * 0.1,
+          rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'unansweredHidden') {
         position = cardBaseLayout.unansweredHidden

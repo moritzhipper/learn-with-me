@@ -1,17 +1,18 @@
 @if (vm(); as vm) {
-  @for (card of vm.cards; track card.card.id) {
+  @for (cardVM of vm.cardVMs; track cardVM.card.id) {
     <div
       class="card"
-      [attr.card-index]="card.index"
-      [attr.card-state]="card.state"
-      [style.--x.px]="card.position.x"
-      [style.--y.px]="card.position.y"
+      [attr.card-index]="cardVM.index"
+      [attr.card-state]="cardVM.state"
+      [style.--x.px]="cardVM.position.x"
+      [style.--y.px]="cardVM.position.y"
+      [style.--rotate.deg]="cardVM.position.rotate"
     >
       <p class="bold">
-        {{ card.card.lexeme }}
+        {{ cardVM.card.lexeme }}
       </p>
       <p class="italic">
-        {{ card.card.translation }}
+        {{ cardVM.card.translation }}
       </p>
     </div>
   }
@@ -22,7 +23,9 @@
 
 <div class="debug">
   <div>{{ guessState() }} | {{ castedGuess() }}</div>
+  <div>{{ hostDimension()?.height }}</div>
   <div class="flex">
-    <button (click)="quit()">quit</button>
+    <button (click)="finish()">finish</button>
+    <button (click)="giveUp()">give up</button>
   </div>
 </div>

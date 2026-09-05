@@ -8,6 +8,8 @@
 - indicator for vote casted (small size bumb anim?)
 - calc real card placements (or put in css?)
 
+- practice bad cards option after end -> keep vis and stacks, just move wrong cards to top of stack, then put pointer to where they start, then randomize the new cards
+
 ## Onboarding / About
 
 - create fast entry: if no collection and whatever set, allow direct import of bank as start
