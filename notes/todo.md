@@ -2,13 +2,21 @@
 
 ## swiper
 
-- allow swip also on hidden to speed up movement
+- allow swiep also on hidden to speed up movement
 - show visual indicator on votecast and key cast
 - wiggle + hints on first or inacation timeout
 - indicator for vote casted (small size bumb anim?)
-- calc real card placements (or put in css?)
 
-- practice bad cards option after end -> keep vis and stacks, just move wrong cards to top of stack, then put pointer to where they start, then randomize the new cards
+- continue practice bad cards option after end
+  - keep vis and stacks, just move wrong cards to top of stack, then put pointer to where they start, then randomize the new cards
+  - hold two stacks (visually)
+    - stack one: take cards from, put faulty guesses back
+    - stack two: correct guesses
+
+- success pf practices is measured by ending with wrong guesses: PUT IN DOCS
+  - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
+  - focus on eagerness: learning, guessing and beeing here is belohnt, not the capability of remember things fast
+    - infinite practices mode
 
 ## Onboarding / About
 

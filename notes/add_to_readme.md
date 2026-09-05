@@ -6,3 +6,7 @@
 - explain banks vs collections
 - quick practice presets
   - how to read cards (with spaced rep timeline)
+- success pf practices is measured by ending with wrong guesses: PUT IN DOCS
+  - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
+  - focus on eagerness: learning, guessing and beeing here is belohnt, not the capability of remember things fast
+    - infinite practices mode

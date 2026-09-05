@@ -53,7 +53,7 @@ ng-icon {
 // Animation related
 :host {
   .card {
-    transition-property: transform, box-shadow, background-color, color, border, scale;
+    transition-property: transform, box-shadow, background-color, color, border;
     transition-timing-function: var(--soft-ease);
     transition-duration: var(--duration-3);
 
@@ -80,11 +80,10 @@ ng-icon {
   &.swiping {
     cursor: grabbing;
     .card[card-state='activeShown'] {
-      transition-property: box-shadow, background-color, scale;
+      transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
 
       box-shadow: var(--shadow-bigger);
-      scale: 1.02;
     }
   }
 }
