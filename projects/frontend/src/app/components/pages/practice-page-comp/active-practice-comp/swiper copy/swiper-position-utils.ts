@@ -2,13 +2,13 @@ import { UserLearnable } from '@shared/types'
 import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
-  right: { x: 85, y: -85, rotate: 0 },
-  wrong: { x: -85, y: -85, rotate: 0 },
+  right: { x: 85, y: -95, rotate: 0 },
+  wrong: { x: -85, y: -95, rotate: 0 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
   unansweredHidden: { x: 5, y: 50, rotate: -8 },
   unansweredShown: { x: 5, y: 90, rotate: -14 },
-  unanswered: { x: 35, y: 98, rotate: -8 }
+  unanswered: { x: 35, y: 98, rotate: -4 }
 }
 // TODO
 // cool v view on end
@@ -31,9 +31,18 @@ export const addPositionsToCards = (
         position = cardBaseLayout[card.state]
       } else if (card.state === 'right') {
         const { x, y, rotate } = cardBaseLayout.right
-        position = { x, y, rotate: rotationFromCard(card.card) }
+        position = {
+          x,
+          y,
+          rotate: rotationFromCard(card.card)
+        }
       } else if (card.state === 'wrong') {
-        position = cardBaseLayout.wrong
+        const { x, y, rotate } = cardBaseLayout.wrong
+        position = {
+          x,
+          y,
+          rotate: rotationFromCard(card.card)
+        }
       } else if (card.state === 'unansweredHidden') {
         position = cardBaseLayout.unansweredHidden
         unansweredIndex += 1
