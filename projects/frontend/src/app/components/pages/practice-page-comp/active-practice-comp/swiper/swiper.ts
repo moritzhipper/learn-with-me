@@ -13,7 +13,11 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
 import { debounceTime, map, Subject } from 'rxjs'
-import { correctAnswerIcon, incorrectAnswerIcon } from '../../../../../icon-registry'
+import {
+  correctAnswerIcon,
+  incorrectAnswerIcon,
+  practiceSpeedIcon
+} from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
 import { addPositionsToCards, cardBaseLayout } from './swiper-position-utils'
@@ -75,7 +79,8 @@ export class Swiper {
   private readonly ls = inject(LearnablesStore)
   protected icons = {
     incorrectAnswerIcon,
-    correctAnswerIcon
+    correctAnswerIcon,
+    practiceSpeedIcon
   }
 
   // Animation related -------------------------------------------

@@ -6,7 +6,7 @@
   box-sizing: border-box;
 
   .card,
-  ng-icon,
+  ng-icon.vote,
   .finalze-nav,
   liz-swiper-summary {
     user-select: none;
@@ -28,7 +28,7 @@
   z-index: 200;
 }
 
-ng-icon {
+ng-icon.vote {
   font-size: 220px;
   z-index: -1;
 
@@ -65,6 +65,10 @@ ng-icon {
   grid-template-columns: 1fr 2fr;
 }
 
+liz-swiper-summary {
+  place-self: stretch;
+}
+
 // Animation related
 :host {
   .card {
@@ -93,7 +97,7 @@ ng-icon {
     }
   }
 
-  ng-icon {
+  ng-icon.vote {
     transition-property: opacity, transform;
     transition-duration: var(--duration-0);
     transition-timing-function: var(--soft-ease);

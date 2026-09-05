@@ -17,15 +17,17 @@
     </div>
   }
 
-  <ng-icon [svg]="icons.incorrectAnswerIcon" class="wrong" />
-  <ng-icon [svg]="icons.correctAnswerIcon" class="right" />
+  <ng-icon [svg]="icons.incorrectAnswerIcon" class="vote wrong" />
+  <ng-icon [svg]="icons.correctAnswerIcon" class="vote right" />
   @if (guessState() === 'done') {
     <liz-swiper-summary />
 
     <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
     <div class="finalize-nav">
       <button class="big">Finish</button>
-      <button class="big primary">Continue</button>
+      <button class="big primary has-icon">
+        Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
+      </button>
     </div>
   }
 }
