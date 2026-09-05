@@ -46,14 +46,14 @@ ng-icon {
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  border-radius: var(--radius-2);
-  padding: var(--distance-4);
+  border-radius: var(--radius-3);
+  padding: var(--distance-5) var(--distance-6);
 }
 
 // Animation related
 :host {
   .card {
-    transition-property: transform, box-shadow, background-color, color, border;
+    transition-property: transform, box-shadow, background-color, color, border, scale;
     transition-timing-function: var(--soft-ease);
     transition-duration: var(--duration-3);
 
@@ -69,15 +69,22 @@ ng-icon {
       box-shadow: var(--shadow-big);
       border: 1px solid var(--col-accent);
     }
+    &[card-state='unansweredHidden'] {
+      box-shadow: var(--shadow-big);
+    }
+    &[card-state='unansweredShown'] {
+      box-shadow: var(--shadow-bigger);
+    }
   }
 
   &.swiping {
     cursor: grabbing;
     .card[card-state='activeShown'] {
-      transition-property: box-shadow, background-color;
+      transition-property: box-shadow, background-color, scale;
       transition-duration: var(--duration-0);
 
       box-shadow: var(--shadow-bigger);
+      scale: 1.02;
     }
   }
 }

@@ -233,6 +233,8 @@ export class Swiper {
     if (!this.swipeableRef) return
     this.swipeableRef.style.setProperty('--x', `${pos.x}px`)
     this.swipeableRef.style.setProperty('--y', `${pos.y}px`)
+    // fake rotation coming from card sticking to swiping thumb of user
+    this.swipeableRef.style.setProperty('--rotate', `${pos.x * 0.02}deg`)
   }
 
   finish() {

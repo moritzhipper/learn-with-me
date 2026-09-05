@@ -32,14 +32,14 @@ export const addPositionsToCards = (
         const { x, y, rotate } = cardBaseLayout.right
         position = {
           x,
-          y: y + --rightIndex * 0.1,
+          y: y + --rightIndex * -0.6,
           rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'wrong') {
         const { x, y, rotate } = cardBaseLayout.wrong
         position = {
           x,
-          y: y + --wrongIndex * 0.1,
+          y: y + --wrongIndex * -0.6,
           rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'unansweredHidden') {
