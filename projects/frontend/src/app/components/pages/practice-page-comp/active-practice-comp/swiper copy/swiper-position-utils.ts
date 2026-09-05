@@ -68,28 +68,32 @@ const random = (min: number, max: number): number =>
 
 // used to create a through reactive events unchanched semi random rotation, as it is based on a semistatic value
 const rotationFromCard = (card: UserLearnable): number => {
-  const cardText = card.lexeme + card.translation + card.notes
-  const textLengt = cardText.length
+  const charCodeSum = `${card.lexeme}${card.translation}${card.notes}`
+    .split('')
+    .reduce((prev, char) => prev + char.charCodeAt(0), 0)
 
-  const rotationRange = 8
+  const rotationRange = 12
+  const modFactor = 222
+  // reduces rotation of percentage affected assuming modulo is 100% random (it isnt though, but for this case its good enough)
+  const lowRotPercentage = 0.7
 
-  // Range in
-  const modFactor = rotationRange + 1
+  const lowRotThreshold = modFactor * lowRotPercentage
 
-  // reduces rotation if under this to make stack look clean
-  const lowRotThreshold = 5
-  const semirandom = textLengt % modFactor
+  const mod = charCodeSum % modFactor
 
-  // make rotation under threshold more usbtle
-  if (semirandom < lowRotThreshold) {
-    return semirandom * 0.2
+  // make rotation under threshold more subtle, normalize between -1 and 1
+  if (mod < lowRotThreshold) {
+    const normalized = mod / lowRotThreshold
+
+    // center around 0
+    return 1 - normalized * 2
+  } else {
+    // spread rest in full range around center
+    const floorShifted = mod - lowRotThreshold
+    const normalized = floorShifted / (modFactor - lowRotThreshold)
+    const spread = normalized * rotationRange
+
+    // center around 0
+    return spread - rotationRange / 2
   }
-
-  // normalize leftover rotation back to range
-  const rot = (rotationRange * (semirandom - lowRotThreshold)) / (rotationRange - lowRotThreshold)
-  // subtract half the range to get pos and neg values
-  const centered = rot - rotationRange / 2
-  console.log(centered)
-
-  return centered
 }
