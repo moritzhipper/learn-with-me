@@ -22,20 +22,22 @@ export const addPositionsToCards = (
 
   return cards
     .map((card) => {
-      if (card.state !== 'unanswered') {
-        const position = { ...cardBaseLayout[card.state] }
-        return { ...card, position }
+      let position: CardPosition = cardBaseLayout.unanswered
+
+      if (card.state === 'activeHidden' || card.state === 'activeShown') {
+        position = { ...cardBaseLayout[card.state] }
+      } else if (card.state === 'right') {
+        position = cardBaseLayout.right
+      } else if (card.state === 'wrong') {
+        position = cardBaseLayout.wrong
+      } else {
+        const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
+
+        position = {
+          ...cardBaseLayout.unanswered,
+          y: cardBaseLayout.unanswered.y + guessStateMultiplier + unansweredIndex++ * 1
+        }
       }
-
-      // spread unanswered cards in direction bottom
-      const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
-
-      const position = {
-        ...cardBaseLayout.unanswered,
-        y: cardBaseLayout.unanswered.y + guessStateMultiplier + unansweredIndex * 1
-      }
-
-      unansweredIndex++
 
       return {
         ...card,
