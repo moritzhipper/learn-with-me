@@ -1,3 +1,4 @@
+import { UserLearnable } from '@shared/types'
 import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
@@ -34,7 +35,7 @@ export const addPositionsToCards = (
         const shouldHideActiveCard = guessState === 'guessing' && unansweredIndex === 0
         const offset = shouldHideActiveCard ? -25 : 0
         const shouldRotate = unansweredIndex > 0
-        const rotate = shouldRotate ? random(0, 7) : 0
+        const rotate = shouldRotate ? rotationFromCard(card.card) : 0
         position = {
           ...cardBaseLayout.unanswered,
           rotate: cardBaseLayout.unanswered.rotate + rotate,
@@ -64,3 +65,31 @@ export const toRelPercent = (
 
 const random = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min
+
+// used to create a through reactive events unchanched semi random rotation, as it is based on a semistatic value
+const rotationFromCard = (card: UserLearnable): number => {
+  const cardText = card.lexeme + card.translation + card.notes
+  const textLengt = cardText.length
+
+  const rotationRange = 8
+
+  // Range in
+  const modFactor = rotationRange + 1
+
+  // reduces rotation if under this to make stack look clean
+  const lowRotThreshold = 5
+  const semirandom = textLengt % modFactor
+
+  // make rotation under threshold more usbtle
+  if (semirandom < lowRotThreshold) {
+    return semirandom * 0.2
+  }
+
+  // normalize leftover rotation back to range
+  const rot = (rotationRange * (semirandom - lowRotThreshold)) / (rotationRange - lowRotThreshold)
+  // subtract half the range to get pos and neg values
+  const centered = rot - rotationRange / 2
+  console.log(centered)
+
+  return centered
+}
