@@ -7,10 +7,10 @@
 
   .card,
   ng-icon.vote,
-  .finalze-nav,
+  .nav,
   liz-swiper-summary {
-    user-select: none;
     grid-area: 1 / 1;
+    user-select: none;
 
     box-sizing: border-box;
   }
@@ -58,7 +58,7 @@ ng-icon.vote {
   padding: var(--distance-5) var(--distance-6);
 }
 
-.finalize-nav {
+.nav.finalize {
   place-self: end stretch;
   display: grid;
   gap: var(--distance-4);

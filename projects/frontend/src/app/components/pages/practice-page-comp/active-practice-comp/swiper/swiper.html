@@ -23,19 +23,20 @@
     <liz-swiper-summary />
 
     <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
-    <div class="finalize-nav">
-      <button class="big">Finish</button>
+    <div class="nav finalize">
+      <button class="big" (click)="finish()">Finish</button>
       <button class="big primary has-icon">
         Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
       </button>
     </div>
   }
-}
-<div class="debug">
-  <div>{{ guessState() }} | {{ castedGuess() }}</div>
-  <div>{{ hostDimension()?.height }}</div>
-  <div class="flex">
-    <button (click)="finish()">finish</button>
-    <button (click)="giveUp()">give up</button>
+} @else {
+  <div class="debug">
+    <div>{{ guessState() }} | {{ castedGuess() }}</div>
+    <div>{{ hostDimension()?.height }}</div>
+    <div class="flex">
+      <button (click)="finish()">finish</button>
+      <button (click)="giveUp()">give up</button>
+    </div>
   </div>
-</div>
+}
