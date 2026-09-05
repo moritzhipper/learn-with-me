@@ -5,7 +5,7 @@ export const cardBaseLayout: Record<CardState, CardPosition> = {
   wrong: { x: -85, y: -85, rotate: 0 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
-  unanswered: { x: 17, y: 60, rotate: -10 }
+  unanswered: { x: 5, y: 85, rotate: -10 }
 }
 // TODO
 // cool v view on end
@@ -31,11 +31,14 @@ export const addPositionsToCards = (
       } else if (card.state === 'wrong') {
         position = cardBaseLayout.wrong
       } else {
-        const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
-
+        const shouldHideActiveCard = guessState === 'guessing' && unansweredIndex === 0
+        const offset = shouldHideActiveCard ? -25 : 0
+        const shouldRotate = unansweredIndex > 0
+        const rotate = shouldRotate ? random(0, 7) : 0
         position = {
           ...cardBaseLayout.unanswered,
-          y: cardBaseLayout.unanswered.y + guessStateMultiplier + unansweredIndex++ * 1
+          rotate: cardBaseLayout.unanswered.rotate + rotate,
+          y: cardBaseLayout.unanswered.y + offset + unansweredIndex++ * 0.5
         }
       }
 

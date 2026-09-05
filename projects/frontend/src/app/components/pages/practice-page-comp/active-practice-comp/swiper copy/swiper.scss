@@ -23,8 +23,8 @@
   padding: var(--distance-4);
   width: 100%;
   z-index: 200;
-  backdrop-filter: blur(2px);
-  background-color: rgb(0, 0, 0, 0.7);
+  // backdrop-filter: blur(2px);
+  // background-color: rgb(0, 0, 0, 0.7);
 }
 
 ng-icon {
@@ -71,10 +71,13 @@ ng-icon {
     }
   }
 
-  &.swiping .card[card-state='activeShown'] {
-    transition-property: box-shadow, background-color;
-    transition-duration: var(--duration-0);
+  &.swiping {
+    cursor: grabbing;
+    .card[card-state='activeShown'] {
+      transition-property: box-shadow, background-color;
+      transition-duration: var(--duration-0);
 
-    box-shadow: var(--shadow-bigger);
+      box-shadow: var(--shadow-bigger);
+    }
   }
 }
