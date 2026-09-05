@@ -41,7 +41,7 @@ export type CardPosition = Position & {
   rotate: number
 }
 
-export type GuessState = 'guessing' | 'voting'
+export type GuessState = 'guessing' | 'voting' | 'done'
 
 export type Dimension = {
   width: number
@@ -58,7 +58,10 @@ export type Dimension = {
   selector: 'liz-swiper',
   imports: [NgIcon],
   templateUrl: './swiper.html',
-  styleUrl: './swiper.scss'
+  styleUrl: './swiper.scss',
+  host: {
+    '[attr.casted-guess]': 'castedGuess()'
+  }
 })
 export class Swiper {
   private readonly ls = inject(LearnablesStore)
@@ -95,7 +98,10 @@ export class Swiper {
 
   guessState = linkedSignal<PracticeActive | null, GuessState>({
     source: this.practice,
-    computation: () => 'guessing'
+    computation: (practice) => {
+      const isDone = practice?.guessableIndex === practice?.guessables.length
+      return isDone ? 'done' : 'guessing'
+    }
   })
 
   // Signal / rerender friendly approach to provide the host dimensions reactively

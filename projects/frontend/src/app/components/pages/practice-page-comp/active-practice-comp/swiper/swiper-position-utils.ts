@@ -18,6 +18,8 @@ export const addPositionsToCards = (
   cards: Omit<CardVM, 'position'>[],
   hostDimension: Dimension
 ): CardVM[] => {
+  const stackCardOffset = 0.4
+
   let rightIndex = 0
   let wrongIndex = 0
   let unansweredIndex = 0
@@ -32,14 +34,14 @@ export const addPositionsToCards = (
         const { x, y, rotate } = cardBaseLayout.right
         position = {
           x,
-          y: y + --rightIndex * -0.6,
+          y: y + --rightIndex * -stackCardOffset,
           rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'wrong') {
         const { x, y, rotate } = cardBaseLayout.wrong
         position = {
           x,
-          y: y + --wrongIndex * -0.6,
+          y: y + --wrongIndex * -stackCardOffset,
           rotate: rotate + rotationFromCard(card.card)
         }
       } else if (card.state === 'unansweredHidden') {
@@ -54,7 +56,7 @@ export const addPositionsToCards = (
         position = {
           x,
           rotate: rotate + rotationFromCard(card.card),
-          y: y + unansweredIndex * 0.4
+          y: y + unansweredIndex * stackCardOffset
         }
       }
 

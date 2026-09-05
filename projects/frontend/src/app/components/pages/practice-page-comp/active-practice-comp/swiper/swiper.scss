@@ -23,18 +23,23 @@
   padding: var(--distance-4);
   width: 100%;
   z-index: 200;
-  // backdrop-filter: blur(2px);
-  // background-color: rgb(0, 0, 0, 0.7);
 }
 
 ng-icon {
-  font-size: 128px;
+  font-size: 220px;
+  z-index: -1;
+
+  opacity: 0;
 
   &.right {
+    justify-self: start;
     color: var(--col-success);
+    transform: translateX(50px) scale(0.8) rotate(-20deg);
   }
   &.wrong {
+    justify-self: end;
     color: var(--col-warning);
+    transform: translateX(-50px) scale(0.8) rotate(20deg);
   }
 }
 
@@ -56,8 +61,9 @@ ng-icon {
     transition-property: transform, box-shadow, background-color, color, border;
     transition-timing-function: var(--soft-ease);
     transition-duration: var(--duration-3);
-
     transform: translate(var(--x), var(--y)) rotate(var(--rotate));
+
+    will-change: transform;
 
     background-color: var(--col-bg);
     color: var(--col-bg);
@@ -77,13 +83,42 @@ ng-icon {
     }
   }
 
+  ng-icon {
+    transition-property: opacity, transform;
+    transition-duration: var(--duration-0);
+    transition-timing-function: var(--soft-ease);
+    will-change: transform;
+
+    opacity: 0;
+
+    &.right {
+      transform: translateX(50px) scale(0.8) rotate(-20deg);
+    }
+    &.wrong {
+      transform: translateX(-50px) scale(0.8) rotate(20deg);
+    }
+  }
+
   &.swiping {
     cursor: grabbing;
+
     .card[card-state='activeShown'] {
       transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
 
       box-shadow: var(--shadow-bigger);
+    }
+  }
+  &[casted-guess='right'] {
+    ng-icon.right {
+      opacity: var(--opacity-1);
+      transform: translateX(0px);
+    }
+  }
+  &[casted-guess='wrong'] {
+    ng-icon.wrong {
+      opacity: var(--opacity-1);
+      transform: translateX(0px);
     }
   }
 }
