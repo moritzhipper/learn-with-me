@@ -1,6 +1,6 @@
-import { CardState, CardVM, Dimension, GuessState, Position } from './swiper'
+import { CardPosition, CardState, CardVM, Dimension, GuessState, Position } from './swiper'
 
-export const cardPositions: Record<CardState, Position> = {
+export const cardBaseLayout: Record<CardState, Position> = {
   right: { x: 85, y: -85 },
   wrong: { x: -85, y: -85 },
   activeShown: { x: 0, y: 0 },
@@ -23,7 +23,8 @@ export const addPositionsToCards = (
 
   return cards.map((card) => {
     if (card.state !== 'unanswered') {
-      const position = toRelPercent(cardPositions[card.state], hostDimension)
+      const pos = { ...cardBaseLayout[card.state], rotate: 0 }
+      const position = toRelPercent(pos, hostDimension)
       return { ...card, position }
     }
 
@@ -31,8 +32,9 @@ export const addPositionsToCards = (
     const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
 
     const pos = {
-      x: cardPositions.unanswered.x,
-      y: (guessableIndex - card.index + 1) * -2 + guessStateMultiplier + cardPositions.unanswered.y
+      rotate: 10,
+      x: cardBaseLayout.unanswered.x,
+      y: (guessableIndex - card.index + 1) * -2 + guessStateMultiplier + cardBaseLayout.unanswered.y
     }
     const position = toRelPercent(pos, hostDimension)
 
@@ -43,7 +45,11 @@ export const addPositionsToCards = (
   })
 }
 
-export const toRelPercent = ({ x, y }: Position, hostDimension: Dimension): Position => ({
+export const toRelPercent = (
+  { x, y, rotate }: CardPosition,
+  hostDimension: Dimension
+): CardPosition => ({
+  rotate,
   x: x * 0.01 * hostDimension.width,
   y: y * 0.01 * hostDimension.height
 })

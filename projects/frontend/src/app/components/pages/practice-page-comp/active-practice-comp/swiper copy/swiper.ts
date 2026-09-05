@@ -15,7 +15,7 @@ import { Guess, PracticeActive, UserLearnable } from '@shared/types'
 import { debounceTime, map, Subject } from 'rxjs'
 import { correctAnswerIcon, incorrectAnswerIcon } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
-import { addPositionsToCards, cardPositions } from './swiper-position-utils'
+import { addPositionsToCards, cardBaseLayout } from './swiper-position-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
@@ -28,12 +28,16 @@ export type CardVM = {
   guess: Guess
   state: CardState
   index: number
-  position: Position
+  position: CardPosition
 }
 
 export type Position = {
   x: number
   y: number
+}
+
+export type CardPosition = Position & {
+  rotate: number
 }
 
 export type GuessState = 'guessing' | 'voting'
@@ -201,7 +205,7 @@ export class Swiper {
       // manually add and remove class instead of angulaar template binding
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.remove('swiping')
-      this.setPosition(cardPositions.activeShown)
+      this.setPosition(cardBaseLayout.activeShown)
     } else {
       this.guessState.set('voting')
     }

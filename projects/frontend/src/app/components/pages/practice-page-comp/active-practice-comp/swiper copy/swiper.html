@@ -6,6 +6,7 @@
       [attr.card-state]="cardVM.state"
       [style.--x.px]="cardVM.position.x"
       [style.--y.px]="cardVM.position.y"
+      [style.--rotate.deg]="cardVM.position.rotate"
     >
       <p class="bold">
         {{ cardVM.card.lexeme }}

@@ -55,9 +55,9 @@ ng-icon {
   .card {
     transition-property: transform, box-shadow, background-color, color, border;
     transition-timing-function: var(--soft-ease);
-    transition-duration: var(--duration-2);
+    transition-duration: var(--duration-3);
 
-    transform: translate(var(--x), var(--y));
+    transform: translate(var(--x), var(--y)) rotate(var(--rotate));
 
     background-color: var(--col-bg);
     color: var(--col-bg);
