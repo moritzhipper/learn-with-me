@@ -133,7 +133,7 @@ export class Swiper {
       })
     })
 
-    const cardsVMPos = addPositionsToCards(cardVMs, practice.guessableIndex, guessState, hostDim)
+    const cardsVMPos = addPositionsToCards(cardVMs, guessState, hostDim)
 
     return {
       cardVMs: cardsVMPos,

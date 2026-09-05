@@ -1,11 +1,11 @@
-import { CardPosition, CardState, CardVM, Dimension, GuessState, Position } from './swiper'
+import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
 
-export const cardBaseLayout: Record<CardState, Position> = {
-  right: { x: 85, y: -85 },
-  wrong: { x: -85, y: -85 },
-  activeShown: { x: 0, y: 0 },
-  activeHidden: { x: 0, y: 15 },
-  unanswered: { x: 0, y: 65 }
+export const cardBaseLayout: Record<CardState, CardPosition> = {
+  right: { x: 85, y: -85, rotate: 0 },
+  wrong: { x: -85, y: -85, rotate: 0 },
+  activeShown: { x: 0, y: 0, rotate: 0 },
+  activeHidden: { x: 0, y: 15, rotate: 0 },
+  unanswered: { x: 17, y: 60, rotate: -10 }
 }
 // TODO
 // cool v view on end
@@ -13,7 +13,6 @@ export const cardBaseLayout: Record<CardState, Position> = {
 // last card?
 export const addPositionsToCards = (
   cards: Omit<CardVM, 'position'>[],
-  guessableIndex: number,
   guessState: GuessState,
   hostDimension: Dimension
 ): CardVM[] => {
@@ -21,28 +20,32 @@ export const addPositionsToCards = (
   let wrongIndex = 0
   let unansweredIndex = 0
 
-  return cards.map((card) => {
-    if (card.state !== 'unanswered') {
-      const pos = { ...cardBaseLayout[card.state], rotate: 0 }
-      const position = toRelPercent(pos, hostDimension)
-      return { ...card, position }
-    }
+  return cards
+    .map((card) => {
+      if (card.state !== 'unanswered') {
+        const position = { ...cardBaseLayout[card.state] }
+        return { ...card, position }
+      }
 
-    // spread unanswered cards in direction bottom
-    const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
+      // spread unanswered cards in direction bottom
+      const guessStateMultiplier = guessState === 'guessing' ? 0 : 10
 
-    const pos = {
-      rotate: 10,
-      x: cardBaseLayout.unanswered.x,
-      y: (guessableIndex - card.index + 1) * -2 + guessStateMultiplier + cardBaseLayout.unanswered.y
-    }
-    const position = toRelPercent(pos, hostDimension)
+      const position = {
+        ...cardBaseLayout.unanswered,
+        y: cardBaseLayout.unanswered.y + guessStateMultiplier + unansweredIndex * 1
+      }
 
-    return {
+      unansweredIndex++
+
+      return {
+        ...card,
+        position
+      }
+    })
+    .map((card) => ({
       ...card,
-      position
-    }
-  })
+      position: toRelPercent(card.position, hostDimension)
+    }))
 }
 
 export const toRelPercent = (
