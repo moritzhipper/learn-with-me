@@ -16,11 +16,19 @@
       </p>
     </div>
   }
+
+  <ng-icon [svg]="icons.incorrectAnswerIcon" class="wrong" />
+  <ng-icon [svg]="icons.correctAnswerIcon" class="right" />
+  @if (guessState() === 'done') {
+    <liz-swiper-summary />
+
+    <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
+    <div class="finalize-nav">
+      <button class="big">Finish</button>
+      <button class="big primary">Continue</button>
+    </div>
+  }
 }
-
-<ng-icon [svg]="icons.incorrectAnswerIcon" class="wrong" />
-<ng-icon [svg]="icons.correctAnswerIcon" class="right" />
-
 <div class="debug">
   <div>{{ guessState() }} | {{ castedGuess() }}</div>
   <div>{{ hostDimension()?.height }}</div>

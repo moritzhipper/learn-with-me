@@ -6,9 +6,12 @@
   box-sizing: border-box;
 
   .card,
-  ng-icon {
+  ng-icon,
+  .finalze-nav,
+  liz-swiper-summary {
     user-select: none;
     grid-area: 1 / 1;
+
     box-sizing: border-box;
   }
 }
@@ -53,6 +56,13 @@ ng-icon {
   grid-template-rows: 1fr 1fr;
   border-radius: var(--radius-3);
   padding: var(--distance-5) var(--distance-6);
+}
+
+.finalize-nav {
+  place-self: end stretch;
+  display: grid;
+  gap: var(--distance-4);
+  grid-template-columns: 1fr 2fr;
 }
 
 // Animation related

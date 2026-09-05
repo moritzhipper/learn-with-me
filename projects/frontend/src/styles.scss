@@ -66,6 +66,11 @@ button {
     font-size: var(--font-size-1);
     padding: var(--distance-3) var(--distance-5);
     font-weight: var(--font-weight-bold);
+
+    &.primary {
+      background-color: var(--col-primary);
+      color: var(--col-bg);
+    }
   }
 
   &.header-action {

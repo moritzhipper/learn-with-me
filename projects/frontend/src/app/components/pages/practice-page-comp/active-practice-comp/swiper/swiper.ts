@@ -15,6 +15,7 @@ import { Guess, PracticeActive, UserLearnable } from '@shared/types'
 import { debounceTime, map, Subject } from 'rxjs'
 import { correctAnswerIcon, incorrectAnswerIcon } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
+import { SwiperSummary } from '../swiper-summary/swiper-summary'
 import { addPositionsToCards, cardBaseLayout } from './swiper-position-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
@@ -24,12 +25,19 @@ type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
 export type CardState =
   'activeHidden' | 'activeShown' | 'unansweredShown' | 'unansweredHidden' | Guess
 
+type VMStats = {
+  wrong: number
+  right: number
+  unanswered: number
+}
+
 export type CardVM = {
   card: UserLearnable
   guess: Guess
   state: CardState
   index: number
   position: CardPosition
+  stats: VMStats
 }
 
 export type Position = {
@@ -56,7 +64,7 @@ export type Dimension = {
  */
 @Component({
   selector: 'liz-swiper',
-  imports: [NgIcon],
+  imports: [NgIcon, SwiperSummary],
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {
@@ -125,6 +133,12 @@ export class Swiper {
     let cardVMs: Omit<CardVM, 'position'>[] = []
     const guessState = this.guessState()
 
+    const stats: VMStats = {
+      right: practice.guessables.filter((g) => g.guess === 'right').length,
+      wrong: practice.guessables.filter((g) => g.guess === 'wrong').length,
+      unanswered: practice.guessables.filter((g) => g.guess === 'unanswered').length
+    }
+
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)
       if (!card) return
@@ -135,6 +149,7 @@ export class Swiper {
       cardVMs.push({
         card,
         index,
+        stats,
         state: cardState,
         guess: guessable.guess
       })
@@ -204,7 +219,8 @@ export class Swiper {
 
   private pointerUp = (ev: PointerEvent) => {
     console.log('up')
-    if (this.swiping && this.guessState() === 'voting') {
+    const guessState = this.guessState()
+    if (this.swiping && guessState === 'voting') {
       this.swiping = false
       this.hostEl.releasePointerCapture(ev.pointerId)
       this.countGuessIfThreshold()
@@ -213,7 +229,7 @@ export class Swiper {
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.remove('swiping')
       this.setPosition(cardBaseLayout.activeShown)
-    } else {
+    } else if (guessState === 'guessing') {
       this.guessState.set('voting')
     }
   }
