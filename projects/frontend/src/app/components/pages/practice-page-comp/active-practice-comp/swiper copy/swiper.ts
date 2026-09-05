@@ -21,7 +21,8 @@ type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
 }
 
-export type CardState = 'activeHidden' | 'activeShown' | Guess
+export type CardState =
+  'activeHidden' | 'activeShown' | 'unansweredShown' | 'unansweredHidden' | Guess
 
 export type CardVM = {
   card: UserLearnable
@@ -280,6 +281,10 @@ export class Swiper {
       return 'activeHidden'
     } else if (offset === 0 && guessState === 'voting') {
       return 'activeShown'
+    } else if (offset === -1 && guessState === 'voting') {
+      return 'unansweredShown'
+    } else if (offset === -1 && guessState === 'guessing') {
+      return 'unansweredHidden'
     }
     return 'unanswered'
   }

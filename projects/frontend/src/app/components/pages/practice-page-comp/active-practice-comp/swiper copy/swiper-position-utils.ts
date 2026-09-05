@@ -6,7 +6,9 @@ export const cardBaseLayout: Record<CardState, CardPosition> = {
   wrong: { x: -85, y: -85, rotate: 0 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
-  unanswered: { x: 5, y: 85, rotate: -10 }
+  unansweredHidden: { x: 5, y: 50, rotate: -8 },
+  unansweredShown: { x: 5, y: 90, rotate: -14 },
+  unanswered: { x: 35, y: 98, rotate: -8 }
 }
 // TODO
 // cool v view on end
@@ -26,20 +28,25 @@ export const addPositionsToCards = (
       let position: CardPosition = cardBaseLayout.unanswered
 
       if (card.state === 'activeHidden' || card.state === 'activeShown') {
-        position = { ...cardBaseLayout[card.state] }
+        position = cardBaseLayout[card.state]
       } else if (card.state === 'right') {
-        position = cardBaseLayout.right
+        const { x, y, rotate } = cardBaseLayout.right
+        position = { x, y, rotate: rotationFromCard(card.card) }
       } else if (card.state === 'wrong') {
         position = cardBaseLayout.wrong
+      } else if (card.state === 'unansweredHidden') {
+        position = cardBaseLayout.unansweredHidden
+        unansweredIndex += 1
+      } else if (card.state === 'unansweredShown') {
+        position = cardBaseLayout.unansweredShown
+        unansweredIndex += 1
       } else {
-        const shouldHideActiveCard = guessState === 'guessing' && unansweredIndex === 0
-        const offset = shouldHideActiveCard ? -25 : 0
-        const shouldRotate = unansweredIndex > 0
-        const rotate = shouldRotate ? rotationFromCard(card.card) : 0
+        const { x, y, rotate } = cardBaseLayout.unanswered
+        unansweredIndex += 1
         position = {
-          ...cardBaseLayout.unanswered,
-          rotate: cardBaseLayout.unanswered.rotate + rotate,
-          y: cardBaseLayout.unanswered.y + offset + unansweredIndex++ * 1
+          x,
+          rotate: rotate + rotationFromCard(card.card),
+          y: y + unansweredIndex * 0.4
         }
       }
 
