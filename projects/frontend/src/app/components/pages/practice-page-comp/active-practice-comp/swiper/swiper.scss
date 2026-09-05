@@ -1,0 +1,56 @@
+:host {
+  position: relative;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+
+  .card,
+  ng-icon {
+    user-select: none;
+    grid-area: 1 / 1;
+    box-sizing: border-box;
+  }
+}
+
+.debug {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--distance-4);
+  width: 100%;
+  z-index: 200;
+  backdrop-filter: blur(5px);
+  background-color: rgb(0, 0, 0, 0.7);
+}
+
+ng-icon {
+  font-size: 128px;
+
+  &.right {
+    color: var(--col-success);
+  }
+  &.wrong {
+    color: var(--col-warning);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--distance-1);
+  width: 150px;
+  border: 1px solid var(--col-accent);
+  box-sizing: border-box;
+}
+
+.card {
+  transform: translate(var(--x), var(--y));
+
+  &:not([card-state='activeShown']) {
+    transition: transform var(--duration-3) var(--soft-ease);
+  }
+}

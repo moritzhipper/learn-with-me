@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { NgIcon } from '@ng-icons/core'
 import { tapResponse } from '@ngrx/operators'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
@@ -40,7 +39,6 @@ type BanksPreviewSection = PrefetchSectionProxy & {
   imports: [
     PageHeaderComp,
     SharedBankComp,
-    NgIcon,
     RouterLink,
     LoadingSpinner,
     HeaderLink,

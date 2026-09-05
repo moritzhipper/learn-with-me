@@ -2,12 +2,12 @@ import { Component, computed, inject } from '@angular/core'
 import { practicePageIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
-import { ActivePracticeComp } from './active-practice-comp/active-practice-comp'
+import { Swiper } from './active-practice-comp/swiper copy/swiper'
 import { ConfigurePracticeComp } from './configure-practice-comp/configure-practice-comp'
 
 @Component({
   selector: 'app-practice',
-  imports: [ActivePracticeComp, ConfigurePracticeComp, PageWrapper],
+  imports: [ConfigurePracticeComp, PageWrapper, Swiper],
   templateUrl: './practice-page-comp.html',
   styleUrl: './practice-page-comp.scss'
 })

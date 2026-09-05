@@ -1,11 +1,13 @@
 <app-page-wrapper [icon]="iconBug" fullScreen>
   <div class="views">
     @if (currentPractice(); as currP) {
-      <app-active-practice-comp
+      <liz-swiper />
+
+      <!-- <app-active-practice-comp
         [currentPractice]="currP"
         animate.leave="fly-out"
         animate.enter="fly-in-y-wide"
-      />
+      /> -->
     } @else {
       <app-configure-practice-comp animate.leave="fly-out" animate.enter="fly-in-y-wide" />
     }

@@ -1,0 +1,29 @@
+@if (vm(); as vm) {
+  @for (cardVM of vm.cardVMs; track cardVM.card.id) {
+    <div
+      class="card"
+      [attr.card-index]="cardVM.index"
+      [attr.card-state]="cardVM.state"
+      [style.--x.px]="cardVM.position.x"
+      [style.--y.px]="cardVM.position.y"
+    >
+      <p class="bold">
+        {{ cardVM.card.lexeme }}
+      </p>
+      <p class="italic">
+        {{ cardVM.card.translation }}
+      </p>
+    </div>
+  }
+}
+
+<ng-icon [svg]="icons.incorrectAnswerIcon" class="wrong" />
+<ng-icon [svg]="icons.correctAnswerIcon" class="right" />
+
+<div class="debug">
+  <div>{{ guessState() }} | {{ castedGuess() }}</div>
+  <div>{{ hostDimension()?.height }}</div>
+  <div class="flex">
+    <button (click)="quit()">quit</button>
+  </div>
+</div>
