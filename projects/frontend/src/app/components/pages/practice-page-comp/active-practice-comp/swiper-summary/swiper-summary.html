@@ -1,9 +1,8 @@
-<app-practice-rating-comp [confidence]="1" />
-<h2>You got 80% right!</h2>
-<p>That was a good run</p>
+@let sum = summary();
+
+<app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
+<p class="size-3 bold pb-4">You got {{ sum.guessedRightPercent }}% right!</p>
+<p>{{ subHeader[sum.rating] }}</p>
 <div class="stats">
   <div class="stat"></div>
 </div>
-<p class="light">
-  Continue this practice with only the falsely guessed and unanswered cards to improve this score?
-</p>

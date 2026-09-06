@@ -1,10 +1,16 @@
 :host {
-  //   border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 app-practice-rating-comp {
   display: block;
   filter: drop-shadow(3px 10px 12px var(--col-bg));
+
+  height: 200px;
+  width: auto;
+  aspect-ratio: 1 / 1;
 }
 
 h2,

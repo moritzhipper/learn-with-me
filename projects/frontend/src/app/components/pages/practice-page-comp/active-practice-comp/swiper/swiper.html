@@ -21,7 +21,7 @@
   <ng-icon [svg]="icons.correctAnswerIcon" class="vote right" />
   @if (guessState() === 'done') {
     <ng-container lizAnimDelayWrapper applyClass="pop-in">
-      <liz-swiper-summary #animItem />
+      <liz-swiper-summary #animItem [summary]="vm.summary" />
 
       <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
       <div class="nav finalize" #animItem>

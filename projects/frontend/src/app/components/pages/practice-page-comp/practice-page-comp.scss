@@ -1,3 +1,4 @@
+@use '../../../../style/mixins' as *;
 .views {
   height: 100%;
   display: grid;
@@ -14,6 +15,14 @@
   }
 }
 
+@include isDesktop {
+  liz-swiper {
+    width: 700px;
+    height: 400px;
+    justify-self: center;
+    margin-top: 10dvh;
+  }
+}
 @keyframes fly-out {
   to {
     translate: 0 100px;

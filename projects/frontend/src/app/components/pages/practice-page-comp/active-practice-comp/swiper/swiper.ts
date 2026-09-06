@@ -20,15 +20,18 @@ import {
   practiceSpeedIcon
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
+import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
 import {
   addPositionsForDonePractice,
   addPositionsForOngoingPractice,
   cardBaseLayout
 } from './swiper-position-utils'
+import { createSummary } from './swiper-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
+  summary: ActivePracticeSummary
 }
 
 export type CardState =
@@ -46,7 +49,6 @@ export type CardVM = {
   state: CardState
   index: number
   position: CardPosition
-  stats: VMStats
 }
 
 export type Position = {
@@ -160,7 +162,7 @@ export class Swiper {
       cardVMs.push({
         card,
         index,
-        stats,
+
         state: cardState,
         guess: guessable.guess
       })
@@ -174,7 +176,8 @@ export class Swiper {
     return {
       cardVMs: cardsVMPos,
       guessableField: practice.guessableField,
-      guessableIndex: practice.guessableIndex
+      guessableIndex: practice.guessableIndex,
+      summary: createSummary(practice)
     }
   })
 

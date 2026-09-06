@@ -2,13 +2,13 @@ import { UserLearnable } from '@shared/types'
 import { CardPosition, CardState, CardVM, Dimension } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
-  right: { x: 110, y: 50, rotate: -5 },
-  wrong: { x: -110, y: 50, rotate: 5 },
+  right: { x: 120, y: 20, rotate: 5 },
+  wrong: { x: -120, y: 20, rotate: -5 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
   unansweredHidden: { x: 5, y: 50, rotate: -8 },
   unansweredShown: { x: 5, y: 90, rotate: -14 },
-  unanswered: { x: 35, y: 98, rotate: -4 }
+  unanswered: { x: 0, y: 120, rotate: 0 }
 }
 // TODO
 // cool v view on end
