@@ -65,6 +65,10 @@ ng-icon.vote {
   grid-template-columns: 1fr 2fr;
   z-index: 10;
 
+  p {
+    grid-column: span 2;
+  }
+
   button {
     box-shadow: var(--shadow-big);
   }

@@ -8,7 +8,7 @@ export const cardBaseLayout: Record<CardState, CardPosition> = {
   activeHidden: { x: 0, y: 15, rotate: 0 },
   unansweredHidden: { x: 5, y: 50, rotate: -8 },
   unansweredShown: { x: 5, y: 90, rotate: -14 },
-  unanswered: { x: 0, y: 120, rotate: 0 }
+  unanswered: { x: 10, y: 95, rotate: -5 }
 }
 // TODO
 // cool v view on end
@@ -18,47 +18,19 @@ export const addPositionsForOngoingPractice = (
   cards: Omit<CardVM, 'position'>[],
   hostDimension: Dimension
 ): CardVM[] => {
-  const CARD_STACK_OFFSET = 0.4
-
-  let rightIndex = 0
-  let wrongIndex = 0
-  let unansweredIndex = 0
-
   return cards.map((card) => {
     let position: CardPosition = cardBaseLayout.unanswered
+    const stackedStates: CardState[] = ['right', 'wrong', 'unanswered']
 
-    if (card.state === 'activeHidden' || card.state === 'activeShown') {
-      position = cardBaseLayout[card.state]
-    } else if (card.state === 'right') {
-      const { x, y, rotate } = cardBaseLayout.right
+    if (stackedStates.includes(card.state)) {
+      const { x, y, rotate } = cardBaseLayout[card.state]
       position = {
         x,
-        y: y + rightIndex * -CARD_STACK_OFFSET,
+        y,
         rotate: rotate + rotationFromCard(card.card)
       }
-      rightIndex -= 1
-    } else if (card.state === 'wrong') {
-      const { x, y, rotate } = cardBaseLayout.wrong
-      position = {
-        x,
-        y: y + wrongIndex * -CARD_STACK_OFFSET,
-        rotate: rotate + rotationFromCard(card.card)
-      }
-      wrongIndex -= 1
-    } else if (card.state === 'unansweredHidden') {
-      position = cardBaseLayout.unansweredHidden
-      unansweredIndex += 1
-    } else if (card.state === 'unansweredShown') {
-      position = cardBaseLayout.unansweredShown
-      unansweredIndex += 1
     } else {
-      const { x, y, rotate } = cardBaseLayout.unanswered
-      unansweredIndex += 1
-      position = {
-        x,
-        rotate: rotate + rotationFromCard(card.card),
-        y: y + unansweredIndex * CARD_STACK_OFFSET
-      }
+      position = cardBaseLayout[card.state]
     }
 
     return {
@@ -146,9 +118,9 @@ const rotationFromCard = (card: UserLearnable): number => {
     .reduce((prev, char) => prev + char.charCodeAt(0), 0)
 
   const lowRotationRange = 2
-  const highRotationRange = 14
+  const highRotationRange = 17
   // Reduces rotation of this percentage of cards (not completely right as this approach is not completely random, but enough fir this case)
-  const lowRotPercentage = 0.8
+  const lowRotPercentage = 0.9
 
   const modFactor = 222
 
