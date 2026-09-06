@@ -13,6 +13,7 @@ import { toSignal } from '@angular/core/rxjs-interop'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
 import { debounceTime, map, Subject } from 'rxjs'
+import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
 import {
   correctAnswerIcon,
   incorrectAnswerIcon,
@@ -72,7 +73,7 @@ export type Dimension = {
  */
 @Component({
   selector: 'liz-swiper',
-  imports: [NgIcon, SwiperSummary],
+  imports: [NgIcon, SwiperSummary, AnimDelayWrapper],
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {

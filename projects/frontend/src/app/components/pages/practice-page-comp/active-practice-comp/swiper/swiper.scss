@@ -77,19 +77,23 @@ liz-swiper-summary {
 // Animation related
 :host {
   .card {
-    transition-property: transform, box-shadow, background-color, color, border;
+    transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
     transition-duration: var(--duration-3);
     transform: translate(var(--x), var(--y)) rotate(var(--rotate));
 
     will-change: transform;
+
+    @starting-style {
+      transform: translate(0px, 1000px);
+    }
   }
 
   &:not([guess-state='done']) {
     .card {
       background-color: var(--col-bg);
       color: transparent;
-      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-1));
+      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
 
       &:is([card-state='activeShown'], [card-state='activeHidden']) {
         background-color: var(--col-accent);
@@ -148,16 +152,16 @@ liz-swiper-summary {
   &[guess-state='done'] {
     .card {
       color: transparent;
-      background-color: var(--col-bg);
+      opacity: var(--opacity-0);
 
       &[card-state='unanswered'] {
-        border: 1px solid var(--col-accent);
+        background-color: var(--col-accent);
       }
       &[card-state='right'] {
-        border: 1px solid var(--col-success);
+        background-color: var(--col-success);
       }
       &[card-state='wrong'] {
-        border: 1px solid var(--col-warning);
+        background-color: var(--col-warning);
       }
     }
   }

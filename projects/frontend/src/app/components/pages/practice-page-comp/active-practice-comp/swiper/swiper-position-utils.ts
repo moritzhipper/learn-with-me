@@ -73,7 +73,7 @@ export const addPositionsForDonePractice = (
   hostDimension: Dimension
 ): CardVM[] => {
   const MAX_ROTATION = 50
-  const MAX_X_OFFSET = 40
+  const MAX_X_OFFSET = 50
 
   const len = cards.length
   const isOdd = len % 2
