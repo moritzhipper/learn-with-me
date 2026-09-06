@@ -63,6 +63,7 @@ ng-icon.vote {
   display: grid;
   gap: var(--distance-4);
   grid-template-columns: 1fr 2fr;
+  z-index: 10;
 }
 
 liz-swiper-summary {
@@ -81,7 +82,7 @@ liz-swiper-summary {
 
     background-color: var(--col-bg);
     color: var(--col-bg);
-    border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
+    border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-1));
 
     &:is([card-state='activeShown'], [card-state='activeHidden']) {
       background-color: var(--col-accent);

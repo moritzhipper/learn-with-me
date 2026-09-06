@@ -20,7 +20,11 @@ import {
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
-import { addPositionsToCards, cardBaseLayout } from './swiper-position-utils'
+import {
+  addPositionsForDonePractice,
+  addPositionsForOngoingPractice,
+  cardBaseLayout
+} from './swiper-position-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
@@ -160,7 +164,10 @@ export class Swiper {
       })
     })
 
-    const cardsVMPos = addPositionsToCards(cardVMs, hostDim)
+    const cardsVMPos =
+      guessState === 'done'
+        ? addPositionsForDonePractice(cardVMs, hostDim)
+        : addPositionsForOngoingPractice(cardVMs, hostDim)
 
     return {
       cardVMs: cardsVMPos,

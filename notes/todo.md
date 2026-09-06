@@ -2,7 +2,8 @@
 
 ## swiper
 
-- pokemon battle like config + swipe
+- pokemon battle like config + swipe -> diese schiefen striche oben und unten in config und active
+- karten eigefaerbt wenn done
 - allow swiep also on hidden to speed up movement
 - show visual indicator on votecast and key cast
 - wiggle + hints on first or inacation timeout
