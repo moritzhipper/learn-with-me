@@ -73,7 +73,7 @@ export const addPositionsForDonePractice = (
   hostDimension: Dimension
 ): CardVM[] => {
   const MAX_ROTATION = 50
-  const MAX_X_OFFSET = 50
+  const MAX_X_OFFSET = 40
 
   const len = cards.length
   const isOdd = len % 2
@@ -102,14 +102,14 @@ export const addPositionsForDonePractice = (
 
     if (leftIndex <= leftSideCardsCount) {
       position = {
-        x: -80 + leftIndex * leftStepSizeX,
+        x: -100 + leftIndex * leftStepSizeX,
         y: leftIndex * leftStepSizeY,
         rotate: 2 + leftIndex * leftStepSizeRotation
       }
       leftIndex += 1
     } else {
       position = {
-        x: 80 - rightIndex * rightStepSizeX,
+        x: 100 - rightIndex * rightStepSizeX,
         y: rightIndex * rightStepSizeY,
         rotate: -2 + rightIndex * rightStepSizeRotation
       }

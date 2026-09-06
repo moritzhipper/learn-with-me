@@ -64,6 +64,10 @@ ng-icon.vote {
   gap: var(--distance-4);
   grid-template-columns: 1fr 2fr;
   z-index: 10;
+
+  button {
+    box-shadow: var(--shadow-big);
+  }
 }
 
 liz-swiper-summary {
@@ -144,15 +148,16 @@ liz-swiper-summary {
   &[guess-state='done'] {
     .card {
       color: transparent;
+      background-color: var(--col-bg);
 
       &[card-state='unanswered'] {
-        background-color: var(--col-accent);
+        border: 1px solid var(--col-accent);
       }
       &[card-state='right'] {
-        background-color: var(--col-success);
+        border: 1px solid var(--col-success);
       }
       &[card-state='wrong'] {
-        background-color: var(--col-warning);
+        border: 1px solid var(--col-warning);
       }
     }
   }
