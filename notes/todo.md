@@ -2,6 +2,7 @@
 
 ## swiper
 
+- pokemon battle like config + swipe
 - allow swiep also on hidden to speed up movement
 - show visual indicator on votecast and key cast
 - wiggle + hints on first or inacation timeout
