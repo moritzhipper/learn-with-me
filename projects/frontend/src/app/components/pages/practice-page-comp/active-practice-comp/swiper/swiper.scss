@@ -152,16 +152,18 @@ liz-swiper-summary {
   &[guess-state='done'] {
     .card {
       color: transparent;
-      opacity: var(--opacity-0);
+
+      background-color: var(--col-bg);
 
       &[card-state='unanswered'] {
-        background-color: var(--col-accent);
+        border: 1px solid var(--col-accent);
       }
       &[card-state='right'] {
-        background-color: var(--col-success);
+        opacity: var(--opacity-0);
+        border: 1px solid var(--col-success);
       }
       &[card-state='wrong'] {
-        background-color: var(--col-warning);
+        border: 1px solid var(--col-warning);
       }
     }
   }
