@@ -79,25 +79,28 @@ liz-swiper-summary {
     transform: translate(var(--x), var(--y)) rotate(var(--rotate));
 
     will-change: transform;
-
-    background-color: var(--col-bg);
-    color: var(--col-bg);
-    border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-1));
-
-    &:is([card-state='activeShown'], [card-state='activeHidden']) {
-      background-color: var(--col-accent);
-      color: var(--col-text);
-      box-shadow: var(--shadow-big);
-      border: 1px solid var(--col-accent);
-    }
-    &[card-state='unansweredHidden'] {
-      box-shadow: var(--shadow-big);
-    }
-    &[card-state='unansweredShown'] {
-      box-shadow: var(--shadow-bigger);
-    }
   }
 
+  &:not([guess-state='done']) {
+    .card {
+      background-color: var(--col-bg);
+      color: transparent;
+      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-1));
+
+      &:is([card-state='activeShown'], [card-state='activeHidden']) {
+        background-color: var(--col-accent);
+        color: var(--col-text);
+        box-shadow: var(--shadow-big);
+        border: 1px solid var(--col-accent);
+      }
+      &[card-state='unansweredHidden'] {
+        box-shadow: var(--shadow-big);
+      }
+      &[card-state='unansweredShown'] {
+        box-shadow: var(--shadow-bigger);
+      }
+    }
+  }
   ng-icon.vote {
     transition-property: opacity, transform;
     transition-duration: var(--duration-0);
@@ -124,6 +127,7 @@ liz-swiper-summary {
       box-shadow: var(--shadow-bigger);
     }
   }
+
   &[casted-guess='right'] {
     ng-icon.right {
       opacity: var(--opacity-1);
@@ -134,6 +138,22 @@ liz-swiper-summary {
     ng-icon.wrong {
       opacity: var(--opacity-1);
       transform: translateX(0px);
+    }
+  }
+
+  &[guess-state='done'] {
+    .card {
+      color: transparent;
+
+      &[card-state='unanswered'] {
+        background-color: var(--col-accent);
+      }
+      &[card-state='right'] {
+        background-color: var(--col-success);
+      }
+      &[card-state='wrong'] {
+        background-color: var(--col-warning);
+      }
     }
   }
 }

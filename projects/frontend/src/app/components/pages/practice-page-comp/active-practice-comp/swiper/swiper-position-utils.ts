@@ -102,14 +102,14 @@ export const addPositionsForDonePractice = (
 
     if (leftIndex <= leftSideCardsCount) {
       position = {
-        x: -100 + leftIndex * leftStepSizeX,
+        x: -80 + leftIndex * leftStepSizeX,
         y: leftIndex * leftStepSizeY,
         rotate: 2 + leftIndex * leftStepSizeRotation
       }
       leftIndex += 1
     } else {
       position = {
-        x: 100 - rightIndex * rightStepSizeX,
+        x: 80 - rightIndex * rightStepSizeX,
         y: rightIndex * rightStepSizeY,
         rotate: -2 + rightIndex * rightStepSizeRotation
       }

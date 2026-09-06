@@ -76,7 +76,8 @@ export type Dimension = {
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {
-    '[attr.casted-guess]': 'castedGuess()'
+    '[attr.casted-guess]': 'castedGuess()',
+    '[attr.guess-state]': 'guessState()'
   }
 })
 export class Swiper {
