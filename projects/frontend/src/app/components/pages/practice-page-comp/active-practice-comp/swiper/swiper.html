@@ -20,7 +20,7 @@
   <ng-icon [svg]="icons.incorrectAnswerIcon" class="vote wrong" />
   <ng-icon [svg]="icons.correctAnswerIcon" class="vote right" />
   @if (guessState() === 'done') {
-    <ng-container lizAnimDelayWrapper [duration]="1" applyClass="fly-in-y-wide">
+    <ng-container lizAnimDelayWrapper [duration]="1" applyClass="pop-in">
       <liz-swiper-summary #animItem />
 
       <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
