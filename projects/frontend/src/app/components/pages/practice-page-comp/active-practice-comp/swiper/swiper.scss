@@ -83,10 +83,6 @@ liz-swiper-summary {
     transform: translate(var(--x), var(--y)) rotate(var(--rotate));
 
     will-change: transform;
-
-    @starting-style {
-      transform: translate(0px, 1000px);
-    }
   }
 
   &:not([guess-state='done']) {
