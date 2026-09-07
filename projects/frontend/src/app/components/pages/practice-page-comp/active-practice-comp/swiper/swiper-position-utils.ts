@@ -46,14 +46,15 @@ export const addPositionsForDonePractice = (
 ): CardVM[] => {
   const MAX_ROTATION = 60
   const MAX_X_OFFSET = 35
+  const SPREAD_X = 60
 
   const len = cards.length
 
   const leftSideCardsCount = Math.ceil(len / 2)
   const rightSideCardsCount = len - leftSideCardsCount
 
-  const leftStepSizeY = 55 / leftSideCardsCount
-  const rightStepSizeY = 55 / rightSideCardsCount
+  const leftStepSizeY = SPREAD_X / leftSideCardsCount
+  const rightStepSizeY = SPREAD_X / rightSideCardsCount
 
   const leftStepSizeRotation = (MAX_ROTATION / leftSideCardsCount) * -1
   const rightStepSizeRotation = MAX_ROTATION / rightSideCardsCount
