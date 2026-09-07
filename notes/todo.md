@@ -2,6 +2,15 @@
 
 ## swiper
 
+- only put cardGuess on card state -> remove active, replace with offset
+  - rename state to guess
+- dont work with pixels -> work with %, recalculate px / perc multi on refresh
+- put layout generally in css with percent base
+- movement applies x y to host
+  - when swiping, use x y from host, else, use the normal placement
+
+- do the conditional position via util
+- put x / y back in css? -> use offset in css
 - pokemon battle like config + swipe -> diese schiefen striche oben und unten in config und active
 - karten eigefaerbt wenn done
 - allow swiep also on hidden to speed up movement

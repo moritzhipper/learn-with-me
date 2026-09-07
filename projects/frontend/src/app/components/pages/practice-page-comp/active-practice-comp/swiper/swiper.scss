@@ -80,31 +80,14 @@ liz-swiper-summary {
     transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
     transition-duration: var(--duration-3);
-    transform: translate(var(--x), var(--y)) rotate(var(--rotate));
 
     will-change: transform;
-  }
 
-  &:not([guess-state='done']) {
-    .card {
-      background-color: var(--col-bg);
-      color: transparent;
-      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
-
-      &:is([card-state='activeRevealed'], [card-state='activeHidden']) {
-        background-color: var(--col-accent);
-        color: var(--col-text);
-        box-shadow: var(--shadow-big);
-        border: 1px solid var(--col-accent);
-      }
-      &[card-state='unansweredHidden'] {
-        box-shadow: var(--shadow-big);
-      }
-      &[card-state='unansweredRevealed'] {
-        box-shadow: var(--shadow-bigger);
-      }
+    @starting-style {
+      transform: translate(0%, 150%) !important;
     }
   }
+
   ng-icon.vote {
     transition-property: opacity, transform;
     transition-duration: var(--duration-0);
@@ -114,21 +97,86 @@ liz-swiper-summary {
     opacity: 0;
 
     &.right {
-      transform: translateX(50px) scale(0.8) rotate(-20deg);
+      transform: translateX(50px) scale(0.8) rotate(20deg);
     }
     &.wrong {
-      transform: translateX(-50px) scale(0.8) rotate(20deg);
+      transform: translateX(-50px) scale(0.8) rotate(-20deg);
     }
+  }
+
+  &[guess-state='voting'],
+  &[guess-state='guessing'] {
+    .card {
+      background-color: var(--col-bg);
+      color: transparent;
+      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
+
+      &[card-offset-to-active='0'] {
+        background-color: var(--col-accent);
+        color: var(--col-text);
+        border: 1px solid var(--col-accent);
+      }
+    }
+  }
+
+  &[guess-state='guessing'] {
+    [card-offset-to-active='0'] {
+      box-shadow: var(--shadow-big);
+    }
+    [card-offset-to-active='-1'] {
+      box-shadow: var(--shadow-big);
+    }
+
+    [guess='unanswered'] {
+      &[card-offset-to-active='0'] {
+        transform: translate(0%, 20%);
+      }
+      &[card-offset-to-active='-1'] {
+        transform: translate(0%, 70%);
+      }
+      &:not([card-offset-to-active='0'], [card-offset-to-active='-1']) {
+        transform: translate(0%, 95%);
+      }
+    }
+  }
+
+  &[guess-state='voting'] {
+    [card-offset-to-active='0'] {
+      box-shadow: var(--shadow-bigger);
+    }
+
+    [card-offset-to-active='-1'] {
+      box-shadow: var(--shadow-bigger);
+    }
+
+    [guess='unanswered'] {
+      &[card-offset-to-active='0'] {
+        transform: translate(0%, 0%);
+      }
+      &[card-offset-to-active='-1'] {
+        transform: translate(0%, 80%);
+      }
+      &:not([card-offset-to-active='0'], [card-offset-to-active='-1']) {
+        transform: translate(0%, 95%);
+      }
+    }
+  }
+
+  [guess='right'] {
+    transform: translate(110%, 90%) rotate(15deg);
+  }
+  [guess='wrong'] {
+    transform: translate(-110%, 90%) rotate(-15deg);
   }
 
   &.swiping {
     cursor: grabbing;
 
-    .card[card-state='activeRevealed'] {
+    .card[card-offset-to-active='0'] {
       transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
-
       box-shadow: var(--shadow-bigger);
+      transform: translate(var(--x), var(--y)) rotate(var(--rotate));
     }
   }
 

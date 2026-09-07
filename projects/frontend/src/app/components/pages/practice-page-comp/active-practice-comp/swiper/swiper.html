@@ -2,14 +2,10 @@
   @for (cardVM of vm.cardVMs; track cardVM.card.id) {
     <div
       class="card"
-      [attr.card-index]="cardVM.index"
-      [attr.card-state]="cardVM.state"
-      [style.--x.px]="cardVM.position.x"
-      [style.--y.px]="cardVM.position.y"
-      [style.--rotate.deg]="cardVM.position.rotate"
+      [attr.guess]="cardVM.guess"
+      [attr.card-offset-to-active]="cardVM.offsetToActive"
     >
       <p class="bold size-3">
-        {{ cardVM.offsetToActive }}
         {{ cardVM.card.lexeme }}
       </p>
       <p class="italic size-3">

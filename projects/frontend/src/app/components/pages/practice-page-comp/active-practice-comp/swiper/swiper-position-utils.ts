@@ -1,37 +1,38 @@
-import { UserLearnable } from '@shared/types'
-import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
+import { Guess, UserLearnable } from '@shared/types'
+import { CardPosition, CardVM, Dimension, GuessState } from './swiper'
 
-export const cardBaseLayout: Record<CardState, CardPosition> = {
+export const cardBaseLayout: Record<Guess | 'default', CardPosition> = {
   right: { x: 130, y: 20, rotate: 15 },
   wrong: { x: -130, y: 20, rotate: -15 },
-  activeRevealed: { x: 0, y: 0, rotate: 0 },
-  activeHidden: { x: 0, y: 15, rotate: 0 },
-  unanswered: { x: 5, y: 55, rotate: -5 }
+  unanswered: { x: 5, y: 55, rotate: -5 },
+  default: { x: 0, y: 0, rotate: 0 }
 }
-// TODO
-// cool v view on end
-// better vis unanswered hiding
-// last card?
+
 export const addPositionsForOngoingPractice = (
   cards: Omit<CardVM, 'position'>[],
   guessState: GuessState,
   hostDimension: Dimension
 ): CardVM[] => {
   return cards.map((card) => {
-    let { x, y, rotate } = cardBaseLayout[card.state]
+    let { x, y, rotate } =
+      card.offsetToActive === 0 ? cardBaseLayout['default'] : cardBaseLayout[card.guess]
 
+    // make it look like real stacks
     if (card.offsetToActive !== 0) {
       rotate = rotate + rotationFromCard(card.card)
     }
 
-    if (card.offsetToActive < 0 && guessState === 'voting') {
+    if (card.offsetToActive === 0 && guessState === 'guessing') {
+      y = 20
+    } else if (card.offsetToActive === -1 && guessState === 'voting') {
       y = y + 35
     } else if (card.offsetToActive < -1) {
       y = y + 40
     }
+
     return {
       ...card,
-      position: toRelPercent({ x, y, rotate }, hostDimension)
+      position: { x, y, rotate }
     }
   })
 }

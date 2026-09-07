@@ -7,7 +7,8 @@ import {
   DOCUMENT,
   ElementRef,
   inject,
-  linkedSignal
+  linkedSignal,
+  signal
 } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NgIcon } from '@ng-icons/core'
@@ -24,8 +25,7 @@ import { ActivePracticeSummary } from '../practice-summary-card/practice-summary
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
 import {
   addPositionsForDonePractice,
-  addPositionsForOngoingPractice,
-  cardBaseLayout
+  addPositionsForOngoingPractice
 } from './swiper-position-utils'
 import { createSummary } from './swiper-utils'
 
@@ -33,8 +33,6 @@ type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
   summary: ActivePracticeSummary
 }
-
-export type CardState = 'activeHidden' | 'activeRevealed' | Guess
 
 type VMStats = {
   wrong: number
@@ -45,10 +43,7 @@ type VMStats = {
 export type CardVM = {
   card: UserLearnable
   guess: Guess
-  state: CardState
-  index: number
   offsetToActive: number
-  position: CardPosition
 }
 
 export type Position = {
@@ -80,7 +75,8 @@ export type Dimension = {
   styleUrl: './swiper.scss',
   host: {
     '[attr.casted-guess]': 'castedGuess()',
-    '[attr.guess-state]': 'guessState()'
+    '[attr.guess-state]': 'guessState()',
+    '[class.swiping]': 'swiping()'
   }
 })
 export class Swiper {
@@ -94,7 +90,7 @@ export class Swiper {
   // Animation related -------------------------------------------
 
   private readonly VOTE_THRESHOLD = 150
-  private swiping = false
+  protected swiping = signal(false)
 
   // Position of activeCard -> will be synced to active card
   position: Position = {
@@ -157,13 +153,11 @@ export class Swiper {
       if (!card) return
 
       const offsetToActive = practice.guessableIndex - index
-      const cardState = this.getCardState(offsetToActive, guessState, guessable.guess)
 
       cardVMs.push({
         card,
-        index,
+
         offsetToActive,
-        state: cardState,
         guess: guessable.guess
       })
     })
@@ -204,27 +198,27 @@ export class Swiper {
 
     // Sets ref to active card when a the viewmodel holding it changes
     afterRenderEffect(() => {
-      this.swipeableRef = this.hostEl.querySelector<HTMLDivElement>(
-        `[card-index="${this.vm()?.guessableIndex ?? 0}"]`
-      )
+      this.vm()
+      this.swipeableRef = this.hostEl.querySelector<HTMLDivElement>(`[card-offset-to-active="0"]`)
     })
   }
 
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     console.log('down')
-    if (!this.swiping && this.guessState() === 'voting') {
-      this.swiping = true
+    if (!this.swiping() && this.guessState() === 'voting') {
+      this.swiping.set(true)
       this.hostEl.setPointerCapture(ev.pointerId)
       this.syncCardPosToLocalPos()
       // manually add and remove class instead of angulaar template binding
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
-      this.hostEl.classList.add('swiping')
+      // this.hostEl.classList.add('swiping')
     }
   }
 
   private pointerMove = (ev: PointerEvent) => {
-    if (this.swiping && this.guessState() === 'voting' && this.swipeableRef) {
+    const dim = this.hostDimension()
+    if (this.swiping() && this.guessState() === 'voting' && this.swipeableRef && dim) {
       const newPos = {
         x: this.position.x + ev.movementX,
         y: this.position.y + ev.movementY
@@ -237,15 +231,14 @@ export class Swiper {
   private pointerUp = (ev: PointerEvent) => {
     console.log('up')
     const guessState = this.guessState()
-    if (this.swiping && guessState === 'voting') {
-      this.swiping = false
+    if (this.swiping() && guessState === 'voting') {
+      this.swiping.set(false)
       this.hostEl.releasePointerCapture(ev.pointerId)
       this.countGuessIfThreshold()
 
       // manually add and remove class instead of angulaar template binding
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
-      this.hostEl.classList.remove('swiping')
-      this.setPosition(cardBaseLayout.activeRevealed)
+      // this.hostEl.classList.remove('swiping')
     } else if (guessState === 'guessing') {
       this.guessState.set('voting')
     }
@@ -269,11 +262,9 @@ export class Swiper {
   // DANGER: High freqnecy call rate, manipulation can have a high performance and lerp smoothness impact
   private setPosition(pos: Position) {
     this.position = pos
-    if (!this.swipeableRef) return
-    this.swipeableRef.style.setProperty('--x', `${pos.x}px`)
-    this.swipeableRef.style.setProperty('--y', `${pos.y}px`)
-    // fake rotation coming from card sticking to swiping thumb of user
-    this.swipeableRef.style.setProperty('--rotate', `${pos.x * 0.02}deg`)
+    this.hostEl.style.setProperty('--x', `${pos.x}px`)
+    this.hostEl.style.setProperty('--y', `${pos.y}px`)
+    this.hostEl.style.setProperty('--rotate', `${pos.x * 0.02}deg`)
   }
 
   finish() {
@@ -315,19 +306,6 @@ export class Swiper {
     } else {
       return 'unanswered'
     }
-  }
-
-  private getCardState(offset: number, guessState: GuessState, guess: Guess): CardState {
-    if (guess === 'right') {
-      return 'right'
-    } else if (guess === 'wrong') {
-      return 'wrong'
-    } else if (offset === 0 && guessState === 'guessing') {
-      return 'activeHidden'
-    } else if (offset === 0 && guessState === 'voting') {
-      return 'activeRevealed'
-    }
-    return 'unanswered'
   }
 
   private syncCardPosToLocalPos() {
