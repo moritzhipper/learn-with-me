@@ -91,7 +91,7 @@ liz-swiper-summary {
       color: transparent;
       border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
 
-      &:is([card-state='activeShown'], [card-state='activeHidden']) {
+      &:is([card-state='activeRevealed'], [card-state='activeHidden']) {
         background-color: var(--col-accent);
         color: var(--col-text);
         box-shadow: var(--shadow-big);
@@ -100,7 +100,7 @@ liz-swiper-summary {
       &[card-state='unansweredHidden'] {
         box-shadow: var(--shadow-big);
       }
-      &[card-state='unansweredShown'] {
+      &[card-state='unansweredRevealed'] {
         box-shadow: var(--shadow-bigger);
       }
     }
@@ -124,7 +124,7 @@ liz-swiper-summary {
   &.swiping {
     cursor: grabbing;
 
-    .card[card-state='activeShown'] {
+    .card[card-state='activeRevealed'] {
       transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
 
@@ -148,7 +148,6 @@ liz-swiper-summary {
   &[guess-state='done'] {
     .card {
       color: transparent;
-
       background-color: var(--col-bg);
 
       &[card-state='unanswered'] {

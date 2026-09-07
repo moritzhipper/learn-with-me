@@ -1,14 +1,12 @@
 import { UserLearnable } from '@shared/types'
-import { CardPosition, CardState, CardVM, Dimension } from './swiper'
+import { CardPosition, CardState, CardVM, Dimension, GuessState } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
-  right: { x: 120, y: 20, rotate: 15 },
-  wrong: { x: -120, y: 20, rotate: -15 },
-  activeShown: { x: 0, y: 0, rotate: 0 },
+  right: { x: 130, y: 20, rotate: 15 },
+  wrong: { x: -130, y: 20, rotate: -15 },
+  activeRevealed: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
-  unansweredHidden: { x: 5, y: 50, rotate: -8 },
-  unansweredShown: { x: 5, y: 90, rotate: -14 },
-  unanswered: { x: 10, y: 95, rotate: -5 }
+  unanswered: { x: 5, y: 55, rotate: -5 }
 }
 // TODO
 // cool v view on end
@@ -16,26 +14,25 @@ export const cardBaseLayout: Record<CardState, CardPosition> = {
 // last card?
 export const addPositionsForOngoingPractice = (
   cards: Omit<CardVM, 'position'>[],
+  guessState: GuessState,
   hostDimension: Dimension
 ): CardVM[] => {
   return cards.map((card) => {
-    let position: CardPosition = cardBaseLayout.unanswered
-    const stackedStates: CardState[] = ['right', 'wrong', 'unanswered']
+    let { x, y, rotate } = cardBaseLayout[card.state]
 
-    if (stackedStates.includes(card.state)) {
-      const { x, y, rotate } = cardBaseLayout[card.state]
-      position = {
-        x,
-        y,
-        rotate: rotate + rotationFromCard(card.card)
-      }
-    } else {
-      position = cardBaseLayout[card.state]
+    if (card.offsetToActive !== 0) {
+      rotate = rotate + rotationFromCard(card.card)
     }
-
+    if (card.offsetToActive < 0) {
+      if (guessState === 'voting') {
+        y = y + 35
+      } else if (card.offsetToActive < -1) {
+        y = y + 40
+      }
+    }
     return {
       ...card,
-      position: toRelPercent(position, hostDimension)
+      position: toRelPercent({ x, y, rotate }, hostDimension)
     }
   })
 }

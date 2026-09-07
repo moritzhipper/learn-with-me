@@ -34,8 +34,7 @@ type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   summary: ActivePracticeSummary
 }
 
-export type CardState =
-  'activeHidden' | 'activeShown' | 'unansweredShown' | 'unansweredHidden' | Guess
+export type CardState = 'activeHidden' | 'activeRevealed' | Guess
 
 type VMStats = {
   wrong: number
@@ -48,6 +47,7 @@ export type CardVM = {
   guess: Guess
   state: CardState
   index: number
+  offsetToActive: number
   position: CardPosition
 }
 
@@ -156,13 +156,13 @@ export class Swiper {
       const card = cards.find((c) => c.id === guessable.id)
       if (!card) return
 
-      const offset = practice.guessableIndex - index
-      const cardState = this.getCardState(offset, guessState, guessable.guess)
+      const offsetToActive = practice.guessableIndex - index
+      const cardState = this.getCardState(offsetToActive, guessState, guessable.guess)
 
       cardVMs.push({
         card,
         index,
-
+        offsetToActive,
         state: cardState,
         guess: guessable.guess
       })
@@ -171,7 +171,7 @@ export class Swiper {
     const cardsVMPos =
       guessState === 'done'
         ? addPositionsForDonePractice(cardVMs, hostDim)
-        : addPositionsForOngoingPractice(cardVMs, hostDim)
+        : addPositionsForOngoingPractice(cardVMs, guessState, hostDim)
 
     return {
       cardVMs: cardsVMPos,
@@ -215,8 +215,8 @@ export class Swiper {
     console.log('down')
     if (!this.swiping && this.guessState() === 'voting') {
       this.swiping = true
-      this.syncCardPosToLocalPos()
       this.hostEl.setPointerCapture(ev.pointerId)
+      this.syncCardPosToLocalPos()
       // manually add and remove class instead of angulaar template binding
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.add('swiping')
@@ -245,7 +245,7 @@ export class Swiper {
       // manually add and remove class instead of angulaar template binding
       // because timing and order matters and is hard to sync with mixed vanilla / ng approach
       this.hostEl.classList.remove('swiping')
-      this.setPosition(cardBaseLayout.activeShown)
+      this.setPosition(cardBaseLayout.activeRevealed)
     } else if (guessState === 'guessing') {
       this.guessState.set('voting')
     }
@@ -325,11 +325,7 @@ export class Swiper {
     } else if (offset === 0 && guessState === 'guessing') {
       return 'activeHidden'
     } else if (offset === 0 && guessState === 'voting') {
-      return 'activeShown'
-    } else if (offset === -1 && guessState === 'voting') {
-      return 'unansweredShown'
-    } else if (offset === -1 && guessState === 'guessing') {
-      return 'unansweredHidden'
+      return 'activeRevealed'
     }
     return 'unanswered'
   }

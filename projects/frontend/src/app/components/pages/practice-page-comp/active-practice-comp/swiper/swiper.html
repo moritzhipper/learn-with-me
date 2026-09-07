@@ -9,6 +9,7 @@
       [style.--rotate.deg]="cardVM.position.rotate"
     >
       <p class="bold size-3">
+        {{ cardVM.offsetToActive }}
         {{ cardVM.card.lexeme }}
       </p>
       <p class="italic size-3">
@@ -24,11 +25,13 @@
       <liz-swiper-summary #animItem [summary]="vm.summary" />
 
       <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
-      <div class="nav finalize" #animItem>
+      <div class="nav finalize continue" #animItem>
         <button class="big" (click)="finish()" #animItem>Finish</button>
-        <button class="big primary has-icon" #animItem>
-          Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
-        </button>
+        @if (vm.summary.rating !== 'excellent') {
+          <button class="big primary has-icon" #animItem>
+            Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
+          </button>
+        }
       </div>
     </ng-container>
   } @else {
