@@ -23,12 +23,11 @@ export const addPositionsForOngoingPractice = (
     if (card.offsetToActive !== 0) {
       rotate = rotate + rotationFromCard(card.card)
     }
-    if (card.offsetToActive < 0) {
-      if (guessState === 'voting') {
-        y = y + 35
-      } else if (card.offsetToActive < -1) {
-        y = y + 40
-      }
+
+    if (card.offsetToActive < 0 && guessState === 'voting') {
+      y = y + 35
+    } else if (card.offsetToActive < -1) {
+      y = y + 40
     }
     return {
       ...card,
