@@ -2,8 +2,8 @@ import { UserLearnable } from '@shared/types'
 import { CardPosition, CardState, CardVM, Dimension } from './swiper'
 
 export const cardBaseLayout: Record<CardState, CardPosition> = {
-  right: { x: 120, y: 20, rotate: 5 },
-  wrong: { x: -120, y: 20, rotate: -5 },
+  right: { x: 120, y: 20, rotate: 15 },
+  wrong: { x: -120, y: 20, rotate: -15 },
   activeShown: { x: 0, y: 0, rotate: 0 },
   activeHidden: { x: 0, y: 15, rotate: 0 },
   unansweredHidden: { x: 5, y: 50, rotate: -8 },
@@ -44,17 +44,16 @@ export const addPositionsForDonePractice = (
   cards: Omit<CardVM, 'position'>[],
   hostDimension: Dimension
 ): CardVM[] => {
-  const MAX_ROTATION = 20
-  const MAX_X_OFFSET = 50
+  const MAX_ROTATION = 60
+  const MAX_X_OFFSET = 35
 
   const len = cards.length
-  const isOdd = len % 2
 
   const leftSideCardsCount = Math.ceil(len / 2)
   const rightSideCardsCount = len - leftSideCardsCount
 
-  const leftStepSizeY = 100 / leftSideCardsCount
-  const rightStepSizeY = 100 / rightSideCardsCount
+  const leftStepSizeY = 55 / leftSideCardsCount
+  const rightStepSizeY = 55 / rightSideCardsCount
 
   const leftStepSizeRotation = (MAX_ROTATION / leftSideCardsCount) * -1
   const rightStepSizeRotation = MAX_ROTATION / rightSideCardsCount
@@ -76,14 +75,14 @@ export const addPositionsForDonePractice = (
       position = {
         x: -100 + leftIndex * leftStepSizeX,
         y: leftIndex * leftStepSizeY,
-        rotate: 0 + leftIndex * leftStepSizeRotation
+        rotate: 3 + leftIndex * leftStepSizeRotation
       }
       leftIndex += 1
     } else {
       position = {
         x: 100 - rightIndex * rightStepSizeX,
         y: rightIndex * rightStepSizeY,
-        rotate: -0 + rightIndex * rightStepSizeRotation
+        rotate: -3 + rightIndex * rightStepSizeRotation
       }
       rightIndex += 1
     }

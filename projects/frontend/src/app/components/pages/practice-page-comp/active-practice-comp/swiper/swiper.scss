@@ -65,10 +65,6 @@ ng-icon.vote {
   grid-template-columns: 1fr 2fr;
   z-index: 10;
 
-  p {
-    grid-column: span 2;
-  }
-
   button {
     box-shadow: var(--shadow-big);
   }
@@ -159,11 +155,12 @@ liz-swiper-summary {
         border: 1px solid var(--col-accent);
       }
       &[card-state='right'] {
-        opacity: var(--opacity-0);
         border: 1px solid var(--col-success);
+        background-color: var(--col-success);
       }
       &[card-state='wrong'] {
         border: 1px solid var(--col-warning);
+        background-color: var(--col-warning);
       }
     }
   }
