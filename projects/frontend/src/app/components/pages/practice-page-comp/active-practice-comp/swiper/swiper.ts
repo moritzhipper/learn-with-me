@@ -169,8 +169,8 @@ export class Swiper {
     console.log('down')
 
     if (this.guessState() !== 'done') {
-      this.guessState.set('voting')
       this.hostEl.setPointerCapture(ev.pointerId)
+      this.guessState.set('voting')
       this.swiping = true
       this.setPosition(this.cardPosition)
       this.hostEl.classList.add('swiping')
@@ -190,13 +190,12 @@ export class Swiper {
 
   private pointerUp = (ev: PointerEvent) => {
     console.log('up')
-    const guessState = this.guessState()
-    if (this.swiping && guessState === 'voting') {
+    if (this.swiping && this.guessState() === 'voting') {
       this.swiping = false
       this.hostEl.releasePointerCapture(ev.pointerId)
       this.countGuessIfThreshold()
       this.hostEl.classList.remove('swiping')
-      this.resetPosition()
+      this.setPosition({ x: 0, y: 0 })
     }
   }
 
@@ -217,12 +216,6 @@ export class Swiper {
     this.hostEl.style.setProperty('--x', `${pos.x}px`)
     this.hostEl.style.setProperty('--y', `${pos.y}px`)
     this.hostEl.style.setProperty('--rotate', `${pos.x * 0.04}deg`)
-  }
-
-  private resetPosition() {
-    this.hostEl.style.setProperty('--x', '0px')
-    this.hostEl.style.setProperty('--y', '0px')
-    this.hostEl.style.setProperty('--rotate', '0px')
   }
 
   finish() {

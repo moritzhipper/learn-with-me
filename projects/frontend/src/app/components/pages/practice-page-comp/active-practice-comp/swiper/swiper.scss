@@ -79,7 +79,7 @@ liz-swiper-summary {
   .card {
     transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
-    transition-duration: var(--duration-3);
+    transition-duration: var(--duration-2);
 
     will-change: transform;
 
@@ -145,10 +145,10 @@ liz-swiper-summary {
   }
 
   [guess='right'] {
-    transform: translate(130%, 90%) rotate(15deg);
+    transform: translate(130%, 80%) rotate(15deg);
   }
   [guess='wrong'] {
-    transform: translate(-130%, 90%) rotate(-15deg);
+    transform: translate(-130%, 80%) rotate(-15deg);
   }
   [guess='unanswered'] {
     &[offset-to-active='-2'] {
@@ -180,6 +180,13 @@ liz-swiper-summary {
     ng-icon.wrong {
       opacity: var(--opacity-1);
       transform: translateX(0px);
+    }
+  }
+
+  &[casted-guess='wrong'],
+  &[casted-guess='right'] {
+    [offset-to-active='-1'] {
+      transform: translate(0%, 85%) rotate(-2deg);
     }
   }
 
