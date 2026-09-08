@@ -1,19 +1,15 @@
 import {
   afterNextRender,
-  afterRenderEffect,
   Component,
   computed,
   DestroyRef,
   DOCUMENT,
   ElementRef,
   inject,
-  linkedSignal,
-  signal
+  linkedSignal
 } from '@angular/core'
-import { toSignal } from '@angular/core/rxjs-interop'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
-import { debounceTime, map, Subject } from 'rxjs'
 import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
 import {
   correctAnswerIcon,
@@ -23,10 +19,6 @@ import {
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
-import {
-  addPositionsForDonePractice,
-  addPositionsForOngoingPractice
-} from './swiper-position-utils'
 import { createSummary } from './swiper-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
@@ -75,8 +67,7 @@ export type Dimension = {
   styleUrl: './swiper.scss',
   host: {
     '[attr.casted-guess]': 'castedGuess()',
-    '[attr.guess-state]': 'guessState()',
-    '[class.swiping]': 'swiping()'
+    '[attr.guess-state]': 'guessState()'
   }
 })
 export class Swiper {
@@ -89,8 +80,8 @@ export class Swiper {
 
   // Animation related -------------------------------------------
 
-  private readonly VOTE_THRESHOLD = 150
-  protected swiping = signal(false)
+  private readonly VOTE_THRESHOLD = 100
+  protected swiping = false
 
   // Position of activeCard -> will be synced to active card
   position: Position = {
@@ -101,7 +92,6 @@ export class Swiper {
   private readonly hostEl = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
   private readonly window = inject(DOCUMENT).defaultView
   private destroyRef = inject(DestroyRef)
-  protected swipeableRef: HTMLDivElement | null = null
 
   // Component state related -------------------------------------------
 
@@ -121,22 +111,9 @@ export class Swiper {
     }
   })
 
-  // Signal / rerender friendly approach to provide the host dimensions reactively
-  private readonly calcDimSubj$ = new Subject<void>()
-  protected hostDimension = toSignal(
-    this.calcDimSubj$.pipe(
-      debounceTime(100),
-      map(() => ({
-        width: this.hostEl.clientWidth,
-        height: this.hostEl.clientHeight
-      }))
-    )
-  )
-
   vm = computed<PracticeVM | undefined>(() => {
     const practice = this.practice()
-    const hostDim = this.hostDimension()
-    if (!practice || !hostDim) return
+    if (!practice) return
 
     const cards = this.ls.activeBank().learnables
     let cardVMs: Omit<CardVM, 'position'>[] = []
@@ -156,19 +133,13 @@ export class Swiper {
 
       cardVMs.push({
         card,
-
         offsetToActive,
         guess: guessable.guess
       })
     })
 
-    const cardsVMPos =
-      guessState === 'done'
-        ? addPositionsForDonePractice(cardVMs, hostDim)
-        : addPositionsForOngoingPractice(cardVMs, guessState, hostDim)
-
     return {
-      cardVMs: cardsVMPos,
+      cardVMs,
       guessableField: practice.guessableField,
       guessableIndex: practice.guessableIndex,
       summary: createSummary(practice)
@@ -181,10 +152,7 @@ export class Swiper {
       this.hostEl.addEventListener('pointermove', this.pointerMove)
       this.hostEl.addEventListener('pointerdown', this.pointerDown)
 
-      this.window?.addEventListener('resize', this.resize)
       this.window?.addEventListener('keydown', this.keydown)
-
-      this.calcDimSubj$.next()
     })
 
     this.destroyRef.onDestroy(() => {
@@ -192,33 +160,25 @@ export class Swiper {
       this.hostEl.removeEventListener('pointermove', this.pointerMove)
       this.hostEl.removeEventListener('pointerdown', this.pointerDown)
 
-      this.window?.removeEventListener('resize', this.resize)
       this.window?.removeEventListener('keydown', this.keydown)
-    })
-
-    // Sets ref to active card when a the viewmodel holding it changes
-    afterRenderEffect(() => {
-      this.vm()
-      this.swipeableRef = this.hostEl.querySelector<HTMLDivElement>(`[card-offset-to-active="0"]`)
     })
   }
 
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     console.log('down')
-    if (!this.swiping() && this.guessState() === 'voting') {
-      this.swiping.set(true)
+
+    if (this.guessState() !== 'done') {
+      this.guessState.set('voting')
       this.hostEl.setPointerCapture(ev.pointerId)
-      this.syncCardPosToLocalPos()
-      // manually add and remove class instead of angulaar template binding
-      // because timing and order matters and is hard to sync with mixed vanilla / ng approach
-      // this.hostEl.classList.add('swiping')
+      this.swiping = true
+      this.setPosition(this.cardPosition)
+      this.hostEl.classList.add('swiping')
     }
   }
 
   private pointerMove = (ev: PointerEvent) => {
-    const dim = this.hostDimension()
-    if (this.swiping() && this.guessState() === 'voting' && this.swipeableRef && dim) {
+    if (this.swiping && this.guessState() === 'voting') {
       const newPos = {
         x: this.position.x + ev.movementX,
         y: this.position.y + ev.movementY
@@ -231,16 +191,12 @@ export class Swiper {
   private pointerUp = (ev: PointerEvent) => {
     console.log('up')
     const guessState = this.guessState()
-    if (this.swiping() && guessState === 'voting') {
-      this.swiping.set(false)
+    if (this.swiping && guessState === 'voting') {
+      this.swiping = false
       this.hostEl.releasePointerCapture(ev.pointerId)
       this.countGuessIfThreshold()
-
-      // manually add and remove class instead of angulaar template binding
-      // because timing and order matters and is hard to sync with mixed vanilla / ng approach
-      // this.hostEl.classList.remove('swiping')
-    } else if (guessState === 'guessing') {
-      this.guessState.set('voting')
+      this.hostEl.classList.remove('swiping')
+      this.resetPosition()
     }
   }
 
@@ -255,16 +211,18 @@ export class Swiper {
     }
   }
 
-  private resize = () => {
-    this.calcDimSubj$.next()
-  }
-
   // DANGER: High freqnecy call rate, manipulation can have a high performance and lerp smoothness impact
   private setPosition(pos: Position) {
     this.position = pos
     this.hostEl.style.setProperty('--x', `${pos.x}px`)
     this.hostEl.style.setProperty('--y', `${pos.y}px`)
-    this.hostEl.style.setProperty('--rotate', `${pos.x * 0.02}deg`)
+    this.hostEl.style.setProperty('--rotate', `${pos.x * 0.04}deg`)
+  }
+
+  private resetPosition() {
+    this.hostEl.style.setProperty('--x', '0px')
+    this.hostEl.style.setProperty('--y', '0px')
+    this.hostEl.style.setProperty('--rotate', '0px')
   }
 
   finish() {
@@ -308,12 +266,15 @@ export class Swiper {
     }
   }
 
-  private syncCardPosToLocalPos() {
-    if (this.swipeableRef) {
-      const transform = getComputedStyle(this.swipeableRef).transform
+  private get cardPosition(): Position {
+    const ref = this.hostEl.querySelector<HTMLDivElement>(`[offset-to-active="0"]`)
+    if (ref) {
+      const transform = getComputedStyle(ref).transform
       const matrix = new DOMMatrixReadOnly(transform)
       // e and f are indexes of transform translate x and y
-      this.setPosition({ x: matrix.e, y: matrix.f })
+      return { x: matrix.e, y: matrix.f }
     }
+
+    return { x: 0, y: 0 }
   }
 }

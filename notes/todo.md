@@ -4,6 +4,8 @@
 
 - only put cardGuess on card state -> remove active, replace with offset
   - rename state to guess
+
+- detach swipeable ref -> only use in sync function directly
 - dont work with pixels -> work with %, recalculate px / perc multi on refresh
 - put layout generally in css with percent base
 - movement applies x y to host

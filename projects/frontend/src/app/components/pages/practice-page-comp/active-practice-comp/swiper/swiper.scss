@@ -112,6 +112,7 @@ liz-swiper-summary {
       border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
 
       &[offset-to-active='0'] {
+        box-shadow: var(--shadow-bigger);
         background-color: var(--col-accent);
         color: var(--col-text);
         border: 1px solid var(--col-accent);
@@ -120,39 +121,26 @@ liz-swiper-summary {
   }
 
   &[guess-state='guessing'] {
-    [offset-to-active='0'] {
-      box-shadow: var(--shadow-big);
-    }
     [offset-to-active='-1'] {
       box-shadow: var(--shadow-big);
     }
-
-    [guess='unanswered'] {
-      &[offset-to-active='0'] {
-        transform: translate(0%, 20%);
-      }
-      &[offset-to-active='-1'] {
-        transform: translate(0%, 65%);
-      }
+    [offset-to-active='0'] {
+      transform: translate(0%, 30%);
+    }
+    [offset-to-active='-1'] {
+      transform: translate(0%, 75%) rotate(-4deg);
     }
   }
 
   &[guess-state='voting'] {
-    [offset-to-active='0'] {
-      box-shadow: var(--shadow-bigger);
-    }
-
     [offset-to-active='-1'] {
       box-shadow: var(--shadow-bigger);
     }
-
-    [guess='unanswered'] {
-      &[offset-to-active='0'] {
-        transform: translate(0%, 0%);
-      }
-      &[offset-to-active='-1'] {
-        transform: translate(0%, 90%) rotate(2deg);
-      }
+    [offset-to-active='0'] {
+      transform: translate(0%, 0%);
+    }
+    [offset-to-active='-1'] {
+      transform: translate(0%, 90%) rotate(-2deg);
     }
   }
 
