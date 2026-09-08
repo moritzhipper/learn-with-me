@@ -111,7 +111,7 @@ liz-swiper-summary {
       color: transparent;
       border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
 
-      &[card-offset-to-active='0'] {
+      &[offset-to-active='0'] {
         background-color: var(--col-accent);
         color: var(--col-text);
         border: 1px solid var(--col-accent);
@@ -120,59 +120,61 @@ liz-swiper-summary {
   }
 
   &[guess-state='guessing'] {
-    [card-offset-to-active='0'] {
+    [offset-to-active='0'] {
       box-shadow: var(--shadow-big);
     }
-    [card-offset-to-active='-1'] {
+    [offset-to-active='-1'] {
       box-shadow: var(--shadow-big);
     }
 
     [guess='unanswered'] {
-      &[card-offset-to-active='0'] {
+      &[offset-to-active='0'] {
         transform: translate(0%, 20%);
       }
-      &[card-offset-to-active='-1'] {
-        transform: translate(0%, 70%);
-      }
-      &:not([card-offset-to-active='0'], [card-offset-to-active='-1']) {
-        transform: translate(0%, 95%);
+      &[offset-to-active='-1'] {
+        transform: translate(0%, 65%);
       }
     }
   }
 
   &[guess-state='voting'] {
-    [card-offset-to-active='0'] {
+    [offset-to-active='0'] {
       box-shadow: var(--shadow-bigger);
     }
 
-    [card-offset-to-active='-1'] {
+    [offset-to-active='-1'] {
       box-shadow: var(--shadow-bigger);
     }
 
     [guess='unanswered'] {
-      &[card-offset-to-active='0'] {
+      &[offset-to-active='0'] {
         transform: translate(0%, 0%);
       }
-      &[card-offset-to-active='-1'] {
-        transform: translate(0%, 80%);
-      }
-      &:not([card-offset-to-active='0'], [card-offset-to-active='-1']) {
-        transform: translate(0%, 95%);
+      &[offset-to-active='-1'] {
+        transform: translate(0%, 90%) rotate(2deg);
       }
     }
   }
 
   [guess='right'] {
-    transform: translate(110%, 90%) rotate(15deg);
+    transform: translate(130%, 90%) rotate(15deg);
   }
   [guess='wrong'] {
-    transform: translate(-110%, 90%) rotate(-15deg);
+    transform: translate(-130%, 90%) rotate(-15deg);
+  }
+  [guess='unanswered'] {
+    &[offset-to-active='-2'] {
+      transform: translate(0%, 125%) rotate(1deg);
+    }
+    &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
+      transform: translate(0%, 130%) rotate(-2deg);
+    }
   }
 
   &.swiping {
     cursor: grabbing;
 
-    .card[card-offset-to-active='0'] {
+    .card[offset-to-active='0'] {
       transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
       box-shadow: var(--shadow-bigger);

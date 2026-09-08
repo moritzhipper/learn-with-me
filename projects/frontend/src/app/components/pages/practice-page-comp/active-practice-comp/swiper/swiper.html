@@ -1,10 +1,6 @@
 @if (vm(); as vm) {
   @for (cardVM of vm.cardVMs; track cardVM.card.id) {
-    <div
-      class="card"
-      [attr.guess]="cardVM.guess"
-      [attr.card-offset-to-active]="cardVM.offsetToActive"
-    >
+    <div class="card" [attr.guess]="cardVM.guess" [attr.offset-to-active]="cardVM.offsetToActive">
       <p class="bold size-3">
         {{ cardVM.card.lexeme }}
       </p>
