@@ -79,7 +79,7 @@ liz-swiper-summary {
   .card {
     transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
-    transition-duration: var(--duration-2);
+    transition-duration: var(--duration-3);
 
     will-change: transform;
 
@@ -162,7 +162,7 @@ liz-swiper-summary {
   &.swiping {
     cursor: grabbing;
 
-    .card[offset-to-active='0'] {
+    [offset-to-active='0'] {
       transition-property: box-shadow, background-color;
       transition-duration: var(--duration-0);
       box-shadow: var(--shadow-bigger);
