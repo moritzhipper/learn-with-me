@@ -1,3 +1,5 @@
+@use '../../../../../../style/mixins' as *;
+
 :host {
   position: relative;
   touch-action: none;
@@ -79,7 +81,7 @@ liz-swiper-summary {
   .card {
     transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
-    transition-duration: var(--duration-3);
+    transition-duration: var(--duration-2);
 
     will-change: transform;
 
@@ -90,7 +92,7 @@ liz-swiper-summary {
 
   ng-icon.vote {
     transition-property: opacity, transform;
-    transition-duration: var(--duration-0);
+    transition-duration: var(--duration-1);
     transition-timing-function: var(--soft-ease);
     will-change: transform;
 
@@ -104,20 +106,25 @@ liz-swiper-summary {
     }
   }
 
-  &[guess-state='voting'],
-  &[guess-state='guessing'] {
-    .card {
-      background-color: var(--col-bg);
-      color: transparent;
-      border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
+  [guess='right'] {
+    transform: translate(120%, 100%) rotate(15deg);
+  }
 
-      &[offset-to-active='0'] {
-        box-shadow: var(--shadow-bigger);
-        background-color: var(--col-accent);
-        color: var(--col-text);
-        border: 1px solid var(--col-accent);
-      }
-    }
+  [guess='wrong'] {
+    transform: translate(-120%, 100%) rotate(-15deg);
+  }
+
+  [offset-to-active='0'] {
+    box-shadow: var(--shadow-bigger);
+    background-color: var(--col-accent);
+    border: 1px solid var(--col-accent);
+    color: var(--col-text);
+  }
+
+  .card:not([offset-to-active='0']) {
+    background-color: var(--col-bg);
+    color: transparent;
+    border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
   }
 
   &[guess-state='guessing'] {
@@ -144,12 +151,6 @@ liz-swiper-summary {
     }
   }
 
-  [guess='right'] {
-    transform: translate(130%, 80%) rotate(15deg);
-  }
-  [guess='wrong'] {
-    transform: translate(-130%, 80%) rotate(-15deg);
-  }
   [guess='unanswered'] {
     &[offset-to-active='-2'] {
       transform: translate(0%, 125%) rotate(1deg);
@@ -186,7 +187,7 @@ liz-swiper-summary {
   &[casted-guess='wrong'],
   &[casted-guess='right'] {
     [offset-to-active='-1'] {
-      transform: translate(0%, 85%) rotate(-2deg);
+      transform: translate(0%, 80%) rotate(-4deg);
     }
   }
 
