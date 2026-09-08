@@ -108,23 +108,28 @@ liz-swiper-summary {
 
   [guess='right'] {
     transform: translate(120%, 100%) rotate(15deg);
+    border: 1px solid rgba(from var(--col-success) r g b / var(--opacity-0));
   }
 
   [guess='wrong'] {
     transform: translate(-120%, 100%) rotate(-15deg);
+    border: 1px solid rgba(from var(--col-warning) r g b / var(--opacity-0));
   }
 
-  [offset-to-active='0'] {
-    box-shadow: var(--shadow-bigger);
-    background-color: var(--col-accent);
-    border: 1px solid var(--col-accent);
-    color: var(--col-text);
+  [guess='unanswered'] {
+    &[offset-to-active='0'] {
+      box-shadow: var(--shadow-bigger);
+      background-color: var(--col-accent);
+      border: 1px solid var(--col-accent);
+      color: var(--col-text);
+    }
+    &:not([offset-to-active='0']) {
+      border: 1px solid rgba(from var(--col-accent) r g b / var(--opacity-0));
+    }
   }
-
   .card:not([offset-to-active='0']) {
-    background-color: var(--col-bg);
     color: transparent;
-    border: 1px solid rgba(from var(--col-primary) r g b / var(--opacity-0));
+    background-color: var(--col-bg);
   }
 
   &[guess-state='guessing'] {
@@ -188,25 +193,6 @@ liz-swiper-summary {
   &[casted-guess='right'] {
     [offset-to-active='-1'] {
       transform: translate(0%, 80%) rotate(-4deg);
-    }
-  }
-
-  &[guess-state='done'] {
-    .card {
-      color: transparent;
-      background-color: var(--col-bg);
-
-      &[card-state='unanswered'] {
-        border: 1px solid var(--col-accent);
-      }
-      &[card-state='right'] {
-        border: 1px solid var(--col-success);
-        background-color: var(--col-success);
-      }
-      &[card-state='wrong'] {
-        border: 1px solid var(--col-warning);
-        background-color: var(--col-warning);
-      }
     }
   }
 }
