@@ -1,11 +1,6 @@
 @if (vm(); as vm) {
   @for (cardVM of vm.cardVMs; track cardVM.card.id) {
-    <div
-      class="card"
-      [attr.guess]="cardVM.guess"
-      [attr.offset-to-active]="cardVM.offsetToActive"
-      [style.z-index]
-    >
+    <div class="card" [attr.guess]="cardVM.guess" [attr.offset-to-active]="cardVM.offsetToActive">
       <p class="bold size-3">
         {{ cardVM.card.lexeme }}
       </p>
@@ -14,6 +9,13 @@
       </p>
     </div>
   }
+  <div
+    class="card larry"
+    guess="unanswered"
+    [attr.offset-to-active]="vm.guessableIndex - vm.cardVMs.length"
+  >
+    <app-larry-big />
+  </div>
 
   <ng-icon [svg]="icons.incorrectAnswerIcon" class="vote wrong" />
   <ng-icon [svg]="icons.correctAnswerIcon" class="vote right" />

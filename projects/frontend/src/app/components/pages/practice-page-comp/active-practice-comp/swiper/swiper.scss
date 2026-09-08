@@ -53,11 +53,33 @@ ng-icon.vote {
   flex-direction: column;
   padding: var(--distance-1);
   place-self: stretch;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-radius: var(--radius-3);
   padding: var(--distance-5) var(--distance-6);
+  border-width: 2px;
+  border-style: solid;
+  overflow: hidden;
+  border-color: rgba(from var(--col-accent) r g b / var(--opacity-0));
+
+  &.larry {
+    app-larry-big {
+      justify-self: center;
+      align-self: start;
+      grid-row: span 2;
+
+      width: 100%;
+      overflow: hidden;
+      // height: 100%;
+      // aspect-ratio: ;
+      // aspect-ratio: 1 / 1;
+
+      color: rgba(from var(--col-accent) r g b / var(--opacity-0));
+    }
+  }
 }
 
 .nav.finalize {
@@ -81,7 +103,6 @@ liz-swiper-summary {
   .card {
     transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
     transition-timing-function: var(--soft-ease);
-    transition-duration: var(--duration-2);
 
     will-change: transform;
 
@@ -92,76 +113,88 @@ liz-swiper-summary {
 
   ng-icon.vote {
     transition-property: opacity, transform;
-    transition-duration: var(--duration-1);
+    transition-duration: var(--duration-0);
     transition-timing-function: var(--soft-ease);
     will-change: transform;
 
     opacity: 0;
 
     &.right {
-      transform: translateX(50px) scale(0.8) rotate(20deg);
+      transform: translateX(20px) scale(0.8) rotate(10deg);
     }
     &.wrong {
-      transform: translateX(-50px) scale(0.8) rotate(-20deg);
+      transform: translateX(-20px) scale(0.8) rotate(-10deg);
     }
   }
 
   [guess='right'] {
     transform: translate(120%, 100%) rotate(15deg);
-    border: 1px solid rgba(from var(--col-success) r g b / var(--opacity-0));
+    border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
   }
 
   [guess='wrong'] {
     transform: translate(-120%, 100%) rotate(-15deg);
-    border: 1px solid rgba(from var(--col-warning) r g b / var(--opacity-0));
+    border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
+  }
+  [guess='wrong'],
+  [guess='right'] {
+    transition-duration: 1s;
   }
 
-  [guess='unanswered'] {
-    &[offset-to-active='0'] {
-      box-shadow: var(--shadow-bigger);
-      background-color: var(--col-accent);
-      border: 1px solid var(--col-accent);
-      color: var(--col-text);
-    }
-    &:not([offset-to-active='0']) {
-      border: 1px solid rgba(from var(--col-accent) r g b / var(--opacity-0));
+  [guess='unanswered']:not([offset-to-active='0']) {
+  }
+
+  &[guess-state='voting'],
+  &[guess-state='guessing'] {
+    [guess='unanswered'] {
+      &[offset-to-active='0'] {
+        box-shadow: var(--shadow-bigger);
+        background-color: var(--col-accent);
+        border-color: var(--col-accent);
+        color: var(--col-text);
+      }
+      &[offset-to-active='-2'] {
+        transform: translate(0%, 125%) rotate(1deg);
+      }
+      &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
+        transform: translate(0%, 130%) rotate(-2deg);
+      }
     }
   }
+
   .card:not([offset-to-active='0']) {
     color: transparent;
     background-color: var(--col-bg);
   }
 
   &[guess-state='guessing'] {
-    [offset-to-active='-1'] {
-      box-shadow: var(--shadow-big);
-    }
     [offset-to-active='0'] {
       transform: translate(0%, 30%);
     }
     [offset-to-active='-1'] {
+      box-shadow: var(--shadow-big);
       transform: translate(0%, 75%) rotate(-4deg);
     }
   }
 
   &[guess-state='voting'] {
-    [offset-to-active='-1'] {
-      box-shadow: var(--shadow-bigger);
-    }
     [offset-to-active='0'] {
       transform: translate(0%, 0%);
     }
     [offset-to-active='-1'] {
+      box-shadow: var(--shadow-bigger);
       transform: translate(0%, 90%) rotate(-2deg);
     }
   }
 
-  [guess='unanswered'] {
-    &[offset-to-active='-2'] {
-      transform: translate(0%, 125%) rotate(1deg);
-    }
-    &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
-      transform: translate(0%, 130%) rotate(-2deg);
+  &[guess-state='done'] {
+    [guess='unanswered'] {
+      &:first-of-type {
+        transform: translate(0%, 100%) rotate(2deg);
+      }
+      &:not(:first-of-type) {
+        transform: translate(0%, 130%) rotate(-2deg);
+      }
     }
   }
 
@@ -179,13 +212,13 @@ liz-swiper-summary {
   &[casted-guess='right'] {
     ng-icon.right {
       opacity: var(--opacity-1);
-      transform: translateX(0px);
+      transform: translateX(-10px);
     }
   }
   &[casted-guess='wrong'] {
     ng-icon.wrong {
       opacity: var(--opacity-1);
-      transform: translateX(0px);
+      transform: translateX(10px);
     }
   }
 

@@ -17,6 +17,7 @@ import {
   practiceSpeedIcon
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
+import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
 import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
 import { SwiperSummary } from '../swiper-summary/swiper-summary'
 import { createSummary } from './swiper-utils'
@@ -62,7 +63,7 @@ export type Dimension = {
  */
 @Component({
   selector: 'liz-swiper',
-  imports: [NgIcon, SwiperSummary, AnimDelayWrapper],
+  imports: [NgIcon, SwiperSummary, AnimDelayWrapper, LarryBig],
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {
