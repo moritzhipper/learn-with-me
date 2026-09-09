@@ -6,12 +6,14 @@ import {
   DOCUMENT,
   ElementRef,
   inject,
-  linkedSignal
+  linkedSignal,
+  signal
 } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
 import {
+  collapseIcon,
   correctAnswerIcon,
   incorrectAnswerIcon,
   practiceSpeedIcon
@@ -76,8 +78,11 @@ export class Swiper {
   protected icons = {
     incorrectAnswerIcon,
     correctAnswerIcon,
-    practiceSpeedIcon
+    practiceSpeedIcon,
+    collapseIcon
   }
+
+  protected navOpen = signal(false)
 
   // Animation related -------------------------------------------
 

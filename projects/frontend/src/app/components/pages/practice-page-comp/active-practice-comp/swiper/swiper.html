@@ -34,9 +34,14 @@
       </div>
     </ng-container>
   } @else {
-    <div class="nav ongoing">
-      <button (click)="finish()">finish</button>
-      <button (click)="giveUp()">give up</button>
+    <div class="nav ongoing" [class.open]="navOpen()">
+      <button class="silent collapse" (click)="navOpen.update((v) => !v)">
+        <ng-icon [svg]="icons.collapseIcon" />
+      </button>
+      <div class="wrapper">
+        <button class="big warning" (click)="giveUp()" [disabled]="!navOpen()">Give up</button>
+        <button class="big" (click)="finish()" [disabled]="!navOpen()">finish</button>
+      </div>
     </div>
   }
 }

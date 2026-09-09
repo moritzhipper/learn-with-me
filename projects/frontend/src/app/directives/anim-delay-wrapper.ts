@@ -27,6 +27,7 @@ export class AnimDelayWrapper {
         .forEach((item, i) => {
           const delay = this.mapToDelay(i, size, duration)
           item.style.setProperty('animation-delay', `${delay}s`)
+          item.style.setProperty('transition-delay', `${delay}s`)
 
           const applyClass = this.applyClass()
           if (applyClass) {

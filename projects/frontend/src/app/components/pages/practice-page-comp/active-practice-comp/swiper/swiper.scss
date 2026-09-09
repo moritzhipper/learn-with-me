@@ -77,16 +77,69 @@ ng-icon.vote {
 
 .nav {
   place-self: end stretch;
-  display: grid;
-  gap: var(--distance-4);
   z-index: 20;
-  button {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-4);
+
+  button.big {
     box-shadow: var(--shadow-big);
   }
-  &.finalize {
-    grid-template-columns: 1fr 2fr;
+
+  &.ongoing,
+  ng-icon,
+  button.big {
+    transition-duration: var(--duration-2);
+    transition-timing-function: var(--soft-ease);
   }
+
   &.ongoing {
+    transition-property: grid-template-rows;
+    grid-template-rows: auto 0fr;
+
+    button.collapse {
+      display: grid;
+      place-self: center;
+      grid-column: span 2;
+
+      ng-icon {
+        transition-property: rotate;
+        font-size: 42px;
+      }
+    }
+    button.big {
+      transition-property: translate, opacity;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--distance-4);
+      transition: all 0.3s;
+      grid-column: span 2;
+      min-height: 0;
+    }
+
+    &:not(.open) {
+      grid-template-rows: auto 0fr;
+
+      button.big {
+        opacity: 0;
+        translate: 0 40px;
+      }
+    }
+
+    &.open {
+      grid-template-rows: auto 1fr;
+
+      ng-icon {
+        rotate: 180deg;
+      }
+
+      button.big {
+        opacity: 1;
+      }
+    }
   }
 }
 
