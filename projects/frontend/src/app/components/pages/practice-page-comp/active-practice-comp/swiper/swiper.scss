@@ -104,11 +104,11 @@ ng-icon.vote {
 
       ng-icon {
         transition-property: rotate;
-        font-size: 42px;
+        font-size: 48px;
       }
     }
-    button.big {
-      transition-property: translate, opacity;
+    button {
+      transition-property: translate, opacity, outline;
     }
 
     .wrapper {
@@ -126,6 +126,9 @@ ng-icon.vote {
       button.big {
         opacity: 0;
         translate: 0 40px;
+      }
+      button.collapse {
+        opacity: var(--opacity-1);
       }
     }
 
