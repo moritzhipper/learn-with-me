@@ -17,6 +17,7 @@ import {
   incorrectAnswerIcon,
   practiceSpeedIcon
 } from '../../../../../icon-registry'
+import { ModalService } from '../../../../../services/modal-service'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
 import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
@@ -80,6 +81,7 @@ export class Swiper {
   private readonly hostEl = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
   private readonly window = inject(DOCUMENT).defaultView
   private destroyRef = inject(DestroyRef)
+  private modals = inject(ModalService)
 
   // Component state related -------------------------------------------
 
@@ -256,5 +258,12 @@ export class Swiper {
     }
 
     return { x: 0, y: 0 }
+  }
+
+  async edit() {
+    const learnable = this.vm()?.cardVMs.find((c) => c.offsetToActive === 0)?.card
+    if (!learnable) return
+
+    this.modals.open('single-edit', { learnable })
   }
 }

@@ -196,6 +196,8 @@ liz-swiper-summary {
   &[guess-state='voting'],
   &[guess-state='guessing'] {
     [guess='unanswered'] {
+      transition-duration: var(--duration-3);
+
       &[offset-to-active='0'] {
         box-shadow: var(--shadow-bigger);
         background-color: var(--col-accent);

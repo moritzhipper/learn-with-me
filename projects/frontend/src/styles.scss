@@ -149,9 +149,12 @@ select {
   }
 }
 
-* {
+input,
+button,
+textarea,
+a {
   outline: 0px solid transparent;
-  transition: outline var(--duration-3) ease;
+  transition: outline var(--duration-1) ease;
 
   &:focus-visible {
     outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
