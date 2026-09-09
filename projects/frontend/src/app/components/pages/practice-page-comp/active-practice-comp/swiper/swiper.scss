@@ -276,7 +276,7 @@ liz-swiper-summary {
   &[casted-guess='wrong'],
   &[casted-guess='right'] {
     [offset-to-active='-1'] {
-      transform: translate(0%, 80%) rotate(-4deg);
+      transform: translate(0%, 80%) rotate(-2deg);
     }
   }
 }
