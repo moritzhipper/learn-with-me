@@ -6,14 +6,18 @@
   header="Edit card"
   confirmLabel="Save"
 >
-  <div class="fake-card full">
-    <app-radio-comp
-      formControlName="type"
-      [config]="[{ value: 'word' }, { value: 'phrase' }]"
-      label="type"
-    />
-    <input type="text" formControlName="lexeme" class="lexeme" />
-    <input type="text" formControlName="translation" class="translation" />
-    <input formControlName="notes" class="notes full" placeholder="( notes )" />
+  <div class="fake-card">
+    <textarea type="text" formControlName="lexeme" class="lexeme"></textarea>
+    <textarea type="text" formControlName="translation" class="translation"></textarea>
+    <textarea formControlName="notes" class="notes full" placeholder="Notes"></textarea>
   </div>
+  <app-radio-comp
+    formControlName="type"
+    darkMode
+    label="Type"
+    [config]="[
+      { label: 'Word', value: 'word' },
+      { label: 'Phrase', value: 'phrase' }
+    ]"
+  />
 </form>

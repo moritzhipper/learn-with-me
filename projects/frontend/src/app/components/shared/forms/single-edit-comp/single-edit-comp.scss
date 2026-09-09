@@ -1,18 +1,17 @@
 .fake-card {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  app-radio-comp {
-    margin-bottom: var(--distance-2);
-  }
-  input {
+  border-radius: var(--radius-2);
+  background-color: var(--col-accent);
+  overflow: hidden;
+
+  textarea {
+    height: 80px;
     box-sizing: border-box;
     width: 100%;
     outline: none;
-    grid-column: span 2;
     padding: var(--distance-4);
 
     &.lexeme {
-      border-radius: var(--radius-1) var(--radius-1) 0 0;
       font-weight: var(--font-weight-bold);
       padding-bottom: 0;
     }
@@ -22,7 +21,6 @@
       padding-bottom: 0;
     }
     &.notes {
-      border-radius: 0 0 var(--radius-1) var(--radius-1);
     }
   }
 }

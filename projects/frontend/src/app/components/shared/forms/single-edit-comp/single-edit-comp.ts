@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, untracked } from '@angular/core'
+import { afterNextRender, Component, inject, input, untracked } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { LearnableBase } from '@shared/types'
 import { RadioComp } from '../../radio-comp/radio-comp'
@@ -25,8 +25,9 @@ export class SingleEditComp extends BaseModalDirective {
 
   constructor() {
     super()
-    effect(() => {
+    afterNextRender(() => {
       const learnable = this.learnable()
+      console.log(learnable)
 
       untracked(() => {
         this.form.patchValue({
