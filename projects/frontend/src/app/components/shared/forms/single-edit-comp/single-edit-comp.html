@@ -9,12 +9,11 @@
   <div class="fake-card">
     <textarea type="text" formControlName="lexeme" class="lexeme"></textarea>
     <textarea type="text" formControlName="translation" class="translation"></textarea>
-    <textarea formControlName="notes" class="notes full" placeholder="Notes"></textarea>
+    <textarea formControlName="notes" class="notes" placeholder="Notes"></textarea>
   </div>
   <app-radio-comp
     formControlName="type"
     darkMode
-    label="Type"
     [config]="[
       { label: 'Word', value: 'word' },
       { label: 'Phrase', value: 'phrase' }

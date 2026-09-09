@@ -1,26 +1,31 @@
 .fake-card {
   display: grid;
   border-radius: var(--radius-2);
-  background-color: var(--col-accent);
+  background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+  border: 1px solid var(--col-accent);
   overflow: hidden;
 
   textarea {
-    height: 80px;
+    height: 100px;
     box-sizing: border-box;
     width: 100%;
     outline: none;
     padding: var(--distance-4);
+    background-color: transparent;
+    border-radius: 0px;
 
+    &.lexeme,
+    &.translation {
+      border-bottom: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-0));
+    }
     &.lexeme {
       font-weight: var(--font-weight-bold);
-      padding-bottom: 0;
     }
     &.translation {
-      border-radius: 0;
       font-style: italic;
-      padding-bottom: 0;
     }
     &.notes {
+      opacity: var(--opacity-1);
     }
   }
 }

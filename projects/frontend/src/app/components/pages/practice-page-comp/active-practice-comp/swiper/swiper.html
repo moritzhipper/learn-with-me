@@ -1,11 +1,23 @@
 @if (vm(); as vm) {
   @for (cardVM of vm.cardVMs; track cardVM.card.id) {
     <div class="card" [attr.guess]="cardVM.guess" [attr.offset-to-active]="cardVM.offsetToActive">
-      <p class="bold size-3">
-        {{ cardVM.card.lexeme }}
-      </p>
-      <p class="italic size-3">
-        {{ cardVM.card.translation }}
+      @if (vm.guessableField === 'translation') {
+        <p class="bold size-3">
+          {{ cardVM.card.lexeme }}
+        </p>
+        <p class="italic size-3">
+          {{ cardVM.card.translation }}
+        </p>
+      } @else {
+        <p class="italic size-3">
+          {{ cardVM.card.translation }}
+        </p>
+        <p class="size-2 light pt-4">
+          {{ cardVM.card.lexeme }}
+        </p>
+      }
+      <p class="size-2 light pt-4">
+        {{ cardVM.card.notes }}
       </p>
     </div>
   }
