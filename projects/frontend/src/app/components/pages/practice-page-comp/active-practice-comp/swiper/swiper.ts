@@ -264,6 +264,14 @@ export class Swiper {
     const learnable = this.vm()?.cardVMs.find((c) => c.offsetToActive === 0)?.card
     if (!learnable) return
 
-    this.modals.open('single-edit', { learnable })
+    const res = await this.modals.open<UserLearnable>('single-edit', { learnable })
+
+    if (res.type === 'cancel') return
+    this.ls.updateCards([
+      {
+        ...res.value,
+        id: learnable.id
+      }
+    ])
   }
 }

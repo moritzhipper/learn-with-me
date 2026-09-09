@@ -27,7 +27,6 @@ export class SingleEditComp extends BaseModalDirective {
     super()
     afterNextRender(() => {
       const learnable = this.learnable()
-      console.log(learnable)
 
       untracked(() => {
         this.form.patchValue({
