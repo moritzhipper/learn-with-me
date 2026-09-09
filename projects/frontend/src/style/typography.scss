@@ -30,7 +30,7 @@ p,
   }
 
   &.light {
-    opacity: var(--opacity-1);
+    color: rgba(from var(--col-text) r g b / var(--opacity-1));
   }
 
   &.bold {

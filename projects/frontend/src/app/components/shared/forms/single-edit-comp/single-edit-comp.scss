@@ -1,31 +1,44 @@
+@use '../../../../../style/mixins' as *;
+
 .fake-card {
   display: grid;
-  border-radius: var(--radius-2);
-  background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-  border: 1px solid var(--col-accent);
+  grid-template-rows: 50% min-content auto;
+  background-color: var(--col-accent);
   overflow: hidden;
 
   textarea {
-    height: 100px;
     box-sizing: border-box;
     width: 100%;
-    outline: none;
-    padding: var(--distance-4);
     background-color: transparent;
-    border-radius: 0px;
 
-    &.lexeme,
-    &.translation {
-      border-bottom: 1px solid rgb(from var(--col-accent) r g b / var(--opacity-0));
-    }
+    outline: none;
+    border-radius: 0px;
+    padding: var(--distance-5) var(--distance-5) 0px var(--distance-5);
+
     &.lexeme {
       font-weight: var(--font-weight-bold);
+      border-bottom: 1px solid var(--col-primary);
     }
     &.translation {
       font-style: italic;
     }
-    &.notes {
-      opacity: var(--opacity-1);
-    }
+  }
+}
+app-radio-comp {
+  width: 66%;
+}
+
+@include isPhone {
+  .fake-card {
+    height: 400px;
+    border-radius: var(--radius-2);
+  }
+}
+
+@include isDesktop {
+  .fake-card {
+    width: 600px;
+    height: 300px;
+    border-radius: var(--radius-3);
   }
 }
