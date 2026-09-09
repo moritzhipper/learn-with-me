@@ -73,9 +73,6 @@ ng-icon.vote {
 
       width: 100%;
       overflow: hidden;
-      // height: 100%;
-      // aspect-ratio: ;
-      // aspect-ratio: 1 / 1;
 
       color: rgba(from var(--col-accent) r g b / var(--opacity-0));
     }
@@ -141,17 +138,14 @@ liz-swiper-summary {
     transition-duration: 1s;
   }
 
-  [guess='unanswered']:not([offset-to-active='0']) {
-  }
-
   &[guess-state='voting'],
   &[guess-state='guessing'] {
     [guess='unanswered'] {
       &[offset-to-active='0'] {
         box-shadow: var(--shadow-bigger);
         background-color: var(--col-accent);
-        border-color: var(--col-accent);
         color: var(--col-text);
+        border-color: var(--col-accent);
       }
       &[offset-to-active='-2'] {
         transform: translate(0%, 125%) rotate(1deg);
