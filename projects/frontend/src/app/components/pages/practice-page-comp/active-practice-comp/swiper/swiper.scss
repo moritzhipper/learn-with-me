@@ -65,29 +65,28 @@ ng-icon.vote {
   overflow: hidden;
   border-color: rgba(from var(--col-accent) r g b / var(--opacity-0));
 
-  &.larry {
-    app-larry-big {
-      justify-self: center;
-      align-self: start;
-      grid-row: span 2;
-
-      width: 100%;
-      overflow: hidden;
-
-      color: rgba(from var(--col-accent) r g b / var(--opacity-0));
-    }
+  &.larry app-larry-big {
+    justify-self: center;
+    align-self: start;
+    grid-row: span 2;
+    width: 100%;
+    overflow: hidden;
+    color: rgba(from var(--col-accent) r g b / var(--opacity-0));
   }
 }
 
-.nav.finalize {
+.nav {
   place-self: end stretch;
   display: grid;
   gap: var(--distance-4);
-  grid-template-columns: 1fr 2fr;
-  z-index: 10;
-
+  z-index: 20;
   button {
     box-shadow: var(--shadow-big);
+  }
+  &.finalize {
+    grid-template-columns: 1fr 2fr;
+  }
+  &.ongoing {
   }
 }
 
