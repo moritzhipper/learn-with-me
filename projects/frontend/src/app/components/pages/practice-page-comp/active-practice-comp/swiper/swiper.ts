@@ -6,8 +6,7 @@ import {
   DOCUMENT,
   ElementRef,
   inject,
-  linkedSignal,
-  signal
+  linkedSignal
 } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
@@ -29,12 +28,6 @@ type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   summary: ActivePracticeSummary
 }
 
-type VMStats = {
-  wrong: number
-  right: number
-  unanswered: number
-}
-
 export type CardVM = {
   card: UserLearnable
   guess: Guess
@@ -46,16 +39,7 @@ export type Position = {
   y: number
 }
 
-export type CardPosition = Position & {
-  rotate: number
-}
-
 export type GuessState = 'guessing' | 'voting' | 'done'
-
-export type Dimension = {
-  width: number
-  height: number
-}
 
 /**
  * Rchitectural patterns
@@ -81,8 +65,6 @@ export class Swiper {
     practiceSpeedIcon,
     collapseIcon
   }
-
-  protected navOpen = signal(false)
 
   // Animation related -------------------------------------------
 
@@ -117,6 +99,11 @@ export class Swiper {
     }
   })
 
+  protected navOpen = linkedSignal<Guess, boolean>({
+    source: this.castedGuess,
+    computation: () => false
+  })
+
   vm = computed<PracticeVM | undefined>(() => {
     const practice = this.practice()
     if (!practice) return
@@ -124,12 +111,6 @@ export class Swiper {
     const cards = this.ls.activeBank().learnables
     let cardVMs: Omit<CardVM, 'position'>[] = []
     const guessState = this.guessState()
-
-    const stats: VMStats = {
-      right: practice.guessables.filter((g) => g.guess === 'right').length,
-      wrong: practice.guessables.filter((g) => g.guess === 'wrong').length,
-      unanswered: practice.guessables.filter((g) => g.guess === 'unanswered').length
-    }
 
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)

@@ -1,5 +1,14 @@
 import { Guess, UserLearnable } from '@shared/types'
-import { CardPosition, CardVM, Dimension, GuessState } from './swiper'
+import { CardVM, GuessState, Position } from './swiper'
+
+type CardPosition = Position & {
+  rotate: number
+}
+
+export type Dimension = {
+  width: number
+  height: number
+}
 
 export const cardBaseLayout: Record<Guess | 'default', CardPosition> = {
   right: { x: 130, y: 20, rotate: 15 },
