@@ -4,6 +4,7 @@ import { PracticeActive } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
 import { practiceSpeedIcon } from '../../../../../icon-registry'
 import { mapConfidencePercentToRating, PracticeRating } from '../../../../../utils/genaral-utils'
+import { InfoCard } from '../../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
 
 export type ActivePracticeSummary = {
@@ -16,7 +17,7 @@ export type ActivePracticeSummary = {
 
 @Component({
   selector: 'liz-swiper-summary',
-  imports: [PracticeRatingComp, NgIcon, AnimDelayWrapper],
+  imports: [PracticeRatingComp, NgIcon, AnimDelayWrapper, InfoCard],
   templateUrl: './swiper-summary.html',
   styleUrl: './swiper-summary.scss'
 })
@@ -27,12 +28,13 @@ export class SwiperSummary {
   })
 
   practiceSpeedIcon = practiceSpeedIcon
+
   protected readonly subHeader: Record<PracticeRating, string> = {
     noteven: 'Well, at least you showed up :)',
     atleast: 'That means you tried!',
     okay: 'Not Bad.',
     good: 'Well Done!',
-    excellent: "Are you sure you didn't cheat?"
+    excellent: 'Extremely impressive.'
   }
 
   finish = output<void>()

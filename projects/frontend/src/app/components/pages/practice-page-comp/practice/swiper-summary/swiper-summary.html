@@ -3,13 +3,15 @@
 <ng-container lizAnimDelayWrapper applyClass="pop-in">
   <div class="overview">
     <app-practice-rating-comp [confidence]="sum.guessedRightPercent" #animItem />
-    <p class="size-3 bold pb-4" #animItem>You got {{ sum.guessedRightPercent }}% right!</p>
-    <p #animItem>{{ subHeader[sum.rating] }}</p>
-    <div class="stats">
-      <div class="stat"></div>
-    </div>
-  </div>
+    <p class="header size-3 bold" #animItem>You got {{ sum.guessedRightPercent }}% right!</p>
+    <p class="header bold size-2 light pt-4" #animItem>{{ subHeader[sum.rating] }}</p>
 
+    @if (sum.rating !== 'excellent') {
+      <liz-info-card #animItem title="Improve this rating?" class="mt-auto">
+        Continue to revisit only the cards you didnt get yet!
+      </liz-info-card>
+    }
+  </div>
   <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
   <div class="nav finalize" #animItem>
     <button class="big" (click)="finish.emit()" #animItem>Finish</button>

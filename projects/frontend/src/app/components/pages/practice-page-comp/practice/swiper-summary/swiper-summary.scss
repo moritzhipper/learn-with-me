@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: 1fr auto;
   flex-direction: column;
-  overflow: hidden;
+  gap: var(--distance-5);
 }
 
 app-practice-rating-comp {
@@ -15,6 +15,7 @@ app-practice-rating-comp {
   min-width: 0px;
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .nav {
@@ -23,9 +24,36 @@ app-practice-rating-comp {
   gap: var(--distance-4);
 }
 
-h2,
+table {
+  margin: auto 0;
+  padding: var(--distance-4);
+  width: 100%;
+  border-spacing: 0;
+
+  td {
+    padding: var(--distance-2) var(--distance-4);
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  tr:not(:last-child) td {
+    border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+  }
+}
+
+.overview {
+  display: flex;
+  flex-direction: column;
+}
+
 p {
   text-align: center;
+}
+
+.nudge {
+  padding: var(--distance-5);
 }
 
 .pop-in {
