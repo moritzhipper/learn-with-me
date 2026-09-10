@@ -5,6 +5,9 @@
 - only put cardGuess on card state -> remove active, replace with offset
   - rename state to guess
 
+- move position back into position obj conf?
+- edit cards just makes card editable?
+
 - detach swipeable ref -> only use in sync function directly
 - dont work with pixels -> work with %, recalculate px / perc multi on refresh
 - put layout generally in css with percent base
