@@ -2,7 +2,13 @@ import { Component, input, output } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import { PracticeActive } from '@shared/types'
 import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
-import { practiceSpeedIcon } from '../../../../../icon-registry'
+import {
+  correctAnswerIcon,
+  incorrectAnswerIcon,
+  practiceFinishIcon,
+  practiceSpeedIcon,
+  unansweredAnswerIcon
+} from '../../../../../icon-registry'
 import { mapConfidencePercentToRating, PracticeRating } from '../../../../../utils/genaral-utils'
 import { InfoCard } from '../../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
@@ -27,7 +33,13 @@ export class SwiperSummary {
     alias: 'practice'
   })
 
-  practiceSpeedIcon = practiceSpeedIcon
+  icons = {
+    practiceSpeedIcon,
+    practiceFinishIcon,
+    correctAnswerIcon,
+    incorrectAnswerIcon,
+    unansweredAnswerIcon
+  }
 
   protected readonly subHeader: Record<PracticeRating, string> = {
     noteven: 'Well, at least you showed up :)',

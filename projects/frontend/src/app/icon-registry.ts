@@ -9,6 +9,7 @@ import {
   remixCamera4Fill,
   remixCheckboxCircleFill,
   remixCheckboxMultipleLine,
+  remixCheckDoubleFill,
   remixCloseCircleFill,
   remixCloseLine,
   remixDeleteBinLine,
@@ -30,6 +31,7 @@ import {
   remixMeteorFill,
   remixPantoneFill,
   remixPencilFill,
+  remixQuestionFill,
   remixSettings3Fill,
   remixShareFill,
   remixSpeedFill,
@@ -59,9 +61,11 @@ export const translatePageIcon = remixTranslate
 // Practice
 export const imageExtractIcon = remixCamera4Fill
 export const correctAnswerIcon = remixCheckboxCircleFill
-export const multiSelectIcon = remixCheckboxMultipleLine
 export const incorrectAnswerIcon = remixCloseCircleFill
+export const unansweredAnswerIcon = remixQuestionFill
+export const multiSelectIcon = remixCheckboxMultipleLine
 export const practiceSpeedIcon = remixSpeedFill
+export const practiceFinishIcon = remixCheckDoubleFill
 export const learnLanguageIcon = remixUserFollowLine
 export const speakLanguageIcon = remixUserVoiceLine
 

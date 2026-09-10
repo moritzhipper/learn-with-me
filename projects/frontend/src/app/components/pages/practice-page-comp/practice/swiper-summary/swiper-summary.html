@@ -4,20 +4,39 @@
   <div class="overview">
     <app-practice-rating-comp [confidence]="sum.guessedRightPercent" #animItem />
     <p class="header size-3 bold" #animItem>You got {{ sum.guessedRightPercent }}% right!</p>
-    <p class="header bold size-2 light pt-4" #animItem>{{ subHeader[sum.rating] }}</p>
+    <p class="header bold size-2 light pt-4 pb-2" #animItem>{{ subHeader[sum.rating] }}</p>
+    <div class="stats" #animItem>
+      <div class="pill text bold">
+        {{ sum.correctGuesses }}
+        <ng-icon [svg]="icons.correctAnswerIcon" />
+      </div>
+      <div class="pill text bold">
+        {{ sum.wrongGuesses }}
+        <ng-icon [svg]="icons.incorrectAnswerIcon" />
+      </div>
+      <div class="pill text bold">
+        {{ sum.unansweredGuesses }}
+        <ng-icon [svg]="icons.unansweredAnswerIcon" />
+      </div>
+    </div>
 
     @if (sum.rating !== 'excellent') {
-      <liz-info-card #animItem title="Improve this rating?" class="mt-auto">
-        Continue to revisit only the cards you didnt get yet!
+      <liz-info-card #animItem title="Improve this rating?">
+        Continue to revisit the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get
+        right yet.
       </liz-info-card>
     }
   </div>
-  <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
   <div class="nav finalize" #animItem>
-    <button class="big" (click)="finish.emit()" #animItem>Finish</button>
     @if (sum.rating !== 'excellent') {
+      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
       <button class="big primary has-icon" (click)="continue.emit()" #animItem>
-        Continue <ng-icon [svg]="practiceSpeedIcon" />
+        Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
+      </button>
+    } @else {
+      <button class="big" (click)="continue.emit()" #animItem>Continue</button>
+      <button class="big primary has-icon" (click)="finish.emit()" #animItem>
+        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
     }
   </div>

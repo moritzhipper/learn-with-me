@@ -24,6 +24,29 @@ app-practice-rating-comp {
   gap: var(--distance-4);
 }
 
+.stats {
+  display: flex;
+  gap: var(--distance-1);
+  justify-content: center;
+  opacity: var(--opacity-1);
+  margin-bottom: auto;
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-1);
+
+    ng-icon {
+      display: block;
+    }
+
+    &:not(:last-child):after {
+      opacity: var(--opacity-0);
+      content: '/';
+    }
+  }
+}
+
 table {
   margin: auto 0;
   padding: var(--distance-4);
