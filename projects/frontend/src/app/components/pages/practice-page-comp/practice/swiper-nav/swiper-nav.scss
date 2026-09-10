@@ -1,0 +1,70 @@
+.nav {
+  place-self: end stretch;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-4);
+
+  button.big {
+    box-shadow: var(--shadow-big);
+  }
+
+  &.ongoing,
+  ng-icon,
+  button.big {
+    transition-duration: var(--duration-2);
+    transition-timing-function: var(--soft-ease);
+  }
+
+  &.ongoing {
+    transition-property: grid-template-rows;
+    grid-template-rows: auto 0fr;
+
+    button.collapse {
+      display: grid;
+      place-self: center;
+      grid-column: span 2;
+
+      ng-icon {
+        transition-property: rotate;
+        font-size: 48px;
+      }
+    }
+    button {
+      transition-property: translate, opacity, outline;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--distance-4);
+      transition: all 0.3s;
+      grid-column: span 2;
+      min-height: 0;
+    }
+
+    &:not(.open) {
+      grid-template-rows: auto 0fr;
+
+      button.big {
+        opacity: 0;
+        translate: 0 40px;
+      }
+      button.collapse {
+        opacity: var(--opacity-1);
+      }
+    }
+
+    &.open {
+      grid-template-rows: auto 1fr;
+
+      ng-icon {
+        rotate: 180deg;
+      }
+
+      button.big {
+        opacity: 1;
+      }
+    }
+  }
+}

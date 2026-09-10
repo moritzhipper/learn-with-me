@@ -10,7 +10,6 @@ import {
 } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import { Guess, PracticeActive, UserLearnable } from '@shared/types'
-import { AnimDelayWrapper } from '../../../../../directives/anim-delay-wrapper'
 import {
   collapseIcon,
   correctAnswerIcon,
@@ -20,8 +19,7 @@ import {
 import { ModalService } from '../../../../../services/modal-service'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
-import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
-import { SwiperSummary } from '../swiper-summary/swiper-summary'
+import { ActivePracticeSummary } from '../../active-practice-comp/practice-summary-card/practice-summary-card'
 import { createSummary } from './swiper-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
@@ -50,7 +48,7 @@ export type GuessState = 'guessing' | 'voting' | 'done'
  */
 @Component({
   selector: 'liz-swiper',
-  imports: [NgIcon, SwiperSummary, AnimDelayWrapper, LarryBig],
+  imports: [NgIcon, LarryBig],
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {

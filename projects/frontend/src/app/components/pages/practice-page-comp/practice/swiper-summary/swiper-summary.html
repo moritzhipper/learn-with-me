@@ -1,0 +1,20 @@
+@let sum = summary();
+
+<ng-container lizAnimDelayWrapper applyClass="pop-in">
+  <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
+  <p class="size-3 bold pb-4">You got {{ sum.guessedRightPercent }}% right!</p>
+  <p>{{ subHeader[sum.rating] }}</p>
+  <div class="stats">
+    <div class="stat"></div>
+  </div>
+
+  <!-- show 'continue to improve this rating, only x unanswered and y wrong left!' -->
+  <div class="nav finalize continue" #animItem>
+    <button class="big" (click)="finish.emit()" #animItem>Finish</button>
+    @if (sum.rating !== 'excellent') {
+      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
+        Continue <ng-icon [svg]="practiceSpeedIcon" />
+      </button>
+    }
+  </div>
+</ng-container>

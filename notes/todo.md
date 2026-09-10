@@ -7,6 +7,7 @@
 
 - move position back into position obj conf?
 - edit cards just makes card editable?
+- move swiper nav und swiper end screen into own comps
 
 - detach swipeable ref -> only use in sync function directly
 - dont work with pixels -> work with %, recalculate px / perc multi on refresh

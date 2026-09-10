@@ -1,6 +1,6 @@
 import { PracticeActive } from '@shared/types'
 import { mapConfidencePercentToRating } from '../../../../../utils/genaral-utils'
-import { ActivePracticeSummary } from '../practice-summary-card/practice-summary-card'
+import { ActivePracticeSummary } from '../../active-practice-comp/practice-summary-card/practice-summary-card'
 
 export const createSummary = (practice: PracticeActive): ActivePracticeSummary => {
   const correctGuesses = practice.guessables.filter((g) => g.guess === 'right').length

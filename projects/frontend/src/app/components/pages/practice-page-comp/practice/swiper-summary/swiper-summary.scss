@@ -17,3 +17,14 @@ h2,
 p {
   text-align: center;
 }
+
+.pop-in {
+  animation: popIn var(--duration-3) var(--overshot) backwards;
+}
+
+@keyframes popIn {
+  from {
+    scale: 0.7;
+    opacity: 0;
+  }
+}

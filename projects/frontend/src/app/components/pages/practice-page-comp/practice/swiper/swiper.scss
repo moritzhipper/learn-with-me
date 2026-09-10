@@ -8,26 +8,11 @@
   box-sizing: border-box;
 
   .card,
-  ng-icon.vote,
-  .nav,
-  liz-swiper-summary {
+  ng-icon.vote {
     grid-area: 1 / 1;
     user-select: none;
-
     box-sizing: border-box;
   }
-}
-
-.debug {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--distance-4);
-  width: 100%;
-  z-index: 200;
 }
 
 ng-icon.vote {
@@ -73,81 +58,6 @@ ng-icon.vote {
     overflow: hidden;
     color: rgba(from var(--col-accent) r g b / var(--opacity-0));
   }
-}
-
-.nav {
-  place-self: end stretch;
-  z-index: 20;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--distance-4);
-
-  button.big {
-    box-shadow: var(--shadow-big);
-  }
-
-  &.ongoing,
-  ng-icon,
-  button.big {
-    transition-duration: var(--duration-2);
-    transition-timing-function: var(--soft-ease);
-  }
-
-  &.ongoing {
-    transition-property: grid-template-rows;
-    grid-template-rows: auto 0fr;
-
-    button.collapse {
-      display: grid;
-      place-self: center;
-      grid-column: span 2;
-
-      ng-icon {
-        transition-property: rotate;
-        font-size: 48px;
-      }
-    }
-    button {
-      transition-property: translate, opacity, outline;
-    }
-
-    .wrapper {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: var(--distance-4);
-      transition: all 0.3s;
-      grid-column: span 2;
-      min-height: 0;
-    }
-
-    &:not(.open) {
-      grid-template-rows: auto 0fr;
-
-      button.big {
-        opacity: 0;
-        translate: 0 40px;
-      }
-      button.collapse {
-        opacity: var(--opacity-1);
-      }
-    }
-
-    &.open {
-      grid-template-rows: auto 1fr;
-
-      ng-icon {
-        rotate: 180deg;
-      }
-
-      button.big {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-liz-swiper-summary {
-  place-self: stretch;
 }
 
 // Animation related
@@ -278,16 +188,5 @@ liz-swiper-summary {
     [offset-to-active='-1'] {
       transform: translate(0%, 80%) rotate(-2deg);
     }
-  }
-}
-
-.pop-in {
-  animation: popIn var(--duration-3) var(--overshot) backwards;
-}
-
-@keyframes popIn {
-  from {
-    scale: 0.7;
-    opacity: 0;
   }
 }
