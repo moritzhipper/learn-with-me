@@ -2,6 +2,10 @@
 
 ## swiper
 
+- create unified layout for practice
+  - buttons at bottom
+  - third grid
+  - upper third: practice config, cards or practice summary icons
 - only put cardGuess on card state -> remove active, replace with offset
   - rename state to guess
 

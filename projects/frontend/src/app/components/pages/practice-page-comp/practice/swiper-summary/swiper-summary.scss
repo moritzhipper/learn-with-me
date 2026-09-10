@@ -3,6 +3,7 @@
   grid-template-rows: 1fr auto;
   flex-direction: column;
   gap: var(--distance-5);
+  z-index: 21;
 }
 
 app-practice-rating-comp {

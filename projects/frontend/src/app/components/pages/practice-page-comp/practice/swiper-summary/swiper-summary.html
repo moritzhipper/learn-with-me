@@ -4,7 +4,7 @@
   <div class="overview">
     <app-practice-rating-comp [confidence]="sum.guessedRightPercent" #animItem />
     <p class="header size-3 bold" #animItem>You got {{ sum.guessedRightPercent }}% right!</p>
-    <p class="header bold size-2 light pt-4 pb-2" #animItem>{{ subHeader[sum.rating] }}</p>
+    <p class="header bold size-2 light pt-4 pb-3" #animItem>{{ subHeader[sum.rating] }}</p>
     <div class="stats" #animItem>
       <div class="pill text bold">
         {{ sum.correctGuesses }}

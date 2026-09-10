@@ -2,5 +2,5 @@
 @if (isOngoing()) {
   <liz-swiper-nav />
 } @else if (practice(); as practice) {
-  <liz-swiper-summary [practice]="practice" />
+  <liz-swiper-summary [practice]="practice" (finish)="finish()" />
 }

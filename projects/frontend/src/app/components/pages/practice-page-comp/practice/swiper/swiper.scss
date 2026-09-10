@@ -97,16 +97,18 @@ ng-icon.vote {
     transform: translate(-120%, 100%) rotate(-15deg);
     border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
   }
+
   [guess='wrong'],
   [guess='right'] {
     transition-duration: 1s;
+  }
+  [guess='unanswered'] {
+    transition-duration: var(--duration-2);
   }
 
   &[guess-state='voting'],
   &[guess-state='guessing'] {
     [guess='unanswered'] {
-      transition-duration: var(--duration-3);
-
       &[offset-to-active='0'] {
         box-shadow: var(--shadow-bigger);
         background-color: var(--col-accent);

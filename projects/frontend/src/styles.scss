@@ -152,7 +152,8 @@ select {
 input,
 button,
 textarea,
-a {
+a,
+select {
   outline: 0px solid transparent;
   transition: outline var(--duration-1) ease;
 

@@ -2,20 +2,16 @@
 
 :host {
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-
-  liz-swiper,
-  liz-swiper-summary {
-    grid-area: 1 / 1 / 4 / 4;
-  }
+  height: 100%;
   liz-swiper-nav {
     z-index: 20;
   }
 }
 @include isPhone {
-  liz-swiper {
-    grid-area: 1 / 1 / 4 / 4;
-    justify-self: end;
+  liz-swiper,
+  liz-swiper-summary,
+  liz-swiper-nav {
+    grid-area: 1 / 1;
   }
   liz-swiper-nav {
     align-self: end;
@@ -23,14 +19,28 @@
 }
 
 @include isDesktop {
-  liz-swiper {
-    width: 600px;
-    height: 400px;
-    place-self: center;
-    grid-area: 1 / 1 / 3 / 4;
-  }
-  liz-swiper-nav {
-    place-self: end center;
-    width: 400px;
+  :host {
+    height: 100%;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+
+    liz-swiper {
+      width: 600px;
+      height: 400px;
+    }
+    liz-swiper-summary {
+      place-self: center;
+      grid-area: 1 / 1 / 4 / 4;
+    }
+    liz-swiper {
+      place-self: center;
+      grid-area: 1 / 1 / 3 / 4;
+    }
+
+    liz-swiper-nav {
+      grid-area: 1 / 1 / 4 / 4;
+
+      place-self: end center;
+      width: 400px;
+    }
   }
 }

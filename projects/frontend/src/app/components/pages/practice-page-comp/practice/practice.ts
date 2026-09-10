@@ -15,9 +15,13 @@ export class Practice {
 
   practice = computed(() => this.ls.activeBank().practice.active)
 
-  isOngoing = computed(() => {
+  protected isOngoing = computed(() => {
     const practice = this.practice()
-    if (!practice) return
-    return practice.guessableIndex - 1 === practice.guessables.length
+    if (!practice) return false
+    return practice.guessableIndex < practice.guessables.length
   })
+
+  finish() {
+    this.ls.resetPracticeAndSaveToHistory()
+  }
 }
