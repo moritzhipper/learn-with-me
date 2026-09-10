@@ -1,2 +1,6 @@
 <liz-swiper />
-<liz-swiper-nav />
+@if (isOngoing()) {
+  <liz-swiper-nav />
+} @else if (practice(); as practice) {
+  <liz-swiper-summary [practice]="practice" />
+}

@@ -1,5 +1,6 @@
 :host {
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr auto;
   flex-direction: column;
   overflow: hidden;
 }
@@ -10,7 +11,16 @@ app-practice-rating-comp {
 
   height: auto;
   width: 100%;
+  height: auto;
+  min-width: 0px;
   aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-4);
 }
 
 h2,

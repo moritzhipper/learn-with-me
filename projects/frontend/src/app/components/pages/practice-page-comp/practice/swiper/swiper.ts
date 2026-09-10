@@ -19,12 +19,9 @@ import {
 import { ModalService } from '../../../../../services/modal-service'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
-import { ActivePracticeSummary } from '../../active-practice-comp/practice-summary-card/practice-summary-card'
-import { createSummary } from './swiper-utils'
 
 type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
   cardVMs: CardVM[]
-  summary: ActivePracticeSummary
 }
 
 export type CardVM = {
@@ -123,8 +120,7 @@ export class Swiper {
     return {
       cardVMs,
       guessableField: practice.guessableField,
-      guessableIndex: practice.guessableIndex,
-      summary: createSummary(practice)
+      guessableIndex: practice.guessableIndex
     }
   })
 
@@ -148,8 +144,6 @@ export class Swiper {
 
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
-    console.log('down')
-
     if (this.guessState() !== 'done') {
       this.hostEl.setPointerCapture(ev.pointerId)
       this.guessState.set('voting')
@@ -171,7 +165,6 @@ export class Swiper {
   }
 
   private pointerUp = (ev: PointerEvent) => {
-    console.log('up')
     if (this.swiping && this.guessState() === 'voting') {
       this.swiping = false
       this.hostEl.releasePointerCapture(ev.pointerId)
