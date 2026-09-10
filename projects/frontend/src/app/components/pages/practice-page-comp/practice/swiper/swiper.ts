@@ -99,11 +99,6 @@ export class Swiper {
     }
   })
 
-  protected navOpen = linkedSignal<Guess, boolean>({
-    source: this.castedGuess,
-    computation: () => false
-  })
-
   vm = computed<PracticeVM | undefined>(() => {
     const practice = this.practice()
     if (!practice) return
@@ -207,10 +202,6 @@ export class Swiper {
 
   finish() {
     this.ls.resetPracticeAndSaveToHistory()
-  }
-
-  giveUp() {
-    this.ls.endPracticePrematurely()
   }
 
   castGuessIfThreshold() {

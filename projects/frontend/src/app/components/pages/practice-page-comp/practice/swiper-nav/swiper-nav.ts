@@ -1,6 +1,8 @@
-import { Component, output, signal } from '@angular/core'
+import { Component, computed, inject, linkedSignal, output } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
+import { PracticeActive } from '@shared/types'
 import { collapseIcon } from '../../../../../icon-registry'
+import { LearnablesStore } from '../../../../../store/learnables-store'
 
 @Component({
   selector: 'liz-swiper-nav',
@@ -9,8 +11,16 @@ import { collapseIcon } from '../../../../../icon-registry'
   styleUrl: './swiper-nav.scss'
 })
 export class SwiperNav {
+  private ls = inject(LearnablesStore)
   protected collapseIcon = collapseIcon
-  isOpen = signal(false)
-  giveUp = output<void>()
   edit = output<void>()
+
+  isOpen = linkedSignal<PracticeActive | null, boolean>({
+    source: computed(() => this.ls.activeBank().practice.active),
+    computation: () => false
+  })
+
+  giveUp() {
+    this.ls.endPracticePrematurely()
+  }
 }
