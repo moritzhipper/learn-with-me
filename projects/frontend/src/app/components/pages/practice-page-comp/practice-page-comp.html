@@ -5,13 +5,26 @@
     <liz-swiper-page-layout>
       <liz-swiper swiper-full />
       @if (practice && !practice.isFinished) {
-        <liz-swiper-nav swiper-navigation (quit)="giveUp()" (edit)="editActiveLearnable()" />
+        <liz-swiper-nav
+          swiper-navigation
+          (quit)="giveUp()"
+          (edit)="editActiveLearnable()"
+          animate.enter="fly-in-y-wide"
+          animate.leave="fly-in-y-wide-rev"
+        />
       }
     </liz-swiper-page-layout>
     @if (practice && practice.isFinished) {
-      <liz-swiper-summary [practice]="practice" (finish)="finish()" />
+      <liz-swiper-summary
+        [practice]="practice"
+        (finish)="finish()"
+        animate.leave="fly-in-y-wide-rev"
+      />
     } @else if (!practice) {
-      <app-configure-practice-comp />
+      <app-configure-practice-comp
+        animate.enter="fly-in-y-wide"
+        animate.leave="fly-in-y-wide-rev"
+      />
     }
   </div>
 </app-page-wrapper>

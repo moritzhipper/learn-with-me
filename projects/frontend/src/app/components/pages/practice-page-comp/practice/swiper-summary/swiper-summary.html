@@ -21,21 +21,21 @@
       }
     </div>
   </div>
-  <div swiper-navigation #animItem>
+  <div swiper-navigation>
     @if (sum.rating !== 'excellent') {
-      <liz-info-card title="Improve this rating?">
+      <liz-info-card title="Improve this rating?" #animItem>
         Continue to revisit the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get
         right yet.
       </liz-info-card>
     }
     @if (sum.rating !== 'excellent') {
-      <button class="big" (click)="finish.emit()">Finish</button>
-      <button class="big primary has-icon" (click)="continue.emit()">
+      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
+      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
         Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
       </button>
     } @else {
-      <button class="big" (click)="continue.emit()">Continue</button>
-      <button class="big primary has-icon" (click)="finish.emit()">
+      <button class="big" (click)="continue.emit()" #animItem>Continue</button>
+      <button class="big primary has-icon" (click)="finish.emit()" #animItem>
         Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
     }

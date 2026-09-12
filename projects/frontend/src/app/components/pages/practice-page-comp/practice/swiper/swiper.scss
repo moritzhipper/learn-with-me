@@ -158,15 +158,6 @@ ng-icon.vote {
     transition-duration: var(--duration-3);
   }
 
-  &[guess-state='done'] .card,
-  .card {
-    transform: translate(0%, 150%) rotate(5deg);
-
-    @starting-style {
-      transform: translate(0%, 150%) rotate(5deg) !important;
-    }
-  }
-
   .card:not([offset-to-active='0']),
   &[guess-state='done'] .card {
     color: transparent;
@@ -190,6 +181,15 @@ ng-icon.vote {
     [offset-to-active='-1'] {
       box-shadow: var(--shadow-bigger);
       transform: translate(0%, 90%) rotate(-2deg);
+    }
+  }
+
+  &[guess-state='done'] .card,
+  .card {
+    transform: translate(0%, 160%) rotate(15deg);
+
+    @starting-style {
+      transform: translate(0%, 160%) rotate(15deg) !important;
     }
   }
 }
