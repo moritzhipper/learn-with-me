@@ -95,6 +95,8 @@ ng-icon.vote {
   &[guess-state='voting'],
   &[guess-state='guessing'] {
     [guess='unanswered'] {
+      transition-duration: var(--duration-2);
+
       &[offset-to-active='0'] {
         box-shadow: var(--shadow-bigger);
         background-color: var(--col-accent);
@@ -122,8 +124,25 @@ ng-icon.vote {
     [guess='right'] {
       transition-duration: 1.3s;
     }
-    [guess='unanswered'] {
-      transition-duration: var(--duration-2);
+
+    &[casted-guess='wrong'],
+    &[casted-guess='right'] {
+      [offset-to-active='-1'] {
+        transform: translate(0%, 80%) rotate(-2deg);
+      }
+    }
+
+    &[casted-guess='right'] {
+      ng-icon.right {
+        opacity: var(--opacity-1);
+        transform: translateX(-10px);
+      }
+    }
+    &[casted-guess='wrong'] {
+      ng-icon.wrong {
+        opacity: var(--opacity-1);
+        transform: translateX(10px);
+      }
     }
   }
 
@@ -167,26 +186,6 @@ ng-icon.vote {
       transition-duration: var(--duration-0);
       box-shadow: var(--shadow-bigger);
       transform: translate(var(--x), var(--y)) rotate(var(--rotate));
-    }
-  }
-
-  &[casted-guess='right'] {
-    ng-icon.right {
-      opacity: var(--opacity-1);
-      transform: translateX(-10px);
-    }
-  }
-  &[casted-guess='wrong'] {
-    ng-icon.wrong {
-      opacity: var(--opacity-1);
-      transform: translateX(10px);
-    }
-  }
-
-  &[casted-guess='wrong'],
-  &[casted-guess='right'] {
-    [offset-to-active='-1'] {
-      transform: translate(0%, 80%) rotate(-2deg);
     }
   }
 }
