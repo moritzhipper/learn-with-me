@@ -1,10 +1,10 @@
 @let sum = summary();
 <liz-swiper-page-layout lizAnimDelayWrapper applyClass="pop-in">
-  <div swiper-top class="overview">
-    <app-practice-rating-comp [confidence]="sum.guessedRightPercent" #animItem />
-    <p class="header size-3 bold" #animItem>You got {{ sum.guessedRightPercent }}% right!</p>
-    <p class="header bold size-2 light pt-4 pb-3" #animItem>{{ subHeader[sum.rating] }}</p>
-    <div class="stats" #animItem>
+  <div swiper-top class="overview" #animItem>
+    <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
+    <p class="header size-3 bold">You got {{ sum.guessedRightPercent }}% right!</p>
+    <p class="header bold size-2 light pt-4 pb-3">{{ subHeader[sum.rating] }}</p>
+    <div class="stats">
       <div class="pill text bold">
         {{ sum.correctGuesses }}
         <ng-icon [svg]="icons.correctAnswerIcon" />
@@ -23,19 +23,19 @@
   </div>
   <div swiper-navigation #animItem>
     @if (sum.rating !== 'excellent') {
-      <liz-info-card #animItem title="Improve this rating?">
+      <liz-info-card title="Improve this rating?">
         Continue to revisit the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get
         right yet.
       </liz-info-card>
     }
     @if (sum.rating !== 'excellent') {
-      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
-      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
+      <button class="big" (click)="finish.emit()">Finish</button>
+      <button class="big primary has-icon" (click)="continue.emit()">
         Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
       </button>
     } @else {
-      <button class="big" (click)="continue.emit()" #animItem>Continue</button>
-      <button class="big primary has-icon" (click)="finish.emit()" #animItem>
+      <button class="big" (click)="continue.emit()">Continue</button>
+      <button class="big primary has-icon" (click)="finish.emit()">
         Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
     }

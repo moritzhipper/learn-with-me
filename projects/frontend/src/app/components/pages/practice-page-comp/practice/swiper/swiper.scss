@@ -72,7 +72,7 @@ ng-icon.vote {
     will-change: transform;
 
     @starting-style {
-      transform: translate(0%, 150%) !important;
+      transform: translate(0%, 100dvh) !important;
     }
   }
 
@@ -92,24 +92,6 @@ ng-icon.vote {
     }
   }
 
-  [guess='right'] {
-    transform: translate(120%, 100%) rotate(15deg);
-    border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
-  }
-
-  [guess='wrong'] {
-    transform: translate(-120%, 100%) rotate(-15deg);
-    border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
-  }
-
-  [guess='wrong'],
-  [guess='right'] {
-    transition-duration: 1.3s;
-  }
-  [guess='unanswered'] {
-    transition-duration: var(--duration-2);
-  }
-
   &[guess-state='voting'],
   &[guess-state='guessing'] {
     [guess='unanswered'] {
@@ -125,6 +107,23 @@ ng-icon.vote {
       &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
         transform: translate(0%, 130%) rotate(-2deg);
       }
+    }
+    [guess='right'] {
+      transform: translate(120%, 100%) rotate(15deg);
+      border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
+    }
+
+    [guess='wrong'] {
+      transform: translate(-120%, 100%) rotate(-15deg);
+      border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
+    }
+
+    [guess='wrong'],
+    [guess='right'] {
+      transition-duration: 1.3s;
+    }
+    [guess='unanswered'] {
+      transition-duration: var(--duration-2);
     }
   }
 
@@ -154,8 +153,9 @@ ng-icon.vote {
   }
 
   &[guess-state='done'] {
-    [guess='unanswered'] {
-      transform: translate(0%, 180%) rotate(5deg);
+    .card {
+      transform: translate(0%, 150%) rotate(5deg);
+      transition-duration: var(--duration-2);
     }
   }
 
