@@ -5,7 +5,7 @@
     <liz-swiper-page-layout>
       <liz-swiper swiper-full />
       @if (practice && !practice.isFinished) {
-        <liz-swiper-nav swiper-navigation />
+        <liz-swiper-nav swiper-navigation (quit)="giveUp()" (edit)="editActiveLearnable()" />
       }
     </liz-swiper-page-layout>
     @if (practice && practice.isFinished) {

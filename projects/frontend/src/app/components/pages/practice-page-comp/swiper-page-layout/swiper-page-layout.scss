@@ -9,10 +9,17 @@
 .full,
 .nav {
   display: grid;
+  place-items: stretch;
   &:empty {
     display: none;
   }
-  place-items: stretch;
+}
+.full {
+  z-index: 19;
+}
+
+.nav {
+  z-index: 20;
 }
 
 @include isPhone {

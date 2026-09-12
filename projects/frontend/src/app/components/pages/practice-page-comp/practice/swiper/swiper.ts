@@ -105,7 +105,6 @@ export class Swiper {
 
     const cards = this.ls.activeBank().learnables
     let cardVMs: Omit<CardVM, 'position'>[] = []
-    const guessState = this.guessState()
 
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)
@@ -192,10 +191,6 @@ export class Swiper {
     this.hostEl.style.setProperty('--rotate', `${pos.x * 0.04}deg`)
   }
 
-  finish() {
-    this.ls.resetPracticeAndSaveToHistory()
-  }
-
   castGuessIfThreshold() {
     const guess = this.deductGuessFromOffset(this.position.x)
 
@@ -215,7 +210,7 @@ export class Swiper {
     }
   }
 
-  guess(guess: Guess) {
+  private guess(guess: Guess) {
     this.ls.setGuessToPractice(guess)
   }
 
@@ -239,20 +234,5 @@ export class Swiper {
     }
 
     return { x: 0, y: 0 }
-  }
-
-  async edit() {
-    const learnable = this.cards()?.find((c) => c.offsetToActive === 0)?.card
-    if (!learnable) return
-
-    const res = await this.modals.open<UserLearnable>('single-edit', { learnable })
-
-    if (res.type === 'cancel') return
-    this.ls.updateCards([
-      {
-        ...res.value,
-        id: learnable.id
-      }
-    ])
   }
 }

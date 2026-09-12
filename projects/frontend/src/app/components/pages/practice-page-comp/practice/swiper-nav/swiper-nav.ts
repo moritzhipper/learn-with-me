@@ -13,14 +13,12 @@ import { LearnablesStore } from '../../../../../store/learnables-store'
 export class SwiperNav {
   private ls = inject(LearnablesStore)
   protected collapseIcon = collapseIcon
-  edit = output<void>()
 
   isOpen = linkedSignal<PracticeActive | null, boolean>({
     source: computed(() => this.ls.activeBank().practice.active),
     computation: () => false
   })
 
-  giveUp() {
-    this.ls.endPracticePrematurely()
-  }
+  edit = output<void>()
+  quit = output<void>()
 }
