@@ -4,7 +4,7 @@
 }
 
 .values {
-  --col-selected: var(--col-primary);
+  --col-selected: var(--col-accent);
   --col-background: rgb(from var(--col-accent) r g b / var(--opacity-1));
 
   display: grid;
@@ -47,7 +47,7 @@
 
     input:checked + span {
       background-color: var(--col-selected);
-      color: var(--col-bg);
+      color: var(--col-text);
     }
 
     span {
