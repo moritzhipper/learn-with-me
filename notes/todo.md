@@ -4,37 +4,16 @@
 
 ## swiper
 
-- create unified layout for practice
-  - buttons at bottom
-  - third grid
-  - upper third: practice config, cards or practice summary icons
-- only put cardGuess on card state -> remove active, replace with offset
-  - rename state to guess
+- somehow fix the layout onspecific phoe sizes
+- reuse cool right / wrong / unanswered in stats
+- somehow fix states to accomondate
+- guesses on cards misaligning guesses count misaligngin guesses count of practice
+  - just remember practice summary
+    -> put percentage in there
+    -> save guesses per day
+  - for continue until done thing
 
-- move position back into position obj conf?
-- edit cards just makes card editable?
-- move swiper nav und swiper end screen into own comps
-
-- detach swipeable ref -> only use in sync function directly
-- dont work with pixels -> work with %, recalculate px / perc multi on refresh
-- put layout generally in css with percent base
-- movement applies x y to host
-  - when swiping, use x y from host, else, use the normal placement
-
-- do the conditional position via util
-- put x / y back in css? -> use offset in css
-- pokemon battle like config + swipe -> diese schiefen striche oben und unten in config und active
-- karten eigefaerbt wenn done
-- allow swiep also on hidden to speed up movement
-- show visual indicator on votecast and key cast
 - wiggle + hints on first or inacation timeout
-- indicator for vote casted (small size bumb anim?)
-
-- continue practice bad cards option after end
-  - keep vis and stacks, just move wrong cards to top of stack, then put pointer to where they start, then randomize the new cards
-  - hold two stacks (visually)
-    - stack one: take cards from, put faulty guesses back
-    - stack two: correct guesses
 
 - success pf practices is measured by ending with wrong guesses: PUT IN DOCS
   - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
