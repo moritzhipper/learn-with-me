@@ -39,7 +39,7 @@
     />
     <label class="full">
       <span> Collection </span>
-      <select formControlName="collectionIdentifier">
+      <select formControlName="collectionIdentifier" class="dark">
         @for (option of selectOptions(); track option) {
           <option [ngValue]="option.id">
             {{ option.label }}

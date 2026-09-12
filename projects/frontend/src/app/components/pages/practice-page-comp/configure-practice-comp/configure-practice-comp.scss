@@ -17,17 +17,14 @@
 @include isDesktop {
   [swiper-top] {
     display: grid;
-    grid-template: repeat(4, auto) / repeat(3, 1fr);
+    grid-template: repeat(4, auto) / auto 1fr 1fr;
     gap: var(--distance-2) var(--distance-4);
     .counter {
       position: relative;
       grid-area: 1 / 1 / 5 / 2;
       place-self: stretch;
-      padding-right: var(--distance-4);
+      padding-right: calc(var(--distance-4) * 2);
       margin-right: var(--distance-4);
-      width: auto;
-      height: 100%;
-      aspect-ratio: 1 / 1;
 
       &:after {
         content: '';
