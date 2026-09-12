@@ -155,12 +155,7 @@ ng-icon.vote {
 
   &[guess-state='done'] {
     [guess='unanswered'] {
-      &:first-of-type {
-        transform: translate(0%, 100%) rotate(2deg);
-      }
-      &:not(:first-of-type) {
-        transform: translate(0%, 130%) rotate(-2deg);
-      }
+      transform: translate(120%, 100%) rotate(5deg);
     }
   }
 
