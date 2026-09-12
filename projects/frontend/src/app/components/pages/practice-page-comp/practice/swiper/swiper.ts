@@ -16,7 +16,6 @@ import {
   incorrectAnswerIcon,
   practiceSpeedIcon
 } from '../../../../../icon-registry'
-import { ModalService } from '../../../../../services/modal-service'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
 
@@ -72,7 +71,6 @@ export class Swiper {
   private readonly hostEl = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement
   private readonly window = inject(DOCUMENT).defaultView
   private destroyRef = inject(DestroyRef)
-  private modals = inject(ModalService)
 
   // Component state related -------------------------------------------
 

@@ -48,12 +48,7 @@
     </label>
   </div>
 
-  <button
-    type="submit"
-    class="wide"
-    [disabled]="selectedLearnables().length === 0"
-    swiper-navigation
-  >
+  <button type="submit" [disabled]="selectedLearnables().length === 0" swiper-navigation>
     Start Practice
   </button>
 </form>

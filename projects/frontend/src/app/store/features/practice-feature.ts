@@ -129,7 +129,7 @@ export const withPracticeFeature = <_>() =>
             }
           })
 
-          const isFinished = currentPractice.guessableIndex >= currentPractice.guessables.length
+          const isFinished = currentPractice.guessableIndex >= currentPractice.guessables.length - 1
 
           return {
             ...b,

@@ -11,7 +11,9 @@ app-practice-rating-comp {
   box-sizing: border-box;
   overflow: hidden;
 }
-
+[swiper-navigation] button {
+  box-shadow: var(--shadow-big);
+}
 .overview {
   display: flex;
   flex-direction: column;
@@ -71,12 +73,17 @@ app-practice-rating-comp {
 }
 liz-info-card {
   grid-column: span 2;
+  box-shadow: var(--shadow-big);
+  backdrop-filter: blur(3px);
 }
 
 [swiper-navigation] {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--distance-5) var(--distance-4);
+  .full {
+    grid-column: span 2;
+  }
 }
 
 .pop-in {

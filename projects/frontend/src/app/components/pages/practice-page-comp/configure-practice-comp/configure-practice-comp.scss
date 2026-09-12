@@ -14,6 +14,10 @@
   }
 }
 
+[type='submit'] {
+  box-shadow: var(--shadow-big);
+}
+
 @include isDesktop {
   [swiper-top] {
     display: grid;

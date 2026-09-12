@@ -33,9 +33,13 @@
       <button class="big primary has-icon" (click)="continue.emit()" #animItem>
         Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
       </button>
-    } @else {
+    } @else if (sum.guessedRightPercent !== 100) {
       <button class="big" (click)="continue.emit()" #animItem>Continue</button>
       <button class="big primary has-icon" (click)="finish.emit()" #animItem>
+        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
+      </button>
+    } @else {
+      <button class="big primary has-icon full" (click)="finish.emit()" #animItem>
         Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
     }
