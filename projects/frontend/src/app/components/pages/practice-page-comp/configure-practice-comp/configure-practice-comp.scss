@@ -19,6 +19,7 @@
     display: grid;
     grid-template: repeat(4, auto) / auto 1fr 1fr;
     gap: var(--distance-2) var(--distance-4);
+
     .counter {
       position: relative;
       grid-area: 1 / 1 / 5 / 2;

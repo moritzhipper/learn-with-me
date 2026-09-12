@@ -1,16 +1,18 @@
-<app-page-wrapper [icon]="iconBug" fullScreen>
+<app-page-wrapper [icon]="practiceIcon" fullScreen>
   <div class="views">
-    @if (currentPractice(); as currP) {
-      <!-- <liz-swiper class="fly-in-y-wide" /> -->
-      <liz-practice class="fly-in-y-wide" />
-
-      <!-- <app-active-practice-comp
-        [currentPractice]="currP"
-        animate.leave="fly-out"
-        animate.enter="fly-in-y-wide"
-      /> -->
+    <liz-swiper-page-layout>
+      <liz-swiper swiper-full />
+    </liz-swiper-page-layout>
+    @if (currentPractice(); as practice) {
+      @if (isOngoing()) {
+        <liz-swiper-page-layout>
+          <liz-swiper-nav swiper-navigation />
+        </liz-swiper-page-layout>
+      } @else {
+        <liz-swiper-summary [practice]="practice" (finish)="finish()" swiper-full />
+      }
     } @else {
-      <app-configure-practice-comp animate.leave="fly-out" animate.enter="fly-in-y-wide" />
+      <app-configure-practice-comp />
     }
   </div>
 </app-page-wrapper>

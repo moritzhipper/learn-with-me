@@ -1,31 +1,19 @@
 @use '../../../../style/mixins' as *;
+
 .views {
-  height: 100%;
   display: grid;
-
-  app-active-practice-comp,
-  app-configure-practice-comp,
-  liz-practice {
+  height: 100%;
+  place-items: stretch;
+  liz-swiper-page-layout,
+  liz-swiper-summary,
+  app-configure-practice-comp {
     grid-area: 1 / 1;
-  }
-
-  .fly-out {
-    z-index: 0;
-    animation: fly-out var(--duration-1);
   }
 }
 
 @include isDesktop {
   liz-swiper {
-    width: 700px;
+    width: 600px;
     height: 400px;
-    justify-self: center;
-    margin-top: 10dvh;
-  }
-}
-@keyframes fly-out {
-  to {
-    translate: 0 100px;
-    opacity: 0;
   }
 }
