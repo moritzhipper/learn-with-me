@@ -45,6 +45,19 @@ select {
   -webkit-tap-highlight-color: transparent;
 }
 
+input,
+button,
+textarea,
+a,
+select {
+  outline: 0px solid transparent;
+  transition: outline var(--duration-0) ease-out;
+
+  &:focus-visible {
+    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+  }
+}
+
 button {
   transition-property:
     background-color, opacity, outline, color, box-shadow, padding, rotate, border;
@@ -155,19 +168,6 @@ select {
     text-align: inherit;
     margin: 0;
     padding: 0;
-  }
-}
-
-input,
-button,
-textarea,
-a,
-select {
-  outline: 0px solid transparent;
-  transition: outline var(--duration-1) ease;
-
-  &:focus-visible {
-    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
   }
 }
 
