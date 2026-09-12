@@ -1,31 +1,63 @@
 @use '../../../../../style/mixins' as *;
 
-.counter .count {
-  font-weight: var(--font-weight-bold);
-}
-form.navigation {
-  grid-template-columns: 1fr;
-}
-
-.count {
-  font-size: 150px;
-  line-height: 120px;
-}
-.top {
+.counter {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   text-align: center;
-  align-self: center;
-  gap: var(--distance-4);
-}
+  font-weight: var(--font-weight-bold);
 
-.elements {
-  display: grid;
-  gap: var(--distance-1);
+  .count {
+    font-weight: var(--font-weight-bold);
+    font-size: 130px;
+    line-height: 110px;
+  }
 }
 
 @include isDesktop {
+  [swiper-top] {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: var(--distance-1) var(--distance-4);
+    .counter {
+      position: relative;
+      grid-area: 1 / 1 / 4 / 2;
+      place-self: stretch;
+      margin-right: var(--distance-2);
+
+      &:after {
+        content: '';
+        rotate: -2deg;
+        border-right: 2px solid var(--col-accent);
+        height: 100%;
+        opacity: var(--opacity-1);
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    liz-confidence-dots {
+      grid-area: 1 / 2 / 2 / 4;
+    }
+
+    .div3 {
+      grid-area: 1 / 2 / 2 / 4;
+    }
+  }
 }
 
 @include isPhone {
+  [swiper-top] {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: var(--distance-2);
+
+    liz-confidence-dots {
+      padding: var(--distance-4);
+    }
+
+    .counter {
+      place-self: center;
+    }
+  }
 }
