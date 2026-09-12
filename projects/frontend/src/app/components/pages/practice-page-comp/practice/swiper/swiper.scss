@@ -70,10 +70,6 @@ ng-icon.vote {
     transition-timing-function: var(--soft-ease);
 
     will-change: transform;
-
-    @starting-style {
-      transform: translate(0%, 100dvh) !important;
-    }
   }
 
   ng-icon.vote {
@@ -97,19 +93,20 @@ ng-icon.vote {
     [guess='unanswered'] {
       transition-duration: var(--duration-2);
 
-      &[offset-to-active='0'] {
-        box-shadow: var(--shadow-bigger);
-        background-color: var(--col-accent);
-        color: var(--col-text);
-        border-color: var(--col-accent);
-      }
       &[offset-to-active='-2'] {
         transform: translate(0%, 125%) rotate(1deg);
       }
       &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
         transform: translate(0%, 130%) rotate(-2deg);
       }
+      &[offset-to-active='0'] {
+        box-shadow: var(--shadow-bigger);
+        background-color: var(--col-accent);
+        color: var(--col-text);
+        border-color: var(--col-accent);
+      }
     }
+
     [guess='right'] {
       transform: translate(120%, 100%) rotate(15deg);
       border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
@@ -145,8 +142,20 @@ ng-icon.vote {
       }
     }
   }
+  &[guess-state='done'] .card {
+    transition-duration: var(--duration-2);
+  }
 
-  .card:not([offset-to-active='0']) {
+  &[guess-state='done'] .card,
+  .card {
+    transform: translate(100%, 150%) rotate(5deg);
+
+    @starting-style {
+      transform: translate(100%, 150%) rotate(5deg) !important;
+    }
+  }
+  .card:not([offset-to-active='0']),
+  &[guess-state='done'] .card {
     color: transparent;
     background-color: var(--col-bg);
   }
@@ -168,13 +177,6 @@ ng-icon.vote {
     [offset-to-active='-1'] {
       box-shadow: var(--shadow-bigger);
       transform: translate(0%, 90%) rotate(-2deg);
-    }
-  }
-
-  &[guess-state='done'] {
-    .card {
-      transform: translate(0%, 150%) rotate(5deg);
-      transition-duration: var(--duration-2);
     }
   }
 

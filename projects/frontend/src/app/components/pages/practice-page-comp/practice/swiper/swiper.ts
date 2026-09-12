@@ -20,10 +20,6 @@ import { ModalService } from '../../../../../services/modal-service'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
 
-type PracticeVM = Pick<PracticeActive, 'guessableField' | 'guessableIndex'> & {
-  cardVMs: CardVM[]
-}
-
 export type CardVM = {
   card: UserLearnable
   guess: Guess
@@ -95,7 +91,7 @@ export class Swiper {
     computation: () => 'unanswered'
   })
 
-  guessState = linkedSignal<PracticeActive | null, GuessState>({
+  protected guessState = linkedSignal<PracticeActive | null, GuessState>({
     source: this.practice,
     computation: (practice) => {
       if (practice && !practice.isFinished) return 'guessing'
@@ -103,9 +99,9 @@ export class Swiper {
     }
   })
 
-  vm = computed<PracticeVM | undefined>(() => {
+  protected cards = computed<CardVM[]>(() => {
     const practice = this.practice()
-    if (!practice) return
+    if (!practice) return []
 
     const cards = this.ls.activeBank().learnables
     let cardVMs: Omit<CardVM, 'position'>[] = []
@@ -124,11 +120,7 @@ export class Swiper {
       })
     })
 
-    return {
-      cardVMs,
-      guessableField: practice.guessableField,
-      guessableIndex: practice.guessableIndex
-    }
+    return cardVMs
   })
 
   constructor() {
@@ -250,7 +242,7 @@ export class Swiper {
   }
 
   async edit() {
-    const learnable = this.vm()?.cardVMs.find((c) => c.offsetToActive === 0)?.card
+    const learnable = this.cards()?.find((c) => c.offsetToActive === 0)?.card
     if (!learnable) return
 
     const res = await this.modals.open<UserLearnable>('single-edit', { learnable })
