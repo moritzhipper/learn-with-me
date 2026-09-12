@@ -155,7 +155,7 @@ ng-icon.vote {
 
   &[guess-state='done'] {
     [guess='unanswered'] {
-      transform: translate(120%, 100%) rotate(5deg);
+      transform: translate(120%, -50%) rotate(-15deg);
     }
   }
 
