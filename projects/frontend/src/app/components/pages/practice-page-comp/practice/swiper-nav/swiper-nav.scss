@@ -1,6 +1,5 @@
 .nav {
   place-self: end stretch;
-  z-index: 20;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--distance-4);

@@ -4,41 +4,15 @@
   display: grid;
   height: 100%;
   place-items: stretch;
+  liz-swiper-page-layout,
+  liz-swiper-summary {
+    grid-area: 1 / 1;
+  }
 }
-// @include isPhone {
-//   liz-swiper,
-//   liz-swiper-summary,
-//   liz-swiper-nav {
-//     grid-area: 1 / 1;
-//   }
-//   liz-swiper-nav {
-//     align-self: end;
-//   }
-// }
 
-// @include isDesktop {
-//   :host {
-//     height: 100%;
-//     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-
-//     liz-swiper {
-//       width: 600px;
-//       height: 400px;
-//     }
-//     liz-swiper-summary {
-//       place-self: center;
-//       grid-area: 1 / 1 / 4 / 4;
-//     }
-//     liz-swiper {
-//       place-self: center;
-//       grid-area: 1 / 1 / 3 / 4;
-//     }
-
-//     liz-swiper-nav {
-//       grid-area: 1 / 1 / 4 / 4;
-
-//       place-self: end center;
-//       width: 400px;
-//     }
-//   }
-// }
+@include isDesktop {
+  liz-swiper {
+    width: 600px;
+    height: 400px;
+  }
+}

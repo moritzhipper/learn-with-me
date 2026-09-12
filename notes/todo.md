@@ -1,5 +1,7 @@
 # ToDo
 
+## Storage quota reached fast -> do the guesses count thing in practice history also accomondating for mor stuff like guesses and improvements?
+
 ## swiper
 
 - create unified layout for practice

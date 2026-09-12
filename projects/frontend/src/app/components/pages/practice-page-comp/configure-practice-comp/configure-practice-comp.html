@@ -15,6 +15,7 @@
       ]"
       formControlName="type"
       label="Type"
+      darkMode
     />
     <app-radio-comp
       [config]="[
@@ -22,6 +23,7 @@
         { value: 'low', label: 'Low' },
         { value: 'medium', label: 'Medium' }
       ]"
+      darkMode
       formControlName="confidence"
       label="Confidence"
     />
@@ -30,10 +32,12 @@
         { value: 'translation', label: bank().language.speaking, icon: icons.learnLanguageIcon },
         { value: 'lexeme', label: bank().language.learning, icon: icons.speakLanguageIcon }
       ]"
+      darkMode
       label="Guess"
       formControlName="guessableField"
+      class="full"
     />
-    <label>
+    <label class="full">
       <span> Collection </span>
       <select formControlName="collectionIdentifier">
         @for (option of selectOptions(); track option) {

@@ -1,12 +1,13 @@
 import { Component, computed, inject } from '@angular/core'
 import { LearnablesStore } from '../../../../store/learnables-store'
+import { SwiperPageLayout } from '../swiper-page-layout/swiper-page-layout'
 import { SwiperNav } from './swiper-nav/swiper-nav'
 import { SwiperSummary } from './swiper-summary/swiper-summary'
 import { Swiper } from './swiper/swiper'
 
 @Component({
   selector: 'liz-practice',
-  imports: [SwiperNav, SwiperSummary, Swiper],
+  imports: [SwiperNav, SwiperSummary, Swiper, SwiperPageLayout],
   templateUrl: './practice.html',
   styleUrl: './practice.scss'
 })

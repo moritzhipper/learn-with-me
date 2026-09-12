@@ -1,6 +1,10 @@
+<liz-swiper-page-layout>
+  <liz-swiper swiper-full />
+</liz-swiper-page-layout>
 @if (isOngoing()) {
-  <liz-swiper />
-  <liz-swiper-nav />
+  <liz-swiper-page-layout>
+    <liz-swiper-nav swiper-navigation />
+  </liz-swiper-page-layout>
 } @else if (practice(); as practice) {
   <liz-swiper-summary [practice]="practice" (finish)="finish()" />
 }
