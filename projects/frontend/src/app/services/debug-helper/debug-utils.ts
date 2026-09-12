@@ -77,7 +77,8 @@ const buildCollectionPractices = (
     guessableIndex: collection.cardIds.length,
     guessables: toGuessables(collection.cardIds, practiceIndex),
     learnableIDs: collection.cardIds,
-    guessableField: 'translation'
+    guessableField: 'translation',
+    isFinished: true
   }))
 
 const buildCustomPractices = (
@@ -91,7 +92,8 @@ const buildCustomPractices = (
     guessableIndex: learnableIds.length,
     guessables: toGuessables(learnableIds, practiceIndex + 1),
     learnableIDs: learnableIds,
-    guessableField: 'translation'
+    guessableField: 'translation',
+    isFinished: true
   }))
 }
 

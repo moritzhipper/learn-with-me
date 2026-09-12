@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
 import { practicePageIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -19,21 +19,6 @@ export class PracticeComp {
   currentPractice = computed(() => this.ls.activeBank().practice.active)
 
   protected readonly practiceIcon = practicePageIcon
-  constructor() {
-    effect(() => {
-      console.log({
-        isOngoing: this.isOngoing(),
-        practice: this.currentPractice()
-      })
-    })
-  }
-
-  protected isOngoing = computed(() => {
-    const practice = this.currentPractice()
-    if (!practice) return false
-
-    return practice.guessableIndex < practice.guessables.length
-  })
 
   finish() {
     this.ls.resetPracticeAndSaveToHistory()

@@ -98,8 +98,8 @@ export class Swiper {
   guessState = linkedSignal<PracticeActive | null, GuessState>({
     source: this.practice,
     computation: (practice) => {
-      const isDone = practice?.guessableIndex === practice?.guessables.length
-      return isDone ? 'done' : 'guessing'
+      if (practice && !practice.isFinished) return 'guessing'
+      return 'done'
     }
   })
 

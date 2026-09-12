@@ -70,6 +70,10 @@ ng-icon.vote {
     transition-timing-function: var(--soft-ease);
 
     will-change: transform;
+
+    @starting-style {
+      transform: translate(0%, 150%) !important;
+    }
   }
 
   ng-icon.vote {
@@ -151,7 +155,7 @@ ng-icon.vote {
 
   &[guess-state='done'] {
     [guess='unanswered'] {
-      transform: translate(120%, -50%) rotate(-15deg);
+      transform: translate(0%, 180%) rotate(5deg);
     }
   }
 

@@ -1,17 +1,16 @@
+@let practice = currentPractice();
+
 <app-page-wrapper [icon]="practiceIcon" fullScreen>
   <div class="views">
     <liz-swiper-page-layout>
       <liz-swiper swiper-full />
-    </liz-swiper-page-layout>
-    @if (currentPractice(); as practice) {
-      @if (isOngoing()) {
-        <liz-swiper-page-layout>
-          <liz-swiper-nav swiper-navigation />
-        </liz-swiper-page-layout>
-      } @else {
-        <liz-swiper-summary [practice]="practice" (finish)="finish()" swiper-full />
+      @if (practice && !practice.isFinished) {
+        <liz-swiper-nav swiper-navigation />
       }
-    } @else {
+    </liz-swiper-page-layout>
+    @if (practice && practice.isFinished) {
+      <liz-swiper-summary [practice]="practice" (finish)="finish()" />
+    } @else if (!practice) {
       <app-configure-practice-comp />
     }
   </div>
