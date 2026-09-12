@@ -80,6 +80,13 @@ export class Swiper {
 
   // Component state related -------------------------------------------
 
+  // Larry will never leave the view!
+  larryCardIndex = computed(() => {
+    const practice = this.practice()
+    if (!practice) return 1
+    return practice.guessableIndex - practice.guessables.length
+  })
+
   practice = computed(() => this.ls.activeBank().practice.active)
 
   // Show user when guess on pointer up will be registered

@@ -70,10 +70,6 @@ ng-icon.vote {
     transition-timing-function: var(--soft-ease);
 
     will-change: transform;
-
-    @starting-style {
-      transform: translate(0%, 150%) !important;
-    }
   }
 
   ng-icon.vote {
