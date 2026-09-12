@@ -108,12 +108,12 @@ ng-icon.vote {
     }
 
     [guess='right'] {
-      transform: translate(140%, 100%) rotate(15deg);
+      transform: translate(150%, 100%) rotate(20deg);
       border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
     }
 
     [guess='wrong'] {
-      transform: translate(-140%, 100%) rotate(-15deg);
+      transform: translate(-150%, 100%) rotate(-20deg);
       border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
     }
 

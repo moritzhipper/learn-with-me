@@ -12,6 +12,7 @@
     -> put percentage in there
     -> save guesses per day
   - for continue until done thing
+  - also good for memory
 
 - wiggle + hints on first or inacation timeout
 

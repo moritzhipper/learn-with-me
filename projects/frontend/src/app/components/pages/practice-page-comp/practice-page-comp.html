@@ -3,7 +3,7 @@
 <app-page-wrapper [icon]="practiceIcon" fullScreen>
   <div class="views">
     <liz-swiper-page-layout>
-      <liz-swiper swiper-full />
+      <liz-swiper swiper-full animate.enter="fly-in-y-wide" />
       @if (practice && !practice.isFinished) {
         <liz-swiper-nav
           swiper-navigation
