@@ -1,53 +1,62 @@
-<div class="counter">
-  <span class="count">
-    {{ selectedLearnables().length }}
-  </span>
-  <span class="label">Cards in set</span>
-</div>
-<liz-confidence-dots [confidence]="confidence()" />
+<form [formGroup]="form" (ngSubmit)="start()" liz-swiper-page-layout>
+  <div swiper-top>
+    <div class="counter">
+      <p class="count bold">
+        {{ selectedLearnables().length }}
+      </p>
+      <p class="label bold size-3 light pt-3 pb-">Cards in set</p>
+    </div>
+    <liz-confidence-dots [confidence]="confidence()" />
+    <div class="elements wide">
+      <app-radio-comp
+        [config]="[
+          { label: 'All', value: null },
+          { value: 'word', label: 'Word' },
+          { value: 'phrase', label: 'Phrase' }
+        ]"
+        darkMode
+        formControlName="type"
+        label="Type"
+      />
+      <app-radio-comp
+        [config]="[
+          { value: null, label: 'All' },
+          { value: 'low', label: 'Low' },
+          { value: 'medium', label: 'Medium' }
+        ]"
+        darkMode
+        formControlName="confidence"
+        label="Confidence"
+      />
+      <app-radio-comp
+        [config]="[
+          { value: 'translation', label: bank().language.speaking, icon: icons.learnLanguageIcon },
+          { value: 'lexeme', label: bank().language.learning, icon: icons.speakLanguageIcon }
+        ]"
+        darkMode
+        label="Guess"
+        formControlName="guessableField"
+      />
+      <label>
+        <span> Collection </span>
+        <select formControlName="collectionIdentifier">
+          @for (option of selectOptions(); track option) {
+            <option [ngValue]="option.id">
+              {{ option.label }}
+              ({{ option.confidence }}%)
+            </option>
+          }
+        </select>
+      </label>
+    </div>
+  </div>
 
-<form [formGroup]="form" (ngSubmit)="start()">
-  <app-radio-comp
-    [config]="[
-      { label: 'All', value: null },
-      { value: 'word', label: 'Word' },
-      { value: 'phrase', label: 'Phrase' }
-    ]"
-    darkMode
-    formControlName="type"
-    label="Type"
-  />
-  <app-radio-comp
-    [config]="[
-      { value: null, label: 'All' },
-      { value: 'low', label: 'Low' },
-      { value: 'medium', label: 'Medium' }
-    ]"
-    darkMode
-    formControlName="confidence"
-    label="Confidence"
-  />
-  <app-radio-comp
-    [config]="[
-      { value: 'translation', label: bank().language.speaking, icon: icons.learnLanguageIcon },
-      { value: 'lexeme', label: bank().language.learning, icon: icons.speakLanguageIcon }
-    ]"
-    darkMode
-    label="Guess"
-    formControlName="guessableField"
-  />
-  <label>
-    <span> Collection </span>
-    <select formControlName="collectionIdentifier">
-      @for (option of selectOptions(); track option) {
-        <option [ngValue]="option.id">
-          {{ option.label }}
-          ({{ option.confidence }}%)
-        </option>
-      }
-    </select>
-  </label>
-  <button type="submit" class="icon" [disabled]="selectedLearnables().length === 0">
+  <button
+    type="submit"
+    class="wide"
+    [disabled]="selectedLearnables().length === 0"
+    swiper-navigation
+  >
     Start Practice
   </button>
 </form>

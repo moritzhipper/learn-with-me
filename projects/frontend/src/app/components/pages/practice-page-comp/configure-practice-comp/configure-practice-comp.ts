@@ -9,6 +9,7 @@ import { aggregateConfidence } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
 import { ConfidenceDots } from '../../../shared/confidence/confidence-dots/confidence-dots'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
+import { SwiperPageLayout } from '../swiper-page-layout/swiper-page-layout'
 
 type SelectOption = {
   label: string
@@ -18,9 +19,9 @@ type SelectOption = {
 
 @Component({
   selector: 'app-configure-practice-comp',
-  imports: [RadioComp, ReactiveFormsModule, ConfidenceDots],
+  imports: [RadioComp, ReactiveFormsModule, ConfidenceDots, SwiperPageLayout],
   templateUrl: './configure-practice-comp.html',
-  styleUrl: './configure-practice-comp.scss'
+  styleUrls: ['./configure-practice-comp.scss']
 })
 export class ConfigurePracticeComp {
   private readonly _fb = inject(NonNullableFormBuilder)

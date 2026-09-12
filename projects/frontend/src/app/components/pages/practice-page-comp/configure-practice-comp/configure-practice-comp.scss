@@ -1,97 +1,31 @@
 @use '../../../../../style/mixins' as *;
 
-:host {
+.counter .count {
+  font-weight: var(--font-weight-bold);
+}
+form.navigation {
+  grid-template-columns: 1fr;
+}
+
+.count {
+  font-size: 150px;
+  line-height: 120px;
+}
+.top {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-self: center;
+  gap: var(--distance-4);
+}
+
+.elements {
   display: grid;
-  grid-template-rows: 1fr auto;
-
-  .counter .count {
-    font-weight: var(--font-weight-bold);
-  }
-
-  form {
-    display: grid;
-    button {
-      transition: all var(--duration-1) var(--soft-ease);
-    }
-  }
+  gap: var(--distance-1);
 }
 
-@include isDesktop() {
-  :host {
-    justify-self: center;
-    align-self: start;
-    margin-top: 25vh;
-    position: relative;
-    .counter {
-      translate: -70px 0px;
-      align-self: end;
-      .count {
-        font-size: 150px;
-        line-height: 130px;
-        display: inline-block;
-        margin-right: var(--distance-5);
-      }
-
-      .label {
-        font-size: var(--font-size-4);
-        opacity: var(--opacity-1);
-      }
-    }
-    liz-confidence-dots {
-      position: absolute;
-      top: var(--distance-6);
-      right: 0px;
-      width: 50%;
-      rotate: 4deg;
-      padding-bottom: var(--distance-5);
-    }
-    form {
-      gap: var(--distance-4);
-    }
-
-    form {
-      margin-top: var(--distance-3);
-      width: var(--medium-width);
-      grid-template-columns: 1fr 1fr 1fr;
-      align-items: end;
-
-      button {
-        grid-column: span 2;
-
-        &:hover:not([disabled]),
-        &:focus-visible:not([disabled]) {
-          transform: scale(1.05) rotate(-0.5deg);
-          box-shadow: var(--shadow-big);
-        }
-      }
-    }
-  }
+@include isDesktop {
 }
 
-@include isPhone() {
-  .counter {
-    place-self: center;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-
-    .count {
-      font-size: 100px;
-      line-height: 100px;
-    }
-    .label {
-      font-size: var(--font-size-3);
-      opacity: var(--opacity-1);
-    }
-  }
-  form {
-    gap: var(--distance-3);
-  }
-
-  liz-confidence-dots {
-    padding: 0 var(--distance-1) var(--distance-4) var(--distance-1);
-  }
-  button {
-    margin-top: var(--distance-5);
-  }
+@include isPhone {
 }

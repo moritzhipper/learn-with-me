@@ -57,6 +57,10 @@ ng-icon.vote {
     overflow: hidden;
     color: rgba(from var(--col-accent) r g b / var(--opacity-0));
   }
+
+  .notes {
+    opacity: var(--opacity-1);
+  }
 }
 
 // Animation related
@@ -100,7 +104,7 @@ ng-icon.vote {
 
   [guess='wrong'],
   [guess='right'] {
-    transition-duration: 1s;
+    transition-duration: 1.3s;
   }
   [guess='unanswered'] {
     transition-duration: var(--duration-2);

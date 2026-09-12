@@ -1,9 +1,6 @@
 :host {
   display: grid;
-  grid-template-rows: 1fr auto;
-  flex-direction: column;
-  gap: var(--distance-5);
-  z-index: 21;
+  place-items: stretch;
 }
 
 app-practice-rating-comp {
@@ -12,72 +9,74 @@ app-practice-rating-comp {
 
   height: auto;
   width: 100%;
-  height: auto;
   min-width: 0px;
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.nav {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--distance-4);
-}
-
-.stats {
-  display: flex;
-  gap: var(--distance-1);
-  justify-content: center;
-  opacity: var(--opacity-1);
-  margin-bottom: auto;
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--distance-1);
-
-    ng-icon {
-      display: block;
-    }
-
-    &:not(:last-child):after {
-      opacity: var(--opacity-0);
-      content: '/';
-    }
-  }
-}
-
-table {
-  margin: auto 0;
-  padding: var(--distance-4);
-  width: 100%;
-  border-spacing: 0;
-
-  td {
-    padding: var(--distance-2) var(--distance-4);
-
-    &:last-child {
-      text-align: right;
-    }
-  }
-
-  tr:not(:last-child) td {
-    border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
-  }
-}
-
 .overview {
   display: flex;
   flex-direction: column;
+  p {
+    text-align: center;
+  }
+  .stats {
+    display: flex;
+    gap: var(--distance-1);
+    justify-content: center;
+    opacity: var(--opacity-1);
+    margin-bottom: auto;
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--distance-1);
+
+      ng-icon {
+        display: block;
+      }
+
+      &:not(:last-child):after {
+        opacity: var(--opacity-0);
+        content: '/';
+      }
+    }
+    table {
+      margin: auto 0;
+      padding: var(--distance-4);
+      width: 100%;
+      border-spacing: 0;
+
+      td {
+        padding: var(--distance-2) var(--distance-4);
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+
+      tr:not(:last-child) td {
+        border-bottom: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+      }
+    }
+    p {
+      text-align: center;
+    }
+
+    .nudge {
+      padding: var(--distance-5);
+    }
+  }
+}
+liz-info-card {
+  grid-column: span 2;
 }
 
-p {
-  text-align: center;
-}
-
-.nudge {
-  padding: var(--distance-5);
+[swiper-navigation] {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--distance-5) var(--distance-4);
 }
 
 .pop-in {

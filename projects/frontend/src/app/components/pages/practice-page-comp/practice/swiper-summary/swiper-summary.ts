@@ -12,6 +12,7 @@ import {
 import { mapConfidencePercentToRating, PracticeRating } from '../../../../../utils/genaral-utils'
 import { InfoCard } from '../../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
+import { SwiperPageLayout } from '../../swiper-page-layout/swiper-page-layout'
 
 export type ActivePracticeSummary = {
   correctGuesses: number
@@ -23,9 +24,9 @@ export type ActivePracticeSummary = {
 
 @Component({
   selector: 'liz-swiper-summary',
-  imports: [PracticeRatingComp, NgIcon, AnimDelayWrapper, InfoCard],
+  imports: [PracticeRatingComp, NgIcon, AnimDelayWrapper, InfoCard, SwiperPageLayout],
   templateUrl: './swiper-summary.html',
-  styleUrl: './swiper-summary.scss'
+  styleUrls: ['./swiper-summary.scss']
 })
 export class SwiperSummary {
   readonly summary = input.required<ActivePracticeSummary, PracticeActive>({
