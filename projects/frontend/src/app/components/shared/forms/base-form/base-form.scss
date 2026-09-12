@@ -37,14 +37,16 @@
 }
 
 .buttons {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
   gap: var(--distance-4);
 }
 
 @include isPhone {
   .header-section {
     text-align: center;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
   }
 }
 @include isDesktop() {
@@ -53,6 +55,16 @@
 
     .header-section {
       align-items: start;
+    }
+    .buttons {
+      display: flex;
+      justify-content: end;
+      [type='submit'] {
+        min-width: 250px;
+      }
+      [type='button'] {
+        min-width: 150px;
+      }
     }
   }
 }
