@@ -119,7 +119,7 @@ ng-icon.vote {
 
     [guess='wrong'],
     [guess='right'] {
-      transition-duration: 1.3s;
+      transition-duration: 1.5s;
     }
 
     &[casted-guess='wrong'],
