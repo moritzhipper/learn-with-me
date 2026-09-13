@@ -4,6 +4,12 @@
 
 ## swiper
 
+- swipe-hints
+  - add: top to reveal,
+  - add to desktop: use keays up right left
+
+- put drop shadow big in theme, use on swiper nav and hints
+
 - somehow fix the layout onspecific phoe sizes
 - reuse cool right / wrong / unanswered in stats
 - somehow fix states to accomondate

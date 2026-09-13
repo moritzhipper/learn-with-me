@@ -209,15 +209,19 @@ ng-icon.vote {
 
 liz-swiper-hints {
   transition-property: opacity, filter;
-  transition-duration: var(--duration-2);
   transition-delay: 2s;
+  transition-duration: var(--duration-3);
+  filter: blur(0px);
 
   @starting-style {
     opacity: 0;
+    filter: blur(10px);
   }
 
   &.hints-leave {
+    transition-duration: var(--duration-0);
     transition-delay: 0s;
     opacity: 0;
+    filter: blur(10px);
   }
 }

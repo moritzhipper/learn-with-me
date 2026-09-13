@@ -1,13 +1,13 @@
 :host {
   text-align: center;
-  color: var(--col-text);
-  opacity: var(--opacity-1);
+  color: var(--col-primary);
+  //   opacity: var(--opacity-1);
 }
 
 .label {
-  padding-top: var(--distance-4);
   text-shadow: 0 5px 13px var(--col-shadow);
 }
+
 .hints {
   display: grid;
   place-items: center;
@@ -23,7 +23,7 @@
     font-size: 140px;
 
     --offset-x: -57px;
-    --offset-y: -10px;
+    --offset-y: 0px;
     --rotate: -10deg;
 
     &.right {
@@ -38,7 +38,7 @@
     font-size: 40px;
 
     --offset-x: 34px;
-    --offset-y: 38px;
+    --offset-y: 48px;
 
     &.right {
       transform: translate(var(--offset-x), var(--offset-y));

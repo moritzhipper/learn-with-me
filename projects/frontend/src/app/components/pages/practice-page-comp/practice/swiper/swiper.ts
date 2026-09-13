@@ -100,7 +100,12 @@ export class Swiper {
 
   // sets true on practice start
   protected showHints = linkedSignal<boolean, boolean>({
-    source: computed(() => !!this.practice()),
+    source: computed(() => {
+      const practice = this.practice()
+      if (practice && !practice.isFinished) return true
+
+      return false
+    }),
     computation: (hasPractice) => hasPractice
   })
 
@@ -181,6 +186,8 @@ export class Swiper {
   private keydown = (ev: KeyboardEvent) => {
     const state = this.guessState()
     if (ev.key === 'ArrowUp' && state === 'guessing') {
+      this.showHints.set(false)
+
       this.guessState.set('voting')
     } else if (ev.key === 'ArrowLeft' && state === 'voting') {
       this.guess('wrong')
