@@ -50,17 +50,17 @@ ng-icon.vote {
   border-color: rgba(from var(--col-accent) r g b / var(--opacity-0));
 
   &.larry app-larry-big {
-    justify-self: center;
-    align-self: start;
-    grid-row: span 2;
-    width: 100%;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    padding: var(--distance-5);
     color: rgba(from var(--col-accent) r g b / var(--opacity-0));
   }
+}
 
-  .notes {
-    opacity: var(--opacity-1);
-  }
+.notes {
+  opacity: var(--opacity-1);
 }
 
 // Animation related

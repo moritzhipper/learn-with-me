@@ -10,6 +10,7 @@
 .nav {
   display: grid;
   place-items: stretch;
+
   &:empty {
     display: none;
   }
