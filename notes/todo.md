@@ -10,19 +10,15 @@
   - when hints present, dont do swipe or reveal action on click. remove the hint first
   - if no practice in history, show the banner without delay
 
-- put drop shadow big in theme, use on swiper nav and hints
-
-- somehow fix the layout onspecific phoe sizes
 - reuse cool right / wrong / unanswered in stats
 - somehow fix states to accomondate
+
 - guesses on cards misaligning guesses count misaligngin guesses count of practice
   - just remember practice summary
     -> put percentage in there
     -> save guesses per day
   - for continue until done thing
   - also good for memory
-
-- wiggle + hints on first or inacation timeout
 
 - success pf practices is measured by ending with wrong guesses: PUT IN DOCS
   - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
