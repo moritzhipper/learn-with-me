@@ -1,0 +1,47 @@
+@let sum = summary();
+<liz-swiper-page-layout lizAnimDelayWrapper applyClass="pop-in">
+  <div swiper-top class="overview" #animItem>
+    <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
+    <div class="stats pb-5">
+      <div class="pill text bold">
+        {{ sum.correctGuesses }}
+        <ng-icon [svg]="icons.correctAnswerIcon" />
+      </div>
+      <div class="pill text bold">
+        {{ sum.wrongGuesses }}
+        <ng-icon [svg]="icons.incorrectAnswerIcon" />
+      </div>
+      @if (sum.unansweredGuesses) {
+        <div class="pill text bold">
+          {{ sum.unansweredGuesses }}
+          <ng-icon [svg]="icons.unansweredAnswerIcon" />
+        </div>
+      }
+    </div>
+    <p class="header size-3 bold pb-1">You got {{ sum.guessedRightPercent }}% right!</p>
+    <p class="header bold light">{{ subHeader[sum.rating] }}</p>
+  </div>
+  <div swiper-navigation>
+    @if (sum.rating !== 'excellent') {
+      <liz-info-card title="Improve this rating?" #animItem>
+        Continue to revisit the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get
+        right yet.
+      </liz-info-card>
+    }
+    @if (sum.rating !== 'excellent') {
+      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
+      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
+        Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
+      </button>
+    } @else if (sum.guessedRightPercent !== 100) {
+      <button class="big" (click)="continue.emit()" #animItem>Continue</button>
+      <button class="big primary has-icon" (click)="finish.emit()" #animItem>
+        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
+      </button>
+    } @else {
+      <button class="big primary has-icon full" (click)="finish.emit()" #animItem>
+        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
+      </button>
+    }
+  </div>
+</liz-swiper-page-layout>

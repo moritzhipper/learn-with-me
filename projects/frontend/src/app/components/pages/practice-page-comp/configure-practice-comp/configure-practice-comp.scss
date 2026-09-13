@@ -1,97 +1,71 @@
 @use '../../../../../style/mixins' as *;
 
-:host {
-  display: grid;
-  grid-template-rows: 1fr auto;
+.counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
 
-  .counter .count {
+  .count {
     font-weight: var(--font-weight-bold);
+    font-size: 130px;
+    line-height: 110px;
   }
+}
 
-  form {
+[type='submit'] {
+  box-shadow: var(--shadow-big);
+}
+
+@include isDesktop {
+  [swiper-top] {
     display: grid;
-    button {
-      transition: all var(--duration-1) var(--soft-ease);
-    }
-  }
-}
+    grid-template: repeat(4, auto) / auto 1fr 1fr;
+    gap: var(--distance-2) var(--distance-4);
 
-@include isDesktop() {
-  :host {
-    justify-self: center;
-    align-self: start;
-    margin-top: 25vh;
-    position: relative;
     .counter {
-      translate: -70px 0px;
-      align-self: end;
-      .count {
-        font-size: 150px;
-        line-height: 130px;
-        display: inline-block;
-        margin-right: var(--distance-5);
-      }
+      position: relative;
+      grid-area: 1 / 1 / 5 / 2;
+      place-self: stretch;
+      padding-right: calc(var(--distance-4) * 2);
+      margin-right: var(--distance-4);
 
-      .label {
-        font-size: var(--font-size-4);
+      &:after {
+        content: '';
+        rotate: -2deg;
+        border-right: 2px solid var(--col-accent);
+        height: 100%;
         opacity: var(--opacity-1);
+        position: absolute;
+        top: 0;
+        right: 0;
       }
     }
+
     liz-confidence-dots {
-      position: absolute;
-      top: var(--distance-6);
-      right: 0px;
-      width: 50%;
-      rotate: 4deg;
-      padding-bottom: var(--distance-5);
-    }
-    form {
-      gap: var(--distance-4);
+      grid-area: 1 / 2 / 2 / 4;
+      padding-bottom: var(--distance-1);
     }
 
-    form {
-      margin-top: var(--distance-3);
-      width: var(--medium-width);
-      grid-template-columns: 1fr 1fr 1fr;
-      align-items: end;
-
-      button {
-        grid-column: span 2;
-
-        &:hover:not([disabled]),
-        &:focus-visible:not([disabled]) {
-          transform: scale(1.05) rotate(-0.5deg);
-          box-shadow: var(--shadow-big);
-        }
-      }
+    .full {
+      grid-column: span 2;
     }
   }
 }
 
-@include isPhone() {
-  .counter {
-    place-self: center;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+@include isPhone {
+  [swiper-top] {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: var(--distance-2);
 
-    .count {
-      font-size: 100px;
-      line-height: 100px;
+    liz-confidence-dots {
+      padding: var(--distance-4);
     }
-    .label {
-      font-size: var(--font-size-3);
-      opacity: var(--opacity-1);
-    }
-  }
-  form {
-    gap: var(--distance-3);
-  }
 
-  liz-confidence-dots {
-    padding: 0 var(--distance-1) var(--distance-4) var(--distance-1);
-  }
-  button {
-    margin-top: var(--distance-5);
+    .counter {
+      place-self: center;
+    }
   }
 }

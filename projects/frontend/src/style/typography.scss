@@ -14,29 +14,39 @@ p,
 .text {
   margin: 0;
 
-  &.size-0 {
+  &.size-0,
+  > .size-0 {
     font-size: var(--font-size-0);
     line-height: var(--line-height-0);
   }
 
-  &.size-2 {
+  &.size-2,
+  > .size-2 {
     font-size: var(--font-size-2);
     line-height: var(--line-height-2);
   }
 
-  &.size-3 {
+  &.size-3,
+  > .size-3 {
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
   }
 
-  &.light {
-    opacity: var(--opacity-1);
+  &.light,
+  > .light {
+    color: rgba(from var(--col-text) r g b / var(--opacity-1));
   }
 
-  &.bold {
+  &.bold,
+  > .bold {
     font-weight: var(--font-weight-bold);
   }
-  &.center {
+  &.italic,
+  > .italic {
+    font-style: italic;
+  }
+  &.center,
+  > .center {
     text-align: center;
   }
 }

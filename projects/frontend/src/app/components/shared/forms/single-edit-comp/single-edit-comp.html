@@ -6,14 +6,17 @@
   header="Edit card"
   confirmLabel="Save"
 >
-  <div class="fake-card full">
-    <app-radio-comp
-      formControlName="type"
-      [config]="[{ value: 'word' }, { value: 'phrase' }]"
-      label="type"
-    />
-    <input type="text" formControlName="lexeme" class="lexeme" />
-    <input type="text" formControlName="translation" class="translation" />
-    <input formControlName="notes" class="notes full" placeholder="( notes )" />
+  <app-radio-comp
+    formControlName="type"
+    label="Type"
+    [config]="[
+      { label: 'Word', value: 'word' },
+      { label: 'Phrase', value: 'phrase' }
+    ]"
+  />
+  <div class="fake-card">
+    <textarea type="text" formControlName="lexeme" class="lexeme text size-2"></textarea>
+    <textarea type="text" formControlName="translation" class="translation text size-2"></textarea>
+    <textarea formControlName="notes" class="notes text light" placeholder="Notes"></textarea>
   </div>
 </form>

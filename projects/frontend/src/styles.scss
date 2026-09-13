@@ -45,6 +45,19 @@ select {
   -webkit-tap-highlight-color: transparent;
 }
 
+input,
+button,
+textarea,
+a,
+select {
+  outline: 0px solid transparent;
+  transition: outline var(--duration-0) ease-out;
+
+  &:focus-visible {
+    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
+  }
+}
+
 button {
   transition-property:
     background-color, opacity, outline, color, box-shadow, padding, rotate, border;
@@ -66,6 +79,14 @@ button {
     font-size: var(--font-size-1);
     padding: var(--distance-3) var(--distance-5);
     font-weight: var(--font-weight-bold);
+  }
+  &.primary {
+    background-color: var(--col-primary);
+    color: var(--col-bg);
+  }
+  &.warning {
+    background-color: var(--col-warning);
+    color: var(--col-text);
   }
 
   &.header-action {
@@ -89,7 +110,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: var(--distance-2);
   }
 
@@ -122,12 +142,21 @@ a[download] {
 input,
 textarea,
 select {
-  background-color: var(--col-accent);
-  color: var(--col-text);
+  box-sizing: border-box;
   border-radius: var(--radius-1);
-  border: none;
+  color: var(--col-text);
+
   &::placeholder {
     color: rgb(from var(--col-text) r g b / var(--opacity-1));
+  }
+
+  &:not(.dark) {
+    border: none;
+    background-color: var(--col-accent);
+  }
+  &.dark {
+    border: 2px solid var(--col-accent);
+    background-color: rgba(from var(--col-accent) r g b / var(--opacity-0));
   }
 }
 
@@ -139,15 +168,6 @@ select {
     text-align: inherit;
     margin: 0;
     padding: 0;
-  }
-}
-
-* {
-  outline: 0px solid transparent;
-  transition: outline var(--duration-3) ease;
-
-  &:focus-visible {
-    outline: 4px solid rgb(from var(--col-primary) r g b / var(--opacity-1));
   }
 }
 

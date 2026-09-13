@@ -1,0 +1,9 @@
+<div class="nav ongoing" [class.open]="isOpen()">
+  <button class="silent collapse" (click)="isOpen.update((v) => !v)">
+    <ng-icon [svg]="collapseIcon" />
+  </button>
+  <div class="wrapper">
+    <button class="big warning" (click)="quit.emit()" [disabled]="!isOpen()">Give up</button>
+    <button class="big" (click)="edit.emit()" [disabled]="!isOpen()">Edit card</button>
+  </div>
+</div>

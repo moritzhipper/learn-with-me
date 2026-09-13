@@ -1,0 +1,208 @@
+@use '../../../../../../style/mixins' as *;
+
+:host {
+  position: relative;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+
+  .card,
+  ng-icon.vote,
+  liz-swiper-hints {
+    grid-area: 1 / 1;
+    user-select: none;
+    box-sizing: border-box;
+  }
+}
+liz-swiper-hints {
+  z-index: 22;
+}
+
+ng-icon.vote {
+  font-size: 220px;
+  z-index: -1;
+
+  opacity: 0;
+
+  &.right {
+    justify-self: start;
+    color: var(--col-success);
+    transform: translateX(50px) scale(0.8) rotate(-20deg);
+  }
+  &.wrong {
+    justify-self: end;
+    color: var(--col-warning);
+    transform: translateX(-50px) scale(0.8) rotate(20deg);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--distance-1);
+  place-self: stretch;
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 50% min-content min-content;
+  border-radius: var(--radius-3);
+  padding: var(--distance-5) var(--distance-6);
+  border-width: 2px;
+  border-style: solid;
+  overflow: hidden;
+  border-color: rgba(from var(--col-accent) r g b / var(--opacity-0));
+
+  .guess-text {
+    padding-top: var(--distance-4);
+    border-top: 1px solid rgb(from var(--col-primary) r g b / var(--opacity-0));
+  }
+
+  .notes {
+    padding-top: var(--distance-3);
+  }
+
+  &.larry app-larry-big {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    padding: var(--distance-5);
+    color: rgba(from var(--col-accent) r g b / var(--opacity-0));
+  }
+}
+
+.notes {
+  opacity: var(--opacity-1);
+}
+
+// Animation related
+:host {
+  .card {
+    transition-property: transform, box-shadow, background-color, color, border, opacity, translate;
+    transition-timing-function: var(--soft-ease);
+
+    will-change: transform;
+  }
+
+  ng-icon.vote {
+    transition-property: opacity, transform;
+    transition-duration: var(--duration-0);
+    transition-timing-function: var(--soft-ease);
+    will-change: transform;
+
+    opacity: 0;
+
+    &.right {
+      transform: translateX(20px) scale(0.8) rotate(10deg);
+    }
+    &.wrong {
+      transform: translateX(-20px) scale(0.8) rotate(-10deg);
+    }
+  }
+
+  &[guess-state='voting'],
+  &[guess-state='guessing'] {
+    [guess='unanswered'] {
+      transition-duration: var(--duration-2);
+
+      &[offset-to-active='-2'] {
+        transform: translate(0%, 125%) rotate(1deg);
+      }
+      &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
+        transform: translate(0%, 130%) rotate(-2deg);
+      }
+      &[offset-to-active='0'] {
+        box-shadow: var(--shadow-bigger);
+        background-color: var(--col-accent);
+        color: var(--col-text);
+        border-color: var(--col-accent);
+      }
+    }
+
+    [guess='right'] {
+      transform: translate(150%, 100%) rotate(20deg);
+      border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
+    }
+
+    [guess='wrong'] {
+      transform: translate(-150%, 100%) rotate(-20deg);
+      border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
+    }
+
+    [guess='wrong'],
+    [guess='right'] {
+      transition-duration: 1.5s;
+    }
+
+    &[casted-guess='wrong'],
+    &[casted-guess='right'] {
+      [offset-to-active='-1'] {
+        transform: translate(0%, 80%) rotate(-2deg);
+      }
+    }
+
+    &[casted-guess='right'] {
+      ng-icon.right {
+        opacity: var(--opacity-1);
+        transform: translateX(-10px);
+      }
+    }
+    &[casted-guess='wrong'] {
+      ng-icon.wrong {
+        opacity: var(--opacity-1);
+        transform: translateX(10px);
+      }
+    }
+
+    &.swiping {
+      cursor: grabbing;
+
+      [offset-to-active='0'] {
+        transition-property: box-shadow, background-color;
+        transition-duration: var(--duration-0);
+        box-shadow: var(--shadow-bigger);
+        transform: translate(var(--x), var(--y)) rotate(var(--rotate));
+      }
+    }
+  }
+
+  &[guess-state='guessing'] {
+    [offset-to-active='0'] {
+      transform: translate(0%, 30%);
+    }
+    [offset-to-active='-1'] {
+      box-shadow: var(--shadow-big);
+      transform: translate(0%, 75%) rotate(-4deg);
+    }
+  }
+
+  &[guess-state='voting'] {
+    [offset-to-active='0'] {
+      transform: translate(0%, 0%);
+    }
+    [offset-to-active='-1'] {
+      box-shadow: var(--shadow-bigger);
+      transform: translate(0%, 90%) rotate(-2deg);
+    }
+  }
+
+  &[guess-state='done'] .card {
+    transition-duration: var(--duration-3);
+  }
+
+  .card:not([offset-to-active='0']),
+  &[guess-state='done'] .card {
+    color: transparent;
+    background-color: var(--col-bg);
+  }
+
+  &[guess-state='done'] .card,
+  .card {
+    transform: translate(0%, 150%) rotate(5deg);
+
+    @starting-style {
+      transform: translate(0%, 150%) rotate(5deg) !important;
+    }
+  }
+}

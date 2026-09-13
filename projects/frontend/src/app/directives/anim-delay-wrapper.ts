@@ -14,7 +14,7 @@ export class AnimDelayWrapper {
    */
   readonly applyClass = input<string>()
   readonly duration = input<number>(0.3)
-  readonly maxIntervall = input<number>(0.06)
+  readonly maxIntervall = input<number>(0.1)
 
   constructor() {
     afterRenderEffect(() => {

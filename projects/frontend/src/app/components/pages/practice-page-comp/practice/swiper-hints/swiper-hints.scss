@@ -1,0 +1,76 @@
+@use '../../../../../../style/mixins' as *;
+
+:host {
+  text-align: center;
+  position: relative;
+  color: var(--col-bg);
+  background-color: rgb(from var(--col-primary) r g b / 0.9);
+
+  rotate: -4deg;
+  position: absolute;
+  padding: var(--distance-4) 0;
+  box-shadow: var(--shadow-small);
+
+  .content {
+    rotate: 4deg;
+    width: 200vw;
+  }
+}
+
+.hints {
+  display: grid;
+  place-items: center;
+
+  ng-icon {
+    grid-area: 1 / 1;
+    display: block;
+  }
+
+  .swipe {
+    font-size: 140px;
+
+    --offset-x: -57px;
+    --offset-y: 0px;
+    --rotate: -10deg;
+
+    &.right {
+      transform: rotate(var(--rotate)) scaleX(-1) translate(var(--offset-x), var(--offset-y));
+    }
+    &.wrong {
+      transform: rotate(calc(-1 * var(--rotate))) translate(var(--offset-x), var(--offset-y));
+    }
+  }
+
+  .guess {
+    font-size: 40px;
+
+    --offset-x: 34px;
+    --offset-y: 48px;
+
+    &.right {
+      transform: translate(var(--offset-x), var(--offset-y));
+    }
+
+    &.wrong {
+      transform: translate(calc(-1 * var(--offset-x)), var(--offset-y));
+    }
+  }
+}
+
+:host {
+  transition-property: translate, opacity;
+  transition-timing-function: var(--soft-ease);
+  transition-duration: var(--duration-3);
+  transition-delay: 5s;
+
+  @starting-style {
+    translate: -200px 15px;
+    opacity: 0;
+  }
+
+  &.hints-leave {
+    transition-delay: 0s;
+    translate: 200px -15px;
+    opacity: 0;
+  }
+}

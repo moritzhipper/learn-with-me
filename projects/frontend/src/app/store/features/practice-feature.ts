@@ -45,7 +45,8 @@ export const withPracticeFeature = <_>() =>
             createdAt: new Date(),
             guessableField: config.guessableField,
             learnableIDs: config.learnableIDs,
-            type: config.type
+            type: config.type,
+            isFinished: false
           }
 
           if (config.type === 'collection') {
@@ -94,7 +95,8 @@ export const withPracticeFeature = <_>() =>
           // set index to end
           const finishedPractice = {
             ...currentPractice,
-            guessableIndex: currentPractice.guessables.length
+            guessableIndex: currentPractice.guessables.length,
+            isFinished: true
           }
 
           return {
@@ -127,6 +129,8 @@ export const withPracticeFeature = <_>() =>
             }
           })
 
+          const isFinished = currentPractice.guessableIndex >= currentPractice.guessables.length - 1
+
           return {
             ...b,
             learnables: updatedCards,
@@ -135,7 +139,8 @@ export const withPracticeFeature = <_>() =>
               active: {
                 ...currentPractice,
                 guessableIndex: cardIndex + 1,
-                guessables: updatedGuessables
+                guessables: updatedGuessables,
+                isFinished
               }
             }
           }

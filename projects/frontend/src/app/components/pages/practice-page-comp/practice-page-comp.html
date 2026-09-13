@@ -1,13 +1,30 @@
-<app-page-wrapper [icon]="iconBug" fullScreen>
+@let practice = currentPractice();
+
+<app-page-wrapper [icon]="practiceIcon" fullScreen>
   <div class="views">
-    @if (currentPractice(); as currP) {
-      <app-active-practice-comp
-        [currentPractice]="currP"
-        animate.leave="fly-out"
-        animate.enter="fly-in-y-wide"
+    <liz-swiper-page-layout>
+      <liz-swiper swiper-full animate.enter="fly-in-y-wide" />
+      @if (practice && !practice.isFinished) {
+        <liz-swiper-nav
+          swiper-navigation
+          (quit)="giveUp()"
+          (edit)="editActiveLearnable()"
+          animate.enter="fly-in-y-wide"
+          animate.leave="fly-in-y-wide-rev"
+        />
+      }
+    </liz-swiper-page-layout>
+    @if (practice && practice.isFinished) {
+      <liz-swiper-summary
+        [practice]="practice"
+        (finish)="finish()"
+        animate.leave="fly-in-y-wide-rev"
       />
-    } @else {
-      <app-configure-practice-comp animate.leave="fly-out" animate.enter="fly-in-y-wide" />
+    } @else if (!practice) {
+      <app-configure-practice-comp
+        animate.enter="fly-in-y-wide"
+        animate.leave="fly-in-y-wide-rev"
+      />
     }
   </div>
 </app-page-wrapper>
