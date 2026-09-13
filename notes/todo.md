@@ -5,6 +5,8 @@
 ## swiper
 
 - implement continue button
+  - cards the where wrong are
+
 - swipe-hints
   - add: top to reveal,
   - add to desktop: use keays up right left

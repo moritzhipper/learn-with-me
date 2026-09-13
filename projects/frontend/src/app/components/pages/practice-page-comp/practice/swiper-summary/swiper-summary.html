@@ -24,8 +24,8 @@
   <div swiper-navigation>
     @if (sum.rating !== 'excellent') {
       <liz-info-card title="Improve this rating?" #animItem>
-        Continue to revisit the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get
-        right yet.
+        Put the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get right back on the
+        stack and continue.
       </liz-info-card>
     }
     @if (sum.rating !== 'excellent') {
