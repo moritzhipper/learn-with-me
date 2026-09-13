@@ -18,6 +18,7 @@ import {
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
+import { SwiperHints } from '../swiper-hints/swiper-hints'
 
 export type CardVM = {
   card: UserLearnable
@@ -40,7 +41,7 @@ export type GuessState = 'guessing' | 'voting' | 'done'
  */
 @Component({
   selector: 'liz-swiper',
-  imports: [NgIcon, LarryBig],
+  imports: [NgIcon, LarryBig, SwiperHints],
   templateUrl: './swiper.html',
   styleUrl: './swiper.scss',
   host: {
@@ -97,6 +98,12 @@ export class Swiper {
     }
   })
 
+  // sets true on practice start
+  protected showHints = linkedSignal<boolean, boolean>({
+    source: computed(() => !!this.practice()),
+    computation: (hasPractice) => hasPractice
+  })
+
   protected cards = computed<CardVM[]>(() => {
     const practice = this.practice()
     if (!practice) return []
@@ -141,6 +148,7 @@ export class Swiper {
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     if (this.guessState() !== 'done') {
+      this.showHints.set(false)
       this.hostEl.setPointerCapture(ev.pointerId)
       this.guessState.set('voting')
       this.swiping = true

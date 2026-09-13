@@ -1,0 +1,49 @@
+:host {
+  text-align: center;
+  color: var(--col-text);
+  filter: drop-shadow(3px 10px 5px rgb(from var(--col-shadow) r g b / var(--opacity-0)));
+  opacity: var(--opacity-1);
+}
+
+.label {
+  padding-top: var(--distance-4);
+}
+.hints {
+  display: grid;
+  place-items: center;
+
+  ng-icon {
+    grid-area: 1 / 1;
+    display: block;
+  }
+
+  .swipe {
+    font-size: 110px;
+
+    --offset-x: -47px;
+    --offset-y: -10px;
+    --rotate: -10deg;
+
+    &.right {
+      transform: rotate(var(--rotate)) scaleX(-1) translate(var(--offset-x), var(--offset-y));
+    }
+    &.wrong {
+      transform: rotate(calc(-1 * var(--rotate))) translate(var(--offset-x), var(--offset-y));
+    }
+  }
+
+  .guess {
+    font-size: 40px;
+
+    --offset-x: 30px;
+    --offset-y: 30px;
+
+    &.right {
+      transform: translate(var(--offset-x), var(--offset-y));
+    }
+
+    &.wrong {
+      transform: translate(calc(-1 * var(--offset-x)), var(--offset-y));
+    }
+  }
+}

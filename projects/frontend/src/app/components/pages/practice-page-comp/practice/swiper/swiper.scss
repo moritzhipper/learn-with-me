@@ -8,11 +8,15 @@
   box-sizing: border-box;
 
   .card,
-  ng-icon.vote {
+  ng-icon.vote,
+  liz-swiper-hints {
     grid-area: 1 / 1;
     user-select: none;
     box-sizing: border-box;
   }
+}
+liz-swiper-hints {
+  z-index: 22;
 }
 
 ng-icon.vote {
@@ -200,5 +204,23 @@ ng-icon.vote {
     @starting-style {
       transform: translate(0%, 150%) rotate(5deg) !important;
     }
+  }
+}
+
+liz-swiper-hints {
+  transition-property: opacity, filter;
+  transition-duration: var(--duration-3);
+  filter: blur(0px);
+  transition-delay: 2s;
+
+  @starting-style {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  &.hints-leave {
+    transition-delay: 0s;
+    opacity: 0;
+    filter: blur(10px);
   }
 }

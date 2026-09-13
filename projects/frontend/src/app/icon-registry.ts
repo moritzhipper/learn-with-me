@@ -32,6 +32,7 @@ import {
   remixPantoneFill,
   remixPencilFill,
   remixQuestionFill,
+  remixReplyFill,
   remixSettings3Fill,
   remixShareFill,
   remixSpeedFill,
@@ -68,6 +69,7 @@ export const practiceSpeedIcon = remixSpeedFill
 export const practiceFinishIcon = remixCheckDoubleFill
 export const learnLanguageIcon = remixUserFollowLine
 export const speakLanguageIcon = remixUserVoiceLine
+export const swipeHintIcon = remixReplyFill
 
 // Management
 export const closeIcon = remixCloseLine

@@ -5,6 +5,7 @@ import { ModalService } from '../../../services/modal-service'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 import { ConfigurePracticeComp } from './configure-practice-comp/configure-practice-comp'
+import { SwiperHints } from './practice/swiper-hints/swiper-hints'
 import { SwiperNav } from './practice/swiper-nav/swiper-nav'
 import { SwiperPageLayout } from './practice/swiper-page-layout/swiper-page-layout'
 import { SwiperSummary } from './practice/swiper-summary/swiper-summary'
@@ -12,7 +13,15 @@ import { Swiper } from './practice/swiper/swiper'
 
 @Component({
   selector: 'app-practice',
-  imports: [ConfigurePracticeComp, PageWrapper, SwiperSummary, SwiperNav, Swiper, SwiperPageLayout],
+  imports: [
+    ConfigurePracticeComp,
+    PageWrapper,
+    SwiperSummary,
+    SwiperNav,
+    Swiper,
+    SwiperPageLayout,
+    SwiperHints
+  ],
   templateUrl: './practice-page-comp.html',
   styleUrl: './practice-page-comp.scss'
 })
