@@ -1,26 +1,28 @@
 :host {
   text-align: center;
   color: var(--col-text);
-  filter: drop-shadow(3px 10px 5px rgb(from var(--col-shadow) r g b / var(--opacity-0)));
   opacity: var(--opacity-1);
 }
 
 .label {
   padding-top: var(--distance-4);
+  text-shadow: 0 5px 13px var(--col-shadow);
 }
 .hints {
   display: grid;
   place-items: center;
 
   ng-icon {
+    filter: drop-shadow(3px 10px 15px rgb(from var(--col-shadow) r g b / var(--opacity-1)));
+
     grid-area: 1 / 1;
     display: block;
   }
 
   .swipe {
-    font-size: 110px;
+    font-size: 140px;
 
-    --offset-x: -47px;
+    --offset-x: -57px;
     --offset-y: -10px;
     --rotate: -10deg;
 
@@ -35,8 +37,8 @@
   .guess {
     font-size: 40px;
 
-    --offset-x: 30px;
-    --offset-y: 30px;
+    --offset-x: 34px;
+    --offset-y: 38px;
 
     &.right {
       transform: translate(var(--offset-x), var(--offset-y));
