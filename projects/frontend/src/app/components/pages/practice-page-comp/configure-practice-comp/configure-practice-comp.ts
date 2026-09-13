@@ -9,7 +9,7 @@ import { aggregateConfidence } from '../../../../utils/genaral-utils'
 import { filterLearnables } from '../../../../utils/learnables-filter'
 import { ConfidenceDots } from '../../../shared/confidence/confidence-dots/confidence-dots'
 import { RadioComp } from '../../../shared/radio-comp/radio-comp'
-import { SwiperPageLayout } from '../swiper-page-layout/swiper-page-layout'
+import { SwiperPageLayout } from '../practice/swiper-page-layout/swiper-page-layout'
 
 type SelectOption = {
   label: string

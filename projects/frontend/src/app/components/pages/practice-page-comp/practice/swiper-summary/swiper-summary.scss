@@ -70,10 +70,11 @@ app-practice-rating-comp {
     }
   }
 }
+
 liz-info-card {
   grid-column: span 2;
   box-shadow: var(--shadow-big);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(5px);
 }
 
 [swiper-navigation] {

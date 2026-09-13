@@ -12,7 +12,7 @@ import {
 import { mapConfidencePercentToRating, PracticeRating } from '../../../../../utils/genaral-utils'
 import { InfoCard } from '../../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
-import { SwiperPageLayout } from '../../swiper-page-layout/swiper-page-layout'
+import { SwiperPageLayout } from '../swiper-page-layout/swiper-page-layout'
 
 export type ActivePracticeSummary = {
   correctGuesses: number
