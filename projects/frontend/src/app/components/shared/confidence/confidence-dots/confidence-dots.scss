@@ -36,26 +36,29 @@
   .dot {
     background-color: var(--col-primary);
     flex: 1 1 0;
-    // min-width: 0;
     max-width: 35px;
     aspect-ratio: 1 / 1;
     border-radius: 100%;
   }
 
+  &.translation,
+  &.lexeme {
+    transition: mask-size var(--duration-1) var(--soft-ease);
+  }
+
   &.translation {
     --invert-conf: calc(100% - var(--confidence));
-    mask-image: linear-gradient(
-      to right,
-      var(--mask-dark) var(--invert-conf),
-      var(--mask-light) var(--invert-conf)
-    );
+
+    mask:
+      linear-gradient(var(--mask-light), var(--mask-light)) right / var(--confidence, 100%) 100%
+        no-repeat,
+      linear-gradient(var(--mask-dark), var(--mask-dark));
   }
 
   &.lexeme {
-    mask-image: linear-gradient(
-      to right,
-      var(--mask-light) var(--confidence),
-      var(--mask-dark) var(--confidence)
-    );
+    mask:
+      linear-gradient(var(--mask-light), var(--mask-light)) left / var(--confidence, 100%) 100%
+        no-repeat,
+      linear-gradient(var(--mask-dark), var(--mask-dark));
   }
 }
