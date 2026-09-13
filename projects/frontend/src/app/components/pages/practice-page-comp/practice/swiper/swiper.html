@@ -2,22 +2,21 @@
 
 @for (cardVM of cards(); track cardVM.card.id) {
   <div class="card" [attr.guess]="cardVM.guess" [attr.offset-to-active]="cardVM.offsetToActive">
-    @if (guessTranslation) {
-      <p class="bold size-3">
+    <p class="bold size-3">
+      @if (guessTranslation) {
         {{ cardVM.card.lexeme }}
-      </p>
-      <p class="italic size-3">
+      } @else {
         {{ cardVM.card.translation }}
-      </p>
-    } @else {
-      <p class="bold size-3">
+      }
+    </p>
+    <p class="italic size-3 guess-text">
+      @if (guessTranslation) {
         {{ cardVM.card.translation }}
-      </p>
-      <p class="italic size-3">
+      } @else {
         {{ cardVM.card.lexeme }}
-      </p>
-    }
-    <p class="size-2 pt-4 notes">
+      }
+    </p>
+    <p class="notes italic">
       {{ cardVM.card.notes }}
     </p>
   </div>
