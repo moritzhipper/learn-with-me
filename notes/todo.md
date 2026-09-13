@@ -7,6 +7,8 @@
 - swipe-hints
   - add: top to reveal,
   - add to desktop: use keays up right left
+  - when hints present, dont do swipe or reveal action on click. remove the hint first
+  - if no practice in history, show the banner without delay
 
 - put drop shadow big in theme, use on swiper nav and hints
 

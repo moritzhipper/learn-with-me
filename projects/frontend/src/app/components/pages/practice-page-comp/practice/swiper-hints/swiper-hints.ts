@@ -6,7 +6,10 @@ import { correctAnswerIcon, incorrectAnswerIcon, swipeHintIcon } from '../../../
   selector: 'liz-swiper-hints',
   imports: [NgIcon],
   templateUrl: './swiper-hints.html',
-  styleUrl: './swiper-hints.scss'
+  styleUrl: './swiper-hints.scss',
+  host: {
+    'animate.leave': 'hints-leave'
+  }
 })
 export class SwiperHints {
   icons = { swipeHintIcon, correctAnswerIcon, incorrectAnswerIcon }

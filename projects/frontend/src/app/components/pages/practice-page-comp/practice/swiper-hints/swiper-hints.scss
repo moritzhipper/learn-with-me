@@ -1,11 +1,20 @@
+@use '../../../../../../style/mixins' as *;
+
 :host {
   text-align: center;
-  color: var(--col-primary);
-  //   opacity: var(--opacity-1);
-}
+  position: relative;
+  color: var(--col-bg);
+  background-color: rgb(from var(--col-primary) r g b / 0.9);
 
-.label {
-  text-shadow: 0 5px 13px var(--col-shadow);
+  rotate: -4deg;
+  position: absolute;
+  padding: var(--distance-4) 0;
+  box-shadow: var(--shadow-small);
+
+  .content {
+    rotate: 4deg;
+    width: 200vw;
+  }
 }
 
 .hints {
@@ -13,8 +22,6 @@
   place-items: center;
 
   ng-icon {
-    filter: drop-shadow(3px 10px 15px rgb(from var(--col-shadow) r g b / var(--opacity-1)));
-
     grid-area: 1 / 1;
     display: block;
   }
@@ -47,5 +54,23 @@
     &.wrong {
       transform: translate(calc(-1 * var(--offset-x)), var(--offset-y));
     }
+  }
+}
+
+:host {
+  transition-property: translate, opacity;
+  transition-timing-function: var(--soft-ease);
+  transition-duration: var(--duration-3);
+  transition-delay: 5s;
+
+  @starting-style {
+    translate: -200px 15px;
+    opacity: 0;
+  }
+
+  &.hints-leave {
+    transition-delay: 0s;
+    translate: 200px -15px;
+    opacity: 0;
   }
 }
