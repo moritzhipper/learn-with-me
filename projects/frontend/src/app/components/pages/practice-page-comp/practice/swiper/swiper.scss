@@ -102,64 +102,31 @@ ng-icon.vote {
     }
   }
 
-  // guessed cards
-  .card:not([offset-to-active^='-'], [offset-to-active='0']) {
-    transition-duration: 1.5s;
-  }
-
-  .card:is([offset-to-active^='-'], [offset-to-active='0']) {
-    transition-duration: var(--duration-2);
-  }
-
   &[guess-state='voting'],
   &[guess-state='guessing'] {
-    [guess='unanswered'] {
-      &[offset-to-active='-2'] {
-        transform: translate(0%, 125%) rotate(1deg);
+    // guessed cards
+    .card:not([offset-to-active^='-'], [offset-to-active='0']) {
+      transition-duration: 1.5s;
+
+      &[guess='right'] {
+        transform: translate(150%, 100%) rotate(20deg);
       }
-      &:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
-        transform: translate(0%, 130%) rotate(-2deg);
-      }
-      &[offset-to-active='0'] {
-        box-shadow: var(--shadow-bigger);
-        background-color: var(--col-accent);
-        color: var(--col-text);
-        border-color: var(--col-accent);
+
+      &[guess='wrong'] {
+        transform: translate(-150%, 100%) rotate(-20deg);
       }
     }
 
-    [guess='right'] {
-      transform: translate(150%, 100%) rotate(20deg);
-      border-color: rgba(from var(--col-success) r g b / var(--opacity-0));
+    // not guessed cards
+    .card:is([offset-to-active^='-'], [offset-to-active='0']) {
+      transition-duration: var(--duration-2);
+    }
+    .card[offset-to-active='-2'] {
+      transform: translate(0%, 125%) rotate(1deg);
     }
 
-    [guess='wrong'] {
-      transform: translate(-150%, 100%) rotate(-20deg);
-      border-color: rgba(from var(--col-warning) r g b / var(--opacity-0));
-    }
-
-    [guess='wrong'],
-    [guess='right'] {
-    }
-
-    &[casted-guess='wrong'],
-    &[casted-guess='right'] {
-      [offset-to-active='-1'] {
-        transform: translate(0%, 80%) rotate(-2deg);
-      }
-    }
-
-    &[casted-guess='right'] {
-      ng-icon.right {
-        opacity: var(--opacity-1);
-        transform: translateX(-10px);
-      }
-    }
-    &[casted-guess='wrong'] {
-      ng-icon.wrong {
-        opacity: var(--opacity-1);
-        transform: translateX(10px);
-      }
+    .card:not([offset-to-active='0'], [offset-to-active='-1'], [offset-to-active='-2']) {
+      transform: translate(0%, 130%) rotate(-2deg);
     }
 
     &.swiping {
@@ -170,6 +137,25 @@ ng-icon.vote {
         transition-duration: var(--duration-0);
         box-shadow: var(--shadow-bigger);
         transform: translate(var(--x), var(--y)) rotate(var(--rotate));
+      }
+    }
+
+    &[casted-guess='wrong'],
+    &[casted-guess='right'] {
+      [offset-to-active='-1'] {
+        transform: translate(0%, 80%) rotate(-2deg);
+      }
+    }
+    &[casted-guess='right'] {
+      ng-icon.right {
+        opacity: var(--opacity-1);
+        transform: translateX(-10px);
+      }
+    }
+    &[casted-guess='wrong'] {
+      ng-icon.wrong {
+        opacity: var(--opacity-1);
+        transform: translateX(10px);
       }
     }
   }
@@ -194,12 +180,26 @@ ng-icon.vote {
     }
   }
 
+  .card[guess='right'] {
+    border-color: rgba(from var(--col-success) r g b / var(--opacity-1));
+  }
+
+  .card[guess='wrong'] {
+    border-color: rgba(from var(--col-warning) r g b / var(--opacity-1));
+  }
+
+  .card[offset-to-active='0']:not(.larry) {
+    box-shadow: var(--shadow-bigger);
+    background-color: var(--col-accent);
+    color: var(--col-text);
+    border-color: var(--col-accent);
+  }
+
   &[guess-state='done'] .card {
     transition-duration: var(--duration-3);
   }
 
-  .card:not([offset-to-active='0']),
-  &[guess-state='done'] .card {
+  .card:not([offset-to-active='0']) {
     color: transparent;
     background-color: var(--col-bg);
     .guess-text {
