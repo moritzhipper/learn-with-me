@@ -34,7 +34,6 @@ nav > * {
   &.open {
     transform: rotate(-176deg);
     backdrop-filter: blur(0px);
-
     background-color: transparent;
     box-shadow: none;
   }
@@ -59,7 +58,6 @@ nav {
   rotate: -4deg;
   transform-origin: top left;
   overflow: hidden;
-  box-shadow: inset 75px 0px 37px -75px var(--col-shadow);
   box-sizing: border-box;
   transition-property: translate;
 
@@ -75,7 +73,6 @@ nav {
     gap: var(--distance-4);
     color: var(--col-text);
     font-weight: var(--font-weight-bold);
-    box-shadow: var(--shadow-big);
     margin-bottom: var(--distance-5);
 
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));

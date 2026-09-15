@@ -142,6 +142,9 @@ ng-icon.vote {
         transform: translate(var(--x), var(--y)) rotate(var(--rotate));
       }
     }
+    &:not(.swiping) [offset-to-active='0'] {
+      box-shadow: var(--shadow-big);
+    }
 
     &[casted-guess='wrong'],
     &[casted-guess='right'] {
@@ -192,7 +195,6 @@ ng-icon.vote {
   }
 
   .card[offset-to-active='0']:not(.larry) {
-    box-shadow: var(--shadow-bigger);
     background-color: var(--col-accent);
     color: var(--col-text);
     border-color: var(--col-accent);
