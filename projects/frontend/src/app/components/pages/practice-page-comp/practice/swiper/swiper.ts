@@ -99,6 +99,9 @@ export class Swiper {
   })
 
   // sets true on practice start
+
+  // when no history: show immeadiately
+  // when history: show after 5 sec if no action happened
   protected showHints = linkedSignal<boolean, boolean>({
     source: computed(() => {
       const practice = this.practice()
@@ -114,17 +117,15 @@ export class Swiper {
     if (!practice) return []
 
     const cards = this.ls.activeBank().learnables
-    let cardVMs: Omit<CardVM, 'position'>[] = []
+    let cardVMs: CardVM[] = []
 
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)
       if (!card) return
 
-      const offsetToActive = practice.guessableIndex - index
-
       cardVMs.push({
         card,
-        offsetToActive,
+        offsetToActive: practice.guessableIndex - index,
         guess: guessable.guess
       })
     })

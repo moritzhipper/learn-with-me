@@ -61,7 +61,6 @@
   transition-property: translate, opacity;
   transition-timing-function: var(--soft-ease);
   transition-duration: var(--duration-3);
-  transition-delay: 5s;
 
   @starting-style {
     translate: -200px 15px;
@@ -69,7 +68,6 @@
   }
 
   &.hints-leave {
-    transition-delay: 0s;
     translate: 200px -15px;
     opacity: 0;
   }

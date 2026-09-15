@@ -12,5 +12,5 @@ import { correctAnswerIcon, incorrectAnswerIcon, swipeHintIcon } from '../../../
   }
 })
 export class SwiperHints {
-  icons = { swipeHintIcon, correctAnswerIcon, incorrectAnswerIcon }
+  protected icons = { swipeHintIcon, correctAnswerIcon, incorrectAnswerIcon }
 }
