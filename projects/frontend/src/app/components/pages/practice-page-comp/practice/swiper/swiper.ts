@@ -153,14 +153,16 @@ export class Swiper {
 
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
-    if (this.guessState() === 'done') return
-
-    this.showHints.set(false)
-    this.hostEl.setPointerCapture(ev.pointerId)
-    this.guessState.set('voting')
-    this.swiping = true
-    this.setPosition(this.cardPosition)
-    this.hostEl.classList.add('swiping')
+    if (this.showHints()) {
+      this.showHints.set(false)
+    } else if (this.guessState() !== 'done') {
+      this.showHints.set(false)
+      this.hostEl.setPointerCapture(ev.pointerId)
+      this.guessState.set('voting')
+      this.swiping = true
+      this.setPosition(this.cardPosition)
+      this.hostEl.classList.add('swiping')
+    }
   }
 
   private pointerMove = (ev: PointerEvent) => {
@@ -186,7 +188,9 @@ export class Swiper {
 
   private keydown = (ev: KeyboardEvent) => {
     const state = this.guessState()
-    if (ev.key === 'ArrowUp' && state === 'guessing') {
+    if (this.showHints() && ['ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+      this.showHints.set(false)
+    } else if (ev.key === 'ArrowUp' && state === 'guessing') {
       this.showHints.set(false)
       this.guessState.set('voting')
     } else if (ev.key === 'ArrowLeft' && state === 'voting') {
