@@ -173,10 +173,7 @@ export const withPracticeFeature = <_>() =>
 
           const wrongAndUnanswered: Guessable[] = schwarzianShuffle(
             practice.guessables.filter((g) => g.guess !== 'right')
-          ).map((guess) => ({
-            id: guess.id,
-            guess: 'unanswered'
-          }))
+          )
 
           return {
             ...b,

@@ -6,6 +6,9 @@
 
 - implement continue button
   - cards the where wrong are
+  - card color and position mainly dependant on index, so that on continue the wrong one are back on stack -> only cards that are wrong or right with positive index are left or right
+  - then transition is also normal
+    selector for: done && right / wrong -> put on different stacks
 
 - swipe-hints
   - add: top to reveal,
