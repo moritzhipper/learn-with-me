@@ -6,13 +6,13 @@
   position: relative;
   color: var(--col-text);
 
-  --col: rgb(from var(--col-shadow) r g b / var(--opacity-0));
+  --col: rgb(from var(--col-shadow) r g b / var(--opacity-1));
 
   ng-icon {
-    filter: drop-shadow(0px 23px 8px var(--col));
+    filter: drop-shadow(0px 23px 18px var(--col));
   }
   .label {
-    text-shadow: 0px 5px 5px var(--col);
+    text-shadow: 0px 5px 15px var(--col);
   }
 }
 

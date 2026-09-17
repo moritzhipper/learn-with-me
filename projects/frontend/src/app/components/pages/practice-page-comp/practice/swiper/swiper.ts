@@ -102,7 +102,7 @@ export class Swiper {
 
   // when no history: show immeadiately
   // when history: show after 5 sec if no action happened
-  protected showHints = linkedSignal<HintType | null, HintType | null>({
+  protected hintConf = linkedSignal<HintType | null, HintType | null>({
     source: computed(() => {
       const practice = this.practice()
       const guessState = this.guessState()
@@ -154,7 +154,7 @@ export class Swiper {
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     if (this.guessState() !== 'done') {
-      this.showHints.set(null)
+      this.hintConf.set(null)
       this.hostEl.setPointerCapture(ev.pointerId)
       this.guessState.set('voting')
       this.swiping = true
@@ -185,8 +185,8 @@ export class Swiper {
   }
 
   private keydown = (ev: KeyboardEvent) => {
-    if (this.showHints() && ['ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(ev.key)) {
-      this.showHints.set(null)
+    if (this.hintConf() && ['ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+      this.hintConf.set(null)
     }
 
     const state = this.guessState()
