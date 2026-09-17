@@ -1,10 +1,13 @@
-<div class="content">
-  <p class="label pb-2">
+@if (type() === 'tap') {
+  <div class="hints pb-3">
+    <ng-icon [svg]="icons.tapIcon" class="tap" />
+  </div>
+  <p class="label">
     <span class="size-2 bold"> Tap </span>
     <br />
     <span> to reveal </span>
   </p>
-
+} @else {
   <div class="hints pb-5">
     <ng-icon [svg]="icons.swipeHintIcon" class="swipe wrong" />
     <ng-icon [svg]="icons.swipeHintIcon" class="swipe right" />
@@ -17,4 +20,4 @@
     <br />
     <span> to cast a guess </span>
   </p>
-</div>
+}

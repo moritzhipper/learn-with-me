@@ -29,6 +29,7 @@ import {
   remixMagicFill,
   remixMenuUnfold2Line,
   remixMeteorFill,
+  remixNavigationFill,
   remixPantoneFill,
   remixPencilFill,
   remixQuestionFill,
@@ -70,6 +71,7 @@ export const practiceFinishIcon = remixCheckDoubleFill
 export const learnLanguageIcon = remixUserFollowLine
 export const speakLanguageIcon = remixUserVoiceLine
 export const swipeHintIcon = remixReplyFill
+export const tapIcon = remixNavigationFill
 
 // Management
 export const closeIcon = remixCloseLine

@@ -1,6 +1,9 @@
 @use '../../../../../../style/mixins' as *;
 
 :host {
+  --fast-duration: var(--duration-2);
+  --slow-duration: 1.5s;
+
   position: relative;
   touch-action: none;
   display: grid;
@@ -17,6 +20,13 @@
 }
 liz-swiper-hints {
   z-index: 22;
+
+  &.tap {
+    transform: translateY(60%);
+  }
+  &.swipe {
+    transform: translateY(-60%);
+  }
 }
 
 ng-icon.vote {
@@ -85,9 +95,6 @@ ng-icon.vote {
 
     will-change: transform;
   }
-
-  --fast-duration: var(--duration-2);
-  --slow-duration: 1.5s;
 
   ng-icon.vote {
     transition-property: opacity, transform;

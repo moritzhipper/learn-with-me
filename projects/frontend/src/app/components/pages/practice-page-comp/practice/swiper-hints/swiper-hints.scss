@@ -1,20 +1,10 @@
 @use '../../../../../../style/mixins' as *;
 
 :host {
+  flex-direction: column;
   text-align: center;
   position: relative;
-  color: var(--col-bg);
-  background-color: rgb(from var(--col-primary) r g b / 0.9);
-
-  rotate: -4deg;
-  position: absolute;
-  padding: var(--distance-4) 0 var(--distance-5) 0;
-  box-shadow: var(--shadow-small);
-
-  .content {
-    rotate: 4deg;
-    width: 200vw;
-  }
+  color: var(--col-text);
 }
 
 .hints {
@@ -24,6 +14,10 @@
   ng-icon {
     grid-area: 1 / 1;
     display: block;
+  }
+
+  .tap {
+    font-size: 120px;
   }
 
   .swipe {
@@ -58,17 +52,24 @@
 }
 
 :host {
-  transition-property: translate, opacity;
-  transition-timing-function: var(--soft-ease);
+  transition-property: scale, opacity;
+  transition-timing-function: var(--overshot);
   transition-duration: var(--duration-3);
+  transition-delay: 1s;
 
   @starting-style {
-    translate: -200px 15px;
+    scale: 0.5;
     opacity: 0;
   }
 
   &.hints-leave {
-    translate: 200px -15px;
+    transition-duration: var(--duration-0);
+
+    transition-timing-function: ease-in;
+
+    transition-delay: 0s;
+
+    scale: 0.8;
     opacity: 0;
   }
 }

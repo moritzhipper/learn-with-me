@@ -18,7 +18,7 @@ import {
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
-import { SwiperHints } from '../swiper-hints/swiper-hints'
+import { HintType, SwiperHints } from '../swiper-hints/swiper-hints'
 
 export type CardVM = {
   card: UserLearnable
@@ -102,14 +102,14 @@ export class Swiper {
 
   // when no history: show immeadiately
   // when history: show after 5 sec if no action happened
-  protected showHints = linkedSignal<boolean, boolean>({
+  protected showHints = linkedSignal<HintType | null, HintType | null>({
     source: computed(() => {
       const practice = this.practice()
-      if (practice && !practice.isFinished) return true
-
-      return false
+      const guessState = this.guessState()
+      if (!practice || practice.guessableIndex !== 0 || guessState === 'done') return null
+      return guessState === 'guessing' ? 'tap' : 'swipe'
     }),
-    computation: (hasPractice) => hasPractice
+    computation: (hintConf) => hintConf
   })
 
   protected cards = computed<CardVM[]>(() => {
@@ -153,10 +153,8 @@ export class Swiper {
 
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
-    if (this.showHints()) {
-      this.showHints.set(false)
-    } else if (this.guessState() !== 'done') {
-      this.showHints.set(false)
+    if (this.guessState() !== 'done') {
+      this.showHints.set(null)
       this.hostEl.setPointerCapture(ev.pointerId)
       this.guessState.set('voting')
       this.swiping = true
@@ -187,11 +185,12 @@ export class Swiper {
   }
 
   private keydown = (ev: KeyboardEvent) => {
-    const state = this.guessState()
     if (this.showHints() && ['ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(ev.key)) {
-      this.showHints.set(false)
-    } else if (ev.key === 'ArrowUp' && state === 'guessing') {
-      this.showHints.set(false)
+      this.showHints.set(null)
+    }
+
+    const state = this.guessState()
+    if (ev.key === 'ArrowUp' && state === 'guessing') {
       this.guessState.set('voting')
     } else if (ev.key === 'ArrowLeft' && state === 'voting') {
       this.guess('wrong')

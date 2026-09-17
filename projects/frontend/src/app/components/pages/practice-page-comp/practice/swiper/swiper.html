@@ -28,7 +28,10 @@
 
 <ng-icon [svg]="icons.incorrectAnswerIcon" class="vote wrong" />
 <ng-icon [svg]="icons.correctAnswerIcon" class="vote right" />
+@let hint = showHints();
 
-@if (showHints()) {
-  <liz-swiper-hints />
+@if (hint === 'tap') {
+  <liz-swiper-hints [type]="hint" [class]="hint" />
+} @else if (hint === 'swipe') {
+  <liz-swiper-hints [type]="hint" [class]="hint" />
 }
