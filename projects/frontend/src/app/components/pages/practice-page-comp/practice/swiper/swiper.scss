@@ -18,9 +18,9 @@
     box-sizing: border-box;
   }
 }
+
 liz-swiper-hints {
   z-index: 22;
-
   &.tap {
     transform: translateY(60%);
   }
