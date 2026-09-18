@@ -80,3 +80,15 @@
     opacity: 0;
   }
 }
+
+@include isPhone() {
+  .label .desktop {
+    display: none;
+  }
+}
+
+@include isDesktop() {
+  .label .phone {
+    display: none;
+  }
+}
