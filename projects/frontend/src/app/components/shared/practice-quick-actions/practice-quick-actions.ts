@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgIcon } from '@ng-icons/core'
-import { Collection, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
+import { Collection, PracticeConfig, PracticeSummary, UserLearnable } from '@shared/types'
 import {
   collectionIcon,
   continuePracticeIcon,
@@ -175,7 +175,7 @@ export class PracticeQuickActions {
   }
 
   private deductActionsFromDateAdded(
-    history: PracticeActive[],
+    history: PracticeSummary[],
     learnables: UserLearnable[]
   ): QuickAction[] {
     // Map all learnables to a map by day added
@@ -214,7 +214,7 @@ export class PracticeQuickActions {
   }
 
   private deductActionsFromCollections(
-    history: PracticeActive[],
+    history: PracticeSummary[],
     collections: Collection[],
     learnables: UserLearnable[]
   ): QuickAction[] {
