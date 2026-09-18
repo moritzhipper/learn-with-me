@@ -66,10 +66,10 @@
       border-left: 2px solid var(--col-accent);
       opacity: var(--opacity-1);
 
-      transition: translate var(--duration-3) var(--overshot);
+      transition: translate var(--duration-1) var(--soft-ease);
 
       @starting-style {
-        translate: -30px;
+        translate: -50px;
       }
     }
   }

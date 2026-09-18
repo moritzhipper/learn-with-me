@@ -1,6 +1,13 @@
-import { Component } from '@angular/core'
+import { Component, input } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
-import { correctAnswerIcon, incorrectAnswerIcon, swipeHintIcon } from '../../../../../icon-registry'
+import {
+  correctAnswerIcon,
+  incorrectAnswerIcon,
+  swipeHintIcon,
+  tapIcon
+} from '../../../../../icon-registry'
+
+export type HintType = 'tap' | 'swipe'
 
 @Component({
   selector: 'liz-swiper-hints',
@@ -12,5 +19,7 @@ import { correctAnswerIcon, incorrectAnswerIcon, swipeHintIcon } from '../../../
   }
 })
 export class SwiperHints {
-  icons = { swipeHintIcon, correctAnswerIcon, incorrectAnswerIcon }
+  type = input<HintType>('tap')
+
+  protected icons = { swipeHintIcon, correctAnswerIcon, incorrectAnswerIcon, tapIcon }
 }

@@ -1,19 +1,18 @@
 @use '../../../../../../style/mixins' as *;
 
 :host {
+  flex-direction: column;
   text-align: center;
   position: relative;
-  color: var(--col-bg);
-  background-color: rgb(from var(--col-primary) r g b / 0.9);
+  color: var(--col-text);
 
-  rotate: -4deg;
-  position: absolute;
-  padding: var(--distance-4) 0;
-  box-shadow: var(--shadow-small);
+  --col: rgb(from var(--col-shadow) r g b / var(--opacity-1));
 
-  .content {
-    rotate: 4deg;
-    width: 200vw;
+  ng-icon {
+    filter: drop-shadow(0px 23px 18px var(--col));
+  }
+  .label {
+    text-shadow: 0px 5px 15px var(--col);
   }
 }
 
@@ -24,6 +23,10 @@
   ng-icon {
     grid-area: 1 / 1;
     display: block;
+  }
+
+  .tap {
+    font-size: 120px;
   }
 
   .swipe {
@@ -58,19 +61,34 @@
 }
 
 :host {
-  transition-property: translate, opacity;
-  transition-timing-function: var(--soft-ease);
+  transition-property: scale, opacity;
+  transition-timing-function: var(--overshot);
   transition-duration: var(--duration-3);
-  transition-delay: 5s;
+  transition-delay: 2s;
 
   @starting-style {
-    translate: -200px 15px;
+    scale: 0.95;
     opacity: 0;
   }
 
   &.hints-leave {
+    transition-timing-function: ease;
+    transition-duration: var(--duration-1);
     transition-delay: 0s;
-    translate: 200px -15px;
+
+    scale: 0.95;
     opacity: 0;
+  }
+}
+
+@include isPhone() {
+  .label .desktop {
+    display: none;
+  }
+}
+
+@include isDesktop() {
+  .label .phone {
+    display: none;
   }
 }

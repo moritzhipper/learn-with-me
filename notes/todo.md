@@ -1,18 +1,9 @@
 # ToDo
 
-## Storage quota reached fast -> do the guesses count thing in practice history also accomondating for mor stuff like guesses and improvements?
-
-## swiper
-
-- implement continue button
-- swipe-hints
-  - add: top to reveal,
-  - add to desktop: use keays up right left
-  - when hints present, dont do swipe or reveal action on click. remove the hint first
-  - if no practice in history, show the banner without delay
+- Storage quota reached fast -> do the guesses count thing in practice history also accomondating for mor stuff like guesses and improvements?
+- somehow fix states to accomondate
 
 - reuse cool right / wrong / unanswered in stats
-- somehow fix states to accomondate
 
 - guesses on cards misaligning guesses count misaligngin guesses count of practice
   - just remember practice summary

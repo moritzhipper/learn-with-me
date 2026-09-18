@@ -159,6 +159,35 @@ export const withPracticeFeature = <_>() =>
             }
           }
         })
+      },
+      continuePractice() {
+        updateActiveBank(store, (b) => {
+          // Move right guesses to begin
+          // Move not right guesses to end, reshuffle
+          // Move pointer to right guess length index to start guessing false cards again
+
+          const practice = b.practice.active
+          if (!practice) return b
+
+          const rightGuesses: Guessable[] = practice.guessables.filter((g) => g.guess === 'right')
+
+          const wrongAndUnanswered: Guessable[] = schwarzianShuffle(
+            practice.guessables.filter((g) => g.guess !== 'right')
+          )
+
+          return {
+            ...b,
+            practice: {
+              ...b.practice,
+              active: {
+                ...practice,
+                guessables: [...rightGuesses, ...wrongAndUnanswered],
+                guessableIndex: rightGuesses.length,
+                isFinished: false
+              }
+            }
+          }
+        })
       }
     }))
   )

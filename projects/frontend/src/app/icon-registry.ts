@@ -9,7 +9,6 @@ import {
   remixCamera4Fill,
   remixCheckboxCircleFill,
   remixCheckboxMultipleLine,
-  remixCheckDoubleFill,
   remixCloseCircleFill,
   remixCloseLine,
   remixDeleteBinLine,
@@ -29,6 +28,7 @@ import {
   remixMagicFill,
   remixMenuUnfold2Line,
   remixMeteorFill,
+  remixNavigationFill,
   remixPantoneFill,
   remixPencilFill,
   remixQuestionFill,
@@ -40,7 +40,8 @@ import {
   remixStarLine,
   remixTranslate,
   remixUserFollowLine,
-  remixUserVoiceLine
+  remixUserVoiceLine,
+  remixVerifiedBadgeFill
 } from '@ng-icons/remixicon'
 
 // Actions
@@ -66,10 +67,11 @@ export const incorrectAnswerIcon = remixCloseCircleFill
 export const unansweredAnswerIcon = remixQuestionFill
 export const multiSelectIcon = remixCheckboxMultipleLine
 export const practiceSpeedIcon = remixSpeedFill
-export const practiceFinishIcon = remixCheckDoubleFill
+export const practiceFinishIcon = remixVerifiedBadgeFill
 export const learnLanguageIcon = remixUserFollowLine
 export const speakLanguageIcon = remixUserVoiceLine
 export const swipeHintIcon = remixReplyFill
+export const tapIcon = remixNavigationFill
 
 // Management
 export const closeIcon = remixCloseLine

@@ -18,7 +18,7 @@ import {
 } from '../../../../../icon-registry'
 import { LearnablesStore } from '../../../../../store/learnables-store'
 import { LarryBig } from '../../../../shared/larries/larry-big/larry-big'
-import { SwiperHints } from '../swiper-hints/swiper-hints'
+import { HintType, SwiperHints } from '../swiper-hints/swiper-hints'
 
 export type CardVM = {
   card: UserLearnable
@@ -99,14 +99,17 @@ export class Swiper {
   })
 
   // sets true on practice start
-  protected showHints = linkedSignal<boolean, boolean>({
+
+  // when no history: show immeadiately
+  // when history: show after 5 sec if no action happened
+  protected hintConf = linkedSignal<HintType | null, HintType | null>({
     source: computed(() => {
       const practice = this.practice()
-      if (practice && !practice.isFinished) return true
-
-      return false
+      const guessState = this.guessState()
+      if (!practice || practice.guessableIndex !== 0 || guessState === 'done') return null
+      return guessState === 'guessing' ? 'tap' : 'swipe'
     }),
-    computation: (hasPractice) => hasPractice
+    computation: (hintConf) => hintConf
   })
 
   protected cards = computed<CardVM[]>(() => {
@@ -114,17 +117,15 @@ export class Swiper {
     if (!practice) return []
 
     const cards = this.ls.activeBank().learnables
-    let cardVMs: Omit<CardVM, 'position'>[] = []
+    let cardVMs: CardVM[] = []
 
     practice.guessables.forEach((guessable, index) => {
       const card = cards.find((c) => c.id === guessable.id)
       if (!card) return
 
-      const offsetToActive = practice.guessableIndex - index
-
       cardVMs.push({
         card,
-        offsetToActive,
+        offsetToActive: practice.guessableIndex - index,
         guess: guessable.guess
       })
     })
@@ -153,7 +154,7 @@ export class Swiper {
   // fat arrow for event callback to allow remove function memory cleanup unrelated to this class's lifecycle
   private pointerDown = (ev: PointerEvent) => {
     if (this.guessState() !== 'done') {
-      this.showHints.set(false)
+      this.hintConf.set(null)
       this.hostEl.setPointerCapture(ev.pointerId)
       this.guessState.set('voting')
       this.swiping = true
@@ -163,31 +164,33 @@ export class Swiper {
   }
 
   private pointerMove = (ev: PointerEvent) => {
-    if (this.swiping && this.guessState() === 'voting') {
-      const newPos = {
-        x: this.position.x + ev.movementX,
-        y: this.position.y + ev.movementY
-      }
-      this.setPosition(newPos)
-      this.castGuessIfThreshold()
+    if (!this.swiping || this.guessState() !== 'voting') return
+
+    const newPos = {
+      x: this.position.x + ev.movementX,
+      y: this.position.y + ev.movementY
     }
+    this.setPosition(newPos)
+    this.castGuessIfThreshold(newPos.x)
   }
 
   private pointerUp = (ev: PointerEvent) => {
-    if (this.swiping && this.guessState() === 'voting') {
-      this.swiping = false
-      this.hostEl.releasePointerCapture(ev.pointerId)
-      this.countGuessIfThreshold()
-      this.hostEl.classList.remove('swiping')
-      this.setPosition({ x: 0, y: 0 })
-    }
+    if (!this.swiping || this.guessState() !== 'voting') return
+
+    this.swiping = false
+    this.hostEl.releasePointerCapture(ev.pointerId)
+    this.countGuessIfThreshold()
+    this.hostEl.classList.remove('swiping')
+    this.setPosition({ x: 0, y: 0 })
   }
 
   private keydown = (ev: KeyboardEvent) => {
+    if (this.hintConf() && ['ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(ev.key)) {
+      this.hintConf.set(null)
+    }
+
     const state = this.guessState()
     if (ev.key === 'ArrowUp' && state === 'guessing') {
-      this.showHints.set(false)
-
       this.guessState.set('voting')
     } else if (ev.key === 'ArrowLeft' && state === 'voting') {
       this.guess('wrong')
@@ -204,33 +207,32 @@ export class Swiper {
     this.hostEl.style.setProperty('--rotate', `${pos.x * 0.04}deg`)
   }
 
-  castGuessIfThreshold() {
-    const guess = this.deductGuessFromOffset(this.position.x)
+  castGuessIfThreshold(x: number): void {
+    const guess = this.deductGuessFromOffset(x)
 
     // guard like this, because this funcion is called in high freq pointer move and would otherwise
     // set a signal in same frequency, leading to higher angular performance overhead.
     // this approach only casts a guess per state change
-    if (guess !== this.castedGuess()) {
-      this.castedGuess.set(guess)
-    }
+    if (guess === this.castedGuess()) return
+
+    this.castedGuess.set(guess)
   }
 
   countGuessIfThreshold() {
-    if (this.guessState() === 'guessing') return
-    const guess = this.deductGuessFromOffset(this.position.x)
-    if (guess !== 'unanswered') {
-      this.guess(guess)
-    }
+    const guess = this.castedGuess()
+    if (guess === 'unanswered') return
+
+    this.guess(guess)
   }
 
   private guess(guess: Guess) {
     this.ls.setGuessToPractice(guess)
   }
 
-  private deductGuessFromOffset(xOffset: number): Guess {
-    if (xOffset > this.VOTE_THRESHOLD) {
+  private deductGuessFromOffset(x: number): Guess {
+    if (x > this.VOTE_THRESHOLD) {
       return 'right'
-    } else if (xOffset < this.VOTE_THRESHOLD * -1) {
+    } else if (x < this.VOTE_THRESHOLD * -1) {
       return 'wrong'
     } else {
       return 'unanswered'
@@ -239,13 +241,12 @@ export class Swiper {
 
   private get cardPosition(): Position {
     const ref = this.hostEl.querySelector<HTMLDivElement>(`[offset-to-active="0"]`)
-    if (ref) {
-      const transform = getComputedStyle(ref).transform
-      const matrix = new DOMMatrixReadOnly(transform)
-      // e and f are indexes of transform translate x and y
-      return { x: matrix.e, y: matrix.f }
-    }
+    if (!ref) return { x: 0, y: 0 }
 
-    return { x: 0, y: 0 }
+    const transform = getComputedStyle(ref).transform
+    const matrix = new DOMMatrixReadOnly(transform)
+
+    // e and f are indexes of transform translate x and y
+    return { x: matrix.e, y: matrix.f }
   }
 }
