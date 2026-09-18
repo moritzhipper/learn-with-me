@@ -39,7 +39,8 @@ export const PracticeActiveSchema = z
     createdAt: z.coerce.date(),
     guessableIndex: z.number(),
     guessables: z.array(GuessableSchema),
-    isFinished: z.boolean()
+    isFinished: z.boolean(),
+    swipeCount: z.number()
   })
   .and(PracticeConfigSchema)
 
