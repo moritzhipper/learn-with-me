@@ -3,7 +3,8 @@ import {
   Guess,
   GuessableSchema,
   PracticeActiveSchema,
-  PracticeConfigSchema
+  PracticeConfigSchema,
+  PracticeSummarySchema
 } from './practice-schemas'
 import {
   BankShareBaseSchema,
@@ -45,6 +46,7 @@ export type BankBase = Pick<BankShareBase, 'name' | 'language'>
 export type Guessable = z.infer<typeof GuessableSchema>
 export type PracticeActive = z.infer<typeof PracticeActiveSchema>
 export type PracticeConfig = z.infer<typeof PracticeConfigSchema>
+export type PracticeSummary = z.infer<typeof PracticeSummarySchema>
 export type Guess = z.infer<typeof Guess>
 
 export type LearnableWithId = z.infer<typeof LearnableWithIdSchema>

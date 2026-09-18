@@ -19,13 +19,13 @@ export const PracticeConfigAddedOnDaySchema = z.object({
   dayCardsAddedUTC: z.number()
 })
 
-export const PracticeConfigSchema = z
-  .discriminatedUnion('type', [
-    PracticeConfigCustomSchema,
-    PracticeConfigCollectionSchema,
-    PracticeConfigAddedOnDaySchema
-  ])
-  .and(PracticeConfigBaseSchema)
+const PracticeTypeSchema = z.discriminatedUnion('type', [
+  PracticeConfigCustomSchema,
+  PracticeConfigCollectionSchema,
+  PracticeConfigAddedOnDaySchema
+])
+
+export const PracticeConfigSchema = PracticeTypeSchema.and(PracticeConfigBaseSchema)
 
 export const Guess = z.literal(['right', 'wrong', 'unanswered'])
 
@@ -42,3 +42,13 @@ export const PracticeActiveSchema = z
     isFinished: z.boolean()
   })
   .and(PracticeConfigSchema)
+
+export const PracticeSummarySchema = z
+  .object({
+    // Each card can be guessed multiple times, while each Summary holds n guesses for n cards in set -> Allows repetition of not right guesses to improve practice rating
+    guesses: z.record(Guess, z.number()),
+    // Kept for statistical reasons, not to be displayed in direct practice summary
+    swipeCount: z.number(),
+    createdAt: z.coerce.date()
+  })
+  .and(PracticeTypeSchema)

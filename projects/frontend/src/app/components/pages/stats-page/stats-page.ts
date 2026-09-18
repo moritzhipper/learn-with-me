@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
-import { PracticeActive } from '@shared/types'
+import { PracticeSummary } from '@shared/types'
 import { completedTimelineIcon, statsIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
@@ -15,7 +15,7 @@ type PracticeHistoryDay = {
   summary: PracticeHistoryDaySummary
 }
 
-type PracticeHistoryItemSummary = PracticeActive & {
+type PracticeHistoryItemSummary = {
   collectionName?: string
   right: number
   wrong: number
@@ -59,9 +59,9 @@ export class StatsPage {
         const summary: PracticeHistoryItemSummary = {
           ...item,
           collectionName,
-          right: item.guessables.filter((r) => r.guess === 'right').length,
-          wrong: item.guessables.filter((r) => r.guess === 'wrong').length,
-          unanswered: item.guessables.filter((r) => r.guess === 'unanswered').length
+          right: item.guesses.right,
+          wrong: item.guesses.wrong,
+          unanswered: item.guesses.unanswered
         }
 
         const daySummary = acc[dayOfPractice]
@@ -87,7 +87,7 @@ export class StatsPage {
     }))
   })
 
-  private practiceComparator(a: PracticeActive, b: PracticeActive): number {
+  private practiceComparator(a: PracticeSummary, b: PracticeSummary): number {
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   }
 

@@ -59,7 +59,6 @@ export class Swiper {
   }
 
   // Animation related -------------------------------------------
-
   private readonly VOTE_THRESHOLD = 100
   protected swiping = false
 
@@ -98,9 +97,6 @@ export class Swiper {
     }
   })
 
-  // sets true on practice start
-
-  // when no history: show immeadiately
   // when history: show after 5 sec if no action happened
   protected hintConf = linkedSignal<HintType | null, HintType | null>({
     source: computed(() => {

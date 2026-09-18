@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { PracticeActiveSchema } from './practice-schemas'
+import { PracticeActiveSchema, PracticeSummarySchema } from './practice-schemas'
 
 export const LearnableFromAiSchema = z.object({
   lexeme: z.string(),
@@ -72,7 +72,7 @@ export const BankUserSchema = BankBaseSchema.extend({
   collections: z.array(CollectionSchema),
   practice: z.object({
     active: PracticeActiveSchema.nullable(),
-    history: z.array(PracticeActiveSchema)
+    history: z.array(PracticeSummarySchema)
   })
 })
 

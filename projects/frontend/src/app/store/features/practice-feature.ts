@@ -1,5 +1,5 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guess, Guessable, PracticeConfig, UserLearnable } from '@shared/types'
+import { Guess, Guessable, PracticeConfig, PracticeSummary, UserLearnable } from '@shared/types'
 import type { LearnablesStoreType } from '../../types/store-types'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
@@ -87,7 +87,7 @@ export const withPracticeFeature = <_>() =>
           }
         })
       },
-      endPracticePrematurely() {
+      giveUpOnPractice() {
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
@@ -102,8 +102,8 @@ export const withPracticeFeature = <_>() =>
           return {
             ...b,
             practice: {
-              active: finishedPractice,
-              history: [...b.practice.history, finishedPractice]
+              ...b.practice,
+              active: finishedPractice
             }
           }
         })
@@ -150,12 +150,41 @@ export const withPracticeFeature = <_>() =>
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
+
+          const summaryBase = {
+            guesses: {
+              right: currentPractice.guessables.filter((g) => g.guess === 'right').length,
+              wrong: currentPractice.guessables.filter((g) => g.guess === 'wrong').length,
+              unanswered: currentPractice.guessables.filter((g) => g.guess === 'unanswered').length
+            },
+            swipeCount: currentPractice.guessables.length,
+            createdAt: currentPractice.createdAt
+          }
+
+          let summary: PracticeSummary
+
+          if (currentPractice.type === 'added-on-day') {
+            summary = {
+              ...summaryBase,
+              type: currentPractice.type,
+              dayCardsAddedUTC: currentPractice.dayCardsAddedUTC
+            }
+          } else if (currentPractice.type === 'collection') {
+            summary = {
+              ...summaryBase,
+              type: currentPractice.type,
+              collectionId: currentPractice.collectionId
+            }
+          } else {
+            summary = { ...summaryBase, type: currentPractice.type }
+          }
+
           return {
             ...b,
             practice: {
               ...b.practice,
               active: null,
-              history: [currentPractice, ...b.practice.history]
+              history: [summary, ...b.practice.history]
             }
           }
         })
