@@ -11,6 +11,8 @@
     -> save guesses per day
   - for continue until done thing
   - also good for memory
+  - use swipes for stats at bottom
+  - use wright, wrong, unanswered for stat -> no mapping to historydays, jus reduce by type? clean up stats page
 
 - success pf practices is measured by ending with wrong guesses: PUT IN DOCS
   - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
