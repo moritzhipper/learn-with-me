@@ -5,6 +5,9 @@
   - make box shadow in background higher
   - fix logic placing the count in or outside
 
+- add to prompt to not put notes in ()
+- ai maps lexeme transaltion in wrong direction: lexeme is what i lear
+
 - show the quick practice cards more restrictive -> less overlap with collections
 
 ## Onboarding / About
@@ -42,6 +45,7 @@
 
 ## General
 
+- replace .has-icon with :has(ng-icon), then make ng-icon a bit bigger than 1rem
 - when fetchin collections from be, parse schemas in array, log warnings for failed ones
 - ids are only rotated on api upload
 - make grid auto columns classes?

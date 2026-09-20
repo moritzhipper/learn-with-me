@@ -74,7 +74,6 @@
 
 .rating-summary-wrapper {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: var(--distance-4);
   padding: 0 var(--distance-4);
@@ -82,7 +81,7 @@
 
   .rating-summary {
     text-align: center;
-    flex: 1;
+    flex: 0 1 150px;
     border-radius: var(--radius-0);
 
     &.highlight {
