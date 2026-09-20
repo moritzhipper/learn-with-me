@@ -6,7 +6,7 @@ import {
   meteorRatingIcon,
   starRatingIcon
 } from '../../../icon-registry'
-import { mapConfidencePercentToRating, PracticeRating } from '../../../utils/genaral-utils'
+import { PracticeRating } from '../../../utils/genaral-utils'
 
 @Component({
   selector: 'app-practice-rating-comp',
@@ -21,7 +21,5 @@ export class PracticeRatingComp {
     meteorRatingIcon,
     starRatingIcon
   }
-  confidence = input.required<PracticeRating, number>({
-    transform: mapConfidencePercentToRating
-  })
+  readonly rating = input.required<PracticeRating>()
 }

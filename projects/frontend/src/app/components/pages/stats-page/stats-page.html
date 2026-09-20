@@ -1,6 +1,15 @@
 <app-page-wrapper [icon]="icons.statsIcon">
   <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 
+  <div class="rating-summary-wrapper">
+    @for (entry of ratingSummary(); track entry.rating) {
+      <div class="rating-summary" [class.highlight]="entry.rating === 'excellent'">
+        <app-practice-rating-comp [rating]="entry.rating" />
+        <p class="bold">{{ entry.count }}</p>
+      </div>
+    }
+  </div>
+
   @if (practiceHistory().length === 0) {
     <liz-info-card fullPage title="You need to practice!">
       <p>Use this page to see your progress and consistency over time.</p>
@@ -25,7 +34,7 @@
           <div class="practices-wrapper">
             @for (summary of entry.detailedSummaries; track $index) {
               <div class="summary" [class.highlight]="summary.rating === 'excellent'">
-                <app-practice-rating-comp [confidence]="summary.guessedRightPercent" />
+                <app-practice-rating-comp [rating]="summary.rating" />
 
                 <liz-practice-stats [guesses]="summary.guesses" class="pt-1" />
                 <p class="bold ellipsis pt-2">

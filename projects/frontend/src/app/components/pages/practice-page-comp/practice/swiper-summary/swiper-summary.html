@@ -1,7 +1,7 @@
 @let sum = summary();
 <liz-swiper-page-layout lizAnimDelayWrapper applyClass="pop-in">
   <div swiper-top class="overview" #animItem>
-    <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
+    <app-practice-rating-comp [rating]="sum.rating" />
 
     <liz-practice-stats [guesses]="sum.guesses" class="pt-2 pb-5 text size-2" />
 

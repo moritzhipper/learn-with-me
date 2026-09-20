@@ -21,7 +21,7 @@
     @if (collection(); as coll) {
       <p class="light">{{ coll.createdAt | date: 'mediumDate' }}</p>
     }
-    <app-practice-rating-comp [confidence]="confidence().all" />
+    <app-practice-rating-comp [rating]="confidence().allRating" />
   </liz-page-header-cards>
   <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
     <div class="action-buttons full-width-scroll" #animItem>

@@ -37,6 +37,7 @@ export type ConfidenceAggregate = {
   lexeme: number
   all: number
   cardCount: number
+  allRating: PracticeRating
 }
 
 /**
@@ -89,7 +90,8 @@ export const aggregateConfidence = (learnables: UserLearnable[]): ConfidenceAggr
     translation: getAvg(allTranslationGuesses),
     lexeme: getAvg(allLexemeGuesses),
     all: getAvg(allGuesses),
-    cardCount: learnables.length
+    cardCount: learnables.length,
+    allRating: mapConfidencePercentToRating(getAvg(allGuesses))
   }
 }
 

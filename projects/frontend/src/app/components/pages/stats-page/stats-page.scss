@@ -1,5 +1,9 @@
 @use '../../../../style/mixins.scss' as *;
 
+:host {
+  --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
+}
+
 .history {
   display: flex;
   flex-direction: column;
@@ -13,7 +17,6 @@
   .day {
     display: flex;
     flex-direction: column;
-    --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
 
     .header {
       display: inline-flex;
@@ -68,6 +71,25 @@
   }
 }
 
+.rating-summary-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--distance-4);
+  padding: 0 var(--distance-4);
+  margin-bottom: var(--distance-6);
+
+  .rating-summary {
+    text-align: center;
+    flex: 1;
+    border-radius: var(--radius-0);
+
+    &.highlight {
+      color: var(--col-accent-2);
+    }
+  }
+}
+
 app-practice-timeline {
   z-index: 10;
   width: 100%;
@@ -92,7 +114,7 @@ app-practice-timeline {
     margin-right: calc(-1 * var(--page-padding));
 
     .summary {
-      flex: 0 0 170px;
+      flex: 0 0 150px;
     }
   }
 }
@@ -100,6 +122,6 @@ app-practice-timeline {
 @include isDesktop {
   .practices-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }

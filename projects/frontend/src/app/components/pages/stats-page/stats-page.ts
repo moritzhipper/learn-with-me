@@ -7,6 +7,7 @@ import { LearnablesStore } from '../../../store/learnables-store'
 import {
   convertToDayPrecisionUTCDate,
   mapSummaryToSummaryDetailed,
+  PracticeRating,
   PracticeSummaryDetailed
 } from '../../../utils/genaral-utils'
 import { InfoCard } from '../../shared/info-card/info-card'
@@ -20,6 +21,11 @@ type PracticeHistoryDay = {
   day: number
   summary: Pick<PracticeSummary, 'guesses' | 'swipeCount'>
   detailedSummaries: PracticeSummaryDetailed[]
+}
+
+type RatingSummary = {
+  rating: PracticeRating
+  count: number
 }
 
 @Component({
@@ -45,6 +51,18 @@ export class StatsPage {
     statsIcon,
     completedTimelineIcon
   }
+
+  protected readonly ratingSummary = computed<RatingSummary[]>(() => {
+    const history = this.ls.activeBank().practice.history
+    const ratings: PracticeRating[] = ['excellent', 'good', 'okay', 'atleast']
+
+    return ratings
+      .map((rating) => ({
+        rating,
+        count: history.filter((s) => mapSummaryToSummaryDetailed(s).rating === rating).length
+      }))
+      .filter((summary) => summary.count > 0)
+  })
 
   protected readonly practiceHistoryDays = computed<PracticeHistoryDay[]>(() => {
     const collections = this.ls.activeBank().collections
