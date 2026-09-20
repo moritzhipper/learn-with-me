@@ -104,10 +104,6 @@ app-practice-timeline {
 }
 
 @include isPhone {
-  .header .stats {
-    margin-left: auto;
-  }
-
   .practices-wrapper {
     display: flex;
     overflow-x: auto;

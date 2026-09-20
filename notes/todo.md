@@ -1,7 +1,11 @@
 # ToDo
 
-- show the quick practioce cards more restrictive
-- somehow show upcoming stuff to practice
+- improve week stats
+  - show average somwehow
+  - make box shadow in background higher
+  - fix logic placing the count in or outside
+
+- show the quick practice cards more restrictive -> less overlap with collections
 
 ## Onboarding / About
 
