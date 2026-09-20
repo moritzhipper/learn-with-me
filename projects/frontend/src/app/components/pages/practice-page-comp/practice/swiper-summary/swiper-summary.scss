@@ -11,9 +11,11 @@ app-practice-rating-comp {
   box-sizing: border-box;
   overflow: hidden;
 }
+
 [swiper-navigation] button {
   box-shadow: var(--shadow-big);
 }
+
 .overview {
   display: flex;
   flex-direction: column;
