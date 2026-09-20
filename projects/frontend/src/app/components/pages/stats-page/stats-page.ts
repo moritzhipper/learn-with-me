@@ -12,19 +12,8 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
 
 type PracticeHistoryDay = {
   day: number
-  summary: PracticeHistoryDaySummary
-}
-
-type PracticeHistoryItemSummary = {
-  collectionName?: string
-  right: number
-  wrong: number
-  unanswered: number
-}
-
-type PracticeHistoryDaySummary = {
-  practices: PracticeHistoryItemSummary[]
-  totalGuesses: number
+  summary: Pick<PracticeSummary, 'guesses' | 'swipeCount'>
+  summaries: PracticeSummary[]
 }
 
 @Component({
@@ -45,46 +34,50 @@ export class StatsPage {
   protected readonly practiceHistoryDays = computed<PracticeHistoryDay[]>(() => {
     const collections = this.ls.activeBank().collections
 
-    const record = this.practiceHistory()
+    const record: Record<number, Omit<PracticeHistoryDay, 'day'>> = this.practiceHistory()
       .sort(this.practiceComparator)
       .reverse()
-      .reduce<Record<number, PracticeHistoryDaySummary>>((acc, item) => {
+      .reduce<Record<number, Omit<PracticeHistoryDay, 'day'>>>((acc, item) => {
         const dayOfPractice = convertToDayPrecisionUTCDate(item.createdAt)
 
-        const collectionName =
-          item.type === 'collection'
-            ? collections.find((c) => c.id === item.collectionId)?.name
-            : undefined
-
-        const summary: PracticeHistoryItemSummary = {
-          ...item,
-          collectionName,
-          right: item.guesses.right,
-          wrong: item.guesses.wrong,
-          unanswered: item.guesses.unanswered
-        }
-
         const daySummary = acc[dayOfPractice]
-        const totalGuesses = summary.right + summary.wrong
 
         if (daySummary) {
           acc[dayOfPractice] = {
-            practices: [...daySummary.practices, summary],
-            totalGuesses: daySummary.totalGuesses + totalGuesses
+            ...acc[dayOfPractice],
+            summaries: [...daySummary.summaries, item],
+            summary: {
+              swipeCount: daySummary.summary.swipeCount + item.swipeCount,
+              guesses: {
+                right: daySummary.summary.guesses.right + item.guesses.right,
+                wrong: daySummary.summary.guesses.wrong + item.guesses.wrong,
+                unanswered: daySummary.summary.guesses.unanswered + item.guesses.unanswered
+              }
+            }
           }
         } else {
           acc[dayOfPractice] = {
-            practices: [summary],
-            totalGuesses: summary.right + summary.wrong
+            summaries: [item],
+            summary: {
+              swipeCount: item.swipeCount,
+              guesses: {
+                right: item.guesses.right,
+                wrong: item.guesses.wrong,
+                unanswered: item.guesses.unanswered
+              }
+            }
           }
         }
         return acc
       }, {})
 
-    return Object.entries(record).map(([day, summary]) => ({
+    const ret: PracticeHistoryDay[] = Object.entries(record).map(([day, summary]) => ({
       day: Number(day),
-      summary
+      summary: summary.summary,
+      summaries: summary.summaries
     }))
+
+    return ret
   })
 
   private practiceComparator(a: PracticeSummary, b: PracticeSummary): number {
@@ -96,5 +89,9 @@ export class StatsPage {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  getCollectionNameFromId(id: string) {
+    return this.ls.activeBank().collections.find((c) => c.id === id)?.name || '( Deleted )'
   }
 }

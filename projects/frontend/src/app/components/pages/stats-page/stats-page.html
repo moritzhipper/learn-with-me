@@ -21,15 +21,15 @@
               </span>
             </h2>
             <p class="stats">
-              <strong> {{ entry.summary.totalGuesses }} </strong> guesses
+              <strong> {{ entry.summary.swipeCount }} </strong> guesses
             </p>
           </div>
           <div class="practices-wrapper">
-            @for (practice of entry.summary.practices; track $index) {
+            @for (practice of entry.summaries; track $index) {
               <div class="practice">
                 <h3>
                   @if (practice.type === 'collection') {
-                    {{ practice.collectionName }}
+                    {{ getCollectionNameFromId(practice.collectionId) }}
                   } @else if (practice.type === 'added-on-day') {
                     Added on this day
                   } @else {
@@ -38,14 +38,14 @@
                 </h3>
                 <p>
                   <span class="word-list-item">
-                    <strong>{{ practice.right }}</strong> right</span
-                  >
-                  <span class="word-list-item"
-                    ><strong>{{ practice.wrong }}</strong> wrong</span
-                  >
-                  <span class="word-list-item"
-                    ><strong>{{ practice.unanswered }}</strong> left</span
-                  >
+                    <strong>{{ practice.guesses.right }}</strong> right
+                  </span>
+                  <span class="word-list-item">
+                    <strong>{{ practice.guesses.wrong }}</strong> wrong
+                  </span>
+                  <span class="word-list-item">
+                    <strong>{{ practice.guesses.unanswered }}</strong> left
+                  </span>
                 </p>
               </div>
             }
