@@ -200,7 +200,9 @@ export class Swiper {
     this.position = pos
     this.hostEl.style.setProperty('--x', `${pos.x}px`)
     this.hostEl.style.setProperty('--y', `${pos.y}px`)
-    this.hostEl.style.setProperty('--rotate', `${pos.x * 0.04}deg`)
+
+    const rotation = Math.min(Math.max(pos.x * 0.04, -20), 20)
+    this.hostEl.style.setProperty('--rotate', `${rotation}deg`)
   }
 
   castGuessIfThreshold(x: number): void {
