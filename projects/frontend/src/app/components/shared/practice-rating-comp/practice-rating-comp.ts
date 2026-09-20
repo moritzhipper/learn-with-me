@@ -12,10 +12,7 @@ import { mapConfidencePercentToRating, PracticeRating } from '../../../utils/gen
   selector: 'app-practice-rating-comp',
   imports: [NgIcon],
   templateUrl: './practice-rating-comp.html',
-  styleUrl: './practice-rating-comp.scss',
-  host: {
-    '[class]': 'confidence()'
-  }
+  styleUrl: './practice-rating-comp.scss'
 })
 export class PracticeRatingComp {
   protected readonly icons = {

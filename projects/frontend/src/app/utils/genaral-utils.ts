@@ -129,8 +129,9 @@ export const mapPracticeToSummary = (practice: PracticeActive): PracticeSummary 
 }
 
 export const mapSummaryToSummaryDetailed = (summary: PracticeSummary): PracticeSummaryDetailed => {
-  const guessedRightPercent =
-    summary.guesses.right / (summary.guesses.unanswered + summary.guesses.wrong)
+  const guessedRightPercent = Math.round(
+    (summary.guesses.right / (summary.guesses.unanswered + summary.guesses.wrong)) * 100
+  )
 
   return {
     ...summary,
