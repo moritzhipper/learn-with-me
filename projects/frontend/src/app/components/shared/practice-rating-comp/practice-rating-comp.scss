@@ -1,4 +1,7 @@
 :host {
+  display: grid;
+  aspect-ratio: 1 / 1;
+
   border-radius: var(--radius-3);
   box-sizing: border-box;
 
@@ -20,7 +23,6 @@
   &.atleast,
   &.okay,
   &.good {
-    display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     padding: var(--distance-2);
 

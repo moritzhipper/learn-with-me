@@ -128,15 +128,19 @@ export const mapPracticeToSummary = (practice: PracticeActive): PracticeSummary 
   return { ...summaryBase, type: practice.type }
 }
 
-export const mapPracticeToSummaryDetailed = (practice: PracticeActive): PracticeSummaryDetailed => {
-  const summary = mapPracticeToSummary(practice)
-  const guessedRightPercent = summary.guesses.right / practice.guessables.length
+export const mapSummaryToSummaryDetailed = (summary: PracticeSummary): PracticeSummaryDetailed => {
+  const guessedRightPercent =
+    summary.guesses.right / (summary.guesses.unanswered + summary.guesses.wrong)
 
   return {
     ...summary,
     guessedRightPercent,
     rating: mapConfidencePercentToRating(guessedRightPercent)
   }
+}
+
+export const mapPracticeToSummaryDetailed = (practice: PracticeActive): PracticeSummaryDetailed => {
+  return mapSummaryToSummaryDetailed(mapPracticeToSummary(practice))
 }
 
 export const removeDuplicates = (array: string[]): string[] => {

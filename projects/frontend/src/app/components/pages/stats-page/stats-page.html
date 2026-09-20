@@ -25,28 +25,19 @@
             </p>
           </div>
           <div class="practices-wrapper">
-            @for (practice of entry.summaries; track $index) {
-              <div class="practice">
+            @for (summary of entry.detailedSummaries; track $index) {
+              <div class="summary">
                 <h3>
-                  @if (practice.type === 'collection') {
-                    {{ getCollectionNameFromId(practice.collectionId) }}
-                  } @else if (practice.type === 'added-on-day') {
+                  @if (summary.type === 'collection') {
+                    {{ getCollectionNameFromId(summary.collectionId) }}
+                  } @else if (summary.type === 'added-on-day') {
                     Added on this day
                   } @else {
                     Custom
                   }
                 </h3>
-                <p>
-                  <span class="word-list-item">
-                    <strong>{{ practice.guesses.right }}</strong> right
-                  </span>
-                  <span class="word-list-item">
-                    <strong>{{ practice.guesses.wrong }}</strong> wrong
-                  </span>
-                  <span class="word-list-item">
-                    <strong>{{ practice.guesses.unanswered }}</strong> left
-                  </span>
-                </p>
+                <liz-practice-stats [guesses]="summary.guesses" />
+                <app-practice-rating-comp [confidence]="summary.guessedRightPercent" />
               </div>
             }
           </div>

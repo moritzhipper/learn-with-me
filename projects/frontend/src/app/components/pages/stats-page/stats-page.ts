@@ -4,21 +4,36 @@ import { NgIcon } from '@ng-icons/core'
 import { PracticeSummary } from '@shared/types'
 import { completedTimelineIcon, statsIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
-import { convertToDayPrecisionUTCDate } from '../../../utils/genaral-utils'
+import {
+  convertToDayPrecisionUTCDate,
+  mapSummaryToSummaryDetailed,
+  PracticeSummaryDetailed
+} from '../../../utils/genaral-utils'
 import { InfoCard } from '../../shared/info-card/info-card'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
+import { PracticeRatingComp } from '../../shared/practice-rating-comp/practice-rating-comp'
+import { PracticeStats } from '../../shared/practice-stats/practice-stats'
 import { PracticeTimeline } from '../../shared/practice-timeline/practice-timeline'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
 
 type PracticeHistoryDay = {
   day: number
   summary: Pick<PracticeSummary, 'guesses' | 'swipeCount'>
-  summaries: PracticeSummary[]
+  detailedSummaries: PracticeSummaryDetailed[]
 }
 
 @Component({
   selector: 'app-stats-page',
-  imports: [PageHeaderComp, DatePipe, PracticeTimeline, PageWrapper, InfoCard, NgIcon],
+  imports: [
+    PageHeaderComp,
+    DatePipe,
+    PracticeTimeline,
+    PageWrapper,
+    InfoCard,
+    NgIcon,
+    PracticeStats,
+    PracticeRatingComp
+  ],
   templateUrl: './stats-page.html',
   styleUrl: './stats-page.scss'
 })
@@ -39,13 +54,13 @@ export class StatsPage {
       .reverse()
       .reduce<Record<number, Omit<PracticeHistoryDay, 'day'>>>((acc, item) => {
         const dayOfPractice = convertToDayPrecisionUTCDate(item.createdAt)
-
         const daySummary = acc[dayOfPractice]
+        const summaryDetailed = mapSummaryToSummaryDetailed(item)
 
         if (daySummary) {
           acc[dayOfPractice] = {
             ...acc[dayOfPractice],
-            summaries: [...daySummary.summaries, item],
+            detailedSummaries: [...daySummary.detailedSummaries, summaryDetailed],
             summary: {
               swipeCount: daySummary.summary.swipeCount + item.swipeCount,
               guesses: {
@@ -57,7 +72,7 @@ export class StatsPage {
           }
         } else {
           acc[dayOfPractice] = {
-            summaries: [item],
+            detailedSummaries: [summaryDetailed],
             summary: {
               swipeCount: item.swipeCount,
               guesses: {
@@ -71,13 +86,11 @@ export class StatsPage {
         return acc
       }, {})
 
-    const ret: PracticeHistoryDay[] = Object.entries(record).map(([day, summary]) => ({
+    return Object.entries(record).map(([day, summary]) => ({
       day: Number(day),
       summary: summary.summary,
-      summaries: summary.summaries
+      detailedSummaries: summary.detailedSummaries
     }))
-
-    return ret
   })
 
   private practiceComparator(a: PracticeSummary, b: PracticeSummary): number {

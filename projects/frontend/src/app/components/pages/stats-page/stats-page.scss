@@ -24,16 +24,9 @@
         margin: 0;
       }
 
-      .stats {
-        margin-left: auto;
-        line-height: var(--line-height-2);
-        align-self: end;
-      }
-
       ng-icon {
         display: block;
-        width: var(--font-size-3);
-        height: var(--font-size-3);
+        font-size: var(--font-size-3);
         color: var(--col-accent-2);
         rotate: 180deg;
         translate: 0.5px 1px;
@@ -51,7 +44,7 @@
       padding-bottom: var(--distance-3);
       padding-top: var(--distance-3);
 
-      .practice {
+      .summary {
         color: var(--col-bg);
         border-radius: var(--radius-1);
         padding: var(--distance-4);
