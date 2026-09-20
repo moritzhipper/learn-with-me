@@ -1,0 +1,19 @@
+p {
+  display: inline-flex;
+  gap: var(--distance-1);
+}
+
+.guess {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--distance-1);
+
+  ng-icon {
+    display: block;
+  }
+
+  &:not(:last-child):after {
+    opacity: var(--opacity-0);
+    content: '/';
+  }
+}

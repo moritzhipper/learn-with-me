@@ -23,6 +23,7 @@
   @include isPhone {
     opacity: var(--opacity-1);
   }
+
   @include isDesktop {
     opacity: var(--opacity-0);
   }

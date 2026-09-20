@@ -1,5 +1,9 @@
 @use '../../../../style/mixins.scss' as *;
 
+:host {
+  --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
+}
+
 .history {
   display: flex;
   flex-direction: column;
@@ -13,7 +17,6 @@
   .day {
     display: flex;
     flex-direction: column;
-    --accent: rgb(from var(--col-accent-2) r g b / var(--opacity-1));
 
     .header {
       display: inline-flex;
@@ -21,19 +24,13 @@
       gap: var(--distance-2);
 
       h2 {
-        margin: 0;
-      }
-
-      .stats {
-        margin-left: auto;
-        line-height: var(--line-height-2);
-        align-self: end;
+        font-size: var(--font-size-1);
+        line-height: var(--line-height-1);
       }
 
       ng-icon {
         display: block;
-        width: var(--font-size-3);
-        height: var(--font-size-3);
+        font-size: var(--font-size-3);
         color: var(--col-accent-2);
         rotate: 180deg;
         translate: 0.5px 1px;
@@ -41,8 +38,6 @@
     }
 
     .practices-wrapper {
-      display: grid;
-      grid-template-columns: var(--grid-auto-columns);
       gap: var(--distance-4);
       border-left: 1px solid var(--accent);
       padding-left: calc(var(--font-size-3) / 2);
@@ -51,20 +46,47 @@
       padding-bottom: var(--distance-3);
       padding-top: var(--distance-3);
 
-      .practice {
-        color: var(--col-bg);
-        border-radius: var(--radius-1);
-        padding: var(--distance-4);
+      .summary {
         display: flex;
         flex-direction: column;
-        gap: var(--distance-2);
-        background-color: var(--col-accent-2);
+        text-align: center;
+        padding: var(--distance-2) var(--distance-2) var(--distance-4) var(--distance-2);
+        border-radius: var(--radius-2);
 
-        h3 {
-          margin: 0;
-          color: currentColor;
+        &.highlight {
+          color: var(--col-bg);
+          background-color: var(--col-accent-2);
+
+          app-practice-rating-comp {
+            filter: drop-shadow(5px 5px 9px rgb(from (var(--col-shadow) r g b / var(--opacity-1))));
+          }
+        }
+
+        &:not(.highlight) {
+          color: var(--col-text);
+          background-color: var(--col-bg);
+          border: 1px solid var(--accent);
         }
       }
+    }
+  }
+}
+
+.rating-summary-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--distance-4);
+  padding: 0 var(--distance-4);
+  margin-bottom: var(--distance-6);
+
+  .rating-summary {
+    text-align: center;
+    flex: 1;
+    border-radius: var(--radius-0);
+
+    &.highlight {
+      color: var(--col-accent-2);
     }
   }
 }
@@ -79,4 +101,24 @@ app-practice-timeline {
   left: 0;
   position: fixed;
   box-sizing: border-box;
+}
+
+@include isPhone {
+  .practices-wrapper {
+    display: flex;
+    overflow-x: auto;
+    padding-right: var(--page-padding);
+    margin-right: calc(-1 * var(--page-padding));
+
+    .summary {
+      flex: 0 0 150px;
+    }
+  }
+}
+
+@include isDesktop {
+  .practices-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }

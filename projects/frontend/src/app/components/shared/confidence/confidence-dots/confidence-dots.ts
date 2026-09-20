@@ -3,8 +3,6 @@ import { NgIcon } from '@ng-icons/core'
 import { learnLanguageIcon, speakLanguageIcon } from '../../../../icon-registry'
 import { ConfidenceAggregate } from '../../../../utils/genaral-utils'
 
-type ConfidenceDotsConfig = ConfidenceAggregate
-
 @Component({
   selector: 'liz-confidence-dots',
   imports: [NgIcon],
@@ -17,7 +15,7 @@ export class ConfidenceDots {
     speakLanguageIcon
   }
   private readonly guessesPerField = 5
-  readonly confidence = input.required<ConfidenceDotsConfig>()
+  readonly confidence = input.required<ConfidenceAggregate>()
 
   protected dotsArray = Array.from({ length: this.guessesPerField }, (_, i) => i)
 }

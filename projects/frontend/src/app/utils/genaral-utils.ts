@@ -1,9 +1,22 @@
-import { UserLearnable } from '@shared/types'
+import { PracticeActive, PracticeSummary, UserLearnable } from '@shared/types'
 import { AutoParseableTextFormat, makeParseableTextFormat } from 'openai/lib/parser.mjs'
 import { ResponseFormatTextJSONSchemaConfig } from 'openai/resources/responses/responses.mjs'
 import z from 'zod'
 
 export type PracticeRating = 'noteven' | 'atleast' | 'okay' | 'good' | 'excellent'
+
+export type PracticeSummaryDetailed = PracticeSummary & {
+  guessedRightPercent: number
+  rating: PracticeRating
+}
+
+export type ConfidenceAggregate = {
+  translation: number
+  lexeme: number
+  all: number
+  cardCount: number
+  allRating: PracticeRating
+}
 
 /**
  *
@@ -25,13 +38,6 @@ export function zodTextFormat<ZodInput extends z.ZodType>(
     },
     (content) => zodObject.parse(JSON.parse(content))
   )
-}
-
-export type ConfidenceAggregate = {
-  translation: number
-  lexeme: number
-  all: number
-  cardCount: number
 }
 
 /**
@@ -84,7 +90,8 @@ export const aggregateConfidence = (learnables: UserLearnable[]): ConfidenceAggr
     translation: getAvg(allTranslationGuesses),
     lexeme: getAvg(allLexemeGuesses),
     all: getAvg(allGuesses),
-    cardCount: learnables.length
+    cardCount: learnables.length,
+    allRating: mapConfidencePercentToRating(getAvg(allGuesses))
   }
 }
 
@@ -94,6 +101,48 @@ export const mapConfidencePercentToRating = (confidencePercent: number): Practic
   if (confidencePercent >= 50) return 'okay'
   if (confidencePercent >= 20) return 'atleast'
   return 'noteven'
+}
+
+export const mapPracticeToSummary = (practice: PracticeActive): PracticeSummary => {
+  const summaryBase = {
+    guesses: {
+      right: practice.guessables.filter((g) => g.guess === 'right').length,
+      wrong: practice.guessables.filter((g) => g.guess === 'wrong').length,
+      unanswered: practice.guessables.filter((g) => g.guess === 'unanswered').length
+    },
+    swipeCount: practice.swipeCount,
+    createdAt: practice.createdAt
+  }
+
+  if (practice.type === 'added-on-day') {
+    return {
+      ...summaryBase,
+      type: practice.type,
+      dayCardsAddedUTC: practice.dayCardsAddedUTC
+    }
+  } else if (practice.type === 'collection') {
+    return {
+      ...summaryBase,
+      type: practice.type,
+      collectionId: practice.collectionId
+    }
+  }
+  return { ...summaryBase, type: practice.type }
+}
+
+export const mapSummaryToSummaryDetailed = (summary: PracticeSummary): PracticeSummaryDetailed => {
+  const cardCount = summary.guesses.unanswered + summary.guesses.wrong + summary.guesses.right
+  const guessedRightPercent = Math.round((summary.guesses.right / cardCount) * 100)
+
+  return {
+    ...summary,
+    guessedRightPercent,
+    rating: mapConfidencePercentToRating(guessedRightPercent)
+  }
+}
+
+export const mapPracticeToSummaryDetailed = (practice: PracticeActive): PracticeSummaryDetailed => {
+  return mapSummaryToSummaryDetailed(mapPracticeToSummary(practice))
 }
 
 export const removeDuplicates = (array: string[]): string[] => {

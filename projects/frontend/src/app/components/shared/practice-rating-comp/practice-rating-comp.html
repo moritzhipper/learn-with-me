@@ -1,23 +1,25 @@
-@switch (confidence()) {
-  @case ('noteven') {
-    <ng-icon [svg]="icons.favoriteIcon" />
+<div class="icons" [class]="rating()">
+  @switch (rating()) {
+    @case ('noteven') {
+      <ng-icon [svg]="icons.favoriteIcon" />
+    }
+    @case ('atleast') {
+      <ng-icon [svg]="icons.starRatingIcon" />
+      <ng-icon [svg]="icons.emptyStarRatingIcon" />
+      <ng-icon [svg]="icons.emptyStarRatingIcon" />
+    }
+    @case ('okay') {
+      <ng-icon [svg]="icons.starRatingIcon" />
+      <ng-icon [svg]="icons.emptyStarRatingIcon" />
+      <ng-icon [svg]="icons.starRatingIcon" />
+    }
+    @case ('good') {
+      <ng-icon [svg]="icons.starRatingIcon" />
+      <ng-icon [svg]="icons.starRatingIcon" />
+      <ng-icon [svg]="icons.starRatingIcon" />
+    }
+    @case ('excellent') {
+      <ng-icon [svg]="icons.meteorRatingIcon" />
+    }
   }
-  @case ('atleast') {
-    <ng-icon [svg]="icons.starRatingIcon" />
-    <ng-icon [svg]="icons.emptyStarRatingIcon" />
-    <ng-icon [svg]="icons.emptyStarRatingIcon" />
-  }
-  @case ('okay') {
-    <ng-icon [svg]="icons.starRatingIcon" />
-    <ng-icon [svg]="icons.emptyStarRatingIcon" />
-    <ng-icon [svg]="icons.starRatingIcon" />
-  }
-  @case ('good') {
-    <ng-icon [svg]="icons.starRatingIcon" />
-    <ng-icon [svg]="icons.starRatingIcon" />
-    <ng-icon [svg]="icons.starRatingIcon" />
-  }
-  @case ('excellent') {
-    <ng-icon [svg]="icons.meteorRatingIcon" />
-  }
-}
+</div>

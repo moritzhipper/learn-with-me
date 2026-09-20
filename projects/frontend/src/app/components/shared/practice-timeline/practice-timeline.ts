@@ -8,7 +8,7 @@ import {
   input,
   output
 } from '@angular/core'
-import { PracticeActive } from '@shared/types'
+import { PracticeSummary } from '@shared/types'
 import {
   calcMsDifference,
   convertToDayPrecisionUTCDate as convertToDayPrecisionUnixDate,
@@ -43,7 +43,7 @@ export class PracticeTimeline {
 
   private host: HTMLElement = inject(ElementRef).nativeElement
 
-  readonly practiceHistory = input.required<PracticeTimelineData[], PracticeActive[]>({
+  readonly practiceHistory = input.required<PracticeTimelineData[], PracticeSummary[]>({
     transform: (prac) => this.mapToTimeline(prac)
   })
 
@@ -51,7 +51,7 @@ export class PracticeTimeline {
     Math.max(...this.practiceHistory().map((d) => d.guessed), 0)
   )
 
-  private mapToTimeline(history: PracticeActive[]): PracticeTimelineData[] {
+  private mapToTimeline(history: PracticeSummary[]): PracticeTimelineData[] {
     const { earliestMonday, latestSunday } = this.getDateRange(history.map((h) => h.createdAt))
 
     const range = calcMsDifference(earliestMonday, latestSunday)
@@ -61,7 +61,7 @@ export class PracticeTimeline {
       (day) => {
         const guessed = history
           .filter((h) => isSameDay(h.createdAt, day))
-          .map((h) => h.guessables.filter((g) => g.guess !== 'unanswered').length)
+          .map((h) => h.swipeCount)
           .reduce((acc, val) => acc + val, 0)
 
         const isFirstDayOfWeek = new Date(day).getDay() === 1

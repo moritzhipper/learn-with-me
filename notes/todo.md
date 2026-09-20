@@ -1,21 +1,11 @@
 # ToDo
 
-- Storage quota reached fast -> do the guesses count thing in practice history also accomondating for mor stuff like guesses and improvements?
-- somehow fix states to accomondate
+- improve week stats
+  - show average somwehow
+  - make box shadow in background higher
+  - fix logic placing the count in or outside
 
-- reuse cool right / wrong / unanswered in stats
-
-- guesses on cards misaligning guesses count misaligngin guesses count of practice
-  - just remember practice summary
-    -> put percentage in there
-    -> save guesses per day
-  - for continue until done thing
-  - also good for memory
-
-- success pf practices is measured by ending with wrong guesses: PUT IN DOCS
-  - thorugh infinite iteration every practice can be a greate one -> belohnt eagerness, not skill in learning -> put this in docs
-  - focus on eagerness: learning, guessing and beeing here is belohnt, not the capability of remember things fast
-    - infinite practices mode
+- show the quick practice cards more restrictive -> less overlap with collections
 
 ## Onboarding / About
 

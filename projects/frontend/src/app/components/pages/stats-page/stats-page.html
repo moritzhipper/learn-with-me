@@ -1,6 +1,15 @@
 <app-page-wrapper [icon]="icons.statsIcon">
   <app-page-header-comp title="Stats" backLink="/" backLinkText="Home" />
 
+  <div class="rating-summary-wrapper">
+    @for (entry of ratingSummary(); track entry.rating) {
+      <div class="rating-summary" [class.highlight]="entry.rating === 'excellent'">
+        <app-practice-rating-comp [rating]="entry.rating" />
+        <p class="bold">{{ entry.count }}</p>
+      </div>
+    }
+  </div>
+
   @if (practiceHistory().length === 0) {
     <liz-info-card fullPage title="You need to practice!">
       <p>Use this page to see your progress and consistency over time.</p>
@@ -15,37 +24,38 @@
         <div class="day" [id]="'day-' + entry.day">
           <div class="header">
             <ng-icon [svg]="icons.completedTimelineIcon" />
-            <h2>
-              <span>
-                {{ entry.day | date: 'mediumDate' }}
-              </span>
+            <h2 class="text size-1">
+              {{ entry.day | date: 'mediumDate' }}
             </h2>
-            <p class="stats">
-              <strong> {{ entry.summary.totalGuesses }} </strong> guesses
+            <p class="stats ml-auto">
+              <span class="word-list-item">
+                <strong>
+                  {{ entry.detailedSummaries.length }}
+                </strong>
+                runs
+              </span>
+              <span class="word-list-item">
+                <strong>
+                  {{ entry.summary.swipeCount }}
+                </strong>
+                swipes
+              </span>
             </p>
           </div>
           <div class="practices-wrapper">
-            @for (practice of entry.summary.practices; track $index) {
-              <div class="practice">
-                <h3>
-                  @if (practice.type === 'collection') {
-                    {{ practice.collectionName }}
-                  } @else if (practice.type === 'added-on-day') {
+            @for (summary of entry.detailedSummaries; track $index) {
+              <div class="summary" [class.highlight]="summary.rating === 'excellent'">
+                <app-practice-rating-comp [rating]="summary.rating" />
+
+                <liz-practice-stats [guesses]="summary.guesses" class="pt-1" />
+                <p class="bold ellipsis pt-2">
+                  @if (summary.type === 'collection') {
+                    {{ getCollectionNameFromId(summary.collectionId) }}
+                  } @else if (summary.type === 'added-on-day') {
                     Added on this day
                   } @else {
                     Custom
                   }
-                </h3>
-                <p>
-                  <span class="word-list-item">
-                    <strong>{{ practice.right }}</strong> right</span
-                  >
-                  <span class="word-list-item"
-                    ><strong>{{ practice.wrong }}</strong> wrong</span
-                  >
-                  <span class="word-list-item"
-                    ><strong>{{ practice.unanswered }}</strong> left</span
-                  >
                 </p>
               </div>
             }

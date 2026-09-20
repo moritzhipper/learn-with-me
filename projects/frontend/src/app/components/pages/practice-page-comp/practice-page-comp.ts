@@ -32,7 +32,7 @@ export class PracticeComp {
   }
 
   giveUp() {
-    this.ls.endPracticePrematurely()
+    this.ls.giveUpOnPractice()
   }
 
   async editActiveLearnable() {

@@ -1,11 +1,4 @@
-import {
-  BankUser,
-  Collection,
-  Guess,
-  Guessable,
-  PracticeActive,
-  UserLearnable
-} from '@shared/types'
+import { BankUser, Collection, Guess, PracticeSummary, UserLearnable } from '@shared/types'
 
 type SeedDebugBankConfig = {
   name: string
@@ -59,41 +52,33 @@ const buildLearnable = (index: number, now: Date): UserLearnable => ({
 
 const guessPool: Guess[] = ['right', 'wrong', 'unanswered']
 
-const toGuessables = (ids: string[], offset = 0): Guessable[] =>
-  ids.map((id, index) => ({
-    id,
-    guess: guessPool[(index + offset) % guessPool.length]
-  }))
-
 const buildCollectionPractices = (
   collection: Collection,
   daysAgoList: number[],
   now: Date
-): PracticeActive[] =>
+): PracticeSummary[] =>
   daysAgoList.map((daysAgo, practiceIndex) => ({
     type: 'collection',
     collectionId: collection.id,
     createdAt: daysAgoToDate(now, daysAgo),
-    guessableIndex: collection.cardIds.length,
-    guessables: toGuessables(collection.cardIds, practiceIndex),
-    learnableIDs: collection.cardIds,
-    guessableField: 'translation',
-    isFinished: true
+    guesses: {
+      right: 10,
+      wrong: 10,
+      unanswered: 10
+    },
+    swipeCount: 43
   }))
 
-const buildCustomPractices = (
-  learnableIds: string[],
-  daysAgoList: number[],
-  now: Date
-): PracticeActive[] => {
-  return daysAgoList.map((daysAgo, practiceIndex) => ({
+const buildCustomPractices = (daysAgoList: number[], now: Date): PracticeSummary[] => {
+  return daysAgoList.map((daysAgo) => ({
     type: 'custom',
     createdAt: daysAgoToDate(now, daysAgo),
-    guessableIndex: learnableIds.length,
-    guessables: toGuessables(learnableIds, practiceIndex + 1),
-    learnableIDs: learnableIds,
-    guessableField: 'translation',
-    isFinished: true
+    guesses: {
+      right: 10,
+      wrong: 10,
+      unanswered: 10
+    },
+    swipeCount: 43
   }))
 }
 
@@ -123,11 +108,7 @@ export const buildDebugBank = (): BankUser => {
   const collectionPractices = collections.flatMap((collection, i) =>
     buildCollectionPractices(collection, config.collectionConfig[i].practicedDaysAgo, now)
   )
-  const customPractices = buildCustomPractices(
-    allLearnables.map((l) => l.id),
-    config.customPracticeDaysAgo,
-    now
-  )
+  const customPractices = buildCustomPractices(config.customPracticeDaysAgo, now)
 
   return {
     id: crypto.randomUUID(),

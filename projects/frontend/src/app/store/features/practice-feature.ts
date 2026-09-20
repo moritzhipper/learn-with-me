@@ -1,6 +1,7 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import { Guess, Guessable, PracticeConfig, UserLearnable } from '@shared/types'
+import { Guess, Guessable, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import type { LearnablesStoreType } from '../../types/store-types'
+import { mapPracticeToSummary } from '../../utils/genaral-utils'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 const schwarzianShuffle = <T>(array: T[]): T[] => {
@@ -46,48 +47,42 @@ export const withPracticeFeature = <_>() =>
             guessableField: config.guessableField,
             learnableIDs: config.learnableIDs,
             type: config.type,
-            isFinished: false
+            isFinished: false,
+            swipeCount: 0
           }
 
+          let practice: PracticeActive
+
           if (config.type === 'collection') {
-            return {
-              ...b,
-              practice: {
-                ...b.practice,
-                active: {
-                  ...basePractice,
-                  type: 'collection',
-                  collectionId: config.collectionId
-                }
-              }
+            practice = {
+              ...basePractice,
+              type: 'collection',
+              collectionId: config.collectionId
             }
           } else if (config.type === 'added-on-day') {
-            return {
-              ...b,
-              practice: {
-                ...b.practice,
-                active: {
-                  ...basePractice,
-                  type: 'added-on-day',
-                  dayCardsAddedUTC: config.dayCardsAddedUTC
-                }
-              }
+            practice = {
+              ...basePractice,
+
+              type: 'added-on-day',
+              dayCardsAddedUTC: config.dayCardsAddedUTC
             }
           } else {
-            return {
-              ...b,
-              practice: {
-                ...b.practice,
-                active: {
-                  ...basePractice,
-                  type: 'custom'
-                }
-              }
+            practice = {
+              ...basePractice,
+              type: 'custom'
+            }
+          }
+
+          return {
+            ...b,
+            practice: {
+              ...b.practice,
+              active: practice
             }
           }
         })
       },
-      endPracticePrematurely() {
+      giveUpOnPractice() {
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
@@ -102,34 +97,34 @@ export const withPracticeFeature = <_>() =>
           return {
             ...b,
             practice: {
-              active: finishedPractice,
-              history: [...b.practice.history, finishedPractice]
+              ...b.practice,
+              active: finishedPractice
             }
           }
         })
       },
       setGuessToPractice(guess: Guess) {
         updateActiveBank(store, (b) => {
-          const currentPractice = b.practice.active
-          if (!currentPractice) return b
+          const activePractice = b.practice.active
+          if (!activePractice) return b
 
-          const cardIndex = currentPractice.guessableIndex
-          if (cardIndex >= currentPractice.guessables.length) return b
+          const cardIndex = activePractice.guessableIndex
+          if (cardIndex >= activePractice.guessables.length) return b
 
-          const updatedGuessables = currentPractice.guessables.map((g, index) =>
+          const updatedGuessables = activePractice.guessables.map((g, index) =>
             index === cardIndex ? { ...g, guess } : g
           )
 
           const updatedCards = b.learnables.map((l) => {
-            if (l.id !== currentPractice.guessables[cardIndex].id) return l
+            if (l.id !== activePractice.guessables[cardIndex].id) return l
 
             return {
               ...l,
-              guesses: updateGuesses(guess, l.guesses, currentPractice.guessableField)
+              guesses: updateGuesses(guess, l.guesses, activePractice.guessableField)
             }
           })
 
-          const isFinished = currentPractice.guessableIndex >= currentPractice.guessables.length - 1
+          const isFinished = activePractice.guessableIndex >= activePractice.guessables.length - 1
 
           return {
             ...b,
@@ -137,10 +132,11 @@ export const withPracticeFeature = <_>() =>
             practice: {
               ...b.practice,
               active: {
-                ...currentPractice,
+                ...activePractice,
                 guessableIndex: cardIndex + 1,
                 guessables: updatedGuessables,
-                isFinished
+                isFinished,
+                swipeCount: activePractice.swipeCount + 1
               }
             }
           }
@@ -150,12 +146,14 @@ export const withPracticeFeature = <_>() =>
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
+          const summary = mapPracticeToSummary(currentPractice)
+
           return {
             ...b,
             practice: {
               ...b.practice,
               active: null,
-              history: [currentPractice, ...b.practice.history]
+              history: [summary, ...b.practice.history]
             }
           }
         })
