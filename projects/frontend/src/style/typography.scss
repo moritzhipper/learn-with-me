@@ -20,6 +20,12 @@ p,
     line-height: var(--line-height-0);
   }
 
+  &.size-1,
+  > .size-1 {
+    font-size: var(--font-size-1);
+    line-height: var(--line-height-1);
+  }
+
   &.size-2,
   > .size-2 {
     font-size: var(--font-size-2);

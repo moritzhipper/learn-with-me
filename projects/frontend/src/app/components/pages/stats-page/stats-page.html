@@ -24,11 +24,22 @@
         <div class="day" [id]="'day-' + entry.day">
           <div class="header">
             <ng-icon [svg]="icons.completedTimelineIcon" />
-            <h2>
+            <h2 class="text size-1">
               {{ entry.day | date: 'mediumDate' }}
             </h2>
             <p class="stats">
-              <strong> {{ entry.summary.swipeCount }} </strong> swipes
+              <span class="word-list-item">
+                <strong>
+                  {{ entry.detailedSummaries.length }}
+                </strong>
+                runs
+              </span>
+              <span class="word-list-item">
+                <strong>
+                  {{ entry.summary.swipeCount }}
+                </strong>
+                swipes
+              </span>
             </p>
           </div>
           <div class="practices-wrapper">
