@@ -105,6 +105,8 @@ export class StatsPage {
   }
 
   getCollectionNameFromId(id: string) {
-    return this.ls.activeBank().collections.find((c) => c.id === id)?.name || '( Deleted )'
+    return (
+      this.ls.activeBank().collections.find((c) => c.id === id)?.name || '( Deleted Collection )'
+    )
   }
 }

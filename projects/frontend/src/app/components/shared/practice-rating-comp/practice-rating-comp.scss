@@ -13,8 +13,6 @@
 
   &.noteven,
   &.excellent {
-    padding: var(--distance-4);
-
     ng-icon {
       transform: rotate(4deg);
     }
@@ -24,7 +22,6 @@
   &.okay,
   &.good {
     grid-template-columns: 1fr 3fr 1fr;
-    padding: var(--distance-2);
 
     ng-icon {
       &:nth-child(1) {
