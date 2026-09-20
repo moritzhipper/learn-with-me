@@ -1,0 +1,17 @@
+@let gue = guesses();
+<p class="bold">
+  <span class="guess">
+    {{ gue.right }}
+    <ng-icon [svg]="icons.correctAnswerIcon" />
+  </span>
+  <span class="guess">
+    {{ gue.wrong }}
+    <ng-icon [svg]="icons.incorrectAnswerIcon" />
+  </span>
+  @if (gue.unanswered) {
+    <span class="guess">
+      {{ gue.unanswered }}
+      <ng-icon [svg]="icons.unansweredAnswerIcon" />
+    </span>
+  }
+</p>
