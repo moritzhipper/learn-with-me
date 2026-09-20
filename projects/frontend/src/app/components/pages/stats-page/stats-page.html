@@ -16,12 +16,10 @@
           <div class="header">
             <ng-icon [svg]="icons.completedTimelineIcon" />
             <h2>
-              <span>
-                {{ entry.day | date: 'mediumDate' }}
-              </span>
+              {{ entry.day | date: 'mediumDate' }}
             </h2>
             <p class="stats">
-              <strong> {{ entry.summary.swipeCount }} </strong> guesses
+              <strong> {{ entry.summary.swipeCount }} </strong> swipes
             </p>
           </div>
           <div class="practices-wrapper">

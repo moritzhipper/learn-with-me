@@ -3,7 +3,7 @@
   <div swiper-top class="overview" #animItem>
     <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
 
-    <liz-practice-stats [guesses]="sum.guesses" class="pb-5 text" />
+    <liz-practice-stats [guesses]="sum.guesses" class="pb-5 text size-2" />
 
     <p class="header size-3 bold pb-1">You got {{ sum.guessedRightPercent }}% right!</p>
     <p class="header bold light">{{ subHeader[sum.rating] }}</p>
