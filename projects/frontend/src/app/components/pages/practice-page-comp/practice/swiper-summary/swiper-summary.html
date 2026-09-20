@@ -15,19 +15,19 @@
         the stack and continue.
       </liz-info-card>
     }
-    @if (sum.rating !== 'excellent') {
-      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
-      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
-        Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
+    @if (sum.rating === 'excellent') {
+      <button class="big primary has-icon full" (click)="finish.emit()" #animItem>
+        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
-    } @else if (sum.guessedRightPercent !== 100) {
+    } @else if (sum.rating === 'good') {
       <button class="big" (click)="continue.emit()" #animItem>Continue</button>
       <button class="big primary has-icon" (click)="finish.emit()" #animItem>
         Finish <ng-icon [svg]="icons.practiceFinishIcon" />
       </button>
     } @else {
-      <button class="big primary has-icon full" (click)="finish.emit()" #animItem>
-        Finish <ng-icon [svg]="icons.practiceFinishIcon" />
+      <button class="big" (click)="finish.emit()" #animItem>Finish</button>
+      <button class="big primary has-icon" (click)="continue.emit()" #animItem>
+        Continue <ng-icon [svg]="icons.practiceSpeedIcon" />
       </button>
     }
   </div>

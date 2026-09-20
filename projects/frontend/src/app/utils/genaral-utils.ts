@@ -10,6 +10,14 @@ export type PracticeSummaryDetailed = PracticeSummary & {
   rating: PracticeRating
 }
 
+export type ConfidenceAggregate = {
+  translation: number
+  lexeme: number
+  all: number
+  cardCount: number
+  allRating: PracticeRating
+}
+
 /**
  *
  * necessary to use zod with openai responses. zod 4 introduces a bug with. the openai helper package which is not fixed yet.
@@ -30,14 +38,6 @@ export function zodTextFormat<ZodInput extends z.ZodType>(
     },
     (content) => zodObject.parse(JSON.parse(content))
   )
-}
-
-export type ConfidenceAggregate = {
-  translation: number
-  lexeme: number
-  all: number
-  cardCount: number
-  allRating: PracticeRating
 }
 
 /**
@@ -132,8 +132,7 @@ export const mapPracticeToSummary = (practice: PracticeActive): PracticeSummary 
 
 export const mapSummaryToSummaryDetailed = (summary: PracticeSummary): PracticeSummaryDetailed => {
   const cardCount = summary.guesses.unanswered + summary.guesses.wrong + summary.guesses.right
-  const guessedRightPercent =
-    summary.guesses.right !== 0 ? Math.round((summary.guesses.right / cardCount) * 100) : 100
+  const guessedRightPercent = Math.round((summary.guesses.right / cardCount) * 100)
 
   return {
     ...summary,
