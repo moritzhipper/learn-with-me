@@ -1,9 +1,14 @@
-import { UserLearnable } from '@shared/types'
+import { PracticeActive, PracticeSummary, UserLearnable } from '@shared/types'
 import { AutoParseableTextFormat, makeParseableTextFormat } from 'openai/lib/parser.mjs'
 import { ResponseFormatTextJSONSchemaConfig } from 'openai/resources/responses/responses.mjs'
 import z from 'zod'
 
 export type PracticeRating = 'noteven' | 'atleast' | 'okay' | 'good' | 'excellent'
+
+export type PracticeSummaryDetailed = PracticeSummary & {
+  guessedRightPercent: number
+  rating: PracticeRating
+}
 
 /**
  *
@@ -94,6 +99,44 @@ export const mapConfidencePercentToRating = (confidencePercent: number): Practic
   if (confidencePercent >= 50) return 'okay'
   if (confidencePercent >= 20) return 'atleast'
   return 'noteven'
+}
+
+export const mapPracticeToSummary = (practice: PracticeActive): PracticeSummary => {
+  const summaryBase = {
+    guesses: {
+      right: practice.guessables.filter((g) => g.guess === 'right').length,
+      wrong: practice.guessables.filter((g) => g.guess === 'wrong').length,
+      unanswered: practice.guessables.filter((g) => g.guess === 'unanswered').length
+    },
+    swipeCount: practice.swipeCount,
+    createdAt: practice.createdAt
+  }
+
+  if (practice.type === 'added-on-day') {
+    return {
+      ...summaryBase,
+      type: practice.type,
+      dayCardsAddedUTC: practice.dayCardsAddedUTC
+    }
+  } else if (practice.type === 'collection') {
+    return {
+      ...summaryBase,
+      type: practice.type,
+      collectionId: practice.collectionId
+    }
+  }
+  return { ...summaryBase, type: practice.type }
+}
+
+export const mapPracticeToSummaryDetailed = (practice: PracticeActive): PracticeSummaryDetailed => {
+  const summary = mapPracticeToSummary(practice)
+  const guessedRightPercent = summary.guesses.right / practice.guessables.length
+
+  return {
+    ...summary,
+    guessedRightPercent,
+    rating: mapConfidencePercentToRating(guessedRightPercent)
+  }
 }
 
 export const removeDuplicates = (array: string[]): string[] => {

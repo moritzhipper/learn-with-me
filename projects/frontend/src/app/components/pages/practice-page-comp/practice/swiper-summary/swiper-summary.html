@@ -2,30 +2,17 @@
 <liz-swiper-page-layout lizAnimDelayWrapper applyClass="pop-in">
   <div swiper-top class="overview" #animItem>
     <app-practice-rating-comp [confidence]="sum.guessedRightPercent" />
-    <div class="stats pb-5">
-      <div class="pill text bold">
-        {{ sum.correctGuesses }}
-        <ng-icon [svg]="icons.correctAnswerIcon" />
-      </div>
-      <div class="pill text bold">
-        {{ sum.wrongGuesses }}
-        <ng-icon [svg]="icons.incorrectAnswerIcon" />
-      </div>
-      @if (sum.unansweredGuesses) {
-        <div class="pill text bold">
-          {{ sum.unansweredGuesses }}
-          <ng-icon [svg]="icons.unansweredAnswerIcon" />
-        </div>
-      }
-    </div>
+
+    <liz-practice-stats [guesses]="sum.guesses" class="pb-5 text" />
+
     <p class="header size-3 bold pb-1">You got {{ sum.guessedRightPercent }}% right!</p>
     <p class="header bold light">{{ subHeader[sum.rating] }}</p>
   </div>
   <div swiper-navigation>
     @if (sum.rating !== 'excellent') {
       <liz-info-card title="Improve this rating?" #animItem>
-        Put the {{ sum.unansweredGuesses + sum.wrongGuesses }} cards you didnt get right back on the
-        stack and continue.
+        Put the {{ sum.guesses.unanswered + sum.guesses.wrong }} cards you didnt get right back on
+        the stack and continue.
       </liz-info-card>
     }
     @if (sum.rating !== 'excellent') {

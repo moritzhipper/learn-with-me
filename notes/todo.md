@@ -1,5 +1,6 @@
 # ToDo
 
+- use slash instead of dot for inline lists?
 - Storage quota reached fast -> do the guesses count thing in practice history also accomondating for mor stuff like guesses and improvements?
 - somehow fix states to accomondate
 

@@ -1,13 +1,7 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
-import {
-  Guess,
-  Guessable,
-  PracticeActive,
-  PracticeConfig,
-  PracticeSummary,
-  UserLearnable
-} from '@shared/types'
+import { Guess, Guessable, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import type { LearnablesStoreType } from '../../types/store-types'
+import { mapPracticeToSummary } from '../../utils/genaral-utils'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 const schwarzianShuffle = <T>(array: T[]): T[] => {
@@ -152,34 +146,7 @@ export const withPracticeFeature = <_>() =>
         updateActiveBank(store, (b) => {
           const currentPractice = b.practice.active
           if (!currentPractice) return b
-
-          const summaryBase = {
-            guesses: {
-              right: currentPractice.guessables.filter((g) => g.guess === 'right').length,
-              wrong: currentPractice.guessables.filter((g) => g.guess === 'wrong').length,
-              unanswered: currentPractice.guessables.filter((g) => g.guess === 'unanswered').length
-            },
-            swipeCount: currentPractice.swipeCount,
-            createdAt: currentPractice.createdAt
-          }
-
-          let summary: PracticeSummary
-
-          if (currentPractice.type === 'added-on-day') {
-            summary = {
-              ...summaryBase,
-              type: currentPractice.type,
-              dayCardsAddedUTC: currentPractice.dayCardsAddedUTC
-            }
-          } else if (currentPractice.type === 'collection') {
-            summary = {
-              ...summaryBase,
-              type: currentPractice.type,
-              collectionId: currentPractice.collectionId
-            }
-          } else {
-            summary = { ...summaryBase, type: currentPractice.type }
-          }
+          const summary = mapPracticeToSummary(currentPractice)
 
           return {
             ...b,

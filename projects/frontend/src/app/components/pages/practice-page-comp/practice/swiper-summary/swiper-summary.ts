@@ -9,28 +9,32 @@ import {
   practiceSpeedIcon,
   unansweredAnswerIcon
 } from '../../../../../icon-registry'
-import { mapConfidencePercentToRating, PracticeRating } from '../../../../../utils/genaral-utils'
+import {
+  mapPracticeToSummaryDetailed,
+  PracticeRating,
+  PracticeSummaryDetailed
+} from '../../../../../utils/genaral-utils'
 import { InfoCard } from '../../../../shared/info-card/info-card'
 import { PracticeRatingComp } from '../../../../shared/practice-rating-comp/practice-rating-comp'
+import { PracticeStats } from '../../../../shared/practice-stats/practice-stats'
 import { SwiperPageLayout } from '../swiper-page-layout/swiper-page-layout'
-
-export type ActivePracticeSummary = {
-  correctGuesses: number
-  wrongGuesses: number
-  unansweredGuesses: number
-  guessedRightPercent: number
-  rating: PracticeRating
-}
 
 @Component({
   selector: 'liz-swiper-summary',
-  imports: [PracticeRatingComp, NgIcon, AnimDelayWrapper, InfoCard, SwiperPageLayout],
+  imports: [
+    PracticeRatingComp,
+    NgIcon,
+    AnimDelayWrapper,
+    InfoCard,
+    SwiperPageLayout,
+    PracticeStats
+  ],
   templateUrl: './swiper-summary.html',
   styleUrls: ['./swiper-summary.scss']
 })
 export class SwiperSummary {
-  readonly summary = input.required<ActivePracticeSummary, PracticeActive>({
-    transform: this.toSummary,
+  readonly summary = input.required<PracticeSummaryDetailed, PracticeActive>({
+    transform: mapPracticeToSummaryDetailed,
     alias: 'practice'
   })
 
@@ -52,23 +56,4 @@ export class SwiperSummary {
 
   finish = output<void>()
   continue = output<void>()
-
-  toSummary(practice: PracticeActive) {
-    const correctGuesses = practice.guessables.filter((g) => g.guess === 'right').length
-    const wrongGuesses = practice.guessables.filter((g) => g.guess === 'wrong').length
-
-    const unansweredGuesses = practice.guessables.filter((g) => g.guess === 'unanswered').length
-
-    const guessesDone = correctGuesses + wrongGuesses
-    const guessedRightPercent =
-      guessesDone === 0 ? 0 : Math.round((correctGuesses / practice.guessables.length) * 100)
-
-    return {
-      correctGuesses,
-      wrongGuesses,
-      unansweredGuesses,
-      guessedRightPercent,
-      rating: mapConfidencePercentToRating(guessedRightPercent)
-    }
-  }
 }
