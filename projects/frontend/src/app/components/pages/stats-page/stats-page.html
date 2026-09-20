@@ -26,10 +26,10 @@
           </div>
           <div class="practices-wrapper">
             @for (summary of entry.detailedSummaries; track $index) {
-              <div class="summary">
+              <div class="summary" [class.highlight]="summary.rating === 'excellent'">
                 <app-practice-rating-comp [confidence]="summary.guessedRightPercent" />
 
-                <liz-practice-stats [guesses]="summary.guesses" />
+                <liz-practice-stats [guesses]="summary.guesses" class="pt-1" />
                 <p class="bold ellipsis pt-2">
                   @if (summary.type === 'collection') {
                     {{ getCollectionNameFromId(summary.collectionId) }}
