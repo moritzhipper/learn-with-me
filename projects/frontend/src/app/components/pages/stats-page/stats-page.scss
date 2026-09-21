@@ -87,6 +87,9 @@
     &.highlight {
       color: var(--col-accent-2);
     }
+    &.is-empty {
+      opacity: var(--opacity-0);
+    }
   }
 }
 

@@ -29,6 +29,7 @@
 - remove those overview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
 - paste images
+- dont save history if rating is bad bad bad -> send toast on success when medal saved, save toast info when worst rating
 
 - count letters, make smaller per one more in header
 

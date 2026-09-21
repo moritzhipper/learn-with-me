@@ -3,7 +3,11 @@
 
   <div class="rating-summary-wrapper">
     @for (entry of ratingSummary(); track entry.rating) {
-      <div class="rating-summary" [class.highlight]="entry.rating === 'excellent'">
+      <div
+        class="rating-summary"
+        [class.highlight]="entry.rating === 'excellent'"
+        [class.is-empty]="entry.count === 0"
+      >
         <app-practice-rating-comp [rating]="entry.rating" />
         <p class="bold">{{ entry.count }}</p>
       </div>

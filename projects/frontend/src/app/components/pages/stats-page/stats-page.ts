@@ -56,12 +56,10 @@ export class StatsPage {
     const history = this.ls.activeBank().practice.history
     const ratings: PracticeRating[] = ['excellent', 'good', 'okay', 'atleast']
 
-    return ratings
-      .map((rating) => ({
-        rating,
-        count: history.filter((s) => mapSummaryToSummaryDetailed(s).rating === rating).length
-      }))
-      .filter((summary) => summary.count > 0)
+    return ratings.map((rating) => ({
+      rating,
+      count: history.filter((s) => mapSummaryToSummaryDetailed(s).rating === rating).length
+    }))
   })
 
   protected readonly practiceHistoryDays = computed<PracticeHistoryDay[]>(() => {
