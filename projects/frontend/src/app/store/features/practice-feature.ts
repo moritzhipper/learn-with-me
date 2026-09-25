@@ -149,14 +149,22 @@ export const withPracticeFeature = <_>() =>
           const summary = mapPracticeToSummary(currentPractice)
 
           // early finished practices do not count into history
-          if (mapSummaryToSummaryDetailed(summary).rating === 'noteven') return b
-
-          return {
-            ...b,
-            practice: {
-              ...b.practice,
-              active: null,
-              history: [summary, ...b.practice.history]
+          if (mapSummaryToSummaryDetailed(summary).rating !== 'noteven') {
+            return {
+              ...b,
+              practice: {
+                ...b.practice,
+                active: null,
+                history: [summary, ...b.practice.history]
+              }
+            }
+          } else {
+            return {
+              ...b,
+              practice: {
+                ...b.practice,
+                active: null
+              }
             }
           }
         })
