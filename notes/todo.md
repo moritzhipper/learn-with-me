@@ -10,6 +10,8 @@
 
 - show the quick practice cards more restrictive -> less overlap with collections
 
+- add ablaufdiagramm of practice in technical docs: swipe right left -> when done or finished - show this or that, continue -> put in stats when better than
+
 ## Onboarding / About
 
 - create fast entry: if no collection and whatever set, allow direct import of bank as start

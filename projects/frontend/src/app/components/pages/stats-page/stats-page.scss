@@ -94,15 +94,29 @@
 }
 
 app-practice-timeline {
-  z-index: 10;
-  width: 100%;
-  padding: var(--distance-5);
-  height: 180px;
-  background: linear-gradient(0deg, var(--col-bg) 30%, transparent 100%);
+  position: fixed;
   bottom: 0;
   left: 0;
-  position: fixed;
+  width: 100%;
+  padding: 0 var(--page-padding) var(--page-padding) var(--page-padding);
   box-sizing: border-box;
+  z-index: 20;
+  height: 150px;
+
+  &:after {
+    position: fixed;
+    background-color: black;
+    height: 40px;
+    width: 40px;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 230px;
+    background: linear-gradient(0deg, var(--col-bg) 50%, transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+  }
 }
 
 @include isPhone {

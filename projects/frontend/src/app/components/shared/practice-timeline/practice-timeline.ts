@@ -91,4 +91,8 @@ export class PracticeTimeline {
       latestSunday: convertToDayPrecisionUnixDate(latesDate)
     }
   }
+
+  protected showInside(swipes: number): boolean {
+    return swipes > this.maxGuesses() / 2
+  }
 }
