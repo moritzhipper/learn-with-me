@@ -2,12 +2,6 @@
 
 - improve week stats
   - show average somwehow
-  - make box shadow in background higher
-  - fix logic placing the count in or outside
-
-- add to prompt to not put notes in ()
-- ai maps lexeme transaltion in wrong direction: lexeme is what i lear
-
 - show the quick practice cards more restrictive -> less overlap with collections
 
 - add ablaufdiagramm of practice in technical docs: swipe right left -> when done or finished - show this or that, continue -> put in stats when better than
