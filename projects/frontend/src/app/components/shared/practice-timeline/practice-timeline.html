@@ -12,7 +12,7 @@
       [style.--guessed]="day.guessed"
       (click)="selectDay.emit(day.day)"
     >
-      <p class="size-0" [class.inside]="day.guessed > 20">
+      <p class="size-0" [class.inside]="showInside(day.guessed)">
         {{ day.guessed }}
       </p>
     </button>

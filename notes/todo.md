@@ -1,10 +1,5 @@
 # ToDo
 
-- improve week stats
-  - show average somwehow
-  - make box shadow in background higher
-  - fix logic placing the count in or outside
-
 - show the quick practice cards more restrictive -> less overlap with collections
 
 ## Onboarding / About
@@ -26,6 +21,7 @@
 - remove those overview cards on scroll list where header link: make wide fade out, prevent scroll, prefetch 8 list items to be shure enough as peview.
 
 - paste images
+- dont save history if rating is bad bad bad -> send toast on success when medal saved, save toast info when worst rating
 
 - count letters, make smaller per one more in header
 
@@ -42,6 +38,7 @@
 
 ## General
 
+- replace .has-icon with :has(ng-icon), then make ng-icon a bit bigger than 1rem
 - when fetchin collections from be, parse schemas in array, log warnings for failed ones
 - ids are only rotated on api upload
 - make grid auto columns classes?

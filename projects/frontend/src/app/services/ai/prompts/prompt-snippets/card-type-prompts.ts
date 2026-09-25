@@ -40,9 +40,9 @@ Use standard linguistic abbreviations (e.g., 3sg pres, acc pl, nom). Do not writ
 
 Apply these rules strictly based on lexical category:
 - **Contextual Form:** If the word is inflected, write '[Abbrev. form] of [Base lemma / translation]'.
-- **Nouns:** Append '(pl: [plural form])'.
-- **Verbs:** If irregular, append '(irreg: [preterite], [past part])'. Omit paradigms if regular.
-- **Adjectives/Adverbs:** If irregularly graded, append '(comp: [comparative], sup: [superlative])'. Omit paradigms if regular.
+- **Nouns:** Append 'pl: [plural form]'.
+- **Verbs:** If irregular, append 'irreg: [preterite], [past part]'. Omit paradigms if regular.
+- **Adjectives/Adverbs:** If irregularly graded, append 'comp: [comparative], sup: [superlative]'. Omit paradigms if regular.
 - **Other:** Leave notes empty.
 
 ---
@@ -59,7 +59,7 @@ Apply these rules strictly based on lexical category:
   [Notes: 3sg pret of go / ir (irreg: went, gone)]
 
 - (the) improvement / (die) Verbesserung
-  [Notes: (pl: die Verbesserungen)]
+  [Notes: pl: die Verbesserungen]
 
 - better / mejor
   [Notes: comp of good / bueno (sup: best)]

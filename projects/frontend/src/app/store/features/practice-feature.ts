@@ -1,7 +1,7 @@
 import { signalStoreFeature, type, withMethods } from '@ngrx/signals'
 import { Guess, Guessable, PracticeActive, PracticeConfig, UserLearnable } from '@shared/types'
 import type { LearnablesStoreType } from '../../types/store-types'
-import { mapPracticeToSummary } from '../../utils/genaral-utils'
+import { mapPracticeToSummary, mapSummaryToSummaryDetailed } from '../../utils/genaral-utils'
 import { updateActiveBank } from '../mutators/mutator-utils'
 
 const schwarzianShuffle = <T>(array: T[]): T[] => {
@@ -148,12 +148,23 @@ export const withPracticeFeature = <_>() =>
           if (!currentPractice) return b
           const summary = mapPracticeToSummary(currentPractice)
 
-          return {
-            ...b,
-            practice: {
-              ...b.practice,
-              active: null,
-              history: [summary, ...b.practice.history]
+          // early finished practices do not count into history
+          if (mapSummaryToSummaryDetailed(summary).rating !== 'noteven') {
+            return {
+              ...b,
+              practice: {
+                ...b.practice,
+                active: null,
+                history: [summary, ...b.practice.history]
+              }
+            }
+          } else {
+            return {
+              ...b,
+              practice: {
+                ...b.practice,
+                active: null
+              }
             }
           }
         })
