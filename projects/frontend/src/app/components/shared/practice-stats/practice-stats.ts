@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { booleanAttribute, Component, input } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import { PracticeSummary } from '@shared/types'
 import {
@@ -15,6 +15,7 @@ import {
 })
 export class PracticeStats {
   readonly guesses = input.required<PracticeSummary['guesses']>()
+  readonly hideUnanswered = input(false, { transform: booleanAttribute })
 
   protected icons = {
     correctAnswerIcon,

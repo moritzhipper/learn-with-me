@@ -5,6 +5,7 @@ import {
   remixArrowRightLine,
   remixArrowUpCircleFill,
   remixBookMarkedFill,
+  remixCalendar2Fill,
   remixCalendarScheduleFill,
   remixCamera4Fill,
   remixCheckboxCircleFill,
@@ -94,6 +95,7 @@ export const favoriteIcon = remixHeartsFill
 export const starRatingIcon = remixStarFill
 export const emptyStarRatingIcon = remixStarLine
 export const meteorRatingIcon = remixMeteorFill
+export const calendarIcon = remixCalendar2Fill
 
 // Interface
 export const magicIcon = remixMagicFill

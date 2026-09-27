@@ -36,9 +36,9 @@ type RatingSummary = {
     PracticeTimeline,
     PageWrapper,
     InfoCard,
-    NgIcon,
     PracticeStats,
-    PracticeRatingComp
+    PracticeRatingComp,
+    NgIcon
   ],
   templateUrl: './stats-page.html',
   styleUrl: './stats-page.scss'

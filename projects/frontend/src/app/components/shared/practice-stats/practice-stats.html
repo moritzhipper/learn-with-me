@@ -8,7 +8,7 @@
     {{ gue.wrong }}
     <ng-icon [svg]="icons.incorrectAnswerIcon" />
   </span>
-  @if (gue.unanswered) {
+  @if (gue.unanswered && !hideUnanswered()) {
     <span class="guess">
       {{ gue.unanswered }}
       <ng-icon [svg]="icons.unansweredAnswerIcon" />

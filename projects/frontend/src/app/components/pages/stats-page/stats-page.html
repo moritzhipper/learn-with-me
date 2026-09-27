@@ -26,45 +26,30 @@
     <div class="history">
       @for (entry of practiceHistoryDays(); track entry.day) {
         <div class="day" [id]="'day-' + entry.day">
-          <div class="header">
-            <ng-icon [svg]="icons.completedTimelineIcon" />
-            <h2 class="text size-1">
-              {{ entry.day | date: 'mediumDate' }}
-            </h2>
-            <p class="stats ml-auto">
-              <span class="word-list-item">
-                <strong>
-                  {{ entry.detailedSummaries.length }}
-                </strong>
-                runs
-              </span>
-              <span class="word-list-item">
-                <strong>
-                  {{ entry.summary.swipeCount }}
-                </strong>
-                swipes
-              </span>
+          <p class="bold size-2">
+            {{ entry.day | date: 'dd MMM' }}
+          </p>
+          <p class="size-0">
+            {{ entry.summary.swipeCount }}
+            swipes
+          </p>
+        </div>
+
+        @for (summary of entry.detailedSummaries; track $index) {
+          <div class="summary" [class.highlight]="summary.rating === 'excellent'">
+            <app-practice-rating-comp [rating]="summary.rating" />
+            <liz-practice-stats [guesses]="summary.guesses" hideUnanswered />
+            <p class="bold ellipsis">
+              @if (summary.type === 'collection') {
+                {{ getCollectionNameFromId(summary.collectionId) }}
+              } @else if (summary.type === 'added-on-day') {
+                Added on this day
+              } @else {
+                Custom
+              }
             </p>
           </div>
-          <div class="practices-wrapper">
-            @for (summary of entry.detailedSummaries; track $index) {
-              <div class="summary" [class.highlight]="summary.rating === 'excellent'">
-                <app-practice-rating-comp [rating]="summary.rating" />
-
-                <liz-practice-stats [guesses]="summary.guesses" class="pt-1" />
-                <p class="bold ellipsis pt-2">
-                  @if (summary.type === 'collection') {
-                    {{ getCollectionNameFromId(summary.collectionId) }}
-                  } @else if (summary.type === 'added-on-day') {
-                    Added on this day
-                  } @else {
-                    Custom
-                  }
-                </p>
-              </div>
-            }
-          </div>
-        </div>
+        }
       }
     </div>
   }

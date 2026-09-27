@@ -5,69 +5,52 @@
 }
 
 .history {
-  display: flex;
-  flex-direction: column;
-  gap: var(--distance-5);
+  gap: var(--distance-2);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
   padding-bottom: 150px;
 
   strong {
     color: currentColor;
   }
 
+  .day,
+  .summary {
+    border-radius: var(--radius-2);
+    gap: var(--distance-0);
+  }
+
   .day {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--col-bg);
+    padding: var(--distance-2);
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+  }
 
-    .header {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--distance-2);
+  .summary {
+    font-size: var(--font-size-0);
+    line-height: var(--line-height-0);
+    display: grid;
+    text-align: center;
+    grid-template-rows: 1fr auto auto;
+    padding: var(--distance-2) var(--distance-2) var(--distance-2) var(--distance-2);
 
-      h2 {
-        font-size: var(--font-size-1);
-        line-height: var(--line-height-1);
-      }
+    &.highlight {
+      color: var(--col-bg);
+      background-color: var(--col-accent-2);
+      border: 1px solid var(--col-accent-2);
 
-      ng-icon {
-        display: block;
-        font-size: var(--font-size-3);
-        color: var(--col-accent-2);
-        rotate: 180deg;
-        translate: 0.5px 1px;
+      app-practice-rating-comp {
+        filter: drop-shadow(5px 5px 9px rgb(from (var(--col-shadow) r g b / var(--opacity-1))));
       }
     }
 
-    .practices-wrapper {
-      gap: var(--distance-4);
-      border-left: 1px solid var(--accent);
-      padding-left: calc(var(--font-size-3) / 2);
-      margin-left: calc((var(--font-size-3) / 2) - 0.5px);
-      border-radius: 0 0 0 var(--radius-2);
-      padding-bottom: var(--distance-3);
-      padding-top: var(--distance-3);
-
-      .summary {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding: var(--distance-2) var(--distance-2) var(--distance-4) var(--distance-2);
-        border-radius: var(--radius-2);
-
-        &.highlight {
-          color: var(--col-bg);
-          background-color: var(--col-accent-2);
-
-          app-practice-rating-comp {
-            filter: drop-shadow(5px 5px 9px rgb(from (var(--col-shadow) r g b / var(--opacity-1))));
-          }
-        }
-
-        &:not(.highlight) {
-          color: var(--col-text);
-          background-color: var(--col-bg);
-          border: 1px solid var(--accent);
-        }
-      }
+    &:not(.highlight) {
+      background-color: rgb(from var(--col-accent-2) r g b / var(--opacity-0));
     }
   }
 }
@@ -122,21 +105,12 @@ app-practice-timeline {
 }
 
 @include isPhone {
-  .practices-wrapper {
-    display: flex;
-    overflow-x: auto;
-    padding-right: var(--page-padding);
-    margin-right: calc(-1 * var(--page-padding));
-
-    .summary {
-      flex: 0 0 150px;
+  .history {
+    .day {
+      grid-column: 1;
     }
   }
 }
 
 @include isDesktop {
-  .practices-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
 }
