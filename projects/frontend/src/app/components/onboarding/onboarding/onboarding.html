@@ -9,9 +9,7 @@
     </div>
 
     <div swiper-navigation>
-      @if (page() !== 0) {
-        <button class="big back" (click)="prev()">Back</button>
-      }
+      <button class="big back" [disabled]="page() === 0" (click)="prev()">Back</button>
       <button class="big next" (click)="next()">Next</button>
     </div>
   </liz-swiper-page-layout>

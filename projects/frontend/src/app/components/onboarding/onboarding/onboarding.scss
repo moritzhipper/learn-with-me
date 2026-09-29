@@ -5,8 +5,11 @@
 
   .back {
     grid-column: 1;
-
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+
+    &[disabled] {
+      color: transparent;
+    }
   }
   .next {
     grid-column: 2;

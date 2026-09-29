@@ -14,6 +14,15 @@
 - Put what i put in notes on about page
   -> scenarios, how helps with learning
 
+- shared via link
+  - dynamic text: someone shared this bank with you
+  - allows learning things like x and y in dutch to german
+  - make buttons fit the open page ('take hint' | 'lets got')
+  - use output?
+  - buttons in the end:
+    - Jump into practice
+    - Just look at the bank
+
 ## Today
 
 - pass always all ids to selector helper, then do icon based all non

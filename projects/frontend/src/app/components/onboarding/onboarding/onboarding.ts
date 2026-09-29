@@ -14,7 +14,7 @@ export class Onboarding {
   private pageCount = 2
   protected page = signal<number>(0)
 
-  userCameViaBankShare = signal(false)
+  userCameViaBankShare = signal(true)
 
   next() {
     const page = this.page()
