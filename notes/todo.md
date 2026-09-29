@@ -4,6 +4,10 @@
 
 ## Onboarding / About
 
+- use liz-swiper-layout
+- rename sqiper layout
+- create button comp with size and variation input
+- use as overlay or redierect with backredirect
 - create fast entry: if no collection and whatever set, allow direct import of bank as start
   - create quickstart, when user is new but came from link
   - somehow handle onboarding then

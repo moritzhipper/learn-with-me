@@ -1,0 +1,18 @@
+<app-page-wrapper fullScreen>
+  <liz-swiper-page-layout>
+    <div swiper-top>
+      @if (userCameViaBankShare()) {
+        <liz-onboarding-via-share [page]="page()" />
+      } @else {
+        <liz-onboarding-clean [page]="page()" />
+      }
+    </div>
+
+    <div swiper-navigation>
+      @if (page() !== 0) {
+        <button class="big back" (click)="prev()">Back</button>
+      }
+      <button class="big next" (click)="next()">Next</button>
+    </div>
+  </liz-swiper-page-layout>
+</app-page-wrapper>
