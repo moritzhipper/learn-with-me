@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core'
+import { Component, computed, input } from '@angular/core'
 import { BankShareViaDB } from '@shared/types'
 import { buildDebugBank } from '../../../services/debug-helper/debug-utils'
 import { SwiperPageLayout } from '../../pages/practice-page-comp/practice/swiper-page-layout/swiper-page-layout'
@@ -19,9 +19,7 @@ const sharedBank: BankShareViaDB = {
   styleUrl: './onboarding-via-share.scss'
 })
 export class OnboardingViaShare {
-  readonly page = signal<number>(0)
-
-  sharedBank = input<BankShareViaDB>(sharedBank)
+  readonly sharedBank = input<BankShareViaDB>(sharedBank)
 
   randomWords = computed(() => {})
 }

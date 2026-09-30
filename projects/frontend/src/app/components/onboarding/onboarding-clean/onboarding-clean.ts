@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core'
+import { Component } from '@angular/core'
 import { SwiperPageLayout } from '../../pages/practice-page-comp/practice/swiper-page-layout/swiper-page-layout'
 import { OnboardingNav } from '../onboarding-nav/onboarding-nav'
 
@@ -8,6 +8,4 @@ import { OnboardingNav } from '../onboarding-nav/onboarding-nav'
   templateUrl: './onboarding-clean.html',
   styleUrl: './onboarding-clean.scss'
 })
-export class OnboardingClean {
-  readonly page = signal<number>(0)
-}
+export class OnboardingClean {}

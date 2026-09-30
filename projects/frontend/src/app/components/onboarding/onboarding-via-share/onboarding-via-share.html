@@ -1,6 +1,6 @@
 <liz-swiper-page-layout>
   <div swiper-top>
-    @switch (page()) {
+    @switch (nav.activePage()) {
       @case (0) {
         <h1>
           <span class="text light"> Someone shared </span>
@@ -36,5 +36,5 @@
     }
   </div>
 
-  <liz-onboarding-nav swiper-navigation [pageCount]="2" [(activePage)]="page" />
+  <liz-onboarding-nav swiper-navigation [pageCount]="2" #nav />
 </liz-swiper-page-layout>
