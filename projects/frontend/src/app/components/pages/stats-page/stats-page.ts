@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common'
 import { Component, computed, inject } from '@angular/core'
-import { NgIcon } from '@ng-icons/core'
 import { PracticeSummary } from '@shared/types'
 import { completedTimelineIcon, statsIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
@@ -37,8 +36,7 @@ type RatingSummary = {
     PageWrapper,
     InfoCard,
     PracticeStats,
-    PracticeRatingComp,
-    NgIcon
+    PracticeRatingComp
   ],
   templateUrl: './stats-page.html',
   styleUrl: './stats-page.scss'
