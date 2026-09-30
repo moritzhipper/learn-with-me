@@ -1,8 +1,13 @@
-@switch (page()) {
-  @case (0) {
-    'hi'
-  }
-  @case (1) {
-    'whats'
-  }
-}
+<liz-swiper-page-layout>
+  <div swiper-top>
+    @switch (page()) {
+      @case (0) {
+        'hi'
+      }
+      @case (1) {
+        'whats'
+      }
+    }
+  </div>
+  <liz-onboarding-nav swiper-navigation [pageCount]="2" [(activePage)]="page" />
+</liz-swiper-page-layout>

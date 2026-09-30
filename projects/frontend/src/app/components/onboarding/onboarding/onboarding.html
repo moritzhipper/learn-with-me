@@ -1,16 +1,7 @@
 <app-page-wrapper fullScreen>
-  <liz-swiper-page-layout>
-    <div swiper-top>
-      @if (userCameViaBankShare()) {
-        <liz-onboarding-via-share [page]="page()" />
-      } @else {
-        <liz-onboarding-clean [page]="page()" />
-      }
-    </div>
-
-    <div swiper-navigation>
-      <button class="big back" [disabled]="page() === 0" (click)="prev()">Back</button>
-      <button class="big next" (click)="next()">Next</button>
-    </div>
-  </liz-swiper-page-layout>
+  @if (userCameViaBankShare()) {
+    <liz-onboarding-via-share />
+  } @else {
+    <liz-onboarding-clean />
+  }
 </app-page-wrapper>

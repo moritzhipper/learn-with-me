@@ -1,0 +1,31 @@
+:host {
+  display: grid;
+  transition-property: grid-template-columns;
+  grid-template-columns: 0fr 2fr;
+
+  .back {
+    transition-property: margin, opacity, outline, color;
+    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
+    overflow: hidden;
+    padding: 0;
+
+    &[disabled] {
+      opacity: 0;
+      color: transparent;
+    }
+  }
+
+  &:not(:has([disabled])) {
+    grid-template-columns: 1fr 2fr;
+
+    .back {
+      margin-right: var(--distance-4);
+    }
+  }
+}
+
+:host,
+.back {
+  transition-duration: var(--duration-2);
+  transition-timing-function: var(--soft-ease);
+}

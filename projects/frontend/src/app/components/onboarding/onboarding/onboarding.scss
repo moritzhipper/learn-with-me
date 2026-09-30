@@ -2,16 +2,4 @@
   display: grid;
   gap: var(--distance-4);
   grid-template-columns: 1fr 2fr;
-
-  .back {
-    grid-column: 1;
-    background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
-
-    &[disabled] {
-      color: transparent;
-    }
-  }
-  .next {
-    grid-column: 2;
-  }
 }

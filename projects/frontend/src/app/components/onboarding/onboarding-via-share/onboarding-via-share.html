@@ -1,33 +1,40 @@
-@switch (page()) {
-  @case (0) {
-    <h1>
-      <span class="text light"> Someone shared </span>
-      {{ sharedBank().name }}
-      <span class="text light"> with you</span>
-    </h1>
-    <p class="size-2 bold">
-      Maybe thats a wink mit dem zauhnpfahl that someone wants to use x y and z with you in a
-      conversation!
-    </p>
-    <p>//todo: What?</p>
-  }
-  @case (1) {
-    <h2>On lingolizard you can</h2>
-    <p>Practice the cards this bank immediately!</p>
-    <p>
-      It contains x word cards and y phrase cards in learning lang with speaking lang translation.
-    </p>
-    <p>
-      You can also just look at the cards or explore other community collections with other topics
-      or language matches to find something more interesting to learn
-    </p>
-    <p>
-      If you got a bit more time on your handse can also create your own cards and banks to learn
-      and share.
-    </p>
-    <p>
-      (put also what this app also does here? or just be confident on the ui explaining itself?)
-    </p>
-    <p>//todo: Button See bank</p>
-  }
-}
+<liz-swiper-page-layout>
+  <div swiper-top>
+    @switch (page()) {
+      @case (0) {
+        <h1>
+          <span class="text light"> Someone shared </span>
+          {{ sharedBank().name }}
+          <span class="text light"> with you</span>
+        </h1>
+        <p class="size-2 bold">
+          Maybe thats a wink mit dem zauhnpfahl that someone wants to use x y and z with you in a
+          conversation!
+        </p>
+        <p>//todo: What?</p>
+      }
+      @case (1) {
+        <h2>On lingolizard you can</h2>
+        <p>Practice the cards this bank immediately!</p>
+        <p>
+          It contains x word cards and y phrase cards in learning lang with speaking lang
+          translation.
+        </p>
+        <p>
+          You can also just look at the cards or explore other community collections with other
+          topics or language matches to find something more interesting to learn
+        </p>
+        <p>
+          If you got a bit more time on your handse can also create your own cards and banks to
+          learn and share.
+        </p>
+        <p>
+          (put also what this app also does here? or just be confident on the ui explaining itself?)
+        </p>
+        <p>//todo: Button See bank</p>
+      }
+    }
+  </div>
+
+  <liz-onboarding-nav swiper-navigation [pageCount]="2" [(activePage)]="page" />
+</liz-swiper-page-layout>
