@@ -1,5 +1,8 @@
-[swiper-navigation] {
-  display: grid;
-  gap: var(--distance-4);
-  grid-template-columns: 1fr 2fr;
+app-larry-big {
+  position: absolute;
+  top: 60dvh;
+  right: -400px;
+  width: 700px;
+  color: var(--col-accent);
+  opacity: var(--opacity-0);
 }

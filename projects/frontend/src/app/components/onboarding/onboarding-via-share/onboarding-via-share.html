@@ -3,17 +3,22 @@
     @switch (nav.activePage()) {
       @case (0) {
         <div class="fly-in-x-wide">
-          <h1>
+          <h1 class="mt-7 mb-8">
             <span class="text light"> Someone shared </span>
             {{ sharedBank().name }}
             <span class="text light"> with you</span>
           </h1>
           <p class="size-2 bold">
-            Maybe thats a wink mit dem zauhnpfahl that someone wants to use x y and z with you in a
-            conversation!
+            <span class="light">
+              Maybe thats a wink mit dem zauhnpfahl that someone wants to use
+            </span>
+            x<span class="light">, </span>
+            y
+            <span class="light"> and </span>
+            z
+            <span class="light"> with you in a conversation!</span>
           </p>
         </div>
-        <!-- <p>//todo: What?</p> -->
       }
       @case (1) {
         <div class="fly-in-x-wide">
@@ -42,10 +47,10 @@
   </div>
 
   <liz-onboarding-nav
-    swiper-navigation
-    [pageCount]="2"
     #nav
     class="fly-in-x-wide"
+    swiper-navigation
+    [pageCount]="2"
     [labels]="['What?', 'Open bank']"
   />
 </liz-swiper-page-layout>
