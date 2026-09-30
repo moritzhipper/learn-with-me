@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core'
+import { Component, computed, input, model } from '@angular/core'
 
 @Component({
   selector: 'liz-onboarding-nav',
@@ -7,9 +7,11 @@ import { Component, input, model } from '@angular/core'
   styleUrl: './onboarding-nav.scss'
 })
 export class OnboardingNav {
-  protected labelNext = input<string>('Next')
   readonly pageCount = input.required<number>()
   readonly activePage = model<number>(0)
+  readonly labels = input<string[]>([])
+
+  protected activeLabel = computed(() => this.labels()[this.activePage()] ?? 'Next')
 
   next() {
     const page = this.activePage()
