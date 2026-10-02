@@ -1,0 +1,18 @@
+app-larry-big {
+  position: absolute;
+  top: 60dvh;
+  right: -400px;
+  width: 700px;
+  color: var(--col-accent);
+  opacity: 0;
+  translate: 10px 20px;
+
+  transition-property: translate, opacity;
+  transition-duration: var(--duration-2);
+  transition-timing-function: var(--soft-ease);
+
+  &.show {
+    opacity: var(--opacity-0);
+    translate: 0px;
+  }
+}

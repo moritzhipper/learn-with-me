@@ -12,10 +12,15 @@
             <span class="light">
               Maybe thats a wink mit dem zauhnpfahl that someone wants to use
             </span>
-            x<span class="light">, </span>
-            y
-            <span class="light"> and </span>
-            z
+            @for (card of randomLearnables(); track card.id) {
+              @if ($index < $count - 2) {
+                {{ card.lexeme }}<span class="light">,</span>
+              } @else if ($index === $count - 2) {
+                {{ card.lexeme }} <span class="light">and</span>
+              } @else {
+                {{ card.lexeme }}
+              }
+            }
             <span class="light"> with you in a conversation!</span>
           </p>
         </div>
@@ -54,3 +59,4 @@
     [labels]="['What?', 'Open bank']"
   />
 </liz-swiper-page-layout>
+<app-larry-big [class.show]="nav.activePage() === 1" />
