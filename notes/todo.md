@@ -4,8 +4,20 @@
 
 ## Onboarding / About
 
+- clean start content (put the main selling point)
+  - ease y to use
+  - its effective
+    - create card banks from text, documents or based on your specific need
+    - cards hold specifics like articles or info for irregualr stuff automatically
+    - cards and banks are suggested based on spced repition intervalls and
+    - somehow put the whole how i make sure that practice is most effext
+  - fits into alltag -> us translator, practice translations
+  - create card banks based on articles, text, documents
+  - Create card banls for specific situations
+
 - make navbar subdues on onboarding pages
 - when no active bank, hide specifics and user links, but not about and info. show obarding page link instead
+- disable userid header on bank request
 
 - use liz-swiper-layout
 - rename sqiper layout

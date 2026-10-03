@@ -4,7 +4,6 @@
   grid-template-columns: 0fr 2fr;
 
   .back {
-    transition-property: margin, opacity, outline, color;
     background-color: rgb(from var(--col-accent) r g b / var(--opacity-0));
     overflow: hidden;
     padding: 0;

@@ -11,7 +11,10 @@ textarea {
 }
 
 p,
-.text {
+.text,
+h1,
+h2,
+h3 {
   margin: 0;
 
   &.size-0,
@@ -36,6 +39,12 @@ p,
   > .size-3 {
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
+  }
+
+  &.size-4,
+  > .size-4 {
+    font-size: var(--font-size-4);
+    line-height: var(--line-height-4);
   }
 
   &.light,

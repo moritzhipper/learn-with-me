@@ -60,7 +60,7 @@ select {
 
 button {
   transition-property:
-    background-color, opacity, outline, color, box-shadow, padding, rotate, border;
+    background-color, opacity, outline, color, box-shadow, padding, rotate, border, margin;
   transition-duration: var(--duration-0);
   transition-timing-function: ease-out;
 

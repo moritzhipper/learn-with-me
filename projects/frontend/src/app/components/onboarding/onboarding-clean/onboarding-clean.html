@@ -2,12 +2,27 @@
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
-        'hi'
+        <h1><span class="text light"> This is </span> linoglizard</h1>
+        <p class="bold size-2">The easiest way to get comfortable with a new language</p>
       }
       @case (1) {
-        'whats'
+        <h2 class="text size-3">Its easy to use</h2>
+        <p class="size-2 bold">
+          Find a community bank to practice words and phrases for specific situations
+        </p>
+        <p>or just create your own!</p>
       }
+      @case (2) {
+        <h2>Its also effective!</h2>
+        <p>spaced repetition, focus on least confident, least effort, most impact</p>
+      }
+      @case (3) {}
     }
   </div>
-  <liz-onboarding-nav swiper-navigation [pageCount]="2" #nav />
+  <liz-onboarding-nav
+    [labels]="['But how?', 'Is that it?', 'Nice, lets go!']"
+    swiper-navigation
+    [pageCount]="3"
+    #nav
+  />
 </liz-swiper-page-layout>
