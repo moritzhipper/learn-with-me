@@ -1,4 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core'
+import { catchError, MonoTypeOperatorFunction, throwError } from 'rxjs'
 
 export type ToastOptions = {
   header?: string
@@ -32,6 +33,17 @@ export class ToastService {
     this.showToast({
       message: errorText,
       type: 'error'
+    })
+  }
+
+  pipeError<T>(): MonoTypeOperatorFunction<T> {
+    return catchError((e: unknown) => {
+      this.showToast({
+        type: 'error',
+        message: 'Ohno'
+      })
+
+      return throwError(() => e)
     })
   }
 }
