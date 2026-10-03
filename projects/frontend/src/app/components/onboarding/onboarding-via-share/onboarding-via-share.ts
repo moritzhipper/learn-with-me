@@ -21,6 +21,5 @@ const sharedBank: BankShareViaDB = {
 })
 export class OnboardingViaShare {
   readonly sharedBank = input<BankShareViaDB>(sharedBank)
-
-  randomLearnables = computed(() => this.sharedBank().learnables.slice(0, 3))
+  protected randomLearnables = computed(() => this.sharedBank().learnables.slice(0, 3))
 }

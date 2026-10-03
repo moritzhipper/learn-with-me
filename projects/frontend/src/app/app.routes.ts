@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
-import { Onboarding } from './components/onboarding/onboarding/onboarding'
 import { CardsPage } from './components/pages/cards-page/cards-page'
 import { UserCollectionPage } from './components/pages/cards-page/user-collection-page/user-collection-page'
+import { DashboardPage } from './components/pages/dashboard-page/dashboard-page'
 import { PracticeComp } from './components/pages/practice-page-comp/practice-page-comp'
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
@@ -10,7 +10,7 @@ import { hasCardsGuard } from './guards/has-cards-guard'
 export const routes: Routes = [
   {
     path: '',
-    component: Onboarding,
+    component: DashboardPage,
     title: 'LingoLizard | Dashboard'
   },
   {

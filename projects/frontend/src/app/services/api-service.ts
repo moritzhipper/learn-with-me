@@ -2,15 +2,18 @@ import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { API_ROUTES } from '@shared/api-routes'
 import { BankShareRequest, BankShareViaDB, BanksRequest, ObjectWithId } from '@shared/types'
-import { lastValueFrom, Observable, take } from 'rxjs'
+import { catchError, lastValueFrom, Observable, shareReplay, take, throwError } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   private readonly BASE_URL = '/api'
-
   private readonly _client = inject(HttpClient)
+
+  // keep last fetched shared bank in cache
+  private sharedBankCache$: Observable<BankShareViaDB> | null = null
+  private sharedBankCacheId: string | null = null
 
   getCommunityBanks(conf: BanksRequest): Observable<BankShareViaDB[]> {
     return this._client.get<BankShareViaDB[]>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}`, {
@@ -23,7 +26,21 @@ export class ApiService {
   }
 
   getBankByID(id: string): Observable<BankShareViaDB> {
-    return this._client.get<BankShareViaDB>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}/${id}`)
+    if (this.sharedBankCacheId !== id || !this.sharedBankCache$) {
+      this.sharedBankCacheId = id
+
+      this.sharedBankCache$ = this._client
+        .get<BankShareViaDB>(`${this.BASE_URL}${API_ROUTES.BANKS.ROOT}/${id}`)
+        .pipe(
+          shareReplay(1),
+          catchError((e) => {
+            this.sharedBankCacheId = null
+            return throwError(() => e)
+          })
+        )
+    }
+
+    return this.sharedBankCache$
   }
 
   async increaseBankDownloadCount(id: string): Promise<void> {
