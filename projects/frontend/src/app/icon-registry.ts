@@ -39,6 +39,7 @@ import {
   remixSpeedFill,
   remixStarFill,
   remixStarLine,
+  remixSunFill,
   remixTranslate,
   remixUserFollowLine,
   remixUserVoiceLine,
@@ -60,6 +61,7 @@ export const infoIcon = remixInformationFill
 export const cardsPageIcon = remixPantoneFill
 export const settingsPageIcon = remixSettings3Fill
 export const translatePageIcon = remixTranslate
+export const onboardingIcon = remixSunFill
 
 // Practice
 export const imageExtractIcon = remixCamera4Fill

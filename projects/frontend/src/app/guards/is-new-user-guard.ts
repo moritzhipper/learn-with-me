@@ -7,8 +7,7 @@ export const isNewUserGuard: CanActivateFn & CanActivateChildFn = (route, state)
   // there: if bank id, show loading, on error toast and normal onboardin
   // if no error: shared onboarding
 
-  const userId = inject(SettingsStore).userID()
+  if (inject(SettingsStore).userID()) return true
 
-  if (userId) return true
-  return inject(Router).createUrlTree(['/onboarding'], { queryParams: route.queryParams })
+  return inject(Router).createUrlTree(['onboarding'], { queryParams: route.queryParams })
 }

@@ -25,37 +25,48 @@
           {{ bank.language.speaking }}
         </span>
       </div>
+      <a
+        routerLink="/"
+        class="entry big"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <ng-icon [svg]="icons.dashboardPageIcon" />
+        <span>Home</span>
+      </a>
+      <a class="entry big" routerLink="practice" routerLinkActive="active">
+        <ng-icon [svg]="icons.practicePageIcon" />
+
+        <span>
+          <span> Practice </span>
+          @if (activeBank()?.practice?.active) {
+            <span>•</span>
+          }
+        </span>
+      </a>
+      <a class="entry big" routerLink="translate" routerLinkActive="active">
+        <ng-icon [svg]="icons.translatePageIcon" />
+
+        <span>Translate</span>
+      </a>
+
+      <a routerLink="settings" class="entry small mt-auto" routerLinkActive="active">
+        <ng-icon [svg]="icons.settingsPageIcon" />
+        <span>Settings</span>
+      </a>
+    } @else {
+      <a
+        routerLink="/onboarding"
+        class="entry big mt-7"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <ng-icon [svg]="icons.onboardingIcon" />
+        <span>Onboarding</span>
+      </a>
     }
-    <a
-      routerLink="/"
-      class="entry big"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      <ng-icon [svg]="icons.dashboardPageIcon" />
-      <span>Home</span>
-    </a>
-    <a class="entry big" routerLink="practice" routerLinkActive="active">
-      <ng-icon [svg]="icons.practicePageIcon" />
 
-      <span>
-        <span> Practice </span>
-        @if (activeBank()?.practice?.active) {
-          <span>•</span>
-        }
-      </span>
-    </a>
-    <a class="entry big" routerLink="translate" routerLinkActive="active">
-      <ng-icon [svg]="icons.translatePageIcon" />
-
-      <span>Translate</span>
-    </a>
-
-    <a routerLink="settings" class="entry small mt-auto" routerLinkActive="active">
-      <ng-icon [svg]="icons.settingsPageIcon" />
-      <span>Settings</span>
-    </a>
-    <a routerLink="about" class="entry small" routerLinkActive="active">
+    <a routerLink="about" class="entry small mt-auto" routerLinkActive="active">
       <ng-icon [svg]="icons.aboutPageIcon" />
 
       <span>About</span>

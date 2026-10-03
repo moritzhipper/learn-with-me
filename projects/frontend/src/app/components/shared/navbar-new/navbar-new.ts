@@ -9,6 +9,7 @@ import {
   infoIcon,
   languageSwapIcon,
   navigationMenuIcon,
+  onboardingIcon,
   practicePageIcon,
   settingsPageIcon,
   translatePageIcon
@@ -32,9 +33,10 @@ export class NavbarNew {
     navigationMenuIcon,
     practicePageIcon,
     settingsPageIcon,
-    translatePageIcon
+    translatePageIcon,
+    onboardingIcon
   }
-  private readonly DIM_ON_PAGES = ['practice', 'translate']
+  private readonly DIM_ON_PAGES = ['practice', 'translate', 'onboarding']
 
   protected readonly ls = inject(LearnablesStore)
   protected activeBank = computed<BankUser | undefined>(() => this.ls.activeBank())
