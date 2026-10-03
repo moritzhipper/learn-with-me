@@ -2,6 +2,7 @@ import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@an
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { NgIcon } from '@ng-icons/core'
+import { BankUser } from '@shared/types'
 import { config } from '../../../../config'
 import {
   dashboardPageIcon,
@@ -36,7 +37,9 @@ export class NavbarNew {
   private readonly DIM_ON_PAGES = ['practice', 'translate']
 
   protected readonly ls = inject(LearnablesStore)
-  protected readonly hasActivePractice = computed(() => !!this.ls.activeBank().practice.active)
+  protected activeBank = computed<BankUser | undefined>(() => this.ls.activeBank())
+  // protected readonly hasActivePractice = computed(() => !!this.ls.activeBank()?.practice?.active)
+  // protected readonly language = computed(() => this.ls.activeBank().language)
 
   @HostListener('mouseleave', [])
   protected onleave() {
@@ -50,7 +53,6 @@ export class NavbarNew {
 
   currentUrl = toSignal(this.currentUrl$)
 
-  protected readonly language = computed(() => this.ls.activeBank().language)
   readonly isOpen = signal(false)
   protected readonly isOnDimmablePage = signal(false)
 

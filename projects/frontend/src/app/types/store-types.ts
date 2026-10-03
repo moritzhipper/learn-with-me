@@ -6,7 +6,7 @@ import { CollectionUpdater } from '../store/features/collections-crud'
 export type SettingsStoreType = {
   apiKey: string
   tokensUsed: number
-  userID: string
+  userID: string | null
 }
 
 export type LearnablesStoreType = {

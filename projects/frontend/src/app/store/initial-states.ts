@@ -9,7 +9,7 @@ export const initialState: LearnablesStoreType = {
 export const initialSettings: SettingsStoreType = {
   apiKey: '',
   tokensUsed: 0,
-  userID: crypto.randomUUID()
+  userID: null
 }
 
 export const initialTranslations: BankUser['translations'] = {

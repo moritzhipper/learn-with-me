@@ -4,6 +4,9 @@
 
 ## Onboarding / About
 
+- make navbar subdues on onboarding pages
+- when no active bank, hide specifics and user links, but not about and info. show obarding page link instead
+
 - use liz-swiper-layout
 - rename sqiper layout
 - create button comp with size and variation input

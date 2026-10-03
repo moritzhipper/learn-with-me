@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router'
+import { Onboarding } from './components/onboarding/onboarding/onboarding'
 import { CardsPage } from './components/pages/cards-page/cards-page'
 import { UserCollectionPage } from './components/pages/cards-page/user-collection-page/user-collection-page'
 import { DashboardPage } from './components/pages/dashboard-page/dashboard-page'
@@ -6,12 +7,19 @@ import { PracticeComp } from './components/pages/practice-page-comp/practice-pag
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
 import { hasCardsGuard } from './guards/has-cards-guard'
+import { isNewUserGuard } from './guards/is-new-user-guard'
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'hu',
     component: DashboardPage,
-    title: 'LingoLizard | Dashboard'
+    title: 'LingoLizard | Dashboard',
+    canActivate: [isNewUserGuard]
+  },
+  {
+    path: 'onbaording',
+    title: 'LingoLizard | Hi',
+    component: Onboarding
   },
   {
     path: 'cards',
@@ -82,10 +90,9 @@ export const routes: Routes = [
       }
     ]
   },
-
   {
     path: '**',
-    redirectTo: 'cards',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ]

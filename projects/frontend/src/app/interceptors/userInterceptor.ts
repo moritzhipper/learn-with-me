@@ -4,6 +4,7 @@ import { SettingsStore } from '../store/settings-store'
 
 export const userInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
   const userID = inject(SettingsStore).userID()
+  if (!userID) return next(req)
 
   return next(
     req.clone({
