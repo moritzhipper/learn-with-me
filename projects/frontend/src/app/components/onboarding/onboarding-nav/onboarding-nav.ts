@@ -1,4 +1,4 @@
-import { Component, computed, input, model } from '@angular/core'
+import { Component, computed, input, model, output } from '@angular/core'
 
 @Component({
   selector: 'liz-onboarding-nav',
@@ -10,6 +10,7 @@ export class OnboardingNav {
   readonly pageCount = input.required<number>()
   readonly activePage = model<number>(0)
   readonly labels = input<string[]>([])
+  readonly done = output()
 
   protected activeLabel = computed(() => this.labels()[this.activePage()] ?? 'Next')
 
@@ -19,9 +20,10 @@ export class OnboardingNav {
     if (page < this.pageCount() - 1) {
       this.activePage.set(page + 1)
     } else if (page === this.pageCount() - 1) {
-      console.log('redirect here')
+      this.done.emit()
     }
   }
+
   back() {
     const page = this.activePage()
 

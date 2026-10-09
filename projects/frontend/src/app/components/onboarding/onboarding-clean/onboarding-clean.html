@@ -15,14 +15,31 @@
       @case (2) {
         <h2>Its also effective!</h2>
         <p>spaced repetition, focus on least confident, least effort, most impact</p>
+        <p>translator</p>
       }
-      @case (3) {}
+      @case (3) {
+        <label class="mt-auto">
+          <span>
+            <ng-icon [svg]="icons.speakLanguageIcon" />
+            Speaking
+          </span>
+          <input class="dark" type="text" />
+        </label>
+        <label>
+          <span>
+            <ng-icon [svg]="icons.learnLanguageIcon" />
+            Learning
+          </span>
+          <input class="dark" type="text" />
+        </label>
+      }
     }
   </div>
   <liz-onboarding-nav
     [labels]="['But how?', 'Is that it?', 'Nice, lets go!']"
     swiper-navigation
-    [pageCount]="3"
+    [pageCount]="4"
+    (done)="goToDashboard()"
     #nav
   />
 </liz-swiper-page-layout>

@@ -1,0 +1,12 @@
+[swiper-top] {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-1);
+  }
+}
