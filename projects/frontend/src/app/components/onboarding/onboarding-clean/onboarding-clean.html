@@ -1,16 +1,16 @@
-<liz-swiper-page-layout>
+<liz-swiper-page-layout lizAnimDelayWrapper applyClass="fly-in-x-wide">
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
-        <h1><span class="text light"> This is </span> linoglizard</h1>
-        <p class="bold size-2">The easiest way to get comfortable with a new language</p>
+        <h1 #animItem><span class="text light"> This is </span> linoglizard</h1>
+        <p #animItem class="bold size-2">The easiest way to get comfortable with a new language</p>
       }
       @case (1) {
-        <h2 class="text size-3">Its easy to use</h2>
-        <p class="size-2 bold">
+        <h2 #animItem class="text size-3">Its easy to use</h2>
+        <p #animItem class="size-2 bold">
           Find a community bank to practice words and phrases for specific situations
         </p>
-        <p>or just create your own!</p>
+        <p #animItem>or just create your own!</p>
       }
       @case (2) {
         <h2>Its also effective!</h2>
@@ -18,28 +18,37 @@
         <p>translator</p>
       }
       @case (3) {
-        <label class="mt-auto">
-          <span>
-            <ng-icon [svg]="icons.speakLanguageIcon" />
-            Speaking
-          </span>
-          <input class="dark" type="text" />
-        </label>
-        <label>
-          <span>
-            <ng-icon [svg]="icons.learnLanguageIcon" />
-            Learning
-          </span>
-          <input class="dark" type="text" />
-        </label>
+        <p>
+          To correctly label your cards and provide the correct community banks, the
+          <strong> language you speak </strong>
+          and the <strong> language you want to practice </strong>
+          is needed.
+        </p>
+        <form>
+          <label class="mt-auto">
+            <span>
+              <ng-icon [svg]="icons.speakLanguageIcon" />
+              Speaking
+            </span>
+            <input class="dark" type="text" [formField]="languageForm.learning" />
+          </label>
+          <label>
+            <span>
+              <ng-icon [svg]="icons.learnLanguageIcon" />
+              Learning
+            </span>
+            <input class="dark" type="text" [formField]="languageForm.speaking" />
+          </label>
+        </form>
       }
     }
   </div>
   <liz-onboarding-nav
-    [labels]="['But how?', 'Is that it?', 'Nice, lets go!']"
+    [labels]="['But how?', 'Is that it?', 'Wow!', 'Lets go!']"
     swiper-navigation
     [pageCount]="4"
     (done)="goToDashboard()"
+    [disableNext]="nav.activePage() === 3 && languageForm().invalid()"
     #nav
   />
 </liz-swiper-page-layout>

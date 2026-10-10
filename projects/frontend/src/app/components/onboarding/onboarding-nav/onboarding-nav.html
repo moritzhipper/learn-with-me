@@ -1,4 +1,9 @@
 <button class="big back" [disabled]="activePage() === 0" (click)="back()">Back</button>
-<button class="big next" [class.primary]="activePage() === pageCount() - 1" (click)="next()">
+<button
+  class="big next"
+  [disabled]="disableNext()"
+  [class.primary]="activePage() === pageCount() - 1"
+  (click)="next()"
+>
   {{ activeLabel() }}
 </button>

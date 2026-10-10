@@ -12,6 +12,8 @@ export class OnboardingNav {
   readonly labels = input<string[]>([])
   readonly done = output()
 
+  readonly disableNext = input<boolean>(false)
+
   protected activeLabel = computed(() => this.labels()[this.activePage()] ?? 'Next')
 
   next() {

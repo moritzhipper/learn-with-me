@@ -14,7 +14,7 @@
     }
   }
 
-  &:not(:has([disabled])) {
+  &:not(:has(.back[disabled])) {
     grid-template-columns: 1fr 2fr;
 
     .back {
