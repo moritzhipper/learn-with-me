@@ -21,30 +21,29 @@ export class OnboardingClean {
   private readonly ls = inject(LearnablesStore)
   private readonly settingsS = inject(SettingsStore)
 
-  icons = {
+  protected readonly icons = {
     speakLanguageIcon,
     learnLanguageIcon
   }
 
-  languageModel = signal<LanguageConfig>({
+  protected languageModel = signal<LanguageConfig>({
     speaking: '',
     learning: ''
   })
 
-  languageForm = form(this.languageModel, (schema) => {
+  protected languageForm = form(this.languageModel, (schema) => {
     required(schema.learning)
     required(schema.speaking)
   })
 
   protected goToDashboard() {
-    // add user
-    // create bank
-    // this.settingsS.
     if (this.languageForm().invalid()) return
-    const language = this.languageForm().controlValue()
 
     this.settingsS.updateSettings({ userID: crypto.randomUUID() })
-    this.ls.createBank({ language, name: 'First Bank' })
+
+    const language = this.languageForm().controlValue()
+    const newBankId = this.ls.createBank({ language, name: 'First Bank' })
+    this.ls.setActiveBank(newBankId)
 
     this.router.navigate([''])
   }
