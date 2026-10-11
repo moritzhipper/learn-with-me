@@ -7,6 +7,7 @@ export type SettingsStoreType = {
   apiKey: string
   tokensUsed: number
   userID: string | null
+  onboardingBankID: string | null
 }
 
 export type LearnablesStoreType = {

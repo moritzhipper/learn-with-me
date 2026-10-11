@@ -1,4 +1,3 @@
-import { API_ROUTES } from '@shared/api-routes'
 import { RequestHeaderSchema } from '@shared/schemas'
 import { RequestHeader } from '@shared/types'
 import { FastifyInstance, FastifyRequest } from 'fastify'
@@ -6,7 +5,7 @@ import fp from 'fastify-plugin'
 
 export const validateUserheader = fp(async (fastify: FastifyInstance) => {
   fastify.addHook('preHandler', async (req: FastifyRequest<{ Headers: RequestHeader }>) => {
-    if (req.routeOptions.url === API_ROUTES.HEALTH) return
+    if (req.routeOptions.config.skipAuth) return
     try {
       const headers = RequestHeaderSchema.parse(req.headers)
       req.userID = headers['x-user-id']

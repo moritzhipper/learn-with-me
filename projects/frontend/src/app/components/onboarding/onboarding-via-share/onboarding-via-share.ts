@@ -27,6 +27,6 @@ export class OnboardingViaShare {
     const newID = this.ls.importBankAsNew(this.sharedBank())
     this.ls.setActiveBank(newID)
 
-    this.router.navigate(['cards', 'all'])
+    this.router.navigate(['collections'])
   }
 }

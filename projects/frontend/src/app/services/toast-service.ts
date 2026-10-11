@@ -36,11 +36,11 @@ export class ToastService {
     })
   }
 
-  pipeError<T>(): MonoTypeOperatorFunction<T> {
+  pipeError<T>(message?: string): MonoTypeOperatorFunction<T> {
     return catchError((e: unknown) => {
       this.showToast({
         type: 'error',
-        message: 'Ohno'
+        message: message ?? 'Ohno'
       })
 
       return throwError(() => e)

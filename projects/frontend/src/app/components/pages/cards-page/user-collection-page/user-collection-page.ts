@@ -127,7 +127,7 @@ export class UserCollectionPage {
     if (result.value.deletionType === 'remove') this.ls.deleteCards(coll.cardIds)
     this.ls.deleteCollection(coll.id)
     this.toastService.showToast(`Collection ${coll.name} deleted.`)
-    this.router.navigate(['/cards'])
+    this.router.navigate(['/collections'])
   }
 
   async practice() {

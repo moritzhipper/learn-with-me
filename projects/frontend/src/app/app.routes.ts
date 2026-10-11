@@ -41,10 +41,10 @@ export const routes: Routes = [
         children: [
           {
             component: CardsPage,
-            path: 'cards'
+            path: 'collections'
           },
           {
-            path: 'cards/:id',
+            path: 'collections/:id',
             component: UserCollectionPage
           },
           {

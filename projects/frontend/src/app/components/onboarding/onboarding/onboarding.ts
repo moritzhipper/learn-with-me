@@ -1,9 +1,10 @@
-import { Component, inject, input } from '@angular/core'
+import { Component, computed, effect, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { BankShareViaDB } from '@shared/types'
 import { ApiService } from '../../../services/api-service'
 import { buildDebugBank } from '../../../services/debug-helper/debug-utils'
 import { ToastService } from '../../../services/toast-service'
+import { SettingsStore } from '../../../store/settings-store'
 import { PageWrapper } from '../../pages/page-wrapper/page-wrapper'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { OnboardingClean } from '../onboarding-clean/onboarding-clean'
@@ -24,14 +25,27 @@ const sharedBank: BankShareViaDB = {
   styleUrl: './onboarding.scss'
 })
 export class Onboarding {
-  readonly bankID = input<string>()
+  readonly sStore = inject(SettingsStore)
   readonly api = inject(ApiService)
 
   readonly toastS = inject(ToastService)
+  constructor() {
+    effect(() => {
+      console.log(this.sStore.onboardingBankID())
+    })
+  }
 
   sharedBank = rxResource({
-    params: this.bankID,
-    stream: ({ params }) => this.api.getBankByID(params).pipe(this.toastS.pipeError()),
-    defaultValue: sharedBank
+    params: computed(() => {
+      const id = this.sStore.onboardingBankID()
+      if (!id) return
+      return id
+    }),
+    stream: ({ params }) =>
+      this.api
+        .getBankByID(params)
+        .pipe(
+          this.toastS.pipeError('The bank that was shared with you may not be available anymore')
+        )
   })
 }

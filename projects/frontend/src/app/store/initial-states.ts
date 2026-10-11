@@ -9,7 +9,8 @@ export const initialState: LearnablesStoreType = {
 export const initialSettings: SettingsStoreType = {
   apiKey: '',
   tokensUsed: 0,
-  userID: null
+  userID: null,
+  onboardingBankID: null
 }
 
 export const initialTranslations: BankUser['translations'] = {

@@ -6,6 +6,9 @@ export const healthHandler: FastifyPluginAsyncZod = async (fastify): Promise<voi
   fastify.route({
     method: 'GET',
     url: API_ROUTES.HEALTH,
-    handler: checkHealth
+    handler: checkHealth,
+    config: {
+      skipAuth: true
+    }
   })
 }

@@ -25,6 +25,7 @@ export const banksHandler: FastifyPluginAsyncZod = async (fastify): Promise<void
         200: z.array(BankShareViaDBSchema)
       }
     },
+
     handler: fetchBanks
   })
 
@@ -37,7 +38,10 @@ export const banksHandler: FastifyPluginAsyncZod = async (fastify): Promise<void
         200: BankShareViaDBSchema
       }
     },
-    handler: fetchBankById
+    handler: fetchBankById,
+    config: {
+      skipAuth: true
+    }
   })
 
   fastify.route({
