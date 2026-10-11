@@ -1,6 +1,6 @@
 <app-page-wrapper fullScreen>
   @if (sharedBank.isLoading()) {
-    <app-loading-spinner />
+    <app-loading-spinner cover />
   } @else if (sharedBank.hasValue()) {
     <liz-onboarding-via-share [sharedBank]="sharedBank.value()" />
   } @else {
