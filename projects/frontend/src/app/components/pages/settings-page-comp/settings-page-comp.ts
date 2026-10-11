@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
+import { Router } from '@angular/router'
 import { NgIcon } from '@ng-icons/core'
 import { BankBase, BankUser } from '@shared/types'
 import { environment } from '../../../../environments/environment'
@@ -32,6 +33,7 @@ import { SettingsItemComp } from './settings-item-comp/settings-item-comp'
   styleUrl: './settings-page-comp.scss'
 })
 export class SettingsComp {
+  private readonly router = inject(Router)
   private readonly _settingsS = inject(SettingsStore)
   private readonly ls = inject(LearnablesStore)
   private readonly _modalService = inject(ModalService)
@@ -80,6 +82,7 @@ export class SettingsComp {
     if (result.type !== 'confirm') return
     this.ls.reset()
     this._settingsS.reset()
+    this.router.navigate(['/'])
   }
 
   async createNewBank() {

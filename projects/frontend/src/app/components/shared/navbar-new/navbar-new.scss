@@ -67,6 +67,10 @@ nav {
     transition-property: translate, background-color, outline;
   }
 
+  .flex-spacer {
+    flex: 1;
+  }
+
   a {
     display: inline-flex;
     align-items: center;

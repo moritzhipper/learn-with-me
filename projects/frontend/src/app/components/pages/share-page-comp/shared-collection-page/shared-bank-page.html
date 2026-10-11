@@ -10,7 +10,7 @@
     <div class="content" lizAnimDelayWrapper applyClass="fly-in-y-wide">
       <div class="full-width-scroll action-buttons" #animItem>
         @if (selectedCollection()) {
-          <button (click)="selectedCollection.set(null)" class="header-action all fly-in-x-wide">
+          <button (click)="selectedCollection.set(null)" class="header-action all">
             <ng-icon [svg]="icons.collapseIcon" />
             All cards
           </button>

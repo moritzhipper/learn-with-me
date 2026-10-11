@@ -50,7 +50,9 @@
         <span>Translate</span>
       </a>
 
-      <a routerLink="settings" class="entry small mt-auto" routerLinkActive="active">
+      <div class="flex-spacer"></div>
+
+      <a routerLink="settings" class="entry small" routerLinkActive="active">
         <ng-icon [svg]="icons.settingsPageIcon" />
         <span>Settings</span>
       </a>
@@ -64,9 +66,11 @@
         <ng-icon [svg]="icons.onboardingIcon" />
         <span>Onboarding</span>
       </a>
+
+      <div class="flex-spacer"></div>
     }
 
-    <a routerLink="about" class="entry small mt-auto" routerLinkActive="active">
+    <a routerLink="about" class="entry small" routerLinkActive="active">
       <ng-icon [svg]="icons.aboutPageIcon" />
 
       <span>About</span>

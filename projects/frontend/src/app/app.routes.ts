@@ -27,29 +27,36 @@ export const routes: Routes = [
     title: 'LinogLizard | Hi',
     component: AboutPageComp
   },
+
   {
     path: '',
-    title: 'LingoLizard',
-    canActivate: [hasCardsGuard, isNewUserGuard],
-    canActivateChild: [hasCardsGuard, isNewUserGuard],
+    canActivate: [isNewUserGuard],
+    canActivateChild: [isNewUserGuard],
     children: [
       {
-        component: CardsPage,
-        path: 'cards'
-      },
-      {
-        path: 'cards:id',
-        component: UserCollectionPage
-      },
-      {
-        component: PracticeComp,
-        path: 'practice',
-        title: 'lingolizard | Practice'
-      },
-      {
-        component: StatsPage,
-        title: 'lingolizard | Statis',
-        path: 'stats'
+        path: '',
+        canActivate: [hasCardsGuard],
+        canActivateChild: [hasCardsGuard],
+        children: [
+          {
+            component: CardsPage,
+            path: 'cards'
+          },
+          {
+            path: 'cards:id',
+            component: UserCollectionPage
+          },
+          {
+            component: PracticeComp,
+            path: 'practice',
+            title: 'lingolizard | Practice'
+          },
+          {
+            component: StatsPage,
+            title: 'lingolizard | Statis',
+            path: 'stats'
+          }
+        ]
       },
       {
         component: SettingsComp,
@@ -93,7 +100,6 @@ export const routes: Routes = [
       }
     ]
   },
-
   {
     path: '**',
     redirectTo: '',
