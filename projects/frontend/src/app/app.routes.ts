@@ -8,19 +8,20 @@ import { PracticeComp } from './components/pages/practice-page-comp/practice-pag
 import { SettingsComp } from './components/pages/settings-page-comp/settings-page-comp'
 import { StatsPage } from './components/pages/stats-page/stats-page'
 import { hasCardsGuard } from './guards/has-cards-guard'
-import { isNewUserGuard } from './guards/is-new-user-guard'
+import { onboardedGuard } from './guards/is-onboarded-guard'
 
 export const routes: Routes = [
   {
     path: '',
     component: DashboardPage,
     title: 'LingoLizard | Dashboard',
-    canActivate: [isNewUserGuard]
+    canActivate: [onboardedGuard.is]
   },
   {
     path: 'onboarding',
     title: 'LingoLizard | Hi',
-    component: Onboarding
+    component: Onboarding,
+    canActivate: [onboardedGuard.isNot]
   },
   {
     path: 'about',
@@ -30,8 +31,8 @@ export const routes: Routes = [
 
   {
     path: '',
-    canActivate: [isNewUserGuard],
-    canActivateChild: [isNewUserGuard],
+    canActivate: [onboardedGuard.is],
+    canActivateChild: [onboardedGuard.is],
     children: [
       {
         path: '',

@@ -25,8 +25,8 @@ export class OnboardingViaShare {
   protected openBank() {
     this.settingsS.updateSettings({ userID: crypto.randomUUID() })
     const newID = this.ls.importBankAsNew(this.sharedBank())
-
     this.ls.setActiveBank(newID)
-    this.router.navigate(['cards'])
+
+    this.router.navigate(['cards', 'all'])
   }
 }

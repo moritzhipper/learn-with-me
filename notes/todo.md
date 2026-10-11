@@ -4,6 +4,12 @@
 
 ## Onboarding / About
 
+- sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route
+- close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
+- remember onbarding with shared bank shared banl
+- onboard with share
+  -> imports bank directly right now -> maybe allow shared bank routes without active bank, same with navbar?
+
 - clean start content (put the main selling point)
   - ease y to use
   - its effective
@@ -15,21 +21,16 @@
   - create card banks based on articles, text, documents
   - Create card banls for specific situations
 
-- make navbar subdues on onboarding pages
-- when no active bank, hide specifics and user links, but not about and info. show obarding page link instead
 - disable userid header on bank request
 
-- use liz-swiper-layout
 - rename sqiper layout
-- create button comp with size and variation input
-- use as overlay or redierect with backredirect
-- create fast entry: if no collection and whatever set, allow direct import of bank as start
-  - create quickstart, when user is new but came from link
-  - somehow handle onboarding then
-- Put what i put in notes on about page
+
+- Put what I put in notes on about page
   -> scenarios, how helps with learning
 
 - shared via link
+  - cards rotatet as list in background
+  - set minimum cards amount in shared bank to not hold spam: 15 cards
   - dynamic text: someone shared this bank with you
   - allows learning things like x and y in dutch to german
   - make buttons fit the open page ('take hint' | 'lets got')
