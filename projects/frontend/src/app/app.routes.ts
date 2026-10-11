@@ -43,7 +43,7 @@ export const routes: Routes = [
             path: 'cards'
           },
           {
-            path: 'cards:id',
+            path: 'cards/:id',
             component: UserCollectionPage
           },
           {
