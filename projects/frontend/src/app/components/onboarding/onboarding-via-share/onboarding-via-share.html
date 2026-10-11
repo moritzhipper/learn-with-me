@@ -24,24 +24,25 @@
         </p>
       }
       @case (1) {
-        <h2>On lingolizard you can</h2>
-        <p>Practice the cards this bank immediately!</p>
-        <p>
-          It contains x word cards and y phrase cards in learning lang with speaking lang
-          translation.
+        @let bank = sharedBank();
+
+        <p class="bold">
+          <span class="size-1 light"> This bank holds </span>
+          <br />
+          <span class="size-2">
+            {{ bank.collections.length }} collections <span class="light"> and </span>
+            {{ bank.learnables.length }} cards <span class="light"> of </span>
+            {{ bank.language.learning }} words and phrases with
+            {{ bank.language.speaking }}
+            translations.
+          </span>
         </p>
+
+        <p>Open it to start practicing or just have a look at what it contains.</p>
         <p>
-          You can also just look at the cards or explore other community collections with other
-          topics or language matches to find something more interesting to learn
+          If you got a bit more time on your hands can also add your own or discover more banks and
+          collection shared with the community.
         </p>
-        <p>
-          If you got a bit more time on your handse can also create your own cards and banks to
-          learn and share.
-        </p>
-        <p>
-          (put also what this app also does here? or just be confident on the ui explaining itself?)
-        </p>
-        <p>//todo: Button See bank</p>
       }
     }
   </div>
@@ -55,4 +56,4 @@
     (done)="openBank()"
   />
 </liz-swiper-page-layout>
-<app-larry-big [class.show]="nav.activePage() === 1" />
+<app-larry-big [class.show]="nav.activePage() === 0" />
