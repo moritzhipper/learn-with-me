@@ -70,6 +70,11 @@
 - confidence formula: card \* card confidence -> so beintraechtigt hinzufuegen von karten nicht die confidence
 - confidence = confidence per cards = higher score, higher impressiveness!
 
+## Design system
+
+- migrate to non opacity based color system
+- migrate onboarding texts to use b or strong instead of making unimportant things light
+
 ## General
 
 - replace .has-icon with :has(ng-icon), then make ng-icon a bit bigger than 1rem
