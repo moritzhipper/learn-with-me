@@ -2,13 +2,21 @@
 
 - show the quick practice cards more restrictive -> less overlap with collections
 
-## Onboarding / About
+## Onboarding / About -> RIGHTNOW
+
+RIGHT NOW THIS
 
 - sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route
+
+THEN THIS
+
 - instead of home, show name of bank
 - instead of home in backlink, show name of bank
 - close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
 - remember onbarding with shared bank shared banl
+
+NICE OKAY WE DONE NOW
+
 - onboard with share
   -> imports bank directly right now -> maybe allow shared bank routes without active bank, same with navbar?
 
