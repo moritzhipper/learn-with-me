@@ -1,0 +1,7 @@
+@use '../../../../style/mixins.scss' as *;
+
+@include isPhone {
+  app-page-wrapper {
+    padding-top: var(--distance-8);
+  }
+}

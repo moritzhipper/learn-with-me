@@ -2,29 +2,40 @@
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
-        <h1 #animItem><span class="text light"> This is </span> linoglizard</h1>
-        <p #animItem class="bold size-2">The easiest way to get comfortable with a new language</p>
+        <p #animItem class="light size-3 bold">this is</p>
+        <h1 #animItem class="size-4">lingolizard</h1>
+        <p #animItem class="bold size-2 light">
+          The easiest way to get comfortable with a new language
+        </p>
       }
       @case (1) {
-        <h2 #animItem class="text size-3">Its easy to use</h2>
+        <h2 #animItem>Its easy to use</h2>
         <p #animItem class="size-2 bold">
           Find a community bank to practice words and phrases for specific situations
         </p>
-        <p #animItem>or just create your own!</p>
+        <p #animItem>
+          Use translate function to begleite you in alltag, create card decks from text or pictures
+        </p>
       }
       @case (2) {
-        <h2>Its also effective!</h2>
-        <p>spaced repetition, focus on least confident, least effort, most impact</p>
-        <p>translator</p>
+        <h2 #animItem>Its also effective!</h2>
+        <p #animItem>Very what you need oriented</p>
+        <p #animItem>
+          Translator adds cards automatically, creating very _you_ decks fast based on words you
+          really use
+        </p>
+        <p #animItem>spaced repetition, focus on least confident, least effort, most impact</p>
       }
       @case (3) {
-        <p>
-          To correctly label your cards and provide the correct community banks, the
+        <h2 #animItem>So, what's your plan?</h2>
+        <p #animItem>
+          Add the
           <strong> language you speak </strong>
-          and the <strong> language you want to practice </strong>
-          is needed.
+          and the <strong> language you want to practice </strong> so the cards are correctly
+          labeled!
         </p>
-        <form>
+        <ng-icon class="mx-auto" [svg]="" />
+        <form #animItem>
           <label class="mt-auto">
             <span>
               <ng-icon [svg]="icons.speakLanguageIcon" />
@@ -44,7 +55,7 @@
     }
   </div>
   <liz-onboarding-nav
-    [labels]="['But how?', 'Is that it?', 'Wow!', 'Lets go!']"
+    [labels]="['But how?', 'Is that it?', 'Wow!', 'Show me the stuff!']"
     swiper-navigation
     [pageCount]="4"
     (done)="goToDashboard()"
