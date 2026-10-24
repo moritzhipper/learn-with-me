@@ -2,40 +2,43 @@
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
+        <p #animItem class="overline">Someone shared</p>
         <h1 #animItem>
-          <span class="text light"> Someone shared </span>
           {{ sharedBank().name }}
-          <span class="text light"> with you</span>
         </h1>
-        <p class="size-2 bold" #animItem>
-          <span class="light">
-            Maybe thats a wink mit dem zauhnpfahl that someone wants to use
-          </span>
+        <p #animItem>with you</p>
+
+        <p #animItem>
+          Maybe thats a wink mit dem zauhnpfahl that someone wants to use
+
           @for (card of randomLearnables(); track card.id) {
             @if ($index < $count - 2) {
-              {{ card.lexeme }}<span class="light">,</span>
+              <strong>{{ card.lexeme }}</strong>
+              ,
             } @else if ($index === $count - 2) {
-              {{ card.lexeme }} <span class="light">and</span>
+              <strong>{{ card.lexeme }} </strong> and
             } @else {
-              {{ card.lexeme }}
+              <strong>
+                {{ card.lexeme }}
+              </strong>
             }
           }
-          <span class="light"> with you in a conversation!</span>
+          with you in a conversation!
         </p>
       }
       @case (1) {
         @let bank = sharedBank();
-        <p>This bank holds</p>
-        <p class="bold size-2">
-          {{ bank.collections.length }} collections <span class="light"> and </span>
-          {{ bank.learnables.length }} cards <span class="light"> of </span>
-          {{ bank.language.learning }} words and phrases with
+        <p #animItem class="overline">This bank holds</p>
+        <p #animItem>
+          <strong>{{ bank.collections.length }} collections </strong> and
+          <strong>{{ bank.learnables.length }} cards </strong> of
+          <strong>{{ bank.language.learning }} words and phrases </strong> with
           {{ bank.language.speaking }}
           translations.
         </p>
 
-        <p>Open it to start practicing or just have a look at what it contains.</p>
-        <p>
+        <p #animItem>Open it to start practicing or just have a look at what it contains.</p>
+        <p #animItem>
           If you got a bit more time on your hands can also add your own or discover more banks and
           collection shared with the community.
         </p>
@@ -52,4 +55,3 @@
     (done)="openBank()"
   />
 </liz-swiper-page-layout>
-<app-larry-big [class.show]="nav.activePage() === 0" />

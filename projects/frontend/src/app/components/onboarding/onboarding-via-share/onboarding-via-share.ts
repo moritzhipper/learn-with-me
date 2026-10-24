@@ -5,14 +5,13 @@ import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { LearnablesStore } from '../../../store/learnables-store'
 import { SettingsStore } from '../../../store/settings-store'
 import { SwiperPageLayout } from '../../pages/practice-page-comp/practice/swiper-page-layout/swiper-page-layout'
-import { LarryBig } from '../../shared/larries/larry-big/larry-big'
 import { OnboardingNav } from '../onboarding-nav/onboarding-nav'
 
 @Component({
   selector: 'liz-onboarding-via-share',
-  imports: [OnboardingNav, SwiperPageLayout, LarryBig, AnimDelayWrapper],
+  imports: [OnboardingNav, SwiperPageLayout, AnimDelayWrapper],
   templateUrl: './onboarding-via-share.html',
-  styleUrl: './onboarding-via-share.scss'
+  styleUrls: ['./onboarding-via-share.scss', '../onboarding-styles.scss']
 })
 export class OnboardingViaShare {
   private readonly ls = inject(LearnablesStore)

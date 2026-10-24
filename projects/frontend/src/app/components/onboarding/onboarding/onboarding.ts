@@ -6,6 +6,7 @@ import { buildDebugBank } from '../../../services/debug-helper/debug-utils'
 import { ToastService } from '../../../services/toast-service'
 import { SettingsStore } from '../../../store/settings-store'
 import { PageWrapper } from '../../pages/page-wrapper/page-wrapper'
+import { LarryBig } from '../../shared/larries/larry-big/larry-big'
 import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner'
 import { OnboardingClean } from '../onboarding-clean/onboarding-clean'
 import { OnboardingViaShare } from '../onboarding-via-share/onboarding-via-share'
@@ -20,7 +21,7 @@ const sharedBank: BankShareViaDB = {
 
 @Component({
   selector: 'liz-onboarding',
-  imports: [PageWrapper, OnboardingViaShare, OnboardingClean, LoadingSpinner],
+  imports: [PageWrapper, OnboardingViaShare, OnboardingClean, LoadingSpinner, LarryBig],
   templateUrl: './onboarding.html',
   styleUrl: './onboarding.scss'
 })
