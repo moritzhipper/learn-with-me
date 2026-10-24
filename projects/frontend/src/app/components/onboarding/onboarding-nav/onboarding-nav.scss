@@ -21,10 +21,42 @@
       margin-right: var(--distance-4);
     }
   }
+
+  .next {
+    display: grid;
+    place-items: center;
+    span {
+      grid-area: 1 / 1;
+    }
+  }
 }
 
 :host,
-.back {
+.back,
+.next,
+.next span {
   transition-duration: var(--duration-1);
   transition-timing-function: var(--soft-ease);
+}
+
+.next {
+  transition-property: outline, background-color, opacity;
+  overflow: hidden;
+
+  span {
+    display: block;
+
+    transition-property: color, scale;
+
+    @starting-style {
+      scale: 0.9;
+
+      color: transparent;
+    }
+
+    &.leave {
+      scale: 0.9;
+      color: transparent;
+    }
+  }
 }

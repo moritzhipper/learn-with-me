@@ -25,17 +25,13 @@
       }
       @case (1) {
         @let bank = sharedBank();
-
-        <p class="bold">
-          <span class="size-1 light"> This bank holds </span>
-          <br />
-          <span class="size-2">
-            {{ bank.collections.length }} collections <span class="light"> and </span>
-            {{ bank.learnables.length }} cards <span class="light"> of </span>
-            {{ bank.language.learning }} words and phrases with
-            {{ bank.language.speaking }}
-            translations.
-          </span>
+        <p>This bank holds</p>
+        <p class="bold size-2">
+          {{ bank.collections.length }} collections <span class="light"> and </span>
+          {{ bank.learnables.length }} cards <span class="light"> of </span>
+          {{ bank.language.learning }} words and phrases with
+          {{ bank.language.speaking }}
+          translations.
         </p>
 
         <p>Open it to start practicing or just have a look at what it contains.</p>

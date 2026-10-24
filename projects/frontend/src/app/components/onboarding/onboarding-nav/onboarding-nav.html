@@ -5,5 +5,12 @@
   [class.primary]="activePage() === pageCount() - 1"
   (click)="next()"
 >
-  {{ activeLabel() }}
+  @let index = activePage();
+  @for (label of labels(); track label) {
+    @if ($index === index) {
+      <span animate.leave="leave">
+        {{ label }}
+      </span>
+    }
+  }
 </button>
