@@ -88,6 +88,7 @@ NICE OKAY WE DONE NOW
 
 ## General
 
+- this is longolarry in intro -> cutesy, sympathetic
 - replace .has-icon with :has(ng-icon), then make ng-icon a bit bigger than 1rem
 - when fetchin collections from be, parse schemas in array, log warnings for failed ones
 - ids are only rotated on api upload

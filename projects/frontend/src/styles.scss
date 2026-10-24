@@ -63,6 +63,7 @@ button {
     background-color, opacity, outline, color, box-shadow, padding, rotate, border, margin;
   transition-duration: var(--duration-0);
   transition-timing-function: ease-out;
+  white-space: nowrap;
 
   &.small {
     border-radius: var(--radius-1);

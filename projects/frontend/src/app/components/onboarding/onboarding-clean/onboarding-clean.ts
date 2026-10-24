@@ -3,6 +3,7 @@ import { form, FormField, required } from '@angular/forms/signals'
 import { Router } from '@angular/router'
 import { NgIcon } from '@ng-icons/core'
 import { LanguageConfig } from '@shared/types'
+import { config } from '../../../../config'
 import { AnimDelayWrapper } from '../../../directives/anim-delay-wrapper'
 import { learnLanguageIcon, speakLanguageIcon } from '../../../icon-registry'
 import { LearnablesStore } from '../../../store/learnables-store'
@@ -25,6 +26,8 @@ export class OnboardingClean {
     speakLanguageIcon,
     learnLanguageIcon
   }
+
+  protected readonly config = config
 
   protected languageModel = signal<LanguageConfig>({
     speaking: '',
