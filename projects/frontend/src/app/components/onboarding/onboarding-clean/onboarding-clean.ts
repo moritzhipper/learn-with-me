@@ -14,7 +14,7 @@ import { OnboardingNav } from '../onboarding-nav/onboarding-nav'
   selector: 'liz-onboarding-clean',
   imports: [SwiperPageLayout, OnboardingNav, NgIcon, AnimDelayWrapper, FormField],
   templateUrl: './onboarding-clean.html',
-  styleUrl: './onboarding-clean.scss'
+  styleUrls: ['./onboarding-clean.scss', '../onboarding-styles.scss']
 })
 export class OnboardingClean {
   private readonly router = inject(Router)

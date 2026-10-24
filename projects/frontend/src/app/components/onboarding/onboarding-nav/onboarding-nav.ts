@@ -1,4 +1,4 @@
-import { Component, computed, input, model, output } from '@angular/core'
+import { Component, input, model, output } from '@angular/core'
 
 @Component({
   selector: 'liz-onboarding-nav',
@@ -11,10 +11,7 @@ export class OnboardingNav {
   readonly activePage = model<number>(0)
   readonly labels = input<string[]>([])
   readonly done = output()
-
   readonly disableNext = input<boolean>(false)
-
-  protected activeLabel = computed(() => this.labels()[this.activePage()] ?? 'Next')
 
   next() {
     const page = this.activePage()

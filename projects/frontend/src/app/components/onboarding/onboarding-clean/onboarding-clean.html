@@ -2,17 +2,13 @@
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
-        <p #animItem class="light size-3 bold">this is</p>
-        <h1 #animItem class="size-4">lingolizard</h1>
-        <p #animItem class="bold size-2 light">
-          The easiest way to get comfortable with a new language
-        </p>
+        <p #animItem class="overline">this is</p>
+        <h1 #animItem>lingolizard</h1>
+        <p #animItem class="underline">The easiest way to get comfortable with a new language</p>
       }
       @case (1) {
         <h2 #animItem>Its easy to use</h2>
-        <p #animItem class="size-2 bold">
-          Find a community bank to practice words and phrases for specific situations
-        </p>
+        <p #animItem>Find a community bank to practice words and phrases for specific situations</p>
         <p #animItem>
           Use translate function to begleite you in alltag, create card decks from text or pictures
         </p>
@@ -34,8 +30,7 @@
           and the <strong> language you want to practice </strong> so the cards are correctly
           labeled!
         </p>
-        <ng-icon class="mx-auto" [svg]="" />
-        <form #animItem>
+        <form #animItem class="mt-auto">
           <label class="mt-auto">
             <span>
               <ng-icon [svg]="icons.speakLanguageIcon" />
