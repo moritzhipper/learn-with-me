@@ -2,19 +2,18 @@
   <div swiper-top>
     @switch (nav.activePage()) {
       @case (0) {
-        <p #animItem class="overline">Someone shared</p>
         <h1 #animItem>
           {{ sharedBank().name }}
         </h1>
-        <p #animItem>with you</p>
+        <p #animItem>was shared with you!</p>
 
         <p #animItem>
           Maybe thats a wink mit dem zauhnpfahl that someone wants to use
 
           @for (card of randomLearnables(); track card.id) {
             @if ($index < $count - 2) {
-              <strong>{{ card.lexeme }}</strong>
-              ,
+              <strong>{{ card.lexeme }}</strong
+              >,
             } @else if ($index === $count - 2) {
               <strong>{{ card.lexeme }} </strong> and
             } @else {
@@ -30,9 +29,9 @@
         @let bank = sharedBank();
         <p #animItem class="overline">This bank holds</p>
         <p #animItem>
-          <strong>{{ bank.collections.length }} collections </strong> and
-          <strong>{{ bank.learnables.length }} cards </strong> of
-          <strong>{{ bank.language.learning }} words and phrases </strong> with
+          <strong>{{ bank.collections.length }} collections </strong> and <br />
+          <strong>{{ bank.learnables.length }} cards </strong> of <br />
+          <strong>{{ bank.language.learning }} words and phrases </strong> with <br />
           {{ bank.language.speaking }}
           translations.
         </p>
