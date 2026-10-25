@@ -9,8 +9,7 @@
             [route]="'/community/explore'"
             [queryParams]="section.params"
           />
-
-          <div class="caroussel-wrapper">
+          <div class="caroussel-wrapper wide">
             @for (bank of section.banks; track bank.id) {
               <a
                 class="caroussel-item"
@@ -24,7 +23,7 @@
           </div>
         } @else {
           <h2 class="indent" [class.first]="$index === 0">Your recent shares</h2>
-          <div class="caroussel-wrapper">
+          <div class="caroussel-wrapper wide">
             @for (bank of section.banks; track bank.id) {
               <a
                 class="silent caroussel-item user"

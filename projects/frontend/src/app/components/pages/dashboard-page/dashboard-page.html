@@ -14,13 +14,13 @@
       </section>
       <section class="quick-actions">
         <app-header-link label="Collections" route="collections" />
-        <div class="caroussel-wrapper">
+        <div class="caroussel-wrapper wide">
           <app-cards-quick-selector />
         </div>
       </section>
       <section class="quick-actions">
         <app-header-link label="Community Banks" route="community" />
-        <div class="caroussel-wrapper">
+        <div class="caroussel-wrapper wide">
           @if (sharedBanks.hasValue()) {
             @if (sharedBanks.value().length > 0) {
               @for (bank of sharedBanks.value(); track bank.id) {

@@ -30,14 +30,14 @@ p {
   line-height: var(--line-height-2);
   font-weight: var(--font-weight-bold);
 
-  opacity: var(--opacity-1);
   margin-bottom: var(--distance-3);
+  color: var(--col-primary);
 
   &.overline {
     margin-bottom: var(--distance-0);
   }
 
   strong {
-    opacity: 1;
+    color: var(--col-text);
   }
 }

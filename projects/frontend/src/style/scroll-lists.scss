@@ -1,6 +1,5 @@
 @use './mixins' as *;
 
-.caroussel-wrapper,
 .full-width-scroll {
   padding: var(--distance-3) var(--page-padding);
   margin: calc(-1 * var(--distance-3)) calc(-1 * var(--page-padding));
@@ -21,7 +20,6 @@
   overflow-y: hidden;
   max-width: 100%;
   position: relative;
-  scroll-padding-left: var(--page-padding);
   scrollbar-width: none;
 
   .caroussel-item {
@@ -29,20 +27,27 @@
   }
 
   @include isDesktop {
-    gap: var(--distance-6);
     grid-auto-columns: 380px;
     border-radius: 24px;
+    background-color: rgb(from var(--col-accent) r g b / 0.05);
+    border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
 
-    mask-image: linear-gradient(
-      to right,
-      rgb(0, 0, 0, 0.3) 0%,
-      var(--col-bg) var(--page-padding),
-      var(--col-bg) calc(100% - var(--page-padding)),
-      rgb(0, 0, 0, 0.3) 100%
-    );
+    &.wide {
+      scroll-padding-left: var(--distance-6);
+      padding: var(--distance-5);
+      gap: var(--distance-5);
+    }
+    &:not(.wide) {
+      scroll-padding-left: var(--distance-4);
+      padding: var(--distance-4);
+      gap: var(--distance-4);
+    }
   }
 
   @include isPhone {
+    scroll-padding-left: var(--page-padding);
+    margin: calc(-1 * var(--distance-4)) calc(-1 * var(--page-padding));
+    padding: var(--page-padding);
     gap: var(--distance-4);
     grid-auto-columns: 100%;
   }
