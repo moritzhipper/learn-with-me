@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { booleanAttribute, Component, input } from '@angular/core'
 import { NgIcon } from '@ng-icons/core'
 import {
   emptyStarRatingIcon,
@@ -21,5 +21,8 @@ export class PracticeRatingComp {
     meteorRatingIcon,
     starRatingIcon
   }
+
   readonly rating = input.required<PracticeRating>()
+
+  showNotEven = input(false, { transform: booleanAttribute })
 }

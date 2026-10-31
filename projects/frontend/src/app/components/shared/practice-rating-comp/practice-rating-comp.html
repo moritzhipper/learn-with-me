@@ -1,7 +1,9 @@
 <div class="icons" [class]="rating()">
   @switch (rating()) {
     @case ('noteven') {
-      <ng-icon [svg]="icons.favoriteIcon" />
+      @if (showNotEven()) {
+        <ng-icon [svg]="icons.favoriteIcon" />
+      }
     }
     @case ('atleast') {
       <ng-icon [svg]="icons.starRatingIcon" />

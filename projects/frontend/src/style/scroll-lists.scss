@@ -29,7 +29,7 @@
   @include isDesktop {
     grid-auto-columns: 380px;
     border-radius: 24px;
-    background-color: rgb(from var(--col-accent) r g b / 0.05);
+    background-color: var(--col-bg);
     border: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
 
     &.wide {
