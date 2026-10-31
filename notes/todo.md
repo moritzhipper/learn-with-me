@@ -6,9 +6,7 @@
 
 RIGHT NOW THIS
 
-- write comments on paper, photograph, vectorize, add button text as svg background: 'What?', 'No Way!' 'So cool!'
-- make text crazy big! Less words on screen, but words big
-- sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route
+- sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route ->
 - ensure header on desktop always same y
 
 THEN THIS
@@ -23,8 +21,11 @@ NICE OKAY WE DONE NOW
 - onboard with share
   -> imports bank directly right now -> maybe allow shared bank routes without active bank, same with navbar?
 
+- Intro in exact same time order as starting to use
+
 - clean start content (put the main selling point)
   - ease y to use
+    - community
   - its effective
     - create card banks from text, documents or based on your specific need
     - cards hold specifics like articles or info for irregualr stuff automatically

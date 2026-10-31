@@ -25,16 +25,19 @@
         <ng-icon [svg]="icons.dashboardPageIcon" />
         <span>Bank</span>
       </a>
-      <a class="entry big" routerLink="practice" routerLinkActive="active">
-        <ng-icon [svg]="icons.practicePageIcon" />
 
-        <span>
-          <span> Practice </span>
-          @if (activeBank()?.practice?.active) {
-            <span>•</span>
-          }
-        </span>
-      </a>
+      @if (bank.learnables.length) {
+        <a class="entry big" routerLink="practice" routerLinkActive="active">
+          <ng-icon [svg]="icons.practicePageIcon" />
+
+          <span>
+            <span> Practice </span>
+            @if (activeBank()?.practice?.active) {
+              <span>•</span>
+            }
+          </span>
+        </a>
+      }
       <a class="entry big" routerLink="translate" routerLinkActive="active">
         <ng-icon [svg]="icons.translatePageIcon" />
 
