@@ -14,7 +14,7 @@ export class PageHeaderComp {
 
   protected textSize = computed<'big' | 'medium' | 'small'>(() => {
     const { length } = this.title()
-    if (length < 8) return 'big'
+    if (length < 15) return 'big'
     if (length < 25) return 'medium'
     return 'small'
   })
