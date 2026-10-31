@@ -1,9 +1,7 @@
 @if (backLink(); as link) {
   <app-header-link eyebrow [label]="backLinkText() || 'back'" [route]="link" />
 }
-<div class="full-width-scroll">
-  <h1>{{ title() }}</h1>
-</div>
+<h1 [class]="textSize()">{{ title() }}</h1>
 <div class="content">
   <ng-content />
 </div>

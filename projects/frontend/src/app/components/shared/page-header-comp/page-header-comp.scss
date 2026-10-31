@@ -12,16 +12,8 @@
   transform-origin: top left;
   position: relative;
 
-  .full-width-scroll {
-    display: flex;
-  }
-
   h1 {
     font-weight: var(--font-weight-bold);
-    word-break: keep-all;
-    white-space: nowrap;
-    line-height: var(--line-height-4);
-    font-size: var(--font-size-4);
   }
 
   .content {
@@ -34,6 +26,24 @@
     width: 100%;
     place-items: center;
     text-align: center;
+
+    h1 {
+      width: 100%;
+      hyphens: auto;
+
+      &.big {
+        line-height: var(--line-height-4);
+        font-size: var(--font-size-4);
+      }
+      &.medium {
+        line-height: calc(var(--line-height-4) - 4px);
+        font-size: calc(var(--font-size-4) - 8px);
+      }
+      &.small {
+        line-height: calc(var(--line-height-4) - 28px);
+        font-size: calc(var(--font-size-4) - 28px);
+      }
+    }
   }
 }
 
@@ -41,5 +51,10 @@
   :host {
     padding-left: var(--distance-7);
     white-space: nowrap;
+
+    h1 {
+      line-height: var(--line-height-4);
+      font-size: var(--font-size-4);
+    }
   }
 }
