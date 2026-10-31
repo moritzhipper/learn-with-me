@@ -16,7 +16,7 @@ THEN THIS
 - instead of home, show name of bank
 - instead of home in backlink, show name of bank
 - close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
-- remember onbarding with shared bank shared banl
+- remember onbarding with shared bank shared bank -> not in store, but in onboardingservice
 
 NICE OKAY WE DONE NOW
 

@@ -4,25 +4,20 @@
   display: flex;
   place-self: stretch;
   flex-direction: column;
+  //   justify-content: center;
 }
 
 h1 {
   font-size: var(--font-size-4);
   line-height: var(--line-height-4);
   margin-bottom: var(--distance-3);
-  margin-bottom: var(--distance-7);
+  margin-bottom: var(--distance-6);
 }
 
 h2 {
   font-size: var(--font-size-3);
   line-height: var(--line-height-3);
   margin-bottom: var(--distance-7);
-}
-
-.underline,
-.overline {
-  font-size: var(--font-size-3);
-  line-height: var(--line-height-3);
 }
 
 p {
