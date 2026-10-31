@@ -1,5 +1,5 @@
 <app-page-wrapper icon="dashboard" [icon]="bookIcon">
-  <app-page-header-comp title="Home" />
+  <app-page-header-comp [title]="bank().name" />
   @if (bankHasCards()) {
     <div class="sections">
       <section class="quick-links full-width-scroll">

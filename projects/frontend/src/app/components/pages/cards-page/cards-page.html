@@ -1,5 +1,5 @@
 <app-page-wrapper [icon]="cardsIcon">
-  <app-page-header-comp title="Collections" backLink="/" backLinkText="Home" />
+  <app-page-header-comp title="Collections" backLink="/" [backLinkText]="bank().name" />
   <div class="content">
     <div class="collections">
       <app-cards-quick-selector />

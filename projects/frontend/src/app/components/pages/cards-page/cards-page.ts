@@ -13,6 +13,8 @@ import { PageWrapper } from '../page-wrapper/page-wrapper'
 })
 export class CardsPage {
   private readonly ls = inject(LearnablesStore)
+  protected readonly bank = this.ls.activeBank
+
   userHasCards = computed(() => this.ls.learnables().length > 0)
 
   protected readonly cardsIcon = cardsPageIcon

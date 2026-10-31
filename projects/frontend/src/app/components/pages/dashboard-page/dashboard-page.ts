@@ -34,12 +34,9 @@ import { QuickLinks } from './quick-links/quick-links'
 export class DashboardPage {
   private readonly apiS = inject(ApiService)
   private readonly ls = inject(LearnablesStore)
-  protected bankHasCards = computed(() => {
-    const bank = this.ls.activeBank()
-    if (!bank) return false
 
-    return bank.learnables.length !== 0
-  })
+  protected readonly bank = this.ls.activeBank
+  protected bankHasCards = computed(() => this.bank().learnables.length !== 0)
 
   protected readonly bookIcon = dashboardPageIcon
 
