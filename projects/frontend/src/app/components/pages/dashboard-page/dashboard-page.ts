@@ -9,6 +9,7 @@ import { CardsStack } from '../../shared/banks-and-collections/cards-stack/cards
 import { SharedBankComp } from '../../shared/banks-and-collections/shared-bank-comp/shared-bank-comp'
 import { HeaderLink } from '../../shared/header-link/header-link'
 import { InfoCard } from '../../shared/info-card/info-card'
+import { LanguageMatch } from '../../shared/language-match/language-match'
 import { PageHeaderComp } from '../../shared/page-header-comp/page-header-comp'
 import { PracticeQuickActions } from '../../shared/practice-quick-actions/practice-quick-actions'
 import { PageWrapper } from '../page-wrapper/page-wrapper'
@@ -26,7 +27,8 @@ import { QuickLinks } from './quick-links/quick-links'
     InfoCard,
     QuickLinks,
     RouterLink,
-    CardsStack
+    CardsStack,
+    LanguageMatch
   ],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss'

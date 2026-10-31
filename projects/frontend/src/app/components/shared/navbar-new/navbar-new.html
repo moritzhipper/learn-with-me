@@ -16,15 +16,6 @@
       {{ appName }}
     </div>
     @if (activeBank(); as bank) {
-      <div class="entry language ellipsis">
-        <span class="ellipsis">
-          {{ bank.language.learning }}
-        </span>
-        <ng-icon [svg]="icons.languageSwapIcon" />
-        <span class="ellipsis">
-          {{ bank.language.speaking }}
-        </span>
-      </div>
       <a
         routerLink="/"
         class="entry big"
@@ -32,7 +23,7 @@
         [routerLinkActiveOptions]="{ exact: true }"
       >
         <ng-icon [svg]="icons.dashboardPageIcon" />
-        <span>Home</span>
+        <span>Bank</span>
       </a>
       <a class="entry big" routerLink="practice" routerLinkActive="active">
         <ng-icon [svg]="icons.practicePageIcon" />

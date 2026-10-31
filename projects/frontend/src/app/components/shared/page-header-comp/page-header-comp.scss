@@ -32,16 +32,16 @@
       hyphens: auto;
 
       &.big {
+        line-height: var(--line-height-5);
+        font-size: var(--font-size-5);
+      }
+      &.medium {
         line-height: var(--line-height-4);
         font-size: var(--font-size-4);
       }
-      &.medium {
-        line-height: calc(var(--line-height-4) - 4px);
-        font-size: calc(var(--font-size-4) - 8px);
-      }
       &.small {
-        line-height: calc(var(--line-height-4) - 28px);
-        font-size: calc(var(--font-size-4) - 28px);
+        line-height: var(--line-height-3);
+        font-size: var(--font-size-3);
       }
     }
   }
@@ -53,8 +53,8 @@
     white-space: nowrap;
 
     h1 {
-      line-height: var(--line-height-4);
-      font-size: var(--font-size-4);
+      line-height: var(--line-height-5);
+      font-size: var(--font-size-5);
     }
   }
 }

@@ -1,7 +1,7 @@
 <a [routerLink]="route()" [queryParams]="queryParams()" [class.eyebrow]="eyebrow()">
   @if (eyebrow()) {
     <ng-icon [svg]="collapseIcon" />
-    <div class="text">
+    <div class="text ellipsis">
       {{ label() }}
     </div>
   } @else {

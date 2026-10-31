@@ -1,5 +1,7 @@
 <app-page-wrapper icon="dashboard" [icon]="bookIcon">
-  <app-page-header-comp [title]="bank().name" />
+  <app-page-header-comp [title]="bank().name">
+    <liz-language-match [languageConfig]="bank().language" />
+  </app-page-header-comp>
   @if (bankHasCards()) {
     <div class="sections">
       <section class="quick-links full-width-scroll">

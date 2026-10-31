@@ -103,20 +103,12 @@ nav {
     }
   }
 
-  .header,
-  .language {
-    padding-left: var(--distance-6);
-    font-weight: var(--font-weight-bold);
-    box-sizing: border-box;
-  }
-
   .header {
-    position: relative;
-    padding-top: var(--distance-6);
-    padding-bottom: var(--distance-0);
-
-    font-size: var(--font-size-3);
-    line-height: var(--line-height-3);
+    box-sizing: border-box;
+    font-weight: var(--font-weight-bold);
+    padding: var(--distance-6) var(--distance-2) var(--distance-7) var(--distance-6);
+    font-size: var(--font-size-4);
+    line-height: var(--line-height-4);
   }
 
   .fake-shadow-header {
