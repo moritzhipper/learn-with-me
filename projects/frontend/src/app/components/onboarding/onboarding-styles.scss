@@ -1,23 +1,23 @@
+@use '../../../style/mixins' as *;
+
 [swiper-top] {
   min-height: 300px;
+  width: 900px;
+  max-width: 100%;
   place-self: start;
   display: flex;
   place-self: stretch;
   flex-direction: column;
-  //   justify-content: center;
 }
 
 h1 {
   font-size: var(--font-size-4);
   line-height: var(--line-height-4);
-  margin-bottom: var(--distance-3);
-  margin-bottom: var(--distance-6);
 }
 
 h2 {
   font-size: var(--font-size-3);
   line-height: var(--line-height-3);
-  margin-bottom: var(--distance-7);
 }
 
 p {
@@ -34,5 +34,22 @@ p {
 
   strong {
     color: var(--col-text);
+  }
+}
+
+@include isPhone {
+  h1 {
+    margin-bottom: var(--distance-6);
+  }
+  h2 {
+    margin-bottom: var(--distance-7);
+  }
+}
+@include isDesktop {
+  h1 {
+    margin-bottom: var(--distance-5);
+  }
+  h2 {
+    margin-bottom: var(--distance-6);
   }
 }
