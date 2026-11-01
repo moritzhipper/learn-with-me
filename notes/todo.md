@@ -4,13 +4,10 @@
 
 ## Onboarding / About -> RIGHTNOW
 
-RIGHT NOW THIS
-
-- sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route ->
-
 THEN THIS
 
 - close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
+
 - remember onbarding with shared bank shared bank -> not in store, but in onboardingservice
 
 NICE OKAY WE DONE NOW
@@ -20,9 +17,6 @@ NICE OKAY WE DONE NOW
 - provide 'No api key page placeholder in preparation for more'
 
 - rename sqiper layout
-
-- Put what I put in notes on about page
-  -> scenarios, how helps with learning
 
 - shared via link
   - cards rotatet as list in background
