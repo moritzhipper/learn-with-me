@@ -21,6 +21,7 @@ const isOnboardedGuardFactory =
   (route, state) => {
     const router = inject(Router)
     const sStore = inject(SettingsStore)
+
     const isOnboarded = !!sStore.userID()
 
     if (isOnboarded === prohibitOnboardedUsers) return true

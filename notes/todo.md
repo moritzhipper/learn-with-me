@@ -8,8 +8,6 @@ THEN THIS
 
 - close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
 
-- remember onbarding with shared bank shared bank -> not in store, but in onboardingservice
-
 NICE OKAY WE DONE NOW
 
 - make all cards view central, say card bank name instead of 'Collections'
