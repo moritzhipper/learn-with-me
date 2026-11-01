@@ -7,38 +7,17 @@
 RIGHT NOW THIS
 
 - sharing bank via button, cpying link from browser bar and onboardingvia share need to work with same route ->
-- ensure header on desktop always same y
 
 THEN THIS
 
-- instead of home, show name of bank
-- instead of home in backlink, show name of bank
 - close button on bank and shared bank not working when opened directly -> just do real breadcrumbs
 - remember onbarding with shared bank shared bank -> not in store, but in onboardingservice
 
 NICE OKAY WE DONE NOW
 
-- onboard with share
-  -> imports bank directly right now -> maybe allow shared bank routes without active bank, same with navbar?
-
-- Intro in exact same time order as starting to use
-
-- clean start content (put the main selling point)
-  - ease y to use
-    - community
-  - its effective
-    - create card banks from text, documents or based on your specific need
-    - cards hold specifics like articles or info for irregualr stuff automatically
-    - cards and banks are suggested based on spced repition intervalls and
-    - somehow put the whole how i make sure that practice is most effext
-  - fits into alltag -> us translator, practice translations
-  - create card banks based on articles, text, documents
-  - Create card banls for specific situations
-
 - make all cards view central, say card bank name instead of 'Collections'
 - generally, clean up only one card collection views!
 - provide 'No api key page placeholder in preparation for more'
-- disable userid header on bank request
 
 - rename sqiper layout
 
