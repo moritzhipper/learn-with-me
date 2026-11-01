@@ -45,7 +45,7 @@ export class OnboardingClean {
     this.settingsS.updateSettings({ userID: crypto.randomUUID() })
 
     const language = this.languageForm().controlValue()
-    const newBankId = this.ls.createBank({ language, name: 'First Bank' })
+    const newBankId = this.ls.createBank({ language, name: `${language.learning} 101` })
     this.ls.setActiveBank(newBankId)
 
     this.router.navigate([''])
