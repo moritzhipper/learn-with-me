@@ -79,10 +79,9 @@ export class ShareBanksService {
 
   async copyLinkToClipboard(bankId: string, bankName: string): Promise<void> {
     try {
-      const url = new URL(this.document.location.origin)
-      url.searchParams.set(config.bankIDParamName, bankId)
+      const sharedBankPath = `${this.document.location.origin}/community/bank/${bankId}`
 
-      await navigator.clipboard.writeText(url.toString())
+      await navigator.clipboard.writeText(sharedBankPath)
       this.toastService.showToast({
         header: bankName,
         message: `Link copied to clipboard.`,

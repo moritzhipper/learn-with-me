@@ -32,7 +32,6 @@ export type AppConfig = {
   appNameShort: string
   fileExportName: string
   fileExportSuffix: string
-  bankIDParamName: string
 }
 
 export type BankShareResponse = {
