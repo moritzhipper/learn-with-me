@@ -1,12 +1,30 @@
+@use '../../../../style/mixins' as *;
+
 form {
   display: grid;
-  gap: var(--distance-2);
 
-  label {
-    span {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--distance-1);
-    }
+  label span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--distance-1);
+  }
+}
+
+@include isPhone {
+  form {
+    gap: var(--distance-2);
+    margin-top: auto;
+  }
+}
+
+@include isDesktop {
+  form {
+    border-top: 1px solid rgb(from var(--col-text) r g b / var(--opacity-0));
+
+    padding-top: var(--distance-5);
+    margin-top: var(--distance-4);
+    grid-template-columns: 1fr 1fr;
+
+    gap: var(--distance-5);
   }
 }
